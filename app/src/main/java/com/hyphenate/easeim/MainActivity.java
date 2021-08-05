@@ -9,12 +9,15 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
+
 import com.hyphenate.easecallkit.base.EaseCallType;
 import com.hyphenate.easecallkit.ui.EaseMultipleVideoActivity;
 import com.hyphenate.easecallkit.ui.EaseVideoCallActivity;
@@ -27,6 +30,7 @@ import com.hyphenate.easeim.common.enums.SearchType;
 import com.hyphenate.easeim.common.permission.PermissionsManager;
 import com.hyphenate.easeim.common.permission.PermissionsResultAction;
 import com.hyphenate.easeim.common.utils.PushUtils;
+import com.hyphenate.easeim.common.utils.ToastUtils;
 import com.hyphenate.easeim.section.MainViewModel;
 import com.hyphenate.easeim.section.base.BaseInitActivity;
 import com.hyphenate.easeim.section.chat.ChatPresenter;
@@ -38,6 +42,7 @@ import com.hyphenate.easeim.section.contact.activity.AddContactActivity;
 import com.hyphenate.easeim.section.contact.viewmodels.ContactsViewModel;
 import com.hyphenate.easeim.section.group.activity.GroupPrePickActivity;
 import com.hyphenate.easeim.section.me.AboutMeFragment;
+import com.hyphenate.easeim.section.search.SearchConversationActivity;
 import com.hyphenate.easeui.model.EaseEvent;
 import com.hyphenate.easeui.ui.base.EaseBaseFragment;
 import com.hyphenate.easeui.widget.EaseTitleBar;
@@ -47,7 +52,7 @@ import java.lang.reflect.Method;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 
-public class MainActivity extends BaseInitActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
+public class MainActivity extends BaseInitActivity implements BottomNavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     private BottomNavigationView navView;
     private EaseTitleBar mTitleBar;
     private EaseBaseFragment mContactsFragment, mMessageFragment, mDiscoverFragment, mFindFragment;
@@ -68,15 +73,15 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
         return R.layout.demo_activity_main;
     }
 
-    @Override
+    /*@Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        if(mCurrentFragment != null) {
-            if(mCurrentFragment instanceof ContactListFragment) {
+        if (mCurrentFragment != null) {
+            if (mCurrentFragment instanceof ContactListFragment) {
                 menu.findItem(R.id.action_group).setVisible(false);
                 menu.findItem(R.id.action_friend).setVisible(false);
                 menu.findItem(R.id.action_search_friend).setVisible(true);
                 menu.findItem(R.id.action_search_group).setVisible(true);
-            }else {
+            } else {
                 menu.findItem(R.id.action_group).setVisible(true);
                 menu.findItem(R.id.action_friend).setVisible(true);
                 menu.findItem(R.id.action_search_friend).setVisible(false);
@@ -95,35 +100,36 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.action_video :
+            case R.id.action_video:
                 break;
-            case R.id.action_group :
+            case R.id.action_group:
                 GroupPrePickActivity.actionStart(mContext);
                 break;
-            case R.id.action_friend :
-            case R.id.action_search_friend :
+            case R.id.action_friend:
+            case R.id.action_search_friend:
                 AddContactActivity.startAction(mContext, SearchType.CHAT);
                 break;
-            case R.id.action_search_group :
+            case R.id.action_search_group:
                 GroupContactManageActivity.actionStart(mContext, true);
                 break;
-            case R.id.action_scan :
+            case R.id.action_scan:
                 showToast("扫一扫");
                 break;
         }
         return true;
-    }
+    }*/
 
     /**
      * 显示menu的icon，通过反射，设置menu的icon显示
+     *
      * @param featureId
      * @param menu
      * @return
      */
     @Override
     public boolean onMenuOpened(int featureId, Menu menu) {
-        if(menu != null) {
-            if(menu.getClass().getSimpleName().equalsIgnoreCase("MenuBuilder")) {
+        if (menu != null) {
+            if (menu.getClass().getSimpleName().equalsIgnoreCase("MenuBuilder")) {
                 try {
                     Method method = menu.getClass().getDeclaredMethod("setOptionalIconsVisible", Boolean.TYPE);
                     method.setAccessible(true);
@@ -172,39 +178,39 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
         HMSPushHelper.getInstance().getHMSToken(this);
 
         //判断是否为来电推送
-        if(PushUtils.isRtcCall){
+        if (PushUtils.isRtcCall) {
             if (EaseCallType.getfrom(PushUtils.type) != EaseCallType.CONFERENCE_CALL) {
-                    EaseVideoCallActivity callActivity = new EaseVideoCallActivity();
-                    Intent intent = new Intent(getApplicationContext(), callActivity.getClass()).addFlags(FLAG_ACTIVITY_NEW_TASK);
+                EaseVideoCallActivity callActivity = new EaseVideoCallActivity();
+                Intent intent = new Intent(getApplicationContext(), callActivity.getClass()).addFlags(FLAG_ACTIVITY_NEW_TASK);
                 getApplicationContext().startActivity(intent);
-                } else {
-                    EaseMultipleVideoActivity callActivity = new EaseMultipleVideoActivity();
-                    Intent intent = new Intent(getApplication().getApplicationContext(), callActivity.getClass()).addFlags(FLAG_ACTIVITY_NEW_TASK);
+            } else {
+                EaseMultipleVideoActivity callActivity = new EaseMultipleVideoActivity();
+                Intent intent = new Intent(getApplication().getApplicationContext(), callActivity.getClass()).addFlags(FLAG_ACTIVITY_NEW_TASK);
                 getApplicationContext().startActivity(intent);
             }
-            PushUtils.isRtcCall  = false;
+            PushUtils.isRtcCall = false;
         }
     }
 
     private void initViewModel() {
         viewModel = new ViewModelProvider(mContext).get(MainViewModel.class);
         viewModel.getSwitchObservable().observe(this, response -> {
-            if(response == null || response == 0) {
+            if (response == null || response == 0) {
                 return;
             }
-            if(response == R.string.em_main_title_me) {
+            if (response == R.string.em_main_title_discover) {
                 mTitleBar.setVisibility(View.GONE);
-            }else {
+            } else {
                 mTitleBar.setVisibility(View.VISIBLE);
                 mTitleBar.setTitle(getResources().getString(response));
             }
         });
 
         viewModel.homeUnReadObservable().observe(this, readCount -> {
-            if(!TextUtils.isEmpty(readCount)) {
+            if (!TextUtils.isEmpty(readCount)) {
                 mTvMainHomeMsg.setVisibility(View.VISIBLE);
                 mTvMainHomeMsg.setText(readCount);
-            }else {
+            } else {
                 mTvMainHomeMsg.setVisibility(View.GONE);
             }
         });
@@ -224,7 +230,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
     }
 
     private void checkUnReadMsg(EaseEvent event) {
-        if(event == null) {
+        if (event == null) {
             return;
         }
         viewModel.checkUnreadMsg();
@@ -236,22 +242,22 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
     private void addTabBadge() {
         BottomNavigationMenuView menuView = (BottomNavigationMenuView) navView.getChildAt(0);
         int childCount = menuView.getChildCount();
-        Log.e("TAG", "bottom child count = "+childCount);
+        Log.e("TAG", "bottom child count = " + childCount);
         BottomNavigationItemView itemTab;
-        for(int i = 0; i < childCount; i++) {
+        for (int i = 0; i < childCount; i++) {
             itemTab = (BottomNavigationItemView) menuView.getChildAt(i);
             View badge = LayoutInflater.from(mContext).inflate(badgeIds[i], menuView, false);
             switch (i) {
-                case 0 :
+                case 0:
                     mTvMainHomeMsg = badge.findViewById(msgIds[0]);
                     break;
-                case 1 :
+                case 1:
                     mTvMainFriendsMsg = badge.findViewById(msgIds[1]);
                     break;
-                case 2 :
+                case 2:
                     mTvMainDiscoverMsg = badge.findViewById(msgIds[2]);
                     break;
-                case 3 :
+                case 3:
                     mTvMainAboutMeMsg = badge.findViewById(msgIds[3]);
                     break;
             }
@@ -261,14 +267,15 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
 
     /**
      * 用于展示是否已经存在的Fragment
+     *
      * @param savedInstanceState
      */
     private void checkIfShowSavedFragment(Bundle savedInstanceState) {
-        if(savedInstanceState != null) {
+        if (savedInstanceState != null) {
             String tag = savedInstanceState.getString("tag");
-            if(!TextUtils.isEmpty(tag)) {
+            if (!TextUtils.isEmpty(tag)) {
                 Fragment fragment = getSupportFragmentManager().findFragmentByTag(tag);
-                if(fragment instanceof EaseBaseFragment) {
+                if (fragment instanceof EaseBaseFragment) {
                     replace((EaseBaseFragment) fragment, tag);
                 }
             }
@@ -295,45 +302,81 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
     }
 
     private void switchToHome() {
-        if(mContactsFragment == null) {
+        if (mContactsFragment == null) {
             mContactsFragment = new ConversationListFragment();
         }
         replace(mContactsFragment, "contacts");
     }
 
     private void switchToFriends() {
-        if(mMessageFragment == null) {
+        if (mMessageFragment == null) {
             mMessageFragment = new ContactListFragment();
         }
         replace(mMessageFragment, "message");
     }
 
     private void switchToDiscover() {
-        if(mDiscoverFragment == null) {
+        if (mDiscoverFragment == null) {
             mDiscoverFragment = new DiscoverFragment();
         }
         replace(mDiscoverFragment, "discover");
     }
 
     private void switchToAboutMe() {
-        if(mFindFragment == null) {
+        if (mFindFragment == null) {
             mFindFragment = new AboutMeFragment();
         }
         replace(mFindFragment, "find");
     }
 
     private void replace(EaseBaseFragment fragment, String tag) {
-        if(mCurrentFragment != fragment) {
+        if (mCurrentFragment != fragment) {
+
+            //替换Fragment
             FragmentTransaction t = getSupportFragmentManager().beginTransaction();
-            if(mCurrentFragment != null) {
+            if (mCurrentFragment != null) {
                 t.hide(mCurrentFragment);
             }
             mCurrentFragment = fragment;
-            if(!fragment.isAdded()) {
+            if (!fragment.isAdded()) {
                 t.add(R.id.fl_main_fragment, fragment, tag).show(fragment).commit();
-            }else {
+            } else {
                 t.show(fragment).commit();
             }
+
+            //替换Bar上功能
+            replaceBarButtonLayout(tag);
+        }
+    }
+
+    /**
+     * 替换bar上按钮布局功能
+     *
+     * @param tag
+     */
+    private void replaceBarButtonLayout(String tag) {
+        mTitleBar.getRightLayout().removeAllViews();
+        mTitleBar.getLeftLayout().removeAllViews();
+        switch (tag) {
+            case "contacts":
+            case "message":
+                RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+
+                View rightView = View.inflate(this, R.layout.layout_toolbar_contacts_right, null);
+                rightView.findViewById(R.id.iv_add_friends).setOnClickListener(this);
+                rightView.findViewById(R.id.iv_search_friends).setOnClickListener(this);
+                mTitleBar.getRightLayout().addView(rightView, layoutParams);
+
+                View leftView = View.inflate(this, R.layout.layout_toolbar_contacts_left, null);
+                leftView.findViewById(R.id.iv_avatar).setOnClickListener(this);
+                mTitleBar.getLeftLayout().addView(leftView, layoutParams);
+                break;
+            case "find":
+
+                break;
+            default:
+                break;
         }
     }
 
@@ -354,7 +397,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
                 showNavigation = true;
                 invalidateOptionsMenu();
                 break;
-            case R.id.em_main_nav_discover :
+            case R.id.em_main_nav_discover:
                 switchToDiscover();
                 mTitleBar.setTitle(getResources().getString(R.string.em_main_title_discover));
                 showNavigation = true;
@@ -383,8 +426,26 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        if(mCurrentFragment != null) {
+        if (mCurrentFragment != null) {
             outState.putString("tag", mCurrentFragment.getTag());
+        }
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.iv_add_friends:
+                AddContactActivity.startAction(mContext, SearchType.CHAT);
+                break;
+            case R.id.iv_search_friends:
+                SearchConversationActivity.actionStart(mContext);
+                break;
+
+            case R.id.iv_avatar:
+                ToastUtils.showToast("这是头像");
+                break;
+            default:
+                break;
         }
     }
 }
