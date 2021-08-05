@@ -15,7 +15,9 @@
     <string name="finish">完成</string>
 
     <string name="em_main_title_home">会话</string>
+    <string name="em_main_title_contacts">联系人</string>
     <string name="em_main_title_friends">通讯录</string>
+    <string name="em_main_title_message">消息</string>
     <string name="em_main_title_discover">发现</string>
     <string name="em_main_title_me">我</string>
 

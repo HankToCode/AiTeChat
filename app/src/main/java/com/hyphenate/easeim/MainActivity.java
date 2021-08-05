@@ -50,7 +50,7 @@ import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 public class MainActivity extends BaseInitActivity implements BottomNavigationView.OnNavigationItemSelectedListener {
     private BottomNavigationView navView;
     private EaseTitleBar mTitleBar;
-    private EaseBaseFragment mConversationListFragment, mFriendsFragment, mDiscoverFragment, mAboutMeFragment;
+    private EaseBaseFragment mContactsFragment, mMessageFragment, mDiscoverFragment, mFindFragment;
     private EaseBaseFragment mCurrentFragment;
     private TextView mTvMainHomeMsg, mTvMainFriendsMsg, mTvMainDiscoverMsg, mTvMainAboutMeMsg;
     private int[] badgeIds = {R.layout.demo_badge_home, R.layout.demo_badge_friends, R.layout.demo_badge_discover, R.layout.demo_badge_about_me};
@@ -88,7 +88,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.demo_conversation_menu, menu);
+        getMenuInflater().inflate(R.menu.demo_contacts_menu, menu);
         return true;
     }
 
@@ -295,17 +295,17 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
     }
 
     private void switchToHome() {
-        if(mConversationListFragment == null) {
-            mConversationListFragment = new ConversationListFragment();
+        if(mContactsFragment == null) {
+            mContactsFragment = new ConversationListFragment();
         }
-        replace(mConversationListFragment, "conversation");
+        replace(mContactsFragment, "contacts");
     }
 
     private void switchToFriends() {
-        if(mFriendsFragment == null) {
-            mFriendsFragment = new ContactListFragment();
+        if(mMessageFragment == null) {
+            mMessageFragment = new ContactListFragment();
         }
-        replace(mFriendsFragment, "contact");
+        replace(mMessageFragment, "message");
     }
 
     private void switchToDiscover() {
@@ -316,10 +316,10 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
     }
 
     private void switchToAboutMe() {
-        if(mAboutMeFragment == null) {
-            mAboutMeFragment = new AboutMeFragment();
+        if(mFindFragment == null) {
+            mFindFragment = new AboutMeFragment();
         }
-        replace(mAboutMeFragment, "me");
+        replace(mFindFragment, "find");
     }
 
     private void replace(EaseBaseFragment fragment, String tag) {
@@ -343,14 +343,14 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
         showMenu = true;
         boolean showNavigation = false;
         switch (menuItem.getItemId()) {
-            case R.id.em_main_nav_home :
+            case R.id.em_main_nav_contacts:
                 switchToHome();
-                mTitleBar.setTitle(getResources().getString(R.string.em_main_title_home));
+                mTitleBar.setTitle(getResources().getString(R.string.em_main_title_contacts));
                 showNavigation = true;
                 break;
-            case R.id.em_main_nav_friends :
+            case R.id.em_main_nav_message:
                 switchToFriends();
-                mTitleBar.setTitle(getResources().getString(R.string.em_main_title_friends));
+                mTitleBar.setTitle(getResources().getString(R.string.em_main_title_message));
                 showNavigation = true;
                 invalidateOptionsMenu();
                 break;
@@ -359,9 +359,9 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
                 mTitleBar.setTitle(getResources().getString(R.string.em_main_title_discover));
                 showNavigation = true;
                 break;
-            case R.id.em_main_nav_me :
+            case R.id.em_main_nav_find:
                 switchToAboutMe();
-                mTitleBar.setTitle(getResources().getString(R.string.em_main_title_me));
+                mTitleBar.setTitle(getResources().getString(R.string.em_main_title_discover));
                 showMenu = false;
                 showNavigation = true;
                 break;
