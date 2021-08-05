@@ -35,6 +35,7 @@ import com.hyphenate.easeim.section.MainViewModel;
 import com.hyphenate.easeim.section.base.BaseInitActivity;
 import com.hyphenate.easeim.section.chat.ChatPresenter;
 import com.hyphenate.easeim.section.contact.activity.GroupContactManageActivity;
+import com.hyphenate.easeim.section.contact.fragment.ContactHomeFragment;
 import com.hyphenate.easeim.section.contact.fragment.ContactListFragment;
 import com.hyphenate.easeim.section.conversation.ConversationListFragment;
 import com.hyphenate.easeim.section.discover.DiscoverFragment;
@@ -303,7 +304,8 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
 
     private void switchToHome() {
         if (mContactsFragment == null) {
-            mContactsFragment = new ConversationListFragment();
+//            mContactsFragment = new ConversationListFragment();
+            mContactsFragment = new ContactHomeFragment();
         }
         replace(mContactsFragment, "contacts");
     }

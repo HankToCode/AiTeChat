@@ -144,6 +144,12 @@ dependencies {
     //EaseCallKit依赖，必须添加环信IM SDK
     //api project(':ease-call-kit')
     implementation 'io.hyphenate:ease-call-kit:3.8.4'
+
+
+    //---额外增加的lib---
+    //MagicIndicator
+    implementation 'com.github.hackware1993:MagicIndicator:1.7.0'
+
 }
 
 // ADD THIS AT THE BOTTOM
