@@ -150,6 +150,12 @@ dependencies {
     //MagicIndicator
     implementation 'com.github.hackware1993:MagicIndicator:1.7.0'
 
+    //SuperTextView
+    api 'com.github.chenBingX:SuperTextView:v3.1.5'
+    //SuperTextView
+    api 'com.github.lygttpod:SuperTextView:2.4.6'
+    //圆形头像
+    api 'de.hdodenhof:circleimageview:2.2.0'
 }
 
 // ADD THIS AT THE BOTTOM

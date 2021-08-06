@@ -118,8 +118,9 @@
     <string name="em_add_contact_add_a_friend">加个好友呗</string>
     <string name="em_add_contact_send_successful">已发送好友邀请</string>
 
-    <string name="em_friends_new_chat">新的好友</string>
+    <string name="em_friends_new_chat">新朋友</string>
     <string name="em_friends_group_chat">群聊</string>
+    <string name="em_friends_group_notice">群通知</string>
     <string name="em_friends_label">标签</string>
     <string name="em_friends_chat_room">聊天室</string>
     <string name="em_friends_official_account">公众号</string>

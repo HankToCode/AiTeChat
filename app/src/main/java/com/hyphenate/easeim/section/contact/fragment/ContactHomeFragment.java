@@ -47,7 +47,7 @@ public class ContactHomeFragment extends BaseInitFragment {
     private ViewPager viewPager;
 
     private List<String> titles = Arrays.asList("我的好友", "我的群组");
-    private List<EaseBaseFragment> fragments = Arrays.asList(new ConversationListFragment(), new DiscoverFragment());
+    private List<EaseBaseFragment> fragments = Arrays.asList(new ContactListFragment(), new GroupContactManageFragment());
 
     @Override
     protected int getLayoutId() {
@@ -84,11 +84,6 @@ public class ContactHomeFragment extends BaseInitFragment {
 
             @Override
             public IPagerTitleView getTitleView(Context context, int index) {
-
-                /*ClipPagerTitleView clipPagerTitleView = new ClipPagerTitleView(context);
-                clipPagerTitleView.setTextColor(Color.parseColor("#ACACBC"));
-                clipPagerTitleView.setClipColor(Color.WHITE);
-                clipPagerTitleView.setText(titles.get(index));*/
 
                 ColorTransitionPagerTitleView colorTransitionPagerTitleView = new ColorTransitionPagerTitleView(context);
                 colorTransitionPagerTitleView.setNormalColor(Color.parseColor("#ACACBC"));

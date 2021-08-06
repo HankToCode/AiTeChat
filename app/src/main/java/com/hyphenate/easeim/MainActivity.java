@@ -1,5 +1,7 @@
 package com.hyphenate.easeim;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,13 +20,12 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.hyphenate.easecallkit.base.EaseCallType;
-import com.hyphenate.easecallkit.ui.EaseMultipleVideoActivity;
-import com.hyphenate.easecallkit.ui.EaseVideoCallActivity;
-
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.hyphenate.easecallkit.base.EaseCallType;
+import com.hyphenate.easecallkit.ui.EaseMultipleVideoActivity;
+import com.hyphenate.easecallkit.ui.EaseVideoCallActivity;
 import com.hyphenate.easeim.common.constant.DemoConstant;
 import com.hyphenate.easeim.common.enums.SearchType;
 import com.hyphenate.easeim.common.permission.PermissionsManager;
@@ -34,14 +35,11 @@ import com.hyphenate.easeim.common.utils.ToastUtils;
 import com.hyphenate.easeim.section.MainViewModel;
 import com.hyphenate.easeim.section.base.BaseInitActivity;
 import com.hyphenate.easeim.section.chat.ChatPresenter;
-import com.hyphenate.easeim.section.contact.activity.GroupContactManageActivity;
+import com.hyphenate.easeim.section.contact.activity.AddContactActivity;
 import com.hyphenate.easeim.section.contact.fragment.ContactHomeFragment;
-import com.hyphenate.easeim.section.contact.fragment.ContactListFragment;
+import com.hyphenate.easeim.section.contact.viewmodels.ContactsViewModel;
 import com.hyphenate.easeim.section.conversation.ConversationListFragment;
 import com.hyphenate.easeim.section.discover.DiscoverFragment;
-import com.hyphenate.easeim.section.contact.activity.AddContactActivity;
-import com.hyphenate.easeim.section.contact.viewmodels.ContactsViewModel;
-import com.hyphenate.easeim.section.group.activity.GroupPrePickActivity;
 import com.hyphenate.easeim.section.me.AboutMeFragment;
 import com.hyphenate.easeim.section.search.SearchConversationActivity;
 import com.hyphenate.easeui.model.EaseEvent;
@@ -49,8 +47,6 @@ import com.hyphenate.easeui.ui.base.EaseBaseFragment;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 
 import java.lang.reflect.Method;
-
-import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
 
 public class MainActivity extends BaseInitActivity implements BottomNavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -312,7 +308,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
 
     private void switchToFriends() {
         if (mMessageFragment == null) {
-            mMessageFragment = new ContactListFragment();
+            mMessageFragment = new ConversationListFragment();
         }
         replace(mMessageFragment, "message");
     }
@@ -364,6 +360,8 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
             case "message":
                 RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
                 layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+                RelativeLayout.LayoutParams layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+                layoutParams1.addRule(RelativeLayout.CENTER_IN_PARENT);
 
                 View rightView = View.inflate(this, R.layout.layout_toolbar_contacts_right, null);
                 rightView.findViewById(R.id.iv_add_friends).setOnClickListener(this);
@@ -372,7 +370,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
 
                 View leftView = View.inflate(this, R.layout.layout_toolbar_contacts_left, null);
                 leftView.findViewById(R.id.iv_avatar).setOnClickListener(this);
-                mTitleBar.getLeftLayout().addView(leftView, layoutParams);
+                mTitleBar.getLeftLayout().addView(leftView, layoutParams1);
                 break;
             case "find":
 

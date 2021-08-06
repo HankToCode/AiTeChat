@@ -1,12 +1,12 @@
 package com.hyphenate.easeim.section.conversation;
 
-import android.graphics.drawable.Drawable;
+import static com.hyphenate.easeui.widget.EaseImageView.ShapeType.RECTANGLE;
+
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -30,36 +30,46 @@ import com.hyphenate.easeim.section.dialog.DemoDialogFragment;
 import com.hyphenate.easeim.section.dialog.SimpleDialogFragment;
 import com.hyphenate.easeim.section.message.SystemMsgsActivity;
 import com.hyphenate.easeim.section.search.SearchConversationActivity;
-import com.hyphenate.easeui.EaseIM;
-import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.manager.EaseSystemMsgManager;
 import com.hyphenate.easeui.model.EaseEvent;
 import com.hyphenate.easeui.modules.conversation.EaseConversationListFragment;
-import com.hyphenate.easeui.modules.conversation.EaseConversationListLayout;
 import com.hyphenate.easeui.modules.conversation.model.EaseConversationInfo;
-import com.hyphenate.easeui.provider.EaseConversationInfoProvider;
-import com.hyphenate.easeui.provider.EaseUserProfileProvider;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
-import com.hyphenate.easeui.widget.EaseSearchTextView;
+import com.scwang.smartrefresh.layout.util.DensityUtil;
 
 import java.util.List;
 
 
 public class ConversationListFragment extends EaseConversationListFragment implements View.OnClickListener {
-    private EaseSearchTextView tvSearch;
 
     private ConversationListViewModel mViewModel;
 
     @Override
     public void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        //添加搜索会话布局
-        View view = LayoutInflater.from(mContext).inflate(R.layout.demo_layout_search, null);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.layout_message_notice, null);
         llRoot.addView(view, 0);
-        tvSearch = view.findViewById(R.id.tv_search);
-        conversationListLayout.getListAdapter().setEmptyLayoutId(R.layout.ease_layout_default_no_data);
+
+        initConversationListLayout();
 
         initViewModel();
+    }
+
+    private void initConversationListLayout() {
+        //设置无数据时空白页面
+        conversationListLayout.getListAdapter().setEmptyLayoutId(R.layout.ease_layout_default_no_data);
+        //获取列表控件
+        //EaseContactListLayout contactList = contactLayout.getContactList();
+        //设置条目高度
+        //contactList.setItemHeight((int) EaseCommonUtils.dip2px(mContext, 80));
+        //设置条目背景
+        //contactList.setItemBackGround(ContextCompat.getDrawable(mContext, R.color.gray));
+        //设置头像样式
+        conversationListLayout.setAvatarShapeType(RECTANGLE);
+        conversationListLayout.setAvatarSize(DensityUtil.dp2px(35));
+        conversationListLayout.setAvatarDefaultSrc(ContextCompat.getDrawable(mContext, R.drawable.ic_new_friends));
+        //设置头像圆角
+        conversationListLayout.setAvatarRadius((int) EaseCommonUtils.dip2px(mContext, 5));
     }
 
     @Override
@@ -67,15 +77,15 @@ public class ConversationListFragment extends EaseConversationListFragment imple
         EaseConversationInfo info = conversationListLayout.getItem(position);
         Object object = info.getInfo();
 
-        if(object instanceof EMConversation) {
+        if (object instanceof EMConversation) {
             switch (item.getItemId()) {
-                case R.id.action_con_make_top :
+                case R.id.action_con_make_top:
                     conversationListLayout.makeConversationTop(position, info);
                     return true;
-                case R.id.action_con_cancel_top :
+                case R.id.action_con_cancel_top:
                     conversationListLayout.cancelConversationTop(position, info);
                     return true;
-                case R.id.action_con_delete :
+                case R.id.action_con_delete:
                     showDeleteDialog(position, info);
                     return true;
             }
@@ -100,15 +110,15 @@ public class ConversationListFragment extends EaseConversationListFragment imple
     @Override
     public void initListener() {
         super.initListener();
-        tvSearch.setOnClickListener(this);
+
     }
 
     @Override
     public void initData() {
         //需要两个条件，判断是否触发从服务器拉取会话列表的时机，一是第一次安装，二则本地数据库没有会话列表数据
-        if(DemoHelper.getInstance().isFirstInstall() && EMClient.getInstance().chatManager().getAllConversations().isEmpty()) {
+        if (DemoHelper.getInstance().isFirstInstall() && EMClient.getInstance().chatManager().getAllConversations().isEmpty()) {
             mViewModel.fetchConversationsFromServer();
-        }else {
+        } else {
             super.initData();
         }
     }
@@ -160,19 +170,19 @@ public class ConversationListFragment extends EaseConversationListFragment imple
     }
 
     private void refreshList(Boolean event) {
-        if(event == null) {
+        if (event == null) {
             return;
         }
-        if(event) {
+        if (event) {
             conversationListLayout.loadDefaultData();
         }
     }
 
     private void loadList(EaseEvent change) {
-        if(change == null) {
+        if (change == null) {
             return;
         }
-        if(change.isMessageChange() || change.isNotifyChange()
+        if (change.isMessageChange() || change.isNotifyChange()
                 || change.isGroupLeave() || change.isChatRoomLeave()
                 || change.isContactChange()
                 || change.type == EaseEvent.TYPE.CHAT_ROOM || change.isGroupChange()) {
@@ -182,18 +192,20 @@ public class ConversationListFragment extends EaseConversationListFragment imple
 
     /**
      * 解析Resource<T>
+     *
      * @param response
      * @param callback
      * @param <T>
      */
     public <T> void parseResource(Resource<T> response, @NonNull OnResourceParseCallback<T> callback) {
-        if(mContext instanceof BaseActivity) {
+        if (mContext instanceof BaseActivity) {
             ((BaseActivity) mContext).parseResource(response, callback);
         }
     }
 
     /**
      * toast by string
+     *
      * @param message
      */
     public void showToast(String message) {
@@ -203,9 +215,6 @@ public class ConversationListFragment extends EaseConversationListFragment imple
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_search :
-                SearchConversationActivity.actionStart(mContext);
-                break;
         }
     }
 
@@ -213,11 +222,11 @@ public class ConversationListFragment extends EaseConversationListFragment imple
     public void onItemClick(View view, int position) {
         super.onItemClick(view, position);
         Object item = conversationListLayout.getItem(position).getInfo();
-        if(item instanceof EMConversation) {
-            if(EaseSystemMsgManager.getInstance().isSystemConversation((EMConversation) item)) {
+        if (item instanceof EMConversation) {
+            if (EaseSystemMsgManager.getInstance().isSystemConversation((EMConversation) item)) {
                 SystemMsgsActivity.actionStart(mContext);
-            }else {
-                ChatActivity.actionStart(mContext, ((EMConversation)item).conversationId(), EaseCommonUtils.getChatType((EMConversation) item));
+            } else {
+                ChatActivity.actionStart(mContext, ((EMConversation) item).conversationId(), EaseCommonUtils.getChatType((EMConversation) item));
             }
         }
     }

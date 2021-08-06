@@ -1,5 +1,7 @@
 package com.hyphenate.easeim.section.contact.fragment;
 
+import static com.hyphenate.easeui.widget.EaseImageView.ShapeType.RECTANGLE;
+
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -36,23 +38,32 @@ import com.hyphenate.easeui.modules.contact.model.EaseContactCustomBean;
 import com.hyphenate.easeui.modules.menu.EasePopupMenuHelper;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.widget.EaseSearchTextView;
+import com.scwang.smartrefresh.layout.util.DensityUtil;
 
 import java.util.List;
 
 public class ContactListFragment extends EaseContactListFragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
-    private EaseSearchTextView tvSearch;
     private ContactsViewModel mViewModel;
 
     @Override
     public void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        addSearchView();
+
+//        addHeader();
+        initHeader();
+        initContactLayout();
+    }
+
+    private void initHeader() {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.layout_constact_notice, null);
+        llRoot.addView(view, 0);
+    }
+
+    private void initContactLayout() {
         //设置无数据时空白页面
         contactLayout.getContactList().getListAdapter().setEmptyLayoutResource(R.layout.demo_layout_friends_empty_list);
-        addHeader();
-
         //设置为简洁模式
-        //contactLayout.showSimple();
+        contactLayout.showSimple();
         //获取列表控件
         //EaseContactListLayout contactList = contactLayout.getContactList();
         //设置条目高度
@@ -60,11 +71,13 @@ public class ContactListFragment extends EaseContactListFragment implements View
         //设置条目背景
         //contactList.setItemBackGround(ContextCompat.getDrawable(mContext, R.color.gray));
         //设置头像样式
-        //contactList.setAvatarShapeType(2);
+        contactLayout.getContactList().setAvatarShapeType(RECTANGLE);
+        contactLayout.getContactList().setAvatarSize(DensityUtil.dp2px(35));
+        contactLayout.getContactList().setAvatarDefaultSrc(ContextCompat.getDrawable(mContext, R.drawable.ic_new_friends));
         //设置头像圆角
-        //contactList.setAvatarRadius((int) EaseCommonUtils.dip2px(mContext, 5));
+        contactLayout.getContactList().setAvatarRadius((int) EaseCommonUtils.dip2px(mContext, 5));
         //设置header背景
-        //contactList.setHeaderBackGround(ContextCompat.getDrawable(mContext, R.color.white));
+        contactLayout.getContactList().setHeaderBackGround(ContextCompat.getDrawable(mContext, R.color.white));
     }
 
     @Override
@@ -78,7 +91,7 @@ public class ContactListFragment extends EaseContactListFragment implements View
     public boolean onMenuItemClick(MenuItem item, int position) {
         EaseUser user = contactLayout.getContactList().getItem(position);
         switch (item.getItemId()) {
-            case R.id.action_friend_block :
+            case R.id.action_friend_block:
                 mViewModel.addUserToBlackList(user.getUsername(), false);
                 return true;
             case R.id.action_friend_delete:
@@ -88,29 +101,20 @@ public class ContactListFragment extends EaseContactListFragment implements View
         return super.onMenuItemClick(item, position);
     }
 
-    private void addSearchView() {
-        //添加搜索会话布局
-        View view = LayoutInflater.from(mContext).inflate(R.layout.demo_layout_search, null);
-        llRoot.addView(view, 0);
-        tvSearch = view.findViewById(R.id.tv_search);
-        tvSearch.setHint(R.string.em_friend_list_search_hint);
-    }
-
     /**
      * 添加头布局
      */
     public void addHeader() {
-        contactLayout.getContactList().addCustomItem(R.id.contact_header_item_new_chat, R.drawable.em_friends_new_chat, getString(R.string.em_friends_new_chat));
-        contactLayout.getContactList().addCustomItem(R.id.contact_header_item_group_list, R.drawable.em_friends_group_chat, getString(R.string.em_friends_group_chat));
-        contactLayout.getContactList().addCustomItem(R.id.contact_header_item_chat_room_list, R.drawable.em_friends_chat_room, getString(R.string.em_friends_chat_room));
+        contactLayout.getContactList().addCustomItem(R.id.contact_header_item_new_chat, R.drawable.ic_new_friends, getString(R.string.em_friends_new_chat));
+        contactLayout.getContactList().addCustomItem(R.id.contact_header_item_group_list, R.drawable.ic_group_notice, getString(R.string.em_friends_group_notice));
+//        contactLayout.getContactList().addCustomItem(R.id.contact_header_item_chat_room_list, R.drawable.em_friends_chat_room, getString(R.string.em_friends_chat_room));
     }
 
     @Override
     public void initListener() {
         super.initListener();
         contactLayout.getSwipeRefreshLayout().setOnRefreshListener(this);
-        tvSearch.setOnClickListener(this);
-        contactLayout.getContactList().setOnCustomItemClickListener(new OnItemClickListener() {
+        /*contactLayout.getContactList().setOnCustomItemClickListener(new OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 EaseContactCustomBean item = contactLayout.getContactList().getCustomAdapter().getItem(position);
@@ -126,7 +130,7 @@ public class ContactListFragment extends EaseContactListFragment implements View
                         break;
                 }
             }
-        });
+        });*/
     }
 
     @Override
@@ -169,10 +173,10 @@ public class ContactListFragment extends EaseContactListFragment implements View
         });
 
         mViewModel.messageChangeObservable().with(DemoConstant.CONTACT_CHANGE, EaseEvent.class).observe(this, event -> {
-            if(event == null) {
+            if (event == null) {
                 return;
             }
-            if(event.isContactChange()) {
+            if (event.isContactChange()) {
                 mViewModel.loadContactList();
             }
         });
@@ -183,9 +187,6 @@ public class ContactListFragment extends EaseContactListFragment implements View
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_search :
-                SearchFriendsActivity.actionStart(mContext);
-                break;
         }
     }
 
@@ -211,18 +212,20 @@ public class ContactListFragment extends EaseContactListFragment implements View
 
     /**
      * 解析Resource<T>
+     *
      * @param response
      * @param callback
      * @param <T>
      */
     public <T> void parseResource(Resource<T> response, @NonNull OnResourceParseCallback<T> callback) {
-        if(mContext instanceof BaseActivity) {
+        if (mContext instanceof BaseActivity) {
             ((BaseActivity) mContext).parseResource(response, callback);
         }
     }
 
     /**
      * toast by string
+     *
      * @param message
      */
     private void showToast(String message) {
@@ -231,6 +234,7 @@ public class ContactListFragment extends EaseContactListFragment implements View
 
     /**
      * toast by string res
+     *
      * @param messageId
      */
     public void showToast(@StringRes int messageId) {
