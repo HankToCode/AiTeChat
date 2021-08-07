@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="user_auth">身份认证</string>
+    <string name="give_red_package">发红包</string>
 </resources>
