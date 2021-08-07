@@ -132,7 +132,7 @@
         android:enabled="false"
         android:foreground="?attr/selectableItemBackground"
         android:gravity="center"
-        android:text="下一步"
+        android:text="确定开通"
         android:textColor="@color/white"
         android:textSize="18dp" />
 
