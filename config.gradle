@@ -1,0 +1,61 @@
+ext {
+    PROJECT_DEBUG = "true"
+
+    android = [
+            compileSdkVersion: 29,
+            buildToolsVersion: "29.0.3",
+            minSdkVersion    : 19,
+            targetSdkVersion : 29,
+            versionCode      : 80,
+            versionName      : "1.0.0"
+    ]
+
+    dependVersion = [
+            androidSupportSdkVersion       : "28.0.0",
+            retrofitSdkVersion             : "2.6.4",
+            retrofitConverterScalarsVersion: "2.3.0",
+            glideSdkVersion                : "4.7.1",
+            rxJava                         : "2.1.5",
+            rxAndroid                      : "2.0.1",
+            rxlifecycle                    : "2.2.2",
+            rxbinding                      : "2.1.1",
+            rxpermissions                  : "0.10.2"
+    ]
+
+    retrofit = [
+            //------ retrofit和RxJava ---------
+            retrofit                : "com.squareup.retrofit2:retrofit:$dependVersion.retrofitSdkVersion",
+            retrofitConverterGson   : "com.squareup.retrofit2:converter-gson:$dependVersion.retrofitSdkVersion",
+            retrofitAdapterRxjava2  : "com.squareup.retrofit2:adapter-rxjava2:$dependVersion.retrofitSdkVersion",
+            retrofitConverterScalars: "com.squareup.retrofit2:converter-scalars:$dependVersion.retrofitConverterScalarsVersion",
+            okhttp3LoggerInterceptor: 'com.squareup.okhttp3:logging-interceptor:3.4.1'
+    ]
+
+    rxJava = [
+            rxJava                  : "io.reactivex.rxjava2:rxjava:$dependVersion.rxJava",
+            rxAndroid               : "io.reactivex.rxjava2:rxandroid:$dependVersion.rxAndroid",
+            //rx系列与View生命周期同步
+            "rxlifecycle"           : "com.trello.rxlifecycle2:rxlifecycle:$dependVersion.rxlifecycle",
+            "rxlifecycle-components": "com.trello.rxlifecycle2:rxlifecycle-components:$dependVersion.rxlifecycle",
+            //rxbinding
+            "rxbinding"             : "com.jakewharton.rxbinding2:rxbinding:$dependVersion.rxbinding",
+            //rx 6.0权限请求
+            "rxpermissions"         : "com.github.tbruyelle:rxpermissions:$dependVersion.rxpermissions",
+
+
+    ]
+
+
+    glide = "com.github.bumptech.glide:glide:$dependVersion.glideSdkVersion"
+    glideCompiler = "com.github.bumptech.glide:compiler:$dependVersion.glideSdkVersion"
+    glideOkhttp = "com.github.bumptech.glide:okhttp3-integration:$dependVersion.glideSdkVersion"
+
+    networkLibs = retrofit.values()
+    rxJavaLibs = rxJava.values()
+    otherLibs = [glide]
+
+    // APT
+    annotationProcessorLibs = [glideCompiler]
+
+
+}
