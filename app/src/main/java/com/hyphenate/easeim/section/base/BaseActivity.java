@@ -28,6 +28,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.Lifecycle;
 
 import com.hyphenate.EMCallBack;
 import com.hyphenate.easeim.DemoApplication;
@@ -45,6 +46,10 @@ import com.hyphenate.easeim.section.login.activity.LoginActivity;
 import com.hyphenate.easeui.model.EaseEvent;
 import com.hyphenate.easeui.utils.StatusBarCompat;
 import com.hyphenate.util.EMLog;
+import com.uber.autodispose.AutoDispose;
+import com.uber.autodispose.AutoDisposeConverter;
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
+import com.uber.autodispose.lifecycle.LifecycleScopeProvider;
 
 import java.util.List;
 
@@ -461,4 +466,18 @@ public class BaseActivity extends AppCompatActivity {
         }
         fragmentTransaction.commitNow();
     }
+
+
+    public LifecycleScopeProvider<Lifecycle.Event> getScopeProvider() {
+        return AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY);
+    }
+
+    public <Bean> AutoDisposeConverter<Bean> autoDispose() {
+        return AutoDispose.autoDisposable(getScopeProvider());
+    }
+
+    public <Bean> AutoDisposeConverter<Bean> autoDispose(Lifecycle.Event event) {
+        return AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this, event));
+    }
+
 }

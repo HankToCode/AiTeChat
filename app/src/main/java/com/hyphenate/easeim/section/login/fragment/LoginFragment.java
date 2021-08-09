@@ -31,12 +31,27 @@ import com.hyphenate.easeim.MainActivity;
 import com.hyphenate.easeim.R;
 import com.hyphenate.easeim.common.db.DemoDbHelper;
 import com.hyphenate.easeim.common.interfaceOrImplement.OnResourceParseCallback;
+import com.hyphenate.easeim.common.network.CodeHandledSubscriber;
+import com.hyphenate.easeim.common.network.RetrofitManager;
+import com.hyphenate.easeim.common.network.exception.ApiException;
+import com.hyphenate.easeim.common.utils.DeviceIdUtil;
+import com.hyphenate.easeim.common.utils.SystemUtil;
+import com.hyphenate.easeim.section.api.Global;
+import com.hyphenate.easeim.section.api.bean.LoginInfo;
+import com.hyphenate.easeim.section.api.bean.ResponseBean;
 import com.hyphenate.easeui.utils.EaseEditTextUtils;
 import com.hyphenate.easeim.common.utils.ToastUtils;
 import com.hyphenate.easeim.section.base.BaseInitFragment;
 import com.hyphenate.easeim.section.login.viewmodels.LoginFragmentViewModel;
 import com.hyphenate.easeim.section.login.viewmodels.LoginViewModel;
 import com.hyphenate.easeui.domain.EaseUser;
+import com.uber.autodispose.AutoDispose;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class LoginFragment extends BaseInitFragment implements View.OnClickListener, TextWatcher, CompoundButton.OnCheckedChangeListener, TextView.OnEditorActionListener {
     private EditText mEtLoginName;
@@ -76,10 +91,10 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
         // 保证切换fragment后相关状态正确
         boolean enableTokenLogin = DemoHelper.getInstance().getModel().isEnableTokenLogin();
         mTvLoginToken.setVisibility(enableTokenLogin ? View.VISIBLE : View.GONE);
-        if(!TextUtils.isEmpty(DemoHelper.getInstance().getCurrentLoginUser())) {
+        if (!TextUtils.isEmpty(DemoHelper.getInstance().getCurrentLoginUser())) {
             mEtLoginName.setText(DemoHelper.getInstance().getCurrentLoginUser());
         }
-        if(isTokenFlag) {
+        if (isTokenFlag) {
             switchLogin();
         }
     }
@@ -116,9 +131,9 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
                 @Override
                 public void onError(int code, String message) {
                     super.onError(code, message);
-                    if(code == EMError.USER_AUTHENTICATION_FAILED) {
+                    if (code == EMError.USER_AUTHENTICATION_FAILED) {
                         ToastUtils.showToast(R.string.demo_error_user_authentication_failed);
-                    }else {
+                    } else {
                         ToastUtils.showToast(message);
                     }
                 }
@@ -147,14 +162,14 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
             parseResource(response, new OnResourceParseCallback<String>(true) {
                 @Override
                 public void onSuccess(String data) {
-                    mEtLoginName.setText(TextUtils.isEmpty(data)?"":data);
+                    mEtLoginName.setText(TextUtils.isEmpty(data) ? "" : data);
                     mEtLoginPwd.setText("");
                 }
             });
 
         });
         DemoDbHelper.getInstance(mContext).getDatabaseCreatedObservable().observe(getViewLifecycleOwner(), response -> {
-            if(response != null && !TextUtils.isEmpty(mUserName) && !TextUtils.isEmpty(mPwd) && isClick) {
+            if (response != null && !TextUtils.isEmpty(mUserName) && !TextUtils.isEmpty(mPwd) && isClick) {
                 mFragmentViewModel.login(mUserName, mPwd, isTokenFlag);
             }
         });
@@ -176,7 +191,7 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tv_login_register :
+            case R.id.tv_login_register:
                 mViewModel.clearRegisterInfo();
                 mViewModel.setPageSelect(1);
                 break;
@@ -200,11 +215,11 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
      */
     private void switchLogin() {
         mEtLoginPwd.setText("");
-        if(isTokenFlag) {
+        if (isTokenFlag) {
             mEtLoginPwd.setHint(R.string.em_login_token_hint);
             mTvLoginToken.setText(R.string.em_login_tv_pwd);
             mEtLoginPwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
-        }else {
+        } else {
             mEtLoginPwd.setHint(R.string.em_login_password_hint);
             mTvLoginToken.setText(R.string.em_login_tv_token);
             mEtLoginPwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
@@ -212,13 +227,40 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
     }
 
     private void loginToServer() {
-        if(TextUtils.isEmpty(mUserName) || TextUtils.isEmpty(mPwd)) {
+        if (TextUtils.isEmpty(mUserName) || TextUtils.isEmpty(mPwd)) {
             ToastUtils.showToast(R.string.em_login_btn_info_incomplete);
             return;
         }
         isClick = true;
-        //先初始化数据库
-        DemoDbHelper.getInstance(mContext).initDb(mUserName);
+
+        HashMap<String, String> map = new HashMap<>();
+        map.put("phone", mEtLoginName.getText().toString());
+        map.put("password", mEtLoginPwd.getText().toString());
+        map.put("deviceId", DeviceIdUtil.getDeviceId(getContext()));
+        map.put("os", "Android");
+        map.put("version", Global.loginVersion);
+        map.put("deviceName", SystemUtil.getDeviceManufacturer() + " " + SystemUtil.getSystemModel());
+
+        RetrofitManager.INSTANCE.getService()
+                .login("", map)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(AutoDispose.autoDisposable(getScopeProvider()))
+                .subscribe(new CodeHandledSubscriber<ResponseBean<LoginInfo>>() {
+                    @Override
+                    public void onServerError(@Nullable ApiException apiException) {
+
+                    }
+
+                    @Override
+                    public void onBusinessNext(ResponseBean<LoginInfo> data) {
+
+                        //先初始化数据库
+                        DemoDbHelper.getInstance(mContext).initDb(mUserName);
+                    }
+                });
+
+
     }
 
     @Override
@@ -243,7 +285,7 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         switch (buttonView.getId()) {
-            case R.id.cb_select :
+            case R.id.cb_select:
                 setButtonEnable(!TextUtils.isEmpty(mUserName) && !TextUtils.isEmpty(mPwd) && isChecked);
                 break;
         }
@@ -251,9 +293,9 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
 
     private void setButtonEnable(boolean enable) {
         mBtnLogin.setEnabled(enable);
-        if(mEtLoginPwd.hasFocus()) {
+        if (mEtLoginPwd.hasFocus()) {
             mEtLoginPwd.setImeOptions(enable ? EditorInfo.IME_ACTION_DONE : EditorInfo.IME_ACTION_PREVIOUS);
-        }else if(mEtLoginName.hasFocus()) {
+        } else if (mEtLoginName.hasFocus()) {
             mEtLoginPwd.setImeOptions(enable ? EditorInfo.IME_ACTION_DONE : EditorInfo.IME_ACTION_NEXT);
         }
 
@@ -290,8 +332,8 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
 
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        if(actionId == EditorInfo.IME_ACTION_DONE) {
-            if(!TextUtils.isEmpty(mUserName) && !TextUtils.isEmpty(mPwd)) {
+        if (actionId == EditorInfo.IME_ACTION_DONE) {
+            if (!TextUtils.isEmpty(mUserName) && !TextUtils.isEmpty(mPwd)) {
                 hideKeyboard();
                 loginToServer();
                 return true;

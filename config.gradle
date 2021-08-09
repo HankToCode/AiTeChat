@@ -41,7 +41,9 @@ ext {
             "rxbinding"             : "com.jakewharton.rxbinding2:rxbinding:$dependVersion.rxbinding",
             //rx 6.0权限请求
             "rxpermissions"         : "com.github.tbruyelle:rxpermissions:$dependVersion.rxpermissions",
-
+            //生命周期
+            autodispose             : "com.uber.autodispose:autodispose-android:1.3.0",
+            autodispose_component   : "com.uber.autodispose:autodispose-android-archcomponents:1.3.0"
 
     ]
 

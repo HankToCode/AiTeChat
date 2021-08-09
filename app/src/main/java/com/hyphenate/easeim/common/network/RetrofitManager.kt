@@ -1,8 +1,8 @@
 package com.hyphenate.easeim.common.network
 
 import com.hyphenate.easeim.DemoApplication
-import com.hyphenate.easeim.common.api.ApiService
-import com.hyphenate.easeim.common.api.UrlConstant
+import com.hyphenate.easeim.section.api.ApiService
+import com.hyphenate.easeim.section.api.UrlConstant
 import com.hyphenate.easeim.common.network.exception.ErrorStatus
 import com.hyphenate.easeim.common.network.exception.NetStatusException
 import com.hyphenate.easeim.common.network.interceptor.NetworkInterceptor

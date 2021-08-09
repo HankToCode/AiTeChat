@@ -1,5 +1,6 @@
 package com.hyphenate.easeim.section.login.activity;
 
+import android.Manifest;
 import android.animation.Animator;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -10,9 +11,13 @@ import androidx.lifecycle.ViewModelProvider;
 import com.hyphenate.easeim.MainActivity;
 import com.hyphenate.easeim.R;
 import com.hyphenate.easeim.common.interfaceOrImplement.OnResourceParseCallback;
+import com.hyphenate.easeim.section.api.Constant;
 import com.hyphenate.easeim.section.base.BaseInitActivity;
 import com.hyphenate.easeim.section.login.viewmodels.SplashViewModel;
 import com.hyphenate.util.EMLog;
+
+import pub.devrel.easypermissions.EasyPermissions;
+import pub.devrel.easypermissions.PermissionRequest;
 
 public class SplashActivity extends BaseInitActivity {
     private ImageView ivSplash;
@@ -40,6 +45,7 @@ public class SplashActivity extends BaseInitActivity {
     protected void initData() {
         super.initData();
         model = new ViewModelProvider(this).get(SplashViewModel.class);
+
         ivSplash.animate()
                 .alpha(1)
                 .setDuration(500)
@@ -85,7 +91,7 @@ public class SplashActivity extends BaseInitActivity {
                 @Override
                 public void onError(int code, String message) {
                     super.onError(code, message);
-                    EMLog.i("TAG", "error message = "+response.getMessage());
+                    EMLog.i("TAG", "error message = " + response.getMessage());
                     LoginActivity.startAction(mContext);
                     finish();
                 }

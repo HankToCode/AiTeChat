@@ -10,6 +10,7 @@ import androidx.annotation.StringRes;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Lifecycle;
 
 import com.hyphenate.easeim.R;
 import com.hyphenate.easeim.common.interfaceOrImplement.DialogCallBack;
@@ -17,6 +18,10 @@ import com.hyphenate.easeim.common.interfaceOrImplement.OnResourceParseCallback;
 import com.hyphenate.easeim.common.net.Resource;
 import com.hyphenate.easeim.common.utils.ToastUtils;
 import com.hyphenate.easeui.ui.base.EaseBaseFragment;
+import com.uber.autodispose.AutoDispose;
+import com.uber.autodispose.AutoDisposeConverter;
+import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
+import com.uber.autodispose.lifecycle.LifecycleScopeProvider;
 
 public class BaseFragment extends EaseBaseFragment {
     public BaseActivity mContext;
@@ -114,5 +119,18 @@ public class BaseFragment extends EaseBaseFragment {
         if(mContext != null) {
             mContext.dismissLoading();
         }
+    }
+
+
+    public LifecycleScopeProvider<Lifecycle.Event> getScopeProvider() {
+        return AndroidLifecycleScopeProvider.from(this, Lifecycle.Event.ON_DESTROY);
+    }
+
+    public <Bean> AutoDisposeConverter<Bean> autoDispose() {
+        return AutoDispose.autoDisposable(getScopeProvider());
+    }
+
+    public <Bean> AutoDisposeConverter<Bean> autoDispose(Lifecycle.Event event) {
+        return AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this, event));
     }
 }

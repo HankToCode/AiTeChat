@@ -1,4 +1,4 @@
-package com.hyphenate.easeim.common.api
+package com.hyphenate.easeim.section.api
 
 import com.blankj.utilcode.util.SPUtils
 import com.hyphenate.easeim.BuildConfig
@@ -24,19 +24,9 @@ object UrlConstant {
 
     private fun getCurrentHost(): Domain {
         return if (!BuildConfig.PROJECT_DEBUG) {
-            //TODO 上线必改
-//            Domain("测试服", "http://test.otc.liantaoapp.com", "3d41424a0f6b481ba033f236a895d665")
-            Domain("生产服", "http://lianbei.top", "3d41424a0f6b481ba033f236a895d665")
+            Domain("生产服", "http://www.baixingmingjiang.com/", "")
         } else {
-            Domain("测试服", "http://test.otc.liantaoapp.com", "3d41424a0f6b481ba033f236a895d665")
-            /*val domain: String = SPUtils.getInstance().getString("domain")
-            if (!TextUtils.isEmpty(domain)) {
-                Gson().fromJson(domain, Domain::class.java)
-            } else {
-                //TODO 上线必改
-                Domain("测试服", "http://test.otc.liantaoapp.com", "3d41424a0f6b481ba033f236a895d665")
-//                Domain("生产服", "http://lianbei.top", "3d41424a0f6b481ba033f236a895d665")
-            }*/
+            Domain("测试服", "http://www.baixingmingjiang.com/", "")
         }
     }
 

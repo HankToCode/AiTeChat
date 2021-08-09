@@ -11,6 +11,7 @@ import androidx.multidex.MultiDex;
 
 import com.hyphenate.easeim.common.interfaceOrImplement.UserActivityLifecycleCallbacks;
 import com.hyphenate.easeim.common.utils.PreferenceManager;
+import com.hyphenate.easeim.common.utils.Utils;
 import com.hyphenate.util.EMLog;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
@@ -38,6 +39,7 @@ public class DemoApplication extends Application implements Thread.UncaughtExcep
         initHx();
         registerActivityLifecycleCallbacks();
         closeAndroidPDialog();
+        Utils.init(this);
     }
 
     private void initThrowableHandler() {
