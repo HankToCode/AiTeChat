@@ -45,6 +45,8 @@ android {
                                 VIVO_PUSH_APPID: properties.getProperty("VIVO_PUSH_APPID", "******"),
                                 BAIDU_LOCATION_APPKEY: properties.getProperty("BAIDU_LOCATION_APPKEY", "******")
         ]
+
+        buildConfigField "boolean", "PROJECT_DEBUG", "$PROJECT_DEBUG"
     }
     buildTypes {
         release {
