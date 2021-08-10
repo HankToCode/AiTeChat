@@ -25,33 +25,33 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.alibaba.fastjson.JSON;
 import com.hyphenate.EMError;
 import com.hyphenate.easeim.DemoHelper;
 import com.hyphenate.easeim.MainActivity;
 import com.hyphenate.easeim.R;
 import com.hyphenate.easeim.common.db.DemoDbHelper;
 import com.hyphenate.easeim.common.interfaceOrImplement.OnResourceParseCallback;
-import com.hyphenate.easeim.common.network.CodeHandledSubscriber;
-import com.hyphenate.easeim.common.network.RetrofitManager;
-import com.hyphenate.easeim.common.network.exception.ApiException;
 import com.hyphenate.easeim.common.utils.DeviceIdUtil;
+import com.hyphenate.easeim.common.utils.PreferenceManager;
 import com.hyphenate.easeim.common.utils.SystemUtil;
+import com.hyphenate.easeim.common.utils.ToastUtil;
+import com.hyphenate.easeim.common.utils.ToastUtils;
 import com.hyphenate.easeim.section.api.Global;
 import com.hyphenate.easeim.section.api.bean.LoginInfo;
-import com.hyphenate.easeim.section.api.bean.ResponseBean;
-import com.hyphenate.easeui.utils.EaseEditTextUtils;
-import com.hyphenate.easeim.common.utils.ToastUtils;
+import com.hyphenate.easeim.section.api.global.SP;
+import com.hyphenate.easeim.section.api.global.UserComm;
+import com.hyphenate.easeim.section.api.http.OldApiClient;
+import com.hyphenate.easeim.section.api.http.OldAppUrls;
+import com.hyphenate.easeim.section.api.http.ResultListener;
 import com.hyphenate.easeim.section.base.BaseInitFragment;
 import com.hyphenate.easeim.section.login.viewmodels.LoginFragmentViewModel;
 import com.hyphenate.easeim.section.login.viewmodels.LoginViewModel;
 import com.hyphenate.easeui.domain.EaseUser;
-import com.uber.autodispose.AutoDispose;
+import com.hyphenate.easeui.utils.EaseEditTextUtils;
 
 import java.util.HashMap;
 import java.util.Map;
-
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
 
 public class LoginFragment extends BaseInitFragment implements View.OnClickListener, TextWatcher, CompoundButton.OnCheckedChangeListener, TextView.OnEditorActionListener {
     private EditText mEtLoginName;
@@ -233,20 +233,48 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
         }
         isClick = true;
 
-        HashMap<String, String> map = new HashMap<>();
-        map.put("phone", mEtLoginName.getText().toString());
-        map.put("password", mEtLoginPwd.getText().toString());
-        map.put("deviceId", DeviceIdUtil.getDeviceId(getContext()));
+        passwordLogin();
+        //先初始化数据库
+//        DemoDbHelper.getInstance(mContext).initDb(mUserName);
+
+    }
+
+    /**
+     * =========================================用户密码登录=================================================
+     */
+    public void passwordLogin() {
+
+        showLoading("正在登录");
+        DemoDbHelper.getInstance(mContext).closeDb();
+        Map<String, Object> map = new HashMap<>();
+        map.put("phone", mUserName);
+        map.put("password", mPwd);
+        map.put("deviceId", DeviceIdUtil.getDeviceId(requireContext()));
         map.put("os", "Android");
         map.put("version", Global.loginVersion);
         map.put("deviceName", SystemUtil.getDeviceManufacturer() + " " + SystemUtil.getSystemModel());
+        OldApiClient.requestNetHandle(mContext, OldAppUrls.multiLogin, "", map, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                if (json != null) {
+                    LoginInfo loginInfo = JSON.parseObject(json, LoginInfo.class);
+                    loginInfo.setPassword(mPwd);
+                    PreferenceManager.getInstance().setParam(SP.SP_LANDED_ON_LOGIN, mUserName);
 
-        
+                    if (loginInfo != null) {
+                        UserComm.saveUsersInfo(loginInfo);
+                        DemoDbHelper.getInstance(mContext).initDb(mUserName);
 
-        //先初始化数据库
-        DemoDbHelper.getInstance(mContext).initDb(mUserName);
+                    }
+                }
+            }
 
-
+            @Override
+            public void onFailure(String msg) {
+                dismissLoading();
+                ToastUtil.toast(msg);
+            }
+        });
     }
 
     @Override

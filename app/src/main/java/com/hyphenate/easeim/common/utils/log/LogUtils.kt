@@ -1,4 +1,4 @@
-package com.hyphenate.easeim.common.utils
+package com.hyphenate.easeim.common.utils.log
 
 import android.util.Log
 import com.hyphenate.easeim.BuildConfig

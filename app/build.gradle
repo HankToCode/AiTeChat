@@ -175,6 +175,10 @@ dependencies {
     //api project(':ease-call-kit')
     implementation 'io.hyphenate:ease-call-kit:3.8.4'
 
+    //---旧APP的Lib---
+    api rootProject.ext.dependencies["okgo"]
+    api rootProject.ext.dependencies["fastjson"]
+    api rootProject.ext.dependencies["eventbus"]
 
     //---额外增加的lib---
     //MagicIndicator

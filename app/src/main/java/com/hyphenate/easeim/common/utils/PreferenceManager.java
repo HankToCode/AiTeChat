@@ -17,6 +17,8 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.hyphenate.easeim.section.api.global.UserComm;
+
 public class PreferenceManager {
 	/**
 	 * name of preference
@@ -568,6 +570,38 @@ public class PreferenceManager {
 
 	public boolean isEnableTokenLogin() {
 		return mSharedPreferences.getBoolean(SHARED_KEY_ENABLE_TOKEN_LOGIN, false);
+	}
+
+
+	//旧APP新增
+	public  void setParam(String key, Object object) {
+		if (mSharedPreferences == null) return;
+		if (UserComm.IsOnLine())
+			key += UserComm.getUserId();
+		SharedPreferences.Editor editor = mSharedPreferences.edit();
+		if (object instanceof String) {
+			editor.putString(key, (String) object);
+		} else if (object instanceof Integer) {
+			editor.putInt(key, (Integer) object);
+		} else if (object instanceof Boolean) {
+			editor.putBoolean(key, (Boolean) object);
+		} else if (object instanceof Float) {
+			editor.putFloat(key, (Float) object);
+		} else if (object instanceof Long) {
+			editor.putLong(key, (Long) object);
+		}
+
+
+		editor.commit();
+	}
+
+	public void saveUserData(String key,String userdata) {
+		editor.putString(key, userdata);
+		editor.apply();
+	}
+
+	public String getUserData(String key) {
+		return mSharedPreferences.getString(key, "");
 	}
 
 }

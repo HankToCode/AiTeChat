@@ -1,6 +1,6 @@
 package com.hyphenate.easeim.common.network.interceptor
 
-import com.hyphenate.easeim.common.utils.LogUtils
+import com.hyphenate.easeim.common.utils.log.LogUtils
 import okhttp3.Interceptor
 import okhttp3.Response
 import okio.Buffer
