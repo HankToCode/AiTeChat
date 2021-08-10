@@ -16,11 +16,30 @@ import retrofit2.http.*
 interface ApiService {
 
 
-    @Headers(UrlConstant.HEADER_JSON_TYPE, UrlConstant.HEADER_JSON_ACCEPT)
+    //RetrofitManager.INSTANCE.getService()
+    //                .login("", map)
+    //                .subscribeOn(Schedulers.io())
+    //                .observeOn(AndroidSchedulers.mainThread())
+    //                .as(AutoDispose.autoDisposable(getScopeProvider()))
+    //                .subscribe(new CodeHandledSubscriber<ResponseBean<LoginInfo>>() {
+    //                    @Override
+    //                    public void onServerError(@Nullable ApiException apiException) {
+    //
+    //                    }
+    //
+    //                    @Override
+    //                    public void onBusinessNext(ResponseBean<LoginInfo> data) {
+    //
+    //
+    //                    }
+    //                });
+
+
+  /*  @Headers(UrlConstant.HEADER_JSON_TYPE, UrlConstant.HEADER_JSON_ACCEPT)
     @POST(Urls.multiLogin)
     @FormUrlEncoded
     fun login(@Header("token") token: String, @FieldMap map: HashMap<String, String>): Observable<ResponseBean<LoginInfo>>
-
+*/
 /*
     */
     /**

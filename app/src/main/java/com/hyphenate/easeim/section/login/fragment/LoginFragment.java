@@ -241,24 +241,10 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
         map.put("version", Global.loginVersion);
         map.put("deviceName", SystemUtil.getDeviceManufacturer() + " " + SystemUtil.getSystemModel());
 
-        RetrofitManager.INSTANCE.getService()
-                .login("", map)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .as(AutoDispose.autoDisposable(getScopeProvider()))
-                .subscribe(new CodeHandledSubscriber<ResponseBean<LoginInfo>>() {
-                    @Override
-                    public void onServerError(@Nullable ApiException apiException) {
+        
 
-                    }
-
-                    @Override
-                    public void onBusinessNext(ResponseBean<LoginInfo> data) {
-
-                        //先初始化数据库
-                        DemoDbHelper.getInstance(mContext).initDb(mUserName);
-                    }
-                });
+        //先初始化数据库
+        DemoDbHelper.getInstance(mContext).initDb(mUserName);
 
 
     }
