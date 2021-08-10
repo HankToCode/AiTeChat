@@ -19,6 +19,8 @@ import com.hyphenate.easeim.common.net.ErrorCode;
 import com.hyphenate.easeim.common.net.Resource;
 import com.hyphenate.easeim.common.interfaceOrImplement.ResultCallBack;
 import com.hyphenate.easeim.common.utils.PreferenceManager;
+import com.hyphenate.easeim.section.api.bean.LoginInfo;
+import com.hyphenate.easeim.section.api.global.UserComm;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.model.EaseEvent;
 import com.hyphenate.exceptions.HyphenateException;
@@ -29,12 +31,13 @@ import java.util.List;
 /**
  * 作为EMClient的repository,处理EMClient相关的逻辑
  */
-public class EMClientRepository extends BaseEMRepository{
+public class EMClientRepository extends BaseEMRepository {
 
     private static final String TAG = EMClientRepository.class.getSimpleName();
 
     /**
      * 登录过后需要加载的数据
+     *
      * @return
      */
     public LiveData<Resource<Boolean>> loadAllInfoFromHX() {
@@ -42,17 +45,17 @@ public class EMClientRepository extends BaseEMRepository{
 
             @Override
             protected void createCall(ResultCallBack<LiveData<Boolean>> callBack) {
-                if(isAutoLogin()) {
+                if (isAutoLogin()) {
                     runOnIOThread(() -> {
-                        if(isLoggedIn()) {
+                        if (isLoggedIn()) {
                             loadAllConversationsAndGroups();
                             callBack.onSuccess(createLiveData(true));
-                        }else {
+                        } else {
                             callBack.onError(ErrorCode.EM_NOT_LOGIN);
                         }
 
                     });
-                }else {
+                } else {
                     callBack.onError(ErrorCode.EM_NOT_LOGIN);
                 }
 
@@ -73,6 +76,7 @@ public class EMClientRepository extends BaseEMRepository{
 
     /**
      * 注册
+     *
      * @param userName
      * @param pwd
      * @return
@@ -83,7 +87,7 @@ public class EMClientRepository extends BaseEMRepository{
             @Override
             protected void createCall(@NonNull ResultCallBack<LiveData<String>> callBack) {
                 //注册之前先判断SDK是否已经初始化，如果没有先进行SDK的初始化
-                if(!DemoHelper.getInstance().isSDKInit) {
+                if (!DemoHelper.getInstance().isSDKInit) {
                     DemoHelper.getInstance().init(DemoApplication.getInstance());
                     DemoHelper.getInstance().getModel().setCurrentUserName(userName);
                 }
@@ -103,47 +107,31 @@ public class EMClientRepository extends BaseEMRepository{
     /**
      * 登录到服务器，可选择密码登录或者token登录
      * 登录之前先初始化数据库，如果登录失败，再关闭数据库;如果登录成功，则再次检查是否初始化数据库
-     * @param userName
-     * @param pwd
-     * @param isTokenFlag
+     *
      * @return
      */
-    public LiveData<Resource<EaseUser>> loginToServer(String userName, String pwd, boolean isTokenFlag) {
+    public LiveData<Resource<EaseUser>> loginToServer() {
         return new NetworkOnlyResource<EaseUser>() {
 
             @Override
             protected void createCall(@NonNull ResultCallBack<LiveData<EaseUser>> callBack) {
+                final LoginInfo loginInfo = UserComm.getUserInfo();
+
                 DemoHelper.getInstance().init(DemoApplication.getInstance());
-                DemoHelper.getInstance().getModel().setCurrentUserName(userName);
-                DemoHelper.getInstance().getModel().setCurrentUserPwd(pwd);
-                if(isTokenFlag) {
-                    EMClient.getInstance().loginWithToken(userName, pwd, new DemoEmCallBack() {
-                        @Override
-                        public void onSuccess() {
-                            successForCallBack(callBack);
-                        }
+                DemoHelper.getInstance().getModel().setCurrentUserName(loginInfo.getNickName());
+                DemoHelper.getInstance().getModel().setCurrentUserPwd(loginInfo.getPassword());
+                EMClient.getInstance().login(loginInfo.getIdh(), "123456", new DemoEmCallBack() {
+                    @Override
+                    public void onSuccess() {
+                        successForCallBack(callBack);
+                    }
 
-                        @Override
-                        public void onError(int code, String error) {
-                            callBack.onError(code, error);
-                            closeDb();
-                        }
-                    });
-                }else {
-                    EMClient.getInstance().login(userName, pwd, new DemoEmCallBack() {
-                        @Override
-                        public void onSuccess() {
-                            successForCallBack(callBack);
-                        }
-
-                        @Override
-                        public void onError(int code, String error) {
-                            callBack.onError(code, error);
-                            closeDb();
-                        }
-                    });
-                }
-
+                    @Override
+                    public void onError(int code, String error) {
+                        callBack.onError(code, error);
+                        closeDb();
+                    }
+                });
             }
 
         }.asLiveData();
@@ -151,6 +139,7 @@ public class EMClientRepository extends BaseEMRepository{
 
     /**
      * 退出登录
+     *
      * @param unbindDeviceToken
      * @return
      */
@@ -188,6 +177,7 @@ public class EMClientRepository extends BaseEMRepository{
 
     /**
      * 设置本地标记，是否自动登录
+     *
      * @param autoLogin
      */
     public void setAutoLogin(boolean autoLogin) {
@@ -195,8 +185,15 @@ public class EMClientRepository extends BaseEMRepository{
     }
 
     private void successForCallBack(@NonNull ResultCallBack<LiveData<EaseUser>> callBack) {
+        final LoginInfo loginInfo = UserComm.getUserInfo();
         // ** manually load all local groups and conversation
         loadAllConversationsAndGroups();
+        // update current user's display name for APNs
+        try {
+            EMClient.getInstance().pushManager().updatePushNickname(loginInfo.getNickName());
+        } catch (HyphenateException ignored) {
+        }
+
         //从服务器拉取加入的群，防止进入会话页面只显示id
         getAllJoinGroup();
         // get current user id

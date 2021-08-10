@@ -120,7 +120,7 @@ public class DemoHelper {
         //初始化IM SDK
         if (initSDK(context)) {
             // debug mode, you'd better set it to false, if you want release your App officially.
-            EMClient.getInstance().setDebugMode(true);
+            EMClient.getInstance().setDebugMode(BuildConfig.DEBUG);
             // set Call options
             setCallOptions(context);
             //初始化推送
@@ -451,10 +451,15 @@ public class DemoHelper {
         options.setDeleteMessagesAsExitGroup(demoModel.isDeleteMessagesAsExitGroup());
         // 设置是否自动接受加群邀请
         options.setAutoAcceptGroupInvitation(demoModel.isAutoAcceptGroupInvitation());
+
+        // 是否自动将消息附件上传到环信服务器，默认为True是使用环信服务器上传下载，如果设为 false，需要开发者自己处理附件消息的上传和下载
+        options.setAutoTransferMessageAttachments(true);
+        // 是否自动下载附件类消息的缩略图等，默认为 true 这里和上边这个参数相关联
+        options.setAutoDownloadThumbnail(true);
         // 是否自动将消息附件上传到环信服务器，默认为True是使用环信服务器上传下载
-        options.setAutoTransferMessageAttachments(demoModel.isSetTransferFileByUser());
+//        options.setAutoTransferMessageAttachments(demoModel.isSetTransferFileByUser());
         // 是否自动下载缩略图，默认是true为自动下载
-        options.setAutoDownloadThumbnail(demoModel.isSetAutodownloadThumbnail());
+//        options.setAutoDownloadThumbnail(demoModel.isSetAutodownloadThumbnail());
         return options;
     }
 

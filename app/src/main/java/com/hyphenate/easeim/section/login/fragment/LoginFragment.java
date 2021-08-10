@@ -122,6 +122,7 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
             parseResource(response, new OnResourceParseCallback<EaseUser>(true) {
                 @Override
                 public void onSuccess(EaseUser data) {
+                    dismissLoading();
                     DemoHelper.getInstance().setAutoLogin(true);
                     //跳转到主页
                     MainActivity.startAction(mContext);
@@ -131,6 +132,7 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
                 @Override
                 public void onError(int code, String message) {
                     super.onError(code, message);
+                    dismissLoading();
                     if (code == EMError.USER_AUTHENTICATION_FAILED) {
                         ToastUtils.showToast(R.string.demo_error_user_authentication_failed);
                     } else {
@@ -169,9 +171,7 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
 
         });
         DemoDbHelper.getInstance(mContext).getDatabaseCreatedObservable().observe(getViewLifecycleOwner(), response -> {
-            if (response != null && !TextUtils.isEmpty(mUserName) && !TextUtils.isEmpty(mPwd) && isClick) {
-                mFragmentViewModel.login(mUserName, mPwd, isTokenFlag);
-            }
+            mFragmentViewModel.HXlogin();
         });
     }
 

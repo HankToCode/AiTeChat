@@ -23,13 +23,10 @@ public class LoginFragmentViewModel extends AndroidViewModel {
 
     /**
      * 登录环信
-     * @param userName
-     * @param pwd
-     * @param isTokenFlag
      */
-    public void login(String userName, String pwd, boolean isTokenFlag) {
+    public void HXlogin() {
 
-        loginObservable.addSource(mRepository.loginToServer(userName, pwd, isTokenFlag), response -> {
+        loginObservable.addSource(mRepository.loginToServer(), response -> {
             loginObservable.setValue(response);
         });
     }
