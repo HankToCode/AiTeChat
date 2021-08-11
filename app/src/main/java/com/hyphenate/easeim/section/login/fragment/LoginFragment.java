@@ -53,15 +53,11 @@ import com.hyphenate.easeui.utils.EaseEditTextUtils;
 import java.util.HashMap;
 import java.util.Map;
 
-public class LoginFragment extends BaseInitFragment implements View.OnClickListener, TextWatcher, CompoundButton.OnCheckedChangeListener, TextView.OnEditorActionListener {
+public class LoginFragment extends BaseInitFragment implements View.OnClickListener, TextWatcher, TextView.OnEditorActionListener {
     private EditText mEtLoginName;
     private EditText mEtLoginPwd;
     private TextView mTvLoginRegister;
-    private TextView mTvLoginToken;
-    private TextView mTvLoginServerSet;
     private Button mBtnLogin;
-    private CheckBox cbSelect;
-    private TextView tvAgreement;
     private String mUserName;
     private String mPwd;
     private LoginViewModel mViewModel;
@@ -83,19 +79,11 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
         mEtLoginName = findViewById(R.id.et_login_name);
         mEtLoginPwd = findViewById(R.id.et_login_pwd);
         mTvLoginRegister = findViewById(R.id.tv_login_register);
-        mTvLoginToken = findViewById(R.id.tv_login_token);
-        mTvLoginServerSet = findViewById(R.id.tv_login_server_set);
         mBtnLogin = findViewById(R.id.btn_login);
-        tvAgreement = findViewById(R.id.tv_agreement);
-        cbSelect = findViewById(R.id.cb_select);
         // 保证切换fragment后相关状态正确
         boolean enableTokenLogin = DemoHelper.getInstance().getModel().isEnableTokenLogin();
-        mTvLoginToken.setVisibility(enableTokenLogin ? View.VISIBLE : View.GONE);
         if (!TextUtils.isEmpty(DemoHelper.getInstance().getCurrentLoginUser())) {
             mEtLoginName.setText(DemoHelper.getInstance().getCurrentLoginUser());
-        }
-        if (isTokenFlag) {
-            switchLogin();
         }
     }
 
@@ -105,10 +93,7 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
         mEtLoginName.addTextChangedListener(this);
         mEtLoginPwd.addTextChangedListener(this);
         mTvLoginRegister.setOnClickListener(this);
-        mTvLoginToken.setOnClickListener(this);
-        mTvLoginServerSet.setOnClickListener(this);
         mBtnLogin.setOnClickListener(this);
-        cbSelect.setOnCheckedChangeListener(this);
         mEtLoginPwd.setOnEditorActionListener(this);
         EaseEditTextUtils.clearEditTextListener(mEtLoginName);
     }
@@ -178,8 +163,6 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
     @Override
     protected void initData() {
         super.initData();
-        tvAgreement.setText(getSpannable());
-        tvAgreement.setMovementMethod(LinkMovementMethod.getInstance());
         //切换密码可见不可见的两张图片
         eyeClose = getResources().getDrawable(R.drawable.d_pwd_hide);
         eyeOpen = getResources().getDrawable(R.drawable.d_pwd_show);
@@ -195,34 +178,10 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
                 mViewModel.clearRegisterInfo();
                 mViewModel.setPageSelect(1);
                 break;
-            case R.id.tv_login_token:
-                isTokenFlag = !isTokenFlag;
-                switchLogin();
-//                TestActivity.startAction(mContext);
-                break;
-            case R.id.tv_login_server_set:
-                mViewModel.setPageSelect(2);
-                break;
             case R.id.btn_login:
                 hideKeyboard();
                 loginToServer();
                 break;
-        }
-    }
-
-    /**
-     * 切换登录方式
-     */
-    private void switchLogin() {
-        mEtLoginPwd.setText("");
-        if (isTokenFlag) {
-            mEtLoginPwd.setHint(R.string.em_login_token_hint);
-            mTvLoginToken.setText(R.string.em_login_tv_pwd);
-            mEtLoginPwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
-        } else {
-            mEtLoginPwd.setHint(R.string.em_login_password_hint);
-            mTvLoginToken.setText(R.string.em_login_tv_token);
-            mEtLoginPwd.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
         }
     }
 
@@ -236,7 +195,6 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
         passwordLogin();
         //先初始化数据库
 //        DemoDbHelper.getInstance(mContext).initDb(mUserName);
-
     }
 
     /**
@@ -296,15 +254,6 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
         setButtonEnable(!TextUtils.isEmpty(mUserName) && !TextUtils.isEmpty(mPwd));
     }
 
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        switch (buttonView.getId()) {
-            case R.id.cb_select:
-                setButtonEnable(!TextUtils.isEmpty(mUserName) && !TextUtils.isEmpty(mPwd) && isChecked);
-                break;
-        }
-    }
-
     private void setButtonEnable(boolean enable) {
         mBtnLogin.setEnabled(enable);
         if (mEtLoginPwd.hasFocus()) {
@@ -313,35 +262,6 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
             mEtLoginPwd.setImeOptions(enable ? EditorInfo.IME_ACTION_DONE : EditorInfo.IME_ACTION_NEXT);
         }
 
-        //同时需要修改右侧drawalbeRight对应的资源
-//        Drawable rightDrawable;
-//        if(enable) {
-//            rightDrawable = ContextCompat.getDrawable(mContext, R.drawable.demo_login_btn_right_enable);
-//        }else {
-//            rightDrawable = ContextCompat.getDrawable(mContext, R.drawable.demo_login_btn_right_unable);
-//        }
-//        mBtnLogin.setCompoundDrawablesWithIntrinsicBounds(null, null, rightDrawable, null);
-    }
-
-    private SpannableString getSpannable() {
-        SpannableString spanStr = new SpannableString(getString(R.string.em_login_agreement));
-        //设置下划线
-        //spanStr.setSpan(new UnderlineSpan(), 3, 7, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spanStr.setSpan(new MyClickableSpan() {
-            @Override
-            public void onClick(@NonNull View widget) {
-                showToast("跳转到服务条款");
-            }
-        }, 2, 10, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        //spanStr.setSpan(new UnderlineSpan(), 10, 14, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        spanStr.setSpan(new MyClickableSpan() {
-            @Override
-            public void onClick(@NonNull View widget) {
-                showToast("跳转到隐私协议");
-            }
-        }, 11, spanStr.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        return spanStr;
     }
 
     @Override

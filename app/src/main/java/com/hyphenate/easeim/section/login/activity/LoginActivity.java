@@ -34,6 +34,8 @@ public class LoginActivity extends BaseInitActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
+
+        initImmersionBar(true);
         getSupportFragmentManager().
                 beginTransaction().
                 replace(R.id.fl_fragment, new LoginFragment()).
@@ -45,13 +47,11 @@ public class LoginActivity extends BaseInitActivity {
         super.initData();
         LoginViewModel viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
         viewModel.getPageSelect().observe(this, page -> {
-            if(page == 0) {
+            if (page == 0) {
                 return;
             }
-            if(page == 1) {
+            if (page == 1) {
                 replace(new RegisterFragment());
-            }else if(page == 2) {
-                replace(new ServerSetFragment());
             }
 
         });
