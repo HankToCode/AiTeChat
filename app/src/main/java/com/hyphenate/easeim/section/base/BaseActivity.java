@@ -77,16 +77,16 @@ public class BaseActivity extends AppCompatActivity {
      */
     protected void registerAccountObservable() {
         LiveDataBus.get().with(DemoConstant.ACCOUNT_CHANGE, EaseEvent.class).observe(this, event -> {
-            if(event == null) {
+            if (event == null) {
                 return;
             }
-            if(!event.isAccountChange()) {
+            if (!event.isAccountChange()) {
                 return;
             }
             String accountEvent = event.event;
-            if(TextUtils.equals(accountEvent, DemoConstant.ACCOUNT_REMOVED) ||
-                TextUtils.equals(accountEvent, DemoConstant.ACCOUNT_KICKED_BY_CHANGE_PASSWORD) ||
-                TextUtils.equals(accountEvent, DemoConstant.ACCOUNT_KICKED_BY_OTHER_DEVICE)) {
+            if (TextUtils.equals(accountEvent, DemoConstant.ACCOUNT_REMOVED) ||
+                    TextUtils.equals(accountEvent, DemoConstant.ACCOUNT_KICKED_BY_CHANGE_PASSWORD) ||
+                    TextUtils.equals(accountEvent, DemoConstant.ACCOUNT_KICKED_BY_OTHER_DEVICE)) {
                 DemoHelper.getInstance().logout(false, new EMCallBack() {
                     @Override
                     public void onSuccess() {
@@ -97,8 +97,8 @@ public class BaseActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(int code, String error) {
-                        EMLog.e("logout", "logout error: error code = "+code + " error message = "+error);
-                        showToast("logout error: error code = "+code + " error message = "+error);
+                        EMLog.e("logout", "logout error: error code = " + code + " error message = " + error);
+                        showToast("logout error: error code = " + code + " error message = " + error);
                     }
 
                     @Override
@@ -106,7 +106,7 @@ public class BaseActivity extends AppCompatActivity {
 
                     }
                 });
-            }else if(TextUtils.equals(accountEvent, DemoConstant.ACCOUNT_CONFLICT)
+            } else if (TextUtils.equals(accountEvent, DemoConstant.ACCOUNT_CONFLICT)
                     || TextUtils.equals(accountEvent, DemoConstant.ACCOUNT_REMOVED)
                     || TextUtils.equals(accountEvent, DemoConstant.ACCOUNT_FORBIDDEN)) {
                 DemoHelper.getInstance().logout(false, null);
@@ -116,7 +116,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void showExceptionDialog(String accountEvent) {
-        if(logoutDialog != null && logoutDialog.isShowing() && !mContext.isFinishing()) {
+        if (logoutDialog != null && logoutDialog.isShowing() && !mContext.isFinishing()) {
             logoutDialog.dismiss();
         }
         logoutDialog = new AlertDialog.Builder(mContext)
@@ -136,7 +136,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private int getExceptionMessageId(String exceptionType) {
-        if(exceptionType.equals(DemoConstant.ACCOUNT_CONFLICT)) {
+        if (exceptionType.equals(DemoConstant.ACCOUNT_CONFLICT)) {
             return R.string.em_account_connect_conflict;
         } else if (exceptionType.equals(DemoConstant.ACCOUNT_REMOVED)) {
             return R.string.em_account_user_remove;
@@ -151,17 +151,17 @@ public class BaseActivity extends AppCompatActivity {
      */
     protected void finishOtherActivities() {
         UserActivityLifecycleCallbacks lifecycleCallbacks = DemoApplication.getInstance().getLifecycleCallbacks();
-        if(lifecycleCallbacks == null) {
+        if (lifecycleCallbacks == null) {
             finish();
             return;
         }
         List<Activity> activities = lifecycleCallbacks.getActivityList();
-        if(activities == null || activities.isEmpty()) {
+        if (activities == null || activities.isEmpty()) {
             finish();
             return;
         }
-        for(Activity activity : activities) {
-            if(activity != lifecycleCallbacks.current()) {
+        for (Activity activity : activities) {
+            if (activity != lifecycleCallbacks.current()) {
                 activity.finish();
             }
         }
@@ -170,11 +170,12 @@ public class BaseActivity extends AppCompatActivity {
 
     /**
      * 初始化toolbar
+     *
      * @param toolbar
      */
     public void initToolBar(Toolbar toolbar) {
         setSupportActionBar(toolbar);
-        if(getSupportActionBar() != null) {
+        if (getSupportActionBar() != null) {
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);//有返回
             getSupportActionBar().setDisplayShowTitleEnabled(false);//不显示title
         }
@@ -189,14 +190,15 @@ public class BaseActivity extends AppCompatActivity {
 
     /**
      * 设置返回按钮的颜色
+     *
      * @param mContext
      * @param colorId
      */
     public static void setToolbarCustomColor(AppCompatActivity mContext, int colorId) {
         Drawable leftArrow = ContextCompat.getDrawable(mContext, R.drawable.abc_ic_ab_back_material);
-        if(leftArrow != null) {
+        if (leftArrow != null) {
             leftArrow.setColorFilter(ContextCompat.getColor(mContext, colorId), PorterDuff.Mode.SRC_ATOP);
-            if(mContext.getSupportActionBar() != null) {
+            if (mContext.getSupportActionBar() != null) {
                 mContext.getSupportActionBar().setHomeAsUpIndicator(leftArrow);
             }
         }
@@ -204,15 +206,15 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (imm!=null&&getWindow().getAttributes().softInputMode != WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN) {
-            if (getCurrentFocus() != null){
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null && getWindow().getAttributes().softInputMode != WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN) {
+            if (getCurrentFocus() != null) {
                 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
                 super.onBackPressed();
-            }else {
+            } else {
                 super.onBackPressed();
             }
-        }else {
+        } else {
             super.onBackPressed();
         }
 
@@ -228,9 +230,9 @@ public class BaseActivity extends AppCompatActivity {
      * hide keyboard
      */
     public void hideKeyboard() {
-        InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
-        if (imm!=null&&getWindow().getAttributes().softInputMode != WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN) {
-            if (getCurrentFocus() != null){
+        InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+        if (imm != null && getWindow().getAttributes().softInputMode != WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN) {
+            if (getCurrentFocus() != null) {
                 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
             }
         }
@@ -238,6 +240,7 @@ public class BaseActivity extends AppCompatActivity {
 
     /**
      * toast by string
+     *
      * @param message
      */
     public void showToast(String message) {
@@ -246,6 +249,7 @@ public class BaseActivity extends AppCompatActivity {
 
     /**
      * toast by string res
+     *
      * @param messageId
      */
     public void showToast(@StringRes int messageId) {
@@ -254,9 +258,9 @@ public class BaseActivity extends AppCompatActivity {
 
 
     @Override
-    public boolean onTouchEvent(MotionEvent event){
+    public boolean onTouchEvent(MotionEvent event) {
 
-        if(null != this.getCurrentFocus()){
+        if (null != this.getCurrentFocus()) {
             /**
              * 点击空白位置 隐藏软键盘
              */
@@ -278,6 +282,7 @@ public class BaseActivity extends AppCompatActivity {
 
     /**
      * 通用页面，需要设置沉浸式
+     *
      * @param fitSystemForTheme
      */
     public void setFitSystemForTheme(boolean fitSystemForTheme) {
@@ -287,6 +292,7 @@ public class BaseActivity extends AppCompatActivity {
 
     /**
      * 通用页面，需要设置沉浸式
+     *
      * @param fitSystemForTheme
      */
     public void setFitSystemForTheme2(boolean fitSystemForTheme) {
@@ -296,8 +302,9 @@ public class BaseActivity extends AppCompatActivity {
 
     /**
      * 设置是否是沉浸式，并可设置状态栏颜色
+     *
      * @param fitSystemForTheme
-     * @param colorId 颜色资源路径
+     * @param colorId           颜色资源路径
      */
     public void setFitSystemForTheme(boolean fitSystemForTheme, @ColorRes int colorId) {
         setFitSystem(fitSystemForTheme);
@@ -307,6 +314,7 @@ public class BaseActivity extends AppCompatActivity {
 
     /**
      * 修改状态栏文字颜色
+     *
      * @param isLight 是否是浅色字体
      */
     public void setStatusBarTextColor(boolean isLight) {
@@ -316,8 +324,9 @@ public class BaseActivity extends AppCompatActivity {
 
     /**
      * 设置是否是沉浸式，并可设置状态栏颜色
+     *
      * @param fitSystemForTheme true 不是沉浸式
-     * @param color 状态栏颜色
+     * @param color             状态栏颜色
      */
     public void setFitSystemForTheme(boolean fitSystemForTheme, String color) {
         setFitSystem(fitSystemForTheme);
@@ -327,13 +336,14 @@ public class BaseActivity extends AppCompatActivity {
 
     /**
      * 设置是否是沉浸式
+     *
      * @param fitSystemForTheme
      */
     public void setFitSystem(boolean fitSystemForTheme) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         }
-        if(fitSystemForTheme) {
+        if (fitSystemForTheme) {
             ViewGroup contentFrameLayout = (ViewGroup) findViewById(Window.ID_ANDROID_CONTENT);
             View parentView = contentFrameLayout.getChildAt(0);
             if (parentView != null && Build.VERSION.SDK_INT >= 14) {
@@ -351,63 +361,64 @@ public class BaseActivity extends AppCompatActivity {
 
     /**
      * 解析Resource<T>
+     *
      * @param response
      * @param callback
      * @param <T>
      */
     public <T> void parseResource(Resource<T> response, @NonNull OnResourceParseCallback<T> callback) {
-        if(response == null) {
+        if (response == null) {
             return;
         }
-        if(response.status == Status.SUCCESS) {
+        if (response.status == Status.SUCCESS) {
             callback.hideLoading();
             callback.onSuccess(response.data);
-        }else if(response.status == Status.ERROR) {
+        } else if (response.status == Status.ERROR) {
             callback.hideLoading();
-            if(!callback.hideErrorMsg) {
+            if (!callback.hideErrorMsg) {
                 showToast(response.getMessage());
             }
             callback.onError(response.errorCode, response.getMessage());
-        }else if(response.status == Status.LOADING) {
+        } else if (response.status == Status.LOADING) {
             callback.onLoading(response.data);
         }
     }
 
     public boolean isMessageChange(String message) {
-        if(TextUtils.isEmpty(message)) {
+        if (TextUtils.isEmpty(message)) {
             return false;
         }
-        if(message.contains("message")) {
+        if (message.contains("message")) {
             return true;
         }
         return false;
     }
 
     public boolean isContactChange(String message) {
-        if(TextUtils.isEmpty(message)) {
+        if (TextUtils.isEmpty(message)) {
             return false;
         }
-        if(message.contains("contact")) {
+        if (message.contains("contact")) {
             return true;
         }
         return false;
     }
 
     public boolean isGroupInviteChange(String message) {
-        if(TextUtils.isEmpty(message)) {
+        if (TextUtils.isEmpty(message)) {
             return false;
         }
-        if(message.contains("invite")) {
+        if (message.contains("invite")) {
             return true;
         }
         return false;
     }
 
     public boolean isNotify(String message) {
-        if(TextUtils.isEmpty(message)) {
+        if (TextUtils.isEmpty(message)) {
             return false;
         }
-        if(message.contains("invite")) {
+        if (message.contains("invite")) {
             return true;
         }
         return false;
@@ -418,10 +429,10 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void showLoading(String message) {
-        if(dialog != null && dialog.isShowing()) {
+        if (dialog != null && dialog.isShowing()) {
             dialog.dismiss();
         }
-        if(mContext.isFinishing()) {
+        if (mContext.isFinishing()) {
             return;
         }
         dialogCreateTime = System.currentTimeMillis();
@@ -433,19 +444,19 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void dismissLoading() {
-        if(dialog != null && dialog.isShowing()) {
+        if (dialog != null && dialog.isShowing()) {
             //如果dialog的展示时间过短，则延迟1s再消失
-            if(System.currentTimeMillis() - dialogCreateTime < 500 && !isFinishing()) {
+            if (System.currentTimeMillis() - dialogCreateTime < 500 && !isFinishing()) {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if(dialog != null && dialog.isShowing()) {
+                        if (dialog != null && dialog.isShowing()) {
                             dialog.dismiss();
                             dialog = null;
                         }
                     }
                 }, 1000);
-            }else {
+            } else {
                 dialog.dismiss();
                 dialog = null;
             }
@@ -454,9 +465,13 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     protected void initImmersionBar(boolean isStatusBarDartFont) {
+        initImmersionBar(isStatusBarDartFont, false);
+    }
+
+    protected void initImmersionBar(boolean isStatusBarDartFont, boolean isKeyboardEnable) {
         //初始化，默认透明状态栏和黑色导航栏。
         ImmersionBar.with(this)
-                .keyboardEnable(true)
+                .keyboardEnable(isKeyboardEnable)
                 //原理：如果当前设备支持状态栏字体变色，会设置状态栏字体为黑色，如果当前设备不支持状态栏字体变色，会使当前状态栏加上透明度，否则不执行透明度
                 .statusBarDarkFont(isStatusBarDartFont, 0.2f)
                 //.navigationBarColor("#E9E9E9")
@@ -470,7 +485,7 @@ public class BaseActivity extends AppCompatActivity {
      */
     public void clearFragmentsBeforeCreate() {
         List<Fragment> fragments = getSupportFragmentManager().getFragments();
-        if (fragments.size() == 0){
+        if (fragments.size() == 0) {
             return;
         }
         FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();

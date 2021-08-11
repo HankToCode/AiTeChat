@@ -5,20 +5,14 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
-import android.text.InputType;
-import android.text.SpannableString;
-import android.text.Spanned;
 import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -43,6 +37,7 @@ import com.hyphenate.easeim.common.utils.PreferenceManager;
 import com.hyphenate.easeim.common.utils.SystemUtil;
 import com.hyphenate.easeim.common.utils.ToastUtil;
 import com.hyphenate.easeim.common.utils.ToastUtils;
+import com.hyphenate.easeim.section.api.Constant;
 import com.hyphenate.easeim.section.api.Global;
 import com.hyphenate.easeim.section.api.bean.LoginInfo;
 import com.hyphenate.easeim.section.api.global.SP;
@@ -51,6 +46,7 @@ import com.hyphenate.easeim.section.api.http.OldApiClient;
 import com.hyphenate.easeim.section.api.http.OldAppUrls;
 import com.hyphenate.easeim.section.api.http.ResultListener;
 import com.hyphenate.easeim.section.base.BaseInitFragment;
+import com.hyphenate.easeim.section.login.activity.AccountManagerActivity;
 import com.hyphenate.easeim.section.login.activity.UpDataPasswordActivity;
 import com.hyphenate.easeim.section.login.viewmodels.LoginFragmentViewModel;
 import com.hyphenate.easeim.section.login.viewmodels.LoginViewModel;
@@ -113,7 +109,7 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
         mTvOtherLogin = (TextView) findViewById(R.id.tv_other_login);
         mIvChatLogin = (ImageView) findViewById(R.id.iv_chat_login);
         mTvFrozen = (TextView) findViewById(R.id.tv_frozen);
-        mTvUnbind = (TextView) findViewById(R.id.tv_unbind);
+        mTvUnbind = (TextView) findViewById(R.id.tv_unfrozen);
         mLlPwd = (ConstraintLayout) findViewById(R.id.ll_pwd);
         mLlSms = (ConstraintLayout) findViewById(R.id.ll_sms);
         mTvSms = (TextView) findViewById(R.id.tv_sms);
@@ -244,9 +240,11 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
                 break;
             case R.id.tv_frozen:
                 hideKeyboard();
+                AccountManagerActivity.actionStart(requireContext(), Constant.ACCOUNT_FREEZE);
                 break;
-            case R.id.tv_unbind:
+            case R.id.tv_unfrozen:
                 hideKeyboard();
+                AccountManagerActivity.actionStart(requireContext(), Constant.ACCOUNT_THAW);
                 break;
             case R.id.tv_sms_send:
                 initLoginCountTimer();

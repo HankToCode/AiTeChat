@@ -231,12 +231,12 @@
             android:background="@color/color_ACACBC" />
 
         <TextView
-            android:id="@+id/tv_unbind"
+            android:id="@+id/tv_unfrozen"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="解绑账号"
+            android:text="解冻账号"
             android:textColor="@color/color_ACACBC" />
 
 

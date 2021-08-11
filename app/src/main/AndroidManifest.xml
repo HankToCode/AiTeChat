@@ -537,6 +537,13 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" /> <!-- 修改密码 -->
 
+        <activity
+            android:name=".section.login.activity.AccountManagerActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan" /> <!-- 冻结账号 -->
+
 
 
 
