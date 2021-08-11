@@ -47,6 +47,7 @@ import com.hyphenate.easeim.section.api.http.OldAppUrls;
 import com.hyphenate.easeim.section.api.http.ResultListener;
 import com.hyphenate.easeim.section.base.BaseInitFragment;
 import com.hyphenate.easeim.section.login.activity.AccountManagerActivity;
+import com.hyphenate.easeim.section.login.activity.RegisterActivity;
 import com.hyphenate.easeim.section.login.activity.UpDataPasswordActivity;
 import com.hyphenate.easeim.section.login.viewmodels.LoginFragmentViewModel;
 import com.hyphenate.easeim.section.login.viewmodels.LoginViewModel;
@@ -220,8 +221,7 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_login_register:
-                mViewModel.clearRegisterInfo();
-                mViewModel.setPageSelect(1);
+                RegisterActivity.actionStart(requireContext());
                 break;
             case R.id.btn_login:
                 hideKeyboard();

@@ -531,6 +531,13 @@
 
 
         <activity
+            android:name=".section.login.activity.RegisterActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan" /> <!-- 注册 -->
+
+        <activity
             android:name=".section.login.activity.UpDataPasswordActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
