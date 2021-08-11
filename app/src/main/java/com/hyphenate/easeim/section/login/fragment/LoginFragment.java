@@ -3,6 +3,7 @@ package com.hyphenate.easeim.section.login.fragment;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.SpannableString;
@@ -19,13 +20,17 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.alibaba.fastjson.JSON;
+import com.coorchice.library.SuperTextView;
 import com.hyphenate.EMError;
 import com.hyphenate.easeim.DemoHelper;
 import com.hyphenate.easeim.MainActivity;
@@ -33,6 +38,7 @@ import com.hyphenate.easeim.R;
 import com.hyphenate.easeim.common.db.DemoDbHelper;
 import com.hyphenate.easeim.common.interfaceOrImplement.OnResourceParseCallback;
 import com.hyphenate.easeim.common.utils.DeviceIdUtil;
+import com.hyphenate.easeim.common.utils.NetworkUtil;
 import com.hyphenate.easeim.common.utils.PreferenceManager;
 import com.hyphenate.easeim.common.utils.SystemUtil;
 import com.hyphenate.easeim.common.utils.ToastUtil;
@@ -45,6 +51,7 @@ import com.hyphenate.easeim.section.api.http.OldApiClient;
 import com.hyphenate.easeim.section.api.http.OldAppUrls;
 import com.hyphenate.easeim.section.api.http.ResultListener;
 import com.hyphenate.easeim.section.base.BaseInitFragment;
+import com.hyphenate.easeim.section.login.activity.UpDataPasswordActivity;
 import com.hyphenate.easeim.section.login.viewmodels.LoginFragmentViewModel;
 import com.hyphenate.easeim.section.login.viewmodels.LoginViewModel;
 import com.hyphenate.easeui.domain.EaseUser;
@@ -60,13 +67,31 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
     private Button mBtnLogin;
     private String mUserName;
     private String mPwd;
+    private String mSms;
     private LoginViewModel mViewModel;
-    private boolean isTokenFlag;//是否是token登录
     private LoginFragmentViewModel mFragmentViewModel;
     private Drawable clear;
     private Drawable eyeOpen;
     private Drawable eyeClose;
-    private boolean isClick;
+
+
+    private TextView mTvTitle;
+    private TextView mTvLoginName;
+    private TextView mTvPwd;
+    private TextView mTvForgetPassword;
+    private TextView mTvSwitchLogin;
+    private TextView mTvOtherLogin;
+    private ImageView mIvChatLogin;
+    private TextView mTvFrozen;
+    private TextView mTvUnbind;
+
+    private ConstraintLayout mLlPwd;
+    private ConstraintLayout mLlSms;
+    private TextView mTvSms;
+    private EditText mEtLoginSms;
+    private SuperTextView mTvSmsSend;
+
+    private CountDownTimer loginTimer;
 
     @Override
     protected int getLayoutId() {
@@ -80,6 +105,21 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
         mEtLoginPwd = findViewById(R.id.et_login_pwd);
         mTvLoginRegister = findViewById(R.id.tv_login_register);
         mBtnLogin = findViewById(R.id.btn_login);
+        mTvTitle = (TextView) findViewById(R.id.tv_title);
+        mTvLoginName = (TextView) findViewById(R.id.tv_login_name);
+        mTvPwd = (TextView) findViewById(R.id.tv_pwd);
+        mTvForgetPassword = (TextView) findViewById(R.id.tv_forget_password);
+        mTvSwitchLogin = (TextView) findViewById(R.id.tv_switch_login);
+        mTvOtherLogin = (TextView) findViewById(R.id.tv_other_login);
+        mIvChatLogin = (ImageView) findViewById(R.id.iv_chat_login);
+        mTvFrozen = (TextView) findViewById(R.id.tv_frozen);
+        mTvUnbind = (TextView) findViewById(R.id.tv_unbind);
+        mLlPwd = (ConstraintLayout) findViewById(R.id.ll_pwd);
+        mLlSms = (ConstraintLayout) findViewById(R.id.ll_sms);
+        mTvSms = (TextView) findViewById(R.id.tv_sms);
+        mEtLoginSms = (EditText) findViewById(R.id.et_login_sms);
+        mTvSmsSend = (SuperTextView) findViewById(R.id.tv_sms_send);
+
         // 保证切换fragment后相关状态正确
         boolean enableTokenLogin = DemoHelper.getInstance().getModel().isEnableTokenLogin();
         if (!TextUtils.isEmpty(DemoHelper.getInstance().getCurrentLoginUser())) {
@@ -95,6 +135,15 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
         mTvLoginRegister.setOnClickListener(this);
         mBtnLogin.setOnClickListener(this);
         mEtLoginPwd.setOnEditorActionListener(this);
+
+        mTvForgetPassword.setOnClickListener(this);
+        mTvSwitchLogin.setOnClickListener(this);
+        mIvChatLogin.setOnClickListener(this);
+        mTvFrozen.setOnClickListener(this);
+        mTvUnbind.setOnClickListener(this);
+        mTvSmsSend.setOnClickListener(this);
+
+
         EaseEditTextUtils.clearEditTextListener(mEtLoginName);
     }
 
@@ -182,26 +231,63 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
                 hideKeyboard();
                 loginToServer();
                 break;
+            case R.id.tv_forget_password:
+                hideKeyboard();
+                UpDataPasswordActivity.actionStart(requireContext());
+                break;
+            case R.id.tv_switch_login:
+                hideKeyboard();
+                switchLoginMethod();
+                break;
+            case R.id.iv_chat_login:
+                hideKeyboard();
+                break;
+            case R.id.tv_frozen:
+                hideKeyboard();
+                break;
+            case R.id.tv_unbind:
+                hideKeyboard();
+                break;
+            case R.id.tv_sms_send:
+                initLoginCountTimer();
+                getLoginSMSCode();
+                break;
+            default:
+                break;
         }
     }
 
-    private void loginToServer() {
-        if (TextUtils.isEmpty(mUserName) || TextUtils.isEmpty(mPwd)) {
-            ToastUtils.showToast(R.string.em_login_btn_info_incomplete);
-            return;
-        }
-        isClick = true;
+    private int loginMethod = 0;//0密码 ,1短信
 
-        passwordLogin();
-        //先初始化数据库
-//        DemoDbHelper.getInstance(mContext).initDb(mUserName);
+    private void switchLoginMethod() {
+        if (loginMethod == 0) {
+            loginMethod = 1;
+        } else {
+            loginMethod = 0;
+        }
+
+        mLlPwd.setVisibility(loginMethod == 0 ? View.VISIBLE : View.GONE);
+        mLlSms.setVisibility(loginMethod == 1 ? View.VISIBLE : View.GONE);
+    }
+
+
+    private void loginToServer() {
+
+        if (loginMethod == 0) {
+            passwordLogin();
+        } else {
+            smsCodeLogin();
+        }
     }
 
     /**
      * =========================================用户密码登录=================================================
      */
     public void passwordLogin() {
-
+        if (TextUtils.isEmpty(mUserName) || TextUtils.isEmpty(mPwd)) {
+            ToastUtils.showToast(R.string.em_login_btn_info_incomplete);
+            return;
+        }
         showLoading("正在登录");
         DemoDbHelper.getInstance(mContext).closeDb();
         Map<String, Object> map = new HashMap<>();
@@ -235,6 +321,95 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
         });
     }
 
+    /**
+     * * =========================================用户验证码登录=================================================
+     */
+    public void smsCodeLogin() {
+        if (!NetworkUtil.isNetworkAvailable(requireContext())) {
+            Toast.makeText(requireContext(), R.string.em_error_network_error, Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (TextUtils.isEmpty(mUserName) || TextUtils.isEmpty(mPwd)) {
+            ToastUtils.showToast(R.string.em_login_btn_sms_incomplete);
+            return;
+        }
+        showLoading("正在登录");
+        Map<String, Object> map = new HashMap<>();
+        map.put("phone", mUserName);
+        map.put("authCode", mSms);
+        map.put("deviceId", DeviceIdUtil.getDeviceId(requireContext()));
+        map.put("os", "Android");
+        map.put("version", Global.loginVersion);
+        map.put("deviceName", SystemUtil.getDeviceManufacturer() + " " + SystemUtil.getSystemModel());
+
+        OldApiClient.requestNetHandle(requireContext(), OldAppUrls.toSMSMultiLoginUrl, "", map, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                if (json != null) {
+                    LoginInfo loginInfo = JSON.parseObject(json, LoginInfo.class);
+
+                    PreferenceManager.getInstance().setParam(SP.SP_LANDED_ON_LOGIN, mUserName);
+
+                    if (loginInfo != null) {
+                        UserComm.saveUsersInfo(loginInfo);
+                        DemoDbHelper.getInstance(mContext).initDb(mUserName);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                dismissLoading();
+                ToastUtil.toast(msg);
+            }
+        });
+    }
+
+    private void initLoginCountTimer() {
+        if (loginTimer == null)
+            loginTimer = new CountDownTimer(60 * 1000, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    mTvSmsSend.setText(millisUntilFinished / 1000 + "s后重新获取");
+                    mTvSmsSend.setEnabled(false);
+                    //   tvCode.setBackgroundResource(R.drawable.shap_gray_5);
+                }
+
+                @Override
+                public void onFinish() {
+                    mTvSmsSend.setText("获取验证码");
+                    //   tvCode.setBackgroundResource(R.drawable.border_redgray5);
+                    mTvSmsSend.setEnabled(true);
+                }
+            };
+    }
+
+    private void getLoginSMSCode() {
+        if (TextUtils.isEmpty(mUserName)) {
+            ToastUtil.toast("手机号不能为空");
+            mEtLoginName.requestFocus();
+            return;
+        }
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("phone", mUserName);
+
+        OldApiClient.requestNetHandle(requireContext(), OldAppUrls.getSMSCodeForLogin, "获取验证码", map, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                ToastUtil.toast("发送成功");
+                loginTimer.start();
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                ToastUtil.toast(msg);
+            }
+        });
+    }
+
+
     @Override
     public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -249,9 +424,15 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
     public void afterTextChanged(Editable s) {
         mUserName = mEtLoginName.getText().toString().trim();
         mPwd = mEtLoginPwd.getText().toString().trim();
+        mSms = mEtLoginSms.getText().toString().trim();
         EaseEditTextUtils.showRightDrawable(mEtLoginName, clear);
-        EaseEditTextUtils.showRightDrawable(mEtLoginPwd, isTokenFlag ? null : eyeClose);
-        setButtonEnable(!TextUtils.isEmpty(mUserName) && !TextUtils.isEmpty(mPwd));
+        EaseEditTextUtils.showRightDrawable(mEtLoginPwd, clear);
+        EaseEditTextUtils.showRightDrawable(mEtLoginSms, clear);
+        if (loginMethod == 0) {
+            setButtonEnable(!TextUtils.isEmpty(mUserName) && !TextUtils.isEmpty(mPwd));
+        } else {
+            setButtonEnable(!TextUtils.isEmpty(mUserName) && !TextUtils.isEmpty(mSms));
+        }
     }
 
     private void setButtonEnable(boolean enable) {
@@ -288,7 +469,12 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
     @Override
     public void onStop() {
         super.onStop();
-        isClick = false;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        if (loginTimer != null)
+            loginTimer.cancel();
+    }
 }

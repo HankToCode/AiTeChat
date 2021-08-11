@@ -179,6 +179,7 @@ dependencies {
     api rootProject.ext.dependencies["okgo"]
     api rootProject.ext.dependencies["fastjson"]
     api rootProject.ext.dependencies["eventbus"]
+    api rootProject.ext.dependencies["glide-transformations"]
 
     //---额外增加的lib---
     //MagicIndicator

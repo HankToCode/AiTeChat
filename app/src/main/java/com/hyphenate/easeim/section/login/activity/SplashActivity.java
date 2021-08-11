@@ -1,6 +1,5 @@
 package com.hyphenate.easeim.section.login.activity;
 
-import android.Manifest;
 import android.animation.Animator;
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -11,13 +10,9 @@ import androidx.lifecycle.ViewModelProvider;
 import com.hyphenate.easeim.MainActivity;
 import com.hyphenate.easeim.R;
 import com.hyphenate.easeim.common.interfaceOrImplement.OnResourceParseCallback;
-import com.hyphenate.easeim.section.api.Constant;
 import com.hyphenate.easeim.section.base.BaseInitActivity;
 import com.hyphenate.easeim.section.login.viewmodels.SplashViewModel;
 import com.hyphenate.util.EMLog;
-
-import pub.devrel.easypermissions.EasyPermissions;
-import pub.devrel.easypermissions.PermissionRequest;
 
 public class SplashActivity extends BaseInitActivity {
     private ImageView ivSplash;
