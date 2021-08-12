@@ -1,14 +1,11 @@
 package com.hyphenate.easeim.section.login.fragment;
 
-import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.text.Editable;
-import android.text.TextPaint;
 import android.text.TextUtils;
 import android.text.TextWatcher;
-import android.text.style.ClickableSpan;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -18,9 +15,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.alibaba.fastjson.JSON;
@@ -50,7 +47,6 @@ import com.hyphenate.easeim.section.login.activity.AccountManagerActivity;
 import com.hyphenate.easeim.section.login.activity.RegisterActivity;
 import com.hyphenate.easeim.section.login.activity.UpDataPasswordActivity;
 import com.hyphenate.easeim.section.login.viewmodels.LoginFragmentViewModel;
-import com.hyphenate.easeim.section.login.viewmodels.LoginViewModel;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.utils.EaseEditTextUtils;
 
@@ -65,7 +61,6 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
     private String mUserName;
     private String mPwd;
     private String mSms;
-    private LoginViewModel mViewModel;
     private LoginFragmentViewModel mFragmentViewModel;
     private Drawable clear;
     private Drawable eyeOpen;
@@ -190,17 +185,6 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
     @Override
     protected void initViewModel() {
         super.initViewModel();
-        mViewModel = new ViewModelProvider(mContext).get(LoginViewModel.class);
-        mViewModel.getRegisterObservable().observe(this, response -> {
-            parseResource(response, new OnResourceParseCallback<String>(true) {
-                @Override
-                public void onSuccess(String data) {
-                    mEtLoginName.setText(TextUtils.isEmpty(data) ? "" : data);
-                    mEtLoginPwd.setText("");
-                }
-            });
-
-        });
         DemoDbHelper.getInstance(mContext).getDatabaseCreatedObservable().observe(getViewLifecycleOwner(), response -> {
             mFragmentViewModel.HXlogin();
         });
@@ -210,9 +194,9 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
     protected void initData() {
         super.initData();
         //切换密码可见不可见的两张图片
-        eyeClose = getResources().getDrawable(R.drawable.d_pwd_hide);
-        eyeOpen = getResources().getDrawable(R.drawable.d_pwd_show);
-        clear = getResources().getDrawable(R.drawable.d_clear);
+        eyeClose = ContextCompat.getDrawable(requireContext(), R.drawable.d_pwd_hide);
+        eyeOpen = ContextCompat.getDrawable(requireContext(), R.drawable.d_pwd_show);
+        clear = ContextCompat.getDrawable(requireContext(), R.drawable.d_clear);
         EaseEditTextUtils.showRightDrawable(mEtLoginName, clear);
         EaseEditTextUtils.changePwdDrawableRight(mEtLoginPwd, eyeClose, eyeOpen, null, null, null);
     }
@@ -453,15 +437,6 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
             }
         }
         return false;
-    }
-
-    private abstract class MyClickableSpan extends ClickableSpan {
-
-        @Override
-        public void updateDrawState(@NonNull TextPaint ds) {
-            super.updateDrawState(ds);
-            ds.bgColor = Color.TRANSPARENT;
-        }
     }
 
     @Override
