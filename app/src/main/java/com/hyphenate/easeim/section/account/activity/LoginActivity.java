@@ -10,7 +10,7 @@ import com.hyphenate.easeim.section.account.fragment.LoginFragment;
 
 public class LoginActivity extends BaseInitActivity {
 
-    public static void startAction(Context context) {
+    public static void actionStart(Context context) {
         Intent intent = new Intent(context, LoginActivity.class);
         context.startActivity(intent);
     }

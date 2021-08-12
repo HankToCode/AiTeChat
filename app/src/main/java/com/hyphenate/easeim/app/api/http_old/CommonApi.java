@@ -16,7 +16,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.HashMap;
 import java.util.Map;
 
-class CommonApi {
+public class CommonApi {
 
     /**
      * 清除缓存用户信息
@@ -31,7 +31,7 @@ class CommonApi {
     /**
      * 更新用户信息
      */
-    public static void UpUserInfo(Context context) {
+    public static void upUserInfo(Context context) {
         Map<String, Object> map = new HashMap<>();
         ApiClient.requestNetHandle(context, AppUrls.USER_INFO, "", map, new ResultListener() {
             @Override

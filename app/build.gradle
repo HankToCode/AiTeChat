@@ -179,7 +179,10 @@ dependencies {
     api rootProject.ext.dependencies["okgo"]
     api rootProject.ext.dependencies["fastjson"]
     api rootProject.ext.dependencies["eventbus"]
+    api rootProject.ext.dependencies["PictureSelector"]
     api rootProject.ext.dependencies["glide-transformations"]
+    api rootProject.ext.dependencies["zxing"]
+    api rootProject.ext.dependencies["zxing-core"]
 
     //---额外增加的lib---
     //MagicIndicator

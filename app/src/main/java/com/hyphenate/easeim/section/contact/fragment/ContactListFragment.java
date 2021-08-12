@@ -111,7 +111,7 @@ public class ContactListFragment extends EaseContactListFragment implements View
                 EaseContactCustomBean item = contactLayout.getContactList().getCustomAdapter().getItem(position);
                 switch (item.getId()) {
                     case R.id.contact_header_item_new_chat :
-                        AddContactActivity.startAction(mContext, SearchType.CHAT);
+                        AddContactActivity.actionStart(mContext, SearchType.CHAT);
                         break;
                     case R.id.contact_header_item_group_list :
                         GroupContactManageActivity.actionStart(mContext);

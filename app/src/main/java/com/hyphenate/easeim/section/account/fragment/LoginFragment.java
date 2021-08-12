@@ -151,7 +151,7 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
                     dismissLoading();
                     DemoHelper.getInstance().setAutoLogin(true);
                     //跳转到主页
-                    MainActivity.startAction(mContext);
+                    MainActivity.actionStart(mContext);
                     mContext.finish();
                 }
 

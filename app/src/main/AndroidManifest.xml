@@ -551,6 +551,13 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" /> <!-- 冻结账号 -->
 
+        <activity
+            android:name=".section.account.activity.MineActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan" /> <!-- 我的 -->
+
 
 
 

@@ -25,7 +25,7 @@ public class AddContactActivity extends SearchActivity implements EaseTitleBar.O
     private AddContactViewModel mViewModel;
     private SearchType mType;
 
-    public static void startAction(Context context, SearchType type) {
+    public static void actionStart(Context context, SearchType type) {
         Intent intent = new Intent(context, AddContactActivity.class);
         intent.putExtra("type", type);
         context.startActivity(intent);

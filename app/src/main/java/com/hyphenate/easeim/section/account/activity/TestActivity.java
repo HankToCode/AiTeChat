@@ -22,7 +22,7 @@ public class TestActivity extends BaseInitActivity implements View.OnClickListen
     private Button btn_success_3;
     private Button btn_success_4;
 
-    public static void startAction(Context context) {
+    public static void actionStart(Context context) {
         Intent intent = new Intent(context, TestActivity.class);
         context.startActivity(intent);
     }

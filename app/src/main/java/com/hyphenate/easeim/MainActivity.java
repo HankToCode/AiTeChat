@@ -26,6 +26,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.hyphenate.easecallkit.base.EaseCallType;
 import com.hyphenate.easecallkit.ui.EaseMultipleVideoActivity;
 import com.hyphenate.easecallkit.ui.EaseVideoCallActivity;
+import com.hyphenate.easeim.app.api.http_old.CommonApi;
 import com.hyphenate.easeim.common.constant.DemoConstant;
 import com.hyphenate.easeim.common.enums.SearchType;
 import com.hyphenate.easeim.common.permission.PermissionsManager;
@@ -33,6 +34,7 @@ import com.hyphenate.easeim.common.permission.PermissionsResultAction;
 import com.hyphenate.easeim.common.utils.PushUtils;
 import com.hyphenate.easeim.section.MainViewModel;
 import com.hyphenate.easeim.app.base.BaseInitActivity;
+import com.hyphenate.easeim.section.account.activity.MineActivity;
 import com.hyphenate.easeim.section.chat.ChatPresenter;
 import com.hyphenate.easeim.section.contact.activity.AddContactActivity;
 import com.hyphenate.easeim.section.contact.fragment.ContactHomeFragment;
@@ -59,7 +61,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
     private MainViewModel viewModel;
     private boolean showMenu = true;//是否显示菜单项
 
-    public static void startAction(Context context) {
+    public static void actionStart(Context context) {
         Intent starter = new Intent(context, MainActivity.class);
         context.startActivity(starter);
     }
@@ -103,7 +105,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
                 break;
             case R.id.action_friend:
             case R.id.action_search_friend:
-                AddContactActivity.startAction(mContext, SearchType.CHAT);
+                AddContactActivity.actionStart(mContext, SearchType.CHAT);
                 break;
             case R.id.action_search_group:
                 GroupContactManageActivity.actionStart(mContext, true);
@@ -204,10 +206,10 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
 
         viewModel.homeUnReadObservable().observe(this, readCount -> {
             if (!TextUtils.isEmpty(readCount)) {
-                mTvMainContactsMsg.setVisibility(View.VISIBLE);
-                mTvMainContactsMsg.setText(readCount);
+                mTvMainMessageMsg.setVisibility(View.VISIBLE);
+                mTvMainMessageMsg.setText(readCount);
             } else {
-                mTvMainContactsMsg.setVisibility(View.GONE);
+                mTvMainMessageMsg.setVisibility(View.GONE);
             }
         });
 
@@ -433,13 +435,16 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_add_friends:
-                AddContactActivity.startAction(mContext, SearchType.CHAT);
+                AddContactActivity.actionStart(mContext, SearchType.CHAT);
                 break;
             case R.id.iv_search_friends:
                 SearchConversationActivity.actionStart(mContext);
                 break;
 
             case R.id.iv_avatar:
+
+                CommonApi.upUserInfo(this);
+                MineActivity.actionStart(mContext);
 
                 break;
             default:

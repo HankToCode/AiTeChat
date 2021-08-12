@@ -79,7 +79,7 @@ public class SplashActivity extends BaseInitActivity {
             parseResource(response, new OnResourceParseCallback<Boolean>(true) {
                 @Override
                 public void onSuccess(Boolean data) {
-                    MainActivity.startAction(mContext);
+                    MainActivity.actionStart(mContext);
                     finish();
                 }
 
@@ -87,7 +87,7 @@ public class SplashActivity extends BaseInitActivity {
                 public void onError(int code, String message) {
                     super.onError(code, message);
                     EMLog.i("TAG", "error message = " + response.getMessage());
-                    LoginActivity.startAction(mContext);
+                    LoginActivity.actionStart(mContext);
                     finish();
                 }
             });
