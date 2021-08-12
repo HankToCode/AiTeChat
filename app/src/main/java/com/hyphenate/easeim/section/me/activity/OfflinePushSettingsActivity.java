@@ -15,7 +15,7 @@ import com.hyphenate.easeim.common.interfaceOrImplement.OnResourceParseCallback;
 import com.hyphenate.easeim.common.model.DemoModel;
 import com.hyphenate.easeim.common.widget.ArrowItemView;
 import com.hyphenate.easeim.common.widget.SwitchItemView;
-import com.hyphenate.easeim.section.base.BaseInitActivity;
+import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeim.section.dialog.TimePickerDialogFragment;
 import com.hyphenate.easeim.section.me.viewmodels.OfflinePushSetViewModel;
 import com.hyphenate.easeui.widget.EaseTitleBar;

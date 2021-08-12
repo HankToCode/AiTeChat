@@ -2,27 +2,15 @@ package com.hyphenate.easeim.section.me.activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.hardware.Camera;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.Spinner;
-import android.widget.TextView;
 
-import com.hyphenate.chat.EMClient;
 import com.hyphenate.easeim.R;
 import com.hyphenate.easeim.common.utils.PreferenceManager;
 import com.hyphenate.easeim.common.widget.SwitchItemView;
-import com.hyphenate.easeim.section.base.BaseInitActivity;
+import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeui.widget.EaseTitleBar;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Created by linan on 16/11/29.

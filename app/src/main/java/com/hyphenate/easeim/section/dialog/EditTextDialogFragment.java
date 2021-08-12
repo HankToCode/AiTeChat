@@ -12,7 +12,7 @@ import androidx.annotation.StringRes;
 import androidx.core.content.ContextCompat;
 
 import com.hyphenate.easeim.R;
-import com.hyphenate.easeim.section.base.BaseActivity;
+import com.hyphenate.easeim.app.base.BaseActivity;
 
 public class EditTextDialogFragment extends DemoDialogFragment {
 

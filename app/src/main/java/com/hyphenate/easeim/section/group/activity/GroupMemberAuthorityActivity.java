@@ -19,7 +19,7 @@ import com.hyphenate.easeim.common.interfaceOrImplement.OnResourceParseCallback;
 import com.hyphenate.easeim.common.livedatas.LiveDataBus;
 import com.hyphenate.easeim.section.group.GroupHelper;
 import com.hyphenate.easeui.manager.SidebarPresenter;
-import com.hyphenate.easeim.section.base.BaseInitActivity;
+import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeim.section.dialog.DemoDialogFragment;
 import com.hyphenate.easeim.section.dialog.SimpleDialogFragment;
 import com.hyphenate.easeim.section.contact.activity.ContactDetailActivity;

@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.hyphenate.chat.EMGroup;
 import com.hyphenate.easeim.R;
 import com.hyphenate.easeim.common.constant.DemoConstant;
-import com.hyphenate.easeim.section.base.BaseInitFragment;
+import com.hyphenate.easeim.app.base.BaseInitFragment;
 import com.hyphenate.easeim.section.chat.activity.ChatActivity;
 import com.hyphenate.easeim.section.contact.adapter.GroupContactAdapter;
 import com.hyphenate.easeui.interfaces.OnItemClickListener;

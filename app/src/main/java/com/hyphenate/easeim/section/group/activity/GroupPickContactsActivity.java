@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.hyphenate.easeim.R;
 import com.hyphenate.easeim.common.interfaceOrImplement.OnResourceParseCallback;
 import com.hyphenate.easeui.manager.SidebarPresenter;
-import com.hyphenate.easeim.section.base.BaseInitActivity;
+import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeim.section.group.adapter.GroupPickContactsAdapter;
 import com.hyphenate.easeim.section.group.viewmodels.GroupPickContactsViewModel;
 import com.hyphenate.easeui.domain.EaseUser;

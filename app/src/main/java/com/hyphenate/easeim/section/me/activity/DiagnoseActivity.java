@@ -14,7 +14,7 @@ import android.widget.Toast;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.easeim.R;
-import com.hyphenate.easeim.section.base.BaseInitActivity;
+import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.hyphenate.util.EMLog;
 

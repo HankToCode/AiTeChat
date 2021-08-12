@@ -9,7 +9,7 @@ import android.widget.EditText;
 
 import com.hyphenate.easeim.DemoHelper;
 import com.hyphenate.easeim.R;
-import com.hyphenate.easeim.section.base.BaseInitActivity;
+import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 
 public class AppKeyAddActivity extends BaseInitActivity implements EaseTitleBar.OnRightClickListener, EaseTitleBar.OnBackPressListener {

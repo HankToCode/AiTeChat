@@ -19,7 +19,7 @@ import com.hyphenate.easeim.common.manager.OptionsHelper;
 import com.hyphenate.easeim.common.model.DemoModel;
 import com.hyphenate.easeim.common.widget.ArrowItemView;
 import com.hyphenate.easeim.common.widget.SwitchItemView;
-import com.hyphenate.easeim.section.base.BaseInitActivity;
+import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 
 public class DeveloperSetActivity extends BaseInitActivity implements EaseTitleBar.OnBackPressListener, View.OnClickListener, SwitchItemView.OnCheckedChangeListener {

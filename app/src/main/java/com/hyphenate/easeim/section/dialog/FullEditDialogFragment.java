@@ -13,8 +13,8 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.hyphenate.easeim.R;
-import com.hyphenate.easeim.section.base.BaseActivity;
-import com.hyphenate.easeim.section.base.BaseDialogFragment;
+import com.hyphenate.easeim.app.base.BaseActivity;
+import com.hyphenate.easeim.app.base.BaseDialogFragment;
 import com.hyphenate.easeui.utils.StatusBarCompat;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 

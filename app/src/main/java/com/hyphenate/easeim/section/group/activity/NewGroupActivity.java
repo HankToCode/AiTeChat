@@ -16,7 +16,7 @@ import com.hyphenate.easeim.common.interfaceOrImplement.OnResourceParseCallback;
 import com.hyphenate.easeim.common.livedatas.LiveDataBus;
 import com.hyphenate.easeim.common.widget.ArrowItemView;
 import com.hyphenate.easeim.common.widget.SwitchItemView;
-import com.hyphenate.easeim.section.base.BaseInitActivity;
+import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeim.section.chat.activity.ChatActivity;
 import com.hyphenate.easeim.section.dialog.EditTextDialogFragment;
 import com.hyphenate.easeim.section.dialog.SimpleDialogFragment;

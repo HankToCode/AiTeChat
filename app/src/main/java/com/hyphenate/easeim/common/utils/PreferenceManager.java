@@ -17,7 +17,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.hyphenate.easeim.section.api.global.UserComm;
+import com.hyphenate.easeim.app.api.global.UserComm;
 
 public class PreferenceManager {
 	/**

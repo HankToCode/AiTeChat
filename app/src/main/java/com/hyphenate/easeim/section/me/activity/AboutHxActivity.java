@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.hyphenate.easeim.BuildConfig;
 import com.hyphenate.easeim.R;
 import com.hyphenate.easeim.common.widget.ArrowItemView;
-import com.hyphenate.easeim.section.base.BaseInitActivity;
+import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 
 public class AboutHxActivity extends BaseInitActivity implements View.OnClickListener, EaseTitleBar.OnBackPressListener {

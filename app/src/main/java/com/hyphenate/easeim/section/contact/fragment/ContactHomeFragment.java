@@ -3,28 +3,13 @@ package com.hyphenate.easeim.section.contact.fragment;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.TextUtils;
-import android.view.MotionEvent;
-import android.view.View;
-import android.widget.TextView;
 
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.viewpager.widget.ViewPager;
 
-import com.hyphenate.chat.EMGroup;
 import com.hyphenate.easeim.R;
-import com.hyphenate.easeim.common.constant.DemoConstant;
 import com.hyphenate.easeim.common.utils.AdapterHelper;
-import com.hyphenate.easeim.section.base.BaseInitFragment;
-import com.hyphenate.easeim.section.chat.activity.ChatActivity;
-import com.hyphenate.easeim.section.contact.adapter.GroupContactAdapter;
-import com.hyphenate.easeim.section.conversation.ConversationListFragment;
-import com.hyphenate.easeim.section.discover.DiscoverFragment;
-import com.hyphenate.easeui.interfaces.OnItemClickListener;
+import com.hyphenate.easeim.app.base.BaseInitFragment;
 import com.hyphenate.easeui.ui.base.EaseBaseFragment;
-import com.hyphenate.easeui.utils.EaseCommonUtils;
-import com.hyphenate.easeui.widget.EaseRecyclerView;
-import com.hyphenate.easeui.widget.EaseSidebar;
 import com.scwang.smartrefresh.layout.util.DensityUtil;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -33,12 +18,9 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.CommonNavigat
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.CommonNavigatorAdapter;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.abs.IPagerTitleView;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.LinePagerIndicator;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.indicators.WrapPagerIndicator;
-import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ClipPagerTitleView;
 import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorTransitionPagerTitleView;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 

@@ -1,7 +1,6 @@
 package com.hyphenate.easeim.section.contact.fragment;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -15,7 +14,7 @@ import com.hyphenate.chat.EMGroupInfo;
 import com.hyphenate.easeim.R;
 import com.hyphenate.easeim.common.constant.DemoConstant;
 import com.hyphenate.easeim.common.interfaceOrImplement.OnResourceParseCallback;
-import com.hyphenate.easeim.section.base.BaseInitFragment;
+import com.hyphenate.easeim.app.base.BaseInitFragment;
 import com.hyphenate.easeim.section.chat.activity.ChatActivity;
 import com.hyphenate.easeim.section.group.GroupHelper;
 import com.hyphenate.easeim.section.group.activity.GroupSimpleDetailActivity;

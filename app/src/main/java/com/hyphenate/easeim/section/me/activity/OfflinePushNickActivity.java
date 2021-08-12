@@ -12,17 +12,15 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.lifecycle.ViewModelProvider;
 
 import com.hyphenate.chat.EMPushConfigs;
-import com.hyphenate.easeim.DemoHelper;
 import com.hyphenate.easeim.R;
 import com.hyphenate.easeim.common.constant.DemoConstant;
 import com.hyphenate.easeim.common.interfaceOrImplement.OnResourceParseCallback;
 import com.hyphenate.easeim.common.livedatas.LiveDataBus;
-import com.hyphenate.easeim.section.base.BaseInitActivity;
+import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeim.section.me.viewmodels.OfflinePushSetViewModel;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 

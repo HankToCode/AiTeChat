@@ -23,7 +23,7 @@ import com.hyphenate.easeim.R;
 import com.hyphenate.easeim.common.constant.DemoConstant;
 import com.hyphenate.easeim.common.livedatas.LiveDataBus;
 import com.hyphenate.easeim.common.model.EmojiconExampleGroupData;
-import com.hyphenate.easeim.section.base.BaseActivity;
+import com.hyphenate.easeim.app.base.BaseActivity;
 import com.hyphenate.easeim.section.chat.activity.ForwardMessageActivity;
 import com.hyphenate.easeim.section.chat.activity.ImageGridActivity;
 import com.hyphenate.easeim.section.chat.activity.PickAtUserActivity;

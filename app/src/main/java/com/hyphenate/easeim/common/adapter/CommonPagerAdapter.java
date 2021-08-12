@@ -11,7 +11,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.PagerAdapter;
 
-import com.hyphenate.easeim.section.base.BaseInitFragment;
+import com.hyphenate.easeim.app.base.BaseInitFragment;
 import com.hyphenate.easeui.ui.base.EaseBaseFragment;
 
 import java.util.ArrayList;

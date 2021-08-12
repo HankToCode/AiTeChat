@@ -303,7 +303,7 @@
         </activity>
         <!--启动页-->
         <activity
-            android:name=".section.login.activity.SplashActivity"
+            android:name=".section.account.activity.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar.SplashTheme">
             <intent-filter>
@@ -313,10 +313,10 @@
         </activity>
         <!--登录-->
         <activity
-            android:name=".section.login.activity.LoginActivity"
+            android:name=".section.account.activity.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity android:name=".section.login.activity.TestActivity" />
+        <activity android:name=".section.account.activity.TestActivity" />
         <!--添加好友-->
         <activity android:name=".section.contact.activity.AddContactActivity"
             android:screenOrientation="portrait"
@@ -522,7 +522,7 @@
         <!--推送消息显示样式-->
         <activity android:name=".section.me.activity.MessagePushStyleActivity" />
         <!--WebView加载网页-->
-        <activity android:name=".section.base.WebViewActivity" />
+        <activity android:name=".app.base.WebViewActivity" />
         <!--捕获屏幕service-->
 
 
@@ -531,21 +531,21 @@
 
 
         <activity
-            android:name=".section.login.activity.RegisterActivity"
+            android:name=".section.account.activity.RegisterActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" /> <!-- 注册 -->
 
         <activity
-            android:name=".section.login.activity.UpDataPasswordActivity"
+            android:name=".section.account.activity.UpDataPasswordActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" /> <!-- 修改密码 -->
 
         <activity
-            android:name=".section.login.activity.AccountManagerActivity"
+            android:name=".section.account.activity.AccountManagerActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"

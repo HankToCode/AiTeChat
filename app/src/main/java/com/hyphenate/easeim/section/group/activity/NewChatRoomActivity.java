@@ -12,7 +12,7 @@ import com.hyphenate.easeim.R;
 import com.hyphenate.easeim.common.constant.DemoConstant;
 import com.hyphenate.easeim.common.interfaceOrImplement.OnResourceParseCallback;
 import com.hyphenate.easeim.common.livedatas.LiveDataBus;
-import com.hyphenate.easeim.section.base.BaseInitActivity;
+import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeim.section.dialog.SimpleDialogFragment;
 import com.hyphenate.easeim.section.contact.viewmodels.NewChatRoomViewModel;
 import com.hyphenate.easeui.model.EaseEvent;

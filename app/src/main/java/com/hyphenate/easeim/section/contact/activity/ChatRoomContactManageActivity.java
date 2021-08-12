@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.hyphenate.easeim.R;
-import com.hyphenate.easeim.section.base.BaseInitActivity;
+import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeim.section.contact.fragment.ChatRoomContactManageFragment;
 import com.hyphenate.easeim.section.search.SearchChatRoomActivity;
 import com.hyphenate.easeui.widget.EaseSearchTextView;

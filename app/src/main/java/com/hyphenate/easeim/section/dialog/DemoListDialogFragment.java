@@ -20,8 +20,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hyphenate.easeim.R;
-import com.hyphenate.easeim.section.base.BaseActivity;
-import com.hyphenate.easeim.section.base.BaseDialogFragment;
+import com.hyphenate.easeim.app.base.BaseActivity;
+import com.hyphenate.easeim.app.base.BaseDialogFragment;
 import com.hyphenate.easeui.adapter.EaseBaseRecyclerViewAdapter;
 import com.hyphenate.easeui.interfaces.OnItemClickListener;
 

@@ -12,7 +12,7 @@ import com.hyphenate.easeim.R;
 import com.hyphenate.easeim.common.model.DemoModel;
 import com.hyphenate.easeim.common.widget.ArrowItemView;
 import com.hyphenate.easeim.common.widget.SwitchItemView;
-import com.hyphenate.easeim.section.base.BaseInitActivity;
+import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 
 public class CommonSettingsActivity extends BaseInitActivity implements View.OnClickListener, SwitchItemView.OnCheckedChangeListener, EaseTitleBar.OnBackPressListener {

@@ -3,7 +3,6 @@ package com.hyphenate.easeim.section.contact.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.FrameLayout;
 
@@ -14,7 +13,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.hyphenate.easeim.R;
-import com.hyphenate.easeim.section.base.BaseInitActivity;
+import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeim.section.contact.fragment.GroupContactManageFragment;
 import com.hyphenate.easeim.section.contact.fragment.GroupPublicContactManageFragment;
 import com.hyphenate.easeim.section.contact.viewmodels.GroupContactViewModel;

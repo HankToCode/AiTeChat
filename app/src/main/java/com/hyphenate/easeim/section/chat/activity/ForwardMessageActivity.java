@@ -12,7 +12,7 @@ import com.hyphenate.easeim.DemoApplication;
 import com.hyphenate.easeim.R;
 import com.hyphenate.easeim.common.interfaceOrImplement.OnResourceParseCallback;
 import com.hyphenate.easeim.common.manager.PushAndMessageHelper;
-import com.hyphenate.easeim.section.base.BaseInitActivity;
+import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeim.section.chat.adapter.PickUserAdapter;
 import com.hyphenate.easeim.section.dialog.DemoDialogFragment;
 import com.hyphenate.easeim.section.dialog.SimpleDialogFragment;

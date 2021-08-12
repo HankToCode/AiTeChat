@@ -4,7 +4,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.viewpager.widget.ViewPager;
 
 import com.hyphenate.easeim.common.adapter.CommonPagerAdapter;
-import com.hyphenate.easeim.section.base.BaseInitFragment;
+import com.hyphenate.easeim.app.base.BaseInitFragment;
 import com.hyphenate.easeui.ui.base.EaseBaseFragment;
 
 import java.util.List;

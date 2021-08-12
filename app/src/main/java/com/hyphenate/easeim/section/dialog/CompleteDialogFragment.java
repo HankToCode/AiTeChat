@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import android.widget.TextView;
 
 import com.hyphenate.easeim.R;
-import com.hyphenate.easeim.section.base.BaseActivity;
+import com.hyphenate.easeim.app.base.BaseActivity;
 
 public class CompleteDialogFragment extends DemoDialogFragment {
     private TextView tvContent;

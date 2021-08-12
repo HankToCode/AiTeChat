@@ -31,16 +31,14 @@ import com.hyphenate.easeim.common.utils.video.ImageResizer;
 import com.hyphenate.easeim.common.utils.video.Utils;
 import com.hyphenate.easeim.common.widget.DividerGridItemDecoration;
 import com.hyphenate.easeim.common.widget.RecyclingImageView;
-import com.hyphenate.easeim.section.base.BaseFragment;
+import com.hyphenate.easeim.app.base.BaseFragment;
 import com.hyphenate.easeim.section.chat.viewmodel.VideoListViewModel;
 import com.hyphenate.easeui.interfaces.OnItemClickListener;
 import com.hyphenate.easeui.model.VideoEntity;
 import com.hyphenate.easeui.utils.EaseCompat;
 import com.hyphenate.easeui.utils.EaseDateUtils;
 import com.hyphenate.easeui.widget.EaseTitleBar;
-import com.hyphenate.util.DateUtils;
 import com.hyphenate.util.TextFormater;
-import com.hyphenate.util.VersionUtils;
 
 import java.io.File;
 import java.io.IOException;

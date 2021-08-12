@@ -14,7 +14,7 @@ import com.hyphenate.easeim.R;
 import com.hyphenate.easeim.common.constant.DemoConstant;
 import com.hyphenate.easeim.common.interfaceOrImplement.OnResourceParseCallback;
 import com.hyphenate.easeim.common.widget.ArrowItemView;
-import com.hyphenate.easeim.section.base.BaseInitActivity;
+import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeim.section.group.GroupHelper;
 import com.hyphenate.easeim.section.group.viewmodels.GroupMemberAuthorityViewModel;
 import com.hyphenate.easeui.model.EaseEvent;

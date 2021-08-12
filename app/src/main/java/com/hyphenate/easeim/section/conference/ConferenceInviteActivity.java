@@ -27,7 +27,7 @@ import com.hyphenate.easecallkit.EaseCallKit;
 import com.hyphenate.easeim.R;
 import com.hyphenate.easeim.common.constant.DemoConstant;
 import com.hyphenate.easeim.common.interfaceOrImplement.OnResourceParseCallback;
-import com.hyphenate.easeim.section.base.BaseInitActivity;
+import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeim.section.chat.model.KV;
 import com.hyphenate.easeim.section.chat.viewmodel.ConferenceInviteViewModel;
 import com.hyphenate.easeui.utils.EaseUserUtils;

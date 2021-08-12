@@ -12,8 +12,8 @@ import com.hyphenate.EMCallBack;
 import com.hyphenate.easeim.DemoHelper;
 import com.hyphenate.easeim.R;
 import com.hyphenate.easeim.common.widget.ArrowItemView;
-import com.hyphenate.easeim.section.base.BaseInitActivity;
-import com.hyphenate.easeim.section.login.activity.LoginActivity;
+import com.hyphenate.easeim.app.base.BaseInitActivity;
+import com.hyphenate.easeim.section.account.activity.LoginActivity;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 
 public class SetIndexActivity extends BaseInitActivity implements EaseTitleBar.OnBackPressListener, View.OnClickListener {

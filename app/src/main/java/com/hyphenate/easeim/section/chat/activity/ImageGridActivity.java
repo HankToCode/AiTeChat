@@ -3,7 +3,7 @@ package com.hyphenate.easeim.section.chat.activity;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.hyphenate.easeim.R;
-import com.hyphenate.easeim.section.base.BaseInitActivity;
+import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeim.section.chat.fragment.ImageGridFragment;
 
 public class ImageGridActivity extends BaseInitActivity {

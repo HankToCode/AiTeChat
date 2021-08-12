@@ -1,7 +1,7 @@
 package com.hyphenate.easeim.section.discover;
 
 import com.hyphenate.easeim.R;
-import com.hyphenate.easeim.section.base.BaseInitFragment;
+import com.hyphenate.easeim.app.base.BaseInitFragment;
 
 public class DiscoverFragment extends BaseInitFragment {
 

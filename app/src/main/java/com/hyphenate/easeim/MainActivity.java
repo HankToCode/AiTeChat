@@ -31,9 +31,8 @@ import com.hyphenate.easeim.common.enums.SearchType;
 import com.hyphenate.easeim.common.permission.PermissionsManager;
 import com.hyphenate.easeim.common.permission.PermissionsResultAction;
 import com.hyphenate.easeim.common.utils.PushUtils;
-import com.hyphenate.easeim.common.utils.ToastUtils;
 import com.hyphenate.easeim.section.MainViewModel;
-import com.hyphenate.easeim.section.base.BaseInitActivity;
+import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeim.section.chat.ChatPresenter;
 import com.hyphenate.easeim.section.contact.activity.AddContactActivity;
 import com.hyphenate.easeim.section.contact.fragment.ContactHomeFragment;
@@ -54,7 +53,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
     private EaseTitleBar mTitleBar;
     private EaseBaseFragment mContactsFragment, mMessageFragment, mDiscoverFragment, mFindFragment;
     private EaseBaseFragment mCurrentFragment;
-    private TextView mTvMainHomeMsg, mTvMainFriendsMsg, mTvMainDiscoverMsg, mTvMainAboutMeMsg;
+    private TextView mTvMainContactsMsg, mTvMainMessageMsg, mTvMainDiscoverMsg, mTvMainFindMsg;
     private int[] badgeIds = {R.layout.demo_badge_home, R.layout.demo_badge_friends, R.layout.demo_badge_discover, R.layout.demo_badge_about_me};
     private int[] msgIds = {R.id.tv_main_home_msg, R.id.tv_main_friends_msg, R.id.tv_main_discover_msg, R.id.tv_main_about_me_msg};
     private MainViewModel viewModel;
@@ -205,10 +204,10 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
 
         viewModel.homeUnReadObservable().observe(this, readCount -> {
             if (!TextUtils.isEmpty(readCount)) {
-                mTvMainHomeMsg.setVisibility(View.VISIBLE);
-                mTvMainHomeMsg.setText(readCount);
+                mTvMainContactsMsg.setVisibility(View.VISIBLE);
+                mTvMainContactsMsg.setText(readCount);
             } else {
-                mTvMainHomeMsg.setVisibility(View.GONE);
+                mTvMainContactsMsg.setVisibility(View.GONE);
             }
         });
 
@@ -246,16 +245,16 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
             View badge = LayoutInflater.from(mContext).inflate(badgeIds[i], menuView, false);
             switch (i) {
                 case 0:
-                    mTvMainHomeMsg = badge.findViewById(msgIds[0]);
+                    mTvMainContactsMsg = badge.findViewById(msgIds[0]);
                     break;
                 case 1:
-                    mTvMainFriendsMsg = badge.findViewById(msgIds[1]);
+                    mTvMainMessageMsg = badge.findViewById(msgIds[1]);
                     break;
                 case 2:
                     mTvMainDiscoverMsg = badge.findViewById(msgIds[2]);
                     break;
                 case 3:
-                    mTvMainAboutMeMsg = badge.findViewById(msgIds[3]);
+                    mTvMainFindMsg = badge.findViewById(msgIds[3]);
                     break;
             }
             itemTab.addView(badge);
@@ -300,7 +299,6 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
 
     private void switchToHome() {
         if (mContactsFragment == null) {
-//            mContactsFragment = new ConversationListFragment();
             mContactsFragment = new ContactHomeFragment();
         }
         replace(mContactsFragment, "contacts");
@@ -442,7 +440,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
                 break;
 
             case R.id.iv_avatar:
-                ToastUtils.showToast("这是头像");
+
                 break;
             default:
                 break;

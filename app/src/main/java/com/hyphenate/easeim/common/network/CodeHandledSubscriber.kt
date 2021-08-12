@@ -2,7 +2,7 @@ package com.hyphenate.easeim.common.network
 
 import com.hyphenate.easeim.common.network.exception.ApiException
 import com.hyphenate.easeim.common.network.exception.ExceptionHandle
-import com.hyphenate.easeim.section.api.bean.ResponseBean
+import com.hyphenate.easeim.app.api.bean.ResponseBean
 import io.reactivex.Observer
 import io.reactivex.disposables.Disposable
 

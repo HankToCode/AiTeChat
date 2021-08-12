@@ -1,7 +1,5 @@
 package com.hyphenate.easeim.common.repositories;
 
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
@@ -19,8 +17,8 @@ import com.hyphenate.easeim.common.net.ErrorCode;
 import com.hyphenate.easeim.common.net.Resource;
 import com.hyphenate.easeim.common.interfaceOrImplement.ResultCallBack;
 import com.hyphenate.easeim.common.utils.PreferenceManager;
-import com.hyphenate.easeim.section.api.bean.LoginInfo;
-import com.hyphenate.easeim.section.api.global.UserComm;
+import com.hyphenate.easeim.app.api.bean.LoginInfo;
+import com.hyphenate.easeim.app.api.global.UserComm;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.model.EaseEvent;
 import com.hyphenate.exceptions.HyphenateException;

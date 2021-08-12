@@ -19,7 +19,7 @@ import com.hyphenate.easeim.common.db.entity.AppKeyEntity;
 import com.hyphenate.easeim.common.interfaceOrImplement.OnResourceParseCallback;
 import com.hyphenate.easeim.common.manager.OptionsHelper;
 import com.hyphenate.easeim.common.model.DemoModel;
-import com.hyphenate.easeim.section.base.BaseInitActivity;
+import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeim.section.dialog.DemoDialogFragment;
 import com.hyphenate.easeim.section.dialog.SimpleDialogFragment;
 import com.hyphenate.easeim.section.me.viewmodels.AppKeyManagerViewModel;

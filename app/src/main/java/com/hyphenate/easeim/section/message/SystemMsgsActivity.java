@@ -13,7 +13,7 @@ import com.hyphenate.easeim.common.constant.DemoConstant;
 import com.hyphenate.easeim.common.db.entity.InviteMessageStatus;
 import com.hyphenate.easeim.common.interfaceOrImplement.OnResourceParseCallback;
 import com.hyphenate.easeim.common.livedatas.LiveDataBus;
-import com.hyphenate.easeim.section.base.BaseInitActivity;
+import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeim.section.message.delegates.AgreeMsgDelegate;
 import com.hyphenate.easeim.section.message.delegates.InviteMsgDelegate;
 import com.hyphenate.easeim.section.message.delegates.OtherMsgDelegate;
