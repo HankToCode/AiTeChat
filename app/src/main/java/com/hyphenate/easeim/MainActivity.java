@@ -26,7 +26,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.hyphenate.easecallkit.base.EaseCallType;
 import com.hyphenate.easecallkit.ui.EaseMultipleVideoActivity;
 import com.hyphenate.easecallkit.ui.EaseVideoCallActivity;
-import com.hyphenate.easeim.app.api.http_old.CommonApi;
+import com.hyphenate.easeim.app.api.old_http.CommonApi;
 import com.hyphenate.easeim.common.constant.DemoConstant;
 import com.hyphenate.easeim.common.enums.SearchType;
 import com.hyphenate.easeim.common.permission.PermissionsManager;

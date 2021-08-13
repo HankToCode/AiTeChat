@@ -17,7 +17,7 @@ import com.hyphenate.easeim.common.net.ErrorCode;
 import com.hyphenate.easeim.common.net.Resource;
 import com.hyphenate.easeim.common.interfaceOrImplement.ResultCallBack;
 import com.hyphenate.easeim.common.utils.PreferenceManager;
-import com.hyphenate.easeim.app.api.bean.LoginInfo;
+import com.hyphenate.easeim.app.api.old_data.LoginInfo;
 import com.hyphenate.easeim.app.api.global.UserComm;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.model.EaseEvent;

@@ -20,9 +20,9 @@ import com.hyphenate.easeim.R;
 import com.hyphenate.easeim.common.utils.GlideUtils;
 import com.hyphenate.easeim.common.utils.StringUtil;
 import com.hyphenate.easeim.common.utils.ToastUtil;
-import com.hyphenate.easeim.app.api.http_old.ApiClient;
-import com.hyphenate.easeim.app.api.http_old.AppUrls;
-import com.hyphenate.easeim.app.api.http_old.ResultListener;
+import com.hyphenate.easeim.app.api.old_http.ApiClient;
+import com.hyphenate.easeim.app.api.old_http.AppConfig;
+import com.hyphenate.easeim.app.api.old_http.ResultListener;
 import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 
@@ -140,7 +140,7 @@ public class UpDataPasswordActivity extends BaseInitActivity implements View.OnC
      */
     private void flushTy() {
         getRandom();
-        GlideUtils.loadImageViewLoding(AppUrls.tuxingCode + "?random=" + flag, mImgCode);
+        GlideUtils.loadImageViewLoding(AppConfig.tuxingCode + "?random=" + flag, mImgCode);
     }
 
     /**
@@ -206,7 +206,7 @@ public class UpDataPasswordActivity extends BaseInitActivity implements View.OnC
         map.put("password", pwd);
         map.put("phone", phone);
         map.put("authCode", sms);
-        ApiClient.requestNetHandle(this, AppUrls.forgetpasswordUrl, "正在提交...", map, new ResultListener() {
+        ApiClient.requestNetHandle(this, AppConfig.forgetpasswordUrl, "正在提交...", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 ToastUtil.toast("修改成功");
@@ -240,7 +240,7 @@ public class UpDataPasswordActivity extends BaseInitActivity implements View.OnC
         map.put("random", flag + "");
         map.put("imgCode", mEtUserCode.getText().toString());
 
-        ApiClient.requestNetHandle(this, AppUrls.getForgetPhoneCodeUrl, "获取验证码...", map, new ResultListener() {
+        ApiClient.requestNetHandle(this, AppConfig.getForgetPhoneCodeUrl, "获取验证码...", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 if (json != null) {

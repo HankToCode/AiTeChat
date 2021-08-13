@@ -1,5 +1,8 @@
 package com.hyphenate.easeim.section.account.activity;
 
+import static com.darsh.multipleimageselect.helpers.Constants.REQUEST_CODE;
+import static com.zds.base.code.activity.CaptureActivity.INTENT_EXTRA_KEY_QR_SCAN;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,15 +14,16 @@ import android.widget.TextView;
 
 import com.coorchice.library.SuperTextView;
 import com.hyphenate.easeim.R;
-import com.hyphenate.easeim.app.api.bean.EventCenter;
-import com.hyphenate.easeim.app.api.bean.LoginInfo;
-import com.hyphenate.easeim.app.api.bean.StoreShowSwitchBean;
+import com.hyphenate.easeim.app.api.old_data.EventCenter;
+import com.hyphenate.easeim.app.api.old_data.LoginInfo;
+import com.hyphenate.easeim.app.api.old_data.StoreShowSwitchBean;
 import com.hyphenate.easeim.app.api.global.EventUtil;
 import com.hyphenate.easeim.app.api.global.UserComm;
-import com.hyphenate.easeim.app.api.http_old.ApiClient;
-import com.hyphenate.easeim.app.api.http_old.AppUrls;
-import com.hyphenate.easeim.app.api.http_old.ResultListener;
+import com.hyphenate.easeim.app.api.old_http.ApiClient;
+import com.hyphenate.easeim.app.api.old_http.AppConfig;
+import com.hyphenate.easeim.app.api.old_http.ResultListener;
 import com.hyphenate.easeim.app.base.BaseInitActivity;
+import com.hyphenate.easeim.app.operate.UserOperateManager;
 import com.hyphenate.easeim.common.utils.GlideUtils;
 import com.hyphenate.easeim.common.utils.json.FastJsonUtil;
 
@@ -117,7 +121,7 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
     private void initUserInfo() {
         LoginInfo loginInfo = UserComm.getUserInfo();
         if (loginInfo != null) {
-            GlideUtils.GlideLoadCircleErrorImageUtils(this, AppUrls.checkimg(loginInfo.getUserHead()), mIvAvatar, R.mipmap.img_default_avatar);
+            GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(loginInfo.getUserHead()), mIvAvatar, R.mipmap.img_default_avatar);
             mTvNickName.setText(loginInfo.getNickName());
             if (TextUtils.isEmpty(loginInfo.getUserCode())) {
                 mTvUserId.setText("ID： 无");
@@ -130,7 +134,7 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
     private void getStoreShowSwitch() {
         mLlGroups.setVisibility(View.GONE);
         Map<String, Object> map = new HashMap<>();
-        ApiClient.requestNetHandleNoParam(this, AppUrls.showStore,
+        ApiClient.requestNetHandleNoParam(this, AppConfig.showStore,
                 "", new ResultListener() {
                     @Override
                     public void onSuccess(String json, String msg) {
@@ -157,6 +161,29 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
     protected void onEventComing(EventCenter center) {
         if (center.getEventCode() == EventUtil.FLUSHUSERINFO) {
             initUserInfo();
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE) {
+            //处理扫描结果（在界面上显示）
+            if (null != data) {
+                Bundle bundle = data.getExtras();
+                if (bundle == null) {
+                    return;
+                }
+                String result = bundle.getString(INTENT_EXTRA_KEY_QR_SCAN);
+                if (result.contains("person") || result.contains("group")) {
+                    if ("person".equals(result.split("_")[1])) {
+//                        startActivity(new Intent(this, UserInfoDetailActivity.class).putExtra("friendUserId", result.split("_")[0]));
+                    } else {
+                        UserOperateManager.getInstance().scanInviteContact(this, result);
+
+                    }
+                }
+            }
         }
     }
 

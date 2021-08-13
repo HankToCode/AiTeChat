@@ -36,12 +36,12 @@ import com.hyphenate.easeim.common.utils.SystemUtil;
 import com.hyphenate.easeim.common.utils.ToastUtil;
 import com.hyphenate.easeim.common.utils.ToastUtils;
 import com.hyphenate.easeim.app.api.Constant;
-import com.hyphenate.easeim.app.api.bean.LoginInfo;
+import com.hyphenate.easeim.app.api.old_data.LoginInfo;
 import com.hyphenate.easeim.app.api.global.SP;
 import com.hyphenate.easeim.app.api.global.UserComm;
-import com.hyphenate.easeim.app.api.http_old.ApiClient;
-import com.hyphenate.easeim.app.api.http_old.AppUrls;
-import com.hyphenate.easeim.app.api.http_old.ResultListener;
+import com.hyphenate.easeim.app.api.old_http.ApiClient;
+import com.hyphenate.easeim.app.api.old_http.AppConfig;
+import com.hyphenate.easeim.app.api.old_http.ResultListener;
 import com.hyphenate.easeim.app.base.BaseInitFragment;
 import com.hyphenate.easeim.section.account.activity.AccountManagerActivity;
 import com.hyphenate.easeim.section.account.activity.RegisterActivity;
@@ -279,7 +279,7 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
         map.put("os", "Android");
         map.put("version", Global.loginVersion);
         map.put("deviceName", SystemUtil.getDeviceManufacturer() + " " + SystemUtil.getSystemModel());
-        ApiClient.requestNetHandle(mContext, AppUrls.multiLogin, "", map, new ResultListener() {
+        ApiClient.requestNetHandle(mContext, AppConfig.multiLogin, "", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 if (json != null) {
@@ -325,7 +325,7 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
         map.put("version", Global.loginVersion);
         map.put("deviceName", SystemUtil.getDeviceManufacturer() + " " + SystemUtil.getSystemModel());
 
-        ApiClient.requestNetHandle(requireContext(), AppUrls.toSMSMultiLoginUrl, "", map, new ResultListener() {
+        ApiClient.requestNetHandle(requireContext(), AppConfig.toSMSMultiLoginUrl, "", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 if (json != null) {
@@ -377,7 +377,7 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
         Map<String, Object> map = new HashMap<>();
         map.put("phone", mUserName);
 
-        ApiClient.requestNetHandle(requireContext(), AppUrls.getSMSCodeForLogin, "获取验证码", map, new ResultListener() {
+        ApiClient.requestNetHandle(requireContext(), AppConfig.getSMSCodeForLogin, "获取验证码", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 ToastUtil.toast("发送成功");

@@ -20,9 +20,9 @@ import com.hyphenate.easeim.R;
 import com.hyphenate.easeim.common.utils.GlideUtils;
 import com.hyphenate.easeim.common.utils.StringUtil;
 import com.hyphenate.easeim.common.utils.ToastUtil;
-import com.hyphenate.easeim.app.api.http_old.ApiClient;
-import com.hyphenate.easeim.app.api.http_old.AppUrls;
-import com.hyphenate.easeim.app.api.http_old.ResultListener;
+import com.hyphenate.easeim.app.api.old_http.ApiClient;
+import com.hyphenate.easeim.app.api.old_http.AppConfig;
+import com.hyphenate.easeim.app.api.old_http.ResultListener;
 import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeim.app.base.WebViewActivity;
 import com.hyphenate.easeui.widget.EaseTitleBar;
@@ -131,7 +131,7 @@ public class RegisterActivity extends BaseInitActivity implements View.OnClickLi
      */
     private void flushTy() {
         getRandom();
-        GlideUtils.loadImageViewLoding(AppUrls.tuxingCode + "?random=" + flag, mImgCode);
+        GlideUtils.loadImageViewLoding(AppConfig.tuxingCode + "?random=" + flag, mImgCode);
     }
 
     /**
@@ -197,7 +197,7 @@ public class RegisterActivity extends BaseInitActivity implements View.OnClickLi
         map.put("authCode", sms);
         map.put("nickName", mEtUserName.getText().toString().trim());
 
-        ApiClient.requestNetHandle(this, AppUrls.toRegister, "正在注册...", map, new ResultListener() {
+        ApiClient.requestNetHandle(this, AppConfig.toRegister, "正在注册...", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 ToastUtil.toast("注册成功");
@@ -230,7 +230,7 @@ public class RegisterActivity extends BaseInitActivity implements View.OnClickLi
 //        map.put("type", "register");
         map.put("random", flag + "");
         map.put("imgCode", mEtUserCode.getText().toString());
-        ApiClient.requestNetHandle(this, AppUrls.getPhoneCodeUrl, "获取验证码...", map, new ResultListener() {
+        ApiClient.requestNetHandle(this, AppConfig.getPhoneCodeUrl, "获取验证码...", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 if (json != null) {
@@ -258,7 +258,7 @@ public class RegisterActivity extends BaseInitActivity implements View.OnClickLi
         switch (view.getId()) {
             case R.id.tv_register_agreement:
                 //注册协议
-                startActivity(new Intent(this, WebViewActivity.class).putExtra("title", "lan").putExtra("url", AppUrls.register_agree));
+                startActivity(new Intent(this, WebViewActivity.class).putExtra("title", "lan").putExtra("url", AppConfig.register_agree));
                 break;
             case R.id.img_code:
                 flushTy();

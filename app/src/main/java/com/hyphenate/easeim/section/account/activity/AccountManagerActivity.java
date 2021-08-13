@@ -19,9 +19,9 @@ import com.hyphenate.easeim.R;
 import com.hyphenate.easeim.common.utils.StringUtil;
 import com.hyphenate.easeim.common.utils.ToastUtil;
 import com.hyphenate.easeim.app.api.Constant;
-import com.hyphenate.easeim.app.api.http_old.ApiClient;
-import com.hyphenate.easeim.app.api.http_old.AppUrls;
-import com.hyphenate.easeim.app.api.http_old.ResultListener;
+import com.hyphenate.easeim.app.api.old_http.ApiClient;
+import com.hyphenate.easeim.app.api.old_http.AppConfig;
+import com.hyphenate.easeim.app.api.old_http.ResultListener;
 import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 
@@ -117,7 +117,7 @@ public class AccountManagerActivity extends BaseInitActivity implements View.OnC
         Map<String, Object> map = new HashMap<>();
         map.put("phone", phone);
 
-        String url = operaterStatus.equals(Constant.ACCOUNT_FREEZE) ? AppUrls.getAccountFrozenSMSCode : AppUrls.getAccountThawSMSCode;
+        String url = operaterStatus.equals(Constant.ACCOUNT_FREEZE) ? AppConfig.getAccountFrozenSMSCode : AppConfig.getAccountThawSMSCode;
         ApiClient.requestNetHandle(this, url, "获取验证码", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
@@ -146,7 +146,7 @@ public class AccountManagerActivity extends BaseInitActivity implements View.OnC
         map.put("phone", phone);
         map.put("authCode", smsCode);
 
-        String url = operaterStatus.equals(Constant.ACCOUNT_FREEZE) ? AppUrls.frozenAccount : AppUrls.thawAccount;
+        String url = operaterStatus.equals(Constant.ACCOUNT_FREEZE) ? AppConfig.frozenAccount : AppConfig.thawAccount;
         ApiClient.requestNetHandle(this, url, "请稍等", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
