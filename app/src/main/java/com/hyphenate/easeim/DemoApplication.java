@@ -11,7 +11,6 @@ import androidx.multidex.MultiDex;
 
 import com.hyphenate.easeim.common.interfaceOrImplement.UserActivityLifecycleCallbacks;
 import com.hyphenate.easeim.common.utils.PreferenceManager;
-import com.hyphenate.easeim.common.utils.Utils;
 import com.hyphenate.util.EMLog;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
@@ -22,12 +21,13 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.zds.base.SelfAppContext;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-public class DemoApplication extends Application implements Thread.UncaughtExceptionHandler {
+public class DemoApplication extends SelfAppContext implements Thread.UncaughtExceptionHandler {
     private static DemoApplication instance;
     private UserActivityLifecycleCallbacks mLifecycleCallbacks = new UserActivityLifecycleCallbacks();
 
@@ -39,7 +39,6 @@ public class DemoApplication extends Application implements Thread.UncaughtExcep
         initHx();
         registerActivityLifecycleCallbacks();
         closeAndroidPDialog();
-        Utils.init(this);
     }
 
     private void initThrowableHandler() {

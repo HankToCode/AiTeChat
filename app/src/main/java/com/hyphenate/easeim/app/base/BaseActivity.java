@@ -35,6 +35,7 @@ import com.hyphenate.EMCallBack;
 import com.hyphenate.easeim.DemoApplication;
 import com.hyphenate.easeim.DemoHelper;
 import com.hyphenate.easeim.R;
+import com.hyphenate.easeim.app.api.old_data.EventCenter;
 import com.hyphenate.easeim.common.constant.DemoConstant;
 import com.hyphenate.easeim.common.enums.Status;
 import com.hyphenate.easeim.common.interfaceOrImplement.OnResourceParseCallback;
@@ -47,11 +48,16 @@ import com.hyphenate.easeim.section.account.activity.LoginActivity;
 import com.hyphenate.easeui.model.EaseEvent;
 import com.hyphenate.easeui.utils.StatusBarCompat;
 import com.hyphenate.util.EMLog;
+import com.lzy.okgo.OkGo;
 import com.uber.autodispose.AutoDispose;
 import com.uber.autodispose.AutoDisposeConverter;
 import com.uber.autodispose.android.lifecycle.AndroidLifecycleScopeProvider;
 import com.uber.autodispose.lifecycle.LifecycleScopeProvider;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 /**
@@ -70,6 +76,10 @@ public class BaseActivity extends AppCompatActivity {
         mContext = this;
         clearFragmentsBeforeCreate();
         registerAccountObservable();
+
+        EventBus.getDefault().register(this);
+        ActivityStackManager.getInstance().addActivity(new WeakReference<>(this));
+
     }
 
     /**
@@ -210,20 +220,42 @@ public class BaseActivity extends AppCompatActivity {
         if (imm != null && getWindow().getAttributes().softInputMode != WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN) {
             if (getCurrentFocus() != null) {
                 imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), InputMethodManager.HIDE_NOT_ALWAYS);
-                super.onBackPressed();
-            } else {
-                super.onBackPressed();
             }
-        } else {
-            super.onBackPressed();
+        }
+        super.onBackPressed();
+
+    }
+
+    /**
+     * EventBus接收消息
+     *
+     * @param center 获取事件总线信息
+     */
+    protected void onEventComing(EventCenter center) {
+
+    }
+
+    /**
+     * EventBus接收消息
+     *
+     * @param center 消息接收
+     */
+    @Subscribe
+    public void onEventMainThread(EventCenter center) {
+        if (null != center) {
+            onEventComing(center);
         }
 
     }
 
     @Override
     protected void onDestroy() {
-        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+        ActivityStackManager.getInstance().removeActivity(new WeakReference<Activity>(this));
+        OkGo.getInstance().cancelTag(this);
         dismissLoading();
+        super.onDestroy();
+
     }
 
     /**

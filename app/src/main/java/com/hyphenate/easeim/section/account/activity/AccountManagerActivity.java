@@ -16,14 +16,14 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.coorchice.library.SuperTextView;
 import com.hyphenate.easeim.R;
-import com.hyphenate.easeim.common.utils.StringUtil;
-import com.hyphenate.easeim.common.utils.ToastUtil;
 import com.hyphenate.easeim.app.api.Constant;
 import com.hyphenate.easeim.app.api.old_http.ApiClient;
 import com.hyphenate.easeim.app.api.old_http.AppConfig;
 import com.hyphenate.easeim.app.api.old_http.ResultListener;
 import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeui.widget.EaseTitleBar;
+import com.zds.base.Toast.ToastUtil;
+import com.zds.base.util.StringUtil;
 
 import java.util.HashMap;
 import java.util.Map;

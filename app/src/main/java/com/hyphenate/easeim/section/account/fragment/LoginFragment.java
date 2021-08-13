@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.AppCompatTextView;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
@@ -32,8 +33,6 @@ import com.hyphenate.easeim.common.interfaceOrImplement.OnResourceParseCallback;
 import com.hyphenate.easeim.common.utils.DeviceIdUtil;
 import com.hyphenate.easeim.common.utils.NetworkUtil;
 import com.hyphenate.easeim.common.utils.PreferenceManager;
-import com.hyphenate.easeim.common.utils.SystemUtil;
-import com.hyphenate.easeim.common.utils.ToastUtil;
 import com.hyphenate.easeim.common.utils.ToastUtils;
 import com.hyphenate.easeim.app.api.Constant;
 import com.hyphenate.easeim.app.api.old_data.LoginInfo;
@@ -49,6 +48,8 @@ import com.hyphenate.easeim.section.account.activity.UpDataPasswordActivity;
 import com.hyphenate.easeim.section.account.viewmodels.LoginFragmentViewModel;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.utils.EaseEditTextUtils;
+import com.zds.base.Toast.ToastUtil;
+import com.zds.base.util.SystemUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -110,13 +111,8 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
         mLlSms = (ConstraintLayout) findViewById(R.id.ll_sms);
         mTvSms = (TextView) findViewById(R.id.tv_sms);
         mEtLoginSms = (EditText) findViewById(R.id.et_login_sms);
-        mTvSmsSend = (SuperTextView) findViewById(R.id.tv_sms_send);
+        mTvSmsSend = findViewById(R.id.tv_sms_send);
 
-        // 保证切换fragment后相关状态正确
-        boolean enableTokenLogin = DemoHelper.getInstance().getModel().isEnableTokenLogin();
-        if (!TextUtils.isEmpty(DemoHelper.getInstance().getCurrentLoginUser())) {
-            mEtLoginName.setText(DemoHelper.getInstance().getCurrentLoginUser());
-        }
     }
 
     @Override

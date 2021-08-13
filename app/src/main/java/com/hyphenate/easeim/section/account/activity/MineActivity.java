@@ -11,9 +11,15 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.coorchice.library.SuperTextView;
+import com.hyphenate.EMCallBack;
 import com.hyphenate.easeim.R;
+import com.hyphenate.easeim.app.api.Constant;
+import com.hyphenate.easeim.app.api.Global;
 import com.hyphenate.easeim.app.api.old_data.EventCenter;
 import com.hyphenate.easeim.app.api.old_data.LoginInfo;
 import com.hyphenate.easeim.app.api.old_data.StoreShowSwitchBean;
@@ -24,8 +30,17 @@ import com.hyphenate.easeim.app.api.old_http.AppConfig;
 import com.hyphenate.easeim.app.api.old_http.ResultListener;
 import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeim.app.operate.UserOperateManager;
-import com.hyphenate.easeim.common.utils.GlideUtils;
-import com.hyphenate.easeim.common.utils.json.FastJsonUtil;
+import com.hyphenate.easeim.app.utils.my.MyHelper;
+import com.hyphenate.easeim.common.utils.DeviceIdUtil;
+import com.hyphenate.easeim.section.me.activity.MultiDeviceActivity;
+import com.hyphenate.easeui.widget.EaseAlertDialog;
+import com.hyphenate.easeui.widget.EaseImageView;
+import com.zds.base.ImageLoad.GlideUtils;
+import com.zds.base.Toast.ToastUtil;
+import com.zds.base.code.activity.CaptureActivity;
+import com.zds.base.json.FastJsonUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -34,21 +49,24 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class MineActivity extends BaseInitActivity implements View.OnClickListener {
     private ImageView mIvBack;
-    private CircleImageView mIvAvatar;
+    private EaseImageView mIvAvatar;
     private TextView mTvNickName;
     private TextView mTvUserId;
     private SuperTextView mTvUserLevel;
     private ImageView mIvUserLevelTag;
     private ImageView mIvScan;
     private ImageView mIvQr;
-    private LinearLayout mLlPackage;
-    private LinearLayout mLlMember;
-    private LinearLayout mLlCollection;
-    private LinearLayout mLlSettings;
-    private LinearLayout mLlHelpline;
-    private LinearLayout mLlGroups;
     private TextView mTvSwitchAccount;
     private TextView mTvLogout;
+    private ConstraintLayout mLlMyInfo;
+
+
+    private TextView mTvPackage;
+    private TextView mTvMember;
+    private TextView mTvCollection;
+    private TextView mTvSettings;
+    private TextView mTvHelpline;
+    private TextView mTvGroups;
 
 
     public static void actionStart(Context context) {
@@ -66,22 +84,24 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
         super.initView(savedInstanceState);
         initImmersionBar(false);
         mIvBack = (ImageView) findViewById(R.id.iv_back);
-        mIvAvatar = (CircleImageView) findViewById(R.id.iv_avatar);
+        mIvAvatar = findViewById(R.id.iv_avatar);
         mTvNickName = (TextView) findViewById(R.id.tv_nick_name);
         mTvUserId = (TextView) findViewById(R.id.tv_user_id);
         mTvUserLevel = (SuperTextView) findViewById(R.id.tv_user_level);
         mIvUserLevelTag = (ImageView) findViewById(R.id.iv_user_level_tag);
         mIvScan = (ImageView) findViewById(R.id.iv_scan);
         mIvQr = (ImageView) findViewById(R.id.iv_qr);
-        mLlPackage = (LinearLayout) findViewById(R.id.ll_package);
-        mLlMember = (LinearLayout) findViewById(R.id.ll_member);
-        mLlCollection = (LinearLayout) findViewById(R.id.ll_collection);
-        mLlSettings = (LinearLayout) findViewById(R.id.ll_settings);
-        mLlHelpline = (LinearLayout) findViewById(R.id.ll_helpline);
-        mLlGroups = (LinearLayout) findViewById(R.id.ll_groups);
         mTvSwitchAccount = (TextView) findViewById(R.id.tv_switch_account);
         mTvLogout = (TextView) findViewById(R.id.tv_logout);
+        mLlMyInfo = (ConstraintLayout) findViewById(R.id.ll_my_info);
 
+
+        mTvPackage = (TextView) findViewById(R.id.tv_package);
+        mTvMember = (TextView) findViewById(R.id.tv_member);
+        mTvCollection = (TextView) findViewById(R.id.tv_collection);
+        mTvSettings = (TextView) findViewById(R.id.tv_settings);
+        mTvHelpline = (TextView) findViewById(R.id.tv_helpline);
+        mTvGroups = (TextView) findViewById(R.id.tv_groups);
     }
 
     @Override
@@ -94,14 +114,15 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
         mIvUserLevelTag.setOnClickListener(this);
         mIvScan.setOnClickListener(this);
         mIvQr.setOnClickListener(this);
-        mLlPackage.setOnClickListener(this);
-        mLlMember.setOnClickListener(this);
-        mLlCollection.setOnClickListener(this);
-        mLlSettings.setOnClickListener(this);
-        mLlHelpline.setOnClickListener(this);
-        mLlGroups.setOnClickListener(this);
+        mTvPackage.setOnClickListener(this);
+        mTvMember.setOnClickListener(this);
+        mTvCollection.setOnClickListener(this);
+        mTvSettings.setOnClickListener(this);
+        mTvHelpline.setOnClickListener(this);
+        mTvGroups.setOnClickListener(this);
         mTvSwitchAccount.setOnClickListener(this);
         mTvLogout.setOnClickListener(this);
+        mLlMyInfo.setOnClickListener(this);
 
     }
 
@@ -132,7 +153,7 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
     }
 
     private void getStoreShowSwitch() {
-        mLlGroups.setVisibility(View.GONE);
+        mTvGroups.setVisibility(View.GONE);
         Map<String, Object> map = new HashMap<>();
         ApiClient.requestNetHandleNoParam(this, AppConfig.showStore,
                 "", new ResultListener() {
@@ -140,8 +161,8 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
                     public void onSuccess(String json, String msg) {
                         if (json != null && json.length() > 0) {
                             StoreShowSwitchBean storeShowSwitchBean = FastJsonUtil.getObject(json, StoreShowSwitchBean.class);
-                            if(storeShowSwitchBean.status == 1){
-                                mLlGroups.setVisibility(View.VISIBLE);
+                            if (storeShowSwitchBean.status == 1) {
+                                mTvGroups.setVisibility(View.VISIBLE);
                             }
                         }
                     }
@@ -158,6 +179,7 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
      *
      * @param center 获取事件总线信息
      */
+    @Override
     protected void onEventComing(EventCenter center) {
         if (center.getEventCode() == EventUtil.FLUSHUSERINFO) {
             initUserInfo();
@@ -188,7 +210,6 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
     }
 
 
-
     @Override
     public void onClick(View view) {
 
@@ -200,29 +221,113 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
             case R.id.iv_user_level_tag:
                 break;
             case R.id.iv_scan:
+                Global.addUserOriginType = Constant.ADD_USER_ORIGIN_TYPE_QRCODE;
+                Intent intent = new Intent(this, CaptureActivity.class);
+                startActivityForResult(intent, REQUEST_CODE);
                 break;
             case R.id.iv_qr:
+                //分享
+//                startActivity(ShareQrActivity.class);
                 break;
-            case R.id.ll_package:
+            case R.id.tv_package:
+                //我的钱包支付
+//                startActivity(WalletActivity.class);
                 break;
-            case R.id.ll_member:
+            case R.id.ll_my_info:
+                //个人信息
+//                startActivity(MyInfoActivity.class);
                 break;
-            case R.id.ll_collection:
+            case R.id.tv_member:
                 break;
-            case R.id.ll_settings:
+            case R.id.tv_collection:
+                //我的收藏
+//                startActivity(MyCollectActivity.class);
                 break;
-            case R.id.ll_helpline:
+            case R.id.tv_settings:
+                //设置
+//                startActivity(SetActivity.class);
                 break;
-            case R.id.ll_groups:
+            case R.id.tv_helpline:
+                //客服
+//                startActivity(CustomListActivity.class);
+                break;
+            case R.id.tv_groups:
+                //靓号商城
+//                startActivity(new Intent(getActivity(), WebViewActivity.class).putExtra("title","艾特商城").putExtra("url",AppConfig.shopUrl));
+
                 break;
             case R.id.tv_switch_account:
+                startActivity(new Intent(this, MultiDeviceActivity.class));
                 break;
             case R.id.tv_logout:
+                new EaseAlertDialog(this, "确定退出帐号？", null, null, new EaseAlertDialog.AlertDialogUser() {
+                    @Override
+                    public void onResult(boolean confirmed, Bundle bundle) {
+                        if (confirmed) {
+                            logout();
+                        }
+                    }
+                }, true).show();
                 break;
             default:
                 break;
 
         }
 
+    }
+
+
+    private void logout() {
+        String st = getResources().getString(R.string.Are_logged_out);
+        showLoading(st);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("deviceId", DeviceIdUtil.getDeviceId(this));
+        ApiClient.requestNetHandle(this, AppConfig.multiDeviceLogout, "请稍候...", map, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                ToastUtil.toast(json);
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                ToastUtil.toast(msg);
+
+            }
+        });
+
+        MyHelper.getInstance().logout(false, new EMCallBack() {
+
+            @Override
+            public void onSuccess() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        dismissLoading();
+                        UserComm.clearUserInfo();
+                        finish();
+                        EventBus.getDefault().post(new EventCenter(EventUtil.LOSETOKEN, "关闭"));
+                    }
+                });
+            }
+
+            @Override
+            public void onProgress(int progress, String status) {
+
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        // TODO Auto-generated method stub
+                        dismissLoading();
+                        Toast.makeText(MineActivity.this, "退出失败", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
     }
 }

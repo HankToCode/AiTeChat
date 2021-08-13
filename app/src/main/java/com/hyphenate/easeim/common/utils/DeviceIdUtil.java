@@ -5,6 +5,8 @@ import android.os.Build;
 import android.provider.Settings;
 import android.telephony.TelephonyManager;
 
+import com.zds.base.util.SystemUtil;
+
 import java.security.MessageDigest;
 import java.util.Locale;
 import java.util.UUID;
@@ -71,6 +73,7 @@ public class DeviceIdUtil {
      * @param context 上下文
      * @return 设备的AndroidId
      */
+    @Deprecated
     private static String getAndroidId(Context context) {
         try {
             return Settings.Secure.getString(context.getContentResolver(),

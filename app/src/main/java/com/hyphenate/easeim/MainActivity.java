@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -26,7 +27,13 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.hyphenate.easecallkit.base.EaseCallType;
 import com.hyphenate.easecallkit.ui.EaseMultipleVideoActivity;
 import com.hyphenate.easecallkit.ui.EaseVideoCallActivity;
+import com.hyphenate.easeim.app.api.global.EventUtil;
+import com.hyphenate.easeim.app.api.global.UserComm;
+import com.hyphenate.easeim.app.api.old_data.EventCenter;
+import com.hyphenate.easeim.app.api.old_data.LoginInfo;
+import com.hyphenate.easeim.app.api.old_http.AppConfig;
 import com.hyphenate.easeim.app.api.old_http.CommonApi;
+import com.hyphenate.easeim.app.base.ActivityStackManager;
 import com.hyphenate.easeim.common.constant.DemoConstant;
 import com.hyphenate.easeim.common.enums.SearchType;
 import com.hyphenate.easeim.common.permission.PermissionsManager;
@@ -34,6 +41,7 @@ import com.hyphenate.easeim.common.permission.PermissionsResultAction;
 import com.hyphenate.easeim.common.utils.PushUtils;
 import com.hyphenate.easeim.section.MainViewModel;
 import com.hyphenate.easeim.app.base.BaseInitActivity;
+import com.hyphenate.easeim.section.account.activity.LoginActivity;
 import com.hyphenate.easeim.section.account.activity.MineActivity;
 import com.hyphenate.easeim.section.chat.ChatPresenter;
 import com.hyphenate.easeim.section.contact.activity.AddContactActivity;
@@ -46,6 +54,7 @@ import com.hyphenate.easeim.section.search.SearchConversationActivity;
 import com.hyphenate.easeui.model.EaseEvent;
 import com.hyphenate.easeui.ui.base.EaseBaseFragment;
 import com.hyphenate.easeui.widget.EaseTitleBar;
+import com.zds.base.ImageLoad.GlideUtils;
 
 import java.lang.reflect.Method;
 
@@ -369,7 +378,11 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
                 mTitleBar.getRightLayout().addView(rightView, layoutParams);
 
                 View leftView = View.inflate(this, R.layout.layout_toolbar_contacts_left, null);
-                leftView.findViewById(R.id.iv_avatar).setOnClickListener(this);
+                ImageView mIvAvatar = leftView.findViewById(R.id.iv_avatar);
+                mIvAvatar.setOnClickListener(this);
+                LoginInfo loginInfo = UserComm.getUserInfo();
+                GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(loginInfo.getUserHead()), mIvAvatar, R.mipmap.img_default_avatar);
+
                 mTitleBar.getLeftLayout().addView(leftView, layoutParams1);
                 break;
             case "find":
@@ -449,6 +462,34 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
                 break;
             default:
                 break;
+        }
+    }
+
+    /**
+     * EventBus接收消息
+     *
+     * @param center 获取事件总线信息
+     */
+    @Override
+    protected void onEventComing(EventCenter center) {
+        if (center.getEventCode() == EventUtil.LOSETOKEN) {
+            finish();
+            ActivityStackManager.getInstance().killAllActivity();
+            UserComm.clearUserInfo();
+            LoginActivity.actionStart(this);
+            //刷新公告数量
+        } else if (center.getEventCode() == EventUtil.UNREADCOUNT) {
+//            mCustomServiceFragment.getUnReadCount();
+        } else if (center.getEventCode() == EventUtil.NOTICNUM) {
+//            updateUnreadAddressLable();
+        } else if (center.getEventCode() == EventUtil.KEFU) {
+//            change(2);
+        } else if (center.getEventCode() == EventUtil.TONGXUNLU) {
+//            change(1);
+        } else if (center.getEventCode() == EventUtil.REFRESH_CONVERSION || center.getEventCode() == EventUtil.REFRESH_GROUP_NAME) {
+//            conversationListFragment.refresh();
+        }else if (center.getEventCode() == EventUtil.FLUSHGROUP){
+//            groupList();
         }
     }
 }

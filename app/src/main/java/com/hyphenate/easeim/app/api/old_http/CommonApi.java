@@ -4,12 +4,12 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.alibaba.fastjson.JSON;
-import com.hyphenate.easeim.common.utils.StringUtil;
 import com.hyphenate.easeim.app.api.old_data.EventCenter;
 import com.hyphenate.easeim.app.api.old_data.LoginInfo;
 import com.hyphenate.easeim.app.api.global.EventUtil;
 import com.hyphenate.easeim.app.api.global.UserComm;
 import com.hyphenate.easeim.section.account.activity.LoginActivity;
+import com.zds.base.util.StringUtil;
 
 import org.greenrobot.eventbus.EventBus;
 

@@ -4,8 +4,8 @@ import android.text.TextUtils;
 
 import com.hyphenate.easeim.common.aes.AESCipher;
 import com.hyphenate.easeim.common.utils.PreferenceManager;
-import com.hyphenate.easeim.common.utils.json.FastJsonUtil;
 import com.hyphenate.easeim.app.api.old_data.LoginInfo;
+import com.zds.base.json.FastJsonUtil;
 
 
 public class UserComm {

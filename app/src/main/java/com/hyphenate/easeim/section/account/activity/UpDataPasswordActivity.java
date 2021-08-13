@@ -17,14 +17,15 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.coorchice.library.SuperTextView;
 import com.hyphenate.easeim.R;
-import com.hyphenate.easeim.common.utils.GlideUtils;
-import com.hyphenate.easeim.common.utils.StringUtil;
-import com.hyphenate.easeim.common.utils.ToastUtil;
+import com.hyphenate.easeim.app.api.old_data.EventCenter;
 import com.hyphenate.easeim.app.api.old_http.ApiClient;
 import com.hyphenate.easeim.app.api.old_http.AppConfig;
 import com.hyphenate.easeim.app.api.old_http.ResultListener;
 import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeui.widget.EaseTitleBar;
+import com.zds.base.ImageLoad.GlideUtils;
+import com.zds.base.Toast.ToastUtil;
+import com.zds.base.util.StringUtil;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -112,6 +113,11 @@ public class UpDataPasswordActivity extends BaseInitActivity implements View.OnC
         super.initData();
         countDown();
         flushTy();
+    }
+
+    @Override
+    protected void onEventComing(EventCenter center) {
+
     }
 
     @Override

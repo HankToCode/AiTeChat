@@ -8,8 +8,6 @@ import com.hyphenate.easeim.BuildConfig;
 import com.hyphenate.easeim.DemoApplication;
 import com.hyphenate.easeim.common.aes.AESCipher;
 import com.hyphenate.easeim.common.utils.NetworkUtil;
-import com.hyphenate.easeim.common.utils.json.FastJsonUtil;
-import com.hyphenate.easeim.common.utils.log.XLog;
 import com.hyphenate.easeim.common.widget.Loading_view;
 import com.hyphenate.easeim.app.api.Constant;
 import com.hyphenate.easeim.app.api.old_data.EventCenter;
@@ -18,6 +16,8 @@ import com.hyphenate.easeim.app.api.global.UserComm;
 import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
+import com.zds.base.json.FastJsonUtil;
+import com.zds.base.log.XLog;
 
 import org.greenrobot.eventbus.EventBus;
 

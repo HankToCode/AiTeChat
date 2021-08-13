@@ -34,11 +34,12 @@
             android:orientation="vertical">
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/ll_my_info"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:paddingBottom="10dp">
 
-                <de.hdodenhof.circleimageview.CircleImageView
+                <com.hyphenate.easeui.widget.EaseImageView
                     android:id="@+id/iv_avatar"
                     android:layout_width="66dp"
                     android:layout_height="66dp"
@@ -111,211 +112,116 @@
                     android:id="@+id/iv_qr"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_mine_qr"
                     android:layout_marginEnd="22dp"
+                    android:src="@drawable/ic_mine_qr"
                     app:layout_constraintEnd_toStartOf="@id/iv_scan"
                     app:layout_constraintTop_toTopOf="@id/iv_scan" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <LinearLayout
-                android:id="@+id/ll_package"
+            <TextView
+                android:id="@+id/tv_package"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/color_191F23"
+                android:drawableLeft="@drawable/ic_mine_package"
+                android:drawableRight="@drawable/ic_point_to"
+                android:drawablePadding="10dp"
                 android:gravity="center_vertical"
                 android:paddingStart="15dp"
                 android:paddingTop="18dp"
                 android:paddingEnd="15dp"
-                android:paddingBottom="18dp">
+                android:paddingBottom="18dp"
+                android:text="支付"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_mine_package"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="1"
-                    android:textColor="@color/white"
-                    android:textSize="16dp"
-                    android:text="支付" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_point_to" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_member"
+            <TextView
+                android:id="@+id/tv_member"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/color_191F23"
+                android:drawableLeft="@drawable/ic_mine_member"
+                android:drawableRight="@drawable/ic_point_to"
+                android:drawablePadding="10dp"
                 android:gravity="center_vertical"
                 android:paddingStart="15dp"
                 android:paddingTop="18dp"
                 android:paddingEnd="15dp"
-                android:paddingBottom="18dp">
+                android:paddingBottom="18dp"
+                android:text="点我开通会员"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_mine_member"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="1"
-                    android:textColor="@color/white"
-                    android:textSize="16dp"
-                    android:text="点我开通会员" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_point_to" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_collection"
+            <TextView
+                android:id="@+id/tv_collection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/color_191F23"
+                android:drawableLeft="@drawable/ic_mine_collection"
+                android:drawableRight="@drawable/ic_point_to"
+                android:drawablePadding="10dp"
                 android:gravity="center_vertical"
                 android:paddingStart="15dp"
                 android:paddingTop="18dp"
                 android:paddingEnd="15dp"
-                android:paddingBottom="18dp">
+                android:paddingBottom="18dp"
+                android:text="我的收藏"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_mine_collection"
-                    android:textColor="@color/black" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="1"
-                    android:textColor="@color/white"
-                    android:textSize="16dp"
-                    android:text="我的收藏" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_point_to" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_settings"
+            <TextView
+                android:id="@+id/tv_settings"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/color_191F23"
+                android:drawableLeft="@drawable/ic_mine_settings"
+                android:drawableRight="@drawable/ic_point_to"
+                android:drawablePadding="10dp"
                 android:gravity="center_vertical"
                 android:paddingStart="15dp"
                 android:paddingTop="18dp"
                 android:paddingEnd="15dp"
-                android:paddingBottom="18dp">
+                android:paddingBottom="18dp"
+                android:text="设置中心"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_mine_settings"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="1"
-                    android:textColor="@color/white"
-                    android:textSize="16dp"
-                    android:text="设置中心" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_point_to" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_helpline"
+            <TextView
+                android:id="@+id/tv_helpline"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/color_191F23"
+                android:drawableLeft="@drawable/ic_mine_message"
+                android:drawableRight="@drawable/ic_point_to"
+                android:drawablePadding="10dp"
                 android:gravity="center_vertical"
                 android:paddingStart="15dp"
                 android:paddingTop="18dp"
                 android:paddingEnd="15dp"
-                android:paddingBottom="18dp">
+                android:paddingBottom="18dp"
+                android:text="客服"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_mine_message"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="1"
-                    android:textColor="@color/white"
-                    android:textSize="16dp"
-                    android:text="客服" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_point_to" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/ll_groups"
+            <TextView
+                android:id="@+id/tv_groups"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/color_191F23"
+                android:drawableLeft="@drawable/ic_mine_groups"
+                android:drawableRight="@drawable/ic_point_to"
+                android:drawablePadding="10dp"
                 android:gravity="center_vertical"
                 android:paddingStart="15dp"
                 android:paddingTop="18dp"
                 android:paddingEnd="15dp"
-                android:paddingBottom="18dp">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_mine_groups"
-                    android:textColor="@color/black" />
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="1"
-                    android:textColor="@color/white"
-                    android:textSize="16dp"
-                    android:text="靓号商城" />
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/ic_point_to" />
-
-            </LinearLayout>
+                android:paddingBottom="18dp"
+                android:text="靓号商城"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/tv_switch_account"
