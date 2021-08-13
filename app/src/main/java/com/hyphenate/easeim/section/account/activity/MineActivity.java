@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,21 +19,27 @@ import com.hyphenate.EMCallBack;
 import com.hyphenate.easeim.R;
 import com.hyphenate.easeim.app.api.Constant;
 import com.hyphenate.easeim.app.api.Global;
+import com.hyphenate.easeim.app.api.global.EventUtil;
+import com.hyphenate.easeim.app.api.global.UserComm;
 import com.hyphenate.easeim.app.api.old_data.EventCenter;
 import com.hyphenate.easeim.app.api.old_data.LoginInfo;
 import com.hyphenate.easeim.app.api.old_data.StoreShowSwitchBean;
-import com.hyphenate.easeim.app.api.global.EventUtil;
-import com.hyphenate.easeim.app.api.global.UserComm;
 import com.hyphenate.easeim.app.api.old_http.ApiClient;
 import com.hyphenate.easeim.app.api.old_http.AppConfig;
+import com.hyphenate.easeim.app.api.old_http.CommonApi;
 import com.hyphenate.easeim.app.api.old_http.ResultListener;
 import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeim.app.operate.UserOperateManager;
 import com.hyphenate.easeim.app.utils.my.MyHelper;
+import com.hyphenate.easeim.app.weight.CommonDialog;
 import com.hyphenate.easeim.common.utils.DeviceIdUtil;
 import com.hyphenate.easeim.section.me.activity.MultiDeviceActivity;
 import com.hyphenate.easeui.widget.EaseAlertDialog;
 import com.hyphenate.easeui.widget.EaseImageView;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.zds.base.ImageLoad.GlideUtils;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.code.activity.CaptureActivity;
@@ -42,10 +47,13 @@ import com.zds.base.json.FastJsonUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.io.File;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
-import de.hdodenhof.circleimageview.CircleImageView;
+import top.zibin.luban.Luban;
+import top.zibin.luban.OnCompressListener;
 
 public class MineActivity extends BaseInitActivity implements View.OnClickListener {
     private ImageView mIvBack;
@@ -186,35 +194,16 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
         }
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == REQUEST_CODE) {
-            //处理扫描结果（在界面上显示）
-            if (null != data) {
-                Bundle bundle = data.getExtras();
-                if (bundle == null) {
-                    return;
-                }
-                String result = bundle.getString(INTENT_EXTRA_KEY_QR_SCAN);
-                if (result.contains("person") || result.contains("group")) {
-                    if ("person".equals(result.split("_")[1])) {
-//                        startActivity(new Intent(this, UserInfoDetailActivity.class).putExtra("friendUserId", result.split("_")[0]));
-                    } else {
-                        UserOperateManager.getInstance().scanInviteContact(this, result);
-
-                    }
-                }
-            }
-        }
-    }
-
 
     @Override
     public void onClick(View view) {
 
         switch (view.getId()) {
+            case R.id.iv_back:
+                finish();
+                break;
             case R.id.iv_avatar:
+                toSelectPic();
                 break;
             case R.id.tv_user_level:
                 break;
@@ -235,7 +224,7 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
                 break;
             case R.id.ll_my_info:
                 //个人信息
-//                startActivity(MyInfoActivity.class);
+                MyInfoActivity.actionStart(this);
                 break;
             case R.id.tv_member:
                 break;
@@ -330,4 +319,157 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
             }
         });
     }
+
+    /**
+     * 选择图片上传
+     */
+    private void toSelectPic() {
+        final CommonDialog.Builder builder = new CommonDialog.Builder(this).fullWidth().fromBottom()
+                .setView(R.layout.dialog_select_head);
+        builder.setOnClickListener(R.id.tv_cell, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                builder.dismiss();
+            }
+        });
+        builder.setOnClickListener(R.id.tv_xiangji, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                builder.dismiss();
+                PictureSelector.create(MineActivity.this)
+                        .openCamera(PictureMimeType.ofImage())
+                        .selectionMode(PictureConfig.SINGLE)
+                        .withAspectRatio(1, 1)
+                        .enableCrop(true)
+                        .showCropFrame(false)
+                        .showCropGrid(false)
+                        .freeStyleCropEnabled(true)
+                        .circleDimmedLayer(false)
+                        .forResult(PictureConfig.CHOOSE_REQUEST);
+            }
+        });
+        builder.setOnClickListener(R.id.tv_xiangce, new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                builder.dismiss();
+                PictureSelector.create(MineActivity.this)
+                        .openGallery(PictureMimeType.ofImage())
+                        .selectionMode(PictureConfig.SINGLE)
+                        .withAspectRatio(1, 1)
+                        .enableCrop(true)
+                        .showCropFrame(false)
+                        .showCropGrid(false)
+                        .freeStyleCropEnabled(true)
+                        .circleDimmedLayer(false)
+                        .forResult(PictureConfig.CHOOSE_REQUEST);
+
+            }
+        });
+        builder.create().show();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == PictureConfig.CHOOSE_REQUEST) {
+                List<LocalMedia> selectList = PictureSelector.obtainMultipleResult(data);
+                if (selectList.size() > 0) {
+                    if (selectList.get(0).isCut()) {
+                        compressImg(selectList.get(0).getCutPath());
+
+                    } else {
+                        compressImg(selectList.get(0).getPath());
+                    }
+                }
+            }
+        } else if (requestCode == REQUEST_CODE) {
+            //处理扫描结果（在界面上显示）
+            if (null != data) {
+                Bundle bundle = data.getExtras();
+                if (bundle == null) {
+                    return;
+                }
+                String result = bundle.getString(INTENT_EXTRA_KEY_QR_SCAN);
+                if (result.contains("person") || result.contains("group")) {
+                    if ("person".equals(result.split("_")[1])) {
+//                        startActivity(new Intent(this, UserInfoDetailActivity.class).putExtra("friendUserId", result.split("_")[0]));
+                    } else {
+                        UserOperateManager.getInstance().scanInviteContact(this, result);
+
+                    }
+                }
+            }
+        }
+    }
+
+    public void compressImg(String path) {
+        Luban.with(this)
+                .load(path)                                     // 传人要压缩的图片列表
+                .ignoreBy(80)                                   // 忽略不压缩图片的大小
+                .setTargetDir(this.getExternalCacheDir().getAbsolutePath())                             // 设置压缩后文件存储位置
+                .setCompressListener(new OnCompressListener() { //设置回调
+                    @Override
+                    public void onStart() {
+                        // TODO 压缩开始前调用，可以在方法内启动 loading UI
+                    }
+
+                    @Override
+                    public void onSuccess(File file) {
+                        // TODO 压缩成功后调用，返回压缩后的图片文件
+                        saveHead(file);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        // TODO 当压缩过程出现问题时调用
+                    }
+                }).launch();
+    }
+
+    /**
+     * 上传头像地址到服务器
+     */
+    private void saveHead(File file) {
+        ApiClient.requestNetHandleFile(MineActivity.this, AppConfig.groupUpHead, "正在上传...", file, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                modifyHead(json);
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                ToastUtil.toast(msg);
+            }
+        });
+
+    }
+
+
+    /**
+     * 更新头像
+     *
+     * @param filePath
+     */
+    private void modifyHead(String filePath) {
+        Map<String, Object> map = new HashMap<>(1);
+        map.put("userHead", filePath);
+
+        ApiClient.requestNetHandle(MineActivity.this, AppConfig.MODIFY_USER_HEAD, "", map, new ResultListener() {
+
+            @Override
+            public void onSuccess(String json, String msg) {
+                GlideUtils.GlideLoadCircleErrorImageUtils(MineActivity.this, AppConfig.checkimg(filePath), mIvAvatar, R.mipmap.img_default_avatar);
+                CommonApi.upUserInfo(MineActivity.this);
+                ToastUtil.toast("上传成功");
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                ToastUtil.toast(msg);
+            }
+        });
+
+    }
+
 }

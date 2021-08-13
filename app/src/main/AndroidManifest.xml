@@ -629,6 +629,13 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" /> <!-- 我的 -->
 
+        <activity
+            android:name=".section.account.activity.MyInfoActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan" /> <!-- 账号信息 -->
+
 
     </application>
 

@@ -262,4 +262,14 @@
         <item name="android:background">@color/color_F5F5F5</item>
     </style>
 
+    <style name="main_menu_animstyle">
+        <item name="android:windowEnterAnimation">@anim/photo_dialog_in_anim</item>
+        <item name="android:windowExitAnimation">@anim/photo_dialog_out_anim</item>
+    </style>
+
+    <style name="dialog_scale_animstyle">
+        <item name="android:windowEnterAnimation">@anim/scale_dialog_in_anim</item>
+        <item name="android:windowExitAnimation">@anim/scale_dialog_out_anim</item>
+    </style>
+
 </resources>

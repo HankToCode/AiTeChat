@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:src="@drawable/bg_my_info"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <com.hyphenate.easeui.widget.EaseTitleBar
+            android:id="@+id/title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/em_common_title_bar_height"
+            android:background="@color/transparent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleBarBackground="@color/transparent"
+            app:titleBarDisplayHomeAsUpEnabled="true"
+            app:titleBarLeftImage="@drawable/ic_back"
+            app:titleBarTitle="账号信息"
+            app:titleBarTitleTextColor="#E7BF9B" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guider_info_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.48" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guider_info_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.06" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guider_info_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.94" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ll_my_info"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:paddingBottom="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/guider_info_left"
+            app:layout_constraintRight_toRightOf="@id/guider_info_right"
+            app:layout_constraintTop_toBottomOf="@id/guider_info_top">
+
+            <com.hyphenate.easeui.widget.EaseImageView
+                android:id="@+id/iv_avatar"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_nick_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:text="陈情匿旧酒"
+                android:textColor="#E7BF9B"
+                android:textSize="19dp"
+                app:layout_constraintStart_toEndOf="@id/iv_avatar"
+                app:layout_constraintTop_toTopOf="@id/iv_avatar" />
+
+            <TextView
+                android:id="@+id/tv_user_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="ID:860224"
+                android:textColor="#E7C19F"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="@id/tv_nick_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_nick_name" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_user_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
+                android:text="lv100"
+                android:textColor="@color/color_B96811"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="@id/tv_user_id"
+                app:layout_constraintTop_toBottomOf="@id/tv_user_id"
+                app:stv_corner="8dp"
+                app:stv_shaderEnable="true"
+                app:stv_shaderEndColor="#ffffb300"
+                app:stv_shaderStartColor="#ffffdb5d" />
+
+            <ImageView
+                android:id="@+id/iv_user_level_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/drawable_level_tag"
+                app:layout_constraintBottom_toBottomOf="@id/tv_user_level"
+                app:layout_constraintStart_toEndOf="@id/tv_user_level"
+                app:layout_constraintTop_toTopOf="@id/tv_user_level" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="会员权益"
+                    android:textColor="@color/black"
+                    android:textSize="21dp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="全部"
+                    android:textColor="#4B4B51"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="9项"
+                    android:textColor="#CA9221"
+                    android:textSize="12dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="权益"
+                    android:textColor="#4B4B51"
+                    android:textSize="12dp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_power3"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:text="好友限制"
+                    android:textColor="#CA9221"
+                    android:textSize="13dp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_power2"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:text="升级加速"
+                    android:textColor="#CA9221"
+                    android:textSize="13dp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_power4"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:text="会员图标"
+                    android:textColor="#CA9221"
+                    android:textSize="13dp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_power5"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:text="动态表情"
+                    android:textColor="#CA9221"
+                    android:textSize="13dp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_power1"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:text="成长加速"
+                    android:textColor="#CA9221"
+                    android:textSize="13dp" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_power6"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:text="铭牌挂件"
+                    android:textColor="#CA9221"
+                    android:textSize="13dp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_power7"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:text="红色昵称"
+                    android:textColor="#CA9221"
+                    android:textSize="13dp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_power8"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:text="群排名靠前"
+                    android:textColor="#CA9221"
+                    android:textSize="13dp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_power9"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:text="聊天背景"
+                    android:textColor="#CA9221"
+                    android:textSize="13dp" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="1" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/ic_power2"
+                    android:drawablePadding="4dp"
+                    android:gravity="center"
+                    android:text=""
+                    android:textColor="#CA9221"
+                    android:textSize="13dp"
+                    android:visibility="invisible" />
+
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:text="开通会员"
+                android:textColor="@color/black"
+                android:textSize="21dp"
+                android:textStyle="bold" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_pay"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:gravity="center"
+                android:padding="15dp"
+                android:text="立即开通 永久尊享权益"
+                android:textColor="#985418"
+                app:stv_corner="20dp"
+                app:stv_shaderEnable="true"
+                app:stv_shaderEndColor="#CA9221"
+                app:stv_shaderStartColor="#F9D572"
+                app:stv_textShaderMode="leftToRight" />
+
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

@@ -232,12 +232,12 @@ dependencies {
     api rootProject.ext.networkLibs
     // RxJava2
     api rootProject.ext.rxJavaLibs
-    api rootProject.ext.otherLibs
+//    api rootProject.ext.otherLibs
 
     //GlideOkHttp
-    api(rootProject.ext.glideOkhttp) {
-        exclude group: 'glide-parent'
-    }
+//    api(rootProject.ext.glideOkhttp) {
+//        exclude group: 'glide-parent'
+//    }
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     //kotlin协程

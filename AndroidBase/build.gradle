@@ -27,7 +27,7 @@ dependencies {
     api rootProject.ext.dependencies["gson"]
     api rootProject.ext.dependencies["glide"]
     annotationProcessor rootProject.ext.dependencies["glide-Processor"]
-//    api rootProject.ext.dependencies["okhttp"]
+    api rootProject.ext.dependencies["okhttp"]
     api rootProject.ext.dependencies["okgo"]
     api rootProject.ext.dependencies["eventbus"]
     // compile rootProject.ext.dependencies["PhotoView"]
