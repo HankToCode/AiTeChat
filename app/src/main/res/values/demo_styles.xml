@@ -213,4 +213,11 @@
         <item name="android:windowExitAnimation">@anim/scale_dialog_out_anim</item>
     </style>
 
+    <style name="ZxTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/black</item>
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="colorAccent">@color/black</item>
+    </style>
+
+
 </resources>

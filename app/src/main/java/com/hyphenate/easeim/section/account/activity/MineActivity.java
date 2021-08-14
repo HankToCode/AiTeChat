@@ -216,7 +216,7 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
                 break;
             case R.id.iv_qr:
                 //分享
-//                startActivity(ShareQrActivity.class);
+                ShareQrActivity.actionStart(this);
                 break;
             case R.id.tv_package:
                 //我的钱包支付
