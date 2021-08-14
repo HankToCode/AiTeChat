@@ -13,39 +13,25 @@
     <string name="request">请求中&#8230;</string>
     <string name="finish">完成</string>
 
-    <string name="em_main_title_home">会话</string>
     <string name="em_main_title_contacts">联系人</string>
-    <string name="em_main_title_friends">通讯录</string>
     <string name="em_main_title_message">消息</string>
     <string name="em_main_title_discover">发现</string>
-    <string name="em_main_title_me">我</string>
 
     <string name="demo_title_image_grid">拍摄及视频</string>
 
     <string name="em_dialog_default_title">提示</string>
 
-    <string name="main_home">首页</string>
-    <string name="main_friend">联系人</string>
-    <string name="main_set">设置</string>
-
     <string name="em_login_name_hint">用户名</string>
     <string name="em_login_password_hint">密码</string>
-    <string name="em_login_token_hint">token</string>
     <string name="em_login_btn">登\u0020录</string>
-    <string name="em_submit_btn">提\u0020交</string>
     <string name="em_confirm_btn">确\u0020定</string>
     <string name="em_login_tv_register">注册账号</string>
-    <string name="em_login_tv_token">token登录</string>
-    <string name="em_login_tv_pwd">密码登录</string>
-    <string name="em_login_tv_server_set">服务器配置</string>
     <string name="em_login_btn_info_incomplete">用户名或者密码不能为空</string>
     <string name="em_login_btn_sms_incomplete">用户名或者验证码不能为空</string>
-    <string name="em_login_failed">登录失败</string>
     <string name="em_login_agreement">同意《环信服务条款》与《环信隐私协议》</string>
 
     <string name="em_register_btn">注\u0020册</string>
     <string name="em_register_password_confirm_hint">确认密码</string>
-    <string name="em_register_failed">注册失败</string>
     <string name="em_register_success">注册成功，请登录</string>
     <string name="em_register_privacy_agreement_url">http://www.easemob.com/protocol</string>
     <string name="em_register_service_agreement_url">http://www.easemob.com/agreement</string>
@@ -67,12 +53,10 @@
 
     <string name="demo_error_user_authentication_failed">您输入的用户名或密码不正确</string>
     <string name="demo_error_user_already_exist">注册用户名已存在，请重新输入</string>
-    <string name="demo_error_file_too_large">附件大小不能超过10M</string>
 
     <string name="em_server_set_title">使用自定义服务器？</string>
     <string name="em_server_set_server_hint">demo已经绑定以下环境设置，如果需要修改，请重启App进行设置。</string>
     <string name="em_server_set_appkey">Appkey</string>
-    <string name="em_server_set_apns_cert_name">apns证书名称</string>
     <string name="em_server_set_specify_server">使用私有服务器:</string>
     <string name="em_server_set_server_address">IM服务器地址</string>
     <string name="em_server_set_server_port">端口号</string>
@@ -90,16 +74,9 @@
 
     <string name="were_mentioned">[有人@我]</string>
     <string name="were_not_send_msg">[草稿]</string>
-    <string name="em_chat_et_hint">输入了什么东西</string>
 
     <string name="em_search_text_hint">搜索</string>
 
-    <string name="em_conversation_menu_video">音视频会议</string>
-    <string name="em_conversation_menu_group">创建群组</string>
-    <string name="em_conversation_menu_friend">添加好友</string>
-    <string name="em_conversation_menu_search_friend">添加好友</string>
-    <string name="em_conversation_menu_search_group">找群</string>
-    <string name="em_conversation_menu_scan">扫一扫</string>
     <string name="em_conversation_system_notification">系统通知</string>
 
     <string name="demo_system_agree_invite">您已同意%1$s的好友请求</string>
@@ -108,25 +85,17 @@
     <string name="demo_system_decline_invite">您已拒绝%1$s的好友请求</string>
     <string name="demo_system_decline_remote_user_apply_to_join_group">您已拒绝%1$s的入群申请</string>
     <string name="demo_system_decline_received_remote_user_invitation">您已拒绝%1$s的入群邀请</string>
-    <string name="demo_system_other_decline_invite">%1$s拒绝了您的好友请求</string>
-    <string name="demo_system_other_decline_remote_user_apply_to_join_group">%1$s拒绝了您的入群申请</string>
     <string name="demo_system_other_decline_received_remote_user_invitation">%1$s拒绝了您的入群邀请</string>
 
     <string name="em_add_contact_item_button_text">添加好友</string>
     <string name="em_add_contact_item_button_text_added">已添加</string>
-    <string name="em_add_contact_not_add_myself">不能添加自己</string>
-    <string name="em_add_contact_user_already_in_contactlist">此用户已是你好友(被拉黑状态)，从黑名单列表中移出即可</string>
-    <string name="em_add_contact_this_user_is_already_your_friend">此用户已是你的好友</string>
     <string name="em_add_contact_add_a_friend">加个好友呗</string>
     <string name="em_add_contact_send_successful">已发送好友邀请</string>
 
     <string name="em_friends_new_chat">新朋友</string>
     <string name="em_friends_group_chat">群聊</string>
     <string name="em_friends_group_notice">群通知</string>
-    <string name="em_friends_label">标签</string>
     <string name="em_friends_chat_room">聊天室</string>
-    <string name="em_friends_official_account">公众号</string>
-    <string name="em_friends_av_conference">音视频会议</string>
     <string name="em_friends_move_into_the_blacklist_new">移入到黑名单</string>
     <string name="em_friends_move_out_the_blacklist_new">移出黑名单</string>
     <string name="em_friends_move_out_the_blacklist_hint">是否移出黑名单？</string>
@@ -150,8 +119,6 @@
     <string name="em_friends_chat_room_contact_title">聊天室列表</string>
     <string name="em_friends_chat_room_create">创建聊天室</string>
 
-    <string name="demo_contact_add_black">%1$s已添加至黑名单</string>
-
     <string name="em_chat_pick_user_title">选择联系人</string>
 
     <string name="em_chat_delete_title">确认删除？</string>
@@ -160,7 +127,6 @@
     <string name="em_single_search_history">查找聊天记录</string>
     <string name="em_single_clear_history">清空聊天记录</string>
     <string name="em_single_conversation_top">会话置顶</string>
-    <string name="em_single_call_type">选择通话类型</string>
 
     <string name="em_chat_delete_conversation">您确认要清空所有聊天记录吗？</string>
     <string name="em_chat_group_detail_title">群组信息</string>
@@ -185,7 +151,6 @@
     <string name="em_chat_group_shared_files_upload">上传</string>
     <string name="em_chat_group_invite_group_member">邀请成员</string>
     <string name="em_chat_group_select_contact">选择联系人</string>
-    <string name="em_chat_group_select_contact_save">保存</string>
     <string name="em_chat_group_delivery_ack">群组回执</string>
     <string name="em_chat_group_read_ack">阅读回执</string>
     <string name="em_chat_group_read_ack_send">发送</string>
@@ -207,14 +172,8 @@
     <string name="demo_group_member_remove_mute">%1$s已被解除禁言</string>
 
     <string name="demo_group_member_remove">%1$s已被移除</string>
-    <string name="demo_group_member_invite">已向%1$s发出入群邀请</string>
-    <string name="demo_group_destroy">群组已删除</string>
 
     <string name="demo_chat_room_destroy">聊天室已删除</string>
-    <string name="demo_chat_room_add_member">%1$s已被添加至聊天室</string>
-    <string name="demo_chat_room_remove_member">%1$s已被移除</string>
-    <string name="demo_chat_room_modify_name">聊天室名称已被修改</string>
-    <string name="demo_chat_room_modify_description">聊天室描述已被修改</string>
 
     <string name="em_group_new_title">创建群组</string>
     <string name="em_group_new_save">完成</string>
@@ -265,7 +224,6 @@
     <string name="em_chat_room_detail_members">聊天室成员</string>
     <string name="em_chat_room_detail_admins">管理员</string>
     <string name="em_chat_room_detail_out">退出聊天室</string>
-    <string name="em_chat_room_detail_destroy">解散聊天室</string>
     <string name="em_chat_room_detail_destroy_info">是否解散聊天室？</string>
 
     <string name="em_chat_room_new_title">创建聊天室</string>
@@ -278,9 +236,6 @@
     <string name="em_notify_agree">同意</string>
     <string name="em_notify_refuse">拒绝</string>
     <string name="em_notify_delete">删除</string>
-    <string name="em_call_video_request">%1$s邀请您进行视频通话</string>
-    <string name="em_call_voice_request">%1$s邀请您进行语音通话</string>
-    <string name="em_call_voice_calling">正在等待对方接听</string>
 
     <string name="em_about_me_set">设置</string>
     <string name="em_about_me_feedback">意见反馈</string>
@@ -307,8 +262,6 @@
     <string name="em_developer_upload_to_hx_notice">上传附件到环信服务器，关闭需自定义文件上传</string>
     <string name="em_developer_msg_sort">消息排序</string>
     <string name="em_developer_msg_sort_receive">按接收顺序</string>
-    <string name="em_developer_msg_sort_server">按服务器顺序</string>
-    <string name="em_developer_service_result_unfinished">未完成</string>
     <string name="em_user_detail_title">个人资料</string>
     <string name="em_user_detail_avatar">头像</string>
     <string name="em_user_detail_id">环信ID</string>
@@ -328,8 +281,6 @@
     <string name="em_feedback_qq_title">您的QQ</string>
     <string name="em_feedback_qq_hint">请输入QQ号</string>
 
-    <string name="em_conversation_list_search_hint">搜索</string>
-    <string name="em_friend_list_search_hint">搜索</string>
     <string name="em_group_list_search_hint">搜索</string>
     <string name="em_chat_room_list_search_hint">搜索</string>
     <string name="em_black_list_search_hint">搜索</string>
@@ -366,7 +317,6 @@
     <string name="demo_no_disturb_time">设置时间段</string>
 
     <string name="push_message_style_title">消息详情</string>
-    <string name="push_incoming_call">您有新的通话消息</string>
     <string name="push_message_style_simple">仅未读提示</string>
     <string name="push_message_style_summary">显示消息详情</string>
     <string name="push_message_show_detail">显示消息详情</string>
@@ -377,11 +327,6 @@
     <string name="push_settings">消息免打扰</string>
     <string name="push_use_fcm">消息推送使用 FCM</string>
     <string name="push_no_disturb">推送消息免打扰(针对GCM、小米、华为等推送)</string>
-    <string name="push_no_disturb_on">开启</string>
-    <string name="push_only_on">只在夜间开启(22:00 - 7:00)</string>
-    <string name="push_no_disturb_off">关闭</string>
-    <string name="push_saving_settings">正在保存...</string>
-    <string name="push_save_failed">保存失败</string>
     <string name="push_nick">iOS离线推送昵称</string>
     <string name="input_new_nick_hint">输入新昵称</string>
     <string name="nickname_description">设置此昵称以后，在与iOS客户端demo聊天过程中，iOS一侧会显示此昵称而不是环信ID，如果对方使用安卓客户端则此设置不生效</string>
@@ -407,32 +352,12 @@
     <string name="emojicon_test_name">示例</string>
     <string name="msg_conference_invite">快来加入会议</string>
     <string name="tips_select_contacts_first">请先选择联系人 ~</string>
-    <string name="alert_request_tobe_talker">请求连麦 &#8230;</string>
-    <string name="alert_request_tobe_audience">请求下麦 &#8230;</string>
-    <string name="title_live">互动视频</string>
-    <string name="msg_live_invite">%1$s 邀请你参与互动视频 - %2$s</string>
-    <string name="tips_desk_share">你正在共享当前桌面</string>
-    <string name="tips_invite_to_join">%1$s 邀请您加入视频 …</string>
-    <string name="alert_window_permission_denied">当前App未被授予悬浮窗权限 :(</string>
-    <string name="call_no_float_permission">没有悬浮窗权限</string>
-    <string name="call_open_float_permission">是否前往打开悬浮窗权限?</string>
 
     <string name="button_start_video_conference">开始视频会议 (%1$d)</string>
     <string name="search">搜索</string>
 
-    <string name="em_map_title">位置信息</string>
-
-    <string name="delete_message">删除消息</string>
-    <string name="copy">复制</string>
-    <string name="forward">转发</string>
-    <string name="recall">撤回</string>
     <string name="delete">删除</string>
-    <string name="resend">重发</string>
-    <string name="delete_voice">删除语音</string>
-    <string name="delete_video">删除视频</string>
     <string name="delete_conversation">删除会话</string>
-    <string name="copy_message">复制消息</string>
-    <string name="em_send_forward_msg_success">已发送</string>
     <string name="diagnose">诊断</string>
     <string name="Current_version">当前版本</string>
     <string name="Upload_the_log">上传日志中</string>
@@ -447,28 +372,18 @@
     <string name="Agreed_to_your_group_chat_application">同意了你的群聊申请</string>
     <string name="Invite_you_to_join_a_group_chat">邀请你加入了群聊</string>
 
-    <string name="Has_agreed_to_your_friend_request">已同意你的好友请求</string>
-    <string name="Has_agreed_to_your_friend_refused">已拒绝你的好友请求</string>
-    <string name="Request_to_add_you_as_a_friend">请求加你为好友</string>
-    <string name="Apply_to_the_group_of">申请加入群：</string>
-    <string name="invite_join_group">邀请加入群：</string>
     <string name="Has_agreed_to">已同意%1$s的请求</string>
     <string name="Has_refused_to">已拒绝</string>
-    <string name="accept_join_group">%s同意加入群</string>
-    <string name="refuse_join_group">%s拒绝加入群</string>
 
     <string name="has_been_send">已发送</string>
 
-    <string name="the_current_chat_room_destroyed">当前聊天室已被创建者解散</string>
     <string name="quiting_the_chat_room">正在退出聊天室……</string>
-    <string name="be_kicked_for_offline">离线被踢出聊天室</string>
 
     <string name="demo_group_listener_onInvitationReceived">%1$s邀请您加入「%2$s」</string>
     <string name="demo_group_listener_onRequestToJoinReceived">%1$s请求加入「%2$s」</string>
     <string name="demo_group_listener_onRequestToJoinAccepted">%1$s已同意您加入「%2$s」</string>
     <string name="demo_group_listener_onRequestToJoinDeclined">%1$s已拒绝您加入「%2$s」的申请</string>
     <string name="demo_group_listener_onInvitationAccepted">您的加群邀请已经被%1$s接受</string>
-    <string name="demo_group_listener_onInvitationDeclined">%1$s已拒绝您的加群邀请</string>
     <string name="demo_group_listener_onUserRemoved">您已被群管理员移出「%1$s」</string>
     <string name="demo_group_listener_onGroupDestroyed">群「%1$s」已被解散</string>
     <string name="demo_group_listener_onAutoAcceptInvitationFromGroup">您已加入「%1$s」</string>
@@ -538,23 +453,5 @@
     <string name="demo_contact_listener_onFriendRequestAccepted">您的好友申请已经通过</string>
     <string name="demo_contact_listener_onFriendRequestDeclined">%1$s已拒绝您的好友申请</string>
 
-    <string name="alert_request_video">%1$s发来视频请求</string>
-    <string name="alert_request_voice">%1$s发来语音请求</string>
-
-    <string name="share_screen_ongoing">共享屏幕运行中...</string>
-
-    <string name="demo_call_options_min_video_kbps">最低视频码率（kbps）</string>
-    <string name="demo_call_options_not_set">未设置</string>
-    <string name="demo_call_options_max_video_kbps">最高视频码率（kbps）</string>
-    <string name="demo_call_options_max_frame_rate">最大帧率</string>
-    <string name="demo_call_options_external_audio_input">外部音频输入</string>
-    <string name="demo_call_options_audio_sample_rate">音频采样率</string>
-    <string name="demo_call_options_back_camera">后置摄像头</string>
-    <string name="demo_call_options_front_camera">前置摄像头</string>
-    <string name="demo_call_options_fix_video_resolution">修复视频分辨率</string>
-    <string name="demo_call_options_record_on_server">远程录制</string>
-    <string name="demo_call_options_merge_stream">合并流</string>
-    <string name="demo_call_options_watermark">水印</string>
-    <string name="demo_call_options_set_video_resolution">设置视频分辨率：%1$s</string>
     <string name="demo_grid_file_null">没有获取到文件内容</string>
 </resources>

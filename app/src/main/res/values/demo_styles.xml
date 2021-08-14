@@ -18,10 +18,6 @@
         <item name="android:buttonStyle">@style/Button.BorderLess</item>
     </style>
 
-    <style name="NoActionBar.Dark" parent="Theme.AppCompat.NoActionBar">
-
-    </style>
-
     <style name="NoActionBar.SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!--<item name="android:windowBackground">@android:color/transparent</item>-->
         <item name="android:windowBackground">@color/blue</item>
@@ -51,11 +47,6 @@
         <item name="android:background">@drawable/demo_search_tv_bg_shape</item>
     </style>
 
-    <style name="Toolbar.EaseBar" parent="Widget.AppCompat.Toolbar">
-        <item name="contentInsetStart">0dp</item>
-        <item name="contentInsetStartWithNavigation">0dp</item>
-    </style>
-
     <style name="AppTheme.TabLayout" parent="AppTheme">
         <item name="android:textSize">@dimen/em_size_big</item>
     </style>
@@ -74,13 +65,6 @@
         <item name="android:foreground">?android:attr/selectableItemBackground</item>
     </style>
 
-    <style name="ActivityAnimation" parent="@android:style/Animation.Activity">
-        <item name="android:activityOpenEnterAnimation">@anim/activity_open_enter</item>
-        <item name="android:activityOpenExitAnimation">@anim/activity_open_exit</item>
-        <item name="android:activityCloseEnterAnimation">@anim/activity_close_enter</item>
-        <item name="android:activityCloseExitAnimation">@anim/activity_close_exit</item>
-    </style>
-
     <style name="main_bottom_view_normal">
         <item name="android:textColor">@color/em_main_color_tab_normal</item>
         <item name="android:textSize">12sp</item>
@@ -89,30 +73,6 @@
     <style name="main_bottom_view_selected">
         <item name="android:textColor">@color/em_main_color_tab_selected</item>
         <item name="android:textSize">12sp</item>
-    </style>
-
-    <style name="style_call_tools_panel_button">
-        <item name="android:layout_width">@dimen/adaptive_56dp</item>
-        <item name="android:layout_height">@dimen/adaptive_56dp</item>
-        <item name="android:layout_centerHorizontal">true</item>
-        <item name="android:scaleType">fitCenter</item>
-        <item name="android:background">@drawable/em_call_btn_bg</item>
-    </style>
-
-    <style name="style_call_tools_panel_button_wrapper">
-        <item name="android:layout_width">0dip</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
-    </style>
-
-    <style name="style_debug_detail">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_margin">10dip</item>
-        <item name="android:ellipsize">end</item>
-        <item name="android:singleLine">true</item>
-        <item name="android:textColor">#fff</item>
-        <item name="android:textSize">@dimen/adaptive_18sp</item>
     </style>
 
     <style name="em_login_et_input">
@@ -220,26 +180,7 @@
         <item name="android:textSize">16sp</item>
     </style>
 
-    <style name="SwitchButtonStyle">
-        <item name="android:paddingLeft">10dp</item>
-        <item name="android:paddingRight">10dp</item>
-        <item name="android:paddingTop">4dp</item>
-        <item name="android:paddingBottom">4dp</item>
-    </style>
-
     <!--自定义dialog背景全透明无边框theme -->
-    <style name="MyDialog" parent="android:style/Theme.Dialog">
-        <!--背景颜色及和透明程度-->
-        <item name="android:windowBackground">@android:color/transparent</item>
-        <!--是否去除标题 -->
-        <item name="windowNoTitle">true</item>
-        <!--是否去除边框-->
-        <item name="android:windowFrame">@null</item>
-        <!--是否浮现在activity之上-->
-        <item name="android:windowIsFloating">true</item>
-        <!--是否模糊-->
-        <item name="android:backgroundDimEnabled">false</item>
-    </style>
 
     <style name="CustomDialog" parent="AlertDialog.AppCompat.Light">
         <item name="android:windowFrame">@null</item>

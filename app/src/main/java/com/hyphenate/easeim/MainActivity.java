@@ -306,6 +306,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
 
                     }
                 });
+
     }
 
     private void switchToHome() {

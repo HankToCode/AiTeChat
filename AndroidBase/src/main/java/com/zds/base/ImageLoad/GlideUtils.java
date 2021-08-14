@@ -202,6 +202,7 @@ public class GlideUtils {
      */
     public static void GlideLoadCircleErrorImageUtils(Context context, String url, View view, int errorImg) {
         Glide.with(context)
+                .setDefaultRequestOptions(RequestOptions.circleCropTransform().placeholder(errorImg))
                 .load(TextUtils.isEmpty(url) ? errorImg : url)
                 .into((ImageView) view);
     }

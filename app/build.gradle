@@ -7,8 +7,8 @@ apply plugin: 'android-aspectjx'
 android {
     //加载资源
     Properties properties = new Properties()
-    InputStream inputStream = project.rootProject.file('local.properties').newDataInputStream() ;
-    properties.load( inputStream )
+    InputStream inputStream = project.rootProject.file('local.properties').newDataInputStream();
+    properties.load(inputStream)
 
     signingConfigs {
         debug {
@@ -35,16 +35,16 @@ android {
         javaCompileOptions {
             annotationProcessorOptions {
                 arguments = [
-                        "room.schemaLocation":"$projectDir/schemas".toString(),
-                        "room.incremental":"true",
-                        "room.expandProjection":"true"]
+                        "room.schemaLocation"  : "$projectDir/schemas".toString(),
+                        "room.incremental"     : "true",
+                        "room.expandProjection": "true"]
             }
         }
 
         manifestPlaceholders = [
-                                VIVO_PUSH_APPKEY: properties.getProperty("VIVO_PUSH_APPKEY", "******"),
-                                VIVO_PUSH_APPID: properties.getProperty("VIVO_PUSH_APPID", "******"),
-                                BAIDU_LOCATION_APPKEY: properties.getProperty("BAIDU_LOCATION_APPKEY", "******")
+                VIVO_PUSH_APPKEY     : properties.getProperty("VIVO_PUSH_APPKEY", "******"),
+                VIVO_PUSH_APPID      : properties.getProperty("VIVO_PUSH_APPID", "******"),
+                BAIDU_LOCATION_APPKEY: properties.getProperty("BAIDU_LOCATION_APPKEY", "******")
         ]
 
         buildConfigField "boolean", "PROJECT_DEBUG", "$PROJECT_DEBUG"
@@ -146,7 +146,7 @@ dependencies {
     // meizu push
     implementation 'com.meizu.flyme.internet:push-internal:3.7.0@aar'//配置集成sdk
     //oppo push
-    implementation (name:'oppo_push_v2.1.0',ext:'aar')
+    implementation(name: 'oppo_push_v2.1.0', ext: 'aar')
     // Google firebase cloud messaging
     implementation 'com.google.android.gms:play-services-base:11.4.0'
     implementation 'com.google.firebase:firebase-messaging:11.4.0'
@@ -164,14 +164,20 @@ dependencies {
 
     // EaseIMKit
     //api (project(path: ':ease-im-kit'))
-    implementation 'io.hyphenate:ease-im-kit:3.8.4'
+    implementation('io.hyphenate:ease-im-kit:3.8.4', {
+        exclude group: 'com.github.bumptech.glide'
+    })
     // EaseIMKit依赖，必须添加环信IM SDK
     //implementation project(path: ':hyphenatechatsdk')
-    implementation 'io.hyphenate:hyphenate-chat:3.8.4'
+    implementation('io.hyphenate:hyphenate-chat:3.8.4', {
+        exclude group: 'com.github.bumptech.glide'
+    })
 
     //EaseCallKit依赖，必须添加环信IM SDK
     //api project(':ease-call-kit')
-    implementation 'io.hyphenate:ease-call-kit:3.8.4'
+    implementation('io.hyphenate:ease-call-kit:3.8.4', {
+        exclude group: 'com.github.bumptech.glide'
+    })
 
     //--- 旧Lib ---
     implementation project(':AndroidBase')
@@ -226,18 +232,11 @@ dependencies {
     implementation "org.reactivestreams:reactive-streams:1.0.2"
 
 
-
     //---额外增加的lib---
     // 网络请求库
     api rootProject.ext.networkLibs
     // RxJava2
     api rootProject.ext.rxJavaLibs
-//    api rootProject.ext.otherLibs
-
-    //GlideOkHttp
-//    api(rootProject.ext.glideOkhttp) {
-//        exclude group: 'glide-parent'
-//    }
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
 
     //kotlin协程
@@ -272,7 +271,7 @@ dependencies {
 apply plugin: 'com.google.gms.google-services'
 repositories {
     mavenCentral()
-    flatDir{
+    flatDir {
         dirs 'libs'
     }
 }

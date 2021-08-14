@@ -27,14 +27,18 @@ dependencies {
     api rootProject.ext.dependencies["gson"]
     api rootProject.ext.dependencies["glide"]
     annotationProcessor rootProject.ext.dependencies["glide-Processor"]
+    api rootProject.ext.dependencies["glide-transformations"]
     api rootProject.ext.dependencies["okhttp"]
     api rootProject.ext.dependencies["okgo"]
     api rootProject.ext.dependencies["eventbus"]
     // compile rootProject.ext.dependencies["PhotoView"]
     api rootProject.ext.dependencies["CircleImageView"]
     api rootProject.ext.dependencies["tiny"]
-    api rootProject.ext.dependencies["PictureSelector"]
-    api rootProject.ext.dependencies["glide-transformations"]
+//    api rootProject.ext.dependencies["PictureSelector"]
+    api('com.github.LuckSiege.PictureSelector:picture_library:v2.2.3', {
+        exclude group: 'com.github.bumptech.glide'
+    })
+
     //bug
     api 'com.tencent.bugly:crashreport:2.8.6'
     //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.1.9

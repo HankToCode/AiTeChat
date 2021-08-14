@@ -33,7 +33,9 @@
     <!-- 写入扩展存储权限-->
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <!-- 允许装载和卸载文件系统权限（系统权限） -->
-    <!--<uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />-->
+    <uses-permission
+        android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS"
+        tools:ignore="ProtectedPermissions" />
     <!-- 这个权限用于访问GPS定位(用于定位消息，如果不用定位相关可以移除) -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <!-- api 21后被标记为deprecated -->
@@ -97,7 +99,7 @@
         android:allowBackup="true"
         android:icon="@mipmap/em_logo_uidemo"
         android:label="@string/app_name"
-        android:requestLegacyExternalStorage="false"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/em_logo_uidemo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
@@ -139,8 +141,8 @@
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileProvider"
             android:exported="false"
-            tools:replace="android:authorities"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true"
+            tools:replace="android:authorities">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
