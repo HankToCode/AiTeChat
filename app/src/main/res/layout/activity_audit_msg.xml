@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/em_common_title_bar_height"
         app:titleBarTitle="新朋友"
+        app:titleBarLeftImage="@drawable/ic_back"
         app:titleBarDisplayHomeAsUpEnabled="true"
         android:background="@color/white"/>
 

@@ -9,6 +9,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.multidex.MultiDex;
 
+import com.baidu.mapapi.cloud.VersionInfo;
+import com.hyphenate.easeim.app.api.Constant;
+import com.hyphenate.easeim.app.api.global.UserComm;
+import com.hyphenate.easeim.app.api.old_http.AppConfig;
+import com.hyphenate.easeim.app.utils.my.MyHelper;
 import com.hyphenate.easeim.common.interfaceOrImplement.UserActivityLifecycleCallbacks;
 import com.hyphenate.easeim.common.utils.PreferenceManager;
 import com.hyphenate.util.EMLog;
@@ -21,7 +26,10 @@ import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
 import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.zds.base.SelfAppContext;
+import com.zds.base.upDated.utils.CretinAutoUpdateUtils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -36,9 +44,38 @@ public class DemoApplication extends SelfAppContext implements Thread.UncaughtEx
         super.onCreate();
         instance = this;
         initThrowableHandler();
+
+        initApp();
+
         initHx();
         registerActivityLifecycleCallbacks();
         closeAndroidPDialog();
+    }
+
+    private void initApp() {
+        MyHelper.getInstance().init(getApplicationContext());
+        registerWx();
+        CretinAutoUpdateUtils.Builder builder = new CretinAutoUpdateUtils.Builder()
+                //设置更新api
+                .setBaseUrl(AppConfig.checkVersion)
+                //设置是否显示忽略此版本
+                .setIgnoreThisVersion(true)
+                //设置下载显示形式 对话框或者通知栏显示 二选一
+                .setShowType(CretinAutoUpdateUtils.Builder.TYPE_DIALOG_WITH_PROGRESS)
+                //设置下载时展示的图标
+                .setIconRes(R.mipmap.ic_launcher)
+                //设置是否打印log日志
+                .showLog(true)
+                //设置请求方式
+                .setRequestMethod(CretinAutoUpdateUtils.Builder.METHOD_GET)
+                //设置下载时展示的应用名称
+                .setAppName(getResources().getString(R.string.app_name))
+                //设置自定义的Model类
+                .setTransition(new VersionInfo())
+                .build();
+        CretinAutoUpdateUtils.init(builder);
+
+        UserComm.init();
     }
 
     private void initThrowableHandler() {
@@ -54,6 +91,13 @@ public class DemoApplication extends SelfAppContext implements Thread.UncaughtEx
             DemoHelper.getInstance().init(this);
         }
 
+    }
+    private IWXAPI mIWXAPI;
+
+    public IWXAPI registerWx() {
+        mIWXAPI = WXAPIFactory.createWXAPI(this, Constant.WXAPPID, true);
+        mIWXAPI.registerApp(Constant.WXAPPID);
+        return mIWXAPI;
     }
 
     private void registerActivityLifecycleCallbacks() {
@@ -125,7 +169,7 @@ public class DemoApplication extends SelfAppContext implements Thread.UncaughtEx
                 Method declaredMethod = cls.getDeclaredMethod("currentActivityThread");
                 declaredMethod.setAccessible(true);
                 Object activityThread = declaredMethod.invoke(null);
-                Field mHiddenApiWarningShown = cls.getDeclaredField("mHiddenApiWarningShown");
+                Field mHiddenApiWarningShown = cls.getClass().getDeclaredField("mHiddenApiWarningShown");
                 mHiddenApiWarningShown.setAccessible(true);
                 mHiddenApiWarningShown.setBoolean(activityThread, true);
             } catch (Exception e) {
