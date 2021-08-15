@@ -1,4 +1,4 @@
-package com.hyphenate.easeim.section.conversation.view;
+package com.hyphenate.easeim.section.conversation.adapter;
 
 import android.content.Context;
 import android.graphics.Color;

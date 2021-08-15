@@ -36,4 +36,10 @@
         <attr name="hint" format="string" />
         <attr name="hintImg" format="reference" />
     </declare-styleable>
+
+
+    <declare-styleable name="ConversationItemView">
+        <attr name="conversationItemImage" format="reference"/>
+        <attr name="conversationItemName" format="string"/>
+    </declare-styleable>
 </resources>

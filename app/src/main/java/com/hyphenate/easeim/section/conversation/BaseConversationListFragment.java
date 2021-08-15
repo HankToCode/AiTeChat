@@ -5,17 +5,13 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Pair;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
-import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.EditText;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
+
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMError;
@@ -23,8 +19,6 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.easeim.R;
 import com.hyphenate.easeim.app.api.Constant;
-import com.hyphenate.easeim.app.api.global.EventUtil;
-import com.hyphenate.easeim.app.api.old_data.EventCenter;
 import com.hyphenate.easeim.app.base.BaseInitFragment;
 import com.hyphenate.easeim.app.weight.EaseConversationList;
 import com.zds.base.json.FastJsonUtil;
@@ -49,6 +43,7 @@ public class BaseConversationListFragment extends BaseInitFragment {
     protected List<EMConversation> conversationList = new ArrayList<EMConversation>();
     protected EaseConversationList conversationListView;
     protected FrameLayout errorItemContainer;
+    protected SwipeRefreshLayout srlRefresh;
 
     protected boolean isConflict;
 
@@ -73,15 +68,9 @@ public class BaseConversationListFragment extends BaseInitFragment {
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
 
-        initLogic();
-    }
-
-    /**
-     * 初始化逻辑
-     */
-    protected void initLogic() {
         inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         conversationListView = (EaseConversationList) getView().findViewById(R.id.list);
+        srlRefresh = (SwipeRefreshLayout) getView().findViewById(R.id.srl_refresh);
         // button to clear content in search bar
         errorItemContainer = (FrameLayout) getView().findViewById(R.id.fl_error_item);
 
@@ -109,18 +98,11 @@ public class BaseConversationListFragment extends BaseInitFragment {
 
     }
 
-    /**
-     * EventBus接收消息
-     *
-     * @param center 获取事件总线信息
-     */
-    protected void onEventComing(EventCenter center) {
-        //修改头像和修改群名称
-        if (center.getEventCode() == EventUtil.REFRESH_CONVERSION || center.getEventCode() == EventUtil.REFRESH_GROUP_NAME) {
-            refresh();
-        }
+    @Override
+    protected void initListener() {
+        super.initListener();
+        srlRefresh.setOnRefreshListener(this::refresh);
     }
-
 
     protected EMConnectionListener connectionListener = new EMConnectionListener() {
 
@@ -159,6 +141,7 @@ public class BaseConversationListFragment extends BaseInitFragment {
                             conversationList.clear();
                             conversationList.addAll(loadConversationList());
                             conversationListView.refresh();
+                            srlRefresh.setRefreshing(false);
                         }
                     }, 1000);
 
@@ -192,6 +175,12 @@ public class BaseConversationListFragment extends BaseInitFragment {
         if (!handler.hasMessages(MSG_REFRESH)) {
             handler.sendEmptyMessage(MSG_REFRESH);
         }
+
+        refreshApplyLayout();
+    }
+
+    public void refreshApplyLayout() {
+
     }
 
     /**

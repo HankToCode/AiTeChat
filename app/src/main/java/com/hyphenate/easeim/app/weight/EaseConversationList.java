@@ -10,7 +10,7 @@ import android.widget.ListView;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeim.R;
-import com.hyphenate.easeim.section.conversation.view.EaseConversationAdapter;
+import com.hyphenate.easeim.section.conversation.adapter.EaseConversationAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

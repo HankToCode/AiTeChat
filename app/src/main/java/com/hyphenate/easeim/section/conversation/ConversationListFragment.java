@@ -2,55 +2,50 @@ package com.hyphenate.easeim.section.conversation;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.ContextMenu;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Toast;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
-import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeim.R;
 import com.hyphenate.easeim.app.api.Constant;
 import com.hyphenate.easeim.app.api.global.EventUtil;
+import com.hyphenate.easeim.app.api.global.SP;
 import com.hyphenate.easeim.app.api.old_data.EventCenter;
 import com.hyphenate.easeim.app.db.InviteMessgeDao;
-import com.hyphenate.easeim.app.utils.hxSetMessageFree.UnReadMsgCount;
-import com.hyphenate.easeim.app.weight.EaseConversationList;
+import com.hyphenate.easeim.app.weight.ConversationItemView;
 import com.hyphenate.easeim.common.constant.DemoConstant;
 import com.hyphenate.easeim.common.livedatas.LiveDataBus;
+import com.hyphenate.easeim.common.utils.PreferenceManager;
 import com.hyphenate.easeim.section.chat.activity.ChatActivity;
 import com.hyphenate.easeim.section.chat.viewmodel.MessageViewModel;
 import com.hyphenate.easeui.manager.EaseAtMessageHelper;
 import com.hyphenate.easeui.model.EaseEvent;
 import com.zds.base.json.FastJsonUtil;
 
-import butterknife.ButterKnife;
-
 
 public class ConversationListFragment extends BaseConversationListFragment {
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.ease_fragment_conversation_list
-                , container, false);
-        unbinder = ButterKnife.bind(this, view);
-        return view;
-    }
+    private ConversationItemView friendNoticeItem;
+    private ConversationItemView groupdNoticeItem;
 
     @Override
     protected void onEventComing(EventCenter center) {
         //刷新通讯录和本地数据库
         if (center.getEventCode() == EventUtil.REFRESH_REMARK) {
+            refresh();
+        }
+        if (center.getEventCode() == EventUtil.NOTICNUM) {
+            refreshApplyLayout();
+        }
+        //修改头像和修改群名称
+        if (center.getEventCode() == EventUtil.REFRESH_CONVERSION || center.getEventCode() == EventUtil.REFRESH_GROUP_NAME) {
             refresh();
         }
     }
@@ -72,9 +67,18 @@ public class ConversationListFragment extends BaseConversationListFragment {
     }
 
     @Override
-    protected void initLogic() {
-        super.initLogic();
+    protected void initView(Bundle savedInstanceState) {
+        super.initView(savedInstanceState);
         conversationListView.setDrag(true);
+
+        View headerView = LayoutInflater.from(getActivity()).inflate(R.layout.em_conversation_header, null);
+        HeaderItemClickListener clickListener = new HeaderItemClickListener();
+        friendNoticeItem = headerView.findViewById(R.id.friend_notice);
+        groupdNoticeItem = headerView.findViewById(R.id.group_notice);
+
+        headerView.findViewById(R.id.friend_notice).setOnClickListener(clickListener);
+        headerView.findViewById(R.id.group_notice).setOnClickListener(clickListener);
+        conversationListView.addHeaderView(headerView);
         conversationListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
             @Override
@@ -143,18 +147,15 @@ public class ConversationListFragment extends BaseConversationListFragment {
         });
         //red packet code : 红包回执消息在会话列表最后一条消息的展示
 
-        conversationListView.setConversationListHelper(new EaseConversationList.EaseConversationListHelper() {
-            @Override
-            public String onSetItemSecondaryText(EMMessage lastMessage) {
-                if (lastMessage.getStringAttribute(Constant.MSGTYPE, "").equals(Constant.RETURNGOLD)) {
-                    return "红包退还通知";
-                } else if ("系统管理员".equals(lastMessage.getFrom())) {
-                    return "房间创建成功";
-                } else if (lastMessage.getBooleanAttribute("cmd", false)) {
-                    return "";
-                }
-                return null;
+        conversationListView.setConversationListHelper(lastMessage -> {
+            if (lastMessage.getStringAttribute(Constant.MSGTYPE, "").equals(Constant.RETURNGOLD)) {
+                return "红包退还通知";
+            } else if ("系统管理员".equals(lastMessage.getFrom())) {
+                return "房间创建成功";
+            } else if (lastMessage.getBooleanAttribute("cmd", false)) {
+                return "";
             }
+            return null;
         });
     }
 
@@ -196,6 +197,38 @@ public class ConversationListFragment extends BaseConversationListFragment {
         refresh();
 
         return true;
+    }
+
+    protected class HeaderItemClickListener implements View.OnClickListener {
+
+        @Override
+        public void onClick(View v) {
+            switch (v.getId()) {
+                case R.id.friend_notice:
+                    // 好友申请列表
+                    friendNoticeItem.setUnreadCount(0);
+                    AuditMsgActivity.actionStart(requireContext());
+                    break;
+                case R.id.group_notice:
+                    groupdNoticeItem.setUnreadCount(0);
+                    ApplyJoinGroupActivity.actionStart(requireContext());
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    }
+
+    @Override
+    public void refreshApplyLayout() {
+        super.refreshApplyLayout();
+        getActivity().runOnUiThread(() -> {
+            int applyJoinGroupcount = (int) PreferenceManager.getInstance().getParam(SP.APPLY_JOIN_GROUP_NUM, 0);
+            groupdNoticeItem.setUnreadCount(applyJoinGroupcount);
+            int addUserCount = (int) PreferenceManager.getInstance().getParam(SP.APPLY_ADD_USER_NUM, 0);
+            friendNoticeItem.setUnreadCount(addUserCount);
+        });
     }
 
 

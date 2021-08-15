@@ -7,5 +7,7 @@
     <string name="messages_are_empty">聊天记录已被清空</string>
     <string name="Cant_chat_with_yourself">不能和自己聊天</string>
     <string name="delete_conversation_messages">删除会话和消息</string>
+    <string name="new_friends">新朋友</string>
+    <string name="groups_notice">群通知</string>
 
 </resources>
