@@ -18,5 +18,6 @@ public class EaseConstant {
     public static final int CHATTYPE_CHATROOM = 3;
 
     public static final String EXTRA_CHAT_TYPE = "chatType";
-    public static final String EXTRA_USER_ID = "userId";
+//    public static final String EXTRA_USER_ID = "userId";
+    public static final String EXTRA_USER_ID = com.hyphenate.easeui.constants.EaseConstant.EXTRA_CONVERSATION_ID;
 }

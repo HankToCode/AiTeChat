@@ -11,4 +11,8 @@
     <color name="color_76797C">#76797C</color>
     <color name="color_B96811">#B96811</color>
     <color name="login_lie">#dbdbdb</color>
+    <color name="bg_color_my_gold">#F9F9F9</color>
+    <color name="holo_red_light">#ffff4444</color>
+    <color name="grey_2">#999999</color>
+
 </resources>

@@ -2,5 +2,6 @@
 <resources>
 
     <string name="at_your_in_group">%s在群聊中@了你</string>
+    <string name="msg_recall_by_user">%1$s 撤回了一条消息</string>
 
 </resources>

@@ -41,14 +41,14 @@ public class ContactListFragment extends EaseContactListFragment implements View
         super.initView(savedInstanceState);
 
 //        addHeader();
-        initHeader();
+//        initHeader();
         initContactLayout();
     }
 
-    private void initHeader() {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.layout_constact_notice, null);
-        llRoot.addView(view, 0);
-    }
+//    private void initHeader() {
+//        View view = LayoutInflater.from(mContext).inflate(R.layout.layout_constact_notice, null);
+//        llRoot.addView(view, 0);
+//    }
 
     private void initContactLayout() {
         //设置无数据时空白页面

@@ -364,7 +364,9 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
      */
     private void replaceBarButtonLayout(String tag) {
         mTitleBar.getRightLayout().removeAllViews();
+        mTitleBar.getRightLayout().setClickable(false);
         mTitleBar.getLeftLayout().removeAllViews();
+        mTitleBar.getLeftLayout().setClickable(false);
         switch (tag) {
             case "contacts":
             case "message":

@@ -3,7 +3,6 @@ package com.hyphenate.easeim.section.conversation;
 import static com.hyphenate.easeui.widget.EaseImageView.ShapeType.RECTANGLE;
 
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -16,44 +15,81 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.easeim.DemoHelper;
 import com.hyphenate.easeim.R;
+import com.hyphenate.easeim.app.api.Constant;
+import com.hyphenate.easeim.app.api.global.EventUtil;
+import com.hyphenate.easeim.app.api.global.SP;
+import com.hyphenate.easeim.app.api.old_data.EventCenter;
+import com.hyphenate.easeim.app.base.BaseActivity;
 import com.hyphenate.easeim.common.constant.DemoConstant;
 import com.hyphenate.easeim.common.interfaceOrImplement.OnResourceParseCallback;
 import com.hyphenate.easeim.common.livedatas.LiveDataBus;
 import com.hyphenate.easeim.common.net.Resource;
+import com.hyphenate.easeim.common.utils.PreferenceManager;
 import com.hyphenate.easeim.common.utils.ToastUtils;
-import com.hyphenate.easeim.app.base.BaseActivity;
 import com.hyphenate.easeim.section.chat.activity.ChatActivity;
 import com.hyphenate.easeim.section.chat.viewmodel.MessageViewModel;
+import com.hyphenate.easeim.section.contact.adapter.ContactListAdapter;
+import com.hyphenate.easeim.section.conversation.adapter.ConversationListHeadAdapter;
 import com.hyphenate.easeim.section.conversation.viewmodel.ConversationListViewModel;
 import com.hyphenate.easeim.section.dialog.DemoDialogFragment;
 import com.hyphenate.easeim.section.dialog.SimpleDialogFragment;
 import com.hyphenate.easeim.section.message.SystemMsgsActivity;
+import com.hyphenate.easeim.section.myeaseim.fragment.EaseConversationListFragment;
+import com.hyphenate.easeui.manager.EaseAtMessageHelper;
 import com.hyphenate.easeui.manager.EaseSystemMsgManager;
 import com.hyphenate.easeui.model.EaseEvent;
-import com.hyphenate.easeui.modules.conversation.EaseConversationListFragment;
 import com.hyphenate.easeui.modules.conversation.model.EaseConversationInfo;
+import com.hyphenate.easeui.modules.conversation.model.EaseConversationSetStyle;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.scwang.smartrefresh.layout.util.DensityUtil;
+import com.zds.base.json.FastJsonUtil;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+
+import java.util.ArrayList;
 import java.util.List;
 
 
 public class ConversationListFragment extends EaseConversationListFragment implements View.OnClickListener {
 
     private ConversationListViewModel mViewModel;
+    private ConversationListHeadAdapter conversationListHeadAdapter;
 
     @Override
     public void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        View view = LayoutInflater.from(mContext).inflate(R.layout.layout_message_notice, null);
-        llRoot.addView(view, 0);
 
         initConversationListLayout();
+    }
 
-        initViewModel();
+    /**
+     * EventBus接收消息
+     *
+     * @param center 消息接收
+     */
+    @Subscribe
+    public void onEventMainThread(EventCenter center) {
+        if (null != center) {
+            if (center.getEventCode() == EventUtil.NOTICNUM) {
+                refreshApplyLayout();
+            } else if (center.getEventCode() == EventUtil.REFRESH_REMARK) {
+                //刷新通讯录和本地数据库
+                refreshList(true);
+            }
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        EventBus.getDefault().unregister(this);
+        super.onDestroy();
     }
 
     private void initConversationListLayout() {
+
+        conversationListHeadAdapter = new ConversationListHeadAdapter();
+        conversationListLayout.addHeaderAdapter(conversationListHeadAdapter);
         //设置无数据时空白页面
         conversationListLayout.getListAdapter().setEmptyLayoutId(R.layout.ease_layout_default_no_data);
         //获取列表控件
@@ -68,6 +104,26 @@ public class ConversationListFragment extends EaseConversationListFragment imple
         conversationListLayout.setAvatarDefaultSrc(ContextCompat.getDrawable(mContext, R.drawable.ic_new_friends));
         //设置头像圆角
         conversationListLayout.setAvatarRadius((int) EaseCommonUtils.dip2px(mContext, 5));
+
+        conversationListLayout.showUnreadDotPosition(EaseConversationSetStyle.UnreadDotPosition.RIGHT);
+        conversationListLayout.showSystemMessage(true);
+
+    }
+
+
+    @Override
+    public void onRefresh() {
+        super.onRefresh();
+        refreshApplyLayout();
+    }
+
+    public void refreshApplyLayout() {
+        requireActivity().runOnUiThread(() -> {
+            int applyJoinGroupcount = (int) PreferenceManager.getInstance().getParam(SP.APPLY_JOIN_GROUP_NUM, 0);
+            conversationListHeadAdapter.setApplyJoinGroupCount(applyJoinGroupcount);
+            int addUserCount = (int) PreferenceManager.getInstance().getParam(SP.APPLY_ADD_USER_NUM, 0);
+            conversationListHeadAdapter.setAddUserCount(addUserCount);
+        });
     }
 
     @Override
@@ -113,6 +169,8 @@ public class ConversationListFragment extends EaseConversationListFragment imple
 
     @Override
     public void initData() {
+        initViewModel();
+
         //需要两个条件，判断是否触发从服务器拉取会话列表的时机，一是第一次安装，二则本地数据库没有会话列表数据
         if (DemoHelper.getInstance().isFirstInstall() && EMClient.getInstance().chatManager().getAllConversations().isEmpty()) {
             mViewModel.fetchConversationsFromServer();
@@ -129,7 +187,7 @@ public class ConversationListFragment extends EaseConversationListFragment imple
                 @Override
                 public void onSuccess(Boolean data) {
                     LiveDataBus.get().with(DemoConstant.MESSAGE_CHANGE_CHANGE).postValue(new EaseEvent(DemoConstant.MESSAGE_CHANGE_CHANGE, EaseEvent.TYPE.MESSAGE));
-                    //mViewModel.loadConversationList();
+                    mViewModel.loadConversationList();
                     conversationListLayout.loadDefaultData();
                 }
             });
@@ -221,10 +279,48 @@ public class ConversationListFragment extends EaseConversationListFragment imple
         super.onItemClick(view, position);
         Object item = conversationListLayout.getItem(position).getInfo();
         if (item instanceof EMConversation) {
+            EMConversation conversation = (EMConversation) item;
+            String emUserId = conversation.conversationId();
             if (EaseSystemMsgManager.getInstance().isSystemConversation((EMConversation) item)) {
                 SystemMsgsActivity.actionStart(mContext);
             } else {
-                ChatActivity.actionStart(mContext, ((EMConversation) item).conversationId(), EaseCommonUtils.getChatType((EMConversation) item));
+
+                boolean isSystem = false;
+                String nickName = "";
+
+                if (conversation != null && conversation.getLastMessage() != null && conversation.getLastMessage().ext() != null) {
+                    String json = FastJsonUtil.toJSONString(conversation.getLastMessage().ext());
+
+                    if (json.contains("msgType")) {
+                        String msgType = FastJsonUtil.getString(json, "msgType");
+
+                        if ("systematic".equals(msgType)) {
+                            nickName = "艾特官方";
+                            isSystem = true;
+                        } else if ("walletMsg".equals(msgType)) {
+                            nickName = "钱包助手";
+                            isSystem = true;
+                        }
+
+                    }
+                    try {
+                        emUserId = conversation.conversationId();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                if (conversation.isGroup()) {
+                    //移除群组at标志
+                    EaseAtMessageHelper.get().removeAtMeGroup(emUserId);
+                } else {
+                    //设置单聊中环信ID是否包含 -youxin (不包含，加上)
+                    if (!emUserId.contains(Constant.ID_REDPROJECT)) {
+                        emUserId += Constant.ID_REDPROJECT;
+                    }
+                }
+                ChatActivity.actionStart(mContext, emUserId, EaseCommonUtils.getChatType((EMConversation) item), nickName, isSystem);
+
             }
         }
     }
@@ -239,4 +335,5 @@ public class ConversationListFragment extends EaseConversationListFragment imple
     public void notifyAllChange() {
         super.notifyAllChange();
     }
+
 }

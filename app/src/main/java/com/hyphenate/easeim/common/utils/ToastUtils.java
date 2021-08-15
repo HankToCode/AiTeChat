@@ -322,7 +322,7 @@ public class ToastUtils {
         Class<Toast> cToast = Toast.class;
         try {
             //TN是private的
-            Field fTn = cToast.getDeclaredField("mTN");
+            Field fTn = cToast.getClass().getDeclaredField("mTN");
             fTn.setAccessible(true);
 
             //获取tn对象
