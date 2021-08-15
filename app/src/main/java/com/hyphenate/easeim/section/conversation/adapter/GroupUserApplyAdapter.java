@@ -1,5 +1,6 @@
 package com.hyphenate.easeim.section.conversation.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
@@ -16,33 +17,39 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.hyphenate.easeim.R;
-import com.hyphenate.easeim.app.api.old_data.ApplyFriendData;
+import com.hyphenate.easeim.app.api.Constant;
+import com.hyphenate.easeim.app.api.Global;
+import com.hyphenate.easeim.app.api.old_data.GroupUserAuditInfo;
 import com.hyphenate.easeim.app.api.old_http.AppConfig;
 import com.hyphenate.easeim.section.account.activity.UserInfoDetailActivity;
-import com.hyphenate.easeim.section.conversation.AuditUserActivity;
 import com.zds.base.ImageLoad.GlideUtils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class NewFriendAdapter extends RecyclerView.Adapter<NewFriendAdapter.ViewHolder> implements Filterable {
+/**
+ * 加群申请adapter
+ *
+ * @author lhb
+ */
+public class GroupUserApplyAdapter extends RecyclerView.Adapter<GroupUserApplyAdapter.ViewHolder> implements Filterable {
 
-    private List<ApplyFriendData> mInfoList = new ArrayList<>();
-    private List<ApplyFriendData> copyUserList;
+    private List<GroupUserAuditInfo.DataBean> mInfoList = new ArrayList<>();
+    private List<GroupUserAuditInfo.DataBean> copyUserList;
 
     private Context mContext;
     private HashMap<String, Integer> lettes = new HashMap<>();
     private MyFilter myFilter;
 
     private OnAgreeListener mOnAgreeListener;
-    private OnDelClickListener mOnDelClickListener;
+    private GroupMemberAdapter.OnDelClickListener mOnDelClickListener;
 
     public void setOnAgreeListener(OnAgreeListener onAgreeListener) {
         mOnAgreeListener = onAgreeListener;
     }
 
-    public NewFriendAdapter(List<ApplyFriendData> infoList, Context context, HashMap<String, Integer> lettes) {
+    public GroupUserApplyAdapter(List<GroupUserAuditInfo.DataBean> infoList, Context context, HashMap<String, Integer> lettes) {
         this.mInfoList = infoList;
         if (copyUserList == null) {
             //只取值一次，用于无检索条件时， 返回全部数据
@@ -57,37 +64,48 @@ public class NewFriendAdapter extends RecyclerView.Adapter<NewFriendAdapter.View
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         switch (viewType) {
             case 0:
-                return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_new_friend, parent, false), false);
+                return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_apply_join_group, parent, false), false);
             case 1:
-                return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_new_friend, parent, false), true);
+                return new ViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_apply_join_group, parent, false), true);
             default:
-
                 return null;
         }
 
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
-        final ApplyFriendData info = mInfoList.get(position);
-        holder.mTvName.setText(info.getUserNickName());
-
+        final GroupUserAuditInfo.DataBean info = mInfoList.get(position);
+        holder.mTvName.setText(info.getNickName());
+        holder.mTvGroupName.setText("申请加入群组:"+info.getGroupName());
         holder.mTvTop.setText(info.getTopName());
+        if (TextUtils.isEmpty(info.getInviterName())){
+            holder.tvInviter.setVisibility(View.GONE);
+        }else {
+            holder.tvInviter.setVisibility(View.VISIBLE);
+            holder.tvInviter.setText("邀请者:"+info.getInviterName());
+
+        }
+
+
         GlideUtils.GlideLoadCircleErrorImageUtils(mContext, AppConfig.checkimg(info.getUserHead()), holder.imgHead, R.mipmap.img_default_avatar);
 
         if (info.getApplyStatus().equals("0")) {
             holder.mTvAgree.setBackgroundResource(R.drawable.agree_friend_bg_selector);
             holder.mTvAgree.setTextColor(ContextCompat.getColor(mContext, R.color.white));
+            holder.mTvRefuse.setVisibility(View.VISIBLE);
             holder.mTvAgree.setText("通过");
 
         } else if (info.getApplyStatus().equals("1")) {
             holder.mTvAgree.setBackgroundResource(R.drawable.bor_white_8);
             holder.mTvAgree.setTextColor(ContextCompat.getColor(mContext, R.color.grey_2));
+            holder.mTvRefuse.setVisibility(View.INVISIBLE);
             holder.mTvAgree.setText("通过");
         } else if (info.getApplyStatus().equals("2")) {
             holder.mTvAgree.setBackgroundResource(R.drawable.bor_white_8);
             holder.mTvAgree.setTextColor(ContextCompat.getColor(mContext, R.color.grey_2));
+            holder.mTvRefuse.setVisibility(View.INVISIBLE);
             holder.mTvAgree.setText("已拒绝");
         }
 
@@ -97,44 +115,56 @@ public class NewFriendAdapter extends RecyclerView.Adapter<NewFriendAdapter.View
             public void onClick(View v) {
                 if (info.getApplyStatus().equals("0")) {
                     if (mOnAgreeListener != null) {
-                        mOnAgreeListener.agree(info.getApplyId(), 1);
+                        mOnAgreeListener.agree(info.getApplyId(), 1,info.getGroupId(),info.getUserId());
                     }
                 }
             }
         });
 
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
+        //拒绝
+        holder.mTvRefuse.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
+            public void onClick(View v) {
                 if (info.getApplyStatus().equals("0")) {
-                    mContext.startActivity(new Intent(mContext,
-                            AuditUserActivity.class)
-                            .putExtra("applyFriendData", info)
-                    );
-                } else {
-                    mContext.startActivity(new Intent(mContext,
-                            UserInfoDetailActivity.class)
-                            .putExtra("friendUserId", info.getUserId())
-                            .putExtra("from", "1"));
+                    if (mOnAgreeListener != null) {
+                        mOnAgreeListener.agree(info.getApplyId(), 2,info.getGroupId(),info.getUserId());
+                    }
                 }
             }
         });
-        holder.mTvDel.setTag(position);
+
         holder.mTvDel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mOnDelClickListener != null) {
-                    mOnDelClickListener.delUser((Integer) holder.mTvDel.getTag());
+                    mOnDelClickListener.delUser(position);
                 }
 
             }
         });
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Global.addUserOriginType = Constant.ADD_USER_ORIGIN_TYPE_GROUPCHAT;
+                Global.addUserOriginName = info.getGroupName();
+                Global.addUserOriginId   = info.getGroupId();
+
+
+                mContext.startActivity(new Intent(mContext,
+                        UserInfoDetailActivity.class)
+                        .putExtra("friendUserId", info.getUserId())
+                        .putExtra(Constant.PARAM_GROUP_ID, info.getGroupId())
+                        .putExtra("from", "1"));
+            }
+        });
+
     }
 
     @Override
     public int getItemViewType(int position) {
         //根据每个字母下第一个联系人在数据中的位置，来显示headView
-        ApplyFriendData contant = mInfoList.get(position);
+        GroupUserAuditInfo.DataBean contant = mInfoList.get(position);
         if (lettes != null && lettes.size() > 0 && lettes.get(contant.getIsTop()) == position) {
             return 1;
         }
@@ -151,6 +181,9 @@ public class NewFriendAdapter extends RecyclerView.Adapter<NewFriendAdapter.View
         return 0;
     }
 
+    public void setOnDelClickListener(GroupMemberAdapter.OnDelClickListener onDelClickListener) {
+        mOnDelClickListener = onDelClickListener;
+    }
 
     @Override
     public Filter getFilter() {
@@ -161,9 +194,9 @@ public class NewFriendAdapter extends RecyclerView.Adapter<NewFriendAdapter.View
     }
 
     protected class MyFilter extends Filter {
-        List<ApplyFriendData> mOriginalList = null;
+        List<GroupUserAuditInfo.DataBean> mOriginalList = null;
 
-        public MyFilter(List<ApplyFriendData> myList) {
+        public MyFilter(List<GroupUserAuditInfo.DataBean> myList) {
             this.mOriginalList = myList;
         }
 
@@ -186,10 +219,10 @@ public class NewFriendAdapter extends RecyclerView.Adapter<NewFriendAdapter.View
 
                 String prefixString = prefix.toString();
                 final int count = mOriginalList.size();
-                final ArrayList<ApplyFriendData> newValues = new ArrayList<ApplyFriendData>();
+                final ArrayList<GroupUserAuditInfo.DataBean> newValues = new ArrayList<GroupUserAuditInfo.DataBean>();
                 for (int i = 0; i < count; i++) {
-                    final ApplyFriendData bean = mOriginalList.get(i);
-                    String username = bean.getUserNickName();
+                    final GroupUserAuditInfo.DataBean bean = mOriginalList.get(i);
+                    String username = bean.getNickName();
 
                     if (username != null) {
                         if (username.contains(prefixString)) {
@@ -219,7 +252,7 @@ public class NewFriendAdapter extends RecyclerView.Adapter<NewFriendAdapter.View
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
             //把过滤后的值返回出来
-            mInfoList = ((List<ApplyFriendData>) results.values);
+            mInfoList = ((List<GroupUserAuditInfo.DataBean>) results.values);
             notifyDataSetChanged();
         }
     }
@@ -229,22 +262,22 @@ public class NewFriendAdapter extends RecyclerView.Adapter<NewFriendAdapter.View
 
         private TextView mTvName;
         private TextView mTvTop;
+        private TextView mTvGroupName;
         private ImageView imgHead;
         private TextView mTvAgree;
+        private TextView mTvRefuse;
         private TextView mTvDel;
-//        private TextView mTvRefuse;
-//        private TextView tvOrigin;
-
-
+        private TextView tvInviter;
         public ViewHolder(View itemView, boolean show) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tv_name);
             mTvTop = (TextView) itemView.findViewById(R.id.tv_top);
+            mTvGroupName = (TextView) itemView.findViewById(R.id.tv_group_name);
             imgHead = (ImageView) itemView.findViewById(R.id.img_head);
             mTvAgree = (TextView) itemView.findViewById(R.id.tv_agree);
+            mTvRefuse = (TextView) itemView.findViewById(R.id.tv_refuse);
             mTvDel = (TextView) itemView.findViewById(R.id.tv_del);
-//            mTvRefuse = (TextView) itemView.findViewById(R.id.tv_refuse);
-//            tvOrigin = (TextView) itemView.findViewById(R.id.tv_origin);
+            tvInviter = (TextView) itemView.findViewById(R.id.tv_inviter);
             if (!show) {
                 mTvTop.setVisibility(View.GONE);
             } else {
@@ -255,15 +288,8 @@ public class NewFriendAdapter extends RecyclerView.Adapter<NewFriendAdapter.View
 
 
     public interface OnAgreeListener {
-        void agree(String applyId, int type);
+        void agree(String applyId, int type,String groupId,String userId);
     }
 
-    public void setOnDelClickListener(OnDelClickListener onDelClickListener) {
-        mOnDelClickListener = onDelClickListener;
-    }
-
-    public interface OnDelClickListener {
-        void delUser(int pos);
-    }
 
 }

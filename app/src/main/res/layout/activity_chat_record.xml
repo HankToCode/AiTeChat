@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color_my_gold"
+    android:orientation="vertical">
+
+    <com.hyphenate.easeui.widget.EaseTitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/em_common_title_bar_height"
+        android:background="@color/white"
+        app:titleBarBackground="@color/white"
+        app:titleBarDisplayHomeAsUpEnabled="true"
+        app:titleBarLeftImage="@drawable/ic_back"
+        app:titleBarTitle="" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/dp_10"
+        android:background="@color/white"
+        android:paddingTop="@dimen/dp_7"
+        android:paddingBottom="@dimen/dp_7">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginRight="@dimen/dp_10"
+            android:background="@drawable/shape_search_bg_radius"
+            android:paddingLeft="@dimen/dp_10">
+
+            <EditText
+                android:id="@+id/et_query"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/dp_5"
+                android:layout_toLeftOf="@+id/img_clear"
+                android:background="@null"
+                android:drawableLeft="@mipmap/ss"
+                android:drawablePadding="@dimen/dp_11"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:hint="请输入聊天内容"
+                android:imeOptions="actionSearch"
+                android:paddingLeft="@dimen/dp_13"
+                android:paddingTop="@dimen/dp_10"
+                android:paddingBottom="@dimen/dp_10"
+                android:singleLine="true"
+                android:textColor="@color/black_text"
+                android:textSize="@dimen/sp_15" />
+
+            <ImageView
+                android:id="@+id/img_clear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/dp_5"
+                android:background="?attr/selectableItemBackground"
+                android:padding="@dimen/dp_5"
+                android:src="@drawable/ease_search_clear"
+                android:visibility="gone" />
+        </RelativeLayout>
+
+    </FrameLayout>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rv_chat_record"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_no_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="搜索结果为空~"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</LinearLayout>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color_my_gold"
+    android:orientation="vertical">
+
+
+    <com.hyphenate.easeui.widget.EaseTitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/em_common_title_bar_height"
+        android:background="@color/white"
+        app:titleBarBackground="@color/white"
+        app:titleBarDisplayHomeAsUpEnabled="true"
+        app:titleBarLeftImage="@drawable/ic_back"
+        app:titleBarTitle="" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.hyphenate.easeim.app.weight.SlideRecyclerView
+            android:id="@+id/rv_group_manage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <include layout="@layout/bottom_set_group_manage" />
+    </RelativeLayout>
+</LinearLayout>

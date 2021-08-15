@@ -19,6 +19,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 
 import androidx.annotation.ColorRes;
+import androidx.annotation.LayoutRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
@@ -60,6 +61,8 @@ import org.greenrobot.eventbus.Subscribe;
 import java.lang.ref.WeakReference;
 import java.util.List;
 
+import butterknife.ButterKnife;
+
 /**
  * 作为基础activity,放置一些公共的方法
  */
@@ -79,8 +82,28 @@ public class BaseActivity extends AppCompatActivity {
 
         EventBus.getDefault().register(this);
         ActivityStackManager.getInstance().addActivity(new WeakReference<>(this));
+        inputMethodManager = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 
     }
+
+    @Override
+    public void setContentView(@LayoutRes int layoutResID) {
+        super.setContentView(layoutResID);
+        ButterKnife.bind(this);
+    }
+
+    @Override
+    public void setContentView(View view) {
+        super.setContentView(view);
+        ButterKnife.bind(this);
+    }
+
+    @Override
+    public void setContentView(View view, ViewGroup.LayoutParams params) {
+        super.setContentView(view, params);
+        ButterKnife.bind(this);
+    }
+
 
     /**
      * 添加账号异常监听
@@ -538,6 +561,17 @@ public class BaseActivity extends AppCompatActivity {
 
     public <Bean> AutoDisposeConverter<Bean> autoDispose(Lifecycle.Event event) {
         return AutoDispose.autoDisposable(AndroidLifecycleScopeProvider.from(this, event));
+    }
+
+    protected InputMethodManager inputMethodManager;
+
+    protected void hideSoftKeyboard() {
+        if (getWindow().getAttributes().softInputMode != WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN) {
+            if (getCurrentFocus() != null) {
+                inputMethodManager.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(),
+                        InputMethodManager.HIDE_NOT_ALWAYS);
+            }
+        }
     }
 
 }

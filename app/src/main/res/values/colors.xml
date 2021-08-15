@@ -14,5 +14,9 @@
     <color name="bg_color_my_gold">#F9F9F9</color>
     <color name="holo_red_light">#ffff4444</color>
     <color name="grey_2">#999999</color>
+    <color name="blue5">#24D43D</color>
+    <color name="black_text">#333333</color>
+    <color name="bg_color_my_gray">#EAEDF2</color>
+
 
 </resources>
