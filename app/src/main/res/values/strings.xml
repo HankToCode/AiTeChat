@@ -5,6 +5,7 @@
     <string name="msg_recall_by_user">%1$s 撤回了一条消息</string>
     <string name="str_chat_account">ID:%s</string>
     <string name="messages_are_empty">聊天记录已被清空</string>
-
+    <string name="Cant_chat_with_yourself">不能和自己聊天</string>
+    <string name="delete_conversation_messages">删除会话和消息</string>
 
 </resources>

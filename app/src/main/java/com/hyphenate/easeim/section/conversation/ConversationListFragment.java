@@ -1,339 +1,202 @@
 package com.hyphenate.easeim.section.conversation;
 
-import static com.hyphenate.easeui.widget.EaseImageView.ShapeType.RECTANGLE;
-
+import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.ContextMenu;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
-import com.hyphenate.easeim.DemoHelper;
+import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeim.R;
 import com.hyphenate.easeim.app.api.Constant;
 import com.hyphenate.easeim.app.api.global.EventUtil;
-import com.hyphenate.easeim.app.api.global.SP;
 import com.hyphenate.easeim.app.api.old_data.EventCenter;
-import com.hyphenate.easeim.app.base.BaseActivity;
+import com.hyphenate.easeim.app.db.InviteMessgeDao;
+import com.hyphenate.easeim.app.utils.hxSetMessageFree.UnReadMsgCount;
+import com.hyphenate.easeim.app.weight.EaseConversationList;
 import com.hyphenate.easeim.common.constant.DemoConstant;
-import com.hyphenate.easeim.common.interfaceOrImplement.OnResourceParseCallback;
 import com.hyphenate.easeim.common.livedatas.LiveDataBus;
-import com.hyphenate.easeim.common.net.Resource;
-import com.hyphenate.easeim.common.utils.PreferenceManager;
-import com.hyphenate.easeim.common.utils.ToastUtils;
 import com.hyphenate.easeim.section.chat.activity.ChatActivity;
 import com.hyphenate.easeim.section.chat.viewmodel.MessageViewModel;
-import com.hyphenate.easeim.section.contact.adapter.ContactListAdapter;
-import com.hyphenate.easeim.section.conversation.adapter.ConversationListHeadAdapter;
-import com.hyphenate.easeim.section.conversation.viewmodel.ConversationListViewModel;
-import com.hyphenate.easeim.section.dialog.DemoDialogFragment;
-import com.hyphenate.easeim.section.dialog.SimpleDialogFragment;
-import com.hyphenate.easeim.section.message.SystemMsgsActivity;
-import com.hyphenate.easeim.section.myeaseim.fragment.EaseConversationListFragment;
 import com.hyphenate.easeui.manager.EaseAtMessageHelper;
-import com.hyphenate.easeui.manager.EaseSystemMsgManager;
 import com.hyphenate.easeui.model.EaseEvent;
-import com.hyphenate.easeui.modules.conversation.model.EaseConversationInfo;
-import com.hyphenate.easeui.modules.conversation.model.EaseConversationSetStyle;
-import com.hyphenate.easeui.utils.EaseCommonUtils;
-import com.scwang.smartrefresh.layout.util.DensityUtil;
 import com.zds.base.json.FastJsonUtil;
 
-import org.greenrobot.eventbus.EventBus;
-import org.greenrobot.eventbus.Subscribe;
-
-import java.util.ArrayList;
-import java.util.List;
+import butterknife.ButterKnife;
 
 
-public class ConversationListFragment extends EaseConversationListFragment implements View.OnClickListener {
-
-    private ConversationListViewModel mViewModel;
-    private ConversationListHeadAdapter conversationListHeadAdapter;
+public class ConversationListFragment extends BaseConversationListFragment {
 
     @Override
-    public void initView(Bundle savedInstanceState) {
-        super.initView(savedInstanceState);
-
-        initConversationListLayout();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.ease_fragment_conversation_list
+                , container, false);
+        unbinder = ButterKnife.bind(this, view);
+        return view;
     }
 
-    /**
-     * EventBus接收消息
-     *
-     * @param center 消息接收
-     */
-    @Subscribe
-    public void onEventMainThread(EventCenter center) {
-        if (null != center) {
-            if (center.getEventCode() == EventUtil.NOTICNUM) {
-                refreshApplyLayout();
-            } else if (center.getEventCode() == EventUtil.REFRESH_REMARK) {
-                //刷新通讯录和本地数据库
-                refreshList(true);
-            }
+    @Override
+    protected void onEventComing(EventCenter center) {
+        //刷新通讯录和本地数据库
+        if (center.getEventCode() == EventUtil.REFRESH_REMARK) {
+            refresh();
         }
     }
 
     @Override
-    public void onDestroy() {
-        EventBus.getDefault().unregister(this);
-        super.onDestroy();
-    }
-
-    private void initConversationListLayout() {
-
-        conversationListHeadAdapter = new ConversationListHeadAdapter();
-        conversationListLayout.addHeaderAdapter(conversationListHeadAdapter);
-        //设置无数据时空白页面
-        conversationListLayout.getListAdapter().setEmptyLayoutId(R.layout.ease_layout_default_no_data);
-        //获取列表控件
-        //EaseContactListLayout contactList = contactLayout.getContactList();
-        //设置条目高度
-        //contactList.setItemHeight((int) EaseCommonUtils.dip2px(mContext, 80));
-        //设置条目背景
-        //contactList.setItemBackGround(ContextCompat.getDrawable(mContext, R.color.gray));
-        //设置头像样式
-        conversationListLayout.setAvatarShapeType(RECTANGLE);
-        conversationListLayout.setAvatarSize(DensityUtil.dp2px(35));
-        conversationListLayout.setAvatarDefaultSrc(ContextCompat.getDrawable(mContext, R.drawable.ic_new_friends));
-        //设置头像圆角
-        conversationListLayout.setAvatarRadius((int) EaseCommonUtils.dip2px(mContext, 5));
-
-        conversationListLayout.showUnreadDotPosition(EaseConversationSetStyle.UnreadDotPosition.RIGHT);
-        conversationListLayout.showSystemMessage(true);
-
-    }
-
-
-    @Override
-    public void onRefresh() {
-        super.onRefresh();
-        refreshApplyLayout();
-    }
-
-    public void refreshApplyLayout() {
-        requireActivity().runOnUiThread(() -> {
-            int applyJoinGroupcount = (int) PreferenceManager.getInstance().getParam(SP.APPLY_JOIN_GROUP_NUM, 0);
-            conversationListHeadAdapter.setApplyJoinGroupCount(applyJoinGroupcount);
-            int addUserCount = (int) PreferenceManager.getInstance().getParam(SP.APPLY_ADD_USER_NUM, 0);
-            conversationListHeadAdapter.setAddUserCount(addUserCount);
-        });
-    }
-
-    @Override
-    public boolean onMenuItemClick(MenuItem item, int position) {
-        EaseConversationInfo info = conversationListLayout.getItem(position);
-        Object object = info.getInfo();
-
-        if (object instanceof EMConversation) {
-            switch (item.getItemId()) {
-                case R.id.action_con_make_top:
-                    conversationListLayout.makeConversationTop(position, info);
-                    return true;
-                case R.id.action_con_cancel_top:
-                    conversationListLayout.cancelConversationTop(position, info);
-                    return true;
-                case R.id.action_con_delete:
-                    showDeleteDialog(position, info);
-                    return true;
-            }
-        }
-        return super.onMenuItemClick(item, position);
-    }
-
-    private void showDeleteDialog(int position, EaseConversationInfo info) {
-        new SimpleDialogFragment.Builder((BaseActivity) mContext)
-                .setTitle(R.string.delete_conversation)
-                .setOnConfirmClickListener(R.string.delete, new DemoDialogFragment.OnConfirmClickListener() {
-                    @Override
-                    public void onConfirmClick(View view) {
-                        conversationListLayout.deleteConversation(position, info);
-                        LiveDataBus.get().with(DemoConstant.CONVERSATION_DELETE).postValue(new EaseEvent(DemoConstant.CONVERSATION_DELETE, EaseEvent.TYPE.MESSAGE));
-                    }
-                })
-                .showCancelButton(true)
-                .show();
-    }
-
-    @Override
-    public void initListener() {
-        super.initListener();
-
-    }
-
-    @Override
-    public void initData() {
-        initViewModel();
-
-        //需要两个条件，判断是否触发从服务器拉取会话列表的时机，一是第一次安装，二则本地数据库没有会话列表数据
-        if (DemoHelper.getInstance().isFirstInstall() && EMClient.getInstance().chatManager().getAllConversations().isEmpty()) {
-            mViewModel.fetchConversationsFromServer();
-        } else {
-            super.initData();
-        }
-    }
-
-    private void initViewModel() {
-        mViewModel = new ViewModelProvider(this).get(ConversationListViewModel.class);
-
-        mViewModel.getDeleteObservable().observe(getViewLifecycleOwner(), response -> {
-            parseResource(response, new OnResourceParseCallback<Boolean>() {
-                @Override
-                public void onSuccess(Boolean data) {
-                    LiveDataBus.get().with(DemoConstant.MESSAGE_CHANGE_CHANGE).postValue(new EaseEvent(DemoConstant.MESSAGE_CHANGE_CHANGE, EaseEvent.TYPE.MESSAGE));
-                    mViewModel.loadConversationList();
-                    conversationListLayout.loadDefaultData();
-                }
-            });
-        });
-
-        mViewModel.getReadObservable().observe(getViewLifecycleOwner(), response -> {
-            parseResource(response, new OnResourceParseCallback<Boolean>() {
-                @Override
-                public void onSuccess(Boolean data) {
-                    LiveDataBus.get().with(DemoConstant.MESSAGE_CHANGE_CHANGE).postValue(new EaseEvent(DemoConstant.MESSAGE_CHANGE_CHANGE, EaseEvent.TYPE.MESSAGE));
-                    conversationListLayout.loadDefaultData();
-                }
-            });
-        });
-
-        mViewModel.getConversationInfoObservable().observe(getViewLifecycleOwner(), response -> {
-            parseResource(response, new OnResourceParseCallback<List<EaseConversationInfo>>(true) {
-                @Override
-                public void onSuccess(@Nullable List<EaseConversationInfo> data) {
-                    conversationListLayout.setData(data);
-                }
-            });
-        });
-
+    protected void initViewModel() {
+        super.initViewModel();
         MessageViewModel messageViewModel = new ViewModelProvider(this).get(MessageViewModel.class);
         LiveDataBus messageChange = messageViewModel.getMessageChange();
-        messageChange.with(DemoConstant.NOTIFY_CHANGE, EaseEvent.class).observe(getViewLifecycleOwner(), this::loadList);
-        messageChange.with(DemoConstant.MESSAGE_CHANGE_CHANGE, EaseEvent.class).observe(getViewLifecycleOwner(), this::loadList);
-        messageChange.with(DemoConstant.GROUP_CHANGE, EaseEvent.class).observe(getViewLifecycleOwner(), this::loadList);
-        messageChange.with(DemoConstant.CHAT_ROOM_CHANGE, EaseEvent.class).observe(getViewLifecycleOwner(), this::loadList);
-        messageChange.with(DemoConstant.CONVERSATION_DELETE, EaseEvent.class).observe(getViewLifecycleOwner(), this::loadList);
-        messageChange.with(DemoConstant.CONVERSATION_READ, EaseEvent.class).observe(getViewLifecycleOwner(), this::loadList);
-        messageChange.with(DemoConstant.CONTACT_CHANGE, EaseEvent.class).observe(getViewLifecycleOwner(), this::loadList);
-        messageChange.with(DemoConstant.MESSAGE_CALL_SAVE, Boolean.class).observe(getViewLifecycleOwner(), this::refreshList);
-        messageChange.with(DemoConstant.MESSAGE_NOT_SEND, Boolean.class).observe(getViewLifecycleOwner(), this::refreshList);
-    }
-
-    private void refreshList(Boolean event) {
-        if (event == null) {
-            return;
-        }
-        if (event) {
-            conversationListLayout.loadDefaultData();
-        }
-    }
-
-    private void loadList(EaseEvent change) {
-        if (change == null) {
-            return;
-        }
-        if (change.isMessageChange() || change.isNotifyChange()
-                || change.isGroupLeave() || change.isChatRoomLeave()
-                || change.isContactChange()
-                || change.type == EaseEvent.TYPE.CHAT_ROOM || change.isGroupChange()) {
-            conversationListLayout.loadDefaultData();
-        }
-    }
-
-    /**
-     * 解析Resource<T>
-     *
-     * @param response
-     * @param callback
-     * @param <T>
-     */
-    public <T> void parseResource(Resource<T> response, @NonNull OnResourceParseCallback<T> callback) {
-        if (mContext instanceof BaseActivity) {
-            ((BaseActivity) mContext).parseResource(response, callback);
-        }
-    }
-
-    /**
-     * toast by string
-     *
-     * @param message
-     */
-    public void showToast(String message) {
-        ToastUtils.showToast(message);
+        messageChange.with(DemoConstant.NOTIFY_CHANGE, EaseEvent.class).observe(getViewLifecycleOwner(), easeEvent -> loadConversationList());
+        messageChange.with(DemoConstant.MESSAGE_CHANGE_CHANGE, EaseEvent.class).observe(getViewLifecycleOwner(), easeEvent -> loadConversationList());
+        messageChange.with(DemoConstant.GROUP_CHANGE, EaseEvent.class).observe(getViewLifecycleOwner(), easeEvent -> loadConversationList());
+        messageChange.with(DemoConstant.CHAT_ROOM_CHANGE, EaseEvent.class).observe(getViewLifecycleOwner(), easeEvent -> loadConversationList());
+        messageChange.with(DemoConstant.CONVERSATION_DELETE, EaseEvent.class).observe(getViewLifecycleOwner(), easeEvent -> loadConversationList());
+        messageChange.with(DemoConstant.CONVERSATION_READ, EaseEvent.class).observe(getViewLifecycleOwner(), easeEvent -> loadConversationList());
+        messageChange.with(DemoConstant.CONTACT_CHANGE, EaseEvent.class).observe(getViewLifecycleOwner(), easeEvent -> loadConversationList());
+        messageChange.with(DemoConstant.MESSAGE_CALL_SAVE, Boolean.class).observe(getViewLifecycleOwner(), easeEvent -> refresh());
+        messageChange.with(DemoConstant.MESSAGE_NOT_SEND, Boolean.class).observe(getViewLifecycleOwner(), easeEvent -> refresh());
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-        }
-    }
+    protected void initLogic() {
+        super.initLogic();
+        conversationListView.setDrag(true);
+        conversationListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
-    @Override
-    public void onItemClick(View view, int position) {
-        super.onItemClick(view, position);
-        Object item = conversationListLayout.getItem(position).getInfo();
-        if (item instanceof EMConversation) {
-            EMConversation conversation = (EMConversation) item;
-            String emUserId = conversation.conversationId();
-            if (EaseSystemMsgManager.getInstance().isSystemConversation((EMConversation) item)) {
-                SystemMsgsActivity.actionStart(mContext);
-            } else {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                EMConversation conversation =
+                        conversationListView.getItem(position);
+                String emUserId = conversation.conversationId();
 
-                boolean isSystem = false;
-                String nickName = "";
-
-                if (conversation != null && conversation.getLastMessage() != null && conversation.getLastMessage().ext() != null) {
-                    String json = FastJsonUtil.toJSONString(conversation.getLastMessage().ext());
-
-                    if (json.contains("msgType")) {
-                        String msgType = FastJsonUtil.getString(json, "msgType");
-
-                        if ("systematic".equals(msgType)) {
-                            nickName = "艾特官方";
-                            isSystem = true;
-                        } else if ("walletMsg".equals(msgType)) {
-                            nickName = "钱包助手";
-                            isSystem = true;
-                        }
-
-                    }
-                    try {
-                        emUserId = conversation.conversationId();
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                    }
+                if (id == Integer.MAX_VALUE) {
+                    //删除和某个user会话，如果需要保留聊天记录，传false
+                    EMClient.getInstance().chatManager().deleteConversation(emUserId, true);
+                    refresh();
+                    return;
                 }
 
-                if (conversation.isGroup()) {
-                    //移除群组at标志
-                    EaseAtMessageHelper.get().removeAtMeGroup(emUserId);
+                if (emUserId.equals(EMClient.getInstance().getCurrentUser())) {
+                    Toast.makeText(getActivity(),
+                            R.string.Cant_chat_with_yourself,
+                            Toast.LENGTH_SHORT).show();
                 } else {
-                    //设置单聊中环信ID是否包含 -youxin (不包含，加上)
-                    if (!emUserId.contains(Constant.ID_REDPROJECT)) {
-                        emUserId += Constant.ID_REDPROJECT;
+                    // start chat acitivity
+                    Intent intent = new Intent(getActivity(), ChatActivity.class);
+                    boolean isSystem = false;
+                    if (conversation != null && conversation.getLastMessage() != null && conversation.getLastMessage().ext() != null) {
+                        String json = FastJsonUtil.toJSONString(conversation.getLastMessage().ext());
+
+                        if (json.contains("msgType")) {
+                            String msgType = FastJsonUtil.getString(json, "msgType");
+
+                            if ("systematic".equals(msgType)) {
+                                intent.putExtra(Constant.NICKNAME, "艾特官方");
+                                isSystem = true;
+                            } else if ("walletMsg".equals(msgType)) {
+                                intent.putExtra(Constant.NICKNAME, "钱包助手");
+                                isSystem = true;
+                            }
+
+                        }
+                        try {
+                            emUserId = conversation.conversationId();
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
+                    if (conversation.isGroup()) {
+                        if (conversation.getType() == EMConversation.EMConversationType.ChatRoom) {
+                            // it's group chat
+                            intent.putExtra(Constant.EXTRA_CHAT_TYPE, Constant.CHATTYPE_CHATROOM);
+                        } else {
+                            intent.putExtra(Constant.EXTRA_CHAT_TYPE, Constant.CHATTYPE_GROUP);
+                        }
+                        //移除群组at标志
+                        EaseAtMessageHelper.get().removeAtMeGroup(emUserId);
+                    } else {
+                        //设置单聊中环信ID是否包含 -youxin (不包含，加上)
+                        if (!emUserId.contains(Constant.ID_REDPROJECT)) {
+                            emUserId += Constant.ID_REDPROJECT;
+                        }
+                    }
+                    // it's single chat
+                    intent.putExtra(Constant.EXTRA_USER_ID, emUserId);
+                    intent.putExtra("isSystem", isSystem);
+                    startActivity(intent);
                 }
-                ChatActivity.actionStart(mContext, emUserId, EaseCommonUtils.getChatType((EMConversation) item), nickName, isSystem);
-
             }
+        });
+        //red packet code : 红包回执消息在会话列表最后一条消息的展示
+
+        conversationListView.setConversationListHelper(new EaseConversationList.EaseConversationListHelper() {
+            @Override
+            public String onSetItemSecondaryText(EMMessage lastMessage) {
+                if (lastMessage.getStringAttribute(Constant.MSGTYPE, "").equals(Constant.RETURNGOLD)) {
+                    return "红包退还通知";
+                } else if ("系统管理员".equals(lastMessage.getFrom())) {
+                    return "房间创建成功";
+                } else if (lastMessage.getBooleanAttribute("cmd", false)) {
+                    return "";
+                }
+                return null;
+            }
+        });
+    }
+
+    @Override
+    protected void onConnectionDisconnected() {
+        super.onConnectionDisconnected();
+    }
+
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v,
+                                    ContextMenu.ContextMenuInfo menuInfo) {
+        getActivity().getMenuInflater().inflate(R.menu.em_delete_message, menu);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        boolean deleteMessage = false;
+        if (item.getItemId() == R.id.delete_message) {
+            deleteMessage = true;
+        } else if (item.getItemId() == R.id.delete_conversation) {
+            deleteMessage = false;
         }
+        EMConversation tobeDeleteCons =
+                conversationListView.getItem(((AdapterView.AdapterContextMenuInfo) item.getMenuInfo()).position);
+        if (tobeDeleteCons == null) {
+            return true;
+        }
+
+        try {
+            // delete conversation
+            EMClient.getInstance().chatManager().deleteConversation(tobeDeleteCons.conversationId(), deleteMessage);
+            InviteMessgeDao inviteMessgeDao =
+                    new InviteMessgeDao(getActivity());
+            inviteMessgeDao.deleteMessage(tobeDeleteCons.conversationId());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        refresh();
+
+        return true;
     }
 
-    @Override
-    public void notifyItemChange(int position) {
-        super.notifyItemChange(position);
-        LiveDataBus.get().with(DemoConstant.MESSAGE_CHANGE_CHANGE).postValue(new EaseEvent(DemoConstant.MESSAGE_CHANGE_CHANGE, EaseEvent.TYPE.MESSAGE));
-    }
-
-    @Override
-    public void notifyAllChange() {
-        super.notifyAllChange();
-    }
 
 }
