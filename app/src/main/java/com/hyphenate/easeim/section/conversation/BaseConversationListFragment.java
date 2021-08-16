@@ -172,6 +172,7 @@ public class BaseConversationListFragment extends BaseInitFragment {
      * refresh ui
      */
     public void refresh() {
+        srlRefresh.setRefreshing(true);
         if (!handler.hasMessages(MSG_REFRESH)) {
             handler.sendEmptyMessage(MSG_REFRESH);
         }

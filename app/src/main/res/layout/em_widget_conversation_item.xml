@@ -1,47 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_55"
-    android:background="@drawable/ease_mm_listitem"
+    android:layout_height="wrap_content"
     android:duplicateParentState="true">
 
-    <com.hyphenate.easecallkit.widget.EaseImageView
-        android:id="@+id/avatar"
-        android:layout_width="@dimen/dp_36"
-        android:layout_height="@dimen/dp_36"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/dp_20"
-        android:src="@mipmap/img_default_avatar" />
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/ll_new_friends"
+        android:layout_width="match_parent"
+        android:layout_height="60dp">
 
-    <TextView
-        android:id="@+id/unread_msg_number"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/dp_16"
-        android:layout_alignTop="@+id/avatar"
-        android:layout_margin="-15dp"
-        android:layout_marginLeft="@dimen/dp_48"
-        android:layout_marginTop="-8dp"
-        android:background="@drawable/shape_unread_bg"
-        android:gravity="center"
-        android:minWidth="@dimen/dp_16"
-        android:paddingLeft="5dp"
-        android:paddingRight="5dp"
-        android:textColor="@color/white"
-        android:textSize="@dimen/sp_10"
-        android:visibility="gone" />
+        <com.hyphenate.easecallkit.widget.EaseImageView
+            android:id="@+id/avatar"
+            android:layout_width="@dimen/dp_36"
+            android:layout_height="@dimen/dp_36"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="24dp"
+            android:src="@mipmap/img_default_avatar"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:layout_marginRight="@dimen/dp_5"
-        android:layout_toRightOf="@+id/avatar"
-        android:ellipsize="end"
-        android:singleLine="true"
-        android:textColor="@color/black_text"
-        android:textSize="@dimen/sp_15" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_weight="1"
+            android:text="新朋友"
+            android:textColor="@color/color_171C20"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@+id/avatar"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/msg_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="20dp"
+            android:text="12:00"
+            android:textColor="@color/color_ACACBC"
+            android:textSize="12dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/avatar" />
+
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/unread_msg_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:paddingStart="4dp"
+            android:paddingEnd="4dp"
+            android:text="1"
+            android:textColor="@color/white"
+            android:textSize="10dp"
+            app:layout_constraintEnd_toEndOf="@id/msg_date"
+            app:layout_constraintTop_toBottomOf="@+id/msg_date"
+            app:stv_corner="30dp"
+            app:stv_solid="@color/color_FF0000" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 </RelativeLayout>

@@ -78,8 +78,6 @@ public class UserInfoDetailActivity extends BaseInitActivity {
     CheckBox mSwitchMute;
     @BindView(R.id.rl_mute)
     View rlMute;
-    @BindView(R.id.img_right)
-    ImageView mImgRight;
     @BindView(R.id.tv_inviter)
     TextView tvInviter;
     @BindView(R.id.layout_inviter)
@@ -104,24 +102,26 @@ public class UserInfoDetailActivity extends BaseInitActivity {
 
 
     @Override
+    protected int getLayoutId() {
+        return R.layout.activity_userinfo_detail;
+    }
+
+    @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         initLogic();
     }
 
     protected void initLogic() {
-        mImgRight.setVisibility(View.VISIBLE);
-
-        mImgRight.setImageResource(R.mipmap.gengd);
         mTitleBar.setTitle("用户详情");
         mTitleBar.setOnBackPressListener(view -> finish());
-        mImgRight.setOnClickListener(v ->
+        /*mImgRight.setOnClickListener(v ->
                 startActivity(new Intent(UserInfoDetailActivity.this, ChatMoreSetlActivity.class)
                         .putExtra(Constant.PARAM_EM_CHAT_ID, userId + Constant.ID_REDPROJECT)
 //                        .putExtra(Constant.NICKNAME, info.getFriendNickName()==null?info.getUserNickName():info.getFriendNickName())
                         .putExtra(Constant.NICKNAME, userName)
                         .putExtra("isFriend", info.getFriendFlag().equals("1"))
-                        .putExtra("from", "1")));
+                        .putExtra("from", "1")));*/
 
         if (userId.contains(UserComm.getUserId())) {
             //自己
@@ -643,10 +643,5 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                 ToastUtil.toast(msg);
             }
         });
-    }
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.activity_userinfo_detail;
     }
 }

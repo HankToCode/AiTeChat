@@ -11,10 +11,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hyphenate.easeim.R;
+import com.hyphenate.util.DateUtils;
+
+import java.util.Date;
 
 
-public class ConversationItemView extends LinearLayout{
+public class ConversationItemView extends LinearLayout {
 
+    private TextView msgDateView;
     private TextView unreadMsgView;
 
     public ConversationItemView(Context context, AttributeSet attrs) {
@@ -26,37 +30,50 @@ public class ConversationItemView extends LinearLayout{
         super(context);
         init(context, null);
     }
-    
-    private void init(Context context, AttributeSet attrs){
+
+    private void init(Context context, AttributeSet attrs) {
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.ConversationItemView);
         String name = ta.getString(R.styleable.ConversationItemView_conversationItemName);
         Drawable image = ta.getDrawable(R.styleable.ConversationItemView_conversationItemImage);
         ta.recycle();
-        
+
         LayoutInflater.from(context).inflate(R.layout.em_widget_conversation_item, this);
         ImageView avatar = (ImageView) findViewById(R.id.avatar);
+        msgDateView = (TextView) findViewById(R.id.msg_date);
         unreadMsgView = (TextView) findViewById(R.id.unread_msg_number);
         TextView nameView = (TextView) findViewById(R.id.name);
-        if(image != null){
+        if (image != null) {
             avatar.setImageDrawable(image);
         }
         nameView.setText(name);
+
+        msgDateView.setText(DateUtils.getTimestampString(new Date(System.currentTimeMillis())));
     }
-    
-    public void setUnreadCount(int unreadCount){
-        if (unreadCount <= 0){
-            unreadMsgView.setVisibility(View.GONE);
+
+    public void setUnreadCount(int unreadCount) {
+        if (unreadCount <= 0) {
+            unreadMsgView.setVisibility(View.INVISIBLE);
             return;
         }
         unreadMsgView.setVisibility(View.VISIBLE);
         unreadMsgView.setText(String.valueOf(unreadCount));
     }
-    
-    public void showUnreadMsgView(){
+
+    public void setUnreadDate(long unreadDate) {
+        if (unreadDate <= 0) {
+            msgDateView.setVisibility(View.INVISIBLE);
+            return;
+        }
+        msgDateView.setVisibility(View.VISIBLE);
+        msgDateView.setText(DateUtils.getTimestampString(new Date(unreadDate)));
+    }
+
+    public void showUnreadMsgView() {
         unreadMsgView.setVisibility(View.VISIBLE);
     }
-    public void hideUnreadMsgView(){
+
+    public void hideUnreadMsgView() {
         unreadMsgView.setVisibility(View.INVISIBLE);
     }
-    
+
 }

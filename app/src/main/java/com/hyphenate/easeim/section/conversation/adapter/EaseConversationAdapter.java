@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
+import com.coorchice.library.SuperTextView;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMConversation.EMConversationType;
@@ -107,7 +108,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
         if (holder == null) {
             holder = new ViewHolder();
             holder.name = (TextView) convertView.findViewById(R.id.name);
-            holder.iv_aite_guanfang = (ImageView) convertView.findViewById(R.id.iv_aite_guanfang);
+            holder.iv_aite_guanfang = (SuperTextView) convertView.findViewById(R.id.iv_aite_guanfang);
             holder.unreadLabel = (TextView) convertView.findViewById(R.id.unread_msg_number);
             holder.message = (TextView) convertView.findViewById(R.id.message);
             holder.time = (TextView) convertView.findViewById(R.id.time);
@@ -203,10 +204,10 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                 if (!TextUtils.isEmpty(msgType) && "systematic".equals(msgType)) {
                     username = Constant.ADMIN;
                 }
-                if(!TextUtils.isEmpty(msgType) && "walletMsg".equals(msgType)){
+                if (!TextUtils.isEmpty(msgType) && "walletMsg".equals(msgType)) {
                     username = Constant.WALLET;
                 }
-                if ("1".equals(FastJsonUtil.getString(json, "applyStatus"))){
+                if ("1".equals(FastJsonUtil.getString(json, "applyStatus"))) {
                     tempNickname = FastJsonUtil.getString(json, "nickname");
                 }
 
@@ -215,7 +216,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
 //            holder.ImgMsgFree.setVisibility(View.GONE);
             if (username.equals(Constant.ADMIN)) {
                 holder.swipeRevealLayout.setLockDrag(true);
-                holder.name.setText("艾特");//艾特官方
+                holder.name.setText("千纸鹤小助手");//艾特官方
                 holder.iv_aite_guanfang.setVisibility(View.VISIBLE);
                 /*RichTextUtils.getBuilder("艾特")
                         .append("官方")
@@ -223,35 +224,37 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                         .setProportion(0.8f)
                         .setSuperscript()
                         .into(holder.name);*/
-                GlideUtils.loadImageView(R.mipmap.aite_launcher, holder.avatar);
-            }else if (username.equals(Constant.WALLET)) {
+                GlideUtils.loadImageView(R.drawable.ic_conversation_app, holder.avatar);
+            } else if (username.equals(Constant.WALLET)) {
                 holder.swipeRevealLayout.setLockDrag(true);
-                holder.name.setText("钱包助手");
+                holder.name.setText("零钱助手");
                 holder.name.setTextColor(Color.parseColor("#762BFF"));//xgp add
-                GlideUtils.loadImageView(R.mipmap.ic_wallet, holder.avatar);
-            }else {//客服走这里
+                GlideUtils.loadImageView(R.drawable.ic_conversation_package, holder.avatar);
+            } else {//客服走这里
                 String contactId = conversationId;
                 String headImg = AppConfig.checkimg(UserOperateManager.getInstance().getUserAvatar(contactId));
                 // TODO: 2021/3/30 xgp 处理客服图像 写死
-                if(contactId.contains("6a1bec8f64fe11eba89700163e0654c2")){
+                if (contactId.contains("6a1bec8f64fe11eba89700163e0654c2")) {
                     holder.avatar.setImageResource(R.mipmap.icon_kefu_avatar);
-                }else if(contactId.contains("0d777a9c8f9311eb844f00163e0654c2")){
+                } else if (contactId.contains("0d777a9c8f9311eb844f00163e0654c2")) {
                     holder.avatar.setImageResource(R.mipmap.icon_exception_handle_kefu_avatar);
-                }else {
+                } else {
                     GlideUtils.loadImageViewLoding(headImg, holder.avatar, R.mipmap.img_default_avatar);
                 }
                 //GlideUtils.loadImageViewLoding(headImg, holder.avatar, R.mipmap.img_default_avatar);
                 if (UserOperateManager.getInstance().hasUserName(contactId)) {
                     username = UserOperateManager.getInstance().getUserName(contactId);
-                }else if (!TextUtils.isEmpty(tempNickname)){
+                } else if (!TextUtils.isEmpty(tempNickname)) {
                     username = tempNickname;
                 }
 
-                if(contactId.contains("6a1bec8f64fe11eba89700163e0654c2")){
+                if (contactId.contains("6a1bec8f64fe11eba89700163e0654c2")) {
                     holder.name.setText("客服");
-                }else if(contactId.contains("0d777a9c8f9311eb844f00163e0654c2")){
+                } else if (contactId.contains("0d777a9c8f9311eb844f00163e0654c2")) {
                     holder.name.setText("异常处理客服");
-                }else {
+                } else {
+
+
                     holder.name.setText(username);
                 }
                 //holder.name.setText(username);
@@ -310,7 +313,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
 
             }
 
-            if (!EaseSharedUtils.isEnableMsgRing(Utils.getContext(), UserComm.getUserId()+Constant.ID_REDPROJECT, conversationId)) {
+            if (!EaseSharedUtils.isEnableMsgRing(Utils.getContext(), UserComm.getUserId() + Constant.ID_REDPROJECT, conversationId)) {
                 if (conversation.getUnreadMsgCount() > 0) {
                     holder.message.setText("[" + conversation.getUnreadMsgCount() + "条未读]  " + EaseSmileUtils.getSmiledText(getContext(), EaseCommonUtils.getMessageDigest(lastMessage, (this.getContext()))), BufferType.SPANNABLE);
                 } else {
@@ -324,7 +327,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
 
 
             if (content != null) {
-                if (!EaseSharedUtils.isEnableMsgRing(Utils.getContext(), UserComm.getUserId()+Constant.ID_REDPROJECT, conversationId)) {
+                if (!EaseSharedUtils.isEnableMsgRing(Utils.getContext(), UserComm.getUserId() + Constant.ID_REDPROJECT, conversationId)) {
                     if (conversation.getUnreadMsgCount() > 0) {
                         holder.message.setText("[" + conversation.getUnreadMsgCount() + "]" + content);
                     }
@@ -333,8 +336,8 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                 }
             }
 
-            if (username .equals(Constant.WALLET) ){
-                holder.message.setText(ProjectUtil.getWalletMessageTips(type,status));
+            if (username.equals(Constant.WALLET)) {
+                holder.message.setText(ProjectUtil.getWalletMessageTips(type, status));
             }
 
 
@@ -527,7 +530,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
         SwipeRevealLayout swipeRevealLayout;
         View deleteLayout;
 
-        ImageView iv_aite_guanfang;
+        SuperTextView iv_aite_guanfang;
     }
 }
 
