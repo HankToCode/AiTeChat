@@ -28,63 +28,73 @@ public class PreferenceManager {
     private static PreferenceManager mPreferencemManager;
     private static SharedPreferences.Editor editor;
 
-    private String SHARED_KEY_SETTING_NOTIFICATION = "shared_key_setting_notification";
+    private String SHARED_KEY_SETTING_NOTIFICATION =
+            "shared_key_setting_notification";
     private String SHARED_KEY_SETTING_SOUND = "shared_key_setting_sound";
     private String SHARED_KEY_SETTING_VIBRATE = "shared_key_setting_vibrate";
     private String SHARED_KEY_SETTING_SPEAKER = "shared_key_setting_speaker";
 
-    private static String SHARED_KEY_SETTING_CHATROOM_OWNER_LEAVE = "shared_key_setting_chatroom_owner_leave";
-    private static String SHARED_KEY_SETTING_DELETE_MESSAGES_WHEN_EXIT_GROUP = "shared_key_setting_delete_messages_when_exit_group";
-    private static String SHARED_KEY_SETTING_DELETE_MESSAGES_WHEN_EXIT_CHAT_ROOM = "shared_key_setting_delete_messages_when_exit_chat_room";
-    private static String SHARED_KEY_SETTING_TRANSFER_FILE_BY_USER = "shared_key_setting_transfer_file_by_user";
-    private static String SHARED_KEY_SETTING_AUTODOWNLOAD_THUMBNAIL = "shared_key_setting_autodownload_thumbnail";
-    private static String SHARED_KEY_SETTING_AUTO_ACCEPT_GROUP_INVITATION = "shared_key_setting_auto_accept_group_invitation";
-    private static String SHARED_KEY_SETTING_ADAPTIVE_VIDEO_ENCODE = "shared_key_setting_adaptive_video_encode";
-    private static String SHARED_KEY_SETTING_OFFLINE_PUSH_CALL = "shared_key_setting_offline_push_call";
-    private static String SHARED_KEY_SETTING_RECORD_ON_SERVER = "shared_key_setting_record_on_server";
-    private static String SHARED_KEY_SETTING_MERGE_STREAM = "shared_key_setting_merge_stream";
-    private static String SHARED_KEY_SETTING_OFFLINE_LARGE_CONFERENCE_MODE = "shared_key_setting_offline_large_conference_mode";
+    private static String SHARED_KEY_SETTING_CHATROOM_OWNER_LEAVE =
+            "shared_key_setting_chatroom_owner_leave";
+    private static String SHARED_KEY_SETTING_DELETE_MESSAGES_WHEN_EXIT_GROUP
+            = "shared_key_setting_delete_messages_when_exit_group";
+    private static String SHARED_KEY_SETTING_TRANSFER_FILE_BY_USER =
+            "shared_key_setting_transfer_file_by_user";
+    private static String SHARED_KEY_SETTING_AUTODOWNLOAD_THUMBNAIL =
+            "shared_key_setting_autodownload_thumbnail";
+    private static String SHARED_KEY_SETTING_AUTO_ACCEPT_GROUP_INVITATION =
+            "shared_key_setting_auto_accept_group_invitation";
+    private static String SHARED_KEY_SETTING_ADAPTIVE_VIDEO_ENCODE =
+            "shared_key_setting_adaptive_video_encode";
+    private static String SHARED_KEY_SETTING_OFFLINE_PUSH_CALL =
+            "shared_key_setting_offline_push_call";
 
-    private static String SHARED_KEY_SETTING_GROUPS_SYNCED = "SHARED_KEY_SETTING_GROUPS_SYNCED";
-    private static String SHARED_KEY_SETTING_CONTACT_SYNCED = "SHARED_KEY_SETTING_CONTACT_SYNCED";
-    private static String SHARED_KEY_SETTING_BALCKLIST_SYNCED = "SHARED_KEY_SETTING_BALCKLIST_SYNCED";
+    private static String SHARED_KEY_SETTING_GROUPS_SYNCED =
+            "SHARED_KEY_SETTING_GROUPS_SYNCED";
+    private static String SHARED_KEY_SETTING_CONTACT_SYNCED =
+            "SHARED_KEY_SETTING_CONTACT_SYNCED";
+    private static String SHARED_KEY_SETTING_BALCKLIST_SYNCED =
+            "SHARED_KEY_SETTING_BALCKLIST_SYNCED";
 
-    private static String SHARED_KEY_CURRENTUSER_USERNAME = "SHARED_KEY_CURRENTUSER_USERNAME";
-    private static String SHARED_KEY_CURRENTUSER_USER_PASSWORD = "SHARED_KEY_CURRENTUSER_USER_PASSWORD";
-    private static String SHARED_KEY_CURRENTUSER_NICK = "SHARED_KEY_CURRENTUSER_NICK";
-    private static String SHARED_KEY_CURRENTUSER_AVATAR = "SHARED_KEY_CURRENTUSER_AVATAR";
+    private static String SHARED_KEY_CURRENTUSER_USERNAME =
+            "SHARED_KEY_CURRENTUSER_USERNAME";
+    private static String SHARED_KEY_CURRENTUSER_NICK =
+            "SHARED_KEY_CURRENTUSER_NICK";
+    private static String SHARED_KEY_CURRENTUSER_AVATAR =
+            "SHARED_KEY_CURRENTUSER_AVATAR";
 
     private static String SHARED_KEY_REST_SERVER = "SHARED_KEY_REST_SERVER";
     private static String SHARED_KEY_IM_SERVER = "SHARED_KEY_IM_SERVER";
-    private static String SHARED_KEY_IM_SERVER_PORT = "SHARED_KEY_IM_SERVER_PORT";
-    private static String SHARED_KEY_ENABLE_CUSTOM_SERVER = "SHARED_KEY_ENABLE_CUSTOM_SERVER";
-    private static String SHARED_KEY_ENABLE_CUSTOM_SET = "SHARED_KEY_ENABLE_CUSTOM_SET";
-    private static String SHARED_KEY_ENABLE_CUSTOM_APPKEY = "SHARED_KEY_ENABLE_CUSTOM_APPKEY";
+    private static String SHARED_KEY_ENABLE_CUSTOM_SERVER =
+            "SHARED_KEY_ENABLE_CUSTOM_SERVER";
+    private static String SHARED_KEY_ENABLE_CUSTOM_APPKEY =
+            "SHARED_KEY_ENABLE_CUSTOM_APPKEY";
     private static String SHARED_KEY_CUSTOM_APPKEY = "SHARED_KEY_CUSTOM_APPKEY";
     private static String SHARED_KEY_MSG_ROAMING = "SHARED_KEY_MSG_ROAMING";
-    private static String SHARED_KEY_SHOW_MSG_TYPING = "SHARED_KEY_SHOW_MSG_TYPING";
+    private static String SHARED_KEY_AT_GROUPS = "SHARED_KEY_AT_GROUPS1";
 
-    private static String SHARED_KEY_CALL_MIN_VIDEO_KBPS = "SHARED_KEY_CALL_MIN_VIDEO_KBPS";
-    private static String SHARED_KEY_CALL_MAX_VIDEO_KBPS = "SHARED_KEY_CALL_Max_VIDEO_KBPS";
-    private static String SHARED_KEY_CALL_MAX_FRAME_RATE = "SHARED_KEY_CALL_MAX_FRAME_RATE";
-    private static String SHARED_KEY_CALL_AUDIO_SAMPLE_RATE = "SHARED_KEY_CALL_AUDIO_SAMPLE_RATE";
-    private static String SHARED_KEY_CALL_BACK_CAMERA_RESOLUTION = "SHARED_KEY_CALL_BACK_CAMERA_RESOLUTION";
-    private static String SHARED_KEY_CALL_FRONT_CAMERA_RESOLUTION = "SHARED_KEY_FRONT_CAMERA_RESOLUTIOIN";
-    private static String SHARED_KEY_CALL_FIX_SAMPLE_RATE = "SHARED_KEY_CALL_FIX_SAMPLE_RATE";
+    private static String SHARED_KEY_CALL_MIN_VIDEO_KBPS =
+            "SHARED_KEY_CALL_MIN_VIDEO_KBPS";
+    private static String SHARED_KEY_CALL_MAX_VIDEO_KBPS =
+            "SHARED_KEY_CALL_Max_VIDEO_KBPS";
+    private static String SHARED_KEY_CALL_MAX_FRAME_RATE =
+            "SHARED_KEY_CALL_MAX_FRAME_RATE";
+    private static String SHARED_KEY_CALL_AUDIO_SAMPLE_RATE =
+            "SHARED_KEY_CALL_AUDIO_SAMPLE_RATE";
+    private static String SHARED_KEY_CALL_BACK_CAMERA_RESOLUTION =
+            "SHARED_KEY_CALL_BACK_CAMERA_RESOLUTION";
+    private static String SHARED_KEY_CALL_FRONT_CAMERA_RESOLUTION =
+            "SHARED_KEY_FRONT_CAMERA_RESOLUTIOIN";
+    private static String SHARED_KEY_CALL_FIX_SAMPLE_RATE =
+            "SHARED_KEY_CALL_FIX_SAMPLE_RATE";
+    private static String FIRST_OPEN_APP = "FIRST_OPEN_APP";
 
-    private static String SHARED_KEY_EXTERNAL_INPUT_AUDIO_RESOLUTION = "SHARED_KEY_EXTERNAL_INPUT_AUDIO_RESOLUTION";
-    private static String SHARED_KEY_WATER_MARK_RESOLUTION = "SHARED_KEY_WATER_MARK_RESOLUTION";
 
-    private static String SHARED_KEY_PUSH_USE_FCM = "shared_key_push_use_fcm";
-    private static String SHARED_KEY_AUTO_LOGIN = "shared_key_auto_login";
-    private static String SHARED_KEY_HTTPS_ONLY = "shared_key_https_only";
-    private static String SHARED_KEY_SORT_MESSAGE_BY_SERVER_TIME = "sort_message_by_server_time";
-
-    private static String SHARED_KEY_ENABLE_TOKEN_LOGIN = "enable_token_login";
 
     @SuppressLint("CommitPrefEdits")
     private PreferenceManager(Context cxt) {
-        mSharedPreferences = cxt.getSharedPreferences(PREFERENCE_NAME, Context.MODE_PRIVATE);
+        mSharedPreferences = cxt.getSharedPreferences(PREFERENCE_NAME,
+                Context.MODE_PRIVATE);
         editor = mSharedPreferences.edit();
     }
 
@@ -108,13 +118,72 @@ public class PreferenceManager {
         return mPreferencemManager;
     }
 
+
+    public  void setParam(String key, Object object) {
+        if (mSharedPreferences == null) return;
+        if (UserComm.IsOnLine())
+            key += UserComm.getUserId();
+        SharedPreferences.Editor editor = mSharedPreferences.edit();
+        if (object instanceof String) {
+            editor.putString(key, (String) object);
+        } else if (object instanceof Integer) {
+            editor.putInt(key, (Integer) object);
+        } else if (object instanceof Boolean) {
+            editor.putBoolean(key, (Boolean) object);
+        } else if (object instanceof Float) {
+            editor.putFloat(key, (Float) object);
+        } else if (object instanceof Long) {
+            editor.putLong(key, (Long) object);
+        }
+
+
+        editor.commit();
+    }
+
+    /**
+     * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
+     *
+     * @param key
+     * @param defaultObject
+     * @return
+     */
+    public  Object getParam(String key, Object defaultObject) {
+        if (mSharedPreferences == null) return defaultObject;
+
+        if (UserComm.IsOnLine())
+            key += UserComm.getUserId();
+
+        if (defaultObject instanceof String) {
+            return mSharedPreferences.getString(key, (String) defaultObject);
+        } else if (defaultObject instanceof Integer) {
+            return mSharedPreferences.getInt(key, (Integer) defaultObject);
+        } else if (defaultObject instanceof Boolean) {
+            return mSharedPreferences.getBoolean(key, (Boolean) defaultObject);
+        } else if (defaultObject instanceof Float) {
+            return mSharedPreferences.getFloat(key, (Float) defaultObject);
+        } else if (defaultObject instanceof Long) {
+            return mSharedPreferences.getLong(key, (Long) defaultObject);
+        }
+        return defaultObject;
+    }
+
+    public void saveUserData(String key,String userdata) {
+        editor.putString(key, userdata);
+        editor.apply();
+    }
+
+    public String getUserData(String key) {
+        return mSharedPreferences.getString(key, "");
+    }
+
     public void setSettingMsgNotification(boolean paramBoolean) {
         editor.putBoolean(SHARED_KEY_SETTING_NOTIFICATION, paramBoolean);
         editor.apply();
     }
 
     public boolean getSettingMsgNotification() {
-        return mSharedPreferences.getBoolean(SHARED_KEY_SETTING_NOTIFICATION, true);
+        return mSharedPreferences.getBoolean(SHARED_KEY_SETTING_NOTIFICATION,
+                true);
     }
 
     public void setSettingMsgSound(boolean paramBoolean) {
@@ -155,21 +224,13 @@ public class PreferenceManager {
     }
 
     public void setDeleteMessagesAsExitGroup(boolean value) {
-        editor.putBoolean(SHARED_KEY_SETTING_DELETE_MESSAGES_WHEN_EXIT_GROUP, value);
+        editor.putBoolean(SHARED_KEY_SETTING_DELETE_MESSAGES_WHEN_EXIT_GROUP,
+                value);
         editor.apply();
     }
 
     public boolean isDeleteMessagesAsExitGroup() {
         return mSharedPreferences.getBoolean(SHARED_KEY_SETTING_DELETE_MESSAGES_WHEN_EXIT_GROUP, true);
-    }
-
-    public void setDeleteMessagesAsExitChatRoom(boolean value) {
-        editor.putBoolean(SHARED_KEY_SETTING_DELETE_MESSAGES_WHEN_EXIT_CHAT_ROOM, value);
-        editor.apply();
-    }
-
-    public boolean isDeleteMessagesAsExitChatRoom() {
-        return mSharedPreferences.getBoolean(SHARED_KEY_SETTING_DELETE_MESSAGES_WHEN_EXIT_CHAT_ROOM, true);
     }
 
     public void setTransferFileByUser(boolean value) {
@@ -182,7 +243,8 @@ public class PreferenceManager {
     }
 
     public void setAudodownloadThumbnail(boolean autodownload) {
-        editor.putBoolean(SHARED_KEY_SETTING_AUTODOWNLOAD_THUMBNAIL, autodownload);
+        editor.putBoolean(SHARED_KEY_SETTING_AUTODOWNLOAD_THUMBNAIL,
+                autodownload);
         editor.apply();
     }
 
@@ -191,7 +253,8 @@ public class PreferenceManager {
     }
 
     public void setAutoAcceptGroupInvitation(boolean value) {
-        editor.putBoolean(SHARED_KEY_SETTING_AUTO_ACCEPT_GROUP_INVITATION, value);
+        editor.putBoolean(SHARED_KEY_SETTING_AUTO_ACCEPT_GROUP_INVITATION,
+                value);
         editor.commit();
     }
 
@@ -214,25 +277,7 @@ public class PreferenceManager {
     }
 
     public boolean isPushCall() {
-        return mSharedPreferences.getBoolean(SHARED_KEY_SETTING_OFFLINE_PUSH_CALL, true);
-    }
-
-    public void setRecordOnServer(boolean value) {
-        editor.putBoolean(SHARED_KEY_SETTING_RECORD_ON_SERVER, value);
-        editor.apply();
-    }
-
-    public boolean isRecordOnServer() {
-        return mSharedPreferences.getBoolean(SHARED_KEY_SETTING_RECORD_ON_SERVER, false);
-    }
-
-    public void setMergeStream(boolean value) {
-        editor.putBoolean(SHARED_KEY_SETTING_MERGE_STREAM, value);
-        editor.apply();
-    }
-
-    public boolean isMergeStream() {
-        return mSharedPreferences.getBoolean(SHARED_KEY_SETTING_MERGE_STREAM, false);
+        return mSharedPreferences.getBoolean(SHARED_KEY_SETTING_OFFLINE_PUSH_CALL, false);
     }
 
     public void setGroupsSynced(boolean synced) {
@@ -241,7 +286,8 @@ public class PreferenceManager {
     }
 
     public boolean isGroupsSynced() {
-        return mSharedPreferences.getBoolean(SHARED_KEY_SETTING_GROUPS_SYNCED, false);
+        return mSharedPreferences.getBoolean(SHARED_KEY_SETTING_GROUPS_SYNCED
+                , false);
     }
 
     public void setContactSynced(boolean synced) {
@@ -277,7 +323,8 @@ public class PreferenceManager {
     }
 
     public String getCurrentUserAvatar() {
-        return mSharedPreferences.getString(SHARED_KEY_CURRENTUSER_AVATAR, null);
+        return mSharedPreferences.getString(SHARED_KEY_CURRENTUSER_AVATAR,
+                null);
     }
 
     public void setCurrentUserName(String username) {
@@ -286,16 +333,8 @@ public class PreferenceManager {
     }
 
     public String getCurrentUsername() {
-        return mSharedPreferences.getString(SHARED_KEY_CURRENTUSER_USERNAME, null);
-    }
-
-    public void setCurrentUserPwd(String pwd) {
-        editor.putString(SHARED_KEY_CURRENTUSER_USER_PASSWORD, pwd);
-        editor.apply();
-    }
-
-    public String getCurrentUserPwd() {
-        return mSharedPreferences.getString(SHARED_KEY_CURRENTUSER_USER_PASSWORD, null);
+        return mSharedPreferences.getString(SHARED_KEY_CURRENTUSER_USERNAME,
+                null);
     }
 
     public void setRestServer(String restServer) {
@@ -318,29 +357,22 @@ public class PreferenceManager {
 
     public void enableCustomServer(boolean enable) {
         editor.putBoolean(SHARED_KEY_ENABLE_CUSTOM_SERVER, enable);
-        editor.commit();
+        editor.apply();
     }
 
     public boolean isCustomServerEnable() {
-        return mSharedPreferences.getBoolean(SHARED_KEY_ENABLE_CUSTOM_SERVER, false);
-    }
-
-    public boolean isCustomSetEnable() {
-        return mSharedPreferences.getBoolean(SHARED_KEY_ENABLE_CUSTOM_SET, false);
-    }
-
-    public void enableCustomSet(boolean enable) {
-        editor.putBoolean(SHARED_KEY_ENABLE_CUSTOM_SET, enable);
-        editor.commit();
+        return mSharedPreferences.getBoolean(SHARED_KEY_ENABLE_CUSTOM_SERVER,
+                false);
     }
 
     public void enableCustomAppkey(boolean enable) {
         editor.putBoolean(SHARED_KEY_ENABLE_CUSTOM_APPKEY, enable);
-        editor.commit();
+        editor.apply();
     }
 
     public boolean isCustomAppkeyEnabled() {
-        return mSharedPreferences.getBoolean(SHARED_KEY_ENABLE_CUSTOM_APPKEY, true);
+        return mSharedPreferences.getBoolean(SHARED_KEY_ENABLE_CUSTOM_APPKEY,
+                false);
     }
 
     public String getCustomAppkey() {
@@ -349,7 +381,17 @@ public class PreferenceManager {
 
     public void setCustomAppkey(String appkey) {
         editor.putString(SHARED_KEY_CUSTOM_APPKEY, appkey);
+        editor.apply();
+    }
+
+    public void setAtMeGroups(String groups) {
+        editor.putString(SHARED_KEY_AT_GROUPS, groups);
         editor.commit();
+
+    }
+
+    public String getAtMeGroups(){
+        return mSharedPreferences.getString(SHARED_KEY_AT_GROUPS, "");
     }
 
     public void removeCurrentUserInfo() {
@@ -367,51 +409,9 @@ public class PreferenceManager {
         editor.apply();
     }
 
-    public boolean isShowMsgTyping() {
-        return mSharedPreferences.getBoolean(SHARED_KEY_SHOW_MSG_TYPING, false);
-    }
-
-    public void showMsgTyping(boolean show) {
-        editor.putBoolean(SHARED_KEY_SHOW_MSG_TYPING, show);
-        editor.apply();
-    }
-
     /**
-     * 设置是否自动登录,只有登录成功后，此值才能设置为true
-     * @param autoLogin
-     */
-    public void setAutoLogin(boolean autoLogin) {
-        editor.putBoolean(SHARED_KEY_AUTO_LOGIN, autoLogin);
-        editor.commit();
-    }
-
-    /**
-     * 获取是否是自动登录
-     * @return
-     */
-    public boolean getAutoLogin() {
-        return mSharedPreferences.getBoolean(SHARED_KEY_AUTO_LOGIN, false);
-    }
-
-    /**
-     * using Https only
-     * @param usingHttpsOnly
-     */
-    public void setUsingHttpsOnly(boolean usingHttpsOnly) {
-        editor.putBoolean(SHARED_KEY_HTTPS_ONLY, usingHttpsOnly);
-        editor.commit();
-    }
-
-    /**
-     * get if using Https only
-     * @return
-     */
-    public boolean getUsingHttpsOnly() {
-        return mSharedPreferences.getBoolean(SHARED_KEY_HTTPS_ONLY, false);
-    }
-
-    /**
-     * ----------------------------------------- Call Option -----------------------------------------
+     * ----------------------------------------- Call Option
+     * -----------------------------------------
      */
 
     /**
@@ -512,13 +512,158 @@ public class PreferenceManager {
         editor.apply();
     }
 
+    public void setFirstOpenApp(boolean b) {
+        editor.putBoolean(FIRST_OPEN_APP, b);
+        editor.apply();
+    }
+
+    public boolean isFirstOpenApp() {
+        return mSharedPreferences.getBoolean(FIRST_OPEN_APP, false);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    /**
+     * name of preference
+     */
+    private static String SHARED_KEY_SETTING_DELETE_MESSAGES_WHEN_EXIT_CHAT_ROOM = "shared_key_setting_delete_messages_when_exit_chat_room";
+    private static String SHARED_KEY_SETTING_RECORD_ON_SERVER = "shared_key_setting_record_on_server";
+    private static String SHARED_KEY_SETTING_MERGE_STREAM = "shared_key_setting_merge_stream";
+    private static String SHARED_KEY_SETTING_OFFLINE_LARGE_CONFERENCE_MODE = "shared_key_setting_offline_large_conference_mode";
+
+    private static String SHARED_KEY_CURRENTUSER_USER_PASSWORD = "SHARED_KEY_CURRENTUSER_USER_PASSWORD";
+    private static String SHARED_KEY_IM_SERVER_PORT = "SHARED_KEY_IM_SERVER_PORT";
+    private static String SHARED_KEY_ENABLE_CUSTOM_SET = "SHARED_KEY_ENABLE_CUSTOM_SET";
+    private static String SHARED_KEY_SHOW_MSG_TYPING = "SHARED_KEY_SHOW_MSG_TYPING";
+
+    private static String SHARED_KEY_EXTERNAL_INPUT_AUDIO_RESOLUTION = "SHARED_KEY_EXTERNAL_INPUT_AUDIO_RESOLUTION";
+    private static String SHARED_KEY_WATER_MARK_RESOLUTION = "SHARED_KEY_WATER_MARK_RESOLUTION";
+
+    private static String SHARED_KEY_PUSH_USE_FCM = "shared_key_push_use_fcm";
+    private static String SHARED_KEY_AUTO_LOGIN = "shared_key_auto_login";
+    private static String SHARED_KEY_HTTPS_ONLY = "shared_key_https_only";
+    private static String SHARED_KEY_SORT_MESSAGE_BY_SERVER_TIME = "sort_message_by_server_time";
+
+    private static String SHARED_KEY_ENABLE_TOKEN_LOGIN = "enable_token_login";
+
+
+
+    public void setDeleteMessagesAsExitChatRoom(boolean value){
+        editor.putBoolean(SHARED_KEY_SETTING_DELETE_MESSAGES_WHEN_EXIT_CHAT_ROOM, value);
+        editor.apply();
+    }
+
+    public boolean isDeleteMessagesAsExitChatRoom() {
+        return mSharedPreferences.getBoolean(SHARED_KEY_SETTING_DELETE_MESSAGES_WHEN_EXIT_CHAT_ROOM, true);
+    }
+
+
+    public void setRecordOnServer(boolean value) {
+        editor.putBoolean(SHARED_KEY_SETTING_RECORD_ON_SERVER, value);
+        editor.apply();
+    }
+
+    public boolean isRecordOnServer() {
+        return mSharedPreferences.getBoolean(SHARED_KEY_SETTING_RECORD_ON_SERVER, false);
+    }
+
+    public void setMergeStream(boolean value) {
+        editor.putBoolean(SHARED_KEY_SETTING_MERGE_STREAM, value);
+        editor.apply();
+    }
+
+    public boolean isMergeStream() {
+        return mSharedPreferences.getBoolean(SHARED_KEY_SETTING_MERGE_STREAM, false);
+    }
+
+    public void setCurrentUserPwd(String pwd) {
+        editor.putString(SHARED_KEY_CURRENTUSER_USER_PASSWORD, pwd);
+        editor.apply();
+    }
+
+    public String getCurrentUserPwd(){
+        return mSharedPreferences.getString(SHARED_KEY_CURRENTUSER_USER_PASSWORD, null);
+    }
+
+
+    public boolean isCustomSetEnable(){
+        return mSharedPreferences.getBoolean(SHARED_KEY_ENABLE_CUSTOM_SET, false);
+    }
+
+    public void enableCustomSet(boolean enable){
+        editor.putBoolean(SHARED_KEY_ENABLE_CUSTOM_SET, enable);
+        editor.commit();
+    }
+
+
+    public boolean isShowMsgTyping() {
+        return mSharedPreferences.getBoolean(SHARED_KEY_SHOW_MSG_TYPING, false);
+    }
+
+    public void showMsgTyping(boolean show) {
+        editor.putBoolean(SHARED_KEY_SHOW_MSG_TYPING, show);
+        editor.apply();
+    }
+
+    /**
+     * 设置是否自动登录,只有登录成功后，此值才能设置为true
+     * @param autoLogin
+     */
+    public void setAutoLogin(boolean autoLogin) {
+        editor.putBoolean(SHARED_KEY_AUTO_LOGIN, autoLogin);
+        editor.commit();
+    }
+
+    /**
+     * 获取是否是自动登录
+     * @return
+     */
+    public boolean getAutoLogin() {
+        return mSharedPreferences.getBoolean(SHARED_KEY_AUTO_LOGIN, false);
+    }
+
+    /**
+     * using Https only
+     * @param usingHttpsOnly
+     */
+    public void setUsingHttpsOnly(boolean usingHttpsOnly) {
+        editor.putBoolean(SHARED_KEY_HTTPS_ONLY, usingHttpsOnly);
+        editor.commit();
+    }
+
+    /**
+     * get if using Https only
+     * @return
+     */
+    public boolean getUsingHttpsOnly() {
+        return mSharedPreferences.getBoolean(SHARED_KEY_HTTPS_ONLY, false);
+    }
+
+    /**
+     * ----------------------------------------- Call Option -----------------------------------------
+     */
+
+
     public void setExternalAudioInputResolution(boolean enable) {
         editor.putBoolean(SHARED_KEY_EXTERNAL_INPUT_AUDIO_RESOLUTION, enable);
         editor.apply();
     }
 
-    public boolean isExternalAudioInputResolution() {
-        return mSharedPreferences.getBoolean(SHARED_KEY_EXTERNAL_INPUT_AUDIO_RESOLUTION, false);
+    public boolean isExternalAudioInputResolution(){
+        return mSharedPreferences.getBoolean(SHARED_KEY_EXTERNAL_INPUT_AUDIO_RESOLUTION,false);
     }
 
     public void setWatermarkResolution(boolean enable) {
@@ -526,8 +671,8 @@ public class PreferenceManager {
         editor.apply();
     }
 
-    public boolean isWatermarkResolution() {
-        return mSharedPreferences.getBoolean(SHARED_KEY_WATER_MARK_RESOLUTION, false);
+    public boolean isWatermarkResolution(){
+        return mSharedPreferences.getBoolean(SHARED_KEY_WATER_MARK_RESOLUTION,false);
     }
 
     public void setUseFCM(boolean useFCM) {
@@ -574,61 +719,15 @@ public class PreferenceManager {
     }
 
 
-    //---旧APP新增---
-    public void setParam(String key, Object object) {
-        if (mSharedPreferences == null) return;
-        if (UserComm.IsOnLine())
-            key += UserComm.getUserId();
-        SharedPreferences.Editor editor = mSharedPreferences.edit();
-        if (object instanceof String) {
-            editor.putString(key, (String) object);
-        } else if (object instanceof Integer) {
-            editor.putInt(key, (Integer) object);
-        } else if (object instanceof Boolean) {
-            editor.putBoolean(key, (Boolean) object);
-        } else if (object instanceof Float) {
-            editor.putFloat(key, (Float) object);
-        } else if (object instanceof Long) {
-            editor.putLong(key, (Long) object);
-        }
 
 
-        editor.commit();
-    }
 
-    public void saveUserData(String key, String userdata) {
-        editor.putString(key, userdata);
-        editor.apply();
-    }
 
-    public String getUserData(String key) {
-        return mSharedPreferences.getString(key, "");
-    }
 
-    /**
-     * 得到保存数据的方法，我们根据默认值得到保存的数据的具体类型，然后调用相对于的方法获取值
-     *
-     * @param key
-     * @param defaultObject
-     * @return
-     */
-    public  Object getParam(String key, Object defaultObject) {
-        if (mSharedPreferences == null) return defaultObject;
 
-        if (UserComm.IsOnLine())
-            key += UserComm.getUserId();
 
-        if (defaultObject instanceof String) {
-            return mSharedPreferences.getString(key, (String) defaultObject);
-        } else if (defaultObject instanceof Integer) {
-            return mSharedPreferences.getInt(key, (Integer) defaultObject);
-        } else if (defaultObject instanceof Boolean) {
-            return mSharedPreferences.getBoolean(key, (Boolean) defaultObject);
-        } else if (defaultObject instanceof Float) {
-            return mSharedPreferences.getFloat(key, (Float) defaultObject);
-        } else if (defaultObject instanceof Long) {
-            return mSharedPreferences.getLong(key, (Long) defaultObject);
-        }
-        return defaultObject;
-    }
+
+
+
+
 }

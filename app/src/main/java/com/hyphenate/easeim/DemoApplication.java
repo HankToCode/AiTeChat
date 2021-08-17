@@ -4,6 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Build;
 import android.util.Log;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -14,6 +15,7 @@ import com.hyphenate.easeim.app.api.Constant;
 import com.hyphenate.easeim.app.api.global.UserComm;
 import com.hyphenate.easeim.app.api.old_http.AppConfig;
 import com.hyphenate.easeim.app.utils.my.MyHelper;
+import com.hyphenate.easeim.app.weight.CommonDialog;
 import com.hyphenate.easeim.common.interfaceOrImplement.UserActivityLifecycleCallbacks;
 import com.hyphenate.easeim.common.utils.PreferenceManager;
 import com.hyphenate.util.EMLog;
@@ -176,5 +178,44 @@ public class DemoApplication extends SelfAppContext implements Thread.UncaughtEx
                 e.printStackTrace();
             }
         }
+    }
+
+    private CommonDialog commonDialog;
+
+    /**
+     * 分享
+     */
+    public void shareDialog(Context context, final View.OnClickListener onClickListener) {
+        //分享弹窗
+        if (commonDialog != null && commonDialog.isShowing()) {
+            commonDialog.dismiss();
+        }
+        commonDialog = new CommonDialog.Builder(context).setView(R.layout.share_dialog).fromBottom().fullWidth().loadAniamtion()
+                .setOnClickListener(R.id.wx_chat, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onClickListener.onClick(view);
+                        if (commonDialog != null && commonDialog.isShowing()) {
+                            commonDialog.dismiss();
+                        }
+                    }
+                })
+                .setOnClickListener(R.id.wx_qun, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        onClickListener.onClick(view);
+                        if (commonDialog != null && commonDialog.isShowing()) {
+                            commonDialog.dismiss();
+                        }
+                    }
+                }).setOnClickListener(R.id.tv_cell, new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (commonDialog != null && commonDialog.isShowing()) {
+                            commonDialog.dismiss();
+                        }
+                    }
+                }).create();
+        commonDialog.show();
     }
 }

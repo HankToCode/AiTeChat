@@ -10,8 +10,6 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -29,9 +27,7 @@ import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeim.app.help.RclViewHelp;
 import com.hyphenate.easeim.app.operate.GroupOperateManager;
 import com.hyphenate.easeim.section.conversation.adapter.GroupUserListAdapter;
-import com.hyphenate.easeim.section.group.activity.GroupAdminAuthorityActivity;
 import com.hyphenate.easeui.widget.EaseTitleBar;
-import com.zds.base.Toast.ToastUtil;
 import com.zds.base.json.FastJsonUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -259,6 +255,6 @@ public class GroupUserListActivity extends BaseInitActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_contact;
+        return R.layout.activity_group_user_list;
     }
 }

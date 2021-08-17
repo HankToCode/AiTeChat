@@ -122,7 +122,7 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
         mEtLoginPwd.addTextChangedListener(this);
         mTvLoginRegister.setOnClickListener(this);
         mBtnLogin.setOnClickListener(this);
-        mEtLoginPwd.setOnEditorActionListener(this);
+        mEtLoginSms.setOnEditorActionListener(this);
 
         mTvForgetPassword.setOnClickListener(this);
         mTvSwitchLogin.setOnClickListener(this);
@@ -246,6 +246,7 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
 
         mLlPwd.setVisibility(loginMethod == 0 ? View.VISIBLE : View.GONE);
         mLlSms.setVisibility(loginMethod == 1 ? View.VISIBLE : View.GONE);
+        mTvSwitchLogin.setText(loginMethod == 0 ? "短信登录" : "密码登录");
     }
 
 

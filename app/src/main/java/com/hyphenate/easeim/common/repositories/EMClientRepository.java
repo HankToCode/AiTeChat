@@ -173,15 +173,6 @@ public class EMClientRepository extends BaseEMRepository {
         }.asLiveData();
     }
 
-    /**
-     * 设置本地标记，是否自动登录
-     *
-     * @param autoLogin
-     */
-    public void setAutoLogin(boolean autoLogin) {
-        PreferenceManager.getInstance().setAutoLogin(autoLogin);
-    }
-
     private void successForCallBack(@NonNull ResultCallBack<LiveData<EaseUser>> callBack) {
         final LoginInfo loginInfo = UserComm.getUserInfo();
         // ** manually load all local groups and conversation

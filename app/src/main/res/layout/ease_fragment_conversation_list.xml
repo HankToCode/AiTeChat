@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <com.hyphenate.easeim.app.weight.EaseConversationList
+        <com.hyphenate.easeim.app.weight.ease.EaseConversationList
             android:id="@+id/list"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

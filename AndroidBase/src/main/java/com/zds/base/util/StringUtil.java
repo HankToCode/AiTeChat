@@ -109,6 +109,26 @@ public class StringUtil {
         return dateTime;
     }
 
+
+    /**
+     * 格式化时间显示
+     *
+     * @param dateTime
+     * @return
+     */
+    public static String formatDateMinute(long dateTime,String pattern) {
+        if (StringUtil.isEmpty(pattern)){
+            pattern = "yyyy年MM月dd日 HH:mm:ss";
+        }
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+        try {
+            return sdf.format(new Date(dateTime));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "";
+    }
+
     public static String formatTime(long time, @NonNull String pattern){
         String date = "";
         if (StringUtil.isEmpty(pattern)) {

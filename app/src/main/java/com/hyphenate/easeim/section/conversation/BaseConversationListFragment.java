@@ -20,7 +20,7 @@ import com.hyphenate.chat.EMConversation;
 import com.hyphenate.easeim.R;
 import com.hyphenate.easeim.app.api.Constant;
 import com.hyphenate.easeim.app.base.BaseInitFragment;
-import com.hyphenate.easeim.app.weight.EaseConversationList;
+import com.hyphenate.easeim.app.weight.ease.EaseConversationList;
 import com.zds.base.json.FastJsonUtil;
 
 import java.util.ArrayList;
@@ -46,8 +46,6 @@ public class BaseConversationListFragment extends BaseInitFragment {
     protected SwipeRefreshLayout srlRefresh;
 
     protected boolean isConflict;
-
-    Unbinder unbinder;
 
     private InputMethodManager inputMethodManager;
 
@@ -300,11 +298,6 @@ public class BaseConversationListFragment extends BaseInitFragment {
         }
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        unbinder.unbind();
-    }
 
     public interface EaseConversationListItemClickListener {
         /**
