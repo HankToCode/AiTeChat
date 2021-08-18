@@ -149,7 +149,7 @@ public class BankNewActivity extends BaseInitActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        setTitle("添加储蓄卡");
+        setTitle("添加银行卡");
         mBankCardName.setFilters(new InputFilter[]{filter});
         mBankLocation.setFilters(new InputFilter[]{filter});
     }

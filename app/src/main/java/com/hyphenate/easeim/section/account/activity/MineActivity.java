@@ -33,6 +33,7 @@ import com.hyphenate.easeim.app.operate.UserOperateManager;
 import com.hyphenate.easeim.app.utils.my.MyHelper;
 import com.hyphenate.easeim.app.weight.CommonDialog;
 import com.hyphenate.easeim.common.utils.DeviceIdUtil;
+import com.hyphenate.easeim.section.common.WalletActivity;
 import com.hyphenate.easeim.section.common.MyCollectActivity;
 import com.hyphenate.easeim.section.me.activity.MultiDeviceActivity;
 import com.hyphenate.easeui.widget.EaseAlertDialog;
@@ -221,7 +222,7 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
                 break;
             case R.id.tv_package:
                 //我的钱包支付
-//                startActivity(WalletActivity.class);
+                WalletActivity.actionStart(mContext);
                 break;
             case R.id.ll_my_info:
                 //个人信息

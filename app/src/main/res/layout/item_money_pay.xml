@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <CheckBox
+        android:id="@+id/cb_money"
+        android:layout_width="@dimen/dp_109"
+        android:layout_height="@dimen/dp_64"
+        android:layout_gravity="center"
+        android:layout_weight="1"
+        android:background="@drawable/icon_rechar_bg"
+        android:button="@null"
+        android:gravity="center"
+        android:paddingLeft="15dp"
+        android:paddingTop="2.5dp"
+        android:paddingRight="15dp"
+        android:paddingBottom="2.5dp"
+        android:text="100.00"
+        android:textColor="#ff000000"
+        android:textSize="14sp" />
+</LinearLayout>

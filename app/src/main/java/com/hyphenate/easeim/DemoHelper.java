@@ -408,7 +408,7 @@ public class DemoHelper {
          */
         EMPushConfig.Builder builder = new EMPushConfig.Builder(context);
 
-        builder.enableVivoPush() // 需要在AndroidManifest.xml中配置appId和appKey
+        builder//.enableVivoPush() // 需要在AndroidManifest.xml中配置appId和appKey  //临时注释，报异常java.lang.String cannot be cast to java.lang.Integer
                 .enableMeiZuPush("134952", "f00e7e8499a549e09731a60a4da399e3")
                 .enableMiPush("2882303761517426801", "5381742660801")
                 .enableOppoPush("0bb597c5e9234f3ab9f821adbeceecdb",

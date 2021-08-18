@@ -82,9 +82,10 @@ public class WalletActivity extends BaseInitActivity {
                 } else {
                     RechargeNewActivity.start(WalletActivity.this);
                 }*/
+                RechargeActivity.actionStart(WalletActivity.this);//充值页面
                 break;
             case R.id.tv_withdraw:
-                //提现
+                //提现  //判断如果未实名，提示进行实名认证
 //                if (UserComm.getUserInfo().getOpenAccountFlag() == 0) {
 //                    showAuthDialog();
 //                    return;
@@ -92,6 +93,7 @@ public class WalletActivity extends BaseInitActivity {
                 WithdrawActivity.actionStart(WalletActivity.this);
                 break;
             case R.id.tv_pay_manage:
+                //判断如果未实名，提示进行实名认证
 //                if (UserComm.getUserInfo().getOpenAccountFlag() == 0) {
 //                    showAuthDialog();
 //                    return;
@@ -109,14 +111,11 @@ public class WalletActivity extends BaseInitActivity {
                 break;
             case R.id.tv_my_transfer:
                 //我的转账记录
-                //TODO
-//                startActivity(TransferRecordActivity.class);
+                TransferRecordActivity.actionStart(this);
                 break;
             case R.id.tv_wallet_lock:
-                //我的转账记录
-                //TODO
-//                startActivity(WalletLockActivity.class);
-
+                //零钱锁
+                WalletLockActivity.actionStart(this);
                 break;
             default:
                 break;
