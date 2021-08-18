@@ -31,12 +31,12 @@ import com.hyphenate.easeim.app.operate.GroupOperateManager;
 import com.hyphenate.easeim.app.operate.UserOperateManager;
 import com.hyphenate.easeim.app.utils.ImageUtil;
 import com.hyphenate.easeim.app.utils.ProjectUtil;
+import com.hyphenate.easeim.app.utils.ease.EaseSmileUtils;
 import com.hyphenate.easeim.app.utils.hxSetMessageFree.EaseSharedUtils;
 import com.hyphenate.easeim.app.weight.ease.EaseConversationList;
 import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.manager.EaseAtMessageHelper;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
-import com.hyphenate.easeui.utils.EaseSmileUtils;
 import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.util.DateUtils;
 import com.zds.base.ImageLoad.GlideUtils;
@@ -162,7 +162,6 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             holder.ImgMsgFree.setVisibility(View.GONE);
         }
 
-        holder.name.setTextColor(Color.parseColor("#333333"));//xgp add
         holder.iv_aite_guanfang.setVisibility(View.GONE);
 
         if (conversation.getType() == EMConversationType.GroupChat) {
@@ -197,6 +196,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
 
             if (conversation != null && conversation.getLastMessage() != null && conversation.getLastMessage().ext() != null) {
                 String json = FastJsonUtil.toJSONString(conversation.getLastMessage().ext());
+
                 String msgType = FastJsonUtil.getString(json, "msgType");
                 status = FastJsonUtil.getString(json, "status");
                 type = FastJsonUtil.getString(json, "type");
@@ -206,12 +206,12 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                 if (!TextUtils.isEmpty(msgType) && "walletMsg".equals(msgType)) {
                     username = Constant.WALLET;
                 }
-                if ("1".equals(FastJsonUtil.getString(json, "applyStatus"))) {
-                    tempNickname = FastJsonUtil.getString(json, "nickname");
-                }
+//                if ("1".equals(FastJsonUtil.getString(json, "applyStatus"))) {
+                tempNickname = FastJsonUtil.getString(json, "nickname");
+//                }
 
             }
-
+            
 //            holder.ImgMsgFree.setVisibility(View.GONE);
             if (username.equals(Constant.ADMIN)) {
                 holder.swipeRevealLayout.setLockDrag(true);
@@ -225,9 +225,9 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                         .into(holder.name);*/
                 GlideUtils.loadImageView(R.drawable.ic_conversation_app, holder.avatar);
             } else if (username.equals(Constant.WALLET)) {
+                holder.iv_aite_guanfang.setVisibility(View.VISIBLE);
                 holder.swipeRevealLayout.setLockDrag(true);
                 holder.name.setText("零钱助手");
-                holder.name.setTextColor(Color.parseColor("#762BFF"));//xgp add
                 GlideUtils.loadImageView(R.drawable.ic_conversation_package, holder.avatar);
             } else {//客服走这里
                 String contactId = conversationId;
@@ -252,11 +252,8 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                 } else if (contactId.contains("0d777a9c8f9311eb844f00163e0654c2")) {
                     holder.name.setText("异常处理客服");
                 } else {
-
-
                     holder.name.setText(username);
                 }
-                //holder.name.setText(username);
             }
 
             holder.motioned.setVisibility(View.GONE);
