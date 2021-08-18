@@ -1,17 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_color_my_gold"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar_layout" />
+    <com.hyphenate.easeui.widget.EaseTitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/em_common_title_bar_height"
+        android:background="@color/white"
+        app:titleBarDisplayHomeAsUpEnabled="true"
+        app:titleBarLeftImage="@drawable/ic_back"
+        app:titleBarTitle="我的收藏" />
 
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/smart"
         android:layout_width="match_parent"
-        android:layout_below="@+id/llayout_title_1"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title_bar">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -31,7 +39,7 @@
         android:id="@+id/tv_no_collect"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/llayout_title_1"
+        android:layout_below="@+id/title_bar"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dp_141"
         android:drawableTop="@drawable/zanwusouc"

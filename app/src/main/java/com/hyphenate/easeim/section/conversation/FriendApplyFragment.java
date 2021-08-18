@@ -38,12 +38,7 @@ public class FriendApplyFragment extends BaseInitFragment implements NewFriendAd
         super.initView(savedInstanceState);
         searchBar = findViewById(R.id.search_bar);
         mRvNewFriend = findViewById(R.id.rv_new_friend);
-        searchBar.setOnSearchBarListener(new SearchBar.OnSearchBarListener() {
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                mNewFriendAdapter.getFilter().filter(s);
-            }
-        });
+        searchBar.setOnSearchBarListener((s, start, before, count) -> mNewFriendAdapter.getFilter().filter(s));
 
         lettes = new HashMap<>();
 

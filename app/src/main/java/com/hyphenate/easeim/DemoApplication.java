@@ -1,9 +1,7 @@
 package com.hyphenate.easeim;
 
-import android.app.Application;
 import android.content.Context;
 import android.os.Build;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;

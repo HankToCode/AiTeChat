@@ -79,70 +79,66 @@ public class ConversationListFragment extends BaseConversationListFragment {
         headerView.findViewById(R.id.friend_notice).setOnClickListener(clickListener);
         headerView.findViewById(R.id.group_notice).setOnClickListener(clickListener);
         conversationListView.addHeaderView(headerView);
-        conversationListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        conversationListView.setOnItemClickListener((parent, view, position, id) -> {
+            EMConversation conversation =
+                    conversationListView.getItem(position);
+            String emUserId = conversation.conversationId();
 
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                EMConversation conversation =
-                        conversationListView.getItem(position);
-                String emUserId = conversation.conversationId();
+            if (id == Integer.MAX_VALUE) {
+                //删除和某个user会话，如果需要保留聊天记录，传false
+                EMClient.getInstance().chatManager().deleteConversation(emUserId, true);
+                refresh();
+                return;
+            }
 
-                if (id == Integer.MAX_VALUE) {
-                    //删除和某个user会话，如果需要保留聊天记录，传false
-                    EMClient.getInstance().chatManager().deleteConversation(emUserId, true);
-                    refresh();
-                    return;
-                }
+            if (emUserId.equals(EMClient.getInstance().getCurrentUser())) {
+                Toast.makeText(getActivity(),
+                        R.string.Cant_chat_with_yourself,
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                // start chat acitivity
+                Intent intent = new Intent(getActivity(), ChatActivity.class);
+                boolean isSystem = false;
+                if (conversation != null && conversation.getLastMessage() != null && conversation.getLastMessage().ext() != null) {
+                    String json = FastJsonUtil.toJSONString(conversation.getLastMessage().ext());
 
-                if (emUserId.equals(EMClient.getInstance().getCurrentUser())) {
-                    Toast.makeText(getActivity(),
-                            R.string.Cant_chat_with_yourself,
-                            Toast.LENGTH_SHORT).show();
-                } else {
-                    // start chat acitivity
-                    Intent intent = new Intent(getActivity(), ChatActivity.class);
-                    boolean isSystem = false;
-                    if (conversation != null && conversation.getLastMessage() != null && conversation.getLastMessage().ext() != null) {
-                        String json = FastJsonUtil.toJSONString(conversation.getLastMessage().ext());
+                    if (json.contains("msgType")) {
+                        String msgType = FastJsonUtil.getString(json, "msgType");
 
-                        if (json.contains("msgType")) {
-                            String msgType = FastJsonUtil.getString(json, "msgType");
-
-                            if ("systematic".equals(msgType)) {
-                                intent.putExtra(Constant.NICKNAME, "艾特官方");
-                                isSystem = true;
-                            } else if ("walletMsg".equals(msgType)) {
-                                intent.putExtra(Constant.NICKNAME, "钱包助手");
-                                isSystem = true;
-                            }
-
+                        if ("systematic".equals(msgType)) {
+                            intent.putExtra(Constant.NICKNAME, "艾特官方");
+                            isSystem = true;
+                        } else if ("walletMsg".equals(msgType)) {
+                            intent.putExtra(Constant.NICKNAME, "钱包助手");
+                            isSystem = true;
                         }
-                        try {
-                            emUserId = conversation.conversationId();
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+
                     }
-                    if (conversation.isGroup()) {
-                        if (conversation.getType() == EMConversation.EMConversationType.ChatRoom) {
-                            // it's group chat
-                            intent.putExtra(Constant.EXTRA_CHAT_TYPE, Constant.CHATTYPE_CHATROOM);
-                        } else {
-                            intent.putExtra(Constant.EXTRA_CHAT_TYPE, Constant.CHATTYPE_GROUP);
-                        }
-                        //移除群组at标志
-                        EaseAtMessageHelper.get().removeAtMeGroup(emUserId);
+                    try {
+                        emUserId = conversation.conversationId();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                if (conversation.isGroup()) {
+                    if (conversation.getType() == EMConversation.EMConversationType.ChatRoom) {
+                        // it's group chat
+                        intent.putExtra(Constant.EXTRA_CHAT_TYPE, Constant.CHATTYPE_CHATROOM);
                     } else {
-                        //设置单聊中环信ID是否包含 -youxin (不包含，加上)
-                        if (!emUserId.contains(Constant.ID_REDPROJECT)) {
-                            emUserId += Constant.ID_REDPROJECT;
-                        }
+                        intent.putExtra(Constant.EXTRA_CHAT_TYPE, Constant.CHATTYPE_GROUP);
                     }
-                    // it's single chat
-                    intent.putExtra(Constant.EXTRA_USER_ID, emUserId);
-                    intent.putExtra("isSystem", isSystem);
-                    startActivity(intent);
+                    //移除群组at标志
+                    EaseAtMessageHelper.get().removeAtMeGroup(emUserId);
+                } else {
+                    //设置单聊中环信ID是否包含 -youxin (不包含，加上)
+                    if (!emUserId.contains(Constant.ID_REDPROJECT)) {
+                        emUserId += Constant.ID_REDPROJECT;
+                    }
                 }
+                // it's single chat
+                intent.putExtra(Constant.EXTRA_USER_ID, emUserId);
+                intent.putExtra("isSystem", isSystem);
+                startActivity(intent);
             }
         });
         //red packet code : 红包回执消息在会话列表最后一条消息的展示

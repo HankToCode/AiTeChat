@@ -1,5 +1,6 @@
 package com.hyphenate.easeim.section.common;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +18,8 @@ import com.hyphenate.easeim.app.api.old_http.AppConfig;
 import com.hyphenate.easeim.app.api.old_http.ResultListener;
 import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeim.app.help.RclViewHelp;
+import com.hyphenate.easeim.section.account.activity.MyInfoActivity;
+import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.OnLoadmoreListener;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
@@ -37,8 +40,14 @@ import butterknife.ButterKnife;
  * 我的收藏
  */
 public class MyCollectActivity extends BaseInitActivity {
-    @BindView(R.id.toolbar_title)
-    TextView mToolbarTitle;
+
+    public static void actionStart(Context context) {
+        Intent starter = new Intent(context, MyCollectActivity.class);
+        context.startActivity(starter);
+    }
+
+    @BindView(R.id.title_bar)
+    EaseTitleBar mTitleBar;
     @BindView(R.id.rv_collect)
     RecyclerView mRvCollect;
     @BindView(R.id.smart)
@@ -59,7 +68,7 @@ public class MyCollectActivity extends BaseInitActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        mToolbarTitle.setText("收藏");
+        mTitleBar.setOnBackPressListener(view -> finish());
         mSmart.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
@@ -68,12 +77,9 @@ public class MyCollectActivity extends BaseInitActivity {
             }
         });
 
-        mSmart.setOnLoadmoreListener(new OnLoadmoreListener() {
-            @Override
-            public void onLoadmore(RefreshLayout refreshlayout) {
-                page++;
-                queryCollect();
-            }
+        mSmart.setOnLoadMoreListener(refreshlayout0 -> {
+            page++;
+            queryCollect();
         });
 
 

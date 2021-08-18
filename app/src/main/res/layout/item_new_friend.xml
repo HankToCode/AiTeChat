@@ -33,32 +33,50 @@
                 android:layout_centerVertical="true"
                 android:src="@mipmap/img_default_avatar" />
 
-            <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_centerInParent="true"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_toLeftOf="@+id/tv_agree"
                 android:layout_toRightOf="@+id/img_head"
-                android:text="小小春"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sp_15"
-                />
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="小小春"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp_15" />
+
+                <TextView
+                    android:id="@+id/tv_description"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:textColor="@color/color_ACACBC"
+                    android:textSize="12dp" />
+
+
+            </LinearLayout>
 
             <TextView
                 android:id="@+id/tv_agree"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/dp_26"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginRight="@dimen/dp_20"
                 android:background="@drawable/agree_friend_bg_selector"
                 android:gravity="center"
-                android:paddingLeft="@dimen/dp_18"
-                android:paddingRight="@dimen/dp_18"
+                android:paddingLeft="@dimen/dp_14"
+                android:paddingTop="5dp"
+                android:paddingRight="@dimen/dp_14"
+                android:paddingBottom="5dp"
                 android:text="同意"
                 android:textColor="@color/white"
-                android:textSize="@dimen/sp_13" />
+                android:textSize="12dp" />
 
         </RelativeLayout>
 

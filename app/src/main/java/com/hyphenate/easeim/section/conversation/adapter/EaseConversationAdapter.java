@@ -211,7 +211,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
 //                }
 
             }
-            
+
 //            holder.ImgMsgFree.setVisibility(View.GONE);
             if (username.equals(Constant.ADMIN)) {
                 holder.swipeRevealLayout.setLockDrag(true);

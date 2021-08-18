@@ -21,43 +21,45 @@ import com.hyphenate.easeim.R;
 
 
 public class SearchBar extends RelativeLayout {
-    EditText    query;
-    TextView    hint;
-    ImageView   clear;
+    EditText query;
+    TextView hint;
+    ImageView clear;
 
     OnSearchBarListener onSearchBarListener;
+
     public SearchBar(Context context) {
-        this(context,null);
+        this(context, null);
     }
 
     public SearchBar(Context context, AttributeSet attrs) {
-        this(context,attrs,0);
+        this(context, attrs, 0);
     }
 
     public SearchBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(context,attrs);
+        init(context, attrs);
         parseStyle(context, attrs);
     }
 
     private void init(Context context, AttributeSet attrs) {
         LayoutInflater.from(context).inflate(R.layout.layout_search_bar, this);
-        query   = findViewById(R.id.query);
-        clear   = findViewById(R.id.clear);
-        hint    = findViewById(R.id.hint);
+        query = findViewById(R.id.query);
+        clear = findViewById(R.id.clear);
+        hint = findViewById(R.id.hint);
         clear.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View view) {
                 query.getText().clear();
                 try {
-                    if (((Activity)getContext()).getWindow().getAttributes().softInputMode != WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN) {
-                        if (((Activity)getContext()).getCurrentFocus() != null) {
-                            ((InputMethodManager) ((Activity)getContext()).getSystemService(Context.INPUT_METHOD_SERVICE))
-                                    .hideSoftInputFromWindow(((Activity)getContext()).getCurrentFocus().getWindowToken(),
-                                     InputMethodManager.HIDE_NOT_ALWAYS);
+                    if (((Activity) getContext()).getWindow().getAttributes().softInputMode != WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN) {
+                        if (((Activity) getContext()).getCurrentFocus() != null) {
+                            ((InputMethodManager) ((Activity) getContext()).getSystemService(Context.INPUT_METHOD_SERVICE))
+                                    .hideSoftInputFromWindow(((Activity) getContext()).getCurrentFocus().getWindowToken(),
+                                            InputMethodManager.HIDE_NOT_ALWAYS);
                         }
                     }
-                } catch (Exception e) {}
+                } catch (Exception e) {
+                }
             }
         });
 
@@ -99,7 +101,7 @@ public class SearchBar extends RelativeLayout {
             }
             Drawable leftDrawable = typedArray.getDrawable(R.styleable.SearchBar_hintImg);
             if (null != leftDrawable) {
-                hint.setCompoundDrawablesWithIntrinsicBounds(leftDrawable,null,null,null);
+                hint.setCompoundDrawablesWithIntrinsicBounds(leftDrawable, null, null, null);
             }
             typedArray.recycle();
         }

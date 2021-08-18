@@ -21,6 +21,7 @@ import com.hyphenate.easeim.app.api.old_http.AppConfig;
 import com.hyphenate.easeim.section.account.activity.UserInfoDetailActivity;
 import com.hyphenate.easeim.section.conversation.AuditUserActivity;
 import com.zds.base.ImageLoad.GlideUtils;
+import com.zds.base.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -72,6 +73,7 @@ public class NewFriendAdapter extends RecyclerView.Adapter<NewFriendAdapter.View
 
         final ApplyFriendData info = mInfoList.get(position);
         holder.mTvName.setText(info.getUserNickName());
+        holder.mTvDescription.setText(StringUtil.isEmpty(info.getTopName()) ? "很高兴认识你" : info.getTopName());
 
         holder.mTvTop.setText(info.getTopName());
         GlideUtils.GlideLoadCircleErrorImageUtils(mContext, AppConfig.checkimg(info.getUserHead()), holder.imgHead, R.mipmap.img_default_avatar);
@@ -79,15 +81,15 @@ public class NewFriendAdapter extends RecyclerView.Adapter<NewFriendAdapter.View
         if (info.getApplyStatus().equals("0")) {
             holder.mTvAgree.setBackgroundResource(R.drawable.agree_friend_bg_selector);
             holder.mTvAgree.setTextColor(ContextCompat.getColor(mContext, R.color.white));
-            holder.mTvAgree.setText("通过");
+            holder.mTvAgree.setText("接受");
 
         } else if (info.getApplyStatus().equals("1")) {
             holder.mTvAgree.setBackgroundResource(R.drawable.bor_white_8);
-            holder.mTvAgree.setTextColor(ContextCompat.getColor(mContext, R.color.grey_2));
-            holder.mTvAgree.setText("通过");
+            holder.mTvAgree.setTextColor(ContextCompat.getColor(mContext, R.color.black));
+            holder.mTvAgree.setText("已通过");
         } else if (info.getApplyStatus().equals("2")) {
             holder.mTvAgree.setBackgroundResource(R.drawable.bor_white_8);
-            holder.mTvAgree.setTextColor(ContextCompat.getColor(mContext, R.color.grey_2));
+            holder.mTvAgree.setTextColor(ContextCompat.getColor(mContext, R.color.black));
             holder.mTvAgree.setText("已拒绝");
         }
 
@@ -190,12 +192,33 @@ public class NewFriendAdapter extends RecyclerView.Adapter<NewFriendAdapter.View
                 for (int i = 0; i < count; i++) {
                     final ApplyFriendData bean = mOriginalList.get(i);
                     String username = bean.getUserNickName();
+                    //TODO
+                    String phone = "";
 
-                    if (username != null) {
+                    boolean isHas = !newValues.contains(bean);
+
+                    if (username != null && isHas) {
                         if (username.contains(prefixString)) {
                             newValues.add(bean);
                         } else {
                             final String[] words = username.split(" ");
+                            final int wordCount = words.length;
+
+                            // Start at index 0, in case valueText starts with space(s)
+                            for (String word : words) {
+                                if (word.contains(prefixString)) {
+                                    newValues.add(bean);
+                                    break;
+                                }
+                            }
+                        }
+                    }
+
+                    if (phone != null && isHas) {
+                        if (phone.contains(prefixString)) {
+                            newValues.add(bean);
+                        } else {
+                            final String[] words = phone.split(" ");
                             final int wordCount = words.length;
 
                             // Start at index 0, in case valueText starts with space(s)
@@ -225,9 +248,10 @@ public class NewFriendAdapter extends RecyclerView.Adapter<NewFriendAdapter.View
     }
 
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mTvName;
+        private TextView mTvDescription;
         private TextView mTvTop;
         private ImageView imgHead;
         private TextView mTvAgree;
@@ -239,6 +263,7 @@ public class NewFriendAdapter extends RecyclerView.Adapter<NewFriendAdapter.View
         public ViewHolder(View itemView, boolean show) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tv_name);
+            mTvDescription = (TextView) itemView.findViewById(R.id.tv_description);
             mTvTop = (TextView) itemView.findViewById(R.id.tv_top);
             imgHead = (ImageView) itemView.findViewById(R.id.img_head);
             mTvAgree = (TextView) itemView.findViewById(R.id.tv_agree);

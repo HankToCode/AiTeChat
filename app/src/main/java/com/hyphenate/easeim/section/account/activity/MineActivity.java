@@ -33,6 +33,7 @@ import com.hyphenate.easeim.app.operate.UserOperateManager;
 import com.hyphenate.easeim.app.utils.my.MyHelper;
 import com.hyphenate.easeim.app.weight.CommonDialog;
 import com.hyphenate.easeim.common.utils.DeviceIdUtil;
+import com.hyphenate.easeim.section.common.MyCollectActivity;
 import com.hyphenate.easeim.section.me.activity.MultiDeviceActivity;
 import com.hyphenate.easeui.widget.EaseAlertDialog;
 import com.hyphenate.easeui.widget.EaseImageView;
@@ -230,7 +231,7 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
                 break;
             case R.id.tv_collection:
                 //我的收藏
-//                startActivity(MyCollectActivity.class);
+                MyCollectActivity.actionStart(this);
                 break;
             case R.id.tv_settings:
                 //设置
