@@ -26,6 +26,7 @@ import com.hyphenate.easeim.app.api.old_http.ResultListener;
 import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeim.app.utils.XClickUtil;
 import com.hyphenate.easeim.app.weight.ChooseMoneyLayout;
+import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.json.FastJsonUtil;
 import com.zds.base.util.StringUtil;
@@ -43,8 +44,8 @@ import static com.zds.base.Toast.ToastUtil.toast;
 //充值页面
 public class RechargeActivity extends BaseInitActivity {
 
-    @BindView(R.id.toolbar_subtitle)
-    TextView toolbar_subtitle;
+    @BindView(R.id.title_bar)
+    EaseTitleBar mTitleBar;
     @BindView(R.id.et_amount)
     EditText et_amount;
     @BindView(R.id.tv_recharge)
@@ -64,7 +65,7 @@ public class RechargeActivity extends BaseInitActivity {
 
 
     public static void actionStart(Context context) {
-        Intent intent = new Intent(context, WalletActivity.class);
+        Intent intent = new Intent(context, RechargeActivity.class);
         context.startActivity(intent);
     }
 
@@ -77,16 +78,10 @@ public class RechargeActivity extends BaseInitActivity {
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         tv_money.setText(StringUtil.getFormatValue2(UserComm.getUserInfo().getMoney()));
-
-        setTitle("充值");
-        toolbar_subtitle.setText("充值记录");
-        toolbar_subtitle.setTextColor(ContextCompat.getColor(this, R.color.text_color_black));
-        toolbar_subtitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                RechargeRecordActivity.actionStart(mContext);
-            }
-        });
+        mTitleBar.setTitle("充值");
+        mTitleBar.setOnBackPressListener(view -> finish());
+        mTitleBar.setRightTitle("充值记录");
+        mTitleBar.setOnRightClickListener(view -> RechargeRecordActivity.actionStart(mContext));
 
         et_amount.addTextChangedListener(new TextWatcher() {
             @Override

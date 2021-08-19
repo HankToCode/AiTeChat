@@ -17,6 +17,7 @@ import com.hyphenate.easeim.app.api.old_http.ResultListener;
 import com.hyphenate.easeim.app.base.BaseActivity;
 import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeim.app.help.RclViewHelp;
+import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.zds.base.json.FastJsonUtil;
 
 import java.util.ArrayList;
@@ -34,7 +35,8 @@ import static com.zds.base.Toast.ToastUtil.toast;
  * 转账记录
  */
 public class TransferRecordActivity extends BaseInitActivity {
-
+    @BindView(R.id.title_bar)
+    EaseTitleBar mTitleBar;
     @BindView(R.id.recyclerView)
     RecyclerView mRecyclerView;
     @BindView(R.id.tv_no_data)
@@ -46,7 +48,7 @@ public class TransferRecordActivity extends BaseInitActivity {
 
 
     public static void actionStart(Context context) {
-        Intent intent = new Intent(context, BankActivity.class);
+        Intent intent = new Intent(context, TransferRecordActivity.class);
         context.startActivity(intent);
     }
 
@@ -58,7 +60,8 @@ public class TransferRecordActivity extends BaseInitActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        setTitle("转账记录");
+        mTitleBar.setTitle("转账记录");
+        mTitleBar.setOnBackPressListener(view -> finish());
         mTransferAdapter = new TransferAdapter(mContext,mRecordInfoList);
         RclViewHelp.initRcLmVertical(this, mRecyclerView, mTransferAdapter);
         transferRecord();
@@ -90,10 +93,5 @@ public class TransferRecordActivity extends BaseInitActivity {
         });
     }
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
-    }
+
 }

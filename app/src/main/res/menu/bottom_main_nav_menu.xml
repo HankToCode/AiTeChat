@@ -14,12 +14,12 @@
     <item
         android:id="@+id/em_main_nav_discover"
         android:icon="@drawable/demo_main_tab_discover_selector"
-        android:title="@string/em_main_title_discover"
-        android:visible="false"/>
+        android:title="@string/em_main_title_discover"/>
 
     <item
         android:id="@+id/em_main_nav_find"
         android:icon="@drawable/demo_main_tab_find_selector"
-        android:title="@string/em_main_title_discover" />
+        android:title="@string/em_main_title_discover"
+        android:visible="false"/>
 
 </menu>

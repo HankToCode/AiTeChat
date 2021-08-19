@@ -3,12 +3,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/white"
     android:orientation="vertical">
 
-    <include
-        android:id="@+id/withdraw_toolbar"
-        layout="@layout/toolbar_layout" />
+    <com.hyphenate.easeui.widget.EaseTitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/em_common_title_bar_height"
+        android:background="@color/white"
+        app:titleBarDisplayHomeAsUpEnabled="true"
+        app:titleBarLeftImage="@drawable/ic_back" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -45,8 +50,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/tv_bank"
-                    android:layout_marginTop="10dp"
-                    android:text="0000 **** **** 8888"
+                    android:text=" **** **** "
                     android:layout_marginLeft="@dimen/dp_10"
                     android:textColor="#ffefeff4"
                     android:textSize="14sp" />
@@ -54,7 +58,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="提现到"
+                    android:text="选择银行卡"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
                     android:drawablePadding="@dimen/dp_10"

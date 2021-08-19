@@ -27,6 +27,7 @@ import com.hyphenate.easeim.app.base.BaseActivity;
 import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeim.app.weight.CommonDialog;
 import com.hyphenate.easeim.section.chat.activity.ChatActivity;
+import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.zds.base.util.StringUtil;
 
 import java.util.HashMap;
@@ -36,12 +37,11 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * @author lhb
  * 钱包
  */
 public class WalletActivity extends BaseInitActivity {
-    @BindView(R.id.toolbar_title)
-    TextView mToolbarTitle;
+    @BindView(R.id.title_bar)
+    EaseTitleBar mTitleBar;
     @BindView(R.id.img_left_back)
     ImageView ivBack;
     @BindView(R.id.tv_amount)
@@ -63,7 +63,7 @@ public class WalletActivity extends BaseInitActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        mToolbarTitle.setText("零钱");
+        mTitleBar.setOnBackPressListener(view -> finish());
         mTvAmount.setText(StringUtil.getFormatValue2(UserComm.getUserInfo().getMoney()));
     }
 
@@ -98,7 +98,7 @@ public class WalletActivity extends BaseInitActivity {
 //                }
                 WithdrawActivity.actionStart(WalletActivity.this);
                 break;
-            case R.id.tv_pay_manage:
+            case R.id.tv_pay_manage://银行卡
                 //判断如果未实名，提示进行实名认证
 //                if (UserComm.getUserInfo().getOpenAccountFlag() == 0) {
 //                    showAuthDialog();
