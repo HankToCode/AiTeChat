@@ -32,11 +32,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * 作   者：赵大帅
- * 描   述: 绑定银行卡
- * 邮   箱: 2510722254@qqq.com
- * 日   期: 2017/12/27 16:44
- * 更新日期: 2017/12/27
  */
 public class BankActivity extends BaseInitActivity {
 
@@ -121,68 +116,6 @@ public class BankActivity extends BaseInitActivity {
                 ToastUtil.toast(msg);
             }
         });
-
-
-//        if (userInfo.getBankNumber() == null || userInfo.getBankNumber().equals("")) {
-//            isedit = true;
-//            if (StringUtil.isEmpty(userInfo.getRealname())) {
-//                mTvName.setFocusable(true);
-//                mTvName.setFocusableInTouchMode(true);
-//
-//            } else {
-//                mTvName.setFocusable(false);
-//                mTvName.setFocusableInTouchMode(false);
-//                mTvName.setText(userInfo.getRealname());
-//            }
-//            mTvBank.setFocusable(true);
-//            mTvBank.setFocusableInTouchMode(true);
-//            mTvBankPay.setFocusable(true);
-//            mTvBankPay.setFocusableInTouchMode(true);
-//            mTvBankPay.requestFocus();
-//            mLlQr.setVisibility(View.VISIBLE);
-//            mToolbarSubtitle.setVisibility(View.GONE);
-//            mTvMessage.setVisibility(View.VISIBLE);
-//            mTvMessage.setVisibility(View.VISIBLE);
-//        } else {
-//            mTvName.setText(userInfo.getRealname());
-//            mTvBank.setText(userInfo.getBankName());
-//            mTvBankPay.setText(userInfo.getBankNumber());
-//            mTvBankPay2.setText(userInfo.getBankNumber());
-//            if (isedit) {
-//                if (StringUtil.isEmpty(userInfo.getRealname())) {
-//                    mTvName.setFocusable(true);
-//                    mTvName.setFocusableInTouchMode(true);
-//                } else {
-//                    mTvName.setFocusable(false);
-//                    mTvName.setFocusableInTouchMode(false);
-//                    mTvName.setText(userInfo.getRealname());
-//                }
-//                mTvBankPay.setFocusable(true);
-//                mTvBankPay.setFocusableInTouchMode(true);
-//                mTvBank.setFocusable(true);
-//                mTvBank.setFocusableInTouchMode(true);
-//                mTvBankPay.requestFocus();
-//                mTvBankPay.setSelection(mTvBankPay.getText().length());
-//                mToolbarSubtitle.setVisibility(View.VISIBLE);
-//                mToolbarSubtitle.setText("取消");
-//                mLlQr.setVisibility(View.VISIBLE);
-//                mLlSubmits.setVisibility(View.VISIBLE);
-//                mTvMessage.setVisibility(View.VISIBLE);
-//            } else {
-//                mTvName.setFocusable(false);
-//                mTvName.setFocusableInTouchMode(false);
-//                mTvBank.setFocusable(false);
-//                mTvBank.setFocusableInTouchMode(false);
-//                mTvBankPay.setFocusable(false);
-//                mTvBankPay.setFocusableInTouchMode(false);
-//                mLlQr.setVisibility(View.GONE);
-//                mTvMessage.setVisibility(View.GONE);
-//                mToolbarSubtitle.setVisibility(View.VISIBLE);
-//                mToolbarSubtitle.setText("编辑");
-//                mLlSubmits.setVisibility(View.GONE);
-//            }
-//
-//        }
     }
 
     protected void showBankCard(List<JsonBankCardList.DataBean> dataBeans) {
@@ -199,8 +132,10 @@ public class BankActivity extends BaseInitActivity {
                 if (view.getId() == R.id.iv_delete) {
                     refresh();
                 } else {
-                    setResult(1111, new Intent().putExtra("id", dataBean.get(position).getCardId())
-                            .putExtra("name", dataBean.get(position).getBankName()));
+                    setResult(1111, new Intent()
+                            .putExtra("id", dataBean.get(position).getCardId())
+                            .putExtra("bankName", dataBean.get(position).getBankName())
+                            .putExtra("bankCard", dataBean.get(position).getBankCard()));
                     finish();
                 }
             }

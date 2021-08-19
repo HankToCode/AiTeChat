@@ -5,12 +5,15 @@ import static com.zds.base.Toast.ToastUtil.toast;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.core.content.ContextCompat;
 
 import com.alibaba.fastjson.JSON;
 import com.hyphenate.easeim.DemoApplication;
@@ -27,6 +30,7 @@ import com.hyphenate.easeim.app.weight.CommonDialog;
 import com.hyphenate.easeim.app.weight.CustomerKeyboard;
 import com.hyphenate.easeim.app.weight.PasswordEditText;
 import com.zds.base.json.FastJsonUtil;
+import com.zds.base.util.StringUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -59,6 +63,13 @@ public class WithdrawActivity extends BaseInitActivity {
     @BindView(R.id.tv_tixian)
     TextView tv_tixian;
 
+    @BindView(R.id.rl_black)
+    RelativeLayout rl_black;
+    @BindView(R.id.tv_bank)
+    TextView tv_bank;
+    @BindView(R.id.tv_bank_card)
+    TextView tv_bank_card;
+
     private boolean isSelectBalance = false;
 
 
@@ -79,14 +90,13 @@ public class WithdrawActivity extends BaseInitActivity {
         mViewBottom.setVisibility(View.GONE);
         mToolbarSubtitle.setVisibility(View.VISIBLE);
         mToolbarSubtitle.setText("提现记录");
-        //TODO
-//        mToolbarSubtitle.setTextColor(ContextCompat.getColor(this, R.color.text_color_black));
-//        mToolbarSubtitle.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(TxRecordActivity.class);
-//            }
-//        });
+        mToolbarSubtitle.setTextColor(ContextCompat.getColor(this, R.color.text_color_black));
+        mToolbarSubtitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                TxRecordActivity.actionStart(mContext);
+            }
+        });
         setTitle("提现");
         initUI();
         CommonApi.upUserInfo(DemoApplication.getInstance().getApplicationContext());
@@ -135,11 +145,20 @@ public class WithdrawActivity extends BaseInitActivity {
     }
 
 
-    @OnClick({R.id.tv_new_bank_card_submit})
+    private String bankId = "";
+
+    @OnClick({R.id.tv_new_bank_card_submit, R.id.rl_black})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_new_bank_card_submit:
+            case R.id.rl_black://选择提现银行卡
                 startActivityForResult(new Intent(this, BankActivity.class), 66);
+                break;
+            case R.id.tv_new_bank_card_submit://提现
+                if (TextUtils.isEmpty(bankId)) {
+                    showToast("请选择提现银行卡");
+                    return;
+                }
+                PayPassword(bankId);
                 break;
             default:
                 break;
@@ -208,8 +227,9 @@ public class WithdrawActivity extends BaseInitActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 66 && resultCode == 1111) {
-            String id = data.getStringExtra("id");
-            PayPassword(id);
+             bankId = data.getStringExtra("id");
+            tv_bank.setText(data.getStringExtra("bankName"));
+            tv_bank_card.setText(data.getStringExtra("bankCard"));
         }
     }
 
