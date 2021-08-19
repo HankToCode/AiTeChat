@@ -155,11 +155,6 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
     boolean scrollFlag = false; // 标记是否滑动
     boolean canLoadMessage = true;
 
-    protected int[] itemStrings = {R.string.attach_picture};
-    protected int[] itemdrawables = {R.mipmap.zhaop};
-    protected int[] itemIds = {ITEM_PICTURE};
-
-
     private List<EMMessage> unReadMessages = new CopyOnWriteArrayList<>();
     //是否客服
     boolean isService = false;
