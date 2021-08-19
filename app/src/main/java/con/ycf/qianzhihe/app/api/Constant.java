@@ -100,7 +100,7 @@ public class Constant extends EaseConstant {
     /**
      * 环信使用别名
      */
-    public static final String ID_REDPROJECT = "-aite";
+    public static final String ID_REDPROJECT = "-qianzhihe";
 
     public static String getTitleInv(int Invite) {
         String title = "";
