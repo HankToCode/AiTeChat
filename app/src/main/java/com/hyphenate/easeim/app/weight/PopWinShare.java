@@ -17,11 +17,9 @@ import com.zds.base.util.Utils;
 public class PopWinShare extends PopupWindow {
     private View mainView;
     private LinearLayout layoutGroup, layoutAddFirend, layoutSaoyisao, llMyQr, llTop;
-    private Activity paramActivity;
 
     public PopWinShare(Activity paramActivity, View.OnClickListener paramOnClickListener, int paramInt1, int paramInt2) {
         super(paramActivity);
-        this.paramActivity = paramActivity;
         //窗口布局
         mainView = LayoutInflater.from(paramActivity).inflate(R.layout.popwin_share, null);
         layoutGroup = ((LinearLayout) mainView.findViewById(R.id.layout_group));
@@ -46,7 +44,7 @@ public class PopWinShare extends PopupWindow {
         //设置显示隐藏动画
 //        setAnimationStyle(R.style.AnimTools);
         //设置背景透明
-        setBackgroundDrawable(ContextCompat.getDrawable(Utils.getContext(), R.color.transparent));
+        setBackgroundDrawable(ContextCompat.getDrawable(Utils.getContext(), R.color.trans_half));
 
         llTop.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,24 +54,5 @@ public class PopWinShare extends PopupWindow {
                 }
             }
         });
-    }
-
-    @Override
-    public void showAsDropDown(View anchor, int xoff, int yoff, int gravity) {
-        super.showAsDropDown(anchor, xoff, yoff, gravity);
-        setWindowBrightness(0.3f);
-    }
-
-    @Override
-    public void dismiss() {
-        setWindowBrightness(1f);
-        super.dismiss();
-    }
-
-    private void setWindowBrightness(float brightness) {
-        Window window = paramActivity.getWindow();
-        WindowManager.LayoutParams lp = window.getAttributes();
-        lp.screenBrightness = brightness * 255.0f;
-        window.setAttributes(lp);
     }
 }

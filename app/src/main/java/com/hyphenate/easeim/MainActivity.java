@@ -520,7 +520,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
 
             popWinShare = new PopWinShare(mContext, paramOnClickListener
                     , (int) DensityUtils.getWidthInPx(MainActivity.this),
-                    (int) DensityUtils.getHeightInPx(MainActivity.this) - DensityUtils.dip2px(mContext, 45) - DensityUtils.statusBarHeight2(mContext));
+                    (int) DensityUtils.getHeightInPx(MainActivity.this) - DensityUtils.dip2px(mContext, 60) - DensityUtils.statusBarHeight2(mContext));
             //监听窗口的焦点事件，点击窗口外面则取消显示
             popWinShare.getContentView().setOnFocusChangeListener(new View.OnFocusChangeListener() {
 
