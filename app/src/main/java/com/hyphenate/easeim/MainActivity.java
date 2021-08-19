@@ -163,7 +163,8 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
         navView.setItemIconTintList(null);
         // 可以动态显示隐藏相应tab
         //navView.getMenu().findItem(R.id.em_main_nav_me).setVisible(false);
-        switchToHome();
+//        switchToHome();//首页-联系人
+        switchToFriends();//首页-消息列表
         checkIfShowSavedFragment(savedInstanceState);
         addTabBadge();
     }
@@ -419,7 +420,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
                 showNavigation = true;
                 break;
             case R.id.em_main_nav_find:
-                switchToAboutMe();
+                switchToAboutMe();//环信demo个人中心
                 mTitleBar.setTitle(getResources().getString(R.string.em_main_title_discover));
                 showMenu = false;
                 showNavigation = true;

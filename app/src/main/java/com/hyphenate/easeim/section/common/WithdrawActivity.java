@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -29,6 +30,8 @@ import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeim.app.weight.CommonDialog;
 import com.hyphenate.easeim.app.weight.CustomerKeyboard;
 import com.hyphenate.easeim.app.weight.PasswordEditText;
+import com.hyphenate.easeim.common.utils.log.LogUtils;
+import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.zds.base.json.FastJsonUtil;
 import com.zds.base.util.StringUtils;
 
@@ -56,10 +59,9 @@ public class WithdrawActivity extends BaseInitActivity {
     TextView mTvMoneyHint;
     @BindView(R.id.tv_my_money_hint_min)
     TextView mTvMoneyHintMin;
-    @BindView(R.id.toolbar_subtitle)
-    TextView mToolbarSubtitle;
-    @BindView(R.id.view_bottom)
-    View mViewBottom;
+    @BindView(R.id.title_bar)
+    EaseTitleBar mTitleBar;
+
     @BindView(R.id.tv_tixian)
     TextView tv_tixian;
 
@@ -87,26 +89,18 @@ public class WithdrawActivity extends BaseInitActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        mViewBottom.setVisibility(View.GONE);
-        mToolbarSubtitle.setVisibility(View.VISIBLE);
-        mToolbarSubtitle.setText("提现记录");
-        mToolbarSubtitle.setTextColor(ContextCompat.getColor(this, R.color.text_color_black));
-        mToolbarSubtitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                TxRecordActivity.actionStart(mContext);
-            }
-        });
-        setTitle("提现");
+
+        mTitleBar.setTitle("提现");
+        mTitleBar.setOnBackPressListener(view -> finish());
+        mTitleBar.setRightTitle("提现记录");
+        mTitleBar.setOnRightClickListener(view -> TxRecordActivity.actionStart(mContext));
+
+
         initUI();
         CommonApi.upUserInfo(DemoApplication.getInstance().getApplicationContext());
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        initUI();
-    }
+
 
     private void initUI() {
         Map<String, Object> map = new HashMap<>();

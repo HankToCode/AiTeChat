@@ -20,6 +20,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.text.TextUtils;
 
+import com.baidu.platform.comapi.map.E;
 import com.google.gson.reflect.TypeToken;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
@@ -122,7 +123,11 @@ public class EaseCommonUtils {
                         digest = getString(context, R.string.dynamic_expression);
                     }
                 } else {
-                    digest = txtBody.getMessage();
+                    try {
+                        digest = txtBody.getMessage();
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
                 switch (message.getStringAttribute(Constant.MSGTYPE, "")) {
                     case Constant.ADDROOM:

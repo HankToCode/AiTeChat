@@ -30,7 +30,7 @@ public class WalletLockActivity extends BaseInitActivity {
 
 
     public static void actionStart(Context context) {
-        Intent intent = new Intent(context, BankActivity.class);
+        Intent intent = new Intent(context, WalletLockActivity.class);
         context.startActivity(intent);
     }
 

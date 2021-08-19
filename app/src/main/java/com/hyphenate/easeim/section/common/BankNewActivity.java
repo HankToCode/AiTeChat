@@ -20,6 +20,7 @@ import com.hyphenate.easeim.app.api.old_http.ResultListener;
 import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeim.app.utils.PhoneFormatUtil;
 import com.hyphenate.easeim.section.search.SearchConversationActivity;
+import com.hyphenate.easeui.widget.EaseTitleBar;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -50,7 +51,8 @@ public class BankNewActivity extends BaseInitActivity {
     @BindView(R.id.tv_new_bank_card_submit)
     TextView mNewBankCardSubmit;
 
-
+    @BindView(R.id.title_bar)
+    EaseTitleBar mTitleBar;
     BankDetailInfo bankDetailInfo;
 
     @Override
@@ -59,32 +61,14 @@ public class BankNewActivity extends BaseInitActivity {
     }
 
 
-    private boolean checkForm() {
-        if (mBankCardNum.getText().toString().trim().length() <= 0) {
-            toast("请输入卡号");
-            return false;
-        } else if (mBankLocation.getText().toString().trim().length() <= 0) {
-            toast("请输入开户行");
-            return false;
-        } else if (mBankPhone.getText().toString().trim().length() <= 0) {
-            toast("请输入银行预留电话");
-            return false;
-        } else if (!PhoneFormatUtil.isPhoneNumberValid(mBankPhone.getText().toString().trim())) {
-            toast("请输入正确的银行预留电话");
-            return false;
-        } else if (mIdentityCardNum.getText().toString().trim().length() <= 0) {
-            toast("请输入您的身份证号");
-            return false;
-        }
-//        else if (!IDCardValidateUtils.validate_effective(mIdentityCardNum.getText().toString().trim())) {
-//            toast("请输入正确的身份证号");
-//            return false;
-//        }
-        else if (mBankCardName.getText().toString().trim().length() <= 0) {
-            toast("请输入您的姓名");
-            return false;
-        }
-        return true;
+
+    @Override
+    protected void initView(Bundle savedInstanceState) {
+        super.initView(savedInstanceState);
+        mTitleBar.setTitle("添加银行卡");
+        mTitleBar.setOnBackPressListener(view -> finish());
+        mBankCardName.setFilters(new InputFilter[]{filter});
+        mBankLocation.setFilters(new InputFilter[]{filter});
     }
 
     /**
@@ -146,14 +130,41 @@ public class BankNewActivity extends BaseInitActivity {
 
     }
 
-    @Override
-    protected void initView(Bundle savedInstanceState) {
-        super.initView(savedInstanceState);
-        setTitle("添加银行卡");
-        mBankCardName.setFilters(new InputFilter[]{filter});
-        mBankLocation.setFilters(new InputFilter[]{filter});
+
+    @OnClick(R.id.tv_new_bank_card_submit)
+    public void onViewClicked() {
+        if (checkForm()) {
+            addBankCard();
+        }
     }
 
+    private boolean checkForm() {
+        if (mBankCardNum.getText().toString().trim().length() <= 0) {
+            toast("请输入卡号");
+            return false;
+        } else if (mBankLocation.getText().toString().trim().length() <= 0) {
+            toast("请输入开户行");
+            return false;
+        } else if (mBankPhone.getText().toString().trim().length() <= 0) {
+            toast("请输入银行预留电话");
+            return false;
+        } else if (!PhoneFormatUtil.isPhoneNumberValid(mBankPhone.getText().toString().trim())) {
+            toast("请输入正确的银行预留电话");
+            return false;
+        } else if (mIdentityCardNum.getText().toString().trim().length() <= 0) {
+            toast("请输入您的身份证号");
+            return false;
+        }
+//        else if (!IDCardValidateUtils.validate_effective(mIdentityCardNum.getText().toString().trim())) {
+//            toast("请输入正确的身份证号");
+//            return false;
+//        }
+        else if (mBankCardName.getText().toString().trim().length() <= 0) {
+            toast("请输入您的姓名");
+            return false;
+        }
+        return true;
+    }
 
     /**
      * 绑定银行卡
@@ -256,10 +267,5 @@ public class BankNewActivity extends BaseInitActivity {
     };
 
 
-    @OnClick(R.id.tv_new_bank_card_submit)
-    public void onViewClicked() {
-        if (checkForm()) {
-            addBankCard();
-        }
-    }
+
 }

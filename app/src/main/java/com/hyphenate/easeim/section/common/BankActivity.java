@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -20,6 +21,7 @@ import com.hyphenate.easeim.app.api.old_http.ApiClient;
 import com.hyphenate.easeim.app.api.old_http.AppConfig;
 import com.hyphenate.easeim.app.api.old_http.ResultListener;
 import com.hyphenate.easeim.app.base.BaseInitActivity;
+import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.json.FastJsonUtil;
 
@@ -41,7 +43,8 @@ public class BankActivity extends BaseInitActivity {
     RecyclerView mRecyclerCard;
     @BindView(R.id.iv_not_bank_card_logo)
     ImageView mNotBankCard;
-
+    @BindView(R.id.title_bar)
+    EaseTitleBar mTitleBar;
     private boolean isedit = false;
     private BankCardAdapter mBankCardAdapter;
 
@@ -59,8 +62,8 @@ public class BankActivity extends BaseInitActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-
-        setTitle("银行卡");
+        mTitleBar.setTitle("银行卡");
+        mTitleBar.setOnBackPressListener(view -> finish());
         initUserInfo();
     }
 

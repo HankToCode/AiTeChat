@@ -16,6 +16,7 @@ import com.hyphenate.easeim.app.api.old_http.AppConfig;
 import com.hyphenate.easeim.app.api.old_http.ResultListener;
 import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeim.app.help.RclViewHelp;
+import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.zds.base.json.FastJsonUtil;
 
 import java.util.ArrayList;
@@ -30,8 +31,9 @@ import butterknife.BindView;
  */
 public class RechargeRecordActivity extends BaseInitActivity {
 
-    @BindView(R.id.toolbar_title)
-    TextView mToolbarTitle;
+
+    @BindView(R.id.title_bar)
+    EaseTitleBar mTitleBar;
     @BindView(R.id.rv_red_record)
     RecyclerView mRvRedRecord;
     private List<RechargeRecordInfo.DataBean> mRecordInfoList = new ArrayList<>();
@@ -40,19 +42,20 @@ public class RechargeRecordActivity extends BaseInitActivity {
 
 
     public static void actionStart(Context context) {
-        Intent intent = new Intent(context, WalletActivity.class);
+        Intent intent = new Intent(context, RechargeRecordActivity.class);
         context.startActivity(intent);
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_recharge;
+        return R.layout.activity_transfer_record;
     }
 
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        mToolbarTitle.setText("充值记录");
+        mTitleBar.setTitle("充值记录");
+        mTitleBar.setOnBackPressListener(view -> finish());
         mRechargeAdapter = new RechargeRecordAdapter(mRecordInfoList);
         RclViewHelp.initRcLmVertical(this, mRvRedRecord, mRechargeAdapter);
         mRechargeAdapter.openLoadAnimation();
