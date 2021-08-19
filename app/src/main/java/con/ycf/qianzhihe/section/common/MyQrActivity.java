@@ -145,7 +145,7 @@ public class MyQrActivity extends BaseInitActivity {
             mTvQrName.setText(UserComm.getUserInfo().getNickName());
             GlideUtils.GlideLoadCircleErrorImageUtils(this, UserComm.getUserInfo().getUserHead(), mImgHead, R.mipmap.img_default_avatar);
             GlideUtils.GlideLoadCircleErrorImageUtils(this, UserComm.getUserInfo().getUserHead(), mImgQRHead, R.mipmap.img_default_avatar);
-            tvCardTips.setText("扫一扫上面的二维码，加我艾特好友");
+            tvCardTips.setText("扫一扫上面的二维码，加我千纸鹤好友");
             createImgQr(UserComm.getUserInfo().getUserHead());
         }
 

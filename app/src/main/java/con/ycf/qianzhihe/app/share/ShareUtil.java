@@ -44,7 +44,7 @@ public class ShareUtil {
      * @param title
      * @param des
      * @param res
-     * @param type    SendMessageToWX.Req.WXSceneTimeline（微信朋友圈）    SendMessageToWX.Req.WXSceneSession (微艾特天)
+     * @param type    SendMessageToWX.Req.WXSceneTimeline（微信朋友圈）    SendMessageToWX.Req.WXSceneSession (微千纸鹤天)
      */
     public static void shareUrl(final Context context, final String url, final String title, final String des, final int res, final int type) {
 
@@ -86,7 +86,7 @@ public class ShareUtil {
      * @param title
      * @param des
      * @param res
-     * @param type    SendMessageToWX.Req.WXSceneTimeline（微信朋友圈）    SendMessageToWX.Req.WXSceneSession (微艾特天)
+     * @param type    SendMessageToWX.Req.WXSceneTimeline（微信朋友圈）    SendMessageToWX.Req.WXSceneSession (微千纸鹤天)
      */
     public static void shareUrl(final Context context, final String url, final String title, final String des, final String res, final int type) {
 
@@ -130,7 +130,7 @@ public class ShareUtil {
      * 微信分享
      *
      * @param bitmap
-     * @param type   SendMessageToWX.Req.WXSceneTimeline（微信朋友圈）    SendMessageToWX.Req.WXSceneSession (微艾特天)
+     * @param type   SendMessageToWX.Req.WXSceneTimeline（微信朋友圈）    SendMessageToWX.Req.WXSceneSession (微千纸鹤天)
      */
     public static void shareUrlImage(Context context, final String title, final String des, Bitmap bitmap, final int type) {
         Tiny.BitmapCompressOptions options = new Tiny.BitmapCompressOptions();

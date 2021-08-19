@@ -215,9 +215,9 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
 //            holder.ImgMsgFree.setVisibility(View.GONE);
             if (username.equals(Constant.ADMIN)) {
                 holder.swipeRevealLayout.setLockDrag(true);
-                holder.name.setText("千纸鹤小助手");//艾特官方
+                holder.name.setText("千纸鹤小助手");//千纸鹤官方
                 holder.iv_aite_guanfang.setVisibility(View.VISIBLE);
-                /*RichTextUtils.getBuilder("艾特")
+                /*RichTextUtils.getBuilder("千纸鹤")
                         .append("官方")
                         .setForegroundColor(Color.parseColor("#762BFF"))
                         .setProportion(0.8f)

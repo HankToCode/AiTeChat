@@ -54,7 +54,7 @@ public class AppConfig {
     public static String GET_SYS_CONFIG = mainUrl + "common/getSysConfig";
 
     /**
-     * 修改艾特号
+     * 修改千纸鹤号
      */
     public static String MODIFY_USER_CODE = mainUrl + "app_user/modifyUserCode";
 

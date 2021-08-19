@@ -54,7 +54,7 @@ public class EditInfoActivity extends BaseInitActivity {
 
     /**
      * 1:修改昵称
-     * 2：设置艾特号
+     * 2：设置千纸鹤号
      * 3：设置个性签名
      * 4.修改群昵称
      * 5.修改我的群昵称
@@ -88,7 +88,7 @@ public class EditInfoActivity extends BaseInitActivity {
                 //设置昵称
                 if (from.equals("1")) {
                     editNickName();
-                }//设置艾特号
+                }//设置千纸鹤号
                 else if (from.equals("2")) {
                     setYxAccount();
                 }//设置个性签名
@@ -141,8 +141,8 @@ public class EditInfoActivity extends BaseInitActivity {
             mEtNickName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
 
         } else if (from.equals("2")) {
-            mToolbarTitle.setText("艾特号");
-            mEtNickName.setHint("请输入您的艾特号");
+            mToolbarTitle.setText("千纸鹤号");
+            mEtNickName.setHint("请输入您的千纸鹤号");
             mEtNickName.setText(UserComm.getUserInfo().getUserCode());
             mTvHintAccount.setVisibility(View.VISIBLE);
             String dig = "0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM_";
@@ -199,11 +199,11 @@ public class EditInfoActivity extends BaseInitActivity {
 
 
     /**
-     * 设置艾特号
+     * 设置千纸鹤号
      */
     private void setYxAccount() {
         if (mEtNickName.getText().toString().trim().length() <= 0) {
-            ToastUtil.toast("请先填写艾特号");
+            ToastUtil.toast("请先填写千纸鹤号");
             return;
         }
         Map<String, Object> map = new HashMap<>();

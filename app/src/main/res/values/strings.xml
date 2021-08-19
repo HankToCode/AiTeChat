@@ -862,7 +862,7 @@
 
     <string name="str_unread_msg">你有%d条未读信息</string>
 
-    <string name="str_chat_account">艾特号:%s</string>
+    <string name="str_chat_account">千纸鹤号:%s</string>
     <string name="default_appkey" />
 
 

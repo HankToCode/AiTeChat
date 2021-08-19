@@ -2,7 +2,7 @@ package con.ycf.qianzhihe.app.api.old_data;
 
 /**
  * @author lhb
- * 好艾特息
+ * 好千纸鹤息
  */
 public class FriendInfo {
     /**

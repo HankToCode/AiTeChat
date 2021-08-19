@@ -72,7 +72,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginBottom="@dimen/dp_4"
                 android:layout_marginRight="@dimen/dp_7"
-                android:text="艾特转账"
+                android:text="千纸鹤转账"
                 android:textSize="@dimen/sp_12"
                 />
         </RelativeLayout>

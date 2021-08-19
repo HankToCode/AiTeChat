@@ -12,7 +12,7 @@ public class EaseUser extends com.hyphenate.easeui.domain.EaseUser {
 
 
     /**
-     * 艾特号
+     * 千纸鹤号
      */
     private String friendUserCode;
 

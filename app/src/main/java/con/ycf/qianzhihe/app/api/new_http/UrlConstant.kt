@@ -24,9 +24,9 @@ object UrlConstant {
 
     private fun getCurrentHost(): Domain {
         return if (!BuildConfig.PROJECT_DEBUG) {
-            Domain("生产服", "http://www.baixingmingjiang.com/", "")
+            Domain("生产服", "http://120.79.221.59:8762/", "")
         } else {
-            Domain("测试服", "http://www.baixingmingjiang.com/", "")
+            Domain("测试服", "http://120.79.221.59:8762/", "")
         }
     }
 

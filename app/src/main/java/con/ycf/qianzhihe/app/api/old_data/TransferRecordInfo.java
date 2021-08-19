@@ -30,7 +30,7 @@ public class TransferRecordInfo {
      * afterMoney : 538
      * remark :
      * userHead : null
-     * nickName : 艾特新用户8367
+     * nickName : 千纸鹤新用户8367
      */
 
     private Long createTime;

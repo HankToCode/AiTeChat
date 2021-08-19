@@ -20,7 +20,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * 环艾特天地图
+ * 环千纸鹤天地图
  *
  * @author lhb
  */

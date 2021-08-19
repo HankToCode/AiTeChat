@@ -55,9 +55,9 @@ public class ChatIdCardpacket extends EaseChatRow {
         tv_message.setText(nickname);
 
         if (!TextUtils.isEmpty(account)) {
-            tv_youxin_account.setText("艾特号：" + account);
+            tv_youxin_account.setText("千纸鹤号：" + account);
         } else {
-            tv_youxin_account.setText("艾特号：暂无");
+            tv_youxin_account.setText("千纸鹤号：暂无");
         }
 
         ImageUtil.setAvatar(img_card_head);

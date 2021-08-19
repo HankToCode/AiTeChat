@@ -161,7 +161,7 @@ public class EaseCommonUtils {
                         break;
                     case Constant.REDPACKET:
 //                        digest = message.getStringAttribute(Constant.NICKNAME, "") + "发了一个红包";
-                        digest = "[艾特红包]" + message.getStringAttribute("remark", "恭喜发财，大吉大利！ ");
+                        digest = "[千纸鹤红包]" + message.getStringAttribute("remark", "恭喜发财，大吉大利！ ");
                         break;
                     default:
                         break;

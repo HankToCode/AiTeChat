@@ -252,22 +252,23 @@
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/et_login_name" />
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/dp_5"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center"
+                android:text="点击注册默认阅读并同意"
+                android:textColor="@color/color_ACACBC"
+                android:textSize="12dp" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:layout_marginTop="16dp"
                 android:layout_marginBottom="36dp"
+                android:layout_marginTop="8dp"
                 android:gravity="center">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/dp_5"
-                    android:text="点击注册默认阅读并同意"
-                    android:textColor="@color/color_ACACBC"
-                    android:textSize="12dp" />
-
 
                 <TextView
                     android:id="@+id/tv_register_agreement"
