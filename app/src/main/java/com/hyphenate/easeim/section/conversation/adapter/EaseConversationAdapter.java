@@ -206,9 +206,9 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                 if (!TextUtils.isEmpty(msgType) && "walletMsg".equals(msgType)) {
                     username = Constant.WALLET;
                 }
-//                if ("1".equals(FastJsonUtil.getString(json, "applyStatus"))) {
-                tempNickname = FastJsonUtil.getString(json, "nickname");
-//                }
+                if ("1".equals(FastJsonUtil.getString(json, "applyStatus"))) {
+                    tempNickname = FastJsonUtil.getString(json, "nickname");
+                }
 
             }
 

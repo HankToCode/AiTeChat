@@ -1,239 +1,140 @@
+/**
+ * 作   者：赵大帅
+ */
 package com.hyphenate.easeim.section.contact.fragment;
 
-import static com.hyphenate.easeui.widget.EaseImageView.ShapeType.RECTANGLE;
+import static com.zds.base.Toast.ToastUtil.toast;
 
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.annotation.StringRes;
-import androidx.core.content.ContextCompat;
-import androidx.lifecycle.ViewModelProvider;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
+import com.hyphenate.chat.EMClient;
 import com.hyphenate.easeim.R;
-import com.hyphenate.easeim.common.constant.DemoConstant;
-import com.hyphenate.easeim.common.interfaceOrImplement.OnResourceParseCallback;
-import com.hyphenate.easeim.common.net.Resource;
-import com.hyphenate.easeim.common.utils.ToastUtils;
-import com.hyphenate.easeim.app.base.BaseActivity;
-import com.hyphenate.easeim.section.contact.activity.ContactDetailActivity;
-import com.hyphenate.easeim.section.contact.viewmodels.ContactsViewModel;
-import com.hyphenate.easeim.section.dialog.DemoDialogFragment;
-import com.hyphenate.easeim.section.dialog.SimpleDialogFragment;
-import com.hyphenate.easeui.domain.EaseUser;
-import com.hyphenate.easeui.model.EaseEvent;
-import com.hyphenate.easeui.modules.contact.EaseContactListFragment;
-import com.hyphenate.easeui.modules.menu.EasePopupMenuHelper;
-import com.hyphenate.easeui.utils.EaseCommonUtils;
-import com.scwang.smartrefresh.layout.util.DensityUtil;
+import com.hyphenate.easeim.app.api.global.EventUtil;
+import com.hyphenate.easeim.app.api.old_data.EventCenter;
+import com.hyphenate.easeim.app.api.old_http.ApiClient;
+import com.hyphenate.easeim.app.api.old_http.AppConfig;
+import com.hyphenate.easeim.app.api.old_http.ResultListener;
+import com.hyphenate.easeim.app.domain.EaseUser;
+import com.hyphenate.easeim.section.chat.activity.ChatActivity;
+import com.hyphenate.easeim.section.common.EaseContactListFragment;
+import com.hyphenate.easeui.constants.EaseConstant;
+import com.hyphenate.exceptions.HyphenateException;
 
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-public class ContactListFragment extends EaseContactListFragment implements View.OnClickListener, SwipeRefreshLayout.OnRefreshListener {
-    private ContactsViewModel mViewModel;
+/**
+ * contact list
+ */
+public class ContactListFragment extends EaseContactListFragment {
+
+    private static final String TAG = ContactListFragment.class.getSimpleName();
+    private View loadingView;
 
     @Override
-    public void initView(Bundle savedInstanceState) {
+    protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
 
-//        addHeader();
-//        initHeader();
-        initContactLayout();
-    }
+        //add loading view
+        loadingView = LayoutInflater.from(getActivity()).inflate(R.layout.em_layout_loading_data, null);
+        contentContainer.addView(loadingView);
+        registerForContextMenu(listView);
+        //设置联系人数据
+//        Map<String, EaseUser> m = MyHelper.getInstance().getContactList();
+////        if (m instanceof Hashtable<?, ?>) {
+////            m = (Map<String, EaseUser>) ((Hashtable<String, EaseUser>) m).clone();
+////        }
 
-//    private void initHeader() {
-//        View view = LayoutInflater.from(mContext).inflate(R.layout.layout_constact_notice, null);
-//        llRoot.addView(view, 0);
-//    }
+        listView.setOnItemClickListener(new OnItemClickListener() {
 
-    private void initContactLayout() {
-        //设置无数据时空白页面
-        contactLayout.getContactList().getListAdapter().setEmptyLayoutResource(R.layout.demo_layout_friends_empty_list);
-        //设置为简洁模式
-        contactLayout.showSimple();
-        //获取列表控件
-        //EaseContactListLayout contactList = contactLayout.getContactList();
-        //设置条目高度
-        //contactList.setItemHeight((int) EaseCommonUtils.dip2px(mContext, 80));
-        //设置条目背景
-        //contactList.setItemBackGround(ContextCompat.getDrawable(mContext, R.color.gray));
-        //设置头像样式
-        contactLayout.getContactList().setAvatarShapeType(RECTANGLE);
-        contactLayout.getContactList().setAvatarSize(DensityUtil.dp2px(35));
-        contactLayout.getContactList().setAvatarDefaultSrc(ContextCompat.getDrawable(mContext, R.drawable.ic_new_friends));
-        //设置头像圆角
-        contactLayout.getContactList().setAvatarRadius((int) EaseCommonUtils.dip2px(mContext, 5));
-        //设置header背景
-        contactLayout.getContactList().setHeaderBackGround(ContextCompat.getDrawable(mContext, R.color.white));
-    }
-
-    @Override
-    public void onMenuPreShow(EasePopupMenuHelper menuHelper, int position) {
-        super.onMenuPreShow(menuHelper, position);
-        menuHelper.addItemMenu(1, R.id.action_friend_block, 2, getString(R.string.em_friends_move_into_the_blacklist_new));
-        menuHelper.addItemMenu(1, R.id.action_friend_delete, 1, getString(R.string.ease_friends_delete_the_contact));
-    }
-
-    @Override
-    public boolean onMenuItemClick(MenuItem item, int position) {
-        EaseUser user = contactLayout.getContactList().getItem(position);
-        switch (item.getItemId()) {
-            case R.id.action_friend_block:
-                mViewModel.addUserToBlackList(user.getUsername(), false);
-                return true;
-            case R.id.action_friend_delete:
-                showDeleteDialog(user);
-                return true;
-        }
-        return super.onMenuItemClick(item, position);
-    }
-
-    /**
-     * 添加头布局
-     */
-    public void addHeader() {
-        contactLayout.getContactList().addCustomItem(R.id.contact_header_item_new_chat, R.drawable.ic_new_friends, getString(R.string.em_friends_new_chat));
-        contactLayout.getContactList().addCustomItem(R.id.contact_header_item_group_list, R.drawable.ic_group_notice, getString(R.string.em_friends_group_notice));
-//        contactLayout.getContactList().addCustomItem(R.id.contact_header_item_chat_room_list, R.drawable.em_friends_chat_room, getString(R.string.em_friends_chat_room));
-    }
-
-    @Override
-    public void initListener() {
-        super.initListener();
-        contactLayout.getSwipeRefreshLayout().setOnRefreshListener(this);
-        /*contactLayout.getContactList().setOnCustomItemClickListener(new OnItemClickListener() {
             @Override
-            public void onItemClick(View view, int position) {
-                EaseContactCustomBean item = contactLayout.getContactList().getCustomAdapter().getItem(position);
-                switch (item.getId()) {
-                    case R.id.contact_header_item_new_chat :
-                        AddContactActivity.actionStart(mContext, SearchType.CHAT);
-                        break;
-                    case R.id.contact_header_item_group_list :
-                        GroupContactManageActivity.actionStart(mContext);
-                        break;
-                    case R.id.contact_header_item_chat_room_list :
-                        ChatRoomContactManageActivity.actionStart(mContext);
-                        break;
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                EaseUser user = (EaseUser) listView.getItemAtPosition(position);
+                if (user != null) {
+                    ChatActivity.actionStart(mContext, user.getUsername(), EaseConstant.CHATTYPE_SINGLE);
+
                 }
             }
-        });*/
+        });
     }
 
     @Override
-    public void initData() {
-        mViewModel = new ViewModelProvider(this).get(ContactsViewModel.class);
-        mViewModel.getContactObservable().observe(this, response -> {
-            parseResource(response, new OnResourceParseCallback<List<EaseUser>>() {
-                @Override
-                public void onSuccess(List<EaseUser> data) {
-                    contactLayout.getContactList().setData(data);
-                }
-
-                @Override
-                public void onLoading(@Nullable List<EaseUser> data) {
-                    super.onLoading(data);
-                    contactLayout.getContactList().setData(data);
-                }
-
-            });
-
-        });
-
-        mViewModel.resultObservable().observe(this, response -> {
-            parseResource(response, new OnResourceParseCallback<Boolean>() {
-                @Override
-                public void onSuccess(Boolean data) {
-                    showToast(R.string.em_friends_move_into_blacklist_success);
-                    mViewModel.loadContactList();
-                }
-            });
-        });
-
-        mViewModel.deleteObservable().observe(this, response -> {
-            parseResource(response, new OnResourceParseCallback<Boolean>() {
-                @Override
-                public void onSuccess(Boolean data) {
-                    mViewModel.loadContactList();
-                }
-            });
-        });
-
-        mViewModel.messageChangeObservable().with(DemoConstant.CONTACT_CHANGE, EaseEvent.class).observe(this, event -> {
-            if (event == null) {
-                return;
-            }
-            if (event.isContactChange()) {
-                mViewModel.loadContactList();
-            }
-        });
-
-        mViewModel.loadContactList();
+    public void refresh() {
+        super.refresh();
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
+    protected void onEventComing(EventCenter center) {
+        super.onEventComing(center);
+        if (center.getEventCode() == EventUtil.REFRESH_REMARK) {
+            refresh();
         }
     }
 
-    private void showDeleteDialog(EaseUser user) {
-        new SimpleDialogFragment.Builder((BaseActivity) mContext)
-                .setTitle(R.string.ease_friends_delete_contact_hint)
-                .setOnConfirmClickListener(new DemoDialogFragment.OnConfirmClickListener() {
-                    @Override
-                    public void onConfirmClick(View view) {
-                        mViewModel.deleteContact(user.getUsername());
-                    }
-                })
-                .showCancelButton(true)
-                .show();
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
     }
+
 
     @Override
-    public void onItemClick(View view, int position) {
-        super.onItemClick(view, position);
-        EaseUser item = contactLayout.getContactList().getItem(position);
-        ContactDetailActivity.actionStart(mContext, item);
-    }
-
-    /**
-     * 解析Resource<T>
-     *
-     * @param response
-     * @param callback
-     * @param <T>
-     */
-    public <T> void parseResource(Resource<T> response, @NonNull OnResourceParseCallback<T> callback) {
-        if (mContext instanceof BaseActivity) {
-            ((BaseActivity) mContext).parseResource(response, callback);
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        toBeProcessUser = (EaseUser) listView.getItemAtPosition(((AdapterView.AdapterContextMenuInfo) menuInfo).position);
+        if (toBeProcessUser == null) {
+            return;
         }
-    }
-
-    /**
-     * toast by string
-     *
-     * @param message
-     */
-    private void showToast(String message) {
-        ToastUtils.showToast(message);
-    }
-
-    /**
-     * toast by string res
-     *
-     * @param messageId
-     */
-    public void showToast(@StringRes int messageId) {
-        ToastUtils.showToast(messageId);
+        toBeProcessUsername = toBeProcessUser.getUsername();
+        getActivity().getMenuInflater().inflate(R.menu.em_context_contact_list, menu);
     }
 
     @Override
-    public void onRefresh() {
-        mViewModel.loadContactList();
+    public boolean onContextItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.delete_contact) {
+            try {
+                // delete contact
+                deleteContact(toBeProcessUser);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return true;
+        }
+        return super.onContextItemSelected(item);
+    }
+
+
+    /**
+     * delete contact
+     *
+     * @param tobeDeleteUser
+     */
+    public void deleteContact(final EaseUser tobeDeleteUser) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("friendUserId", tobeDeleteUser.getUsername().split("-")[0]);
+        ApiClient.requestNetHandle(getActivity(), AppConfig.DEL_USER_FRIEND, "正在删除...", map, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+
+                try {
+                    EMClient.getInstance().contactManager().deleteContact(tobeDeleteUser.getUsername());
+                } catch (HyphenateException e) {
+                    e.printStackTrace();
+                }
+                contactList.remove(tobeDeleteUser);
+                contactListLayout.refresh();
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                toast(msg);
+            }
+        });
     }
 }
