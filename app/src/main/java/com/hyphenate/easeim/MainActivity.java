@@ -2,6 +2,9 @@ package com.hyphenate.easeim;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
+import static com.darsh.multipleimageselect.helpers.Constants.REQUEST_CODE;
+import static com.zds.base.code.activity.CaptureActivity.INTENT_EXTRA_KEY_QR_SCAN;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
@@ -27,6 +31,8 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.hyphenate.easecallkit.base.EaseCallType;
 import com.hyphenate.easecallkit.ui.EaseMultipleVideoActivity;
 import com.hyphenate.easecallkit.ui.EaseVideoCallActivity;
+import com.hyphenate.easeim.app.api.Constant;
+import com.hyphenate.easeim.app.api.Global;
 import com.hyphenate.easeim.app.api.global.EventUtil;
 import com.hyphenate.easeim.app.api.global.UserComm;
 import com.hyphenate.easeim.app.api.old_data.EventCenter;
@@ -34,6 +40,8 @@ import com.hyphenate.easeim.app.api.old_data.LoginInfo;
 import com.hyphenate.easeim.app.api.old_http.AppConfig;
 import com.hyphenate.easeim.app.api.old_http.CommonApi;
 import com.hyphenate.easeim.app.base.ActivityStackManager;
+import com.hyphenate.easeim.app.operate.UserOperateManager;
+import com.hyphenate.easeim.app.weight.PopWinShare;
 import com.hyphenate.easeim.common.constant.DemoConstant;
 import com.hyphenate.easeim.common.enums.SearchType;
 import com.hyphenate.easeim.common.permission.PermissionsManager;
@@ -43,7 +51,10 @@ import com.hyphenate.easeim.section.MainViewModel;
 import com.hyphenate.easeim.app.base.BaseInitActivity;
 import com.hyphenate.easeim.section.account.activity.LoginActivity;
 import com.hyphenate.easeim.section.account.activity.MineActivity;
+import com.hyphenate.easeim.section.account.activity.UserInfoDetailActivity;
 import com.hyphenate.easeim.section.chat.ChatPresenter;
+import com.hyphenate.easeim.section.common.ContactActivity;
+import com.hyphenate.easeim.section.common.MyQrActivity;
 import com.hyphenate.easeim.section.contact.activity.AddContactActivity;
 import com.hyphenate.easeim.section.contact.fragment.ContactHomeFragment;
 import com.hyphenate.easeim.section.contact.viewmodels.ContactsViewModel;
@@ -55,6 +66,8 @@ import com.hyphenate.easeui.model.EaseEvent;
 import com.hyphenate.easeui.ui.base.EaseBaseFragment;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.zds.base.ImageLoad.GlideUtils;
+import com.zds.base.code.activity.CaptureActivity;
+import com.zds.base.util.DensityUtils;
 
 import java.lang.reflect.Method;
 
@@ -80,51 +93,6 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
         return R.layout.demo_activity_main;
     }
 
-    /*@Override
-    public boolean onPrepareOptionsMenu(Menu menu) {
-        if (mCurrentFragment != null) {
-            if (mCurrentFragment instanceof ContactListFragment) {
-                menu.findItem(R.id.action_group).setVisible(false);
-                menu.findItem(R.id.action_friend).setVisible(false);
-                menu.findItem(R.id.action_search_friend).setVisible(true);
-                menu.findItem(R.id.action_search_group).setVisible(true);
-            } else {
-                menu.findItem(R.id.action_group).setVisible(true);
-                menu.findItem(R.id.action_friend).setVisible(true);
-                menu.findItem(R.id.action_search_friend).setVisible(false);
-                menu.findItem(R.id.action_search_group).setVisible(false);
-            }
-        }
-        return showMenu;
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.demo_contacts_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_video:
-                break;
-            case R.id.action_group:
-                GroupPrePickActivity.actionStart(mContext);
-                break;
-            case R.id.action_friend:
-            case R.id.action_search_friend:
-                AddContactActivity.actionStart(mContext, SearchType.CHAT);
-                break;
-            case R.id.action_search_group:
-                GroupContactManageActivity.actionStart(mContext, true);
-                break;
-            case R.id.action_scan:
-                showToast("扫一扫");
-                break;
-        }
-        return true;
-    }*/
 
     /**
      * 显示menu的icon，通过反射，设置menu的icon显示
@@ -368,32 +336,48 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
         mTitleBar.getRightLayout().setClickable(false);
         mTitleBar.getLeftLayout().removeAllViews();
         mTitleBar.getLeftLayout().setClickable(false);
-        switch (tag) {
-            case "contacts":
-            case "message":
-                RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-                RelativeLayout.LayoutParams layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-                layoutParams1.addRule(RelativeLayout.CENTER_IN_PARENT);
+        if ("contacts".equals(tag)) {
+            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+            RelativeLayout.LayoutParams layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams1.addRule(RelativeLayout.CENTER_IN_PARENT);
 
-                View rightView = View.inflate(this, R.layout.layout_toolbar_contacts_right, null);
-                rightView.findViewById(R.id.iv_add_friends).setOnClickListener(this);
-                rightView.findViewById(R.id.iv_search_friends).setOnClickListener(this);
-                mTitleBar.getRightLayout().addView(rightView, layoutParams);
+            View rightView = View.inflate(this, R.layout.layout_toolbar_contacts_right, null);
+            rightView.findViewById(R.id.iv_add).setOnClickListener(this);
+            rightView.findViewById(R.id.iv_search).setOnClickListener(this);
+            mTitleBar.getRightLayout().addView(rightView, layoutParams);
 
-                View leftView = View.inflate(this, R.layout.layout_toolbar_contacts_left, null);
-                ImageView mIvAvatar = leftView.findViewById(R.id.iv_avatar);
-                mIvAvatar.setOnClickListener(this);
-                LoginInfo loginInfo = UserComm.getUserInfo();
-                GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(loginInfo.getUserHead()), mIvAvatar, R.mipmap.img_default_avatar);
+            View leftView = View.inflate(this, R.layout.layout_toolbar_contacts_left, null);
+            ImageView mIvAvatar = leftView.findViewById(R.id.iv_avatar);
+            mIvAvatar.setOnClickListener(this);
+            LoginInfo loginInfo = UserComm.getUserInfo();
+            GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(loginInfo.getUserHead()), mIvAvatar, R.mipmap.img_default_avatar);
 
-                mTitleBar.getLeftLayout().addView(leftView, layoutParams1);
-                break;
-            case "find":
+            mTitleBar.getLeftLayout().addView(leftView, layoutParams1);
+        } else if ("message".equals(tag)) {
+            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+            RelativeLayout.LayoutParams layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            layoutParams1.addRule(RelativeLayout.CENTER_IN_PARENT);
 
-                break;
-            default:
-                break;
+            View rightView = View.inflate(this, R.layout.layout_toolbar_contacts_right, null);
+            rightView.findViewById(R.id.iv_search).setOnClickListener(this);
+            ImageView ivAdd = rightView.findViewById(R.id.iv_add);
+            ivAdd.setImageDrawable(ContextCompat.getDrawable(mContext, R.mipmap.ic_main_add));
+            ivAdd.setOnClickListener(view -> {
+                showPopWinShare(ivAdd);
+            });
+            mTitleBar.getRightLayout().addView(rightView, layoutParams);
+
+            View leftView = View.inflate(this, R.layout.layout_toolbar_contacts_left, null);
+            ImageView mIvAvatar = leftView.findViewById(R.id.iv_avatar);
+            mIvAvatar.setOnClickListener(this);
+            LoginInfo loginInfo = UserComm.getUserInfo();
+            GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(loginInfo.getUserHead()), mIvAvatar, R.mipmap.img_default_avatar);
+
+            mTitleBar.getLeftLayout().addView(leftView, layoutParams1);
+        } else if ("find".equals(tag)) {
+
         }
     }
 
@@ -451,10 +435,10 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.iv_add_friends:
+            case R.id.iv_add:
                 AddContactActivity.actionStart(mContext, SearchType.CHAT);
                 break;
-            case R.id.iv_search_friends:
+            case R.id.iv_search:
                 SearchConversationActivity.actionStart(mContext);
                 break;
 
@@ -492,8 +476,93 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
 //            change(1);
         } else if (center.getEventCode() == EventUtil.REFRESH_CONVERSION || center.getEventCode() == EventUtil.REFRESH_GROUP_NAME) {
 //            conversationListFragment.refresh();
-        }else if (center.getEventCode() == EventUtil.FLUSHGROUP){
+        } else if (center.getEventCode() == EventUtil.FLUSHGROUP) {
 //            groupList();
         }
     }
+
+
+    private PopWinShare popWinShare;
+
+    /**
+     * 显示浮窗菜单
+     */
+    private void showPopWinShare(View view) {
+        if (popWinShare == null) {
+            View.OnClickListener paramOnClickListener =
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //扫一扫
+                            if (v.getId() == R.id.layout_saoyisao) {
+                                Global.addUserOriginType = Constant.ADD_USER_ORIGIN_TYPE_QRCODE;
+                                Intent intent = new Intent(MainActivity.this,
+                                        CaptureActivity.class);
+                                startActivityForResult(intent, REQUEST_CODE);
+                            }//添加好友
+                            else if (v.getId() == R.id.layout_add_firend) {
+                                AddContactActivity.actionStart(mContext, SearchType.CHAT);
+                            } else if (v.getId() == R.id.layout_group) {
+                                startActivity(new Intent(MainActivity.this,
+                                        ContactActivity.class).putExtra("from"
+                                        , "1"));
+                            } else if (v.getId() == R.id.layout_my_qr) {
+                                Intent intent = new Intent(mContext, MyQrActivity.class);
+                                intent.putExtra("from", "1");
+                                startActivity(intent);
+                            }
+
+                            popWinShare.dismiss();
+                        }
+
+
+                    };
+
+            popWinShare = new PopWinShare(mContext, paramOnClickListener
+                    , (int) DensityUtils.getWidthInPx(MainActivity.this),
+                    (int) DensityUtils.getHeightInPx(MainActivity.this) - DensityUtils.dip2px(mContext, 45) - DensityUtils.statusBarHeight2(mContext));
+            //监听窗口的焦点事件，点击窗口外面则取消显示
+            popWinShare.getContentView().setOnFocusChangeListener(new View.OnFocusChangeListener() {
+
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (!hasFocus) {
+                        popWinShare.dismiss();
+                    }
+                }
+            });
+        }
+        //设置默认获取焦点
+        popWinShare.setFocusable(true);
+        //以某个控件的x和y的偏移量位置开始显示窗口
+        popWinShare.showAsDropDown(view, 0,
+                DensityUtils.dip2px(mContext, 8));
+        //如果窗口存在，则更新
+        popWinShare.update();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE) {
+            //处理扫描结果（在界面上显示）
+            if (null != data) {
+                Bundle bundle = data.getExtras();
+                if (bundle == null) {
+                    return;
+                }
+                String result = bundle.getString(INTENT_EXTRA_KEY_QR_SCAN);
+
+                if (result.contains("person")) {
+                    startActivity(new Intent(mContext,
+                            UserInfoDetailActivity.class).putExtra(
+                            "friendUserId", result.split("_")[0]));
+                } else if (result.contains("group")) {
+                    UserOperateManager.getInstance().scanInviteContact(mContext, result);
+                }
+            }
+        }
+    }
+
+
 }

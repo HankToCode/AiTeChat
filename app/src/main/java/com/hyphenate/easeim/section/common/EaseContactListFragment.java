@@ -46,7 +46,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import butterknife.Unbinder;
 
 /**
  * contact list
@@ -63,7 +62,6 @@ public class EaseContactListFragment extends BaseInitFragment {
     protected EaseContactList contactListLayout;
     protected boolean isConflict;
     protected FrameLayout contentContainer;
-    Unbinder unbinder;
     List<ContactListInfo.DataBean> mContactList;
 
 
@@ -329,7 +327,6 @@ public class EaseContactListFragment extends BaseInitFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
     }
 
     public interface EaseContactListItemClickListener {

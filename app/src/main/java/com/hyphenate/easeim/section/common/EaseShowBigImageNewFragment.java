@@ -73,7 +73,7 @@ public class EaseShowBigImageNewFragment extends EaseBaseFragment {
             Uri uri = imageNewItem.getUri();
             String messageId = imageNewItem.getMessageId();
             localFilePath = imageNewItem.getLocalUrl();
-            Log.e("####展示大图列表",  imageNewItem.toString());
+            Log.e("####展示大图列表", imageNewItem.toString());
             Glide.with(this).load(imageNewItem.getRemoteUrl()).into(this.image);
             /*if (uri != null) {
                 Glide.with(this).load(uri).into(this.image);
@@ -213,7 +213,9 @@ public class EaseShowBigImageNewFragment extends EaseBaseFragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        unbinder.unbind();
+        if (unbinder != null) {
+            unbinder.unbind();
+        }
     }
 
 
