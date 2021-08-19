@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 
@@ -41,6 +42,8 @@ import butterknife.OnClick;
 public class WalletActivity extends BaseInitActivity {
     @BindView(R.id.toolbar_title)
     TextView mToolbarTitle;
+    @BindView(R.id.img_left_back)
+    ImageView ivBack;
     @BindView(R.id.tv_amount)
     TextView mTvAmount;
 
@@ -65,9 +68,12 @@ public class WalletActivity extends BaseInitActivity {
     }
 
 
-    @OnClick({R.id.tv_wallet_lock, R.id.tv_recharge, R.id.tv_withdraw, R.id.tv_pay_manage, R.id.tv_my_redpack_record, R.id.tv_my_transfer})
+    @OnClick({R.id.img_left_back, R.id.tv_wallet_lock, R.id.tv_recharge, R.id.tv_withdraw, R.id.tv_pay_manage, R.id.tv_my_redpack_record, R.id.tv_my_transfer})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.img_left_back:
+                finish();
+                break;
             case R.id.tv_recharge:
                 //充值
 //                if (UserComm.getUserInfo().getOpenAccountFlag() == 0) {
