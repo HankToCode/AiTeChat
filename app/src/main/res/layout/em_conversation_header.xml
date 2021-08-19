@@ -5,14 +5,14 @@
               android:layout_height="match_parent"
               android:orientation="vertical">
 
-    <com.hyphenate.easeim.app.weight.ConversationItemView
+    <con.ycf.qianzhihe.app.weight.ConversationItemView
         android:id="@+id/friend_notice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:conversationItemImage="@drawable/ic_new_friends"
         app:conversationItemName="@string/new_friends"/>
 
-    <com.hyphenate.easeim.app.weight.ConversationItemView
+    <con.ycf.qianzhihe.app.weight.ConversationItemView
         android:id="@+id/group_notice"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

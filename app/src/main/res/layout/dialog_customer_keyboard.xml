@@ -161,7 +161,7 @@
     </LinearLayout>
 
 
-    <com.hyphenate.easeim.app.weight.PasswordEditText
+    <con.ycf.qianzhihe.app.weight.PasswordEditText
         android:id="@+id/password_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -179,7 +179,7 @@
         app:passwordColor="@color/black_deep" />
 
 
-    <com.hyphenate.easeim.app.weight.CustomerKeyboard
+    <con.ycf.qianzhihe.app.weight.CustomerKeyboard
         android:id="@+id/custom_key_board"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

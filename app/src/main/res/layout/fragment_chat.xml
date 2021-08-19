@@ -75,7 +75,7 @@
 
             </LinearLayout>
 
-            <com.hyphenate.easeim.app.weight.ease.EaseChatMessageList
+            <con.ycf.qianzhihe.app.weight.ease.EaseChatMessageList
                 android:id="@+id/message_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -98,7 +98,7 @@
                 android:textColor="@color/blue5"
                 android:visibility="gone" />
 
-            <com.hyphenate.easeim.app.weight.ease.EaseVoiceRecorderView
+            <con.ycf.qianzhihe.app.weight.ease.EaseVoiceRecorderView
                 android:id="@+id/voice_recorder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -106,7 +106,7 @@
                 android:visibility="invisible" />
         </RelativeLayout>
 
-        <com.hyphenate.easeim.app.weight.ease.EaseChatInputMenu
+        <con.ycf.qianzhihe.app.weight.ease.EaseChatInputMenu
             android:id="@+id/input_menu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

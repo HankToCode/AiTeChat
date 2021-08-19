@@ -6,13 +6,13 @@
     android:orientation="vertical"
     >
 
-    <com.hyphenate.easeim.app.weight.ease.emojicon.EaseEmojiconPagerView
+    <con.ycf.qianzhihe.app.weight.ease.emojicon.EaseEmojiconPagerView
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_148"
         android:id="@+id/pager_view"
         />
     
-    <com.hyphenate.easeim.app.weight.ease.emojicon.EaseEmojiconIndicatorView
+    <con.ycf.qianzhihe.app.weight.ease.emojicon.EaseEmojiconIndicatorView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/indicator_view"
@@ -25,7 +25,7 @@
         android:background="#CFCFCF"
         />
     
-    <com.hyphenate.easeim.app.weight.ease.emojicon.EaseEmojiconScrollTabBar
+    <con.ycf.qianzhihe.app.weight.ease.emojicon.EaseEmojiconScrollTabBar
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_35"
         android:id="@+id/tab_bar"

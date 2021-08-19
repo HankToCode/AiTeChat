@@ -27,7 +27,7 @@
         android:background="#F6F6F6"
         android:visibility="gone">
 
-        <com.hyphenate.easeim.app.weight.ease.EaseChatExtendMenu
+        <con.ycf.qianzhihe.app.weight.ease.EaseChatExtendMenu
             android:id="@+id/extend_menu"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
