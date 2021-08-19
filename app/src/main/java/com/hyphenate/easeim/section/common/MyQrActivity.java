@@ -124,21 +124,20 @@ public class MyQrActivity extends BaseInitActivity {
     @Override
     protected void initIntent(Intent intent) {
         super.initIntent(intent);
-        Bundle extras = intent.getExtras();
-        if (extras.getString("from").equals("2")) {
+        if ("2".equals(intent.getStringExtra("from"))) {
             //群分享二维码 数据排序 服务器群id - 标志符 - 邀请人id
 
-            id = extras.getString("id") + SEPARATOR_UNDERLINE
+            id = intent.getStringExtra("id") + SEPARATOR_UNDERLINE
                     + FLAG_QR_GROUP + SEPARATOR_UNDERLINE
                     + UserComm.getUserInfo().getUserId();
             mToolbarTitle.setText("群二维码");
-            mTvQrName.setText(extras.getString("name"));
-            if (!TextUtils.isEmpty(extras.getString("head"))) {
-                GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(extras.getString("head")), mImgHead, R.mipmap.img_default_avatar);
-                GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(extras.getString("head")), mImgQRHead, R.mipmap.img_default_avatar);
+            mTvQrName.setText(intent.getStringExtra("name"));
+            if (!TextUtils.isEmpty(intent.getStringExtra("head"))) {
+                GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(intent.getStringExtra("head")), mImgHead, R.mipmap.img_default_avatar);
+                GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(intent.getStringExtra("head")), mImgQRHead, R.mipmap.img_default_avatar);
             }
             tvCardTips.setText("扫一扫上面的二维码，加入群聊");
-            createImgQr(AppConfig.checkimg(extras.getString("head")));
+            createImgQr(AppConfig.checkimg(intent.getStringExtra("head")));
         } else {
             id = UserComm.getUserInfo().getUserId() + SEPARATOR_UNDERLINE + PREFIX_QR_USER;
             mToolbarTitle.setText("我的二维码");

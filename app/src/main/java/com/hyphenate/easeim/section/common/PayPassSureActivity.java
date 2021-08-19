@@ -94,11 +94,10 @@ public class PayPassSureActivity extends BaseInitActivity {
     @Override
     protected void initIntent(Intent intent) {
         super.initIntent(intent);
-        Bundle extras = intent.getExtras();
-        mFrom = extras.getString("from");
-        oldPass = extras.getString("pass");
+        mFrom = intent.getStringExtra("from");
+        oldPass = intent.getStringExtra("pass");
         if (mFrom.equals("3")) {
-            authCode = extras.getString("authCode", "");
+            authCode = intent.getStringExtra("authCode");
         }
     }
 

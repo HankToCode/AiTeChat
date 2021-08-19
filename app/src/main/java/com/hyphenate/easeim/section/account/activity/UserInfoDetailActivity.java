@@ -271,14 +271,13 @@ public class UserInfoDetailActivity extends BaseInitActivity {
     @Override
     protected void initIntent(Intent intent) {
         super.initIntent(intent);
-        Bundle extras = intent.getExtras();
-        groupId = extras.getString(Constant.PARAM_GROUP_ID);
-        emGroupId = extras.getString(Constant.PARAM_EM_GROUP_ID);
-        userId = extras.getString("friendUserId");
-        userName = extras.getString("userName");
-        chatType = extras.getInt("chatType");
-        from = extras.getString("from");
-        inviterUserId = extras.getString("entryUserId");
+        groupId = intent.getStringExtra(Constant.PARAM_GROUP_ID);
+        emGroupId = intent.getStringExtra(Constant.PARAM_EM_GROUP_ID);
+        userId = intent.getStringExtra("friendUserId");
+        userName = intent.getStringExtra("userName");
+        chatType = intent.getIntExtra("chatType",0);
+        from = intent.getStringExtra("from");
+        inviterUserId = intent.getStringExtra("entryUserId");
     }
 
     private void getGroupMuteList() {

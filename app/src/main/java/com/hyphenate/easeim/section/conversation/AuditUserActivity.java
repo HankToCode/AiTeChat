@@ -72,8 +72,7 @@ public class AuditUserActivity extends BaseInitActivity {
     @Override
     protected void initIntent(Intent intent) {
         super.initIntent(intent);
-        Bundle extras = intent.getExtras();
-        applyFriendData = (ApplyFriendData) extras.getSerializable("applyFriendData");
+        applyFriendData = (ApplyFriendData) intent.getSerializableExtra("applyFriendData");
 
     }
 

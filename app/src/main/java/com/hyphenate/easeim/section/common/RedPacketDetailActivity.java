@@ -148,12 +148,11 @@ public class RedPacketDetailActivity extends BaseInitActivity {
     @Override
     protected void initIntent(Intent intent) {
         super.initIntent(intent);
-        Bundle extras = intent.getExtras();
-        rid = extras.getString("rid", "");
-        head = extras.getString("head", "");
-        nickname = extras.getString("nickname", "");
-        type = extras.getString("type", "");
-        fromRecord = extras.getBoolean("fromRecord", false);
+        rid = intent.getStringExtra("rid");
+        head = intent.getStringExtra("head");
+        nickname = intent.getStringExtra("nickname");
+        type = intent.getStringExtra("type");
+        fromRecord = intent.getBooleanExtra("fromRecord", false);
     }
 
     /**

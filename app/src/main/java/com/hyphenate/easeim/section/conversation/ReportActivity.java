@@ -82,9 +82,8 @@ public class ReportActivity extends BaseInitActivity {
     @Override
     protected void initIntent(Intent intent) {
         super.initIntent(intent);
-        Bundle extras = intent.getExtras();
-        from = extras.getString("from");
-        userGroupId = extras.getString("userGroupId");
+        from = intent.getStringExtra("from");
+        userGroupId = intent.getStringExtra("userGroupId");
     }
 
     /**

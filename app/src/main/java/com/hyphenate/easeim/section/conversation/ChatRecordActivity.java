@@ -120,8 +120,7 @@ public class ChatRecordActivity extends BaseInitActivity {
     protected void initIntent(Intent intent) {
         super.initIntent(intent);
 
-        Bundle extras = intent.getExtras();
-        chatId = extras.getString("chatId");
+        chatId = intent.getStringExtra("chatId");
 
     }
 

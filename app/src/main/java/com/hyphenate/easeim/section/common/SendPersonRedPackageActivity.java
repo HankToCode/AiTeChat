@@ -46,7 +46,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * @author lhb
@@ -130,6 +129,7 @@ public class SendPersonRedPackageActivity extends BaseInitActivity {
             }
         });
 
+        mTvSendRed.setOnClickListener(view -> payPassword());
     }
 
     @Override
@@ -140,8 +140,7 @@ public class SendPersonRedPackageActivity extends BaseInitActivity {
     @Override
     protected void initIntent(Intent intent) {
         super.initIntent(intent);
-        Bundle extras = intent.getExtras();
-        toChatUsername = extras.getString("username", "");
+        toChatUsername = intent.getStringExtra("username");
     }
 
     private long mLastClickTime = 0;
@@ -157,7 +156,7 @@ public class SendPersonRedPackageActivity extends BaseInitActivity {
         if (nowTime - mLastClickTime > TIME_INTERVAL) {
             // do something
             mLastClickTime = nowTime;
-        }else {
+        } else {
             return;
         }
 
@@ -195,12 +194,6 @@ public class SendPersonRedPackageActivity extends BaseInitActivity {
                 });
     }
 
-    @OnClick(R.id.tv_send_red)
-    public void onViewClicked() {
-        PayPassword();
-        //doSendRedPackageClick();
-    }
-
     private void doSendRedPackageClick() {
         maxCount = 5;
         if (mEtRedAmount.getText().length() <= 0 || mEtRedAmount.getText().toString().equals("") || mEtRedAmount.getText().toString().equals("0.") || mEtRedAmount.getText().toString().equals("0.0")
@@ -221,7 +214,7 @@ public class SendPersonRedPackageActivity extends BaseInitActivity {
         if (nowTime - mLastClickTime > TIME_INTERVAL) {
             // do something
             mLastClickTime = nowTime;
-        }else {
+        } else {
             return;
         }
 
@@ -259,7 +252,7 @@ public class SendPersonRedPackageActivity extends BaseInitActivity {
                                 public void callback(@Nullable String source, @Nullable String status, @Nullable String errorMessage) {
                                     // TODO: 2021/4/1 通知聊天页面去环信后台拉取红包消息
                                     EventBus.getDefault().post(new EventCenter(EventUtil.SEND_PERSON_RED_PKG));
-                                    if(status == "SUCCESS" || status == "PROCESS"){
+                                    if (status == "SUCCESS" || status == "PROCESS") {
                                         //queryResult(walletTransferBean.requestId);
                                     }
                                     finish();
@@ -269,7 +262,7 @@ public class SendPersonRedPackageActivity extends BaseInitActivity {
                             walletPay.evoke(Constant.MERCHANT_ID, UserComm.getUserInfo().ncountUserId,
                                     walletTransferBean.token, AuthType./*TRANSFER*/APP_PAY.name());
 
-                        }else {
+                        } else {
                             toast("服务器开小差，请稍后重试");
                         }
                     }
@@ -291,7 +284,7 @@ public class SendPersonRedPackageActivity extends BaseInitActivity {
                     public void onSuccess(String json, String msg) {
                         if (json != null && json.length() > 0) {
                             WalletTransferQueryBean walletTransferQueryBean = FastJsonUtil.getObject(json, WalletTransferQueryBean.class);
-                            switch (walletTransferQueryBean.orderStatus){
+                            switch (walletTransferQueryBean.orderStatus) {
                                 case "SEND":
                                     toast("发送红包成功");
                                     finish();
@@ -301,21 +294,21 @@ public class SendPersonRedPackageActivity extends BaseInitActivity {
                                         @Override
                                         public void run() {
                                             maxCount--;
-                                            if (maxCount<=0){
+                                            if (maxCount <= 0) {
                                                 toast("发送红包处理中");
                                                 finish();
                                                 return;
                                             }
                                             queryResult(requestId);
                                         }
-                                    },2000);
+                                    }, 2000);
                                     break;
                                 default:
                                     toast("发送红包失败");
                                     break;
                             }
 
-                        }else {
+                        } else {
                             toast("服务器开小差，请稍后重试");
                         }
                     }
@@ -329,7 +322,7 @@ public class SendPersonRedPackageActivity extends BaseInitActivity {
     /**
      * 支付密码
      */
-    private void PayPassword() {
+    private void payPassword() {
         if (mEtRedAmount.getText().length() <= 0 || mEtRedAmount.getText().toString().equals("") || mEtRedAmount.getText().toString().equals("0.") || mEtRedAmount.getText().toString().equals("0.0")
                 || mEtRedAmount.getText().toString().equals("0.00")) {
             toast("请填写正确的金额");

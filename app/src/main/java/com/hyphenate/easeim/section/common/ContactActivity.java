@@ -156,9 +156,8 @@ public class ContactActivity extends BaseInitActivity {
     @Override
     protected void initIntent(Intent intent) {
         super.initIntent(intent);
-        Bundle extras = intent.getExtras();
-        from = extras.getString("from");
-        groupId = extras.getString("groupId");
+        from = intent.getStringExtra("from");
+        groupId = intent.getStringExtra("groupId");
     }
 
 

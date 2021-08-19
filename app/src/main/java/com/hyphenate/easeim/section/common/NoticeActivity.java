@@ -115,15 +115,14 @@ public class NoticeActivity extends BaseInitActivity {
     @Override
     protected void initIntent(Intent intent) {
         super.initIntent(intent);
-        Bundle extras = intent.getExtras();
 
-        groupId = extras.getString("groupId");
-        noticeString = extras.getString("notice");
-        time = extras.getLong("time");
-        img_head = extras.getString("img_head");
-        tv_head = extras.getString("tv_head");
-        user_rank = extras.getInt("user_rank");
-        toChatUsername = extras.getString("username");
+        groupId = intent.getStringExtra("groupId");
+        noticeString = intent.getStringExtra("notice");
+        time = intent.getLongExtra("time",0L);
+        img_head = intent.getStringExtra("img_head");
+        tv_head = intent.getStringExtra("tv_head");
+        user_rank = intent.getIntExtra("user_rank",0);
+        toChatUsername = intent.getStringExtra("username");
     }
 
     @Override

@@ -174,9 +174,9 @@ public class InputPasswordActivity extends BaseInitActivity {
     @Override
     protected void initIntent(Intent intent) {
         super.initIntent(intent);
-        Bundle extras = intent.getExtras();
-        oldPassword = extras.getString("password", "");
-        code = extras.getString("code", "");
+        oldPassword = intent.getStringExtra("password");
+        code = intent.getStringExtra("code");
+
     }
 
 }

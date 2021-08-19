@@ -52,9 +52,8 @@ public class HxMapActivity extends BaseInitActivity {
     @Override
     protected void initIntent(Intent intent) {
         super.initIntent(intent);
-        Bundle extras = intent.getExtras();
-        mLatLng = new LatLng(extras.getDouble("latitude"), extras.getDouble("longitude"));
-        addressDetail = extras.getString("addressDetail");
+        mLatLng = new LatLng(intent.getDoubleExtra("latitude", 0d), intent.getDoubleExtra("longitude", 0d));
+        addressDetail = intent.getStringExtra("addressDetail");
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(mLatLng);
         markerOptions.title("当前位置 :" + "\n" + addressDetail);

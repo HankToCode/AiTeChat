@@ -45,7 +45,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * @author lhb
@@ -99,6 +98,13 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
             public void onClick(View v) {
 
             }
+        });
+
+        mTvSendRed.setOnClickListener(view -> {
+            //发红包
+            payPassword();
+//        sendRedPacket();
+//        doSendRedPackageClick();
         });
 
         mEtRedAmount.setFilters(new InputFilter[]{
@@ -160,10 +166,9 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
     @Override
     protected void initIntent(Intent intent) {
         super.initIntent(intent);
-        Bundle extras = intent.getExtras();
-        emGroupId = extras.getString(Constant.PARAM_EM_GROUP_ID);
-        groupId = extras.getString("groupId");
-        mGroupUserCount = extras.getInt("key_intent_group_user_count");
+        emGroupId = intent.getStringExtra(Constant.PARAM_EM_GROUP_ID);
+        groupId = intent.getStringExtra("groupId");
+        mGroupUserCount = intent.getIntExtra("key_intent_group_user_count", 0);
     }
 
 
@@ -223,14 +228,6 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
                 mLastClickTime = 0;
             }
         });
-    }
-
-    @OnClick(R.id.tv_send_red)
-    public void onViewClicked() {
-        //发红包
-        PayPassword();
-//        sendRedPacket();
-//        doSendRedPackageClick();
     }
 
     private void doSendRedPackageClick() {
@@ -383,7 +380,7 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
     /**
      * 支付密码
      */
-    private void PayPassword() {
+    private void payPassword() {
         isSelectBalance = 0;
         if (mEtRedAmount.getText().length() <= 0
                 || mEtRedAmount.getText().toString().equals("")

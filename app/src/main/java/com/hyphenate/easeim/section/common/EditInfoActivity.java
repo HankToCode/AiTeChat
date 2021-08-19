@@ -135,9 +135,8 @@ public class EditInfoActivity extends BaseInitActivity {
     @Override
     protected void initIntent(Intent intent) {
         super.initIntent(intent);
-        Bundle extras = intent.getExtras();
-        from = extras.getString("from");
-        if (from.equals("1")) {
+        from = intent.getStringExtra("from");
+        if ("1".equals(from)) {
             mToolbarTitle.setText("修改昵称");
             mEtNickName.setHint("输入昵称");
             mEtNickName.setText(UserComm.getUserInfo().getNickName());
@@ -158,19 +157,19 @@ public class EditInfoActivity extends BaseInitActivity {
         } else if (from.equals("4")) {
             mToolbarTitle.setText("修改群名称");
             mEtNickName.setHint("输入群名称");
-            mEtNickName.setText(extras.getString("groupName"));
-            groupId = extras.getString("groupId");
+            mEtNickName.setText(intent.getStringExtra("groupName"));
+            groupId = intent.getStringExtra("groupId");
             mEtNickName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
         } else if (from.equals("5")) {
             mToolbarTitle.setText("修改我的群昵称");
             mEtNickName.setHint("输入我的群昵称");
-            mEtNickName.setText(extras.getString("myGroupName"));
-            groupId = extras.getString("groupId");
+            mEtNickName.setText(intent.getStringExtra("myGroupName"));
+            groupId = intent.getStringExtra("groupId");
         } else if (from.equals(FUNC_TYPE_MODIFY_GROUP_REMARK)) {
             mToolbarTitle.setText("群备注");
             mEtNickName.setHint("输入群备注");
-            mEtNickName.setText(extras.getString("key_intent_group_remark"));
-            groupId = extras.getString("groupId");
+            mEtNickName.setText(intent.getStringExtra("key_intent_group_remark"));
+            groupId = intent.getStringExtra("groupId");
         }
     }
 

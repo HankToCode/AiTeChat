@@ -101,9 +101,8 @@ public class SetGroupManageActivity extends BaseInitActivity implements SetGroup
     @Override
     protected void initIntent(Intent intent) {
         super.initIntent(intent);
-        Bundle extras = intent.getExtras();
-        groupId = extras.getString("groupId");
-        emChatId = extras.getString(Constant.PARAM_EM_CHAT_ID, "");
+        groupId = intent.getStringExtra("groupId");
+        emChatId = intent.getStringExtra(Constant.PARAM_EM_CHAT_ID);
     }
 
 

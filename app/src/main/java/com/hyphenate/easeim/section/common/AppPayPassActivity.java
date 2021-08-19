@@ -78,9 +78,8 @@ public class AppPayPassActivity extends BaseInitActivity {
     @Override
     protected void initIntent(Intent intent) {
         super.initIntent(intent);
-        Bundle extras = intent.getExtras();
-        mFrom = extras.getString("from");
-        authCode = extras.getString("authCode");
+        mFrom = intent.getStringExtra("from");
+        authCode = intent.getStringExtra("authCode");
     }
 
 

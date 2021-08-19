@@ -133,30 +133,26 @@ public class ChatMoreSetlActivity extends BaseInitActivity {
     @Override
     protected void initIntent(Intent intent) {
         super.initIntent(intent);
-        Bundle extras = intent.getExtras();
-        emChatId = extras.getString(Constant.PARAM_EM_CHAT_ID);
-        nickName = extras.getString(Constant.NICKNAME);
-        ;
-        isFriend = extras.getBoolean("isFriend");
-        ;
-
-        fromPerson = extras.getString("from");
-        if (fromPerson.equals("1")) {
+        emChatId = intent.getStringExtra(Constant.PARAM_EM_CHAT_ID);
+        nickName = intent.getStringExtra(Constant.NICKNAME);
+        isFriend = intent.getBooleanExtra("isFriend", false);
+        fromPerson = intent.getStringExtra("from");
+        if ("1".equals(fromPerson)) {
             mRlBlack.setVisibility(View.VISIBLE);
         } else {
-            if (extras.getInt("userRank") == 0) {
+            if (intent.getIntExtra("userRank", 0) == 0) {
                 mFlGroupJinyan.setVisibility(View.GONE);
             } else {
                 //userRank 用户等级 0-普通用户 1-管理员 2-群主
                 mFlGroupJinyan.setVisibility(View.VISIBLE);
-                mTvGroupManager.setVisibility(extras.getInt("userRank") == 2
+                mTvGroupManager.setVisibility(intent.getIntExtra("userRank", 0) == 2
                         ? View.VISIBLE : View.GONE);
             }
             GroupDetailInfo info = GroupOperateManager.getInstance().getGroupData(emChatId);
 
             mUserList.addAll(info.getGroupUserDetailVoList());
 
-            groupId = extras.getString("groupId");
+            groupId = intent.getStringExtra("groupId");
             mTvReport.setVisibility(View.VISIBLE);
 
         }
@@ -202,7 +198,7 @@ public class ChatMoreSetlActivity extends BaseInitActivity {
             case R.id.tv_group_manager:
                 //设置管理员
                 //设置群管理员
-                SetGroupManageActivity.actionStart(this,groupId,emChatId);
+                SetGroupManageActivity.actionStart(this, groupId, emChatId);
                 break;
 
             default:

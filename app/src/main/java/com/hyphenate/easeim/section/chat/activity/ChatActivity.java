@@ -90,8 +90,7 @@ public class ChatActivity extends BaseInitActivity {
     @Override
     protected void initIntent(Intent intent) {
         super.initIntent(intent);
-        Bundle extras = intent.getExtras();
-        toChatUsername = extras.getString("userId");
+        toChatUsername = intent.getStringExtra("userId");
 
     }
 

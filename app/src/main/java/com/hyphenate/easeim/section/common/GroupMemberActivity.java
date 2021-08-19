@@ -104,9 +104,8 @@ public class GroupMemberActivity extends BaseInitActivity implements GroupMember
     @Override
     protected void initIntent(Intent intent) {
         super.initIntent(intent);
-        Bundle extras = intent.getExtras();
-        emChatId = extras.getString(Constant.PARAM_EM_GROUP_ID);
-        isForAtMerber = extras.getBoolean(Constant.PARAM_FOR_AT_MERBER);
+        emChatId = intent.getStringExtra(Constant.PARAM_EM_GROUP_ID);
+        isForAtMerber = intent.getBooleanExtra(Constant.PARAM_FOR_AT_MERBER, false);
         groupId = GroupOperateManager.getInstance().getGroupId(emChatId);
     }
 
