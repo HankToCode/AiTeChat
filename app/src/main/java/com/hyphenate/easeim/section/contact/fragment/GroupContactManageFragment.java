@@ -1,102 +1,149 @@
 package com.hyphenate.easeim.section.contact.fragment;
 
-import android.view.View;
+import android.os.Bundle;
 
-import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
-import com.hyphenate.chat.EMGroup;
-import com.hyphenate.easeim.common.constant.DemoConstant;
-import com.hyphenate.easeim.common.interfaceOrImplement.OnResourceParseCallback;
-import com.hyphenate.easeim.section.chat.activity.ChatActivity;
-import com.hyphenate.easeim.section.contact.adapter.GroupContactAdapter;
-import com.hyphenate.easeim.section.contact.viewmodels.GroupContactViewModel;
-import com.hyphenate.easeui.model.EaseEvent;
+import com.hyphenate.easeim.R;
+import com.hyphenate.easeim.app.api.global.EventUtil;
+import com.hyphenate.easeim.app.api.old_data.EventCenter;
+import com.hyphenate.easeim.app.api.old_data.GroupInfo;
+import com.hyphenate.easeim.app.api.old_data.MyGroupInfoList;
+import com.hyphenate.easeim.app.api.old_http.ApiClient;
+import com.hyphenate.easeim.app.api.old_http.AppConfig;
+import com.hyphenate.easeim.app.api.old_http.ResultListener;
+import com.hyphenate.easeim.app.base.BaseInitFragment;
+import com.hyphenate.easeim.app.help.RclViewHelp;
+import com.hyphenate.easeim.section.contact.adapter.MyGroupAdapter;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshLoadMoreListener;
+import com.zds.base.Toast.ToastUtil;
+import com.zds.base.json.FastJsonUtil;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 
-public class GroupContactManageFragment extends GroupPublicContactManageFragment {
-    private GroupContactViewModel mViewModel;
-    private GroupContactAdapter mAdapter;
-    private int pageIndex;
-    private static final int PAGE_SIZE = 20;
+public class GroupContactManageFragment extends BaseInitFragment implements OnRefreshLoadMoreListener {
+    public SmartRefreshLayout srlRefresh;
+    public RecyclerView rvList;
+    public MyGroupAdapter mAdapter;
+    private int pageSize = 20;
+
+    private int page = 0;
+    private boolean isFirstStart = true;
+    private List<GroupInfo> mGroupInfoList;
+
 
     @Override
-    protected void initViewModel() {
-        super.initViewModel();
-        mViewModel = new ViewModelProvider(mContext).get(GroupContactViewModel.class);
-        mViewModel.getGroupObservable().observe(this, response -> {
-            parseResource(response, new OnResourceParseCallback<List<EMGroup>>() {
-                @Override
-                public void onSuccess(List<EMGroup> data) {
-                    mAdapter.setData(data);
-                }
+    protected int getLayoutId() {
+        return R.layout.demo_fragment_group_public_contact_manage;
+    }
 
-                @Override
-                public void hideLoading() {
-                    super.hideLoading();
-                    if(srlRefresh != null) {
-                        srlRefresh.finishRefresh();
-                    }
-                }
-            });
-        });
-        mViewModel.getMoreGroupObservable().observe(this, response -> {
-            parseResource(response, new OnResourceParseCallback<List<EMGroup>>() {
-                @Override
-                public void onSuccess(List<EMGroup> data) {
-                    if(data != null) {
-                        mAdapter.addData(data);
-                    }
-                }
+    @Override
+    protected void initView(Bundle savedInstanceState) {
+        super.initView(savedInstanceState);
+        srlRefresh = findViewById(R.id.srl_refresh);
+        rvList = findViewById(R.id.rv_list);
+    }
 
-                @Override
-                public void hideLoading() {
-                    super.hideLoading();
-                    if(srlRefresh != null) {
-                        srlRefresh.finishLoadMore();
-                    }
-                }
-            });
-        });
-        mViewModel.getMessageObservable().with(DemoConstant.GROUP_CHANGE, EaseEvent.class).observe(this, event -> {
-            if(event == null) {
-                return;
-            }
-            if(event.isGroupChange() || event.isGroupLeave()) {
-                getData();
-            }
-        });
+
+    @Override
+    protected void initListener() {
+        super.initListener();
+        srlRefresh.setOnRefreshLoadMoreListener(this);
     }
 
     @Override
     protected void initData() {
+        super.initData();
         rvList.setLayoutManager(new LinearLayoutManager(mContext));
-        mAdapter = new GroupContactAdapter();
-        rvList.setAdapter(mAdapter);
-        mAdapter.setOnItemClickListener(this);
 
-        getData();
+        mGroupInfoList = new ArrayList<>();
+        mAdapter = new MyGroupAdapter(mGroupInfoList);
+        rvList.setAdapter(mAdapter);
+        mAdapter.setOnLoadMoreListener(() -> {
+            page++;
+            groupList();
+        }, rvList);
+        RclViewHelp.initRcLmVertical(requireContext(), rvList, mAdapter);
+
+        groupList();
     }
 
     @Override
-    public void getData() {
-        pageIndex = 0;
-        mViewModel.loadGroupListFromServer(pageIndex, PAGE_SIZE);
+    public void onResume() {
+        super.onResume();
+        if (isFirstStart) {
+            isFirstStart = false;
+        } else {
+            page = 0;
+            groupList();
+        }
+    }
+
+
+    @Override
+    protected void onEventComing(EventCenter center) {
+        if (center.getEventCode() == EventUtil.CREATE_GROUP_SUCCESS || center.getEventCode() == EventUtil.DEL_EXIT_GROUP) {
+            refresh();
+        }
+    }
+
+    public void refresh() {
+        page = 0;
+        groupList();
+    }
+
+    /**
+     * 我的群组列表
+     *
+     * @param
+     */
+    private void groupList() {
+        Map<String, Object> map = new HashMap<>(2);
+        map.put("pageSize", pageSize);
+        map.put("pageNum", page);
+
+        ApiClient.requestNetHandle(requireContext(), AppConfig.MY_GROUP_LIST, "", map, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                MyGroupInfoList myGroupInfo = FastJsonUtil.getObject(json, MyGroupInfoList.class);
+                if (myGroupInfo.getData() != null && myGroupInfo.getData().size() > 0) {
+                    if (page == 0 && mGroupInfoList.size() > 0) {
+                        mGroupInfoList.clear();
+                    }
+                    mGroupInfoList.addAll(myGroupInfo.getData());
+                    mAdapter.notifyDataSetChanged();
+                    mAdapter.loadMoreComplete();
+                } else {
+                    mAdapter.loadMoreEnd(true);
+                }
+                srlRefresh.finishRefresh();
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                ToastUtil.toast(msg);
+                mAdapter.loadMoreFail();
+                srlRefresh.finishRefresh();
+            }
+        });
     }
 
     @Override
     public void onLoadMore(RefreshLayout refreshLayout) {
-        pageIndex += PAGE_SIZE;
-        mViewModel.loadMoreGroupListFromServer(pageIndex, PAGE_SIZE);
+        page++;
+        groupList();
     }
 
     @Override
-    public void onItemClick(View view, int position) {
-        //跳转到群聊页面
-        EMGroup group = mAdapter.getItem(position);
-        ChatActivity.actionStart(mContext, group.getGroupId(), DemoConstant.CHATTYPE_GROUP);
+    public void onRefresh(RefreshLayout refreshLayout) {
+        refresh();
     }
+
 }
