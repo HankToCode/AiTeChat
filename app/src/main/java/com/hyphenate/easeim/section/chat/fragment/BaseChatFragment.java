@@ -39,6 +39,7 @@ import android.widget.Toast;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.hyphenate.EMMessageListener;
+import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMGroup;
@@ -311,8 +312,20 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
                 groupListener = new GroupListener();
                 EMClient.getInstance().groupManager().addGroupChangeListener(groupListener);
                 try {
-                    group = EMClient.getInstance().groupManager().getGroupFromServer(emChatId);
-                } catch (HyphenateException e) {
+                    EMClient.getInstance().groupManager().asyncGetGroupFromServer(emChatId, new EMValueCallBack<EMGroup>() {
+                        @Override
+                        public void onSuccess(EMGroup value) {
+                            runOnUiThread(() -> {
+                                titleBar.setTitle(group.getGroupName());
+                            });
+                        }
+
+                        @Override
+                        public void onError(int error, String errorMsg) {
+
+                        }
+                    });
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 

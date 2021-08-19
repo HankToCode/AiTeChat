@@ -121,7 +121,7 @@ public class MyRoomDeatilAdapter extends BaseQuickAdapter<GroupDetailInfo.GroupU
 
             if (!TextUtils.isEmpty(item.getFriendNickName())) {
                 helper.setText(R.id.tv_name, item.getFriendNickName());
-            } else if (!TextUtils.isEmpty(userInfo.getNickname())) {
+            } else if (userInfo != null && !TextUtils.isEmpty(userInfo.getNickname())) {
                 helper.setText(R.id.tv_name, userInfo.getNickname());
             }
 

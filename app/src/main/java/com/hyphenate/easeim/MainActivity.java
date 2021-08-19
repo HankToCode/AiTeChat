@@ -163,8 +163,8 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
         navView.setItemIconTintList(null);
         // 可以动态显示隐藏相应tab
         //navView.getMenu().findItem(R.id.em_main_nav_me).setVisible(false);
-//        switchToHome();//首页-联系人
-        switchToFriends();//首页-消息列表
+        switchToHome();//首页-联系人
+//        switchToFriends();//首页-消息列表
         checkIfShowSavedFragment(savedInstanceState);
         addTabBadge();
     }

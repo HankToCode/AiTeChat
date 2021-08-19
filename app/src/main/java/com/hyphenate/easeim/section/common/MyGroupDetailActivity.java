@@ -164,8 +164,7 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
 
         mToolbarTitle.setText("群信息");
 
-        String isMsgFree =
-                MyHelper.getInstance().getModel().getConversionMsgIsFree(emChatId);
+        String isMsgFree = MyHelper.getInstance().getModel().getConversionMsgIsFree(emChatId);
         if (null != isMsgFree && isMsgFree.equals("false")) {
             //设置消息免打扰
             mSwitchMsg.setChecked(true);
@@ -204,7 +203,7 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
 
         EMConversation emConversation = EMClient.getInstance().chatManager().getConversation(emChatId);
 
-        if (emConversation.getExtField().equals("toTop")) {
+        if ("toTop".equals(emConversation.getExtField())) {
             mSwitchTopConversation.setChecked(true);
         } else {
             mSwitchTopConversation.setChecked(false);
@@ -421,10 +420,13 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
         }
     }
 
-    protected void getBundleExtras(Bundle extras) {
-        groupId = extras.getString("groupId");
-        emChatId = extras.getString("username");
+    @Override
+    protected void initIntent(Intent intent) {
+        super.initIntent(intent);
+        groupId = intent.getStringExtra("groupId");
+        emChatId = intent.getStringExtra("username");
     }
+
 
     @Override
     protected void onStart() {
@@ -674,13 +676,16 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
 
     private String headUrl = "";
 
-    @OnClick({R.id.fl_group_member, R.id.tv_my_group_nick_name_s,
+    @OnClick({R.id.img_left_back, R.id.fl_group_member, R.id.tv_my_group_nick_name_s,
             R.id.tv_group_zx, R.id.rl_room_id, R.id.rl_container_group_remark,
             R.id.tv_group_notice, R.id.tv_msg_record,
             R.id.tv_group_manager, R.id.rl_container_group_single_member_jinyan,
             R.id.tv_clear_msg, R.id.tv_exit, R.id.tv_transfer_group})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.img_left_back:
+                finish();
+                break;
             case R.id.rl_room_id:
                 //群昵称
                 if (info.getGroupUserRank() != 0) {
@@ -860,13 +865,6 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
                 }
             }
         }, true).show();
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 
     private void modifyGroupUserSayStatus(String sayStatus) {
