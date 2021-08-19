@@ -7,21 +7,20 @@
 
     <ImageView
         android:id="@+id/iv_dc1"
-        android:layout_width="154dp"
-        android:layout_height="116dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_30"
-        android:src="@mipmap/icon_dc1"
+        android:background="@mipmap/icon_dc1"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/iv_dc2"
-        android:layout_width="155dp"
-        android:layout_height="116dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_30"
-        android:layout_marginLeft="@dimen/dp_30"
         app:layout_constraintLeft_toRightOf="@id/iv_dc1"
-        android:src="@mipmap/icon_dc2"
+        android:background="@mipmap/icon_dc2"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,17 +28,16 @@
         android:id="@+id/iv_dc3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/icon_dc3"
+        android:background="@mipmap/icon_dc3"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="@dimen/dp_30"
         app:layout_constraintTop_toBottomOf="@id/iv_dc1" />
 
     <ImageView
         android:id="@+id/iv_dc4"
-        android:layout_width="155dp"
-        android:layout_height="116dp"
-        android:src="@mipmap/icon_dc4"
-        android:layout_marginLeft="@dimen/dp_30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@mipmap/icon_dc4"
         android:layout_marginTop="@dimen/dp_30"
         app:layout_constraintLeft_toRightOf="@id/iv_dc1"
         app:layout_constraintTop_toBottomOf="@id/iv_dc2"
@@ -49,7 +47,7 @@
         android:id="@+id/iv_dc5"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@mipmap/icon_dc5"
+        android:background="@mipmap/icon_dc5"
         android:layout_marginTop="@dimen/dp_30"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintTop_toBottomOf="@id/iv_dc3"
@@ -57,11 +55,10 @@
 
     <ImageView
         android:id="@+id/iv_dc6"
-        android:layout_width="155dp"
-        android:layout_height="116dp"
-        android:layout_marginLeft="@dimen/dp_30"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         app:layout_constraintLeft_toRightOf="@id/iv_dc1"
-        android:src="@mipmap/icon_dc6"
+        android:background="@mipmap/icon_dc6"
         android:layout_marginTop="@dimen/dp_30"
         app:layout_constraintTop_toBottomOf="@id/iv_dc4"
         app:layout_constraintRight_toRightOf="parent"
