@@ -21,8 +21,8 @@
 
         <com.hyphenate.easecallkit.widget.EaseImageView
             android:id="@+id/iv_userhead"
-            android:layout_width="@dimen/dp_48"
-            android:layout_height="@dimen/dp_48"
+            android:layout_width="@dimen/dp_36"
+            android:layout_height="@dimen/dp_36"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/dp_5"
@@ -32,10 +32,13 @@
             android:id="@+id/bubble"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tv_userid"
             android:layout_marginRight="@dimen/dp_5"
             android:layout_toLeftOf="@id/iv_userhead"
-            android:background="@drawable/ltian">
+            android:background="@drawable/ltian"
+            android:paddingStart="16dp"
+            android:paddingTop="12dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="12dp">
 
             <TextView
                 android:id="@+id/tv_chatcontent"
@@ -46,9 +49,9 @@
                 android:gravity="center|left|center_vertical"
                 android:lineSpacingExtra="@dimen/dp_2"
                 android:maxWidth="225.0dip"
-                tools:text="你也哈有会将爱欧阳锋的身份你也哈有会将爱欧阳锋的身份"
                 android:textColor="#ff000000"
-                android:textSize="@dimen/sp_14"/>
+                android:textSize="@dimen/sp_14"
+                tools:text="你也哈有会将爱欧阳锋的身份你也哈有会将爱欧阳锋的身份" />
         </RelativeLayout>
 
         <TextView
@@ -77,11 +80,11 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
+            android:layout_marginTop="@dimen/dp_5"
+            android:layout_marginRight="@dimen/dp_5"
             android:layout_toLeftOf="@id/bubble"
             android:text="@string/text_ack_msg"
             android:textSize="@dimen/sp_12"
-            android:layout_marginTop="@dimen/dp_5"
-            android:layout_marginRight="@dimen/dp_5"
             android:visibility="gone" />
 
         <TextView
@@ -99,9 +102,9 @@
             android:id="@+id/progress_bar"
             android:layout_width="@dimen/dp_25"
             android:layout_height="@dimen/dp_25"
+            android:layout_alignBaseline="@+id/bubble"
             android:layout_centerVertical="true"
             android:layout_toLeftOf="@id/bubble"
-            android:layout_alignBaseline="@+id/bubble"
             android:visibility="visible" />
     </RelativeLayout>
 

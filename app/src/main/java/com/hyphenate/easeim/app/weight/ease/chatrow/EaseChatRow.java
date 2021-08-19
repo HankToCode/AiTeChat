@@ -159,9 +159,11 @@ public abstract class EaseChatRow extends LinearLayout {
                 }
             }
         }
-        if (userAvatarView != null)
-            ImageUtil.setAvatar((EaseImageView) userAvatarView);
-
+        if (userAvatarView != null) {
+            EaseImageView easeImageView = ((EaseImageView) userAvatarView);
+            ImageUtil.setAvatar(easeImageView);
+            easeImageView.setShapeType(1);
+        }
         if (message.direct() == Direct.SEND) {
             if (!TextUtils.isEmpty(UserComm.getUserInfo().getUserHead()))
                 GlideUtils.loadImageViewLoding(AppConfig.checkimg(UserComm.getUserInfo().getUserHead()), userAvatarView, R.mipmap.img_default_avatar);
@@ -176,7 +178,7 @@ public abstract class EaseChatRow extends LinearLayout {
             } else if (message.conversationId().contains("0d777a9c8f9311eb844f00163e0654c2")) {
                 userAvatarView.setImageResource(R.mipmap.icon_exception_handle_kefu_avatar);
             } else if (!TextUtils.isEmpty(message.getStringAttribute(Constant.AVATARURL)))
-                GlideUtils.loadImageViewLoding(AppConfig.checkimg(message.getStringAttribute(Constant.AVATARURL)), userAvatarView, R.mipmap.img_default_avatar);
+                GlideUtils.loadImageViewLodingByCircle(AppConfig.checkimg(message.getStringAttribute(Constant.AVATARURL)), userAvatarView, R.mipmap.img_default_avatar);
 
             if (message.getChatType() == EMMessage.ChatType.Chat) {
                 EaseUserUtils.setUserNick(message.getFrom(), usernickView);

@@ -8,7 +8,7 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_0_5"
-        android:background="#ECECEC" />
+        android:background="#ffeff2fc" />
 
     <LinearLayout
         android:id="@+id/rl_bottom"
@@ -22,8 +22,8 @@
 
         <Button
             android:id="@+id/btn_set_mode_voice"
-            android:layout_width="@dimen/dp_32"
-            android:layout_height="@dimen/dp_32"
+            android:layout_width="@dimen/dp_24"
+            android:layout_height="@dimen/dp_24"
             android:layout_marginLeft="@dimen/dp_6"
             android:background="@mipmap/yuy"
             android:visibility="visible" />
@@ -33,7 +33,7 @@
             android:layout_width="@dimen/dp_24"
             android:layout_height="@dimen/dp_24"
             android:layout_marginLeft="@dimen/dp_6"
-            android:background="@drawable/ease_chatting_setmode_keyboard_btn"
+            android:background="@mipmap/jianp"
             android:visibility="gone" />
 
         <LinearLayout
