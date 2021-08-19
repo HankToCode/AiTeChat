@@ -33,6 +33,7 @@ import com.hyphenate.easeim.app.operate.UserOperateManager;
 import com.hyphenate.easeim.app.utils.my.MyHelper;
 import com.hyphenate.easeim.app.weight.CommonDialog;
 import com.hyphenate.easeim.common.utils.DeviceIdUtil;
+import com.hyphenate.easeim.section.common.MultiAccountActivity;
 import com.hyphenate.easeim.section.common.SetActivity;
 import com.hyphenate.easeim.section.common.WalletActivity;
 import com.hyphenate.easeim.section.common.MyCollectActivity;
@@ -249,7 +250,8 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
 
                 break;
             case R.id.tv_switch_account:
-                startActivity(new Intent(this, MultiDeviceActivity.class));
+//                startActivity(new Intent(this, MultiDeviceActivity.class));
+                MultiAccountActivity.actionStart(this);
                 break;
             case R.id.tv_logout:
                 new EaseAlertDialog(this, "确定退出帐号？", null, null, new EaseAlertDialog.AlertDialogUser() {

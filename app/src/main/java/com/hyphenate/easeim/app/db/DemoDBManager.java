@@ -370,6 +370,64 @@ public class DemoDBManager {
     }
 
     /**
+     * save a LoginAccount
+     *
+     * @param groupInfo
+     */
+    synchronized public void saveLoginAccount(EaseUser groupInfo) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(UserDao.COLUMN_NAME_ID, groupInfo.getUsername());
+        if (groupInfo.getUsername() != null) {
+            values.put(UserDao.COLUMN_NAME_ID, groupInfo.getUsername());
+        }
+        if (groupInfo.getUserCode() != null) {
+            values.put(UserDao.USER_CODE, groupInfo.getUserCode());
+        }
+        if (groupInfo.getAvatar() != null) {
+            values.put(UserDao.COLUMN_NAME_AVATAR, groupInfo.getAvatar());
+        }
+        if (groupInfo.getAccount() != null) {
+            values.put(UserDao.ACCOUNT, groupInfo.getAccount());
+        }
+        if (groupInfo.getPassword() != null) {
+            values.put(UserDao.PASSWORD, groupInfo.getPassword());
+        }
+
+        if (db.isOpen()) {
+            db.replace(UserDao.LOGINACCOUNT, null, values);
+        }
+    }
+    /**
+     * get a Group
+     *
+     * @return
+     */
+    synchronized public List<EaseUser> getLoginAccount() {
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        List<EaseUser> loginUser = new ArrayList<>();
+        if (db.isOpen()) {
+            Cursor cursor = db.rawQuery("select * from " + UserDao.LOGINACCOUNT, null);
+            while (cursor.moveToNext()) {
+                String username = cursor.getString(cursor.getColumnIndex(UserDao.COLUMN_NAME_ID));
+                String avatar = cursor.getString(cursor.getColumnIndex(UserDao.COLUMN_NAME_AVATAR));
+                String usercode = cursor.getString(cursor.getColumnIndex(UserDao.USER_CODE));
+                String account = cursor.getString(cursor.getColumnIndex(UserDao.ACCOUNT));
+                String password = cursor.getString(cursor.getColumnIndex(UserDao.PASSWORD));
+                EaseUser user = new EaseUser();
+                user.setNickName(username);
+                user.setAvatar(avatar);
+                user.setUserCode(usercode);
+                user.setAccount(account);
+                user.setPassword(password);
+                loginUser.add(user);
+            }
+            cursor.close();
+        }
+        return loginUser;
+    }
+
+    /**
      * delete a contact
      *
      * @param username
@@ -610,7 +668,7 @@ public class DemoDBManager {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         List<InviteMessage> msgs = new ArrayList<InviteMessage>();
         if (db.isOpen()) {
-            Cursor cursor = db.rawQuery("select * from " + InviteMessgeDao.TABLE_NAME + " desc ", null);
+            Cursor cursor = db.rawQuery("select * from " + InviteMessgeDao.TABLE_NAME + " desc", null);
             while (cursor.moveToNext()) {
                 InviteMessage msg = new InviteMessage();
                 int id = cursor.getInt(cursor.getColumnIndex(InviteMessgeDao.COLUMN_NAME_ID));

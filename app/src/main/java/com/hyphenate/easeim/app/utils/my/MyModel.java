@@ -7,9 +7,9 @@ import com.hyphenate.easeim.app.api.old_data.ApplyStateInfo;
 import com.hyphenate.easeim.app.api.old_data.MsgStateInfo;
 import com.hyphenate.easeim.app.db.UserDao;
 import com.hyphenate.easeim.app.domain.EaseGroupInfo;
+import com.hyphenate.easeim.app.domain.EaseUser;
 import com.hyphenate.easeim.app.domain.RobotUser;
 import com.hyphenate.easeim.common.utils.PreferenceManager;
-import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.manager.EaseAtMessageHelper;
 
 import java.util.ArrayList;
@@ -28,10 +28,24 @@ public class MyModel {
     }
 
 
-
     public EaseUser getContact(String id) {
         UserDao dao = new UserDao(context);
         return dao.getContact(id);
+    }
+
+    public void saveContact(EaseUser user) {
+        UserDao dao = new UserDao(context);
+        dao.saveContact(user);
+    }
+
+    public void saveLoginAccount(EaseUser user) {
+        UserDao dao = new UserDao(context);
+        dao.saveLoginAccount(user);
+    }
+
+    public List<EaseUser>  getLoginAccount() {
+        UserDao dao = new UserDao(context);
+        return dao.getLoginAccount();
     }
 
 
@@ -54,6 +68,7 @@ public class MyModel {
         UserDao dao = new UserDao(context);
         return dao.getGroup(id);
     }
+
 
     public void delectGroup(String id) {
         UserDao dao = new UserDao(context);
@@ -153,7 +168,6 @@ public class MyModel {
         UserDao dao = new UserDao(context);
         dao.saveGroupUserNickName(applyStateInfo);
     }
-
 
 
     public Map<String, RobotUser> getRobotList() {

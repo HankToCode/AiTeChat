@@ -29,6 +29,9 @@ import java.util.Map;
 public class UserDao {
     public static final String TABLE_NAME = "uers";
     public static final String COLUMN_NAME_ID = "username";
+    public static final String USER_CODE = "usercode";
+    public static final String ACCOUNT = "account";
+    public static final String PASSWORD = "password";
     public static final String COLUMN_NAME_NICK = "nick";
     public static final String COLUMN_NAME_AVATAR = "avatar";
     public static final String COLUMN_NAME_TYPE = "type";
@@ -46,6 +49,7 @@ public class UserDao {
 
     public static final String ALL_USERS_TABLE_NAME = "alluers";
     public static final String GROUPS_TABLE_NAME = "groups";
+    public static final String LOGINACCOUNT = "loginAccount";//保存登录的账号组
 
     public static final String PREF_TABLE_NAME = "pref";
     public static final String COLUMN_NAME_DISABLED_GROUPS = "disabled_groups";
@@ -235,6 +239,14 @@ public class UserDao {
      */
     public void saveContact(EaseUser user) {
         DemoDBManager.getInstance().saveContact(user);
+    }
+
+    public void saveLoginAccount(EaseUser user) {
+        DemoDBManager.getInstance().saveLoginAccount(user);
+    }
+
+    public List<EaseUser> getLoginAccount() {
+        return DemoDBManager.getInstance().getLoginAccount();
     }
 
     /**
