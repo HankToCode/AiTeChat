@@ -37,7 +37,7 @@
         android:gravity="center"
         android:visibility="gone">
 
-        <con.zds.base.upDated.view.ProgressView
+        <com.zds.base.upDated.view.ProgressView
             android:id="@+id/progressView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />

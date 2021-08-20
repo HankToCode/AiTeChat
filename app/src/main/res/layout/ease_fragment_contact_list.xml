@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <con.ycf.qianzhihe.app.weight.ease.EaseContactList
+        <com.ycf.qianzhihe.app.weight.ease.EaseContactList
             android:id="@+id/contact_list"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

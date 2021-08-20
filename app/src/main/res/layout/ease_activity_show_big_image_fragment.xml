@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <con.ycf.qianzhihe.app.weight.ease.photoview.EasePhotoView
+    <com.ycf.qianzhihe.app.weight.ease.photoview.EasePhotoView
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

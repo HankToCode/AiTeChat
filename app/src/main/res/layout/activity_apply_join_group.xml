@@ -5,7 +5,7 @@
     android:background="@color/bg_color_my_gold"
     android:orientation="vertical">
 
-    <con.ycf.qianzhihe.app.weight.SearchBar
+    <com.ycf.qianzhihe.app.weight.SearchBar
         android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -14,7 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <con.ycf.qianzhihe.app.weight.SlideRecyclerView
+        <com.ycf.qianzhihe.app.weight.SlideRecyclerView
             android:id="@+id/rv_new_friend"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
