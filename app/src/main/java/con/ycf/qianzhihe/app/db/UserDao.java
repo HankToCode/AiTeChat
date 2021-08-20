@@ -49,7 +49,8 @@ public class UserDao {
 
     public static final String ALL_USERS_TABLE_NAME = "alluers";
     public static final String GROUPS_TABLE_NAME = "groups";
-    public static final String LOGINACCOUNT = "loginAccount";//保存登录的账号组
+
+    public static final String TABLE_LOGIN_ACCOUNT_ARRAY = "loginAccountArray";//保存登录的账号组
 
     public static final String PREF_TABLE_NAME = "pref";
     public static final String COLUMN_NAME_DISABLED_GROUPS = "disabled_groups";

@@ -115,6 +115,20 @@ public class DbOpenHelper extends SQLiteOpenHelper {
             + UserDao.COLUMN_NAME_NICK + " TEXT, "
             + UserDao.GROUP_ID + " TEXT )";
 
+    /**
+     * 群中用户的昵称
+     */
+    private static final String LOGIN_ACCOUNT_ARRAY_TABLE_CREATE = "CREATE TABLE "
+            + UserDao.TABLE_LOGIN_ACCOUNT_ARRAY + " ("
+            + "id INTEGER PRIMARY KEY AUTOINCREMENT, "
+            + UserDao.COLUMN_NAME_ID + " TEXT, "
+            + UserDao.USER_CODE + " TEXT, "
+            + UserDao.COLUMN_NAME_AVATAR + " TEXT, "
+            + UserDao.ACCOUNT + " TEXT, "
+            + UserDao.PASSWORD + " TEXT, "
+            + UserDao.COLUMN_NAME_NICK + " TEXT, "
+            + UserDao.GROUP_ID + " TEXT )";
+
 
 
 
@@ -146,6 +160,7 @@ public class DbOpenHelper extends SQLiteOpenHelper {
         db.execSQL(CONVERSION_LIST_TABLE_CREATE);
         db.execSQL(ROBOT_TABLE_CREATE);
         db.execSQL(GROUP_USER_NICKNAME_TABLE_CREATE);
+        db.execSQL(LOGIN_ACCOUNT_ARRAY_TABLE_CREATE);
 
     }
 

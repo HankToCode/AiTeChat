@@ -35,6 +35,7 @@ import con.ycf.qianzhihe.app.api.old_http.ApiClient;
 import con.ycf.qianzhihe.app.api.old_http.AppConfig;
 import con.ycf.qianzhihe.app.api.old_http.ResultListener;
 import con.ycf.qianzhihe.app.base.BaseInitFragment;
+import con.ycf.qianzhihe.app.domain.EaseUser;
 import con.ycf.qianzhihe.common.db.DemoDbHelper;
 import con.ycf.qianzhihe.common.interfaceOrImplement.OnResourceParseCallback;
 import con.ycf.qianzhihe.common.utils.DeviceIdUtil;
@@ -47,7 +48,6 @@ import con.ycf.qianzhihe.section.account.activity.UpDataPasswordActivity;
 import con.zds.base.Toast.ToastUtil;
 import con.zds.base.util.SystemUtil;
 import con.ycf.qianzhihe.section.account.viewmodels.LoginFragmentViewModel;
-import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.utils.EaseEditTextUtils;
 
 import java.util.HashMap;
@@ -145,6 +145,7 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
                 public void onSuccess(EaseUser data) {
                     dismissLoading();
                     DemoHelper.getInstance().setAutoLogin(true);
+                    mFragmentViewModel.getMyModel().saveLoginAccount(data);
                     //跳转到主页
                     MainActivity.actionStart(mContext);
                     mContext.finish();

@@ -395,7 +395,7 @@ public class DemoDBManager {
         }
 
         if (db.isOpen()) {
-            db.replace(UserDao.LOGINACCOUNT, null, values);
+            db.replace(UserDao.TABLE_LOGIN_ACCOUNT_ARRAY, null, values);
         }
     }
     /**
@@ -407,7 +407,7 @@ public class DemoDBManager {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         List<EaseUser> loginUser = new ArrayList<>();
         if (db.isOpen()) {
-            Cursor cursor = db.rawQuery("select * from " + UserDao.LOGINACCOUNT, null);
+            Cursor cursor = db.rawQuery("select * from " + UserDao.TABLE_LOGIN_ACCOUNT_ARRAY, null);
             while (cursor.moveToNext()) {
                 String username = cursor.getString(cursor.getColumnIndex(UserDao.COLUMN_NAME_ID));
                 String avatar = cursor.getString(cursor.getColumnIndex(UserDao.COLUMN_NAME_AVATAR));
