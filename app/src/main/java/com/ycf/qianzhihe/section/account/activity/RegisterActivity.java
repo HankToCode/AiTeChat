@@ -266,11 +266,11 @@ public class RegisterActivity extends BaseInitActivity implements View.OnClickLi
         switch (view.getId()) {
             case R.id.tv_register_agreement:
                 //注册协议
-                startActivity(new Intent(this, WebViewActivity.class).putExtra("title", "lan").putExtra("url", AppConfig.user_agree));
+                WebViewActivity.actionStart(mContext,AppConfig.user_agree);
                 break;
             case R.id.tv_self_agreement:
                 //注册协议
-                startActivity(new Intent(this, WebViewActivity.class).putExtra("title", "lan").putExtra("url", AppConfig.register_agree));
+                WebViewActivity.actionStart(mContext,AppConfig.register_agree);
                 break;
             case R.id.img_code:
                 flushTy();

@@ -326,6 +326,8 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
         }
     }
 
+    ImageView mIvAvatar;
+
     /**
      * 替换bar上按钮布局功能
      *
@@ -348,7 +350,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
             mTitleBar.getRightLayout().addView(rightView, layoutParams);
 
             View leftView = View.inflate(this, R.layout.layout_toolbar_contacts_left, null);
-            ImageView mIvAvatar = leftView.findViewById(R.id.iv_avatar);
+            mIvAvatar = leftView.findViewById(R.id.iv_avatar);
             mIvAvatar.setOnClickListener(this);
             LoginInfo loginInfo = UserComm.getUserInfo();
             GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(loginInfo.getUserHead()), mIvAvatar, R.mipmap.img_default_avatar);
@@ -370,7 +372,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
             mTitleBar.getRightLayout().addView(rightView, layoutParams);
 
             View leftView = View.inflate(this, R.layout.layout_toolbar_contacts_left, null);
-            ImageView mIvAvatar = leftView.findViewById(R.id.iv_avatar);
+            mIvAvatar = leftView.findViewById(R.id.iv_avatar);
             mIvAvatar.setOnClickListener(this);
             LoginInfo loginInfo = UserComm.getUserInfo();
             GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(loginInfo.getUserHead()), mIvAvatar, R.mipmap.img_default_avatar);
@@ -478,6 +480,11 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
 //            conversationListFragment.refresh();
         } else if (center.getEventCode() == EventUtil.FLUSHGROUP) {
 //            groupList();
+        } else if (center.getEventCode() == EventUtil.FLUSHUSERINFO) {
+            LoginInfo loginInfo = UserComm.getUserInfo();
+            if (loginInfo != null) {
+                GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(loginInfo.getUserHead()), mIvAvatar, R.mipmap.img_default_avatar);
+            }
         }
     }
 
