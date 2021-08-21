@@ -6,6 +6,7 @@ import android.os.CountDownTimer;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -51,6 +52,7 @@ import com.ycf.qianzhihe.section.account.viewmodels.LoginFragmentViewModel;
 import com.hyphenate.easeui.utils.EaseEditTextUtils;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class LoginFragment extends BaseInitFragment implements View.OnClickListener, TextWatcher, TextView.OnEditorActionListener {
@@ -145,7 +147,16 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
                 public void onSuccess(EaseUser data) {
                     dismissLoading();
                     DemoHelper.getInstance().setAutoLogin(true);
-                    mFragmentViewModel.getMyModel().saveLoginAccount(data);
+                    // TODO: 2021/8/21 每次登录会添加一次数据 ~~去重
+                    LoginInfo currentUser = UserComm.getUserInfo();
+                    EaseUser user = new EaseUser();
+                    user.setNickName(currentUser.getNickName());
+                    user.setAvatar(currentUser.getUserHead());
+                    user.setUserCode(currentUser.getUserCode());
+                    user.setAccount(currentUser.getPhone());
+                    user.setPassword(currentUser.getPassword());
+                    mFragmentViewModel.getMyModel().saveLoginAccount(user);
+//                    mFragmentViewModel.getMyModel().saveLoginAccount(data);//data缺失用户信息
                     //跳转到主页
                     MainActivity.actionStart(mContext);
                     mContext.finish();
@@ -154,9 +165,16 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
                 @Override
                 public void onError(int code, String message) {
                     super.onError(code, message);
+                    Log.d("TAG", message+"环信登录Error code="+code);
                     dismissLoading();
                     if (code == EMError.USER_AUTHENTICATION_FAILED) {
                         ToastUtils.showToast(R.string.demo_error_user_authentication_failed);
+                    } else if (code == EMError.USER_ALREADY_LOGIN) {
+                        //Same User is already login环信登录Error code=200
+                        // TODO: 2021/8/21 用户已登录 需处理
+                    } else if (code == 218) {//另一个用户已经登录
+                        // TODO: 2021/8/21 切换账号时 如果登录的账号在另台设备未主动登出 此时登录报218错误
+                        //###code=218  Another User is already login
                     } else {
                         ToastUtils.showToast(message);
                     }

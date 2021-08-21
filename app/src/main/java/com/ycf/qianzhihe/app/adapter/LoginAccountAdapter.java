@@ -76,13 +76,14 @@ public class LoginAccountAdapter extends RecyclerView.Adapter<LoginAccountAdapte
     @Override
     public void onBindViewHolder(@NonNull final LoginAccountAdapter.MyViewHolder holder, int position) {
 
+        System.out.println("###列表数据app="+dataBean.get(position).getNickName());//com.ycf.qianzhihe.app.domain  取这个
+//        System.out.println("###列表数据ui="+dataBean.get(position).getNickname());//com.hyphenate.easeui.domain
         holder.tv_name.setText( dataBean.get(position).getNickName());
         holder.tv_id.setText( dataBean.get(position).getUserCode());
         String url = dataBean.get(position).getAvatar();
-        GlideUtils.GlideLoadCircleErrorImageUtils(mContext, url, holder.itemView, R.mipmap.img_default_avatar);
+        GlideUtils.GlideLoadCircleErrorImageUtils(mContext, url, holder.img_head, R.mipmap.img_default_avatar);
 
         LoginInfo loginInfo = UserComm.getUserInfo();
-//        DemoHelper.getInstance().getCurrentUser()
         if (loginInfo.getUserCode().equals(dataBean.get(position).getUserCode())) {
             holder.tv_status.setVisibility(View.VISIBLE);
         } else {

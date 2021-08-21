@@ -36,7 +36,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@drawable/em_roominfo_add_btn_normal"/>
+                android:background="@mipmap/icon_add_account"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
