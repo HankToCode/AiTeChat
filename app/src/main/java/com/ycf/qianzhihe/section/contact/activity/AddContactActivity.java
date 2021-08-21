@@ -71,7 +71,6 @@ public class AddContactActivity extends SearchActivity implements EaseTitleBar.O
                 public void onSuccess(Boolean data) {
                     // 添加好友
                     addUser();
-                    showToast(getResources().getString(R.string.em_add_contact_send_successful));
                 }
             });
 
@@ -176,7 +175,7 @@ public class AddContactActivity extends SearchActivity implements EaseTitleBar.O
                 cmdMsg.setAttribute(Constant.APPLY_ADD_FRIEND_ID, UserComm.getUserInfo().getUserId());
 
                 EMClient.getInstance().chatManager().sendMessage(cmdMsg);
-                ToastUtil.toast("申请成功");
+                ToastUtil.toast(getResources().getString(R.string.em_add_contact_send_successful));
                 finish();
             }
 

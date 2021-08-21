@@ -47,6 +47,7 @@ import com.ycf.qianzhihe.section.account.activity.AccountManagerActivity;
 import com.ycf.qianzhihe.section.account.activity.RegisterActivity;
 import com.ycf.qianzhihe.section.account.activity.UpDataPasswordActivity;
 import com.zds.base.Toast.ToastUtil;
+import com.zds.base.util.StringUtil;
 import com.zds.base.util.SystemUtil;
 import com.ycf.qianzhihe.section.account.viewmodels.LoginFragmentViewModel;
 import com.hyphenate.easeui.utils.EaseEditTextUtils;
@@ -95,23 +96,25 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
+        setRetainInstance(true);
+
         mEtLoginName = findViewById(R.id.et_login_name);
         mEtLoginPwd = findViewById(R.id.et_login_pwd);
         mTvLoginRegister = findViewById(R.id.tv_login_register);
         mBtnLogin = findViewById(R.id.btn_login);
-        mTvTitle = (TextView) findViewById(R.id.tv_title);
-        mTvLoginName = (TextView) findViewById(R.id.tv_login_name);
-        mTvPwd = (TextView) findViewById(R.id.tv_pwd);
-        mTvForgetPassword = (TextView) findViewById(R.id.tv_forget_password);
-        mTvSwitchLogin = (TextView) findViewById(R.id.tv_switch_login);
-        mTvOtherLogin = (TextView) findViewById(R.id.tv_other_login);
-        mIvChatLogin = (ImageView) findViewById(R.id.iv_chat_login);
-        mTvFrozen = (TextView) findViewById(R.id.tv_frozen);
-        mTvUnbind = (TextView) findViewById(R.id.tv_unfrozen);
-        mLlPwd = (ConstraintLayout) findViewById(R.id.ll_pwd);
-        mLlSms = (ConstraintLayout) findViewById(R.id.ll_sms);
-        mTvSms = (TextView) findViewById(R.id.tv_sms);
-        mEtLoginSms = (EditText) findViewById(R.id.et_login_sms);
+        mTvTitle = findViewById(R.id.tv_title);
+        mTvLoginName = findViewById(R.id.tv_login_name);
+        mTvPwd = findViewById(R.id.tv_pwd);
+        mTvForgetPassword = findViewById(R.id.tv_forget_password);
+        mTvSwitchLogin = findViewById(R.id.tv_switch_login);
+        mTvOtherLogin = findViewById(R.id.tv_other_login);
+        mIvChatLogin = findViewById(R.id.iv_chat_login);
+        mTvFrozen = findViewById(R.id.tv_frozen);
+        mTvUnbind = findViewById(R.id.tv_unfrozen);
+        mLlPwd = findViewById(R.id.ll_pwd);
+        mLlSms = findViewById(R.id.ll_sms);
+        mTvSms = findViewById(R.id.tv_sms);
+        mEtLoginSms = findViewById(R.id.et_login_sms);
         mTvSmsSend = findViewById(R.id.tv_sms_send);
 
     }
@@ -136,10 +139,11 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
         EaseEditTextUtils.clearEditTextListener(mEtLoginName);
     }
 
+
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setRetainInstance(true);
+    protected void initViewModel() {
+        super.initViewModel();
+
         mFragmentViewModel = new ViewModelProvider(this).get(LoginFragmentViewModel.class);
         mFragmentViewModel.getLoginObservable().observe(this, response -> {
             parseResource(response, new OnResourceParseCallback<EaseUser>(true) {
@@ -156,7 +160,6 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
                     user.setAccount(currentUser.getPhone());
                     user.setPassword(currentUser.getPassword());
                     mFragmentViewModel.getMyModel().saveLoginAccount(user);
-//                    mFragmentViewModel.getMyModel().saveLoginAccount(data);//data缺失用户信息
                     //跳转到主页
                     MainActivity.actionStart(mContext);
                     mContext.finish();
@@ -165,9 +168,9 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
                 @Override
                 public void onError(int code, String message) {
                     super.onError(code, message);
-                    Log.d("TAG", message+"环信登录Error code="+code);
+                    Log.d("TAG", message + "环信登录Error code=" + code);
                     dismissLoading();
-                    if (code == EMError.USER_AUTHENTICATION_FAILED) {
+                    /*if (code == EMError.USER_AUTHENTICATION_FAILED) {
                         ToastUtils.showToast(R.string.demo_error_user_authentication_failed);
                     } else if (code == EMError.USER_ALREADY_LOGIN) {
                         //Same User is already login环信登录Error code=200
@@ -177,7 +180,7 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
                         //###code=218  Another User is already login
                     } else {
                         ToastUtils.showToast(message);
-                    }
+                    }*/
                 }
 
                 @Override
@@ -194,11 +197,7 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
             });
 
         });
-    }
 
-    @Override
-    protected void initViewModel() {
-        super.initViewModel();
         DemoDbHelper.getInstance(mContext).getDatabaseCreatedObservable().observe(getViewLifecycleOwner(), response -> {
             mFragmentViewModel.HXlogin();
         });
