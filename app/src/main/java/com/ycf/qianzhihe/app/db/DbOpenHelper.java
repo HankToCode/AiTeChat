@@ -116,7 +116,7 @@ public class DbOpenHelper extends SQLiteOpenHelper {
             + UserDao.GROUP_ID + " TEXT )";
 
     /**
-     * 群中用户的昵称
+     * 登录的多账号
      */
     private static final String LOGIN_ACCOUNT_ARRAY_TABLE_CREATE = "CREATE TABLE "
             + UserDao.TABLE_LOGIN_ACCOUNT_ARRAY + " ("

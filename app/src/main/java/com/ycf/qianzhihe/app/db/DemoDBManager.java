@@ -378,8 +378,8 @@ public class DemoDBManager {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(UserDao.COLUMN_NAME_ID, groupInfo.getUsername());
-        if (groupInfo.getUsername() != null) {
-            values.put(UserDao.COLUMN_NAME_ID, groupInfo.getUsername());
+        if (groupInfo.getNickName() != null) {
+            values.put(UserDao.COLUMN_NAME_ID, groupInfo.getNickName());
         }
         if (groupInfo.getUserCode() != null) {
             values.put(UserDao.USER_CODE, groupInfo.getUserCode());
