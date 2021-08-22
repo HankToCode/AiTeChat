@@ -195,13 +195,15 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
         ContactsViewModel contactsViewModel = new ViewModelProvider(mContext).get(ContactsViewModel.class);
         contactsViewModel.loadContactList();
 
-        viewModel.messageChangeObservable().with(DemoConstant.GROUP_CHANGE, EaseEvent.class).observe(this, this::checkUnReadMsg);
+
+        //TODO 需要注意的是现在同时用了eventBus 和 LiveData通知模式 这里的通知需要注意是否抵达
+       /* viewModel.messageChangeObservable().with(DemoConstant.GROUP_CHANGE, EaseEvent.class).observe(this, this::checkUnReadMsg);
         viewModel.messageChangeObservable().with(DemoConstant.NOTIFY_CHANGE, EaseEvent.class).observe(this, this::checkUnReadMsg);
         viewModel.messageChangeObservable().with(DemoConstant.MESSAGE_CHANGE_CHANGE, EaseEvent.class).observe(this, this::checkUnReadMsg);
 
         viewModel.messageChangeObservable().with(DemoConstant.CONVERSATION_DELETE, EaseEvent.class).observe(this, this::checkUnReadMsg);
         viewModel.messageChangeObservable().with(DemoConstant.CONTACT_CHANGE, EaseEvent.class).observe(this, this::checkUnReadMsg);
-        viewModel.messageChangeObservable().with(DemoConstant.CONVERSATION_READ, EaseEvent.class).observe(this, this::checkUnReadMsg);
+        viewModel.messageChangeObservable().with(DemoConstant.CONVERSATION_READ, EaseEvent.class).observe(this, this::checkUnReadMsg);*/
 
     }
 
@@ -469,7 +471,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
             LoginActivity.actionStart(this);
             //刷新公告数量
         } else if (center.getEventCode() == EventUtil.UNREADCOUNT) {
-//            mCustomServiceFragment.getUnReadCount();
+            checkUnreadMsg();
         } else if (center.getEventCode() == EventUtil.NOTICNUM) {
 //            updateUnreadAddressLable();
         } else if (center.getEventCode() == EventUtil.KEFU) {

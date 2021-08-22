@@ -219,7 +219,7 @@ public class ConversationListFragment extends BaseConversationListFragment {
     @Override
     public void refreshApplyLayout() {
         super.refreshApplyLayout();
-        getActivity().runOnUiThread(() -> {
+        requireActivity().runOnUiThread(() -> {
             int applyJoinGroupcount = (int) PreferenceManager.getInstance().getParam(SP.APPLY_JOIN_GROUP_NUM, 0);
             groupdNoticeItem.setUnreadCount(applyJoinGroupcount);
             int addUserCount = (int) PreferenceManager.getInstance().getParam(SP.APPLY_ADD_USER_NUM, 0);

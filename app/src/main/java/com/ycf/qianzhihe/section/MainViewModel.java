@@ -8,10 +8,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.ycf.qianzhihe.DemoHelper;
+import com.ycf.qianzhihe.app.api.global.SP;
 import com.ycf.qianzhihe.common.db.DemoDbHelper;
 import com.ycf.qianzhihe.common.db.dao.InviteMessageDao;
 import com.ycf.qianzhihe.common.livedatas.LiveDataBus;
 import com.ycf.qianzhihe.common.livedatas.SingleSourceLiveData;
+import com.ycf.qianzhihe.common.utils.PreferenceManager;
 
 public class MainViewModel extends AndroidViewModel {
     private InviteMessageDao inviteMessageDao;
@@ -31,6 +33,7 @@ public class MainViewModel extends AndroidViewModel {
 
     /**
      * 设置可见的fragment
+     *
      * @param title
      */
     public void setVisibleFragment(Integer title) {
@@ -47,24 +50,29 @@ public class MainViewModel extends AndroidViewModel {
 
     public void checkUnreadMsg() {
         int unreadCount = 0;
-        if(inviteMessageDao != null) {
+        if (inviteMessageDao != null) {
             unreadCount = inviteMessageDao.queryUnreadCount();
         }
         int unreadMessageCount = DemoHelper.getInstance().getChatManager().getUnreadMessageCount();
-        String count = getUnreadCount(unreadCount + unreadMessageCount);
+
+        int applyJoinGroupcount = (int) PreferenceManager.getInstance().getParam(SP.APPLY_JOIN_GROUP_NUM, 0);
+        int addUserCount = (int) PreferenceManager.getInstance().getParam(SP.APPLY_ADD_USER_NUM, 0);
+
+        String count = getUnreadCount(applyJoinGroupcount + addUserCount + unreadCount + unreadMessageCount);
         homeUnReadObservable.postValue(count);
     }
 
     /**
      * 获取未读消息数目
+     *
      * @param count
      * @return
      */
     private String getUnreadCount(int count) {
-        if(count <= 0) {
+        if (count <= 0) {
             return null;
         }
-        if(count > 99) {
+        if (count > 99) {
             return "99+";
         }
         return String.valueOf(count);

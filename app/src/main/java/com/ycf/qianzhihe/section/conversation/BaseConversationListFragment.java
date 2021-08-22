@@ -19,9 +19,13 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
+import com.ycf.qianzhihe.app.api.global.EventUtil;
+import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.app.base.BaseInitFragment;
 import com.zds.base.json.FastJsonUtil;
 import com.ycf.qianzhihe.app.weight.ease.EaseConversationList;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -138,6 +142,7 @@ public class BaseConversationListFragment extends BaseInitFragment {
                             conversationList.addAll(loadConversationList());
                             conversationListView.refresh();
                             srlRefresh.setRefreshing(false);
+                            EventBus.getDefault().post(new EventCenter<>(EventUtil.UNREADCOUNT));
                         }
                     }, 1000);
 

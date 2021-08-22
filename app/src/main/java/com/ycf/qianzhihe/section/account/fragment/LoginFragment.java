@@ -126,6 +126,7 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
         mEtLoginPwd.addTextChangedListener(this);
         mTvLoginRegister.setOnClickListener(this);
         mBtnLogin.setOnClickListener(this);
+        mEtLoginPwd.setOnEditorActionListener(this);
         mEtLoginSms.setOnEditorActionListener(this);
 
         mTvForgetPassword.setOnClickListener(this);
@@ -137,6 +138,8 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
 
 
         EaseEditTextUtils.clearEditTextListener(mEtLoginName);
+        EaseEditTextUtils.clearEditTextListener(mEtLoginPwd);
+        EaseEditTextUtils.clearEditTextListener(mEtLoginSms);
     }
 
 
@@ -210,8 +213,8 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
         eyeClose = ContextCompat.getDrawable(requireContext(), R.drawable.d_pwd_hide);
         eyeOpen = ContextCompat.getDrawable(requireContext(), R.drawable.d_pwd_show);
         clear = ContextCompat.getDrawable(requireContext(), R.drawable.d_clear);
-        EaseEditTextUtils.showRightDrawable(mEtLoginName, clear);
-        EaseEditTextUtils.changePwdDrawableRight(mEtLoginPwd, eyeClose, eyeOpen, null, null, null);
+//        EaseEditTextUtils.showRightDrawable(mEtLoginName, clear);
+//        EaseEditTextUtils.changePwdDrawableRight(mEtLoginPwd, eyeClose, eyeOpen, null, null, null);
     }
 
     @Override
@@ -437,6 +440,10 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
             mEtLoginPwd.setImeOptions(enable ? EditorInfo.IME_ACTION_DONE : EditorInfo.IME_ACTION_PREVIOUS);
         } else if (mEtLoginName.hasFocus()) {
             mEtLoginPwd.setImeOptions(enable ? EditorInfo.IME_ACTION_DONE : EditorInfo.IME_ACTION_NEXT);
+        } else if (mEtLoginSms.hasFocus()) {
+            mEtLoginSms.setImeOptions(enable ? EditorInfo.IME_ACTION_DONE : EditorInfo.IME_ACTION_PREVIOUS);
+        } else if (mEtLoginName.hasFocus()) {
+            mEtLoginSms.setImeOptions(enable ? EditorInfo.IME_ACTION_DONE : EditorInfo.IME_ACTION_NEXT);
         }
 
     }
@@ -445,6 +452,11 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if (actionId == EditorInfo.IME_ACTION_DONE) {
             if (!TextUtils.isEmpty(mUserName) && !TextUtils.isEmpty(mPwd)) {
+                hideKeyboard();
+                loginToServer();
+                return true;
+            }
+            if (!TextUtils.isEmpty(mUserName) && !TextUtils.isEmpty(mSms)) {
                 hideKeyboard();
                 loginToServer();
                 return true;
