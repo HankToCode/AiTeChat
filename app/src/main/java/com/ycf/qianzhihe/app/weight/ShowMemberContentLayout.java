@@ -63,7 +63,7 @@ public class ShowMemberContentLayout extends GridView {
     }
 
     public void setMoneyData(List<String> data) {
-        this.data=data;
+        this.data = data;
     }
 
     class MyAdapter extends BaseAdapter {
@@ -103,7 +103,7 @@ public class ShowMemberContentLayout extends GridView {
             if (data.get(position).equals("好友人数")) {
                 holder.iv_member_icon.setBackgroundResource(R.mipmap.icon_member_c1);
                 holder.tv_member_content.setText("好友人数");
-                holder.tv_member_tip.setText("100");
+                holder.tv_member_tip.setText("200");
                 holder.tv_member_tip.setVisibility(VISIBLE);
             } else if (data.get(position).equals("加速升级")) {
                 holder.iv_member_icon.setBackgroundResource(R.mipmap.icon_member_c2);
@@ -136,38 +136,68 @@ public class ShowMemberContentLayout extends GridView {
                 holder.tv_member_tip.setVisibility(GONE);
             }
 
-            /*holder.cb_money.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked) {
-                        //设置选中文字颜色
-//                        buttonView.setBackgroundResource(R.drawable.icon_rechar_bg);
-                        //取消上一个选择
-                        if (checkBox != null) {
-                            checkBox.setChecked(false);
-                        }
-                        checkBox = (CheckBox) buttonView;
-                    } else {
-                        checkBox = null;
-                        //设置不选中文字颜色
-//                        buttonView.setBackgroundResource(R.drawable.shap_gray_bg);
-                    }
-                    //回调
-                    listener.chooseMoney(position, isChecked, data.get(position));
+            //判断下更高级别会员的权益 显示红色箭头
+            if (data.size() == 4) {//一级会员
+                if (data.get(position).contains("加速升级")) {
+                    holder.tv_member_tip.setText("1.2倍");
+                    holder.tv_member_tip.setVisibility(VISIBLE);
+                } else if (data.get(position).contains("好友人数")) {
+                    holder.tv_member_tip.setText("200");
+                    holder.tv_member_tip.setVisibility(VISIBLE);
                 }
-            });*/
-            /*if (position == defaultChoose) {
-                holder.rl_item.setBackgroundResource(R.drawable.bor_check_member_p);
-                defaultChoose = -1;
-                holder.cb_money.setChecked(true);
-                checkBox = holder.cb_money;
-            }*/
+            } else if (data.size() == 5) {//二级会员
+                if (data.get(position).contains("加速升级")) {
+                    holder.tv_member_tip.setText("1.5倍");
+                    holder.tv_member_tip.setVisibility(VISIBLE);
+                    holder.iv_up.setVisibility(VISIBLE);
+                } else if (data.get(position).contains("好友人数")) {
+                    holder.tv_member_tip.setText("500");
+                    holder.tv_member_tip.setVisibility(VISIBLE);
+                    holder.iv_up.setVisibility(VISIBLE);
+                } else if (data.get(position).contains("红色昵称")) {
+                    holder.tv_member_tip.setVisibility(GONE);
+                    holder.iv_up.setVisibility(VISIBLE);
+                } else if (data.get(position).contains("星标好友")) {
+                    holder.tv_member_tip.setVisibility(GONE);
+                    holder.iv_up.setVisibility(VISIBLE);
+                }
+            } else if (data.size() == 6) {
+                if (data.get(position).contains("加速升级")) {
+                    holder.tv_member_tip.setText("1.8倍");
+                    holder.tv_member_tip.setVisibility(VISIBLE);
+                    holder.iv_up.setVisibility(VISIBLE);
+                } else if (data.get(position).contains("好友人数")) {
+                    holder.tv_member_tip.setText("1000");
+                    holder.tv_member_tip.setVisibility(VISIBLE);
+                    holder.iv_up.setVisibility(VISIBLE);
+                } else if (data.get(position).contains("动态表情")) {
+                    holder.tv_member_tip.setVisibility(GONE);
+                    holder.iv_up.setVisibility(VISIBLE);
+                }
+            } else if (data.size() == 8) {
+                if (data.get(position).contains("加速升级")) {
+                    holder.tv_member_tip.setText("2倍");
+                    holder.tv_member_tip.setVisibility(VISIBLE);
+                    holder.iv_up.setVisibility(VISIBLE);
+                } else if (data.get(position).contains("好友人数")) {
+                    holder.tv_member_tip.setText("3000");
+                    holder.tv_member_tip.setVisibility(VISIBLE);
+                    holder.iv_up.setVisibility(VISIBLE);
+                } else if (data.get(position).contains("群排名靠前")) {
+                    holder.tv_member_tip.setVisibility(GONE);
+                    holder.iv_up.setVisibility(VISIBLE);
+                } else if (data.get(position).contains("聊天背景")) {
+                    holder.tv_member_tip.setVisibility(GONE);
+                    holder.iv_up.setVisibility(VISIBLE);
+                }
+            }
+
             return convertView;
         }
 
         private class MyViewHolder {
             private CheckBox cb_money;
-            private ImageView iv_member_icon,iv_up;
+            private ImageView iv_member_icon, iv_up;
             private TextView tv_member_content;
             private TextView tv_member_tip;
         }
@@ -201,9 +231,10 @@ public class ShowMemberContentLayout extends GridView {
     public interface onChoseMoneyListener {
         /**
          * 选择金额返回
-         *  @param position gridView的位置
+         *
+         * @param position gridView的位置
          * @param isCheck  是否选中
-         * @param data data
+         * @param data     data
          */
 
         void chooseMoney(int position, boolean isCheck, VipBean data);

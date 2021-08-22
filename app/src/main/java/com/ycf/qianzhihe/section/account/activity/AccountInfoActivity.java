@@ -207,6 +207,7 @@ public class AccountInfoActivity extends BaseInitActivity {
         cml_member.setHorizontalSpacing(5); // 设置列表项水平间距
         cml_member.setStretchMode(GridView.NO_STRETCH);
         cml_member.setNumColumns(size); // 设置列数量=列表集合数
+
         //l2
         List<String> data2 = new ArrayList<>();
         data2.add("好友人数");
@@ -214,7 +215,6 @@ public class AccountInfoActivity extends BaseInitActivity {
         data2.add("会员标识");
         data2.add("红色昵称");
         data2.add("星标好友");
-
         //初始化
         cml_member2.setMoneyData(data2);
         int size2 = data2.size();
@@ -226,6 +226,7 @@ public class AccountInfoActivity extends BaseInitActivity {
         cml_member2.setHorizontalSpacing(5); // 设置列表项水平间距
         cml_member2.setStretchMode(GridView.NO_STRETCH);
         cml_member2.setNumColumns(size2); // 设置列数量=列表集合数
+
         //l3
         List<String> data3 = new ArrayList<>();
         data3.add("好友人数");
@@ -267,8 +268,6 @@ public class AccountInfoActivity extends BaseInitActivity {
         cml_member4.setHorizontalSpacing(5); // 设置列表项水平间距
         cml_member4.setStretchMode(GridView.NO_STRETCH);
         cml_member4.setNumColumns(size4); // 设置列数量=列表集合数
-
-
     }
 
     /**
@@ -287,7 +286,6 @@ public class AccountInfoActivity extends BaseInitActivity {
         //是否是会员
         if (!TextUtils.isEmpty(loginInfo.getVipLevel())) {
             iv_user_level_tag.setBackgroundResource(R.drawable.ic_mine_level_tag);
-
         } else {
             iv_user_level_tag.setBackgroundResource(R.drawable.ic_mine_level_tag_normal);
         }

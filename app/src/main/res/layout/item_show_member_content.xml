@@ -24,7 +24,8 @@
             android:src="@mipmap/icon_member_up"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/dp_6"
-            android:layout_marginTop="@dimen/dp_6"/>
+            android:layout_marginTop="@dimen/dp_6"
+            android:visibility="gone"/>
         <TextView
             android:id="@+id/tv_member_content"
             android:layout_width="wrap_content"
