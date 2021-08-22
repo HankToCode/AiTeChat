@@ -24,7 +24,6 @@ import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
 import com.ycf.qianzhihe.app.help.RclViewHelp;
 import com.ycf.qianzhihe.app.operate.UserOperateManager;
-import com.ycf.qianzhihe.section.group.activity.NewGroupActivity;
 import com.zds.base.json.FastJsonUtil;
 
 import org.greenrobot.eventbus.EventBus;
