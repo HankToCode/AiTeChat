@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Switch;
 
+import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
@@ -22,6 +23,8 @@ import butterknife.BindView;
 
 //零钱锁
 public class WalletLockActivity extends BaseInitActivity {
+    @BindView(R.id.title_bar)
+    EaseTitleBar title_bar;
     @BindView(R.id.switch_lock)
     Switch switchLock;
     private VerifyCodeView verifyCodeView;
@@ -42,7 +45,8 @@ public class WalletLockActivity extends BaseInitActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        setTitle("零钱锁");
+        title_bar.setTitle("零钱锁");
+        title_bar.setOnBackPressListener(view -> finish());
         verifyCodeView = new VerifyCodeView(this);
         verifyDialog  = new CommonDialog.Builder(this).fullWidth().center()
                 .setView(verifyCodeView)

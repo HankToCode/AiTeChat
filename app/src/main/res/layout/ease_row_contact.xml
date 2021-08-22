@@ -20,9 +20,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_56"
-        android:background="@drawable/ease_mm_listitem"
+        android:background="?attr/selectableItemBackground"
         android:duplicateParentState="true" >
-
+<!--        android:background="@drawable/ease_mm_listitem"-->
         <com.hyphenate.easecallkit.widget.EaseImageView
             android:id="@+id/avatar"
             android:layout_width="@dimen/dp_36"

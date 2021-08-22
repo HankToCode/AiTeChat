@@ -28,7 +28,7 @@
         android:id="@+id/list_itease_layout"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:background="@drawable/ease_mm_listitem">
+        android:background="?attr/selectableItemBackground">
 
         <com.hyphenate.easecallkit.widget.EaseImageView
             android:id="@+id/avatar"
