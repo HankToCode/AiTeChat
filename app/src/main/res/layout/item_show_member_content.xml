@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp_80"
+    android:layout_height="@dimen/dp_106">
+
+    <RelativeLayout
+        android:id="@+id/rl_item"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bor_check_member_p">
+
+        <ImageView
+            android:id="@+id/iv_member_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/icon_member_c1"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/dp_20"/>
+
+        <ImageView
+            android:id="@+id/iv_up"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/icon_member_up"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_6"
+            android:layout_marginTop="@dimen/dp_6"/>
+        <TextView
+            android:id="@+id/tv_member_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="好友人数"
+            android:layout_below="@id/iv_member_icon"
+            android:layout_centerHorizontal="true"
+            android:textColor="#ff000000"
+            android:textSize="14sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_member_tip"
+            android:layout_width="wrap_content"
+            android:layout_below="@id/tv_member_content"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content"
+            android:text="100"
+            android:textColor="#fffd393b"
+            android:textSize="14sp"
+            />
+        <CheckBox
+            android:id="@+id/cb_money"
+            android:layout_width="@dimen/dp_109"
+            android:layout_height="@dimen/dp_127"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:paddingTop="2.5dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="2.5dp"
+            android:text=""
+            android:textColor="#ff000000"
+            android:textSize="20dp" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_member_me"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/dp_10"
+        android:src="@mipmap/icon_member_me"
+        android:visibility="gone"/>
+
+</RelativeLayout>

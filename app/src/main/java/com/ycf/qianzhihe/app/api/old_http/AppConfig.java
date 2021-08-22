@@ -1090,6 +1090,13 @@ public class AppConfig {
      */
     public static String showStore = mainUrl + "common/showStore";
 
+    //VIP信息展示
+    public static String getSysVipInfo = mainUrl + "/app_vip/getSysVipInfo";
+    //购买VIP
+    public static String saveUserVip = mainUrl + "/app_vip/saveUserVip";
+
+
+
     /**
      * 检查版本
      */

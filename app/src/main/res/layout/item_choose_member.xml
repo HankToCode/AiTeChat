@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="@dimen/dp_89"
+    android:layout_height="@dimen/dp_107">
+
+    <RelativeLayout
+        android:id="@+id/rl_item"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/bor_check_member_un"
+        android:layout_margin="@dimen/dp_6">
+        <TextView
+            android:id="@+id/tv_lev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="一级会员"
+            android:layout_centerHorizontal="true"
+            android:textColor="#ffbc935b"
+            android:layout_marginTop="@dimen/dp_14"
+            android:textSize="15sp" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_centerInParent="true">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="¥"
+                android:textColor="#ffbc935b"
+                android:textSize="15sp" />
+
+            <TextView
+                android:id="@+id/tv_money"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="19"
+                android:layout_marginLeft="@dimen/dp_3"
+                android:textColor="#ffbc935b"
+                android:textSize="25sp"
+                />
+
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/iv_member"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:background="@mipmap/icon_member_gray"/>
+        <CheckBox
+            android:id="@+id/cb_money"
+            android:layout_width="@dimen/dp_109"
+            android:layout_height="@dimen/dp_127"
+            android:layout_gravity="center"
+            android:layout_weight="1"
+            android:button="@null"
+            android:gravity="center"
+            android:paddingLeft="15dp"
+            android:paddingTop="2.5dp"
+            android:paddingRight="15dp"
+            android:paddingBottom="2.5dp"
+            android:text=""
+            android:textColor="#ff000000"
+            android:textSize="20dp" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_member_me"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/dp_10"
+        android:src="@mipmap/icon_member_me"
+        android:visibility="gone"/>
+
+</RelativeLayout>

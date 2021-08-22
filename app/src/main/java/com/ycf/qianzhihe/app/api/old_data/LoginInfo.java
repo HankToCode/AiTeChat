@@ -52,9 +52,61 @@ public class LoginInfo implements Serializable {
 
     public int addWay;//0-需要 1-不需要 默认为1
     public int sex;//0-男 1-女 默认为0
-
     //钱包id
     public String ncountUserId;
+    //新增字段
+    private String vipId;
+    private String vipLevel;
+    private String openid;
+    private String userLevel;
+
+    public int getSex() {
+        return sex;
+    }
+
+    public void setSex(int sex) {
+        this.sex = sex;
+    }
+
+    public String getNcountUserId() {
+        return ncountUserId;
+    }
+
+    public void setNcountUserId(String ncountUserId) {
+        this.ncountUserId = ncountUserId;
+    }
+
+    public String getVipId() {
+        return vipId;
+    }
+
+    public void setVipId(String vipId) {
+        this.vipId = vipId;
+    }
+
+    public String getVipLevel() {
+        return vipLevel;
+    }
+
+    public void setVipLevel(String vipLevel) {
+        this.vipLevel = vipLevel;
+    }
+
+    public String getOpenid() {
+        return openid;
+    }
+
+    public void setOpenid(String openid) {
+        this.openid = openid;
+    }
+
+    public String getUserLevel() {
+        return userLevel;
+    }
+
+    public void setUserLevel(String userLevel) {
+        this.userLevel = userLevel;
+    }
 
     public String getMyPassword() {
         return myPassword;

@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:src="@drawable/bg_my_info"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
+        <com.hyphenate.easeui.widget.EaseTitleBar
+            android:id="@+id/title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/em_common_title_bar_height"
+            android:background="@color/transparent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleBarBackground="@color/transparent"
+            app:titleBarDisplayHomeAsUpEnabled="true"
+            app:titleBarLeftImage="@drawable/ic_back"
+            app:titleBarTitle="会员权益"
+            app:titleBarTitleTextColor="#E7BF9B" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guider_info_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.48" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guider_info_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.06" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guider_info_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.94" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ll_my_info"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:paddingBottom="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/guider_info_left"
+            app:layout_constraintRight_toRightOf="@id/guider_info_right"
+            app:layout_constraintTop_toBottomOf="@id/guider_info_top">
+
+            <com.hyphenate.easeui.widget.EaseImageView
+                android:id="@+id/iv_avatar"
+                android:layout_width="45dp"
+                android:layout_height="45dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/tv_nick_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:text="陈情匿旧酒"
+                android:textColor="#E7BF9B"
+                android:textSize="19dp"
+                app:layout_constraintStart_toEndOf="@id/iv_avatar"
+                app:layout_constraintTop_toTopOf="@id/iv_avatar" />
+
+            <TextView
+                android:id="@+id/tv_user_id"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="ID:860224"
+                android:textColor="#E7C19F"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="@id/tv_nick_name"
+                app:layout_constraintTop_toBottomOf="@id/tv_nick_name" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/tv_user_level"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:minWidth="@dimen/dp_20"
+                android:paddingStart="6dp"
+                android:paddingEnd="6dp"
+                android:text="lv 1"
+                android:textColor="@color/color_B96811"
+                android:textSize="13dp"
+                app:layout_constraintStart_toStartOf="@id/tv_user_id"
+                app:layout_constraintTop_toBottomOf="@id/tv_user_id"
+                app:stv_corner="8dp"
+                app:stv_shaderEnable="true"
+                app:stv_shaderEndColor="#ffffb300"
+                app:stv_shaderStartColor="#ffffdb5d" />
+
+            <ImageView
+                android:id="@+id/iv_user_level_tag"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:src="@drawable/drawable_level_tag"
+                app:layout_constraintBottom_toBottomOf="@id/tv_user_level"
+                app:layout_constraintStart_toEndOf="@id/tv_user_level"
+                app:layout_constraintTop_toTopOf="@id/tv_user_level" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/dp_20"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="@dimen/dp_20"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp">
+
+                <TextView
+                    android:id="@+id/tv_l1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Lv1会员权益"
+                    android:textColor="@color/black"
+                    android:textSize="21sp"
+                    />
+
+                <TextView
+                    android:id="@+id/tv_l1_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="LV1全部4项权益"
+                    android:textColor="#ff4b4b51"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/dp_10">
+
+                    <com.ycf.qianzhihe.app.weight.ShowMemberContentLayout
+                        android:id="@+id/cml_member"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:horizontalSpacing="17dp"
+                        android:numColumns="4"
+                        android:verticalSpacing="20dp" />
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp">
+
+                <TextView
+                    android:id="@+id/tv_l2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Lv2会员权益"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+
+                <TextView
+                    android:id="@+id/tv_l2_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="LV2全部5项权益"
+                    android:textColor="#ff4b4b51"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/dp_10">
+
+                    <com.ycf.qianzhihe.app.weight.ShowMemberContentLayout
+                        android:id="@+id/cml_member2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:horizontalSpacing="17dp"
+                        android:numColumns="4"
+                        android:verticalSpacing="20dp" />
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp">
+
+                <TextView
+                    android:id="@+id/tv_l3"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Lv3会员权益"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+
+                <TextView
+                    android:id="@+id/tv_l3_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="LV3全部6项权益"
+                    android:textColor="#ff4b4b51"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/dp_10">
+
+                    <com.ycf.qianzhihe.app.weight.ShowMemberContentLayout
+                        android:id="@+id/cml_member3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:horizontalSpacing="17dp"
+                        android:numColumns="4"
+                        android:verticalSpacing="20dp" />
+                </LinearLayout>
+
+            </HorizontalScrollView>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:paddingStart="4dp"
+                android:paddingEnd="4dp">
+
+                <TextView
+                    android:id="@+id/tv_l4"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Lv4会员权益"
+                    android:textColor="@color/black"
+                    android:textSize="21sp" />
+
+                <TextView
+                    android:id="@+id/tv_l4_tip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="LV4全部8项权益"
+                    android:textColor="#ff4b4b51"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:padding="@dimen/dp_10">
+
+                    <com.ycf.qianzhihe.app.weight.ShowMemberContentLayout
+                        android:id="@+id/cml_member4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:horizontalSpacing="17dp"
+                        android:numColumns="4"
+                        android:verticalSpacing="20dp" />
+                </LinearLayout>
+
+            </HorizontalScrollView>
+
+            <ImageView
+                android:id="@+id/iv_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_20"
+                android:layout_marginBottom="@dimen/dp_20"
+                android:src="@mipmap/icon_up_level" />
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

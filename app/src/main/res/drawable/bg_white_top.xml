@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <gradient
+        android:angle="270"
+        android:endColor="@color/windowBackground"
+        android:startColor="@color/white" />
+    <!-- 这是半透明 -->
+<!--    <solid android:color="#80065e8d" />-->
+    <corners
+        android:topLeftRadius="@dimen/dp_20"
+        android:topRightRadius="@dimen/dp_20" />
+</shape>
