@@ -17,6 +17,7 @@ import android.widget.TextView;
 
 import com.hyphenate.easecallkit.widget.EaseImageView;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.domain.EaseUser;
 import com.ycf.qianzhihe.app.operate.UserOperateManager;
 import com.ycf.qianzhihe.app.utils.ImageUtil;
@@ -55,7 +56,7 @@ public class EaseContactAdapter extends ArrayAdapter<EaseUser> implements Sectio
         ImageView avatar;
         TextView nameView;
         TextView headerView;
-        TextView onlineStatus;
+        ImageView onlineStatus;
     }
 
     @Override
@@ -71,7 +72,7 @@ public class EaseContactAdapter extends ArrayAdapter<EaseUser> implements Sectio
             holder.avatar = (ImageView) convertView.findViewById(R.id.avatar);
             holder.nameView = (TextView) convertView.findViewById(R.id.name);
             holder.headerView = (TextView) convertView.findViewById(R.id.header);
-            holder.onlineStatus=(TextView) convertView.findViewById(R.id.tv_online_status);
+            holder.onlineStatus=(ImageView) convertView.findViewById(R.id.iv_online_status);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -83,6 +84,16 @@ public class EaseContactAdapter extends ArrayAdapter<EaseUser> implements Sectio
         }
         String username = user.getUsername();
         String header = user.getInitialLetter();
+        //是否在线
+        if (!TextUtils.isEmpty(user.getLine())) {
+            if (user.getLine().equals("OnLine")) {
+                holder.onlineStatus.setBackgroundResource(R.drawable.dot_green);
+            } else {
+                holder.onlineStatus.setBackgroundResource(R.drawable.dot_gray);
+            }
+        } else {
+            holder.onlineStatus.setBackgroundResource(R.drawable.dot_gray);
+        }
 
         if (position == 0 || header != null && !header.equals(getItem(position - 1).getInitialLetter())) {
             if (TextUtils.isEmpty(header)) {

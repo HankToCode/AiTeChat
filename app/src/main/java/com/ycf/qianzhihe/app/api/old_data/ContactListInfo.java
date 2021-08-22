@@ -37,6 +37,15 @@ public class ContactListInfo implements Serializable {
         private String friendUserHead;
         private String addGroupFlag;
         private String nickName;
+        private String line;
+
+        public String getLine() {
+            return line;
+        }
+
+        public void setLine(String line) {
+            this.line = line;
+        }
 
         public String getFriendUserCode() {
             return friendUserCode;

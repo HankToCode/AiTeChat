@@ -101,7 +101,6 @@
     <color name="text_color_red_record_black">#1D1D1D</color>
     <color name="text_color_red_record_gray">#B0B0B0</color>
 
-
     <color name="text_color_exit_group_black">#030303</color>
 
     <color name="text_color_trans_record_gold">#FFB148</color>
@@ -122,6 +121,7 @@
 
     <color name="red">#ffff0000</color>
     <color name="gray">#ffe9e9e9</color>
+
     <color name="blue">#FF5A5DD0</color>
     <color name="black">#ff000000</color>
 
