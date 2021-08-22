@@ -14,6 +14,16 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
 
+    <TextView
+        android:id="@+id/tv_userid"
+        style="@style/chat_text_name_style"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="50dp"
+        android:textColor="@color/black"
+        android:textSize="13dp"
+        android:visibility="visible" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,15 +64,6 @@
                 tools:text="你也哈有会将爱欧阳锋的身份" />
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/tv_userid"
-            style="@style/chat_text_name_style"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_17"
-            android:layout_toRightOf="@id/iv_userhead"
-            android:textSize="@dimen/sp_13"
-            android:visibility="invisible" />
     </RelativeLayout>
 
 </LinearLayout>

@@ -103,15 +103,15 @@ public abstract class EaseChatRow extends LinearLayout {
 
     private void initView() {
         onInflateView();
-        timeStampView = (TextView) findViewById(R.id.timestamp);
-        userAvatarView = (ImageView) findViewById(R.id.iv_userhead);
+        timeStampView = findViewById(R.id.timestamp);
+        userAvatarView = findViewById(R.id.iv_userhead);
         bubbleLayout = findViewById(R.id.bubble);
-        usernickView = (TextView) findViewById(R.id.tv_userid);
+        usernickView = findViewById(R.id.tv_userid);
 
-        progressBar = (ProgressBar) findViewById(R.id.progress_bar);
-        statusView = (ImageView) findViewById(R.id.msg_status);
-        ackedView = (TextView) findViewById(R.id.tv_ack);
-        deliveredView = (TextView) findViewById(R.id.tv_delivered);
+        progressBar = findViewById(R.id.progress_bar);
+        statusView = findViewById(R.id.msg_status);
+        ackedView = findViewById(R.id.tv_ack);
+        deliveredView = findViewById(R.id.tv_delivered);
 
         onFindViewById();
     }
@@ -143,7 +143,7 @@ public abstract class EaseChatRow extends LinearLayout {
 
     private void setUpBaseView() throws Exception {
         // set nickname, avatar and background of bubble
-        TextView timestamp = (TextView) findViewById(R.id.timestamp);
+        TextView timestamp = findViewById(R.id.timestamp);
         if (timestamp != null) {
             if (position == 0) {
                 timestamp.setText(DateUtils.getTimestampString(new Date(message.getMsgTime())));
@@ -228,7 +228,7 @@ public abstract class EaseChatRow extends LinearLayout {
                 if (itemStyle.isShowUserNick()) {
                     usernickView.setVisibility(View.VISIBLE);
                 } else {
-                    usernickView.setVisibility(View.INVISIBLE);
+                    usernickView.setVisibility(View.GONE);
                 }
             }
             if (bubbleLayout != null) {
