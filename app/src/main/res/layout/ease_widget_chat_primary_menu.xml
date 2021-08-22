@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
@@ -37,8 +38,6 @@
             android:visibility="gone" />
 
         <LinearLayout
-            android:focusable="true"
-            android:focusableInTouchMode="true"
             android:id="@+id/btn_press_to_speak"
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
@@ -48,6 +47,8 @@
             android:layout_marginBottom="@dimen/dp_6"
             android:layout_weight="1"
             android:background="@drawable/ease_chat_press_speak_btn"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:gravity="center"
             android:visibility="gone">
 
@@ -81,7 +82,8 @@
                 android:maxLines="3"
                 android:minHeight="@dimen/dp_24"
                 android:padding="@dimen/dp_8"
-                android:textSize="@dimen/sp_18" />
+                android:textSize="12dp"
+                tools:text="测试测试" />
 
             <RelativeLayout
                 android:id="@+id/rl_face"
@@ -134,6 +136,7 @@
             android:textSize="@dimen/sp_14"
             android:visibility="gone" />
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_0_5"
