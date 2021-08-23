@@ -32,8 +32,8 @@ public class ChatRedturnPacket extends EaseChatRow {
 
     @Override
     protected void onFindViewById() {
-        tv_message = (TextView) findViewById(R.id.tv_transfer_received);
-        tv_messageRemark = (TextView) findViewById(R.id.tv_money_greeting);
+        tv_message = findViewById(R.id.tv_transfer_received);
+        tv_messageRemark = findViewById(R.id.tv_money_greeting);
 
     }
 

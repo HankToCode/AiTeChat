@@ -208,7 +208,7 @@ public class EaseMessageAdapter extends BaseAdapter {
             //默认的14种方法改成16添加名片  (16改为18) 地图   (18改为20) 转账
             return customRowProvider.getCustomChatRowTypeCount() + 14;
         }
-        return 28;
+        return 50;
     }
 
 
@@ -227,6 +227,7 @@ public class EaseMessageAdapter extends BaseAdapter {
             return customRowProvider.getCustomChatRowType(message) + 13;
         }
 
+        //以下逻辑废弃中，移步到customRowProvider 中查看
         if (message.getType() == EMMessage.Type.TXT) {
             if (message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_BIG_EXPRESSION, false)) {
                 return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_EXPRESSION : MESSAGE_TYPE_SENT_EXPRESSION;
@@ -239,10 +240,7 @@ public class EaseMessageAdapter extends BaseAdapter {
             } else if (message.getBooleanAttribute(Constant.TURN, false)) {
                 //自定义消息扩展（发送位置）APP自己实现
                 return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_EXTENDS : MESSAGE_TYPE_SEND_EXTENDS;
-            } /*else if ("[红包]".equals(message.getBody())) {
-                //自定义消息扩展（发送位置）APP自己实现
-                return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_EXTENDS : MESSAGE_TYPE_SEND_EXTENDS;
-            }*/
+            }
             return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_TXT : MESSAGE_TYPE_SENT_TXT;
         }
         if (message.getType() == EMMessage.Type.IMAGE) {
@@ -270,11 +268,13 @@ public class EaseMessageAdapter extends BaseAdapter {
         return -1;// invalid
     }
 
+
     protected EaseChatRowPresenter createChatRowPresenter(EMMessage message, int position) {
         if (customRowProvider != null && customRowProvider.getCustomChatRow(message, position, this) != null) {
             return customRowProvider.getCustomChatRow(message, position, this);
         }
 
+        //以下逻辑废弃中，移步到customRowProvider 中查看
         EaseChatRowPresenter presenter = null;
 
         switch (message.getType()) {

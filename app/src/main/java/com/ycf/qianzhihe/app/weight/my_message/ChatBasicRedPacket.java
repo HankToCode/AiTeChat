@@ -5,6 +5,7 @@ import android.widget.BaseAdapter;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
@@ -20,7 +21,7 @@ import com.ycf.qianzhihe.app.weight.ease.chatrow.EaseChatRow;
  * @author Administrator
  */
 public class ChatBasicRedPacket extends EaseChatRow {
-    private TextView tv_message, tv_time_message, tv_hongbao,tv_time;
+    private TextView tv_message, tv_time_message, tv_hongbao, tv_time, toNickName;
     private RelativeLayout bubble;
 
     public ChatBasicRedPacket(Context context, EMMessage message,
@@ -42,11 +43,13 @@ public class ChatBasicRedPacket extends EaseChatRow {
 
     @Override
     protected void onFindViewById() {
-        tv_message = (TextView) findViewById(R.id.message);
-        tv_time_message = (TextView) findViewById(R.id.tv_time_message);
-        tv_hongbao = (TextView) findViewById(R.id.tv_hongbao);
-        tv_time = (TextView) findViewById(R.id.tv_time);
+        tv_message = findViewById(R.id.message);
+        tv_time_message = findViewById(R.id.tv_time_message);
+        tv_hongbao = findViewById(R.id.tv_hongbao);
+        tv_time = findViewById(R.id.tv_time);
+        tv_time = findViewById(R.id.tv_time);
         bubble = findViewById(R.id.bubble);
+        toNickName = findViewById(R.id.toNickName);
     }
 
     /**
@@ -64,18 +67,21 @@ public class ChatBasicRedPacket extends EaseChatRow {
         String redBagInfo = message.getStringAttribute("redPacketType", "");
         boolean isClick = message.getBooleanAttribute("isClick", false);
         String remark = message.getStringAttribute("remark", "恭喜发财，大吉大利！");
+        String userNickName = message.getStringAttribute("toUserNickName", "您的");
 
         try {
-            tv_time.setText(StringUtil.formatTime(message.getMsgTime(),"yyyy-MM-dd HH:mm:ss"));
+            tv_time.setText(StringUtil.formatTime(message.getMsgTime(), "yyyy-MM-dd HH:mm:ss"));
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         if (isClick) {
             if (message.direct() == EMMessage.Direct.RECEIVE) {
-                bubble.setBackgroundResource(R.mipmap.hb1);
+//                bubble.setBackgroundResource(R.mipmap.hb1);
+                bubble.setBackgroundResource(R.mipmap.hb2);
             } else {
-                bubble.setBackgroundResource(R.mipmap.hb4);
+//                bubble.setBackgroundResource(R.mipmap.hb4);
+                bubble.setBackgroundResource(R.mipmap.hb3);
             }
 
         } else {
@@ -104,6 +110,9 @@ public class ChatBasicRedPacket extends EaseChatRow {
                 tv_message.setText(remark);
             }
         }
+
+        toNickName.setText("给" + userNickName + "的专属红包");
+
     }
 
 

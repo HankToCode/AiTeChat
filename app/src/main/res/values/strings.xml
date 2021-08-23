@@ -864,6 +864,7 @@
 
     <string name="str_chat_account">千纸鹤号:%s</string>
     <string name="default_appkey" />
+    <string name="type_red_package">[红包]</string>
 
 
 </resources>

@@ -1157,7 +1157,7 @@ public class MyHelper {
         Map<String, Object> map = cmdMessage.ext();
         EMMessage emMessage =
                 EMMessage.createReceiveMessage(Type.TXT);
-        emMessage.addBody(new EMTextMessageBody("[红包]"));
+        emMessage.addBody(new EMTextMessageBody(appContext.getString(R.string.type_red_package)));
         emMessage.setFrom((String) map.get("id") + Constant.ID_REDPROJECT);
         emMessage.setTo((String) map.get("toUserId") + Constant.ID_REDPROJECT);
         emMessage.setChatType(ChatType.Chat);
