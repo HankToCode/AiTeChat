@@ -28,6 +28,14 @@ public class EaseUser extends com.hyphenate.easeui.domain.EaseUser {
 
     private String type;
 
+    public String getLine() {
+        return line;
+    }
+
+    public void setLine(String line) {
+        this.line = line;
+    }
+
     public String getAccount() {
         return account;
     }

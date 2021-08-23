@@ -61,7 +61,7 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
     private ImageView mIvBack;
     private EaseImageView mIvAvatar;
     private TextView mTvNickName;
-    private TextView mTvUserId;
+    private TextView tv_user_id;
     private SuperTextView mTvUserLevel;
     private ImageView mIvUserLevelTag;
     private ImageView mIvScan;
@@ -96,7 +96,7 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
         mIvBack = (ImageView) findViewById(R.id.iv_back);
         mIvAvatar = findViewById(R.id.iv_avatar);
         mTvNickName = (TextView) findViewById(R.id.tv_nick_name);
-        mTvUserId = (TextView) findViewById(R.id.tv_user_id);
+        tv_user_id = (TextView) findViewById(R.id.tv_user_id);
         mTvUserLevel = (SuperTextView) findViewById(R.id.tv_user_level);
         mIvUserLevelTag = (ImageView) findViewById(R.id.iv_user_level_tag);
         mIvScan = (ImageView) findViewById(R.id.iv_scan);
@@ -140,6 +140,7 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
     protected void initData() {
         super.initData();
 
+
         initUserInfo();
 
         getStoreShowSwitch();
@@ -155,10 +156,20 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
             GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(loginInfo.getUserHead()), mIvAvatar, R.mipmap.img_default_avatar);
             mTvNickName.setText(loginInfo.getNickName());
             if (TextUtils.isEmpty(loginInfo.getUserCode())) {
-                mTvUserId.setText("ID： 无");
+                tv_user_id.setText("ID： 无");
             } else {
-                mTvUserId.setText("ID： " + loginInfo.getUserCode());
+                tv_user_id.setText("ID： " + loginInfo.getUserCode());
             }
+            mTvUserLevel.setText("lv "+loginInfo.getUserLevel());
+            //是否是会员 vipid
+            if (!TextUtils.isEmpty(loginInfo.getVipLevel())) {
+                mIvUserLevelTag.setBackgroundResource(R.drawable.ic_mine_level_tag);
+                mTvMember.setText("会员信息");
+            } else {
+                mIvUserLevelTag.setBackgroundResource(R.drawable.ic_mine_level_tag_normal);
+                mTvMember.setText("点我开通会员");
+            }
+
         }
     }
 
@@ -207,9 +218,9 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
             case R.id.iv_avatar:
                 toSelectPic();
                 break;
-            case R.id.tv_user_level:
-                break;
-            case R.id.iv_user_level_tag:
+            case R.id.tv_user_level://等级
+            case R.id.iv_user_level_tag://会员图标
+                AccountInfoActivity.actionStart(mContext);//账号等级权益
                 break;
             case R.id.iv_scan:
                 Global.addUserOriginType = Constant.ADD_USER_ORIGIN_TYPE_QRCODE;
@@ -227,8 +238,10 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
             case R.id.ll_my_info:
                 //个人信息
                 MyInfoActivity.actionStart(this);
+
                 break;
-            case R.id.tv_member:
+            case R.id.tv_member://开通会员
+                BuyMemberActivity.actionStart(this);
                 break;
             case R.id.tv_collection:
                 //我的收藏

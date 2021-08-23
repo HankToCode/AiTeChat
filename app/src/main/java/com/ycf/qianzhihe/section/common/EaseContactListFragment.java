@@ -249,7 +249,7 @@ public class EaseContactListFragment extends BaseInitFragment {
                     new EaseUser(bean.getFriendUserId() + Constant.ID_REDPROJECT);
             userLocal.setAvatar(bean.getFriendUserHead());
             userLocal.setNickname(bean.getFriendNickName());
-
+            userLocal.setLine(bean.getLine());
             EaseCommonUtils.setUserInitialLetter(userLocal);
             userlist.put(bean.getFriendUserId() + Constant.ID_REDPROJECT, userLocal);
 

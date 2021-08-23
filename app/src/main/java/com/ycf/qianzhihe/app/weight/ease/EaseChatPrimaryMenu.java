@@ -62,16 +62,16 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
 
         Context context1 = context;
         LayoutInflater.from(context).inflate(R.layout.ease_widget_chat_primary_menu, this);
-        editText = (EditText) findViewById(R.id.et_sendmessage);
+        editText = findViewById(R.id.et_sendmessage);
         buttonSetModeKeyboard = findViewById(R.id.btn_set_mode_keyboard);
-        edittext_layout = (RelativeLayout) findViewById(R.id.edittext_layout);
+        edittext_layout = findViewById(R.id.edittext_layout);
         buttonSetModeVoice = findViewById(R.id.btn_set_mode_voice);
         buttonSend = findViewById(R.id.btn_send);
         buttonPressToSpeak = findViewById(R.id.btn_press_to_speak);
-        faceNormal = (ImageView) findViewById(R.id.iv_face_normal);
-        faceChecked = (ImageView) findViewById(R.id.iv_face_checked);
-        faceLayout = (RelativeLayout) findViewById(R.id.rl_face);
-        buttonMore = (Button) findViewById(R.id.btn_more);
+        faceNormal = findViewById(R.id.iv_face_normal);
+        faceChecked = findViewById(R.id.iv_face_checked);
+        faceLayout = findViewById(R.id.rl_face);
+        buttonMore = findViewById(R.id.btn_more);
 //        edittext_layout.setBackgroundResource(R.drawable
 //        .ease_input_bar_bg_normal);
         editText.setVisibility(VISIBLE);
@@ -82,10 +82,7 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
         faceLayout.setOnClickListener(this);
         editText.setOnClickListener(this);
         editText.requestFocus();
-        editText.setOnFocusChangeListener(new OnFocusChangeListener() {
-
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
+        editText.setOnFocusChangeListener((v, hasFocus) -> {
 //                if (hasFocus) {
 //                    edittext_layout.setBackgroundResource(R.drawable
 //                    .ease_input_bar_bg_active);
@@ -94,7 +91,6 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
 //                    .ease_input_bar_bg_normal);
 //                }
 
-            }
         });
         // listen the text change
         editText.addTextChangedListener(new TextWatcher() {
@@ -112,7 +108,7 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
                     buttonSend.setVisibility(View.GONE);
                 }
                 if ( (addlength == 1)
-                        && (s.toString().substring(startposition, startposition + 1).equals("@"))) {
+                        && (s.toString().charAt(startposition) == '@')) {
                     listener.onAtSomeOne();
                 }
 
@@ -133,22 +129,19 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
             }
         });
 
-        editText.setOnKeyListener(new OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                EMLog.d("key",
-                        "keyCode:" + keyCode + " action:" + event.getAction());
+        editText.setOnKeyListener((v, keyCode, event) -> {
+            EMLog.d("key",
+                    "keyCode:" + keyCode + " action:" + event.getAction());
 
-                // test on Mac virtual machine: ctrl map to KEYCODE_UNKNOWN
-                if (keyCode == KeyEvent.KEYCODE_UNKNOWN) {
-                    if (event.getAction() == KeyEvent.ACTION_DOWN) {
-                        ctrlPress = true;
-                    } else if (event.getAction() == KeyEvent.ACTION_UP) {
-                        ctrlPress = false;
-                    }
+            // test on Mac virtual machine: ctrl map to KEYCODE_UNKNOWN
+            if (keyCode == KeyEvent.KEYCODE_UNKNOWN) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN) {
+                    ctrlPress = true;
+                } else if (event.getAction() == KeyEvent.ACTION_UP) {
+                    ctrlPress = false;
                 }
-                return false;
             }
+            return false;
         });
         editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override

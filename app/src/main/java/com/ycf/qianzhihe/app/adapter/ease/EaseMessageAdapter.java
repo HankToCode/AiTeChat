@@ -208,7 +208,7 @@ public class EaseMessageAdapter extends BaseAdapter {
             //默认的14种方法改成16添加名片  (16改为18) 地图   (18改为20) 转账
             return customRowProvider.getCustomChatRowTypeCount() + 14;
         }
-        return 14;
+        return 28;
     }
 
 
@@ -224,7 +224,7 @@ public class EaseMessageAdapter extends BaseAdapter {
 
         if (customRowProvider != null && customRowProvider.getCustomChatRowType(message) > 0) {
             //13改成15(添加名片) 15改为17（地图） 17改为19（转账）
-            return customRowProvider.getCustomChatRowType(message)+13;
+            return customRowProvider.getCustomChatRowType(message) + 13;
         }
 
         if (message.getType() == EMMessage.Type.TXT) {
@@ -233,13 +233,16 @@ public class EaseMessageAdapter extends BaseAdapter {
             } else if (message.getBooleanAttribute(Constant.SEND_CARD, false)) {
                 //自定义消息扩展(名片) APP自己实现
                 return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_EXTENDS : MESSAGE_TYPE_SEND_EXTENDS;
-            }else if (message.getBooleanAttribute(Constant.SEND_LOCATION, false)) {
+            } else if (message.getBooleanAttribute(Constant.SEND_LOCATION, false)) {
                 //自定义消息扩展（发送位置）APP自己实现
                 return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_EXTENDS : MESSAGE_TYPE_SEND_EXTENDS;
-            }else if (message.getBooleanAttribute(Constant.TURN, false)) {
+            } else if (message.getBooleanAttribute(Constant.TURN, false)) {
                 //自定义消息扩展（发送位置）APP自己实现
                 return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_EXTENDS : MESSAGE_TYPE_SEND_EXTENDS;
-            }
+            } /*else if ("[红包]".equals(message.getBody())) {
+                //自定义消息扩展（发送位置）APP自己实现
+                return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_EXTENDS : MESSAGE_TYPE_SEND_EXTENDS;
+            }*/
             return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_TXT : MESSAGE_TYPE_SENT_TXT;
         }
         if (message.getType() == EMMessage.Type.IMAGE) {
@@ -280,9 +283,9 @@ public class EaseMessageAdapter extends BaseAdapter {
                     presenter = new EaseChatBigExpressionPresenter();
                 } else if (message.getBooleanAttribute(Constant.SEND_CARD, false)) {
                     presenter = new ChatidCardPresenter();
-                }else if (message.getBooleanAttribute(Constant.SEND_LOCATION, false)) {
+                } else if (message.getBooleanAttribute(Constant.SEND_LOCATION, false)) {
                     presenter = new EaseChatLocationPresenter();
-                }else if (message.getBooleanAttribute(Constant.TURN, false)) {
+                } else if (message.getBooleanAttribute(Constant.TURN, false)) {
                     presenter = new ChatRedPacketturnPresenter();
                 } else {
                     presenter = new EaseChatTextPresenter();
@@ -329,11 +332,11 @@ public class EaseMessageAdapter extends BaseAdapter {
             presenter = (EaseChatRowPresenter) convertView.getTag();
         }
 
-        if (message.getChatType() == EMMessage.ChatType.GroupChat){
+        if (message.getChatType() == EMMessage.ChatType.GroupChat) {
 
             String userName = "";
             try {
-                userName =  message.getStringAttribute(Constant.NICKNAME);
+                userName = message.getStringAttribute(Constant.NICKNAME);
             } catch (HyphenateException e) {
                 e.printStackTrace();
             }
@@ -341,7 +344,7 @@ public class EaseMessageAdapter extends BaseAdapter {
                 userName = UserOperateManager.getInstance().getUserName(message.getFrom());
             }
 
-            message.setAttribute("userInGroupName",userName);
+            message.setAttribute("userInGroupName", userName);
 
         }
         presenter.setup(message, position, itemClickListener, itemStyle);

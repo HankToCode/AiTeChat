@@ -11,7 +11,7 @@
     <FrameLayout
         android:id="@+id/delete_layout"
         android:layout_width="wrap_content"
-        android:layout_height="60dp"
+        android:layout_height="@dimen/main_message_item_height"
         android:background="#FF5722">
 
         <TextView
@@ -27,8 +27,13 @@
     <RelativeLayout
         android:id="@+id/list_itease_layout"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@drawable/ease_mm_listitem">
+        android:layout_height="@dimen/main_message_item_height"
+        android:background="?attr/selectableItemBackground">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white" />
 
         <com.hyphenate.easecallkit.widget.EaseImageView
             android:id="@+id/avatar"
@@ -164,14 +169,6 @@
             android:layout_marginBottom="@dimen/dp_5"
             android:src="@mipmap/msg_free"
             android:visibility="gone" />
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_1"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="@dimen/dp_20"
-            android:layout_marginRight="@dimen/dp_20"
-            android:background="#fafafa" />
 
     </RelativeLayout>
 

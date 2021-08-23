@@ -52,8 +52,8 @@ public class EaseChatMessageList extends RelativeLayout {
     private void init(Context context) {
         this.context = context;
         LayoutInflater.from(context).inflate(R.layout.chat_message_list, this);
-        swipeRefreshLayout = (SwipeRefreshLayout) findViewById(R.id.chat_swipe_layout);
-        listView = (ListView) findViewById(R.id.list);
+        swipeRefreshLayout = findViewById(R.id.chat_swipe_layout);
+        listView = findViewById(R.id.list);
     }
 
     /**

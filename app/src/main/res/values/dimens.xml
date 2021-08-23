@@ -67,5 +67,6 @@
     <dimen name="adaptive_62dp">52dp</dimen>
 
     <dimen name="adaptive_18sp">15sp</dimen>
+    <dimen name="main_message_item_height">60dp</dimen>
 
 </resources>

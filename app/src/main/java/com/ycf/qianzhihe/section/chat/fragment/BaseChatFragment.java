@@ -385,12 +385,9 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
             }
         });
 
-        tvUnread.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                listView.smoothScrollToPosition(listView.getCount());
-                clearUnreadState();
-            }
+        tvUnread.setOnClickListener(view -> {
+            listView.smoothScrollToPosition(listView.getCount());
+            clearUnreadState();
         });
 
 //        titleBar.setUnreadMsgCount(getOtherUnreadMsgCountTotal());
@@ -797,23 +794,13 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
     }
 
     protected void setRefreshLayoutListener() {
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-
-            @Override
-            public void onRefresh() {
-                new Handler().postDelayed(new Runnable() {
-
-                    @Override
-                    public void run() {
-                        if (!isRoaming()) {
-                            loadMoreLocalMessage();
-                        } else {
-                            loadMoreRoamingMessages();
-                        }
-                    }
-                }, 600);
+        swipeRefreshLayout.setOnRefreshListener(() -> new Handler().postDelayed(() -> {
+            if (!isRoaming()) {
+                loadMoreLocalMessage();
+            } else {
+                loadMoreRoamingMessages();
             }
-        });
+        }, 600));
     }
 
     private void loadMoreLocalMessage() {
@@ -975,7 +962,7 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
 
     public void onBackPressed() {
         if (mInputMenu.onBackPressed()) {
-            getActivity().finish();
+            requireActivity().finish();
             if (chatType == EaseConstant.CHATTYPE_GROUP) {
 //                EaseAtMessageHelper.get().removeAtMeGroup(emChatId);
 //                EaseAtMessageHelper.get().cleanToAtUserList();

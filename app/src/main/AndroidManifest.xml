@@ -632,7 +632,7 @@
             android:windowSoftInputMode="adjustPan" /> <!-- 我的 -->
 
         <activity
-            android:name="com.ycf.qianzhihe.section.account.activity.MyInfoActivity"
+            android:name="com.ycf.qianzhihe.section.account.activity.BuyMemberActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
@@ -963,7 +963,19 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="com.ycf.qianzhihe.section.account.activity.MyInfoActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan" /> <!-- 个人资料 -->
 
+        <activity
+            android:name="com.ycf.qianzhihe.section.account.activity.AccountInfoActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustPan" /> <!-- 账号信息 -->
 
     </application>
 

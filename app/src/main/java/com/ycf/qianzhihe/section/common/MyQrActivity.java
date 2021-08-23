@@ -2,6 +2,7 @@ package com.ycf.qianzhihe.section.common;
 
 
 import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -31,6 +32,8 @@ import com.ycf.qianzhihe.app.utils.BitmapUtil;
 import com.ycf.qianzhihe.app.utils.ImageUtil;
 import com.ycf.qianzhihe.app.utils.XClickUtil;
 import com.ycf.qianzhihe.app.api.Constant;
+import com.ycf.qianzhihe.common.enums.SearchType;
+import com.ycf.qianzhihe.section.contact.activity.AddContactActivity;
 import com.zds.base.ImageLoad.GlideUtils;
 import com.zds.base.Toast.ToastUtil;
 import com.zxy.tiny.Tiny;
@@ -75,6 +78,13 @@ public class MyQrActivity extends BaseInitActivity {
      */
     private String id;
     private String from = "1";
+
+
+    public static void actionStart(Context context, String from) {
+        Intent intent = new Intent(context, MyQrActivity.class);
+        intent.putExtra("from", from);
+        context.startActivity(intent);
+    }
 
     @Override
     protected int getLayoutId() {

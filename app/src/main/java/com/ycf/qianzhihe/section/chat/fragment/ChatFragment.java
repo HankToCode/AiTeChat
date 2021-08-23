@@ -224,28 +224,22 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        mFilePath = getContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath() + "/" + System.currentTimeMillis() + "_lq.jpg";
+        mFilePath = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath() + "/" + System.currentTimeMillis() + "_lq.jpg";
         operatingAnim = new MyAnimation();
         setChatFragmentHelper(this);
         if (chatType == Constant.CHATTYPE_SINGLE) {
             mLlMoneyShow.setVisibility(View.GONE);
         } else if (chatType == EaseConstant.CHATTYPE_GROUP) {
 
-            startTime =
-                    new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+            startTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
             //禁言
         }
 
-        titleBar.setLeftLayoutClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (EasyUtils.isSingleActivity(getActivity())) {
-                    Intent intent = new Intent(getActivity(),
-                            MainActivity.class);
-                    startActivity(intent);
-                }
-                onBackPressed();
+        titleBar.setLeftLayoutClickListener(v -> {
+            if (EasyUtils.isSingleActivity(requireActivity())) {
+                MainActivity.actionStart(requireContext());
             }
+            onBackPressed();
         });
     }
 
@@ -346,9 +340,9 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
             mInputMenu.getExtendMenu().removeAllViews();
             registerMenu();
         } else if (center.getEventCode() == EventUtil.DEL_EXIT_GROUP) {
-            getActivity().finish();
+            requireActivity().finish();
         } else if (center.getEventCode() == EventUtil.OPERATE_BLACK) {
-            getActivity().finish();
+            requireActivity().finish();
         } else if (center.getEventCode() == EventUtil.REFRESH_REMARK) {
 
             try {
@@ -418,7 +412,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                         sendCustomLocationMessage(latitude, longitude,
                                 locationAddress, locationAddressDetail, path);
                     } else {
-                        Toast.makeText(getActivity(),
+                        Toast.makeText(requireActivity(),
                                 R.string.unable_to_get_loaction,
                                 Toast.LENGTH_SHORT).show();
                     }
@@ -435,7 +429,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                         sendExTextMessage("个人名片", nickName, userName, avatar,
                                 friendUserId);
                     } else {
-                        Toast.makeText(getActivity(), "名片获取失败",
+                        Toast.makeText(requireActivity(), "名片获取失败",
                                 Toast.LENGTH_SHORT).show();
                     }
                     break;
@@ -473,7 +467,6 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                     sendMessage(message);
                     break;
                 case REQUEST_CODE_PERSON_BALL:
-                    //
 //                    String money1 = data.getStringExtra("money");
 //                    String remark1 = data.getStringExtra("remark");
 //                    String redID = data.getStringExtra("redId");
@@ -500,7 +493,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                         // 把流解析成bitmap,此时就得到了清晰的原图
                         Bitmap bitmap = BitmapFactory.decodeStream(is);
                         //接下来就可以展示了（或者做上传处理）
-                        String p = DonwloadSaveImg.saveFile(bitmap, getContext());
+                        String p = DonwloadSaveImg.saveFile(bitmap, requireContext());
                         EMMessage m = EMMessage.createImageSendMessage(p, false
                                 , emChatId);
                         m.setAttribute(Constant.AVATARURL,
@@ -545,7 +538,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                     } else {
                         //image
 
-                        DonwloadSaveImg.donwloadImg(getContext(), AppConfig.checkimg(bean.getLinkContent()), new OnClickSuccessResult() {
+                        DonwloadSaveImg.donwloadImg(requireContext(), AppConfig.checkimg(bean.getLinkContent()), new OnClickSuccessResult() {
                             @Override
                             public void sunccess(@NotNull String path) {
                                 EMMessage message = EMMessage.createImageSendMessage(path, false
@@ -619,7 +612,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                 @Override
                 public void callback(boolean isSuccess, Bitmap bitmap1, Throwable t) {
                     if (isSuccess) {
-                        BitmapUtil.saveBitmapInFile(getActivity(), bitmap1);
+                        BitmapUtil.saveBitmapInFile(requireActivity(), bitmap1);
                         ToastUtil.toast("保存成功");
                     } else {
                         ToastUtil.toast("保存失败");
@@ -661,7 +654,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
         Global.addUserOriginName = groupName;
         Global.addUserOriginId = groupId;
 
-        Intent intent = new Intent(getContext(),
+        Intent intent = new Intent(requireContext(),
                 UserInfoDetailActivity.class);
         intent.putExtra("friendUserId", userId)
                 .putExtra("from", "1")
@@ -677,10 +670,10 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                     intent.putExtra("entryUserId", groupUserDetailVoListBean.getEntryUserId());
                 }
             }
-        getContext().startActivity(intent);
+        requireContext().startActivity(intent);
 
         //handling when user click avatar
-//        Intent intent = new Intent(getActivity(), UserInfoActivity.class);
+//        Intent intent = new Intent(requireActivity(), UserInfoActivity.class);
 //        intent.putExtra("username", username);
 //        startActivity(intent);
     }
@@ -724,7 +717,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
         String requestId = message.getStringAttribute("requestId", "");
         Map<String, Object> map = new LinkedHashMap<>();
         map.put("transferId", turnId);
-        ApiClient.requestNetHandle(getContext(), AppConfig.TRANSFER_STATUS
+        ApiClient.requestNetHandle(requireContext(), AppConfig.TRANSFER_STATUS
                 , "", map, new ResultListener() {
                     @Override
                     public void onSuccess(String json, String msg) {
@@ -780,7 +773,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
 
 
             //长按消息
-            startActivityForResult((new Intent(getActivity(), ChatCollectActivity.class))
+            startActivityForResult((new Intent(requireActivity(), ChatCollectActivity.class))
                     .putExtra("message", message)
                     .putExtra("ischatroom", chatType == EaseConstant.CHATTYPE_CHATROOM), REQUEST_CODE_CONTEXT_MENU);
         }
@@ -792,7 +785,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
     public boolean onExtendMenuItemClick(int itemId, View view) {
         switch (itemId) {
             case ITEM_MY_COLLECT:
-                startActivityForResult(new Intent(getContext(), MyCollectActivity.class), 1023);
+                startActivityForResult(new Intent(requireContext(), MyCollectActivity.class), 1023);
                 break;
             case ITEM_VOICE_CALL:
                 startVoiceCall(emChatId);
@@ -804,7 +797,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                 break;
             case ITEM_CONTACT_GROUP_OWER:
 
-                startActivity(new Intent(getContext(), ChatActivity.class)
+                startActivity(new Intent(requireContext(), ChatActivity.class)
                         .putExtra("userId", roomInfo.getUserId() + Constant.ID_REDPROJECT)
                         .putExtra("groups_Id", roomInfo.getHuanxinGroupId()));
 
@@ -813,14 +806,14 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                 //个人红包
                 if (chatType == EaseConstant.CHATTYPE_GROUP) {
 
-                    startActivity(new Intent(getActivity(), SendGroupRedPackageActivity.class)
+                    startActivity(new Intent(requireActivity(), SendGroupRedPackageActivity.class)
                             .putExtra("groupId", groupId)
                             .putExtra(Constant.PARAM_EM_GROUP_ID, emChatId)
                             .putExtra("key_intent_group_user_count", groupDetailInfo.getGroupUsers())
                     );
 
                 } else if (chatType == EaseConstant.CHATTYPE_SINGLE) {
-                    startActivityForResult(new Intent(getActivity(),
+                    startActivityForResult(new Intent(requireActivity(),
                                     SendPersonRedPackageActivity.class).putExtra(
                             "username", emChatId),
                             REQUEST_CODE_PERSON_BALL);
@@ -828,7 +821,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                 break;
             case ITEM_TRANSFER:
                 //转账
-                startActivityForResult(new Intent(getActivity(),
+                startActivityForResult(new Intent(requireActivity(),
                         TransferActivity.class/*TransferNewActivity.class*/).putExtra("emChatId",
                         emChatId), REQUEST_CODE_TRNSFER);
 
@@ -841,7 +834,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                 //充值
                 PZInfo pzInfo = Storage.GetPZ();
                 if (pzInfo != null) {
-                    startActivity(new Intent(getActivity(),
+                    startActivity(new Intent(requireActivity(),
                             WebViewActivity.class)
                             .putExtra("title", "充值")
                             .putExtra("url", pzInfo.getRechargeUrl() + UserComm.getToken()));
@@ -852,7 +845,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                 if (UserComm.getUserInfo().getOpenAccountFlag() == 0) {
                     showAuthDialog();
                 } else {
-                    startActivity(new Intent(getActivity(),
+                    startActivity(new Intent(requireActivity(),
                             WithdrawActivity.class/*WithdrawNewActivity.class*/));
                 }
 
@@ -860,7 +853,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
             case ITEM_SEND_CARD:
                 //发送名片
                 //TODO
-//                startActivityForResult(new Intent(getActivity(),
+//                startActivityForResult(new Intent(requireActivity(),
 //                        SelContactActivity.class).putExtra("userId",
 //                        emChatId), REQUEST_CODE_SEND_CARD);
                 break;
@@ -897,7 +890,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
             builderAuth.dismiss();
         }
         builderAuth =
-                new CommonDialog.Builder(getActivity()).fullWidth().center()
+                new CommonDialog.Builder(requireActivity()).fullWidth().center()
                         .setView(R.layout.dialog_custinfo);
 
         builderAuth.setOnClickListener(R.id.tv_sure,
@@ -922,12 +915,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                     }
                 });
         builderAuth.setOnClickListener(R.id.img_close,
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        builderAuth.dismiss();
-                    }
-                });
+                v -> builderAuth.dismiss());
         CommonDialog dialog = builderAuth.create();
         etName = (EditText) dialog.getView(R.id.et_name);
         etCard = (EditText) dialog.getView(R.id.et_card);
@@ -950,7 +938,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
             return;
         }
         isrenzheng = true;
-        ApiClient.requestNetHandle(getActivity(), AppConfig.openAccount,
+        ApiClient.requestNetHandle(requireActivity(), AppConfig.openAccount,
                 "认证中", map, new ResultListener() {
                     @Override
                     public void onSuccess(String json, String msg) {
@@ -1014,7 +1002,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
         //收藏内容
         map.put("linkContent", linkContent);
 
-        ApiClient.requestNetHandle(getContext(), AppConfig.addCollect, "",
+        ApiClient.requestNetHandle(requireContext(), AppConfig.addCollect, "",
                 map, new ResultListener() {
 
                     @Override
@@ -1037,7 +1025,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
      */
     private void savePic(String filePath) {
 
-        ApiClient.requestNetHandleFile(getContext(), AppConfig.groupUpHead,
+        ApiClient.requestNetHandleFile(requireContext(), AppConfig.groupUpHead,
                 "", new File(filePath), new ResultListener() {
                     @Override
                     public void onSuccess(String json, String msg) {
@@ -1069,17 +1057,17 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
         if (userId.split("-")[0].equals(UserComm.getUserInfo().getUserId()) && emMessage.getChatType() == EMMessage.ChatType.Chat) {
             //判断是群组还是个人消息 传入红包详情页面
             if (chatType == Constant.CHATTYPE_SINGLE) {
-                startActivity(new Intent(getActivity(), RedPacketDetailActivity.class).putExtra("rid", id).putExtra("head", head).putExtra(
+                startActivity(new Intent(requireActivity(), RedPacketDetailActivity.class).putExtra("rid", id).putExtra("head", head).putExtra(
                         "nickname", nickname).putExtra("type", "1"));
             } else {
-                startActivity(new Intent(getActivity(), RedPacketDetailActivity.class).putExtra("rid", id).putExtra("head", head).putExtra(
+                startActivity(new Intent(requireActivity(), RedPacketDetailActivity.class).putExtra("rid", id).putExtra("head", head).putExtra(
                         "nickname", nickname));
             }
             return;
         }
         Map<String, Object> map = new HashMap<>();
         map.put("redPacketId", id);
-        ApiClient.requestNetHandle(getActivity(),
+        ApiClient.requestNetHandle(requireActivity(),
                 AppConfig.getRedEnvelopeState, "正在加载", map,
                 new ResultListener() {
                     @Override
@@ -1087,7 +1075,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                         if (json != null) {
                             double state;
                             try {
-                                state = Double.valueOf(json);
+                                state = Double.parseDouble(json);
                             } catch (Exception e) {
                                 return;
                             }
@@ -1097,13 +1085,13 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
 
                                 //判断是群组还是个人消息 传入红包详情页面
                                 if (chatType == Constant.CHATTYPE_SINGLE) {
-                                    startActivity(new Intent(getActivity(),
+                                    startActivity(new Intent(requireActivity(),
                                             RedPacketDetailActivity.class).putExtra("rid"
                                             , id).putExtra("head", head).putExtra(
                                             "nickname", nickname).putExtra("type", "1"));
 
                                 } else {
-                                    startActivity(new Intent(getActivity(),
+                                    startActivity(new Intent(requireActivity(),
                                             RedPacketDetailActivity.class).putExtra("rid"
                                             , id).putExtra("head", head).putExtra(
                                             "nickname", nickname));
@@ -1141,32 +1129,24 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
             builder.dismiss();
         }
         View rootView =
-                LayoutInflater.from(getContext()).inflate(R.layout.dialog_red_packet, null, false);
+                LayoutInflater.from(requireContext()).inflate(R.layout.dialog_red_packet, null, false);
         builder =
-                new CommonDialog.Builder(getActivity()).center().loadAniamtion()
+                new CommonDialog.Builder(requireActivity()).center().loadAniamtion()
                         .setView(rootView);
-        builder.setOnClickListener(R.id.ll_closes, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                builder.dismiss();
-            }
-        });
+        builder.setOnClickListener(R.id.ll_closes, v -> builder.dismiss());
 
         if (emMessage.direct() == EMMessage.Direct.SEND) {
             View bottomView = rootView.findViewById(R.id.img_bottom);
             bottomView.setVisibility(View.INVISIBLE);
             View checkDetailView = rootView.findViewById(R.id.tv_check_detail);
             checkDetailView.setVisibility(View.VISIBLE);
-            checkDetailView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    builder.dismiss();
-                    startActivity(new Intent(getActivity(),
-                            RedPacketDetailActivity.class).putExtra("rid"
-                            , id).putExtra("head", head).putExtra(
-                            "nickname", nickname));
+            checkDetailView.setOnClickListener(view -> {
+                builder.dismiss();
+                startActivity(new Intent(requireActivity(),
+                        RedPacketDetailActivity.class).putExtra("rid"
+                        , id).putExtra("head", head).putExtra(
+                        "nickname", nickname));
 
-                }
             });
         }
 
@@ -1190,13 +1170,13 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                             builder.dismiss();
                         }
                         if (chatType == Constant.CHATTYPE_SINGLE) {
-                            startActivity(new Intent(getActivity(),
+                            startActivity(new Intent(requireActivity(),
                                     RedPacketDetailActivity.class).putExtra("rid"
                                     , id).putExtra("head", head).putExtra(
                                     "nickname", nickname).putExtra("type", "1"));
 
                         } else {
-                            startActivity(new Intent(getActivity(),
+                            startActivity(new Intent(requireActivity(),
                                     RedPacketDetailActivity.class).putExtra("rid"
                                     , id).putExtra("head", head).putExtra(
                                     "nickname", nickname));
@@ -1251,7 +1231,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
         isRabShow = true;
         Map<String, Object> map = new HashMap<>();
         map.put("redPacketId", id + "");
-        ApiClient.requestNetHandle(getActivity(), AppConfig.grabRedEnvelope,
+        ApiClient.requestNetHandle(requireActivity(), AppConfig.grabRedEnvelope,
                 "", map, new ResultListener() {
                     @Override
                     public void onSuccess(String json, String msg) {
@@ -1260,13 +1240,13 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                         builder.dismiss();
 
                         if (chatType == Constant.CHATTYPE_SINGLE) {
-                            startActivity(new Intent(getActivity(),
+                            startActivity(new Intent(requireActivity(),
                                     RedPacketDetailActivity.class).putExtra("rid"
                                     , id).putExtra("head", head).putExtra(
                                     "nickname", nickname).putExtra("type", "1"));
 
                         } else {
-                            startActivity(new Intent(getActivity(),
+                            startActivity(new Intent(requireActivity(),
                                     RedPacketDetailActivity.class).putExtra("rid"
                                     , id).putExtra("head", head).putExtra(
                                     "nickname", nickname));
@@ -1322,11 +1302,11 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
      */
     protected void startVideoCall() {
         if (!EMClient.getInstance().isConnected()) {
-            Toast.makeText(getActivity(), R.string.not_connect_to_server,
+            Toast.makeText(requireActivity(), R.string.not_connect_to_server,
                     Toast.LENGTH_SHORT).show();
         } else {
             //TODO
-//            startActivity(new Intent(getActivity(), VideoCallActivity.class).putExtra("username", emChatId)
+//            startActivity(new Intent(requireActivity(), VideoCallActivity.class).putExtra("username", emChatId)
 //                    .putExtra("isComingCall", false));
 //             videoCallBtn.setEnabled(false);
             mInputMenu.hideExtendMenuContainer();
@@ -1657,7 +1637,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
             ContentValues values = new ContentValues(1);
             values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpg");
             values.put(MediaStore.Images.Media.DATA, absolutePath);
-            mCameraTempUri = getContext().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
+            mCameraTempUri = requireContext().getContentResolver().insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values);
             Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
                     | Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
