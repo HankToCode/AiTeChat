@@ -28,13 +28,12 @@ import java.util.List;
 import java.util.Map;
 
 
-public class GroupContactManageFragment extends BaseInitFragment implements OnRefreshLoadMoreListener {
-    public SmartRefreshLayout srlRefresh;
+public class GroupContactManageFragment extends BaseInitFragment {
     public RecyclerView rvList;
     public MyGroupAdapter mAdapter;
-    private int pageSize = 20;
+    private int pageSize = 100;
 
-    private int page = 0;
+    private int page = 1;
     private boolean isFirstStart = true;
     private List<GroupInfo> mGroupInfoList;
 
@@ -47,7 +46,6 @@ public class GroupContactManageFragment extends BaseInitFragment implements OnRe
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        srlRefresh = findViewById(R.id.srl_refresh);
         rvList = findViewById(R.id.rv_list);
     }
 
@@ -55,7 +53,6 @@ public class GroupContactManageFragment extends BaseInitFragment implements OnRe
     @Override
     protected void initListener() {
         super.initListener();
-        srlRefresh.setOnRefreshLoadMoreListener(this);
     }
 
     @Override
@@ -123,27 +120,14 @@ public class GroupContactManageFragment extends BaseInitFragment implements OnRe
                 } else {
                     mAdapter.loadMoreEnd(true);
                 }
-                srlRefresh.finishRefresh();
             }
 
             @Override
             public void onFailure(String msg) {
                 ToastUtil.toast(msg);
                 mAdapter.loadMoreFail();
-                srlRefresh.finishRefresh();
             }
         });
-    }
-
-    @Override
-    public void onLoadMore(RefreshLayout refreshLayout) {
-        page++;
-        groupList();
-    }
-
-    @Override
-    public void onRefresh(RefreshLayout refreshLayout) {
-        refresh();
     }
 
 }

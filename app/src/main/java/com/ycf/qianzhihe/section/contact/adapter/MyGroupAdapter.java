@@ -39,14 +39,9 @@ public class MyGroupAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHolder> 
         helper.setText(R.id.tv_group_name, item.getGroupName());
         GlideUtils.GlideLoadCircleErrorImageUtils(mContext, AppConfig.checkimg(item.getGroupHead()), helper.getView(R.id.img_group), R.mipmap.ic_group_default);
 
-        helper.setOnClickListener(R.id.ll_item, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mContext.startActivity(new Intent(mContext, ChatActivity.class).putExtra(EaseConstant.EXTRA_CHAT_TYPE, EaseConstant.CHATTYPE_GROUP)
-                        .putExtra(EaseConstant.EXTRA_USER_ID, item.getHuanxinGroupId())
-                        .putExtra(Constant.ROOMTYPE, 0));
-            }
-        });
+        helper.setOnClickListener(R.id.ll_item, v -> mContext.startActivity(new Intent(mContext, ChatActivity.class).putExtra(EaseConstant.EXTRA_CHAT_TYPE, EaseConstant.CHATTYPE_GROUP)
+                .putExtra(EaseConstant.EXTRA_USER_ID, item.getHuanxinGroupId())
+                .putExtra(Constant.ROOMTYPE, 0)));
     }
 
 
