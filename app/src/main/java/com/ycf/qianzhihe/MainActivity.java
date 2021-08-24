@@ -78,8 +78,8 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
     private EaseBaseFragment mContactsFragment, mMessageFragment, mDiscoverFragment, mFindFragment, mNewsFragment;
     private EaseBaseFragment mCurrentFragment;
     private TextView mTvMainContactsMsg, mTvMainMessageMsg, mTvMainDiscoverMsg, mTvMainFindMsg;
-    private int[] badgeIds = {R.layout.demo_badge_home, R.layout.demo_badge_friends, R.layout.demo_badge_discover, R.layout.demo_badge_about_me};
-    private int[] msgIds = {R.id.tv_main_home_msg, R.id.tv_main_friends_msg, R.id.tv_main_discover_msg, R.id.tv_main_about_me_msg};
+    private int[] badgeIds = {R.layout.demo_badge_about_me,R.layout.demo_badge_home, R.layout.demo_badge_friends, R.layout.demo_badge_discover};
+    private int[] msgIds = { R.id.tv_main_about_me_msg,R.id.tv_main_home_msg, R.id.tv_main_friends_msg, R.id.tv_main_discover_msg};
     private MainViewModel viewModel;
     private boolean showMenu = true;//是否显示菜单项
 
@@ -238,16 +238,16 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
             View badge = LayoutInflater.from(mContext).inflate(badgeIds[i], menuView, false);
             switch (i) {
                 case 0:
-                    mTvMainContactsMsg = badge.findViewById(msgIds[0]);
+                    mTvMainFindMsg = badge.findViewById(msgIds[0]);
                     break;
                 case 1:
-                    mTvMainMessageMsg = badge.findViewById(msgIds[1]);
+                    mTvMainContactsMsg = badge.findViewById(msgIds[1]);
                     break;
                 case 2:
-                    mTvMainDiscoverMsg = badge.findViewById(msgIds[2]);
+                    mTvMainMessageMsg = badge.findViewById(msgIds[2]);
                     break;
                 case 3:
-                    mTvMainFindMsg = badge.findViewById(msgIds[3]);
+                    mTvMainDiscoverMsg = badge.findViewById(msgIds[3]);
                     break;
             }
             itemTab.addView(badge);

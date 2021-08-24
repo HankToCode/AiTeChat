@@ -277,7 +277,7 @@ public class MyInfoActivity extends BaseInitActivity {
 
 
     @OnClick({R.id.rl_my_share, R.id.img_head, R.id.tv_name, R.id.ll_sign, R.id.tv_account,
-            R.id.rl_my_qr,R.id.tv_logoff,R.id.ll_sign})
+            R.id.rl_my_qr,R.id.tv_logoff})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.img_head:

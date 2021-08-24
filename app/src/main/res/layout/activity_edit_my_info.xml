@@ -12,8 +12,7 @@
         android:layout_height="@dimen/em_common_title_bar_height"
         app:titleBarDisplayHomeAsUpEnabled="true"
         app:titleBarLeftImage="@mipmap/icon_back_white"
-        app:titleBarTitle="设置"
-        app:titleBarTitleTextColor="@color/white"/>
+        app:titleBarTitle="编辑"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
