@@ -31,8 +31,13 @@ import com.hyphenate.easecallkit.base.EaseCallType;
 import com.hyphenate.easecallkit.ui.EaseMultipleVideoActivity;
 import com.hyphenate.easecallkit.ui.EaseVideoCallActivity;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.app.api.old_data.MyGroupInfoList;
+import com.ycf.qianzhihe.app.api.old_http.ApiClient;
+import com.ycf.qianzhihe.app.api.old_http.ResultListener;
+import com.ycf.qianzhihe.app.operate.GroupOperateManager;
 import com.zds.base.ImageLoad.GlideUtils;
 import com.zds.base.code.activity.CaptureActivity;
+import com.zds.base.json.FastJsonUtil;
 import com.zds.base.util.DensityUtils;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.Global;
@@ -70,6 +75,8 @@ import com.hyphenate.easeui.ui.base.EaseBaseFragment;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class MainActivity extends BaseInitActivity implements BottomNavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -166,6 +173,9 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
             }
             PushUtils.isRtcCall = false;
         }
+
+        groupList();
+
     }
 
     private void initViewModel() {
@@ -472,15 +482,13 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
         } else if (center.getEventCode() == EventUtil.UNREADCOUNT) {
             checkUnreadMsg();
         } else if (center.getEventCode() == EventUtil.NOTICNUM) {
-//            updateUnreadAddressLable();
+            checkUnreadMsg();
         } else if (center.getEventCode() == EventUtil.KEFU) {
 //            change(2);
         } else if (center.getEventCode() == EventUtil.TONGXUNLU) {
 //            change(1);
-        } else if (center.getEventCode() == EventUtil.REFRESH_CONVERSION || center.getEventCode() == EventUtil.REFRESH_GROUP_NAME) {
-//            conversationListFragment.refresh();
         } else if (center.getEventCode() == EventUtil.FLUSHGROUP) {
-//            groupList();
+            groupList();
         } else if (center.getEventCode() == EventUtil.FLUSHUSERINFO) {
             LoginInfo loginInfo = UserComm.getUserInfo();
             if (loginInfo != null) {
@@ -570,6 +578,35 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
                 }
             }
         }
+    }
+
+
+    /**
+     * 我的群组列表
+     *
+     * @param
+     */
+    private void groupList() {
+        Map<String, Object> map = new HashMap<>(2);
+        map.put("pageSize", 1500);
+        map.put("pageNum", 1);
+        Log.d("群组刷新", "群组刷新");
+        ApiClient.requestNetHandle(this, AppConfig.MY_GROUP_LIST, "", map,
+                new ResultListener() {
+                    @Override
+                    public void onSuccess(String json, String msg) {
+                        MyGroupInfoList myGroupInfo = FastJsonUtil.getObject(json,
+                                MyGroupInfoList.class);
+                        if (myGroupInfo.getData() != null && myGroupInfo.getData().size() > 0) {
+                            GroupOperateManager.getInstance().saveGroupsInfo(myGroupInfo, json);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+
+                    }
+                });
     }
 
 

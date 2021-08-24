@@ -31,6 +31,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Lifecycle;
 
+import com.gyf.immersionbar.BarHide;
 import com.gyf.immersionbar.ImmersionBar;
 import com.hyphenate.EMCallBack;
 import com.ycf.qianzhihe.DemoApplication;
@@ -532,6 +533,20 @@ public class BaseActivity extends AppCompatActivity {
                 //.navigationBarColor("#E9E9E9")
                 //采用系统默认导航栏颜色
                 .navigationBarEnable(false)
+                .init();//有时需要直接由子类实现该功能
+    }
+
+    protected void initImmersionBar(boolean isStatusBarDartFont, boolean isKeyboardEnable, boolean isFull) {
+        //初始化，默认透明状态栏和黑色导航栏。
+        ImmersionBar.with(this)
+                .keyboardEnable(isKeyboardEnable)
+                //原理：如果当前设备支持状态栏字体变色，会设置状态栏字体为黑色，如果当前设备不支持状态栏字体变色，会使当前状态栏加上透明度，否则不执行透明度
+                .statusBarDarkFont(isStatusBarDartFont)
+                //采用系统默认导航栏颜色
+                .navigationBarEnable(false)
+                .fitsSystemWindows(false)
+                .fullScreen(true)
+                .statusBarColor(R.color.color_FB6168)
                 .init();//有时需要直接由子类实现该功能
     }
 

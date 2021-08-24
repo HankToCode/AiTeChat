@@ -93,6 +93,9 @@ public class RedPacketDetailActivity extends BaseInitActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+
+        initImmersionBar(false, false, true);
+
         super.initView(savedInstanceState);
         View headView =
                 LayoutInflater.from(this).inflate(R.layout.red_packet_head_view, null);
