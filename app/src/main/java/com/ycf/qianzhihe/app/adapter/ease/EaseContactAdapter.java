@@ -86,7 +86,7 @@ public class EaseContactAdapter extends ArrayAdapter<EaseUser> implements Sectio
         String header = user.getInitialLetter();
         //是否在线
         if (!TextUtils.isEmpty(user.getLine())) {
-            if (user.getLine().equals("OnLine")) {
+            if (user.getLine().equals("online")) {
                 holder.onlineStatus.setBackgroundResource(R.drawable.dot_green);
             } else {
                 holder.onlineStatus.setBackgroundResource(R.drawable.dot_gray);

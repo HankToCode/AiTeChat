@@ -3,6 +3,7 @@ package com.ycf.qianzhihe.section.common;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -17,12 +18,14 @@ import com.ycf.qianzhihe.app.base.BaseInitActivity;
 import com.ycf.qianzhihe.app.utils.my.MyHelper;
 import com.ycf.qianzhihe.app.utils.my.MyModel;
 import com.hyphenate.easeui.widget.EaseTitleBar;
+import com.ycf.qianzhihe.section.contact.activity.ContactBlackListActivity;
 import com.zds.base.Toast.ToastUtil;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class PrivacyActivity extends BaseInitActivity {
 
@@ -101,7 +104,18 @@ public class PrivacyActivity extends BaseInitActivity {
                 }
             }
         });
+
     }
+
+    @OnClick({R.id.tv_black})
+    public void click(View v) {
+        switch (v.getId()) {
+            case R.id.tv_black:
+                BlackListActivity.actionStart(mContext);
+                break;
+        }
+    }
+
 
 
 

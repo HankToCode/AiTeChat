@@ -2,11 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#EEEEEE"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar_layout" />
-
+    <com.hyphenate.easeui.widget.EaseTitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/em_common_title_bar_height"
+        app:titleBarDisplayHomeAsUpEnabled="true"
+        app:titleBarLeftImage="@mipmap/icon_back_white"
+        app:titleBarTitle="编辑"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

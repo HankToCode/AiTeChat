@@ -20,6 +20,16 @@ public class FriendInfo {
     private String friendFlag;
     private String blackStatus;
     private String friendNickName;
+    private String line;
+    private String sign;
+
+    public String getSign() {
+        return sign;
+    }
+
+    public void setSign(String sign) {
+        this.sign = sign;
+    }
 
     public String getUserNickName() {
         return userNickName;
@@ -53,7 +63,7 @@ public class FriendInfo {
         this.line = line;
     }
 
-    private String line;
+
 
     public String getFriendFlag() {
         return friendFlag;

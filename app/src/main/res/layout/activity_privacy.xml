@@ -60,10 +60,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_18"
             android:text="新消息通知"
             android:textColor="#333333"
-            android:textSize="@dimen/sp_13" />
+            android:textSize="@dimen/sp_16" />
 
         <Switch
             android:id="@+id/switch_btn"
@@ -91,6 +90,6 @@
         android:foreground="?attr/selectableItemBackground"
         android:text="黑名单"
         android:textColor="@color/black_text"
-        android:textSize="@dimen/sp_13" />
+        android:textSize="@dimen/sp_16" />
 
 </LinearLayout>
