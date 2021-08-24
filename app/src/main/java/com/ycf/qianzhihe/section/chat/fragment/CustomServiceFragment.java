@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hyphenate.easeui.ui.base.EaseBaseFragment;
+import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.adapter.ServiceAdapter;
 import com.ycf.qianzhihe.app.api.Constant;
@@ -45,8 +46,8 @@ public class CustomServiceFragment extends EaseBaseFragment {
 
     @BindView(R.id.recycle_view)
     RecyclerView mRecycleView;
-    @BindView(R.id.toolbar_title)
-    TextView mToolbarTitle;
+    @BindView(R.id.title_bar)
+    EaseTitleBar title_bar;
     @BindView(R.id.custom1)
     RelativeLayout mCuston1;
 
@@ -71,7 +72,8 @@ public class CustomServiceFragment extends EaseBaseFragment {
 
 
     protected void initLogic() {
-        mToolbarTitle.setText("客服列表");
+        title_bar.setTitle("客服列表");
+        title_bar.setOnBackPressListener(view -> mContext.finish());
         list = new ArrayList<>();
         mServiceAdapter = new ServiceAdapter(list);
         mRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));
@@ -129,12 +131,10 @@ public class CustomServiceFragment extends EaseBaseFragment {
     }
 
 
-    @OnClick({R.id.img_left_back,R.id.tv_help})
+    @OnClick({R.id.tv_help})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.img_left_back:
-                getActivity().finish();
-                break;
+
             case R.id.tv_help:
                 Intent intent = new Intent(getActivity(), Custom1Activity.class);
                 getActivity().startActivity(intent);

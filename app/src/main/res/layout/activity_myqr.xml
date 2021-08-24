@@ -12,8 +12,7 @@
         android:layout_height="@dimen/em_common_title_bar_height"
         app:titleBarDisplayHomeAsUpEnabled="true"
         app:titleBarLeftImage="@mipmap/ic_back_black"
-        app:titleBarTitle="我的二维码"
-        app:titleBarTitleTextColor="@color/white"/>
+        app:titleBarTitle="我的二维码"/>
     <RelativeLayout
         android:id="@+id/rl_qrcode_view"
         android:layout_width="315dp"
