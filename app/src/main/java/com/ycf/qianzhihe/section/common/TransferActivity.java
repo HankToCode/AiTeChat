@@ -8,6 +8,7 @@ import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hyphenate.chat.EMClient;
@@ -57,6 +58,8 @@ public class TransferActivity extends BaseInitActivity {
     TextView mTvTransfer;
     private String emChatId;
 
+    @BindView(R.id.ll_back)
+    LinearLayout ll_back;
 
     @Override
     protected int getLayoutId() {
@@ -84,13 +87,14 @@ public class TransferActivity extends BaseInitActivity {
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.length() > 0) {
-                    mTvTransfer.setBackgroundResource(R.drawable.bg_border_green);
+                    mTvTransfer.setBackgroundResource(R.drawable.shap_blue);
                 } else {
                     mTvTransfer.setBackgroundResource(R.drawable.shape_transter_nor);
                 }
 
             }
         });
+        ll_back.setOnClickListener(view -> finish());
     }
 
     @Override
