@@ -116,7 +116,6 @@
                     app:layout_constraintTop_toTopOf="@id/tv_group_member_title"
                     app:layout_constraintBottom_toBottomOf="@id/tv_group_member_title"
                     android:layout_marginRight="@dimen/em_margin_20"
-                    android:tint="@color/black"
                     android:src="@drawable/em_arrow_right"/>
 
                 <TextView

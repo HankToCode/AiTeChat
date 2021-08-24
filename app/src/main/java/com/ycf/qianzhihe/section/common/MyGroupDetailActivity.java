@@ -19,6 +19,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
+import com.hyphenate.easeui.widget.EaseImageView;
+import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.adapter.MyRoomDeatilAdapter;
 import com.ycf.qianzhihe.app.api.Constant;
@@ -67,32 +69,20 @@ import com.zds.base.Toast.ToastUtil;
  * 群组详情
  */
 public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDeatilAdapter.OnDelClickListener {
-    @BindView(R.id.bar)
-    View mBar;
-    @BindView(R.id.tv_back)
-    TextView mTvBack;
-    @BindView(R.id.ll_back)
-    LinearLayout mLlBack;
-    @BindView(R.id.img_right)
-    ImageView mImgRight;
-    @BindView(R.id.toolbar_title)
-    TextView mToolbarTitle;
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
-    @BindView(R.id.llayout_title_1)
-    RelativeLayout mLlayoutTitle1;
+
+
+
+    @BindView(R.id.title_bar)
+    EaseTitleBar title_bar;
+
     @BindView(R.id.recycle_view)
     RecyclerView mRecycleView;
-    @BindView(R.id.group_img)
-    ImageView mGroupImg;
-    @BindView(R.id.rl_room_img)
-    RelativeLayout mRlRoomImg;
+    @BindView(R.id.iv_group_head)
+    EaseImageView iv_group_head;
+
     @BindView(R.id.tv_group_name)
-    TextView mTvGroupName;
-    @BindView(R.id.group_name)
-    TextView mGroupName;
-    @BindView(R.id.rl_room_id)
-    RelativeLayout mRlRoomId;
+    TextView tv_group_name;
+
     @BindView(R.id.tv_group_zx)
     TextView mTvGroupZx;
     @BindView(R.id.tv_group_id)
@@ -109,10 +99,9 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
     TextView mTvExit;
     @BindView(R.id.tv_my_group_nick_name)
     TextView mTvMyGroupNickName;
-    @BindView(R.id.tv_total)
-    TextView mTvTotal;
-    @BindView(R.id.tv_group_announcement)
-    TextView mTvGroupAnnouncement;
+
+//    @BindView(R.id.tv_group_announcement)
+//    TextView mTvGroupAnnouncement;
     @BindView(R.id.tv_user_red_detail)
     TextView tvUserRedDetail;
     @BindView(R.id.switch_user_red_detail)
@@ -152,15 +141,15 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_my_group_details;
+//        return R.layout.activity_my_group_details;
+        return R.layout.activity_group_details;
     }
 
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-
-        mToolbarTitle.setText("群信息");
-
+        title_bar.setTitle("群信息");
+        title_bar.setOnBackPressListener(view -> finish());
         String isMsgFree = MyHelper.getInstance().getModel().getConversionMsgIsFree(emChatId);
         if (null != isMsgFree && isMsgFree.equals("false")) {
             //设置消息免打扰
@@ -287,7 +276,7 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
     }
 
     /**
-     * 查询群详情
+     * 渲染
      */
     public void setGroupDetail() {
 
@@ -304,9 +293,9 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
         // .getGroupHead()), (ImageView) mGroupImg, R.mipmap
         // .img_default_avatar, 12);
         GlideUtils.GlideLoadCircleErrorImageUtils(MyGroupDetailActivity.this, AppConfig.checkimg(info.getGroupHead())
-                , mGroupImg, R.mipmap.img_default_avatar);
+                , iv_group_head, R.mipmap.img_default_avatar);
 
-        mGroupName.setText(info.getGroupName());
+        tv_group_name.setText(info.getGroupName());
         tv_group_remark.setText(info.groupNickName);
 
         //用户的群等级 0-普通用户 1-管理员 2-群主
@@ -325,11 +314,11 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
         }
         flUserReadDetail.setVisibility(0 == info.getGroupUserRank() ? View.GONE : View.VISIBLE);
         tv_transfer_group.setVisibility(2 == info.getGroupUserRank() ? View.VISIBLE : View.GONE);
-        //rl_container_group_single_member_jinyan.setVisibility(0 == info.getGroupUserRank() ? View.GONE : View.VISIBLE);
+        rl_container_group_single_member_jinyan.setVisibility(0 == info.getGroupUserRank() ? View.GONE : View.VISIBLE);
 
         int showSize = 19;
         if (info.getGroupUserDetailVoList().size() > 0) {
-            mTvTotal.setText("共" + info.getGroupUsers() + "人");
+//            mTvTotal.setText("共" + info.getGroupUsers() + "人");
             mDetailVoListBeanList.clear();
             if (info.getGroupUserRank() != 0)
                 showSize = 18;
@@ -365,8 +354,8 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
                 mDetailVoListBeanList.add(delBean);
             }
 
-            mTvGroupAnnouncement.setText(StringUtil.isEmpty(info.getGroupNotice()) ? "暂无群公告" : info.getGroupNotice());
-            mTvGroupAnnouncement.setVisibility(View.VISIBLE);
+//            mTvGroupAnnouncement.setText(StringUtil.isEmpty(info.getGroupNotice()) ? "暂无群公告" : info.getGroupNotice());
+//            mTvGroupAnnouncement.setVisibility(View.VISIBLE);
             mRoomDeatilAdapter.notifyDataSetChanged();
         }
         setSWitchReadPermission();
@@ -376,7 +365,7 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
     @Override
     protected void onEventComing(EventCenter center) {
         if (center.getEventCode() == EventUtil.REFRESH_GROUP_NAME) {
-            mGroupName.setText(center.getData().toString());
+            tv_group_name.setText(center.getData().toString());
             new Thread(new Runnable() {
                 @Override
                 public void run() {
@@ -406,12 +395,12 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
 
             int count = info.getGroupUsers() - mIdList.size();
             info.setGroupUsers(count);
-            mTvTotal.setText("共" + count + "人");
+//            mTvTotal.setText("共" + count + "人");
             mRoomDeatilAdapter.notifyDataSetChanged();
         } else if (center.getEventCode() == 404) {
             //刷新群公告
             if (!TextUtils.isEmpty(center.getData().toString())) {
-                mTvGroupAnnouncement.setText(center.getData().toString());
+//                mTvGroupAnnouncement.setText(center.getData().toString());
             }
 
         }
@@ -530,7 +519,7 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
                     public void onSuccess(String json, String msg) {
                         EventBus.getDefault().post(new EventCenter<>(EventUtil.REFRESH_CONVERSION));
                         EventBus.getDefault().post(new EventCenter(EventUtil.FLUSHGROUP));
-                        GlideUtils.GlideLoadCircleErrorImageUtils(MyGroupDetailActivity.this, AppConfig.checkimg(headUrl), mGroupImg,
+                        GlideUtils.GlideLoadCircleErrorImageUtils(MyGroupDetailActivity.this, AppConfig.checkimg(headUrl), iv_group_head,
                                 R.mipmap.img_default_avatar);
                         //手动刷新群组缓存，否则首页聊天列表群头像更新不了，有点蛋疼
                         GroupInfo groupInfo = new GroupInfo();
@@ -673,23 +662,20 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
 
     private String headUrl = "";
 
-    @OnClick({R.id.img_left_back, R.id.fl_group_member, R.id.tv_my_group_nick_name_s,
-            R.id.tv_group_zx, R.id.rl_room_id, R.id.rl_container_group_remark,
+    @OnClick({ R.id.fl_group_member, R.id.tv_my_group_nick_name_s,
+            R.id.tv_group_zx, R.id.tv_group_name, R.id.rl_container_group_remark,
             R.id.tv_group_notice, R.id.tv_msg_record,
             R.id.tv_group_manager, R.id.rl_container_group_single_member_jinyan,
-            R.id.tv_clear_msg, R.id.tv_exit, R.id.tv_transfer_group})
+            R.id.tv_clear_msg, R.id.tv_exit, R.id.tv_transfer_group, R.id.iv_group_head})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.img_left_back:
-                finish();
-                break;
-            case R.id.rl_room_id:
+            case R.id.tv_group_name:
                 //群昵称
                 if (info.getGroupUserRank() != 0) {
                     startActivity(new Intent(this, EditInfoActivity.class)
                             .putExtra("from", "4")
                             .putExtra("groupName",
-                                    mGroupName.getText().toString().trim())
+                                    tv_group_name.getText().toString().trim())
                             .putExtra("groupId", groupId));
                 }
 
@@ -709,7 +695,7 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
                                 mTvMyGroupNickName.getText().toString().trim())
                         .putExtra("groupId", groupId));
                 break;
-            case R.id.rl_room_img:
+            case R.id.iv_group_head:
                 //群头像
                 if (info.getGroupUserRank() == 2) {
                     toSelectPic();
@@ -793,13 +779,12 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
             case R.id.fl_group_member:
                 Global.addUserOriginType = Constant.ADD_USER_ORIGIN_TYPE_GROUPCHAT;
                 Global.addUserOriginName = info.getGroupName();
-
-                Intent intent1 = new Intent(this, MyQrActivity.class);
-                Bundle bundle1 = new Bundle();
-                bundle1.putString(Constant.PARAM_GROUP_ID, groupId);
-                bundle1.putString(Constant.PARAM_EM_GROUP_ID, emChatId);
-                intent1.putExtras(bundle1);
-                startActivity(intent1);
+                Intent memberIntent = new Intent(this, GroupMemberActivity.class);
+                Bundle memberBundle = new Bundle();
+                memberBundle.putString(Constant.PARAM_GROUP_ID,groupId);
+                memberBundle.putString(Constant.PARAM_EM_GROUP_ID,emChatId);
+                memberIntent.putExtras(memberBundle);
+                startActivity(memberIntent);
                 break;
             case R.id.tv_transfer_group:
                 TransferGroupActivity.start(this, emChatId, groupId);
