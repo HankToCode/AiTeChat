@@ -43,19 +43,6 @@
                 android:layout_marginTop="20dp"
                 android:src="@mipmap/ic_turn_icon" />
 
-            <TextView
-                android:id="@+id/tv_money_greeting"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_65"
-                android:layout_marginTop="16dp"
-                android:layout_marginRight="@dimen/dp_5"
-                android:ellipsize="end"
-                android:gravity="center_vertical"
-                android:maxLines="1"
-                android:textColor="#FFE8D6"
-                android:textSize="18dp"
-                tools:text="转账金额" />
 
             <TextView
                 android:id="@+id/tv_transfer_received"
@@ -72,10 +59,10 @@
                 tools:text="转账金额" />
 
             <TextView
-                android:id="@+id/toNickName"
+                android:id="@+id/tv_money_greeting"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/tv_money_greeting"
+                android:layout_below="@+id/tv_transfer_received"
                 android:layout_marginLeft="@dimen/dp_65"
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="@dimen/dp_5"
@@ -87,8 +74,6 @@
                 tools:text="转账给离夏惜柚" />
 
 
-
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -97,7 +82,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginRight="@dimen/dp_7"
                 android:layout_marginBottom="@dimen/hb_margin_bottom"
-                android:text="千纸鹤转账"
+                android:text="零钱转账"
                 android:textColor="#FFE8D6"
                 android:textSize="10dp" />
 

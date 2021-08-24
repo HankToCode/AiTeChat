@@ -35,10 +35,10 @@ public class SystemNoticePacket extends EaseChatRow {
 
     @Override
     protected void onFindViewById() {
-        tv_message = (TextView) findViewById(R.id.tv_msg);
-        tv_message_new = (TextView) findViewById(R.id.tv_msg_new);
-        ll_container = (LinearLayout) findViewById(R.id.ll_container);
-        llay_msg = (LinearLayout) findViewById(R.id.llay_msg);
+        tv_message = findViewById(R.id.tv_msg);
+        tv_message_new = findViewById(R.id.tv_msg_new);
+        ll_container = findViewById(R.id.ll_container);
+        llay_msg = findViewById(R.id.llay_msg);
     }
 
     /**

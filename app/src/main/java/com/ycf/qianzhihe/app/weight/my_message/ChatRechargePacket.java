@@ -35,8 +35,8 @@ public class ChatRechargePacket extends EaseChatRow {
 
     @Override
     protected void onFindViewById() {
-        tv_message = (TextView) findViewById(R.id.tv_money);
-        tv_time = (TextView) findViewById(R.id.tv_time);
+        tv_message = findViewById(R.id.tv_money);
+        tv_time = findViewById(R.id.tv_time);
     }
 
     /**

@@ -227,7 +227,6 @@ public class EaseMessageAdapter extends BaseAdapter {
             return customRowProvider.getCustomChatRowType(message) + 13;
         }
 
-        //以下逻辑废弃中，移步到customRowProvider 中查看
         if (message.getType() == EMMessage.Type.TXT) {
             if (message.getBooleanAttribute(EaseConstant.MESSAGE_ATTR_IS_BIG_EXPRESSION, false)) {
                 return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_EXPRESSION : MESSAGE_TYPE_SENT_EXPRESSION;
@@ -245,7 +244,6 @@ public class EaseMessageAdapter extends BaseAdapter {
         }
         if (message.getType() == EMMessage.Type.IMAGE) {
             return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_IMAGE : MESSAGE_TYPE_SENT_IMAGE;
-
         }
         if (message.getType() == EMMessage.Type.LOCATION) {
             if (message.getBooleanAttribute(Constant.SEND_LOCATION, false)) {
@@ -274,7 +272,6 @@ public class EaseMessageAdapter extends BaseAdapter {
             return customRowProvider.getCustomChatRow(message, position, this);
         }
 
-        //以下逻辑废弃中，移步到customRowProvider 中查看
         EaseChatRowPresenter presenter = null;
 
         switch (message.getType()) {

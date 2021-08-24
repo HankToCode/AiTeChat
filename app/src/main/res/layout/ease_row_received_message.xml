@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:paddingTop="@dimen/dp_13">
+    android:paddingTop="@dimen/dp_13"
+    tools:background="@color/black">
 
     <TextView
         android:id="@+id/timestamp"
@@ -40,15 +41,8 @@
 
         <RelativeLayout
             android:id="@+id/bubble"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_5"
-            android:layout_toRightOf="@id/iv_userhead"
-            android:background="@drawable/bqp"
-            android:paddingStart="16dp"
-            android:paddingTop="12dp"
-            android:paddingEnd="16dp"
-            android:paddingBottom="12dp">
+            style="@style/chat_content_received_style"
+            android:layout_toEndOf="@id/iv_userhead">
 
             <TextView
                 android:id="@+id/tv_chatcontent"

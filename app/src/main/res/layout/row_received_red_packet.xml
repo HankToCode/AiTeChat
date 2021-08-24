@@ -101,7 +101,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginLeft="@dimen/dp_18"
                 android:layout_marginBottom="@dimen/hb_margin_bottom"
-                android:text="千纸鹤红包"
+                android:text="零钱红包"
                 android:textColor="#FFE5C7"
                 android:textSize="10dp"
                 android:visibility="visible" />
@@ -115,7 +115,7 @@
                 android:layout_marginRight="18dp"
                 android:gravity="center"
                 android:paddingTop="3dp"
-                android:paddingBottom="@dimen/hb_margin_bottom"
+                android:layout_marginBottom="@dimen/hb_margin_bottom"
                 android:text="12:12:12"
                 android:textColor="#FFE5C7"
                 android:textSize="10sp" />

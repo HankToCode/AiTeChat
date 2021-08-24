@@ -1,7 +1,6 @@
 package com.ycf.qianzhihe.section.chat.fragment;
 
 import static android.app.Activity.RESULT_OK;
-
 import static com.zds.base.util.FilePathUtils.getTakePhotoFilePath;
 
 import android.content.ContentValues;
@@ -12,7 +11,6 @@ import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,6 +23,10 @@ import com.hyphenate.chat.EMImageMessageBody;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.easecallkit.widget.EaseImageView;
+import com.hyphenate.easeui.constants.EaseConstant;
+import com.hyphenate.exceptions.HyphenateException;
+import com.hyphenate.util.EasyUtils;
+import com.hyphenate.util.PathUtil;
 import com.ycf.qianzhihe.MainActivity;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
@@ -52,6 +54,9 @@ import com.ycf.qianzhihe.app.utils.my.Storage;
 import com.ycf.qianzhihe.app.weight.CommonDialog;
 import com.ycf.qianzhihe.app.weight.ease.EaseChatRecallPresenter;
 import com.ycf.qianzhihe.app.weight.ease.EaseChatVoiceCallPresenter;
+import com.ycf.qianzhihe.app.weight.ease.chatrow.EaseCustomChatRowProvider;
+import com.ycf.qianzhihe.app.weight.ease.presenter.EaseChatLocationPresenter;
+import com.ycf.qianzhihe.app.weight.ease.presenter.EaseChatRowPresenter;
 import com.ycf.qianzhihe.app.weight.my_message.ChatApplyFreindNoticePresenter;
 import com.ycf.qianzhihe.app.weight.my_message.ChatPromotionPresenter;
 import com.ycf.qianzhihe.app.weight.my_message.ChatRechargePresenter;
@@ -75,6 +80,7 @@ import com.ycf.qianzhihe.app.weight.my_message.GroupNoticePresenter;
 import com.ycf.qianzhihe.app.weight.my_message.SystemNoticePresenter;
 import com.ycf.qianzhihe.app.weight.my_message.UserOperatorGroupPresenter;
 import com.ycf.qianzhihe.app.weight.my_message.WalletPresenter;
+import com.ycf.qianzhihe.section.account.activity.UserInfoDetailActivity;
 import com.ycf.qianzhihe.section.chat.activity.ChatActivity;
 import com.ycf.qianzhihe.section.common.ChatCollectActivity;
 import com.ycf.qianzhihe.section.common.MyCollectActivity;
@@ -88,15 +94,6 @@ import com.zds.base.ImageLoad.GlideUtils;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.json.FastJsonUtil;
 import com.zds.base.util.StringUtil;
-import com.ycf.qianzhihe.app.weight.ease.chatrow.EaseCustomChatRowProvider;
-import com.ycf.qianzhihe.app.weight.ease.presenter.EaseChatLocationPresenter;
-import com.ycf.qianzhihe.app.weight.ease.presenter.EaseChatRowPresenter;
-import com.ycf.qianzhihe.section.account.activity.UserInfoDetailActivity;
-
-import com.hyphenate.easeui.constants.EaseConstant;
-import com.hyphenate.exceptions.HyphenateException;
-import com.hyphenate.util.EasyUtils;
-import com.hyphenate.util.PathUtil;
 import com.zxy.tiny.Tiny;
 import com.zxy.tiny.callback.BitmapCallback;
 
@@ -350,7 +347,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
             try {
                 mMessageList.refresh();
                 titleBar.setTitle(UserOperateManager.getInstance().getUserName(emChatId));
-            } catch (Exception e) {
+            } catch (Exception ignored) {
             }
         } else if (center.getEventCode() == EventUtil.REFRESH_MESSAGE_LIST) {
             mMessageList.refresh();

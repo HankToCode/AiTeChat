@@ -31,8 +31,8 @@ public class ChatRedFinalPacket extends EaseChatRow {
 
     @Override
     protected void onFindViewById() {
-        tv_message = (TextView) findViewById(R.id.tv_money_msg);
-        ll_container = (LinearLayout) findViewById(R.id.ll_container);
+        tv_message = findViewById(R.id.tv_money_msg);
+        ll_container = findViewById(R.id.ll_container);
     }
 
     /**
