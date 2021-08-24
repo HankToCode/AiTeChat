@@ -32,7 +32,9 @@ import com.ycf.qianzhihe.app.operate.UserOperateManager;
 import com.ycf.qianzhihe.app.utils.my.MyHelper;
 import com.ycf.qianzhihe.app.weight.CommonDialog;
 import com.ycf.qianzhihe.common.utils.DeviceIdUtil;
+import com.ycf.qianzhihe.section.chat.activity.CustomListActivity;
 import com.ycf.qianzhihe.section.common.MultiAccountActivity;
+import com.ycf.qianzhihe.section.common.MyQrActivity;
 import com.ycf.qianzhihe.section.common.SetActivity;
 import com.ycf.qianzhihe.section.common.WalletActivity;
 import com.ycf.qianzhihe.section.common.MyCollectActivity;
@@ -229,7 +231,8 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
                 break;
             case R.id.iv_qr:
                 //分享
-                ShareQrActivity.actionStart(this);
+//                ShareQrActivity.actionStart(this);
+                MyQrActivity.actionStart(mContext, "1");
                 break;
             case R.id.tv_package:
                 //我的钱包支付
@@ -253,7 +256,7 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
                 break;
             case R.id.tv_helpline:
                 //客服
-//                startActivity(CustomListActivity.class);
+                CustomListActivity.actionStart(this);
                 break;
             case R.id.tv_groups:
                 //靓号商城

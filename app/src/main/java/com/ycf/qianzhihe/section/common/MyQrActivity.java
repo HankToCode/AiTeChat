@@ -22,6 +22,7 @@ import com.github.dfqin.grantor.PermissionListener;
 import com.github.dfqin.grantor.PermissionsUtil;
 import com.google.zxing.WriterException;
 import com.hyphenate.easecallkit.widget.EaseImageView;
+import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
@@ -59,10 +60,9 @@ public class MyQrActivity extends BaseInitActivity {
     ImageView mImgHead;
     @BindView(R.id.img_qr_head)
     EaseImageView mImgQRHead;
-    @BindView(R.id.toolbar_title)
-    TextView mToolbarTitle;
-    @BindView(R.id.llayout_title_1)
-    RelativeLayout mLlayoutTitle1;
+    @BindView(R.id.title_bar)
+    EaseTitleBar title_bar;
+
     @BindView(R.id.rl_qrcode_view)
     RelativeLayout rlQrCodeView;
     @BindView(R.id.tv_card_tips)
@@ -96,7 +96,8 @@ public class MyQrActivity extends BaseInitActivity {
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
 //        isTransparency(true);
-        mLlayoutTitle1.setBackgroundColor(ContextCompat.getColor(this, R.color.bg_color_my_gold));
+        title_bar.setOnBackPressListener(view -> finish());
+//        mLlayoutTitle1.setBackgroundColor(ContextCompat.getColor(this, R.color.bg_color_my_gold));
     }
 
 
@@ -137,7 +138,7 @@ public class MyQrActivity extends BaseInitActivity {
             id = intent.getStringExtra("id") + Constant.SEPARATOR_UNDERLINE
                     + Constant.FLAG_QR_GROUP + Constant.SEPARATOR_UNDERLINE
                     + UserComm.getUserInfo().getUserId();
-            mToolbarTitle.setText("群二维码");
+            title_bar.setTitle("群二维码");
             mTvQrName.setText(intent.getStringExtra("name"));
             if (!TextUtils.isEmpty(intent.getStringExtra("head"))) {
                 GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(intent.getStringExtra("head")), mImgHead, R.mipmap.img_default_avatar);
@@ -147,7 +148,7 @@ public class MyQrActivity extends BaseInitActivity {
             createImgQr(AppConfig.checkimg(intent.getStringExtra("head")));
         } else {
             id = UserComm.getUserInfo().getUserId() + Constant.SEPARATOR_UNDERLINE + Constant.PREFIX_QR_USER;
-            mToolbarTitle.setText("我的二维码");
+            title_bar.setTitle("我的二维码");
             if (!TextUtils.isEmpty(UserComm.getUserInfo().getUserCode())) {
                 tvChatNumber.setVisibility(View.VISIBLE);
                 tvChatNumber.setText(getString(R.string.str_chat_account, UserComm.getUserInfo().getUserCode()));
