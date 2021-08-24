@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/em_common_title_bar_height"
         app:titleBarDisplayHomeAsUpEnabled="true"
-        app:titleBarLeftImage="@mipmap/ic_back_black"
+        app:titleBarLeftImage="@drawable/ic_back"
         app:titleBarTitle="设置" />
 
     <LinearLayout

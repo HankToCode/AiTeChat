@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat;
 
 import com.ehking.sdk.wepay.interfaces.WalletPay;
 import com.ehking.sdk.wepay.net.bean.AuthType;
+import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.UserComm;
@@ -50,8 +51,8 @@ import com.zds.base.Toast.ToastUtil;
  * 发送个人红包
  */
 public class SendGroupRedPackageActivity extends BaseInitActivity {
-    @BindView(R.id.toolbar_title)
-    TextView mToolbarTitle;
+    @BindView(R.id.title_bar)
+    EaseTitleBar title_bar;
     @BindView(R.id.et_red_amount)
     EditText mEtRedAmount;
     @BindView(R.id.tv_red_amount)
@@ -60,12 +61,7 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
     EditText mEtRedNum;
     @BindView(R.id.et_remark)
     EditText mEtRedMark;
-    @BindView(R.id.bar)
-    View mBar;
-    @BindView(R.id.llayout_title_1)
-    RelativeLayout mLlayoutTitle1;
-    @BindView(R.id.toolbar_subtitle)
-    TextView mToolbarSubtitle;
+
     @BindView(R.id.tv_send_red)
     TextView mTvSendRed;
 
@@ -88,16 +84,8 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        mToolbarTitle.setText("发送红包");
-        mToolbarTitle.setTextColor(ContextCompat.getColor(this,
-                R.color.black_text));
-        mToolbarSubtitle.setVisibility(View.GONE);
-        mToolbarSubtitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
+        title_bar.setTitle("发送红包");
+        title_bar.setOnBackPressListener(view -> finish());
 
         mTvSendRed.setOnClickListener(view -> {
             //发红包
@@ -198,6 +186,12 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
                 StringUtil.isEmpty(mEtRedMark.getText().toString().trim()) ?
                         "恭喜发财，大吉大利！" : mEtRedMark.getText().toString().trim();
         map.put("remark", remark);
+        map.put("type", "1");//type：1-群红包 2-个人红包 （由于是群红包，这里固定为1即可，必传）
+        map.put("redPacketType", "0");//0-拼手气，非专属红包 1-专属红包,2-群平均红包 （必传）
+        // TODO: 2021/8/25/025
+        /*toUserNickName：专属红包用户昵称 （发送给谁的昵称 ， redPacketType==1时必传）
+        belongUserId：专属红包用户id （发送给谁的userId ， redPacketType==1时必传）
+        注意：如果是专属红包，则红包个数需要固定为1，单个红包最多200*/
 
         ApiClient.requestNetHandle(this, AppConfig.CREATE_RED_PACKE, "正在发送红包." +
                 "..", map, new ResultListener() {

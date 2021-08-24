@@ -69,9 +69,6 @@ import com.zds.base.Toast.ToastUtil;
  * 群组详情
  */
 public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDeatilAdapter.OnDelClickListener {
-
-
-
     @BindView(R.id.title_bar)
     EaseTitleBar title_bar;
 

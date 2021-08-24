@@ -1057,7 +1057,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                         "nickname", nickname).putExtra("type", "1"));
             } else {
                 startActivity(new Intent(requireActivity(), RedPacketDetailActivity.class).putExtra("rid", id).putExtra("head", head).putExtra(
-                        "nickname", nickname));
+                        "nickname", nickname).putExtra("type", "0"));
             }
             return;
         }
@@ -1085,12 +1085,11 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                                             RedPacketDetailActivity.class).putExtra("rid"
                                             , id).putExtra("head", head).putExtra(
                                             "nickname", nickname).putExtra("type", "1"));
-
                                 } else {
                                     startActivity(new Intent(requireActivity(),
                                             RedPacketDetailActivity.class).putExtra("rid"
                                             , id).putExtra("head", head).putExtra(
-                                            "nickname", nickname));
+                                            "nickname", nickname).putExtra("type", "0"));
                                 }
                             } else {
                                 showRedPacket(state, emMessage);
@@ -1175,7 +1174,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                             startActivity(new Intent(requireActivity(),
                                     RedPacketDetailActivity.class).putExtra("rid"
                                     , id).putExtra("head", head).putExtra(
-                                    "nickname", nickname));
+                                    "nickname", nickname).putExtra("type", "0"));
                         }
 
                     }
@@ -1245,7 +1244,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                             startActivity(new Intent(requireActivity(),
                                     RedPacketDetailActivity.class).putExtra("rid"
                                     , id).putExtra("head", head).putExtra(
-                                    "nickname", nickname));
+                                    "nickname", nickname).putExtra("type", "0"));
                         }
                     }
 

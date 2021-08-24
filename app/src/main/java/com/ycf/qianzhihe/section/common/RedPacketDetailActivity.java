@@ -36,6 +36,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * 作   者：赵大帅
@@ -147,6 +148,14 @@ public class RedPacketDetailActivity extends BaseInitActivity {
 
     }
 
+    @OnClick({R.id.ll_back})
+    public void click(View v) {
+        switch (v.getId()) {
+            case R.id.ll_back:
+                finish();
+                break;
+        }
+    }
 
     @Override
     protected void initIntent(Intent intent) {
@@ -166,17 +175,15 @@ public class RedPacketDetailActivity extends BaseInitActivity {
         Map<String, Object> map = new HashMap<>();
         map.put("redPacketId", rid + "");
         String url = fromRecord ? AppConfig.getRedPacketFromDB : AppConfig.getRedPacket;
-        ApiClient.requestNetHandle(this, url, "",
-                map, new ResultListener() {
+        ApiClient.requestNetHandle(this, url, "", map, new ResultListener() {
                     @Override
                     public void onSuccess(String json, String msg) {
                         if (json != null) {
                             if (type.equals("1")) {
                                 ll_message_hb.setVisibility(View.VISIBLE);
                             }
-                            RedPacketInfo redPacketInfo =
-                                    FastJsonUtil.getObject(json
-                                            , RedPacketInfo.class);
+                            RedPacketInfo redPacketInfo = FastJsonUtil.getObject(json, RedPacketInfo.class);
+
                             if (redPacketInfo == null) {
                                 ToastUtil.toast("信息异常");
                                 return;
@@ -198,13 +205,12 @@ public class RedPacketDetailActivity extends BaseInitActivity {
                                 tv_intro.setText(redPacketInfo.getRemark() == null ? "恭喜发财，大吉大利！" : redPacketInfo.getRemark().toString());
                             }
                             ll_user_money.setVisibility(View.VISIBLE);
+
                             if (tv_money != null) {
                                 tv_money.setText("￥" + StringUtil.getFormatValue2(redPacketInfo.getMoney()));
-
+                                tv_money.setText("￥"+redPacketInfo.getMoney());
                                 if (redPacketInfo.getPacketAmount() > 0) {
-
                                     List<RedPacketInfo.RedPacketDetailListBean> list = redPacketInfo.getRedPacketDetailList();
-
                                     for (int i = 0; i < list.size(); i++) {
                                         if (list.get(i).getUserId().equals(UserComm.getUserInfo().getUserId())) {
                                             tv_money.setText("￥" + StringUtil.getFormatValue2(list.get(i).getMoney()));
