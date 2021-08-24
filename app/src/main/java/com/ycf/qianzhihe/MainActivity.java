@@ -75,7 +75,7 @@ import java.lang.reflect.Method;
 public class MainActivity extends BaseInitActivity implements BottomNavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     private BottomNavigationView navView;
     private EaseTitleBar mTitleBar;
-    private EaseBaseFragment mContactsFragment, mMessageFragment, mDiscoverFragment, mFindFragment;
+    private EaseBaseFragment mContactsFragment, mMessageFragment, mDiscoverFragment, mFindFragment, mNewsFragment;
     private EaseBaseFragment mCurrentFragment;
     private TextView mTvMainContactsMsg, mTvMainMessageMsg, mTvMainDiscoverMsg, mTvMainFindMsg;
     private int[] badgeIds = {R.layout.demo_badge_home, R.layout.demo_badge_friends, R.layout.demo_badge_discover, R.layout.demo_badge_about_me};
@@ -118,21 +118,33 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
         return super.onMenuOpened(featureId, menu);
     }
 
-    @Override
+   /* @Override
     protected void initSystemFit() {
         setFitSystemForTheme(false);
-    }
+    }*/
 
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
+        initImmersionBar(false);
         navView = findViewById(R.id.nav_view);
         mTitleBar = findViewById(R.id.title_bar_main);
+        mTitleBar.setRightLayoutClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mTitleBar.getTitle().getText().equals("联系人")) {
+                    AddContactActivity.actionStart(mContext, SearchType.CHAT);//搜索>添加好友
+                } else if (mTitleBar.getTitle().getText().equals("消息")) {
+                    showPopWinShare(mTitleBar.getRightImage());
+                }
+
+            }
+        });
         navView.setItemIconTintList(null);
         // 可以动态显示隐藏相应tab
         //navView.getMenu().findItem(R.id.em_main_nav_me).setVisible(false);
-        switchToHome();//首页-联系人
-//        switchToFriends();//首页-消息列表
+//        switchToHome();//首页-联系人
+        switchToNews();
         checkIfShowSavedFragment(savedInstanceState);
         addTabBadge();
     }
@@ -279,6 +291,13 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
 
     }
 
+    private void switchToNews() {
+        if (mNewsFragment == null) {
+            mNewsFragment = new DiscoverFragment();
+        }
+        replace(mNewsFragment, "news");
+    }
+
     private void switchToHome() {
         if (mContactsFragment == null) {
             mContactsFragment = new ContactHomeFragment();
@@ -327,6 +346,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
         }
     }
 
+
     ImageView mIvAvatar;
 
     /**
@@ -335,30 +355,31 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
      * @param tag
      */
     private void replaceBarButtonLayout(String tag) {
-        mTitleBar.getRightLayout().removeAllViews();
-        mTitleBar.getRightLayout().setClickable(false);
+//        mTitleBar.getRightLayout().removeAllViews();
+//        mTitleBar.getRightLayout().setClickable(false);
         mTitleBar.getLeftLayout().removeAllViews();
         mTitleBar.getLeftLayout().setClickable(false);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+        View leftView = View.inflate(this, R.layout.layout_toolbar_contacts_left, null);
+        mIvAvatar = leftView.findViewById(R.id.iv_avatar);
+        mIvAvatar.setOnClickListener(this);
+        LoginInfo loginInfo = UserComm.getUserInfo();
+        GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(loginInfo.getUserHead()), mIvAvatar, R.mipmap.img_default_avatar);
+        mTitleBar.getLeftLayout().addView(leftView, layoutParams);
+        if ("news".equals(tag)) {
+            mTitleBar.setRightImageResource(0);
+        }
         if ("contacts".equals(tag)) {
-            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-            RelativeLayout.LayoutParams layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            /*RelativeLayout.LayoutParams layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             layoutParams1.addRule(RelativeLayout.CENTER_IN_PARENT);
-
             View rightView = View.inflate(this, R.layout.layout_toolbar_contacts_right, null);
             rightView.findViewById(R.id.iv_add).setOnClickListener(this);
             rightView.findViewById(R.id.iv_search).setOnClickListener(this);
-            mTitleBar.getRightLayout().addView(rightView, layoutParams);
-
-            View leftView = View.inflate(this, R.layout.layout_toolbar_contacts_left, null);
-            mIvAvatar = leftView.findViewById(R.id.iv_avatar);
-            mIvAvatar.setOnClickListener(this);
-            LoginInfo loginInfo = UserComm.getUserInfo();
-            GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(loginInfo.getUserHead()), mIvAvatar, R.mipmap.img_default_avatar);
-
-            mTitleBar.getLeftLayout().addView(leftView, layoutParams1);
+            mTitleBar.getRightLayout().addView(rightView, layoutParams);*/
+            mTitleBar.setRightImageResource(R.drawable.ic_add_friends);
         } else if ("message".equals(tag)) {
-            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            /*RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
             RelativeLayout.LayoutParams layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
             layoutParams1.addRule(RelativeLayout.CENTER_IN_PARENT);
@@ -370,17 +391,18 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
             ivAdd.setOnClickListener(view -> {
                 showPopWinShare(ivAdd);
             });
-            mTitleBar.getRightLayout().addView(rightView, layoutParams);
+            mTitleBar.getRightLayout().addView(rightView, layoutParams);*/
 
-            View leftView = View.inflate(this, R.layout.layout_toolbar_contacts_left, null);
-            mIvAvatar = leftView.findViewById(R.id.iv_avatar);
-            mIvAvatar.setOnClickListener(this);
-            LoginInfo loginInfo = UserComm.getUserInfo();
-            GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(loginInfo.getUserHead()), mIvAvatar, R.mipmap.img_default_avatar);
+//            View leftView = View.inflate(this, R.layout.layout_toolbar_contacts_left, null);
+//            mIvAvatar = leftView.findViewById(R.id.iv_avatar);
+//            mIvAvatar.setOnClickListener(this);
+//            LoginInfo loginInfo = UserComm.getUserInfo();
+//            GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(loginInfo.getUserHead()), mIvAvatar, R.mipmap.img_default_avatar);
 
-            mTitleBar.getLeftLayout().addView(leftView, layoutParams1);
-        } else if ("find".equals(tag)) {
-
+//            mTitleBar.getLeftLayout().addView(leftView, layoutParams1);
+            mTitleBar.setRightImageResource(R.mipmap.ic_main_add);
+        } else if ("discover".equals(tag)) {
+            mTitleBar.setRightImageResource(0);
         }
     }
 
@@ -407,8 +429,8 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
                 showNavigation = true;
                 break;
             case R.id.em_main_nav_find:
-                switchToAboutMe();//环信demo个人中心
-                mTitleBar.setTitle(getResources().getString(R.string.em_main_title_discover));
+                switchToNews();//资讯
+                mTitleBar.setTitle(getResources().getString(R.string.em_main_title_news));
                 showMenu = false;
                 showNavigation = true;
                 break;
@@ -439,7 +461,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_add:
-                AddContactActivity.actionStart(mContext, SearchType.CHAT);
+                AddContactActivity.actionStart(mContext, SearchType.CHAT);//搜索>添加好友
                 break;
             case R.id.iv_search:
                 SearchConversationActivity.actionStart(mContext);

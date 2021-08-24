@@ -11,12 +11,14 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMCmdMessageBody;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.easeui.widget.EaseAlertDialog;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.Global;
@@ -33,11 +35,15 @@ import com.ycf.qianzhihe.app.operate.UserOperateManager;
 import com.ycf.qianzhihe.app.utils.ProjectUtil;
 import com.ycf.qianzhihe.app.utils.hxSetMessageFree.EaseSharedUtils;
 import com.ycf.qianzhihe.app.utils.my.MyHelper;
+import com.ycf.qianzhihe.app.weight.MyDialog;
 import com.ycf.qianzhihe.section.chat.activity.ChatActivity;
+import com.ycf.qianzhihe.section.conversation.ChatBgActivity;
+import com.ycf.qianzhihe.section.conversation.ChatMoreSetlActivity;
 import com.ycf.qianzhihe.section.conversation.ChatRecordActivity;
 import com.ycf.qianzhihe.section.conversation.ModifyFriendRemarkActivity;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.hyphenate.exceptions.HyphenateException;
+import com.ycf.qianzhihe.section.conversation.ReportActivity;
 import com.zds.base.ImageLoad.GlideUtils;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.json.FastJsonUtil;
@@ -81,8 +87,8 @@ public class UserInfoDetailActivity extends BaseInitActivity {
     TextView tvInviter;
     @BindView(R.id.layout_inviter)
     RelativeLayout layoutInviter;
-    @BindView(R.id.et_remark)
-    TextView mEtRemark;
+    @BindView(R.id.tv_remark)
+    TextView tv_remark;
     @BindView(R.id.llay_remark)
     RelativeLayout mLlayRemark;
     @BindView(R.id.kick_out)
@@ -98,6 +104,12 @@ public class UserInfoDetailActivity extends BaseInitActivity {
     private String groupId;
     private String from = "";
     private FriendInfo info;
+    @BindView(R.id.tv_sign)
+    TextView tv_sign;
+    @BindView(R.id.switch_black)
+    CheckBox mSwitchBlack;
+    @BindView(R.id.iv_online_status)
+    ImageView iv_online_status;
 
 
     @Override
@@ -140,7 +152,6 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                 mTvAddFriend.setText("移出黑名单");
             }
 
-            queryFriendInfo();
 
             if (!TextUtils.isEmpty(inviterUserId)) {
                 queryInviter();
@@ -196,6 +207,15 @@ public class UserInfoDetailActivity extends BaseInitActivity {
             }
         });*/
 
+        //加入黑名单
+        mSwitchBlack.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                blackContact("1");
+            } else {
+                blackContact("0");
+            }
+        });
+
 
         EMConversation emConversation = EMClient.getInstance().chatManager().getConversation(userId + Constant.ID_REDPROJECT);
         if (emConversation != null) {
@@ -238,12 +258,12 @@ public class UserInfoDetailActivity extends BaseInitActivity {
             userId = userId.split("-")[0];
         }
         map.put("friendUserId", userId);
-        map.put("friendNickName", mEtRemark.getText().toString().trim());
+        map.put("friendNickName", tv_remark.getText().toString().trim());
         ApiClient.requestNetHandle(this, AppConfig.ADD_GOODS_FRIEND_REMARK,
                 "请稍后...", map, new ResultListener() {
                     @Override
                     public void onSuccess(String json, String msg) {
-                        String name = mEtRemark.getText().toString().trim();
+                        String name = tv_remark.getText().toString().trim();
                         UserOperateManager.getInstance().updateUserName(userId, name);
                         //mTvNickName.setText(StringUtil.isEmpty(name) ? info.getNickName() + " " : name);
 
@@ -263,7 +283,7 @@ public class UserInfoDetailActivity extends BaseInitActivity {
         if (center.getEventCode() == EventUtil.OPERATE_BLACK || center.getEventCode() == EventUtil.DELETE_CONTACT) {
             finish();
         } else if (center.getEventCode() == EventUtil.REFRESH_REMARK) {
-            mEtRemark.setText(UserOperateManager.getInstance().getUserName(userId));
+            tv_remark.setText(UserOperateManager.getInstance().getUserName(userId));
         }
     }
 
@@ -387,6 +407,23 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                             mTvLineStatus.setText(info.getLine().equals(
                                     "online") ?
                                     "在线" : "离线");
+                            if (TextUtils.isEmpty(info.getSign())) {
+                                tv_sign.setText("这家伙很懒，啥都没写");
+                            } else {
+                                tv_sign.setText(info.getSign());
+                            }
+
+                            //是否在线
+                            if (!TextUtils.isEmpty(info.getLine())) {
+                                if (info.getLine().equals("online")) {
+                                    iv_online_status.setBackgroundResource(R.drawable.dot_green);
+                                } else {
+                                    iv_online_status.setBackgroundResource(R.drawable.dot_gray);
+                                }
+                            } else {
+                                iv_online_status.setBackgroundResource(R.drawable.dot_gray);
+                            }
+
                             mTvNickName.setText(info.getNickName());
                             //好友标识 0 不是好友 1 是好友
                             if (info.getFriendFlag().equals("1")) {
@@ -405,7 +442,7 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                                 try {
                                     String remark =
                                             UserOperateManager.getInstance().getUserName(userId);
-                                    mEtRemark.setText(info.getFriendNickName());
+                                    tv_remark.setText(info.getFriendNickName());
                                     /*mEtRemark.setSelection(StringUtil.isEmpty(remark) ? 0 :
                                             remark.length());*/
                                 } catch (Exception e) {
@@ -472,10 +509,41 @@ public class UserInfoDetailActivity extends BaseInitActivity {
     }
 
 
-    @OnClick({R.id.tv_chat_record, R.id.fl_send_msg, R.id.tv_add_friend, R.id.kick_out, R.id.llay_remark, R.id.et_remark})
+    @OnClick({R.id.tv_chat_record, R.id.fl_send_msg, R.id.tv_add_friend, R.id.kick_out, R.id.llay_remark, R.id.tv_remark
+            , R.id.tv_clear_history, R.id.tv_chat_bg,R.id.tv_report, R.id.tv_del_friend})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.tv_del_friend:
+                new MyDialog(this)
+                        .setTitle("删除联系人")
+                        .setMessage("将联系人 " + info.getNickName() + " 删除，将同时删除与该联系人的聊天记录")
+                        .setPositiveButton("删除", new MyDialog.OnMyDialogButtonClickListener() {
+                            @Override
+                            public void onClick() {
+                                deleteContact();
+                            }
+                        })
+                        .setNegativeButton("取消", null)
+                        .show();
 
+                break;
+            case R.id.tv_report:
+                //举报
+                startActivity(new Intent(this, ReportActivity.class).putExtra("from", "2").putExtra("userGroupId", groupId));
+                break;
+            case R.id.tv_chat_bg:
+                //聊天背景
+                ChatBgActivity.actionStart(this, "1", info.getNickName());
+                break;
+            case R.id.tv_clear_history:
+                //清空聊天记录
+                new EaseAlertDialog(UserInfoDetailActivity.this, null,
+                        "确定清空聊天记录吗？", null, (confirmed, bundle) -> {
+                    if (confirmed) {
+                        clearSingleChatHistory();
+                    }
+                }, true).show();
+                break;
             case R.id.kick_out:
                 delGroupUser();
                 break;
@@ -508,7 +576,7 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                 //好友拉黑状态
                 if (info.getFriendFlag().equals("1")) {
                     if (info.getBlackStatus() != null && info.getBlackStatus().equals("1")) {
-                        blackContact();
+                        blackContact("0");
                     }
                 } else {
                     addUser();
@@ -524,15 +592,23 @@ public class UserInfoDetailActivity extends BaseInitActivity {
 //                startActivity(new Intent(this, ReportActivity.class).putExtra("from", "1").putExtra("userGroupId", userId));
 //                break;
             case R.id.llay_remark:
-            case R.id.et_remark:
+            case R.id.tv_remark:
                 if (info == null) {
                     return;
                 }
-                ModifyFriendRemarkActivity.actionStart(this, userId, mEtRemark.getText().toString());
+                ModifyFriendRemarkActivity.actionStart(this, userId, tv_remark.getText().toString());
                 break;
             default:
                 break;
         }
+    }
+
+    /**
+     * 清空单聊聊天记录
+     */
+    private void clearSingleChatHistory() {
+        EventBus.getDefault().post(new EventCenter<>(EventUtil.CLEAR_HUISTROY));
+        Toast.makeText(this, R.string.messages_are_empty, Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -594,12 +670,11 @@ public class UserInfoDetailActivity extends BaseInitActivity {
     /**
      * 解除拉黑好友
      */
-    public void blackContact() {
-        Map<String, Object> map = new HashMap<>(2);
+    public void blackContact(String blackStatus) {
+       /* Map<String, Object> map = new HashMap<>(2);
         map.put("friendUserId", userId);
         //拉黑状态 0-未拉黑 1-已拉黑
         map.put("blackStatus", "0");
-
         ApiClient.requestNetHandle(this, AppConfig.BLACK_USER_FRIEND,
                 "正在移除黑名单...", map, new ResultListener() {
                     @Override
@@ -607,6 +682,35 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                         EventBus.getDefault().post(new EventCenter<>(EventUtil.REFRESH_BLACK));
                         ToastUtil.toast(" 移除成功");
                         finish();
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+                        ToastUtil.toast(msg);
+                    }
+                });*/
+        Map<String, Object> map = new HashMap<>(2);
+        map.put("friendUserId", userId.split("-")[0]);
+        //拉黑状态 0-未拉黑 1-已拉黑
+        map.put("blackStatus", blackStatus);
+
+        ApiClient.requestNetHandle(this, AppConfig.BLACK_USER_FRIEND,
+                mSwitchBlack.isChecked() ? "正在拉黑..." : "正在取消拉黑...", map,
+                new ResultListener() {
+                    @Override
+                    public void onSuccess(String json, String msg) {
+                        if (from.equals("3")) {
+                            EventBus.getDefault().post(new EventCenter<>(EventUtil.REFRESH_BLACK));
+                            ToastUtil.toast(" 移除成功");
+                            finish();
+                        } else {
+                            if (mSwitchBlack.isChecked()) {
+                                ToastUtil.toast("拉黑成功");
+                                EMClient.getInstance().chatManager().deleteConversation(userId.contains(Constant.ID_REDPROJECT) ? userName : userId + Constant.ID_REDPROJECT, false);
+                                EventBus.getDefault().post(new EventCenter<>(EventUtil.OPERATE_BLACK));
+                                finish();
+                            }
+                        }
                     }
 
                     @Override

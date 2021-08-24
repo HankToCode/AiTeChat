@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.lifecycle.ViewModelProvider;
@@ -20,6 +21,7 @@ import com.ycf.qianzhihe.app.weight.ConversationItemView;
 import com.ycf.qianzhihe.common.constant.DemoConstant;
 import com.ycf.qianzhihe.common.livedatas.LiveDataBus;
 import com.ycf.qianzhihe.common.utils.PreferenceManager;
+import com.ycf.qianzhihe.section.search.SearchConversationActivity;
 import com.zds.base.json.FastJsonUtil;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.global.SP;
@@ -30,10 +32,11 @@ import com.hyphenate.easeui.manager.EaseAtMessageHelper;
 import com.hyphenate.easeui.model.EaseEvent;
 
 
-public class ConversationListFragment extends BaseConversationListFragment {
+public class ConversationListFragment extends BaseConversationListFragment implements View.OnClickListener {
 
     private ConversationItemView friendNoticeItem;
     private ConversationItemView groupdNoticeItem;
+    private TextView tv_search;
 
     @Override
     protected void onEventComing(EventCenter center) {
@@ -75,7 +78,8 @@ public class ConversationListFragment extends BaseConversationListFragment {
         HeaderItemClickListener clickListener = new HeaderItemClickListener();
         friendNoticeItem = headerView.findViewById(R.id.friend_notice);
         groupdNoticeItem = headerView.findViewById(R.id.group_notice);
-
+        tv_search = headerView.findViewById(R.id.tv_search);
+        tv_search.setOnClickListener(this);
         headerView.findViewById(R.id.friend_notice).setOnClickListener(clickListener);
         headerView.findViewById(R.id.group_notice).setOnClickListener(clickListener);
         conversationListView.addHeaderView(headerView);
@@ -193,6 +197,13 @@ public class ConversationListFragment extends BaseConversationListFragment {
         refresh();
 
         return true;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId()==R.id.tv_search) {
+            SearchConversationActivity.actionStart(mContext);
+        }
     }
 
     protected class HeaderItemClickListener implements View.OnClickListener {

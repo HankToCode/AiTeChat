@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.DemoApplication;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
@@ -40,10 +41,9 @@ public class EditInfoActivity extends BaseInitActivity {
 
     public static final String FUNC_TYPE_MODIFY_GROUP_REMARK = "6";
 
-    @BindView(R.id.toolbar_title)
-    TextView mToolbarTitle;
-    @BindView(R.id.toolbar_subtitle)
-    TextView mToolSubTitle;
+    @BindView(R.id.title_bar)
+    EaseTitleBar title_bar;
+
     @BindView(R.id.et_nick_name)
     EditText mEtNickName;
     @BindView(R.id.img_del)
@@ -74,17 +74,15 @@ public class EditInfoActivity extends BaseInitActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        mToolSubTitle.setVisibility(View.VISIBLE);
-        mToolSubTitle.setText("保存");
+        title_bar.getRightText().setVisibility(View.VISIBLE);
+        title_bar.getRightText().setText("保存");
         if (mEtNickName.getText().length() > 0) {
             mImgDel.setVisibility(View.VISIBLE);
         }
 
-
-        //昵称保存
-        mToolSubTitle.setOnClickListener(new View.OnClickListener() {
+        title_bar.setOnRightClickListener(new EaseTitleBar.OnRightClickListener() {
             @Override
-            public void onClick(View v) {
+            public void onRightClick(View view) {
                 //设置昵称
                 if (from.equals("1")) {
                     editNickName();
@@ -103,6 +101,8 @@ public class EditInfoActivity extends BaseInitActivity {
                 }
             }
         });
+
+
         mEtNickName.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -135,13 +135,13 @@ public class EditInfoActivity extends BaseInitActivity {
         super.initIntent(intent);
         from = intent.getStringExtra("from");
         if ("1".equals(from)) {
-            mToolbarTitle.setText("修改昵称");
+            title_bar.setTitle("修改昵称");
             mEtNickName.setHint("输入昵称");
             mEtNickName.setText(UserComm.getUserInfo().getNickName());
             mEtNickName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
 
         } else if (from.equals("2")) {
-            mToolbarTitle.setText("千纸鹤号");
+            title_bar.setTitle("千纸鹤号");
             mEtNickName.setHint("请输入您的千纸鹤号");
             mEtNickName.setText(UserComm.getUserInfo().getUserCode());
             mTvHintAccount.setVisibility(View.VISIBLE);
@@ -149,22 +149,22 @@ public class EditInfoActivity extends BaseInitActivity {
             mEtNickName.setKeyListener(DigitsKeyListener.getInstance(dig));
 
         } else if (from.equals("3")) {
-            mToolbarTitle.setText("个性签名");
+            title_bar.setTitle("个性签名");
             mEtNickName.setHint("输入个性签名");
             mEtNickName.setText(UserComm.getUserInfo().getSign());
         } else if (from.equals("4")) {
-            mToolbarTitle.setText("修改群名称");
+            title_bar.setTitle("修改群名称");
             mEtNickName.setHint("输入群名称");
             mEtNickName.setText(intent.getStringExtra("groupName"));
             groupId = intent.getStringExtra("groupId");
             mEtNickName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(20)});
         } else if (from.equals("5")) {
-            mToolbarTitle.setText("修改我的群昵称");
+            title_bar.setTitle("修改我的群昵称");
             mEtNickName.setHint("输入我的群昵称");
             mEtNickName.setText(intent.getStringExtra("myGroupName"));
             groupId = intent.getStringExtra("groupId");
         } else if (from.equals(FUNC_TYPE_MODIFY_GROUP_REMARK)) {
-            mToolbarTitle.setText("群备注");
+            title_bar.setTitle("群备注");
             mEtNickName.setHint("输入群备注");
             mEtNickName.setText(intent.getStringExtra("key_intent_group_remark"));
             groupId = intent.getStringExtra("groupId");

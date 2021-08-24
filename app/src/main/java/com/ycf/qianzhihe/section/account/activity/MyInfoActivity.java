@@ -65,7 +65,7 @@ public class MyInfoActivity extends BaseInitActivity {
     @BindView(R.id.tv_account)
     TextView mTvAccount;
     @BindView(R.id.tv_sign)
-    TextView mTvSign;
+    TextView tv_sign;
     @BindView(R.id.tv_phone)
     TextView mTvPhone;
     private LoginInfo info;
@@ -78,6 +78,8 @@ public class MyInfoActivity extends BaseInitActivity {
     RadioButton rb_male;
     @BindView(R.id.rb_female)
     RadioButton rb_female;
+    @BindView(R.id.ll_sign)
+    RadioButton ll_sign;
 
     @Override
     protected int getLayoutId() {
@@ -93,6 +95,7 @@ public class MyInfoActivity extends BaseInitActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
+        initImmersionBar(false);
         title_bar.setTitle("我的资料");
         title_bar.setLeftImageResource(R.mipmap.icon_back_white);
         title_bar.setOnBackPressListener(view -> finish());
@@ -110,8 +113,9 @@ public class MyInfoActivity extends BaseInitActivity {
         }
 
         if (!TextUtils.isEmpty(info.getSign())) {
-            //艾特号
-            mTvSign.setText(info.getSign());
+            tv_sign.setText(info.getSign());
+        } else {
+            tv_sign.setText("这家伙很懒，啥都没写");
         }
 
 
@@ -170,7 +174,7 @@ public class MyInfoActivity extends BaseInitActivity {
     protected void onEventComing(EventCenter center) {
         if (center.getEventCode() == EventUtil.FLUSHUSERINFO) {
             mTvName.setText(UserComm.getUserInfo().getNickName());
-            mTvSign.setText(UserComm.getUserInfo().getSign());
+            tv_sign.setText(UserComm.getUserInfo().getSign());
             mTvAccount.setText(UserComm.getUserInfo().getUserCode());
         }
     }
@@ -272,7 +276,8 @@ public class MyInfoActivity extends BaseInitActivity {
     }
 
 
-    @OnClick({R.id.rl_my_share, R.id.img_head, R.id.tv_name, R.id.rl_my_sign, R.id.tv_account,  R.id.rl_my_qr,R.id.tv_logoff})
+    @OnClick({R.id.rl_my_share, R.id.img_head, R.id.tv_name, R.id.ll_sign, R.id.tv_account,
+            R.id.rl_my_qr,R.id.tv_logoff,R.id.ll_sign})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.img_head:
@@ -284,7 +289,7 @@ public class MyInfoActivity extends BaseInitActivity {
             case R.id.tv_name://修改昵称
                 startActivity(new Intent(this, EditInfoActivity.class).putExtra("from", "1"));
                 break;
-            case R.id.rl_my_sign://修改个性签名
+            case R.id.ll_sign://修改个性签名
                 startActivity(new Intent(this, EditInfoActivity.class).putExtra("from", "3"));
                 break;
             /*case R.id.tv_account:

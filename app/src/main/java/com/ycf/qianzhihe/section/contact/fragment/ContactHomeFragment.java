@@ -3,6 +3,8 @@ package com.ycf.qianzhihe.section.contact.fragment;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.viewpager.widget.ViewPager;
 
@@ -12,6 +14,7 @@ import com.ycf.qianzhihe.common.utils.AdapterHelper;
 
 import com.hyphenate.easeui.ui.base.EaseBaseFragment;
 import com.scwang.smartrefresh.layout.util.DensityUtil;
+import com.ycf.qianzhihe.section.search.SearchConversationActivity;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
 import net.lucode.hackware.magicindicator.ViewPagerHelper;
@@ -25,9 +28,14 @@ import net.lucode.hackware.magicindicator.buildins.commonnavigator.titles.ColorT
 import java.util.Arrays;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.OnClick;
+
 public class ContactHomeFragment extends BaseInitFragment {
     private MagicIndicator indicator;
     private ViewPager viewPager;
+    @BindView(R.id.tv_search)
+    TextView tv_search;
 
     private List<String> titles = Arrays.asList("我的好友", "我的群组");
     private List<EaseBaseFragment> fragments = Arrays.asList(new ContactListFragment(), new GroupContactManageFragment());
@@ -42,6 +50,7 @@ public class ContactHomeFragment extends BaseInitFragment {
         super.initView(savedInstanceState);
         indicator = findViewById(R.id.indicator);
         viewPager = findViewById(R.id.view_pager);
+        tv_search = findViewById(R.id.tv_search);
 
         initIndicator(titles);
 
@@ -51,7 +60,13 @@ public class ContactHomeFragment extends BaseInitFragment {
     @Override
     protected void initListener() {
         super.initListener();
+    }
 
+    @OnClick({R.id.tv_search})
+    public void click(View v) {
+        if (v.getId()==R.id.tv_search) {
+            SearchConversationActivity.actionStart(mContext);
+        }
     }
 
 
@@ -83,9 +98,9 @@ public class ContactHomeFragment extends BaseInitFragment {
                 //设置头部标签指示器
                 WrapPagerIndicator indicator = new WrapPagerIndicator(context);
                 indicator.setFillColor(Color.parseColor("#53B0F7"));
-                indicator.setHorizontalPadding(DensityUtil.dp2px( 10));
-                indicator.setVerticalPadding(DensityUtil.dp2px( 5));
-                indicator.setRoundRadius(DensityUtil.dp2px( 25));
+                indicator.setHorizontalPadding(DensityUtil.dp2px(10));
+                indicator.setVerticalPadding(DensityUtil.dp2px(5));
+                indicator.setRoundRadius(DensityUtil.dp2px(25));
                 return indicator;
             }
         });
