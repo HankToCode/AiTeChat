@@ -47,7 +47,6 @@ public class ChatBasicRedPacket extends EaseChatRow {
         tv_time_message = findViewById(R.id.tv_time_message);
         tv_hongbao = findViewById(R.id.tv_hongbao);
         tv_time = findViewById(R.id.tv_time);
-        tv_time = findViewById(R.id.tv_time);
         bubble = findViewById(R.id.bubble);
         toNickName = findViewById(R.id.toNickName);
     }
@@ -70,7 +69,8 @@ public class ChatBasicRedPacket extends EaseChatRow {
         String userNickName = message.getStringAttribute("toUserNickName", "您的");
 
         try {
-            tv_time.setText(StringUtil.formatTime(message.getMsgTime(), "yyyy-MM-dd HH:mm:ss"));
+//            tv_time.setText(StringUtil.formatTime(message.getMsgTime(), "yyyy-MM-dd HH:mm:ss"));
+            tv_time.setText(StringUtil.formatTime(message.getMsgTime(), "HH:mm:ss"));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -111,8 +111,9 @@ public class ChatBasicRedPacket extends EaseChatRow {
             }
         }
 
-        toNickName.setText("给" + userNickName + "的专属红包");
-
+        toNickName.setText("给" + userNickName + "红包");
+        // TODO: 2021/8/25/025  暂时隐藏，应根据红包类型 只有专属红包 显示
+        toNickName.setVisibility(GONE);
     }
 
 

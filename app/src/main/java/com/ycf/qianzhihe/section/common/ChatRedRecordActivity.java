@@ -3,6 +3,7 @@ package com.ycf.qianzhihe.section.common;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
@@ -35,6 +36,8 @@ public class ChatRedRecordActivity extends BaseInitActivity {
     TextView mToolbarTitle;
     @BindView(R.id.rv_red_record)
     RecyclerView mRvRedRecord;
+    @BindView(R.id.ll_back)
+    LinearLayout ll_back;
 
     private ChatRedRecordAdapter mRedRecordAdapter;
     private List<MyRedInfo.DataBean> mPacketInfoList = new ArrayList<>();
@@ -65,6 +68,7 @@ public class ChatRedRecordActivity extends BaseInitActivity {
             }
         });
 
+        ll_back.setOnClickListener(view -> finish());
 
         queryRed();
     }

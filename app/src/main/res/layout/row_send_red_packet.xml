@@ -55,7 +55,7 @@
                 android:maxLines="1"
                 android:textColor="#FFE8D6"
                 android:textSize="18dp"
-                tools:text="恭喜发财，大吉大利！恭喜发财，大吉大利！" />
+                tools:text="恭喜发财，大吉大利！" />
 
             <TextView
                 android:id="@+id/toNickName"
