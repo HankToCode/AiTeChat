@@ -1,40 +1,41 @@
-package com.ycf.qianzhihe.common.widget;
+package com.ycf.qianzhihe.app.weight;
 
 import android.app.Activity;
-import android.graphics.Color;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ycf.qianzhihe.R;
+import com.zds.base.Toast.ToastUtil;
 import com.zds.base.base.BaseDialog;
-import com.zds.base.util.RichTextUtils;
 
 /**
- * 注销二次弹窗
+ * 通用确定取消对话框
  */
-public class LogoffDialog extends BaseDialog {
+public class ConfirmInputDialog extends BaseDialog {
 
     private TextView tv_title;
-    private TextView tv_content;
+    private EditText et_content;
     private TextView tv_cancel;
     private TextView tv_confirm;
 
     private OnConfirmClickListener mOnConfirmClickListener;
     private OnCancelClickListener mOnCancelClickListener;
 
-    public LogoffDialog(Activity activity) {
+    public ConfirmInputDialog(Activity activity) {
         super(activity);
     }
 
     @Override
     protected int getLayoutId() {
-        return R.layout.dialog_logoff;
+        return R.layout.dialog_input_confirm;
     }
 
     @Override
     protected void initView() {
         tv_title = findViewById(R.id.tv_title);
-        tv_content = findViewById(R.id.tv_content);
+        et_content = findViewById(R.id.et_content);
         tv_cancel = findViewById(R.id.tv_cancel);
         tv_confirm = findViewById(R.id.tv_confirm);
     }
@@ -43,12 +44,6 @@ public class LogoffDialog extends BaseDialog {
     protected void initEventAndData() {
         tv_cancel.setOnClickListener(this);
         tv_confirm.setOnClickListener(this);
-
-        RichTextUtils.getBuilder("千纸鹤平台将会")
-                .append("永久清空")
-                .setForegroundColor(Color.parseColor("#EE4444"))
-                .append("您的账号信息， 包括但不限于 个人资料、聊天信息、消费信息")
-                .into(tv_content);
     }
 
     public void setTitle(String title) {
@@ -56,7 +51,7 @@ public class LogoffDialog extends BaseDialog {
     }
 
     public void setContent(String content) {
-        tv_content.setText(content);
+        et_content.setText(content);
     }
 
     public void setButtonText(String leftButtonText, String rightButtonText) {
@@ -69,6 +64,7 @@ public class LogoffDialog extends BaseDialog {
         tv_confirm.setVisibility(rightButton ? View.VISIBLE : View.GONE);
     }
 
+
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -79,10 +75,14 @@ public class LogoffDialog extends BaseDialog {
                 }
                 break;
             case R.id.tv_confirm:
-                dismiss();
-                if (mOnConfirmClickListener != null) {
-                    mOnConfirmClickListener.onConfirmClick(tv_confirm);
+                if (TextUtils.isEmpty(et_content.getText().toString().trim())) {
+                    ToastUtil.toast("请输入内容");
+                    return;
                 }
+                if (mOnConfirmClickListener != null) {
+                    mOnConfirmClickListener.onConfirmClick(et_content.getText().toString().trim());
+                }
+                dismiss();
                 break;
         }
     }
@@ -92,7 +92,7 @@ public class LogoffDialog extends BaseDialog {
     }
 
     public interface OnConfirmClickListener {
-        void onConfirmClick(View view);
+        void onConfirmClick(String content);
     }
 
     public void setOnCancelClickListener(OnCancelClickListener listener) {

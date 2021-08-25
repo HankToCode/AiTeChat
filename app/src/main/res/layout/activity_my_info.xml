@@ -87,7 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="艾特号"
+                android:text="千纸鹤号"
                 android:textColor="@color/black_text"
                 android:textSize="@dimen/sp_16" />
 

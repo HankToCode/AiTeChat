@@ -37,8 +37,8 @@ public class ContactHomeFragment extends BaseInitFragment {
     @BindView(R.id.tv_search)
     TextView tv_search;
 
-    private List<String> titles = Arrays.asList("我的好友", "我的群组");
-    private List<EaseBaseFragment> fragments = Arrays.asList(new ContactListFragment(), new GroupContactManageFragment());
+    private List<String> titles = Arrays.asList("我的好友", "我的群组", "我的分组");
+    private List<EaseBaseFragment> fragments = Arrays.asList(new ContactListFragment(), new GroupContactManageFragment(), new GroupingListFragment());
 
     @Override
     protected int getLayoutId() {

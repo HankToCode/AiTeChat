@@ -59,7 +59,6 @@ public class BlackListActivity extends BaseInitActivity {
         mBeanList = new ArrayList<>();
         mBlackAdapter = new BlackAdapter(mBeanList);
         RclViewHelp.initRcLmVertical(this, mRvBlack, mBlackAdapter);
-
     }
 
     @Override

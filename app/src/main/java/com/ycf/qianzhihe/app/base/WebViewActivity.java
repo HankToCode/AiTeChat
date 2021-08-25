@@ -1,13 +1,17 @@
 package com.ycf.qianzhihe.app.base;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.net.http.SslError;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -88,12 +92,23 @@ public class WebViewActivity extends BaseInitActivity {
         webview.onPause();
     }
 
+    @SuppressLint("JavascriptInterface")
     @Override
     protected void initData() {
         super.initData();
-        if(!TextUtils.isEmpty(url)) {
+        /*if(!TextUtils.isEmpty(url)) {
             webview.loadUrl(url);
-        }
+        }*/
+        // 设置与Js交互的权限
+        webview.getSettings().setJavaScriptEnabled(true);
+        webview.addJavascriptInterface(this, "android");
+        // 设置允许JS弹窗
+        webview.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        webview.getSettings().setSupportMultipleWindows(true);
+        webview.getSettings().setDefaultTextEncodingName("utf-8");//文本编码
+        webview.getSettings().setDomStorageEnabled(true);//设置DOM存储已启用（注释后文本显示变成js代码）
+        webview.getSettings().setAllowFileAccess(true);
+
         //配置WebSettings
         WebSettings settings = webview.getSettings();
         //设置自适应屏幕，两者合用
@@ -106,6 +121,10 @@ public class WebViewActivity extends BaseInitActivity {
         //其他操作
         settings.setLoadsImagesAutomatically(true); //支持自动加载图片
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            settings.setMixedContentMode(WebSettings.MIXED_CONTENT_ALWAYS_ALLOW);
+        }
+        webview.loadUrl(url);
         //配置WebViewClient，使用WebView加载
         webview.setWebViewClient(new WebViewClient() {
             @Override
@@ -116,6 +135,7 @@ public class WebViewActivity extends BaseInitActivity {
 
             @Override
             public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+                Log.d("TAG", "onReceivedSslError: "); //如果是证书问题，会打印出此条log到console
                 handler.proceed();//表示等待证书相应
             }
         });

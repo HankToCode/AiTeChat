@@ -10,6 +10,7 @@ import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.baidu.mapapi.common.SysOSUtil;
 import com.bumptech.glide.Glide;
@@ -33,17 +34,17 @@ import butterknife.OnClick;
 public class DiscoverFragment extends BaseInitFragment implements OnBannerListener {
 
     @BindView(R.id.iv_dc1)
-    ImageView iv_dc1;
+    TextView iv_dc1;
     @BindView(R.id.iv_dc2)
-    ImageView iv_dc2;
+    TextView iv_dc2;
     @BindView(R.id.iv_dc3)
-    ImageView iv_dc3;
+    TextView iv_dc3;
     @BindView(R.id.iv_dc4)
-    ImageView iv_dc4;
+    TextView iv_dc4;
     @BindView(R.id.iv_dc5)
-    ImageView iv_dc5;
+    TextView iv_dc5;
     @BindView(R.id.iv_dc6)
-    ImageView iv_dc6;
+    TextView iv_dc6;
     @BindView(R.id.banner)
     Banner banner;
     private ArrayList<Integer> list_path;
@@ -60,12 +61,12 @@ public class DiscoverFragment extends BaseInitFragment implements OnBannerListen
         //放图片地址的集合
         list_path = new ArrayList<>();
         list_title = new ArrayList<>();
+        list_path.add(R.mipmap.qznn);
         list_path.add(R.drawable.img_b1);
         list_path.add(R.drawable.img_b2);
-        list_path.add(R.mipmap.icon_top_bg);
-        list_title.add("好好学习");
-        list_title.add("热爱劳动");
         list_title.add("不搞对象");
+        list_title.add("热爱劳动");
+        list_title.add("好好学习");
         banner.setImages(list_path);
         banner.setBannerTitles(list_title);
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);

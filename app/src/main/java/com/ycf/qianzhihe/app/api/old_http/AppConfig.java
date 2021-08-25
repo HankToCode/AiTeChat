@@ -36,7 +36,8 @@ public class AppConfig {
     /**
      * 商城地址
      */
-    public static final String shopUrl = "http://8.135.109.189:82/#/index/";
+//    public static final String shopUrl = "http://8.135.109.189:82/#/index/";
+    public static final String shopUrl = "http://120.79.221.59:82/#/index";
 
     /**
      * 图片地址
@@ -1094,6 +1095,13 @@ public class AppConfig {
     public static String getSysVipInfo = mainUrl + "/app_vip/getSysVipInfo";
     //购买VIP
     public static String saveUserVip = mainUrl + "/app_vip/saveUserVip";
+    //资讯
+    public static String findAllInformation = mainUrl + "/app_information/findAllInformation";
+    //好友分组查询
+    public static String selectFriendCategory = mainUrl + "/app_user_friend/selectFriendCategory";
+    //保存好友分组
+    public static String saveFriendCategory = mainUrl + "/app_user_friend/saveFriendCategory";
+    public static String modifyFriendCategory = mainUrl + "/app_user_friend/modifyFriendCategory";
 
 
 
