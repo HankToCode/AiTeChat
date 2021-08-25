@@ -132,15 +132,6 @@ public class RedPacketDetailActivity extends BaseInitActivity {
 
     }
 
-    @OnClick({R.id.ll_back})
-    public void click(View v) {
-        switch (v.getId()) {
-            case R.id.ll_back:
-                finish();
-                break;
-        }
-    }
-
     @Override
     protected void initIntent(Intent intent) {
         super.initIntent(intent);
