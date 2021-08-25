@@ -3,8 +3,10 @@ package com.ycf.qianzhihe.section.conversation;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ycf.qianzhihe.R;
@@ -61,6 +63,7 @@ public class ChatBgActivity extends BaseInitActivity implements ChatBgAdapter.Se
         super.initData();
         initLogic();
     }
+
 
     protected void initLogic() {
         mTitleBar.setTitle("聊天背景");
@@ -179,6 +182,6 @@ public class ChatBgActivity extends BaseInitActivity implements ChatBgAdapter.Se
 
     @Override
     protected int getLayoutId() {
-        return 0;
+        return R.layout.activity_chat_bg;
     }
 }
