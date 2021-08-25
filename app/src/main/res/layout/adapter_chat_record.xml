@@ -6,7 +6,7 @@
     android:background="@color/white"
     android:paddingBottom="@dimen/dp_12">
 
-    <com.hyphenate.easeui.widget.EaseImageView
+    <com.hyphenate.easecallkit.widget.EaseImageView
         android:id="@+id/img_head"
         android:layout_width="@dimen/dp_46"
         android:layout_height="@dimen/dp_46"

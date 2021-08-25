@@ -13,6 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
+
 import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMCmdMessageBody;
@@ -112,6 +114,10 @@ public class UserInfoDetailActivity extends BaseInitActivity {
     ImageView iv_online_status;
     @BindView(R.id.iv_start)
     ImageView iv_start;
+    @BindView(R.id.ll_grouping)
+    LinearLayout ll_grouping;
+    @BindView(R.id.tv_grouping)
+    TextView tv_grouping;
 
 
     @Override
@@ -296,7 +302,7 @@ public class UserInfoDetailActivity extends BaseInitActivity {
         emGroupId = intent.getStringExtra(Constant.PARAM_EM_GROUP_ID);
         userId = intent.getStringExtra("friendUserId");
         userName = intent.getStringExtra("userName");
-        chatType = intent.getIntExtra("chatType",0);
+        chatType = intent.getIntExtra("chatType", 0);
         from = intent.getStringExtra("from");
         inviterUserId = intent.getStringExtra("entryUserId");
     }
@@ -429,6 +435,18 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                             mTvNickName.setText(info.getNickName());
                             //好友标识 0 不是好友 1 是好友
                             if (info.getFriendFlag().equals("1")) {
+                                //是不是星标 starTarget	0:未加星标，1：星标
+                                if (!TextUtils.isEmpty(info.getStarTarget())) {
+                                    if (info.getStarTarget().equals("1")) {
+                                        iv_start.setVisibility(View.VISIBLE);
+                                    } else {
+                                        iv_start.setVisibility(View.GONE);
+                                    }
+                                } else {
+                                    iv_start.setVisibility(View.GONE);
+                                }
+
+                                tv_grouping.setText(info.getCategoryName());
                                 if (info.getBlackStatus().equals("1")) {
                                     //黑名单中
                                     mLlFriend.setVisibility(View.GONE);
@@ -510,11 +528,27 @@ public class UserInfoDetailActivity extends BaseInitActivity {
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable @org.jetbrains.annotations.Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 301 && resultCode == RESULT_OK) {
+            tv_grouping.setText(data.getStringExtra("categoryName"));
+            queryFriendInfo();
+        }
+    }
 
     @OnClick({R.id.tv_chat_record, R.id.fl_send_msg, R.id.tv_add_friend, R.id.kick_out, R.id.llay_remark, R.id.tv_remark
-            , R.id.tv_clear_history, R.id.tv_chat_bg,R.id.tv_report, R.id.tv_del_friend})
+            , R.id.tv_clear_history, R.id.tv_chat_bg, R.id.tv_report, R.id.tv_del_friend, R.id.ll_grouping})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.ll_grouping:
+                Intent intent1 = new Intent(mContext, FriendGroupingActvity.class);
+                intent1.putExtra("friendUserId", userId);
+                intent1.putExtra("categoryId", info.getCategoryId());
+                intent1.putExtra("categoryName", info.getCategoryName());
+                startActivityForResult(intent1, 301);
+//                FriendGroupingActvity.actionStart(mContext,userId,info.getCategoryId(),info.getCategoryName());
+                break;
             case R.id.tv_del_friend:
                 new MyDialog(this)
                         .setTitle("删除联系人")
