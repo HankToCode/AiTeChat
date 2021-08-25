@@ -109,7 +109,7 @@ public class MyInfoActivity extends BaseInitActivity {
         GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(info.getUserHead()), mImgHead, R.mipmap.img_default_avatar);
 
         if (!TextUtils.isEmpty(info.getUserCode())) {
-            //艾特号
+            //千纸鹤号
             mTvAccount.setText(info.getUserCode());
         }
 

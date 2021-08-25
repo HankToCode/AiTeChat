@@ -26,7 +26,7 @@
         android:layout_marginLeft="@dimen/dp_14"
         android:layout_marginRight="@dimen/dp_14"
         android:layout_marginBottom="@dimen/dp_50"
-        android:text="艾特平台将会永久清空您的账号信息， 包括但不限于 个人资料、聊天信息、消费信息"
+        android:text="千纸鹤平台将会永久清空您的账号信息， 包括但不限于 个人资料、聊天信息、消费信息"
         android:textColor="#232323"
         android:textSize="@dimen/sp_14"/>
 
