@@ -151,65 +151,65 @@ public class RedPacketDetailActivity extends BaseInitActivity {
         map.put("redPacketId", rid + "");
         String url = fromRecord ? AppConfig.getRedPacketFromDB : AppConfig.getRedPacket;
         ApiClient.requestNetHandle(this, url, "", map, new ResultListener() {
-                    @Override
-                    public void onSuccess(String json, String msg) {
-                        if (json != null) {
-                            if (type.equals("1")) {
-                                ll_message_hb.setVisibility(View.VISIBLE);
-                            }
-                            RedPacketInfo redPacketInfo = FastJsonUtil.getObject(json, RedPacketInfo.class);
+            @Override
+            public void onSuccess(String json, String msg) {
+                if (json != null) {
+                    if (type.equals("1")) {
+                        ll_message_hb.setVisibility(View.VISIBLE);
+                    }
+                    RedPacketInfo redPacketInfo = FastJsonUtil.getObject(json, RedPacketInfo.class);
 
-                            if (redPacketInfo == null) {
-                                ToastUtil.toast("信息异常");
-                                return;
-                            }
+                    if (redPacketInfo == null) {
+                        ToastUtil.toast("信息异常");
+                        return;
+                    }
 
-                            head = redPacketInfo.getUserHead();
-                            nickname = redPacketInfo.getUserNickName();
+                    head = redPacketInfo.getUserHead();
+                    nickname = redPacketInfo.getUserNickName();
 
-                            if (UserOperateManager.getInstance().hasUserName(redPacketInfo.getUserId())) {
-                                nickname = UserOperateManager.getInstance().getUserName(redPacketInfo.getUserId());
-                            }
+                    if (UserOperateManager.getInstance().hasUserName(redPacketInfo.getUserId())) {
+                        nickname = UserOperateManager.getInstance().getUserName(redPacketInfo.getUserId());
+                    }
 
-                            initHeadView();
-                            if (tv_intro != null) {
-                                //tv_intro.setText(StringUtil.isEmpty(redPacketInfo.getRemark().toString()) ? "" : redPacketInfo.getRemark().toString());
-                                tv_intro.setText(redPacketInfo.getRemark() == null ? "恭喜发财，大吉大利！" : redPacketInfo.getRemark().toString());
-                            }
-                            ll_user_money.setVisibility(View.VISIBLE);
+                    initHeadView();
+                    if (tv_intro != null) {
+                        //tv_intro.setText(StringUtil.isEmpty(redPacketInfo.getRemark().toString()) ? "" : redPacketInfo.getRemark().toString());
+                        tv_intro.setText(redPacketInfo.getRemark() == null ? "恭喜发财，大吉大利！" : redPacketInfo.getRemark().toString());
+                    }
+                    ll_user_money.setVisibility(View.VISIBLE);
 
-                            if (tv_money != null) {
-                                tv_money.setText("￥" + StringUtil.getFormatValue2(redPacketInfo.getMoney()));
-                                tv_money.setText("￥"+redPacketInfo.getMoney());
-                                if (redPacketInfo.getPacketAmount() > 0) {
-                                    List<RedPacketInfo.RedPacketDetailListBean> list = redPacketInfo.getRedPacketDetailList();
-                                    for (int i = 0; i < list.size(); i++) {
-                                        if (list.get(i).getUserId().equals(UserComm.getUserInfo().getUserId())) {
-                                            tv_money.setText("￥" + StringUtil.getFormatValue2(list.get(i).getMoney()));
-                                            break;
-                                        }
-                                    }
+                    if (tv_money != null) {
+                        tv_money.setText("￥" + StringUtil.getFormatValue2(redPacketInfo.getMoney()));
+                        tv_money.setText("￥" + redPacketInfo.getMoney());
+                        if (redPacketInfo.getPacketAmount() > 0) {
+                            List<RedPacketInfo.RedPacketDetailListBean> list = redPacketInfo.getRedPacketDetailList();
+                            for (int i = 0; i < list.size(); i++) {
+                                if (list.get(i).getUserId().equals(UserComm.getUserInfo().getUserId())) {
+                                    tv_money.setText("￥" + StringUtil.getFormatValue2(list.get(i).getMoney()));
+                                    break;
                                 }
                             }
+                        }
+                    }
 
-                            if (redPacketInfo.getRedPacketDetailList() != null && redPacketInfo.getRedPacketDetailList().size() > 0) {
-                                mList.addAll(redPacketInfo.getRedPacketDetailList());
-                                /**
-                                 * 已领数量
-                                 */
-                                int ylSize = mList.size();
-                                /**
-                                 * 总数量
-                                 */
-                                int allSize = redPacketInfo.getPacketAmount();
+                    if (redPacketInfo.getRedPacketDetailList() != null && redPacketInfo.getRedPacketDetailList().size() > 0) {
+                        mList.addAll(redPacketInfo.getRedPacketDetailList());
+                        /**
+                         * 已领数量
+                         */
+                        int ylSize = mList.size();
+                        /**
+                         * 总数量
+                         */
+                        int allSize = redPacketInfo.getPacketAmount();
 
-                                mAdapter.setIsfirsh(false);
+                        mAdapter.setIsfirsh(false);
 
 
-                                double allMoney = 0;
-                                for (int i = 0; i < mList.size(); i++) {
-                                    allMoney += mList.get(i).getMoney();
-                                }
+                        double allMoney = 0;
+                        for (int i = 0; i < mList.size(); i++) {
+                            allMoney += mList.get(i).getMoney();
+                        }
 
 //                                String time = StringUtil.isEmpty(redPacketInfo.getRobFinishTime()) ? "" : "，" + redPacketInfo.getRobFinishTime() + "被抢光";
 //                                tv_message_hb.setText("红包个数" + (redPacketInfo.getPacketAmount() == 0 ? "1" : redPacketInfo.getPacketAmount()) + "个，" + "共计" + StringUtil
@@ -217,35 +217,35 @@ public class RedPacketDetailActivity extends BaseInitActivity {
 //                                tv_message_hb.setText("已领取" + ylSize + "/" + allSize + "，" + "共" + StringUtil.getFormatValue2(allMoney) +
 //                                        "/" + StringUtil.getFormatValue2(redPacketInfo.getMoney()) + "元" + time);
 
-                                if (ylSize == allSize) {
-                                    tv_message_hb.setText("已存入零钱");
-                                    ll_user_money.setVisibility(View.VISIBLE);
-                                } else if (allSize - ylSize > 0) {
-                                    ll_user_money.setVisibility(View.GONE);
-                                    tv_message_hb.setText("红包" + allMoney + "金额等待对方已领取");
-                                }
-
-
-                                if (type.equals("1")) {
-                                    ll_message_hb.setVisibility(View.GONE);
-                                } else {
-                                    ll_message_hb.setVisibility(View.VISIBLE);
-                                }
-                                if (ylSize == allSize) {
-                                    mAdapter.setIsfirsh(true);
-                                } else {
-                                    mAdapter.setIsfirsh(false);
-                                }
-                                mAdapter.notifyDataSetChanged();
-                            }
+                        if (ylSize == allSize) {
+                            tv_message_hb.setText("已存入零钱");
+                            ll_user_money.setVisibility(View.VISIBLE);
+                        } else if (allSize - ylSize > 0) {
+                            ll_user_money.setVisibility(View.GONE);
+                            tv_message_hb.setText("红包" + (redPacketInfo.getMoney() - allMoney) + "金额等待对方领取");
                         }
-                    }
 
-                    @Override
-                    public void onFailure(String msg) {
-                        ToastUtil.toast(msg);
+
+                        if (type.equals("1")) {
+                            ll_message_hb.setVisibility(View.GONE);
+                        } else {
+                            ll_message_hb.setVisibility(View.VISIBLE);
+                        }
+                        if (ylSize == allSize) {
+                            mAdapter.setIsfirsh(true);
+                        } else {
+                            mAdapter.setIsfirsh(false);
+                        }
+                        mAdapter.notifyDataSetChanged();
                     }
-                });
+                }
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                ToastUtil.toast(msg);
+            }
+        });
     }
 
 

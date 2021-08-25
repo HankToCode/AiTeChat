@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.InputFilter;
-import android.text.Spanned;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
@@ -13,8 +12,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
-import androidx.core.content.ContextCompat;
 
 import com.ehking.sdk.wepay.interfaces.WalletPay;
 import com.ehking.sdk.wepay.net.bean.AuthType;
@@ -31,20 +28,25 @@ import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
 import com.ycf.qianzhihe.app.base.WebViewActivity;
+import com.ycf.qianzhihe.app.utils.NumberExKt;
 import com.ycf.qianzhihe.app.weight.CommonDialog;
 import com.ycf.qianzhihe.app.weight.CustomerKeyboard;
 import com.ycf.qianzhihe.app.weight.PasswordEditText;
+import com.ycf.qianzhihe.app.weight.popup.RedPackagePopupWindow;
+import com.zds.base.Toast.ToastUtil;
 import com.zds.base.json.FastJsonUtil;
 import com.zds.base.upDated.utils.NetWorkUtils;
+import com.zds.base.util.NumberUtils;
 import com.zds.base.util.StringUtil;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import com.zds.base.Toast.ToastUtil;
 
 /**
  * @author lhb
@@ -53,17 +55,38 @@ import com.zds.base.Toast.ToastUtil;
 public class SendGroupRedPackageActivity extends BaseInitActivity {
     @BindView(R.id.title_bar)
     EaseTitleBar title_bar;
-    @BindView(R.id.et_red_amount)
-    EditText mEtRedAmount;
-    @BindView(R.id.tv_red_amount)
-    TextView mTvRedAmount;
-    @BindView(R.id.et_red_num)
-    EditText mEtRedNum;
-    @BindView(R.id.et_remark)
-    EditText mEtRedMark;
 
+    @BindView(R.id.ll_send_to)
+    LinearLayout llSendTo;
+    @BindView(R.id.tv_send_to)
+    TextView tvSendTo;
+
+    @BindView(R.id.ll_num)
+    LinearLayout llNum;
+    @BindView(R.id.et_red_num)
+    EditText etRedNum;
+
+    @BindView(R.id.ll_total_amount)
+    LinearLayout llTotalAmount;
+    @BindView(R.id.et_red_amount)
+    EditText etRedAmount;
+    @BindView(R.id.tv_total_title)
+    TextView tvTotalTitle;
+
+    @BindView(R.id.ll_remark)
+    LinearLayout llRemark;
+    @BindView(R.id.et_remark)
+    EditText etRemark;
+
+    @BindView(R.id.tv_red_amount)
+    TextView tvRedAmount;
     @BindView(R.id.tv_send_red)
     TextView mTvSendRed;
+
+    @BindView(R.id.tv_select)
+    TextView tvSelect;
+    @BindView(R.id.root)
+    LinearLayout root;
 
     private int isSelectBalance = 0;
     private TextView tv_bank_name;
@@ -75,6 +98,9 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
     //结果返回最多重新查询次数
     private int maxCount = 5;
     private Handler handler = new Handler();
+
+    private List<String> list = new ArrayList<>();
+
 
     @Override
     protected int getLayoutId() {
@@ -90,58 +116,26 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
         mTvSendRed.setOnClickListener(view -> {
             //发红包
             payPassword();
-//        sendRedPacket();
-//        doSendRedPackageClick();
         });
 
-        mEtRedAmount.setFilters(new InputFilter[]{
-                new InputFilter() {
-                    @Override
-                    public CharSequence filter(CharSequence source, int start
-                            , int end, Spanned dest, int dstart, int dend) {
-                        if (source.equals(".") && dest.toString().length() == 0) {
-                            return "0.";
-                        }
+        llSendTo.setOnClickListener(view -> {
 
-                        if (dest.toString().contains(".")) {
-                            int index = dest.toString().indexOf(".");
-                            int length =
-                                    dest.toString().substring(index).length();
-                            if (length == 3) {
-                                return "";
-                            }
-                        }
-
-                        return null;
-                    }
-                }
         });
 
-        mEtRedAmount.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start,
-                                          int count, int after) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before,
-                                      int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.length() > 0) {
-                    mTvRedAmount.setText("￥" + mEtRedAmount.getText().toString().trim());
-                    mTvSendRed.setBackgroundResource(R.drawable.bor_login_sel);
-                } else {
-                    mTvRedAmount.setText("￥0.00");
-                    mTvSendRed.setBackgroundResource(R.drawable.bor_login);
-                }
-
-            }
+        list.add("拼手气红包");
+        list.add("专属红包");
+        list.add("普通红包");
+        tvSelect.setOnClickListener(view -> {
+            new RedPackagePopupWindow(SendGroupRedPackageActivity.this, this::switchMethod, currentRedPackageMethod).show(SendGroupRedPackageActivity.this, root, list);
         });
+
+
+        etRedAmount.setFilters(filters);
+
+        etRedAmount.addTextChangedListener(textWatcher);
+        etRedNum.addTextChangedListener(textWatcher);
+
+        switchMethod(currentRedPackageMethod);
 
     }
 
@@ -156,6 +150,118 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
         emGroupId = intent.getStringExtra(Constant.PARAM_EM_GROUP_ID);
         groupId = intent.getStringExtra("groupId");
         mGroupUserCount = intent.getIntExtra("key_intent_group_user_count", 0);
+    }
+
+
+    private final InputFilter[] filters = new InputFilter[]{
+            (source, start, end, dest, dstart, dend) -> {
+                if (source.equals(".") && dest.toString().length() == 0) {
+                    return "0.";
+                }
+
+                if (dest.toString().contains(".")) {
+                    int index = dest.toString().indexOf(".");
+                    int length =
+                            dest.toString().substring(index).length();
+                    if (length == 3) {
+                        return "";
+                    }
+                }
+
+                return null;
+            }
+    };
+
+    private String packetAmount;
+
+    private final TextWatcher textWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start,
+                                      int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before,
+                                  int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            changeAmount();
+        }
+    };
+
+    private void changeAmount() {
+
+        String redAmount = etRedAmount.getText().toString().trim();
+        if (currentRedPackageMethod == 1 && !StringUtil.isEmpty(redAmount) && NumberUtils.parserDouble(redAmount) > 200) {
+            redAmount = "200.00";
+            etRedAmount.setText(redAmount);
+        }
+
+        if (currentRedPackageMethod == 0) {
+            packetAmount = redAmount;
+        } else if (currentRedPackageMethod == 1) {
+            packetAmount = redAmount;
+        } else if (currentRedPackageMethod == 2) {
+            packetAmount = "" + (NumberUtils.parserDouble(redAmount) * NumberUtils.parserInt(etRedNum.getText().toString().trim()));
+        }
+
+        if (NumberUtils.parserDouble(packetAmount) > 0) {
+            tvRedAmount.setText("￥" + packetAmount);
+        } else {
+            tvRedAmount.setText("￥0.00");
+        }
+        mTvSendRed.setEnabled(packetAmount.length() > 0);
+    }
+
+    private void changeAmountSet() {
+
+        if (StringUtil.isEmpty(etRedNum.getText().toString().trim()) || StringUtil.isEmpty(packetAmount))
+            return;
+
+        if (NumberUtils.parserDouble(packetAmount) > 0) {
+            if (currentRedPackageMethod == 0) {
+                etRedAmount.setText(packetAmount);
+            } else if (currentRedPackageMethod == 1) {
+                etRedAmount.setText(packetAmount);
+            } else if (currentRedPackageMethod == 2) {
+                etRedAmount.setText(NumberExKt.format2(NumberUtils.parserDouble(packetAmount) / NumberUtils.parserInt(etRedNum.getText().toString().trim())));
+            }
+        }
+    }
+
+    private int currentRedPackageMethod = 0;//0-拼手气红包 1-专属红包,2-普通发红包
+
+    private void switchMethod(int redPackageMethod) {
+        currentRedPackageMethod = redPackageMethod;
+        tvSelect.setText(list.get(redPackageMethod));
+        llNum.setVisibility(View.GONE);
+        llTotalAmount.setVisibility(View.GONE);
+        llSendTo.setVisibility(View.GONE);
+        llRemark.setVisibility(View.GONE);
+
+        if (redPackageMethod == 0) {
+            llNum.setVisibility(View.VISIBLE);
+            llTotalAmount.setVisibility(View.VISIBLE);
+            tvTotalTitle.setText("总金额");
+            llRemark.setVisibility(View.VISIBLE);
+        } else if (redPackageMethod == 1) {
+            llSendTo.setVisibility(View.VISIBLE);
+            llTotalAmount.setVisibility(View.VISIBLE);
+            tvTotalTitle.setText("单个金额");
+            llRemark.setVisibility(View.VISIBLE);
+        } else if (redPackageMethod == 2) {
+            llNum.setVisibility(View.VISIBLE);
+            llTotalAmount.setVisibility(View.VISIBLE);
+            tvTotalTitle.setText("单个金额");
+            llRemark.setVisibility(View.VISIBLE);
+        }
+
+        changeAmountSet();
+
     }
 
 
@@ -175,16 +281,23 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
         }
 
         Map<String, Object> map = new HashMap<>(1);
-        map.put("money", mEtRedAmount.getText().toString().trim());
+        map.put("money", packetAmount);
         map.put("payPassword", password);
         map.put("groupId", groupId);
         map.put("cardId", bankId);
-        map.put("packetAmount", mEtRedNum.getText().toString().trim());
+        map.put("packetAmount", etRedNum.getText().toString().trim());
         map.put("payType", isSelectBalance);
         map.put("huanxinGroupId", emGroupId);
+        map.put("type", 1);
+        map.put("redPacketType", currentRedPackageMethod);
+        if (currentRedPackageMethod == 1) {
+            map.put("toUserNickName", "");
+            map.put("belongUserId", "");
+        }
+
         String remark =
-                StringUtil.isEmpty(mEtRedMark.getText().toString().trim()) ?
-                        "恭喜发财，大吉大利！" : mEtRedMark.getText().toString().trim();
+                StringUtil.isEmpty(etRemark.getText().toString().trim()) ?
+                        "恭喜发财，大吉大利！" : etRemark.getText().toString().trim();
         map.put("remark", remark);
         map.put("type", "1");//type：1-群红包 2-个人红包 （由于是群红包，这里固定为1即可，必传）
         map.put("redPacketType", "0");//0-拼手气，非专属红包 1-专属红包,2-群平均红包 （必传）
@@ -226,24 +339,24 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
     private void doSendRedPackageClick() {
         maxCount = 5;
         isSelectBalance = 0;
-        if (mEtRedAmount.getText().length() <= 0
-                || mEtRedAmount.getText().toString().equals("")
-                || mEtRedAmount.getText().toString().equals("0.")
-                || mEtRedAmount.getText().toString().equals("0.0")
-                || mEtRedAmount.getText().toString().equals("0.00")) {
+        if (etRedAmount.getText().length() <= 0
+                || etRedAmount.getText().toString().equals("")
+                || etRedAmount.getText().toString().equals("0.")
+                || etRedAmount.getText().toString().equals("0.0")
+                || etRedAmount.getText().toString().equals("0.00")) {
             ToastUtil.toast("请填写正确的金额");
             return;
         }
 
-        if (mEtRedNum.getText().toString().length() <= 0) {
+        if (etRedNum.getText().toString().length() <= 0) {
             ToastUtil.toast("请填写红包个数");
             return;
         }
 
         //1.总金额是200乘以个数 单个平均最高是200 2.红包个数最多是100个，同时还要小于群人数；
-        int redCount = Integer.parseInt(mEtRedNum.getText().toString().trim());
+        int redCount = Integer.parseInt(etRedNum.getText().toString().trim());
         //校验总金额
-        double redAmount = Double.parseDouble(mEtRedAmount.getText().toString().trim());
+        double redAmount = Double.parseDouble(etRedAmount.getText().toString().trim());
         if (redAmount > 200 * redCount) {
             ToastUtil.toast("单个红包不能超过200元");
             return;
@@ -267,16 +380,16 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
         }
 
         Map<String, Object> map = new HashMap<>(1);
-        map.put("money", mEtRedAmount.getText().toString().trim());
+        map.put("money", etRedAmount.getText().toString().trim());
         map.put("payPassword", "123456");
         map.put("groupId", groupId);
         map.put("cardId", bankId);
-        map.put("packetAmount", mEtRedNum.getText().toString().trim());
+        map.put("packetAmount", packetAmount);
         map.put("payType", isSelectBalance);
         map.put("huanxinGroupId", emGroupId);
         String remark =
-                StringUtil.isEmpty(mEtRedMark.getText().toString().trim()) ?
-                        "恭喜发财，大吉大利！" : mEtRedMark.getText().toString().trim();
+                StringUtil.isEmpty(etRemark.getText().toString().trim()) ?
+                        "恭喜发财，大吉大利！" : etRemark.getText().toString().trim();
         map.put("remark", remark);
         map.put("ip", NetWorkUtils.getIPAddress(true));
 
@@ -375,24 +488,24 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
      */
     private void payPassword() {
         isSelectBalance = 0;
-        if (mEtRedAmount.getText().length() <= 0
-                || mEtRedAmount.getText().toString().equals("")
-                || mEtRedAmount.getText().toString().equals("0.")
-                || mEtRedAmount.getText().toString().equals("0.0")
-                || mEtRedAmount.getText().toString().equals("0.00")) {
+        if (etRedAmount.getText().length() <= 0
+                || etRedAmount.getText().toString().equals("")
+                || etRedAmount.getText().toString().equals("0.")
+                || etRedAmount.getText().toString().equals("0.0")
+                || etRedAmount.getText().toString().equals("0.00")) {
             ToastUtil.toast("请填写正确的金额");
             return;
         }
 
-        if (mEtRedNum.getText().toString().length() <= 0) {
+        if (etRedNum.getText().toString().length() <= 0) {
             ToastUtil.toast("请填写红包个数");
             return;
         }
 
         //1.总金额是200乘以个数 单个平均最高是200 2.红包个数最多是100个，同时还要小于群人数；
-        int redCount = Integer.parseInt(mEtRedNum.getText().toString().trim());
+        int redCount = Integer.parseInt(etRedNum.getText().toString().trim());
         //校验总金额
-        double redAmount = Double.parseDouble(mEtRedAmount.getText().toString().trim());
+        double redAmount = Double.parseDouble(etRedAmount.getText().toString().trim());
         if (redAmount > 200 * redCount) {
             ToastUtil.toast("单个红包不能超过200元");
             return;
