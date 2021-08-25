@@ -153,6 +153,22 @@
                 android:text="点我开通会员"
                 android:textColor="@color/white"
                 android:textSize="16dp" />
+            <TextView
+                android:id="@+id/tv_mall"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackground"
+                android:drawableLeft="@mipmap/img_shop"
+                android:drawableRight="@drawable/ic_point_to"
+                android:drawablePadding="10dp"
+                android:gravity="center_vertical"
+                android:paddingStart="15dp"
+                android:paddingTop="18dp"
+                android:paddingEnd="15dp"
+                android:paddingBottom="18dp"
+                android:text="小商城"
+                android:textColor="@color/white"
+                android:textSize="16dp" />
 
             <TextView
                 android:id="@+id/tv_collection"

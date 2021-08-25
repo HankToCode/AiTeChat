@@ -28,6 +28,7 @@ import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.ycf.qianzhihe.app.api.old_http.CommonApi;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
+import com.ycf.qianzhihe.app.base.WebViewActivity;
 import com.ycf.qianzhihe.app.operate.UserOperateManager;
 import com.ycf.qianzhihe.app.utils.my.MyHelper;
 import com.ycf.qianzhihe.app.weight.CommonDialog;
@@ -79,6 +80,7 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
     private TextView mTvSettings;
     private TextView mTvHelpline;
     private TextView mTvGroups;
+    private TextView tv_mall;
 
 
     public static void actionStart(Context context) {
@@ -110,6 +112,7 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
 
         mTvPackage = (TextView) findViewById(R.id.tv_package);
         mTvMember = (TextView) findViewById(R.id.tv_member);
+        tv_mall = (TextView) findViewById(R.id.tv_mall);
         mTvCollection = (TextView) findViewById(R.id.tv_collection);
         mTvSettings = (TextView) findViewById(R.id.tv_settings);
         mTvHelpline = (TextView) findViewById(R.id.tv_helpline);
@@ -135,6 +138,7 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
         mTvSwitchAccount.setOnClickListener(this);
         mTvLogout.setOnClickListener(this);
         mLlMyInfo.setOnClickListener(this);
+        tv_mall.setOnClickListener(this);
 
     }
 
@@ -162,7 +166,7 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
             } else {
                 tv_user_id.setText("ID： " + loginInfo.getUserCode());
             }
-            mTvUserLevel.setText("lv "+loginInfo.getUserLevel());
+            mTvUserLevel.setText("lv " + loginInfo.getUserLevel());
             //是否是会员 vipid
             if (!TextUtils.isEmpty(loginInfo.getVipLevel())) {
                 mIvUserLevelTag.setBackgroundResource(R.drawable.ic_mine_level_tag);
@@ -245,6 +249,10 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
                 break;
             case R.id.tv_member://开通会员
                 BuyMemberActivity.actionStart(this);
+                break;
+            case R.id.tv_mall://商城
+//                startActivity(new Intent(mContext, WebViewActivity.class).putExtra("title","千纸鹤商城").putExtra("url",AppConfig.shopUrl));
+                WebViewActivity.actionStart(mContext,AppConfig.shopUrl,true);
                 break;
             case R.id.tv_collection:
                 //我的收藏

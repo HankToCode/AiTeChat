@@ -22,6 +22,33 @@ public class FriendInfo {
     private String friendNickName;
     private String line;
     private String sign;
+    private String starTarget;//0:未加星标，1：星标
+    private String categoryId;
+    private String categoryName;
+
+    public String getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(String categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getCategoryName() {
+        return categoryName;
+    }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+
+    public String getStarTarget() {
+        return starTarget;
+    }
+
+    public void setStarTarget(String starTarget) {
+        this.starTarget = starTarget;
+    }
 
     public String getSign() {
         return sign;
