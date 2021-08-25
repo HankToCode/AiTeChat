@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.ycf.qianzhihe.MainActivity;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.EaseConstant;
@@ -79,13 +80,7 @@ public class MyRoomDeatilAdapter extends BaseQuickAdapter<GroupDetailInfo.GroupU
             helper.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mContext.startActivity(new Intent(mContext,
-                            ContactActivity.class)
-                            .putExtra("from", "2")
-                            .putExtra("groupName", groupName)
-                            .putExtra("groupId", item.getGroupId())
-                    );
-
+                    ContactActivity.actionStart(mContext, "2", groupName, item.getGroupId());
                 }
             });
 
@@ -126,67 +121,67 @@ public class MyRoomDeatilAdapter extends BaseQuickAdapter<GroupDetailInfo.GroupU
             }
 
 
-        GlideUtils.GlideLoadCircleErrorImageUtils(mContext,
-                AppConfig.checkimg(item.getUserHead()),
-                (ImageView) helper.getView(R.id.iv_avatar),
-                R.mipmap.img_default_avatar);
+            GlideUtils.GlideLoadCircleErrorImageUtils(mContext,
+                    AppConfig.checkimg(item.getUserHead()),
+                    (ImageView) helper.getView(R.id.iv_avatar),
+                    R.mipmap.img_default_avatar);
 
 
-        helper.setOnClickListener(R.id.badge_delete,
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (mOnDelClickListener != null) {
-                            mOnDelClickListener.delUser(helper.getPosition());
+            helper.setOnClickListener(R.id.badge_delete,
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            if (mOnDelClickListener != null) {
+                                mOnDelClickListener.delUser(helper.getPosition());
+                            }
+
                         }
+                    });
 
-                    }
-                });
+            if (item.getUserRank().equals("1")) {
+                helper.setGone(R.id.tv_room_mine, true);
+                helper.setText(R.id.tv_room_mine, "管理员");
+            }
+            if (item.getUserRank().equals("2")) {
+                helper.setGone(R.id.tv_room_mine, true);
+                helper.setText(R.id.tv_room_mine, "群主");
+            }
 
-        if (item.getUserRank().equals("1")) {
-            helper.setGone(R.id.tv_room_mine, true);
-            helper.setText(R.id.tv_room_mine, "管理员");
-        }
-        if (item.getUserRank().equals("2")) {
-            helper.setGone(R.id.tv_room_mine, true);
-            helper.setText(R.id.tv_room_mine, "群主");
-        }
-
-        if (helper.getPosition() == 0) {
-            helper.setGone(R.id.badge_delete, false);
+            if (helper.getPosition() == 0) {
+                helper.setGone(R.id.badge_delete, false);
 //            if (StringUtil.isEmpty(userInfo.getNickname())) {
 //                helper.setText(R.id.tv_name, userInfo.getUsername());
 //            }
-        }
-
-        helper.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (!seeFriendFlag) {
-                    ToastUtil.toast("暂未开启查看群成员详情功能");
-                    return;
-                }
-                Global.addUserOriginType = Constant.ADD_USER_ORIGIN_TYPE_GROUPCHAT;
-                Global.addUserOriginName = groupName;
-                Global.addUserOriginId = GroupOperateManager.getInstance().getGroupId(emGroupId);
-                Intent intent = new Intent(mContext,
-                        UserInfoDetailActivity.class)
-                        .putExtra("from", "1")
-                        .putExtra("friendUserId", item.getUserId())
-                        .putExtra("entryUserId", item.getEntryUserId())
-                        .putExtra("chatType", EaseConstant.CHATTYPE_GROUP)
-                        .putExtra("userName",item.getFriendNickName()==null?item.getNickName():item.getFriendNickName());
-
-                if (currentUserRank == 2 || (currentUserRank == 1 && item.getUserRank().equals("0"))) {
-                    intent.putExtra(Constant.PARAM_GROUP_ID, item.getGroupId())
-                            .putExtra(Constant.PARAM_EM_GROUP_ID, emGroupId);
-                }
-
-                mContext.startActivity(intent);
             }
-        });
 
-    }
+            helper.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (!seeFriendFlag) {
+                        ToastUtil.toast("暂未开启查看群成员详情功能");
+                        return;
+                    }
+                    Global.addUserOriginType = Constant.ADD_USER_ORIGIN_TYPE_GROUPCHAT;
+                    Global.addUserOriginName = groupName;
+                    Global.addUserOriginId = GroupOperateManager.getInstance().getGroupId(emGroupId);
+                    Intent intent = new Intent(mContext,
+                            UserInfoDetailActivity.class)
+                            .putExtra("from", "1")
+                            .putExtra("friendUserId", item.getUserId())
+                            .putExtra("entryUserId", item.getEntryUserId())
+                            .putExtra("chatType", EaseConstant.CHATTYPE_GROUP)
+                            .putExtra("userName", item.getFriendNickName() == null ? item.getNickName() : item.getFriendNickName());
+
+                    if (currentUserRank == 2 || (currentUserRank == 1 && item.getUserRank().equals("0"))) {
+                        intent.putExtra(Constant.PARAM_GROUP_ID, item.getGroupId())
+                                .putExtra(Constant.PARAM_EM_GROUP_ID, emGroupId);
+                    }
+
+                    mContext.startActivity(intent);
+                }
+            });
+
+        }
 
 //        //0-普通用户 1-管理员 2-群主
 //        helper.setGone(R.id.badge_delete, !"2".equals(item.getUserRank())
@@ -194,7 +189,7 @@ public class MyRoomDeatilAdapter extends BaseQuickAdapter<GroupDetailInfo.GroupU
 //                && helper.getPosition() != mData.size() - 1
 //                && helper.getAdapterPosition() != 0);
 
-}
+    }
 
     public int getMode() {
         return mode;
@@ -213,8 +208,8 @@ public class MyRoomDeatilAdapter extends BaseQuickAdapter<GroupDetailInfo.GroupU
         this.seeFriendFlag = seeFriendFlag;
     }
 
-public interface OnDelClickListener {
-    void delUser(int pos);
-}
+    public interface OnDelClickListener {
+        void delUser(int pos);
+    }
 
 }

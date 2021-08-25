@@ -37,7 +37,7 @@ public class ContactAdapter extends BaseQuickAdapter<ContactListInfo.DataBean, B
 
     private List<ContactListInfo.DataBean> mIdList = new ArrayList<>();
 
-    private Map<Integer,Boolean> map=new HashMap<>();// 存放已被选中的CheckBox
+    private Map<Integer, Boolean> map = new HashMap<>();// 存放已被选中的CheckBox
 
     public List<ContactListInfo.DataBean> getIdList() {
         return mIdList;
@@ -51,11 +51,7 @@ public class ContactAdapter extends BaseQuickAdapter<ContactListInfo.DataBean, B
 
     @Override
     protected void convert(BaseViewHolder helper, ContactListInfo.DataBean item) {
-        if (from.equals("1")) {
-            helper.setGone(R.id.ck_contact, true);
-        } else {
-            helper.setGone(R.id.ck_contact, false);
-        }
+
         helper.setText(R.id.tv_name, item.getFriendNickName());
         GlideUtils.GlideLoadCircleErrorImageUtils(mContext, item.getFriendUserHead(), helper.getView(R.id.img_group), R.mipmap.img_default_avatar);
 
@@ -63,31 +59,24 @@ public class ContactAdapter extends BaseQuickAdapter<ContactListInfo.DataBean, B
         Glide.with(mContext).load(item.getFriendUserHead()).into((ImageView) helper.getView(R.id.img_group));
 
         CheckBox checkBox = helper.getView(R.id.ck_contact);
+
         checkBox.setOnCheckedChangeListener(null);
         checkBox.setChecked(false);
         checkBox.setClickable(true);
 
-        helper.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                checkBox.setChecked(!checkBox.isChecked());
+        if (from.equals("1")) {
+            helper.setGone(R.id.ck_contact, true);
+            //是否加入群组 0 未加入 1 已加入
+            if (Constant.FLAG_ADD_GROUP.equals(item.getAddGroupFlag())) {
+                checkBox.setChecked(true);
+                checkBox.setClickable(false);
+                helper.itemView.setOnClickListener(null);
             }
-        });
 
-        //是否加入群组 0 未加入 1 已加入
-        if (Constant.FLAG_ADD_GROUP.equals(item.getAddGroupFlag())) {
-            checkBox.setChecked(true);
-            checkBox.setClickable(false);
-            helper.itemView.setOnClickListener(null);
-        }
-
-        if (mIdList.contains(item)){
-            checkBox.setChecked(true);
-        }
-
-        helper.setOnCheckedChangeListener(R.id.ck_contact, new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            if (mIdList.contains(item)) {
+                checkBox.setChecked(true);
+            }
+            helper.setOnCheckedChangeListener(R.id.ck_contact, (buttonView, isChecked) -> {
 
                 if (isChecked) {
                     if (!mIdList.contains(item)) {
@@ -98,9 +87,24 @@ public class ContactAdapter extends BaseQuickAdapter<ContactListInfo.DataBean, B
                         mIdList.remove(item);
                     }
                 }
-//                }
+            });
+        } else if (from.equals("4")) {
+            helper.setGone(R.id.ck_contact, true);
+            if (mIdList.contains(item)) {
+                checkBox.setChecked(true);
             }
-        });
+            helper.setOnCheckedChangeListener(R.id.ck_contact, (buttonView, isChecked) -> {
+                mIdList.clear();
+                mIdList.add(item);
+            });
+        } else {
+            helper.setGone(R.id.ck_contact, false);
+        }
+
+
+        helper.itemView.setOnClickListener(view -> checkBox.setChecked(!checkBox.isChecked()));
+
+
     }
 
     @Override

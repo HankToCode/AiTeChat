@@ -18,7 +18,9 @@ import com.ehking.sdk.wepay.net.bean.AuthType;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
+import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.global.UserComm;
+import com.ycf.qianzhihe.app.api.old_data.ContactListInfo;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.app.api.old_data.LoginInfo;
 import com.ycf.qianzhihe.app.api.old_data.WalletTransferBean;
@@ -119,7 +121,7 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
         });
 
         llSendTo.setOnClickListener(view -> {
-
+            ContactActivity.actionStart(mContext, "4", "", groupId);
         });
 
         list.add("拼手气红包");
@@ -139,9 +141,15 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
 
     }
 
+    private ContactListInfo.DataBean dataBean;
+
     @Override
     protected void onEventComing(EventCenter center) {
 
+        if (center.getEventCode() == EventUtil.SEND_PERSON_RED_PKG_PRIVATE) {
+            dataBean = (ContactListInfo.DataBean) center.getData();
+            tvSendTo.setText(dataBean.getNickName());
+        }
     }
 
     @Override
@@ -172,7 +180,7 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
             }
     };
 
-    private String packetAmount;
+    private String money;
 
     private final TextWatcher textWatcher = new TextWatcher() {
         @Override
@@ -196,39 +204,37 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
     private void changeAmount() {
 
         String redAmount = etRedAmount.getText().toString().trim();
-        if (currentRedPackageMethod == 1 && !StringUtil.isEmpty(redAmount) && NumberUtils.parserDouble(redAmount) > 200) {
-            redAmount = "200.00";
-            etRedAmount.setText(redAmount);
-        }
 
         if (currentRedPackageMethod == 0) {
-            packetAmount = redAmount;
+            money = redAmount;
         } else if (currentRedPackageMethod == 1) {
-            packetAmount = redAmount;
+            money = redAmount;
         } else if (currentRedPackageMethod == 2) {
-            packetAmount = "" + (NumberUtils.parserDouble(redAmount) * NumberUtils.parserInt(etRedNum.getText().toString().trim()));
+            money = "" + (NumberUtils.parseDouble(redAmount) * NumberUtils.parseInt(etRedNum.getText().toString().trim()));
         }
 
-        if (NumberUtils.parserDouble(packetAmount) > 0) {
-            tvRedAmount.setText("￥" + packetAmount);
+        if (NumberUtils.parseDouble(money) > 0) {
+            tvRedAmount.setText("￥" + money);
+            mTvSendRed.setEnabled(true);
         } else {
             tvRedAmount.setText("￥0.00");
+            mTvSendRed.setEnabled(false);
         }
-        mTvSendRed.setEnabled(packetAmount.length() > 0);
+
     }
 
     private void changeAmountSet() {
 
-        if (StringUtil.isEmpty(etRedNum.getText().toString().trim()) || StringUtil.isEmpty(packetAmount))
+        if (StringUtil.isEmpty(etRedNum.getText().toString().trim()) || StringUtil.isEmpty(money))
             return;
 
-        if (NumberUtils.parserDouble(packetAmount) > 0) {
+        if (NumberUtils.parseDouble(money) > 0) {
             if (currentRedPackageMethod == 0) {
-                etRedAmount.setText(packetAmount);
+                etRedAmount.setText(money);
             } else if (currentRedPackageMethod == 1) {
-                etRedAmount.setText(packetAmount);
+                etRedAmount.setText(money);
             } else if (currentRedPackageMethod == 2) {
-                etRedAmount.setText(NumberExKt.format2(NumberUtils.parserDouble(packetAmount) / NumberUtils.parserInt(etRedNum.getText().toString().trim())));
+                etRedAmount.setText(NumberExKt.format2(NumberUtils.parseDouble(money) / NumberUtils.parseInt(etRedNum.getText().toString().trim())));
             }
         }
     }
@@ -281,18 +287,24 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
         }
 
         Map<String, Object> map = new HashMap<>(1);
-        map.put("money", packetAmount);
+        map.put("money", money);
         map.put("payPassword", password);
         map.put("groupId", groupId);
         map.put("cardId", bankId);
-        map.put("packetAmount", etRedNum.getText().toString().trim());
+        map.put("packetAmount", currentRedPackageMethod == 1 ? 1 : etRedNum.getText().toString().trim());
         map.put("payType", isSelectBalance);
         map.put("huanxinGroupId", emGroupId);
         map.put("type", 1);
         map.put("redPacketType", currentRedPackageMethod);
         if (currentRedPackageMethod == 1) {
-            map.put("toUserNickName", "");
-            map.put("belongUserId", "");
+            if (dataBean != null) {
+                map.put("toUserNickName", dataBean.getNickName());
+                map.put("belongUserId", dataBean.getUserId());
+            } else {
+                ToastUtil.toast("请先选择群成员");
+                return;
+            }
+
         }
 
         String remark =
@@ -354,7 +366,7 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
         }
 
         //1.总金额是200乘以个数 单个平均最高是200 2.红包个数最多是100个，同时还要小于群人数；
-        int redCount = Integer.parseInt(etRedNum.getText().toString().trim());
+        int redCount = currentRedPackageMethod == 1 ? 1 : Integer.parseInt(etRedNum.getText().toString().trim());
         //校验总金额
         double redAmount = Double.parseDouble(etRedAmount.getText().toString().trim());
         if (redAmount > 200 * redCount) {
@@ -384,7 +396,7 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
         map.put("payPassword", "123456");
         map.put("groupId", groupId);
         map.put("cardId", bankId);
-        map.put("packetAmount", packetAmount);
+        map.put("packetAmount", money);
         map.put("payType", isSelectBalance);
         map.put("huanxinGroupId", emGroupId);
         String remark =
@@ -497,15 +509,15 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
             return;
         }
 
-        if (etRedNum.getText().toString().length() <= 0) {
+        if (currentRedPackageMethod != 1 && etRedNum.getText().toString().length() <= 0) {
             ToastUtil.toast("请填写红包个数");
             return;
         }
 
         //1.总金额是200乘以个数 单个平均最高是200 2.红包个数最多是100个，同时还要小于群人数；
-        int redCount = Integer.parseInt(etRedNum.getText().toString().trim());
+        int redCount = currentRedPackageMethod == 1 ? 1 : Integer.parseInt(etRedNum.getText().toString().trim());
         //校验总金额
-        double redAmount = Double.parseDouble(etRedAmount.getText().toString().trim());
+        double redAmount = NumberUtils.parseDouble(etRedAmount.getText().toString().trim());
         if (redAmount > 200 * redCount) {
             ToastUtil.toast("单个红包不能超过200元");
             return;

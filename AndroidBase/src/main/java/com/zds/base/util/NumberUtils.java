@@ -10,7 +10,7 @@ import android.util.Log;
 public class NumberUtils {
     private static final String TAG = "NumberUtils";
 
-    public static int parserInt(String num) {
+    public static int parseInt(String num) {
         try {
             return !StringUtil.isEmpty(num) ? Integer.parseInt(num) : 0;
         } catch (NumberFormatException e) {
@@ -19,7 +19,7 @@ public class NumberUtils {
         }
     }
 
-    public static float parserFloat(String num) {
+    public static float parseFloat(String num) {
         try {
             return !StringUtil.isEmpty(num) ? Float.parseFloat(num) : 0;
         } catch (NumberFormatException e) {
@@ -28,7 +28,7 @@ public class NumberUtils {
         }
     }
 
-    public static double parserDouble(String num) {
+    public static double parseDouble(String num) {
         try {
             return !StringUtil.isEmpty(num) ? Double.parseDouble(num) : 0;
         } catch (NumberFormatException e) {
@@ -37,7 +37,7 @@ public class NumberUtils {
         }
     }
 
-    public static long parserLong(String num) {
+    public static long parseLong(String num) {
         try {
             return !StringUtil.isEmpty(num) ? Long.parseLong(num) : 0;
         } catch (NumberFormatException e) {

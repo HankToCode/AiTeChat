@@ -86,8 +86,8 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
     private EaseBaseFragment mContactsFragment, mMessageFragment, mDiscoverFragment, mFindFragment, mNewsFragment;
     private EaseBaseFragment mCurrentFragment;
     private TextView mTvMainContactsMsg, mTvMainMessageMsg, mTvMainDiscoverMsg, mTvMainFindMsg;
-    private int[] badgeIds = {R.layout.demo_badge_about_me,R.layout.demo_badge_home, R.layout.demo_badge_friends, R.layout.demo_badge_discover};
-    private int[] msgIds = { R.id.tv_main_about_me_msg,R.id.tv_main_home_msg, R.id.tv_main_friends_msg, R.id.tv_main_discover_msg};
+    private int[] badgeIds = {R.layout.demo_badge_about_me, R.layout.demo_badge_home, R.layout.demo_badge_friends, R.layout.demo_badge_discover};
+    private int[] msgIds = {R.id.tv_main_about_me_msg, R.id.tv_main_home_msg, R.id.tv_main_friends_msg, R.id.tv_main_discover_msg};
     private MainViewModel viewModel;
     private boolean showMenu = true;//是否显示菜单项
 
@@ -537,9 +537,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
                             else if (v.getId() == R.id.layout_add_firend) {
                                 AddContactActivity.actionStart(mContext, SearchType.CHAT);
                             } else if (v.getId() == R.id.layout_group) {
-                                startActivity(new Intent(MainActivity.this,
-                                        ContactActivity.class).putExtra("from"
-                                        , "1"));
+                                ContactActivity.actionStart(MainActivity.this, "1", null, null);
                             } else if (v.getId() == R.id.layout_my_qr) {
                                 Intent intent = new Intent(mContext, MyQrActivity.class);
                                 intent.putExtra("from", "1");

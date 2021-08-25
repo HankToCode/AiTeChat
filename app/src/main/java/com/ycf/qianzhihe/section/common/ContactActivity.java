@@ -1,5 +1,6 @@
 package com.ycf.qianzhihe.section.common;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -13,6 +14,8 @@ import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.blankj.utilcode.util.GsonUtils;
+import com.google.gson.JsonObject;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.adapter.ContactAdapter;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
@@ -24,6 +27,7 @@ import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
 import com.ycf.qianzhihe.app.help.RclViewHelp;
 import com.ycf.qianzhihe.app.operate.UserOperateManager;
+import com.ycf.qianzhihe.section.group.activity.GroupPrePickActivity;
 import com.zds.base.json.FastJsonUtil;
 
 import org.greenrobot.eventbus.EventBus;
@@ -35,6 +39,7 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+
 import com.zds.base.Toast.ToastUtil;
 
 /**
@@ -42,6 +47,15 @@ import com.zds.base.Toast.ToastUtil;
  * 联系人
  */
 public class ContactActivity extends BaseInitActivity {
+
+    public static void actionStart(Context context, String from, String groupName, String groupId) {
+        Intent intent = new Intent(context, ContactActivity.class);
+        intent.putExtra("from", from);
+        intent.putExtra("groupName", groupName);
+        intent.putExtra("groupId", groupId);
+        context.startActivity(intent);
+    }
+
     @BindView(R.id.toolbar_title)
     TextView mToolbarTitle;
     @BindView(R.id.toolbar_subtitle)
@@ -64,6 +78,7 @@ public class ContactActivity extends BaseInitActivity {
      * 1: 新建群跳转
      * 2：已有群跳转过来
      * 3: 设置群管理员
+     * 4: 发送专享红包
      */
     private String from = "2";
     private String groupId;
@@ -82,11 +97,19 @@ public class ContactActivity extends BaseInitActivity {
             mToolSubTitle.setText("确定");
             mImgLeftBack.setVisibility(View.GONE);
             mTvBack.setText("取消");
+            mTvBack.setOnClickListener(v -> finish());
+        } else if (from.equals("4")) {
+            mToolbarTitle.setText("群成员");
+            mToolSubTitle.setText("确定");
+            mToolSubTitle.setVisibility(View.VISIBLE);
+            mImgLeftBack.setVisibility(View.VISIBLE);
+            mImgLeftBack.setOnClickListener(v -> finish());
         } else {
             mToolbarTitle.setText("联系人");
             mToolSubTitle.setText("邀请");
             mToolSubTitle.setVisibility(View.VISIBLE);
             mImgLeftBack.setVisibility(View.VISIBLE);
+            mImgLeftBack.setOnClickListener(v -> finish());
         }
 
         mQuery.addTextChangedListener(new TextWatcher() {
@@ -111,27 +134,22 @@ public class ContactActivity extends BaseInitActivity {
             }
         });
 
-        mSearchClear.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mQuery.getText().clear();
-            }
-        });
+        mSearchClear.setOnClickListener(v -> mQuery.getText().clear());
 
-        mToolSubTitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (mContactAdapter.getIdList().size() <= 0) {
-                    ToastUtil.toast("请先选择群成员");
-                } else {
-                    if (from.equals("1")) {
-                        //新建群组邀请成员
-                        startActivity(new Intent(ContactActivity.this, NewGroupActivity.class).putExtra("contact", (Serializable) mContactAdapter.getIdList()));
-                        finish();
-                    } else if (from.equals("2")) {
-                        //已有群组邀请成员 （从群聊过来）
-                        inviteContact();
-                    }
+        mToolSubTitle.setOnClickListener(v -> {
+            if (mContactAdapter.getIdList().size() <= 0) {
+                ToastUtil.toast("请先选择群成员");
+            } else {
+                if (from.equals("1")) {
+                    //新建群组邀请成员
+                    startActivity(new Intent(ContactActivity.this, NewGroupActivity.class).putExtra("contact", (Serializable) mContactAdapter.getIdList()));
+                    finish();
+                } else if (from.equals("2")) {
+                    //已有群组邀请成员 （从群聊过来）
+                    inviteContact();
+                } else if (from.equals("4")) {
+                    EventBus.getDefault().post(new EventCenter<>(EventUtil.SEND_PERSON_RED_PKG_PRIVATE, mContactAdapter.getIdList().get(0)));
+                    finish();
                 }
             }
         });
@@ -141,7 +159,7 @@ public class ContactActivity extends BaseInitActivity {
         mContactAdapter = new ContactAdapter(mContactList);
         RclViewHelp.initRcLmVertical(this, mRvGroup, mContactAdapter);
         checkSeviceContactData();
-        if (from.equals("2")) {
+        if (from.equals("2") || from.equals("4")) {
             queryGroupFriendUserList();
         }
     }

@@ -203,5 +203,9 @@ public class EventUtil {
      * 发送完个人红包，去环信后台拉取消息
      */
     public static final int SEND_PERSON_RED_PKG = 119;
+    /**
+     * 发送专享红包
+     */
+    public static final int SEND_PERSON_RED_PKG_PRIVATE = 120;
 
 }
