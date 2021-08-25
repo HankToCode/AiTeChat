@@ -301,19 +301,7 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
                 groupListener = new GroupListener();
                 EMClient.getInstance().groupManager().addGroupChangeListener(groupListener);
                 try {
-                    EMClient.getInstance().groupManager().asyncGetGroupFromServer(emChatId, new EMValueCallBack<EMGroup>() {
-                        @Override
-                        public void onSuccess(EMGroup value) {
-                            runOnUiThread(() -> {
-                                titleBar.setTitle(group.getGroupName());
-                            });
-                        }
-
-                        @Override
-                        public void onError(int error, String errorMsg) {
-
-                        }
-                    });
+                    group = EMClient.getInstance().groupManager().getGroupFromServer(emChatId);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

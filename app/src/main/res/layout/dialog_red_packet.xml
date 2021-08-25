@@ -7,8 +7,7 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="@dimen/dp_350"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+        android:layout_centerInParent="true"
         android:background="@mipmap/hbbg"
         android:orientation="vertical">
 
@@ -28,10 +27,10 @@
 
             <com.hyphenate.easecallkit.widget.EaseImageView
                 android:id="@+id/img_head"
-                android:layout_width="@dimen/dp_45"
-                android:layout_height="@dimen/dp_45"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/dp_22"
+                android:layout_marginTop="55dp"
                 android:src="@mipmap/img_default_avatar" />
 
             <TextView
@@ -39,14 +38,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/dp_3"
+                android:layout_marginTop="10dp"
                 android:ellipsize="end"
                 android:gravity="center"
                 android:maxLines="1"
                 android:paddingLeft="@dimen/dp_20"
                 android:paddingRight="@dimen/dp_20"
-                android:textColor="#FFD68E"
-                android:textSize="@dimen/sp_13"
+                android:textColor="#FFEBAC"
+                android:textSize="13dp"
                 tools:text="慕枫1127" />
 
 
@@ -55,31 +54,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="@dimen/dp_25"
+                android:layout_marginTop="20dp"
                 android:ellipsize="end"
                 android:gravity="center"
                 android:maxLines="1"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
                 android:text=""
-                android:textColor="#FFD68E"
-                android:textSize="@dimen/sp_16"
+                android:textColor="#FFEBAC"
+                android:textSize="21dp"
                 android:visibility="visible" />
 
-
-            <TextView
-                android:id="@+id/tv_red_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="@dimen/dp_15"
-                android:drawableRight="@mipmap/jinru"
-                android:drawablePadding="@dimen/dp_5"
-                android:paddingLeft="@dimen/dp_20"
-                android:paddingTop="@dimen/dp_15"
-                android:paddingRight="@dimen/dp_20"
-                android:paddingBottom="@dimen/dp_15"
-                android:text="查看红包详情"
-                android:textColor="#FFD68E"
-                android:visibility="invisible" />
 
         </LinearLayout>
 
@@ -94,10 +79,10 @@
             android:id="@+id/rel_open"
             android:layout_width="@dimen/dp_85"
             android:layout_height="@dimen/dp_85"
-            android:layout_above="@+id/img_bottom"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="@dimen/dp_75">
+            android:layout_marginBottom="30dp">
 
             <ImageView
                 android:id="@+id/img_open"
@@ -105,35 +90,25 @@
                 android:layout_height="match_parent"
                 android:src="@mipmap/kai" />
 
-            <ImageView
-                android:id="@+id/img_opening"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@mipmap/img_hb_open"
-                android:visibility="gone" />
         </RelativeLayout>
 
-
         <TextView
-            android:visibility="gone"
-            android:id="@+id/tv_check_detail"
-            android:layout_centerHorizontal="true"
+            android:id="@+id/tv_red_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="查看领取详情"
-            android:textColor="#FFD68E"
-            android:textSize="@dimen/sp_13"
-            android:paddingBottom="@dimen/dp_13"
             android:layout_alignParentBottom="true"
-            />
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_15"
+            android:drawableRight="@mipmap/jinru"
+            android:drawablePadding="@dimen/dp_5"
+            android:paddingLeft="@dimen/dp_20"
+            android:paddingTop="@dimen/dp_15"
+            android:paddingRight="@dimen/dp_20"
+            android:paddingBottom="@dimen/dp_15"
+            android:text="查看红包详情"
+            android:textColor="#FFEBAC"
+            android:visibility="gone" />
 
-        <ImageView
-            android:id="@+id/img_bottom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="@dimen/dp_13"
-            android:src="@mipmap/hbh" />
     </RelativeLayout>
 </RelativeLayout>

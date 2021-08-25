@@ -1130,9 +1130,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                         .setView(rootView);
         builder.setOnClickListener(R.id.ll_closes, v -> builder.dismiss());
 
-        if (emMessage.direct() == EMMessage.Direct.SEND) {
-            View bottomView = rootView.findViewById(R.id.img_bottom);
-            bottomView.setVisibility(View.INVISIBLE);
+        /*if (emMessage.direct() == EMMessage.Direct.SEND) {
             View checkDetailView = rootView.findViewById(R.id.tv_check_detail);
             checkDetailView.setVisibility(View.VISIBLE);
             checkDetailView.setOnClickListener(view -> {
@@ -1143,9 +1141,9 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                         "nickname", nickname));
 
             });
-        }
+        }*/
 
-        builder.setText(R.id.tv_nick, nickname);
+        builder.setText(R.id.tv_nick, nickname + "发出的红包");
         builder.setOnClickListener(R.id.img_open, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
