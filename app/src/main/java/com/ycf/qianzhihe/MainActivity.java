@@ -125,11 +125,6 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
         return super.onMenuOpened(featureId, menu);
     }
 
-   /* @Override
-    protected void initSystemFit() {
-        setFitSystemForTheme(false);
-    }*/
-
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);

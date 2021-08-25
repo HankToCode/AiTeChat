@@ -38,6 +38,7 @@ public class SplashActivity extends BaseInitActivity {
 
     @Override
     protected void initView(Bundle savedInstanceState) {
+        initImmersionBar(true);
         super.initView(savedInstanceState);
         ivSplash = findViewById(R.id.iv_splash);
         tvProduct = findViewById(R.id.tv_product);
@@ -92,6 +93,7 @@ public class SplashActivity extends BaseInitActivity {
             showUserProtocolDialog();
         }
     }
+
     private void showUserProtocolDialog() {
         if (mUserProtocolDialog == null) {
             mUserProtocolDialog = new UserProtocolDialog(this);

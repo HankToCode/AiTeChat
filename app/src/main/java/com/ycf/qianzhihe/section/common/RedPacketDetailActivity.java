@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -13,6 +14,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.gyf.immersionbar.ImmersionBar;
 import com.hyphenate.easecallkit.widget.EaseImageView;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.adapter.RedPacketAdapter;
@@ -48,18 +50,6 @@ import butterknife.BindView;
  */
 public class RedPacketDetailActivity extends BaseInitActivity {
 
-    @BindView(R.id.bar)
-    View mBar;
-    @BindView(R.id.ll_back)
-    LinearLayout mLlBack;
-    @BindView(R.id.toolbar_subtitle)
-    TextView mToolbarSubtitle;
-    @BindView(R.id.img_right)
-    ImageView mImgRight;
-    @BindView(R.id.toolbar_title)
-    TextView mToolbarTitle;
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
     @BindView(R.id.recycle_view)
     RecyclerView mRecycleView;
 
@@ -82,7 +72,8 @@ public class RedPacketDetailActivity extends BaseInitActivity {
     private boolean fromRecord;
     private TextView tv_message_hb, tv_intro;
     private LinearLayout ll_user_money;
-    private LinearLayout ll_message_hb;
+    private FrameLayout ll_message_hb;
+    private ImageView iv_back;
 
 
     @Override
@@ -90,15 +81,13 @@ public class RedPacketDetailActivity extends BaseInitActivity {
         return R.layout.activity_red_packet;
     }
 
-
     @Override
     protected void initView(Bundle savedInstanceState) {
-
-        initImmersionBar(false, false, true);
-
         super.initView(savedInstanceState);
+        initImmersionBar(false);
         View headView =
                 LayoutInflater.from(this).inflate(R.layout.red_packet_head_view, null);
+        iv_back = headView.findViewById(R.id.iv_back);
         tv_money = headView.findViewById(R.id.tv_money);
         ll_user_money = headView.findViewById(R.id.ll_user_money);
         ll_user_money.setVisibility(View.GONE);
@@ -109,6 +98,8 @@ public class RedPacketDetailActivity extends BaseInitActivity {
         ll_message_hb = headView.findViewById(R.id.ll_message_hb);
 
         ImageUtil.setAvatar(img_head);
+        img_head.setShapeType(1);
+
         mList = new ArrayList<>();
         mAdapter = new RedPacketAdapter(mList);
         mRecycleView.setLayoutManager(new LinearLayoutManager(this));
@@ -116,17 +107,10 @@ public class RedPacketDetailActivity extends BaseInitActivity {
         mAdapter.addHeaderView(headView);
         initHeadView();
         getData();
-        setTitle("红包详情");
-        mToolbarSubtitle.setText("红包记录");
-        mToolbarSubtitle.setVisibility(View.VISIBLE);
 
-        mToolbarSubtitle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                ChatRedRecordActivity.actionStart(RedPacketDetailActivity.this);
-            }
-        });
+        //TODO 红包记录列表
+//        mToolbarSubtitle.setOnClickListener(v -> ChatRedRecordActivity.actionStart(RedPacketDetailActivity.this));
+        iv_back.setOnClickListener(v -> finish());
     }
 
     private void initHeadView() {
@@ -134,7 +118,7 @@ public class RedPacketDetailActivity extends BaseInitActivity {
             GlideUtils.loadRoundCircleImage(AppConfig.checkimg(head), img_head,
                     R.mipmap.img_default_avatar, 10);
         if (!TextUtils.isEmpty(nickname))
-            tv_name.setText(nickname + "的红包");
+            tv_name.setText(nickname + "发出的的红包");
     }
 
     /**
@@ -181,10 +165,7 @@ public class RedPacketDetailActivity extends BaseInitActivity {
                                 ToastUtil.toast("信息异常");
                                 return;
                             }
-                            String time =
-                                    StringUtil.isEmpty(redPacketInfo.getRobFinishTime()) ? "" : "，" + redPacketInfo.getRobFinishTime() + "被抢光";
-                            tv_message_hb.setText("红包个数" + (redPacketInfo.getPacketAmount() == 0 ? "1" : redPacketInfo.getPacketAmount()) + "个，" + "共计" + StringUtil
-                                    .getFormatValue2(redPacketInfo.getMoney()) + "元" + time);
+
                             head = redPacketInfo.getUserHead();
                             nickname = redPacketInfo.getUserNickName();
 
@@ -233,8 +214,21 @@ public class RedPacketDetailActivity extends BaseInitActivity {
                                     allMoney += mList.get(i).getMoney();
                                 }
 
-                                tv_message_hb.setText("已领取" + ylSize + "/" + allSize + "，" + "共" + StringUtil.getFormatValue2(allMoney) +
-                                        "/" + StringUtil.getFormatValue2(redPacketInfo.getMoney()) + "元" + time);
+//                                String time = StringUtil.isEmpty(redPacketInfo.getRobFinishTime()) ? "" : "，" + redPacketInfo.getRobFinishTime() + "被抢光";
+//                                tv_message_hb.setText("红包个数" + (redPacketInfo.getPacketAmount() == 0 ? "1" : redPacketInfo.getPacketAmount()) + "个，" + "共计" + StringUtil
+//                                        .getFormatValue2(redPacketInfo.getMoney()) + "元" + time);
+//                                tv_message_hb.setText("已领取" + ylSize + "/" + allSize + "，" + "共" + StringUtil.getFormatValue2(allMoney) +
+//                                        "/" + StringUtil.getFormatValue2(redPacketInfo.getMoney()) + "元" + time);
+
+                                if (ylSize == allSize) {
+                                    tv_message_hb.setText("已存入零钱");
+                                    ll_user_money.setVisibility(View.VISIBLE);
+                                } else if (allSize - ylSize > 0) {
+                                    ll_user_money.setVisibility(View.GONE);
+                                    tv_message_hb.setText("红包" + allMoney + "金额等待对方已领取");
+                                }
+
+
                                 if (type.equals("1")) {
                                     ll_message_hb.setVisibility(View.GONE);
                                 } else {
