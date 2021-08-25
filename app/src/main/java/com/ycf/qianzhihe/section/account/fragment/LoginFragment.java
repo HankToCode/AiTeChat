@@ -173,10 +173,10 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
                     super.onError(code, message);
                     Log.d("TAG", message + "环信登录Error code=" + code);
                     dismissLoading();
-                    if (code == 218) {//另一个用户已经登录
+                    /*if (code == 218) {//另一个用户已经登录
                         //###code=218  Another User is already login
                         mContext.finish();
-                    }
+                    }*/
                     /*if (code == EMError.USER_AUTHENTICATION_FAILED) {
                         ToastUtils.showToast(R.string.demo_error_user_authentication_failed);
                     } else if (code == EMError.USER_ALREADY_LOGIN) {

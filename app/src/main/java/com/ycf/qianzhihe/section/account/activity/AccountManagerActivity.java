@@ -167,16 +167,16 @@ public class AccountManagerActivity extends BaseInitActivity implements View.OnC
         timer = new CountDownTimer(60 * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                mEtUserSms.setText(millisUntilFinished / 1000 + "s后重新获取");
-                mEtUserSms.setEnabled(false);
+                mTvSmsSend.setText(millisUntilFinished / 1000 + "s后重新获取");
+                mTvSmsSend.setEnabled(false);
                 //   tvCode.setBackgroundResource(R.drawable.shap_gray_5);
             }
 
             @Override
             public void onFinish() {
-                mEtUserSms.setText("获取验证码");
+                mTvSmsSend.setText("获取验证码");
                 //   tvCode.setBackgroundResource(R.drawable.border_redgray5);
-                mEtUserSms.setEnabled(true);
+                mTvSmsSend.setEnabled(true);
             }
         };
     }
