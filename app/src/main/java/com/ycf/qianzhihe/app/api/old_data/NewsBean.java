@@ -7,7 +7,7 @@ import java.io.Serializable;
  * 好千纸鹤息
  */
 public class NewsBean implements Serializable {
-    private String createTime;//null,
+    private long createTime;//null,
     private String creator;//null,
     private String updateTime;//null,
     private String updater;//null,
@@ -19,12 +19,11 @@ public class NewsBean implements Serializable {
     private String content;//null,
     private String type;//0
 
-
-    public String getCreateTime() {
+    public long getCreateTime() {
         return createTime;
     }
 
-    public void setCreateTime(String createTime) {
+    public void setCreateTime(long createTime) {
         this.createTime = createTime;
     }
 
