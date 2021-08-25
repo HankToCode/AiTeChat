@@ -237,21 +237,20 @@ public class EaseContactListFragment extends BaseInitFragment {
         Map<String, EaseUser> userlist = new HashMap<String,
                 EaseUser>(5);
         for (ContactListInfo.DataBean bean : mContactList) {
-            EaseUser user =
-                    new EaseUser(bean.getFriendUserId() + Constant.ID_REDPROJECT);
+            EaseUser user = new EaseUser(bean.getFriendUserId() + Constant.ID_REDPROJECT);
             user.setNickname(bean.getFriendNickName());
             user.setAvatar(bean.getFriendUserHead());
+            user.setLine(bean.getLine());//刷新在线状态
             EaseCommonUtils.setUserInitialLetter(user);
             if (bean.getBlackStatus().equals("0")) {
                 contactList.add(user);
             }
-            EaseUser userLocal =
-                    new EaseUser(bean.getFriendUserId() + Constant.ID_REDPROJECT);
-            userLocal.setAvatar(bean.getFriendUserHead());
-            userLocal.setNickname(bean.getFriendNickName());
-            userLocal.setLine(bean.getLine());
-            EaseCommonUtils.setUserInitialLetter(userLocal);
-            userlist.put(bean.getFriendUserId() + Constant.ID_REDPROJECT, userLocal);
+//            EaseUser userLocal = new EaseUser(bean.getFriendUserId() + Constant.ID_REDPROJECT);
+//            userLocal.setAvatar(bean.getFriendUserHead());
+//            userLocal.setNickname(bean.getFriendNickName());
+//            userLocal.setLine(bean.getLine());
+            EaseCommonUtils.setUserInitialLetter(user);
+            userlist.put(bean.getFriendUserId() + Constant.ID_REDPROJECT, user);
 
         }
 

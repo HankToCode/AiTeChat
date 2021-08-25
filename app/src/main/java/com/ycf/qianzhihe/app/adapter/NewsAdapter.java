@@ -1,6 +1,5 @@
 package com.ycf.qianzhihe.app.adapter;
 
-import android.content.Intent;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -8,15 +7,10 @@ import androidx.annotation.Nullable;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.ycf.qianzhihe.R;
-import com.ycf.qianzhihe.app.api.old_data.BlackListInfo;
 import com.ycf.qianzhihe.app.api.old_data.NewsBean;
-import com.ycf.qianzhihe.app.api.old_http.AppConfig;
-import com.ycf.qianzhihe.section.account.activity.UserInfoDetailActivity;
 import com.ycf.qianzhihe.section.discover.NewsDetailActivity;
 import com.zds.base.ImageLoad.GlideUtils;
-import com.zds.base.Toast.ToastUtil;
 import com.zds.base.util.StringUtil;
-import com.zds.base.util.StringUtils;
 
 import java.util.List;
 

@@ -115,7 +115,7 @@
                 android:layout_marginBottom="1dp"
                 android:background="@color/white"
                 android:paddingLeft="@dimen/dp_15"
-                android:paddingRight="@dimen/dp_20"
+                android:paddingRight="@dimen/dp_15"
                 android:visibility="gone">
 
                 <TextView
@@ -148,8 +148,8 @@
                 android:layout_height="@dimen/dp_45"
                 android:background="@drawable/selector_comm_btn"
                 android:paddingLeft="@dimen/dp_15"
-
-                android:paddingRight="@dimen/dp_20">
+                android:paddingRight="@dimen/dp_15"
+                >
 
                 <TextView
                     android:id="@id/tv_tag"
@@ -192,9 +192,10 @@
                 android:layout_height="@dimen/dp_45"
                 android:background="@drawable/selector_comm_btn"
                 android:gravity="center_vertical"
-                android:paddingLeft="@dimen/dp_15"
                 android:layout_marginTop="@dimen/dp_5"
-                android:paddingRight="@dimen/dp_20">
+                android:paddingLeft="@dimen/dp_15"
+                android:paddingRight="@dimen/dp_15"
+                >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -228,9 +229,10 @@
                 android:layout_height="@dimen/dp_45"
                 android:background="@drawable/selector_comm_btn"
                 android:gravity="center_vertical"
-                android:paddingLeft="@dimen/dp_15"
                 android:layout_marginTop="@dimen/dp_5"
-                android:paddingRight="@dimen/dp_20">
+                android:paddingLeft="@dimen/dp_15"
+                android:paddingRight="@dimen/dp_15"
+                >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -276,13 +278,13 @@
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/dp_45"
-
+                    android:paddingLeft="@dimen/dp_15"
+                    android:paddingRight="@dimen/dp_15"
                     android:background="@color/white">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_marginLeft="@dimen/dp_15"
                         android:gravity="center_vertical"
                         android:text="置顶会话"
                         android:textColor="@color/black"
@@ -295,7 +297,6 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/dp_20"
                         android:background="@null"
                         android:button="@drawable/selector_checkbox" />
                 </RelativeLayout>
@@ -304,6 +305,7 @@
                     android:layout_height="@dimen/dp_45"
                     android:background="@color/white"
                     android:paddingLeft="@dimen/dp_15"
+                    android:paddingRight="@dimen/dp_15"
                     >
 
                     <TextView
@@ -320,7 +322,6 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/dp_20"
                         android:background="@null"
                         android:button="@drawable/selector_checkbox" />
                 </RelativeLayout>
@@ -330,6 +331,7 @@
                     android:layout_height="@dimen/dp_50"
                     android:layout_marginTop="@dimen/dp_10"
                     android:paddingLeft="@dimen/dp_15"
+                    android:paddingRight="@dimen/dp_15"
                     android:background="@color/white"
                     android:visibility="visible">
 
@@ -347,7 +349,6 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/dp_20"
                         android:background="@null"
                         android:button="@drawable/selector_checkbox" />
 
@@ -364,7 +365,7 @@
                 android:drawableRight="@mipmap/jingru"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/dp_15"
-                android:paddingRight="@dimen/dp_18"
+                android:paddingRight="@dimen/dp_15"
                 android:text="查找聊天记录"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp_15" />
@@ -378,7 +379,7 @@
                 android:drawableRight="@mipmap/jingru"
                 android:gravity="center_vertical"
                 android:paddingLeft="@dimen/dp_15"
-                android:paddingRight="@dimen/dp_18"
+                android:paddingRight="@dimen/dp_15"
                 android:text="清空聊天记录"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp_15" />
@@ -393,8 +394,8 @@
                 android:drawableRight="@drawable/more_1x"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
-                android:paddingLeft="@dimen/dp_20"
-                android:paddingRight="@dimen/dp_18"
+                android:paddingLeft="@dimen/dp_15"
+                android:paddingRight="@dimen/dp_15"
                 android:text="聊天背景"
                 android:textColor="@color/black"
                 android:textSize="@dimen/sp_15" />
@@ -407,9 +408,9 @@
                 android:drawableRight="@mipmap/ic_item_more"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
-                android:paddingLeft="@dimen/dp_20"
                 android:layout_marginTop="@dimen/dp_5"
-                android:paddingRight="@dimen/dp_20"
+                android:paddingLeft="@dimen/dp_15"
+                android:paddingRight="@dimen/dp_15"
                 android:text="举报"
                 android:textColor="@color/black_text"
                 android:textSize="@dimen/sp_15" />
@@ -432,7 +433,7 @@
                 android:layout_marginTop="1dp"
                 android:background="@color/white"
                 android:paddingLeft="@dimen/dp_15"
-                android:paddingRight="@dimen/dp_20"
+                android:paddingRight="@dimen/dp_15"
                 android:visibility="gone">
 
                 <TextView
@@ -466,7 +467,7 @@
                 android:text="移出本群"
                 android:textColor="#F55151"
                 android:textSize="@dimen/sp_15"
-                android:visibility="gone" />
+                android:visibility="visible" />
 
 
             <FrameLayout

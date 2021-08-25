@@ -206,11 +206,11 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
             }
         });
 
-        if (info == null) {
+        /*if (info == null) {
             queryGroupDetail();
         } else {
             setGroupDetail();
-        }
+        }*/
     }
 
     @Override
