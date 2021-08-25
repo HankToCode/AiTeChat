@@ -122,7 +122,7 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
     TextView tv_group_remark;
 
     @BindView(R.id.rl_container_group_single_member_jinyan)
-    RelativeLayout rl_container_group_single_member_jinyan;
+    TextView rl_container_group_single_member_jinyan;
 
 
     /**
