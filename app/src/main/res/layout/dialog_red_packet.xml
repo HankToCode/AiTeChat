@@ -82,7 +82,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"
-            android:layout_marginBottom="30dp">
+            android:layout_marginBottom="38dp">
 
             <ImageView
                 android:id="@+id/img_open"
@@ -102,12 +102,14 @@
             android:layout_marginTop="@dimen/dp_15"
             android:drawableRight="@mipmap/jinru"
             android:drawablePadding="@dimen/dp_5"
+            android:gravity="center"
             android:paddingLeft="@dimen/dp_20"
             android:paddingTop="@dimen/dp_15"
             android:paddingRight="@dimen/dp_20"
-            android:paddingBottom="@dimen/dp_15"
+            android:paddingBottom="15dp"
             android:text="查看红包详情"
             android:textColor="#FFEBAC"
+            android:textSize="12dp"
             android:visibility="gone" />
 
     </RelativeLayout>
