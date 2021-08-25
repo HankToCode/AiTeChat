@@ -1094,6 +1094,8 @@ public class AppConfig {
     public static String getSysVipInfo = mainUrl + "/app_vip/getSysVipInfo";
     //购买VIP
     public static String saveUserVip = mainUrl + "/app_vip/saveUserVip";
+    //资讯
+    public static String findAllInformation = mainUrl + "/app_information/findAllInformation";
 
 
 

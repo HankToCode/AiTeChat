@@ -35,6 +35,7 @@ import com.ycf.qianzhihe.app.api.old_data.MyGroupInfoList;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.operate.GroupOperateManager;
+import com.ycf.qianzhihe.section.discover.NewsFragment;
 import com.zds.base.ImageLoad.GlideUtils;
 import com.zds.base.code.activity.CaptureActivity;
 import com.zds.base.json.FastJsonUtil;
@@ -298,7 +299,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
 
     private void switchToNews() {
         if (mNewsFragment == null) {
-            mNewsFragment = new DiscoverFragment();
+            mNewsFragment = new NewsFragment();
         }
         replace(mNewsFragment, "news");
     }
