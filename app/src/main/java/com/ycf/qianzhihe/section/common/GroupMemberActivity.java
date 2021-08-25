@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
@@ -42,8 +43,8 @@ public class GroupMemberActivity extends BaseInitActivity implements GroupMember
     SlideRecyclerView mRvNewFriend;
     @BindView(R.id.search_bar)
     SearchBar searchBar;
-    @BindView(R.id.toolbar_title)
-    TextView mToolbarTitle;
+    @BindView(R.id.title_bar)
+    EaseTitleBar title_bar;
 
     private ArrayList<GroupDetailInfo.GroupUserDetailVoListBean> mStringList = new ArrayList<>();
     private GroupMemberAdapter mGroupMemberAdapter;
@@ -62,8 +63,8 @@ public class GroupMemberActivity extends BaseInitActivity implements GroupMember
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        setTitle("群聊成员");
-
+        title_bar.setTitle("群聊成员");
+        title_bar.setOnBackPressListener(view -> finish());
         lettes = new HashMap<>(1);
         mGroupMemberAdapter = new GroupMemberAdapter(mStringList, this, lettes, emChatId);
         mGroupMemberAdapter.setOnDelClickListener(this);

@@ -162,7 +162,7 @@ public abstract class EaseChatRow extends LinearLayout {
         }
         if (userAvatarView != null) {
             EaseImageView easeImageView = ((EaseImageView) userAvatarView);
-            ImageUtil.setAvatar(easeImageView);
+//            ImageUtil.setAvatar(easeImageView);//转换异常
             easeImageView.setShapeType(1);
         }
         if (message.direct() == Direct.SEND) {

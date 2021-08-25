@@ -10,6 +10,7 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
 import com.hyphenate.easecallkit.widget.EaseImageView;
+import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.app.api.old_data.GroupDetailInfo;
@@ -43,18 +44,9 @@ import com.zds.base.Toast.ToastUtil;
  */
 public class NoticeActivity extends BaseInitActivity {
 
-    @BindView(R.id.bar)
-    View mBar;
-    @BindView(R.id.ll_back)
-    LinearLayout mLlBack;
-    @BindView(R.id.toolbar_subtitle)
-    TextView mToolbarSubtitle;
-    @BindView(R.id.img_right)
-    ImageView mImgRight;
-    @BindView(R.id.toolbar_title)
-    TextView mToolbarTitle;
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
+    @BindView(R.id.title_bar)
+    EaseTitleBar title_bar;
+
     @BindView(R.id.img_head)
     EaseImageView mImgHead;
     @BindView(R.id.tv_name)//群主
@@ -85,10 +77,10 @@ public class NoticeActivity extends BaseInitActivity {
         setTitle("群公告");
 
         if (user_rank == 2) {
-            mToolbarSubtitle.setText("编辑");
-            mToolbarSubtitle.setVisibility(View.VISIBLE);
+            title_bar.setRightTitle("编辑");
+            title_bar.getRightLayout().setVisibility(View.VISIBLE);
         } else {
-            mToolbarSubtitle.setVisibility(View.GONE);
+            title_bar.getRightLayout().setVisibility(View.GONE);
         }
         if (noticeString == null) {
             mNotice.setText("暂无公告");
@@ -99,6 +91,20 @@ public class NoticeActivity extends BaseInitActivity {
         mTvName.setText(tv_head);
         mTvTime.setText(StringUtil.formatDateMinute(time, ""));
         ImageUtil.setAvatar(mImgHead);
+        title_bar.setOnBackPressListener(view -> finish());
+        title_bar.setOnRightClickListener(new EaseTitleBar.OnRightClickListener() {
+            @Override
+            public void onRightClick(View view) {
+
+                if (title_bar.getRightText().getText().toString().equals("编辑")) {
+                    mNotice.setVisibility(View.GONE);
+                    mEtNotice.setVisibility(View.VISIBLE);
+                    title_bar.setRightTitle("提交");
+                } else {
+                    submit();
+                }
+            }
+        });
     }
 
     /**
@@ -127,32 +133,9 @@ public class NoticeActivity extends BaseInitActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
         ButterKnife.bind(this);
     }
 
-    @OnClick(R.id.toolbar_subtitle)
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.toolbar_subtitle:
-                TextView toolbar_subtitle = (TextView) findViewById(R.id.toolbar_subtitle);
-
-                if (toolbar_subtitle.getText().toString().equals("编辑")) {
-                    mNotice.setVisibility(View.GONE);
-                    mEtNotice.setVisibility(View.VISIBLE);
-                    toolbar_subtitle.setText("提交");
-                } else {
-                    submit();
-
-                    startActivity(new Intent(this, MyGroupDetailActivity.class).putExtra("username", toChatUsername).putExtra("groupId", groupId));
-
-                    finish();
-                }
-                break;
-            default:
-                break;
-        }
-    }
 
     private void submit() {
         Map<String, Object> map = new HashMap<>();
@@ -163,6 +146,8 @@ public class NoticeActivity extends BaseInitActivity {
             public void onSuccess(String json, String msg) {
                 ToastUtil.toast(msg);
                 EventBus.getDefault().post(new EventCenter<String>(404, mEtNotice.getText().toString()));
+                startActivity(new Intent(mContext, MyGroupDetailActivity.class).putExtra("username", toChatUsername).putExtra("groupId", groupId));
+                finish();
             }
 
             @Override

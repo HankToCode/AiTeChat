@@ -12,110 +12,149 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/em_common_title_bar_height"
         app:titleBarDisplayHomeAsUpEnabled="true"
-        app:titleBarLeftImage="@mipmap/icon_back_white"
-        app:titleBarTitle="设置" />
+        app:titleBarLeftImage="@drawable/ic_back"
+        app:titleBarTitle="群聊信息" />
 
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fillViewport="true">
 
-
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
+            android:layout_height="match_parent"
+            android:background="@color/windowBackground"
             android:orientation="vertical">
 
-            <FrameLayout
-                android:id="@+id/fl_group_member"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_40"
-                android:background="@color/white">
+            <com.hyphenate.easeui.widget.EaseImageView
+                android:id="@+id/iv_group_head"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_35"
+                android:src="@drawable/default_head"
+                app:ease_shape_type="round" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="@dimen/dp_20"
-                    android:text="群聊成员"
-                    android:textColor="#000000"
-                    android:textSize="@dimen/sp_15" />
 
-                <TextView
-                    android:id="@+id/tv_total"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|right"
-                    android:layout_marginLeft="@dimen/dp_15"
-                    android:layout_marginRight="@dimen/dp_20"
-                    android:drawableRight="@mipmap/ic_item_more"
-                    android:drawablePadding="@dimen/dp_5"
-                    android:text="群聊成员"
-                    android:textColor="#666666"
-                    android:textSize="@dimen/sp_11" />
-            </FrameLayout>
+            <TextView
+                android:id="@+id/tv_group_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/dp_12"
+                android:text="柚子"
+                android:textColor="#ff000000"
+                android:textSize="17sp" />
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycle_view"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:paddingLeft="@dimen/dp_20"
-                android:paddingRight="@dimen/dp_20"
-                android:paddingBottom="@dimen/dp_10"
-                android:visibility="visible"/>
-
-
-            <RelativeLayout
-                android:id="@+id/rl_room_img"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_45"
-                android:layout_marginTop="@dimen/dp_8"
-                android:layout_marginBottom="1dp"
-                android:background="@color/white"
-                android:onClick="onViewClicked">
+                android:layout_marginTop="@dimen/dp_20"
+                android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/tv_group_notice"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="群公告"
+                    android:textColor="#ff000000"
+                    android:textSize="13sp"
+                    app:drawableTopCompat="@mipmap/icon_group_notice" />
+
+                <TextView
+                    android:id="@+id/tv_msg_record"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="聊天记录"
+                    android:textColor="#ff000000"
+                    android:textSize="13sp"
+                    app:drawableTopCompat="@mipmap/icon_group_chat_his" />
+
+                <TextView
+                    android:id="@+id/tv_group_zx"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@mipmap/icon_group_qrcode"
+                    android:gravity="center"
+                    android:text="二维码"
+                    android:textColor="#ff000000"
+                    android:textSize="13sp" />
+
+                <TextView
+                    android:id="@+id/tv_group_manager"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:drawableTop="@mipmap/icon_group_manger"
+                    android:gravity="center"
+                    android:text="管理员"
+                    android:textColor="#ff000000"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/dp_15"
+                android:background="@drawable/selector_comm_btn"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:id="@+id/fl_group_member"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="@dimen/dp_20"
-                    android:text="修改头像"
-                    android:textColor="#000000"
-                    android:textSize="@dimen/sp_15"
-                    android:typeface="serif" />
-
-                <ImageView
-                    android:id="@+id/group_img"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dp_30"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/dp_30"
                     android:gravity="center_vertical"
-                    android:src="@mipmap/img_default_avatar" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_weight="1"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/dp_10"
+                        android:text="群员"
+                        android:textColor="#ff000000"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tv_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:layout_gravity="center_vertical|right"
+                        android:layout_marginLeft="@dimen/dp_15"
+                        android:layout_marginRight="@dimen/dp_20"
+                        android:drawableRight="@mipmap/ic_item_more"
+                        android:drawablePadding="@dimen/dp_5"
+                        android:text="群聊成员"
+                        android:textColor="#666666"
+                        android:textSize="@dimen/sp_11" />
+                </LinearLayout>
 
 
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/dp_40"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/dp_20"
-                    android:gravity="center_vertical"
-                    android:src="@drawable/jingru" />
-
-            </RelativeLayout>
-
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recycle_view"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/dp_10"
+                    android:paddingRight="@dimen/dp_10" />
+            </LinearLayout>
 
             <RelativeLayout
                 android:id="@+id/rl_room_hx"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
-                android:layout_marginBottom="1dp"
-                android:background="@color/white"
-                android:paddingLeft="@dimen/dp_20">
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginRight="@dimen/dp_15"
+                android:background="@drawable/selector_comm_btn"
+                android:paddingLeft="@dimen/dp_15"
+                android:paddingRight="@dimen/dp_15">
 
                 <TextView
                     android:id="@+id/tv_group_id_tag"
@@ -123,7 +162,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:text="群聊ID"
-                    android:textColor="@android:color/black"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/sp_15"
                     android:typeface="serif" />
 
@@ -133,127 +172,23 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/dp_20"
+                    android:layout_marginRight="@dimen/dp_5"
                     android:drawablePadding="@dimen/dp_5"
                     android:ellipsize="end"
                     android:gravity="center_vertical"
                     android:maxLines="1"
-                    android:textColor="#666666"
+                    android:text="1111"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/sp_14" />
-
-
             </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/rl_room_id"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_45"
-                android:layout_marginBottom="1dp"
-                android:background="@drawable/selector_comm_btn">
-
-                <TextView
-                    android:id="@+id/tv_group_name"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="@dimen/dp_20"
-                    android:text="群聊名称"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/sp_15"
-                    android:typeface="serif" />
-
-                <TextView
-                    android:id="@+id/group_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/dp_20"
-                    android:drawableRight="@mipmap/ic_item_more"
-                    android:drawablePadding="@dimen/dp_5"
-                    android:ellipsize="end"
-                    android:gravity="center_vertical"
-                    android:maxLength="8"
-                    android:maxLines="1"
-                    android:textColor="@color/my_gray"
-                    android:textSize="@dimen/sp_14"
-                    tools:text="20-22点开放" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_45"
-                android:layout_marginBottom="1dp"
-                android:background="@color/white"
-                android:paddingLeft="@dimen/dp_20"
-                android:paddingRight="@dimen/dp_20">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:drawableLeft="@drawable/saima"
-                    android:drawableRight="@mipmap/ic_item_more"
-                    android:drawablePadding="@dimen/dp_2"
-                    android:gravity="center_vertical|right" />
-
-                <TextView
-                    android:id="@+id/tv_group_zx"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:text="群二维码"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/sp_15"
-                    android:typeface="serif" />
-            </RelativeLayout>
-
-            <LinearLayout
-                android:id="@+id/tv_group_notice"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_45"
-                android:layout_marginBottom="1dp"
-                android:background="@color/white"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:paddingLeft="@dimen/dp_20"
-                android:paddingRight="@dimen/dp_20">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center_vertical"
-                    android:text="群公告"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/sp_15"
-                    android:typeface="serif" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="0.5dp"
-                    android:layout_weight="1" />
-
-                <TextView
-                    android:id="@+id/tv_group_announcement"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:drawableRight="@mipmap/ic_item_more"
-                    android:drawablePadding="@dimen/dp_5"
-                    android:hint="群公告"
-                    android:textColor="#666666"
-                    android:textSize="@dimen/sp_15" />
-
-            </LinearLayout>
 
             <RelativeLayout
                 android:id="@+id/rl_container_group_remark"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
-                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginTop="@dimen/dp_5"
+                android:layout_marginRight="@dimen/dp_15"
                 android:background="@drawable/selector_comm_btn"
                 android:visibility="visible">
 
@@ -285,32 +220,77 @@
                     tools:text="" />
             </RelativeLayout>
 
-            <TextView
-                android:id="@+id/tv_group_manager"
+            <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
-                android:layout_marginBottom="1dp"
-                android:background="@color/white"
-                android:drawableRight="@mipmap/ic_item_more"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginTop="@dimen/dp_5"
+                android:layout_marginRight="@dimen/dp_15"
+                android:background="@drawable/selector_comm_btn"
+                android:paddingLeft="@dimen/dp_15"
+                android:paddingRight="@dimen/dp_15">
+
+
+                <TextView
+                    android:id="@+id/tv_my_group_nick_name_s"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_centerVertical="true"
+                    android:background="@color/white"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:gravity="center_vertical"
+                    android:text="我在本群的昵称"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp_15"
+                    android:typeface="serif" />
+
+                <TextView
+                    android:id="@+id/tv_my_group_nick_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="right"
+                    android:layout_marginRight="@dimen/dp_5"
+                    android:drawableRight="@mipmap/ic_item_more"
+                    android:drawablePadding="@dimen/dp_5"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical"
+                    android:maxLength="8"
+                    android:maxLines="1"
+                    android:textColor="#666666"
+                    android:textSize="@dimen/sp_14"
+                    tools:text="慕枫" />
+            </FrameLayout>
+
+            <TextView
+                android:id="@+id/tv_chat_bg"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginTop="@dimen/dp_5"
+                android:layout_marginRight="@dimen/dp_15"
+                android:background="@drawable/selector_comm_btn"
+                android:drawableRight="@drawable/more_1x"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
-                android:paddingLeft="@dimen/dp_20"
-                android:paddingRight="@dimen/dp_20"
-                android:text="设置管理员"
-                android:textColor="#000000"
-                android:textSize="@dimen/sp_15"
-                android:visibility="gone" />
+                android:paddingLeft="@dimen/dp_15"
+                android:paddingRight="@dimen/dp_15"
+                android:text="聊天背景"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_15" />
 
             <FrameLayout
                 android:id="@+id/fl_group_jinyan"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
                 android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginTop="@dimen/dp_5"
+                android:layout_marginRight="@dimen/dp_15"
                 android:layout_marginBottom="1dp"
-                android:background="@color/white"
+                android:background="@drawable/selector_comm_btn"
                 android:paddingLeft="@dimen/dp_20"
                 android:paddingRight="@dimen/dp_20"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -335,6 +315,8 @@
                 android:id="@+id/rl_container_group_single_member_jinyan"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginRight="@dimen/dp_15"
                 android:layout_marginBottom="1dp"
                 android:background="@drawable/selector_comm_btn"
                 android:visibility="visible">
@@ -366,51 +348,13 @@
                     tools:text="" />
             </RelativeLayout>
 
-            <FrameLayout
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_45"
-                android:layout_marginTop="@dimen/dp_8"
-                android:layout_marginBottom="@dimen/dp_8"
-                android:background="@color/white"
-                android:paddingLeft="@dimen/dp_20"
-                android:paddingRight="@dimen/dp_20">
-
-
-                <TextView
-                    android:id="@+id/tv_my_group_nick_name_s"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_centerVertical="true"
-                    android:background="@color/white"
-                    android:foreground="?attr/selectableItemBackground"
-                    android:gravity="center_vertical"
-                    android:text="我在本群的昵称"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/sp_15"
-                    android:typeface="serif" />
-
-                <TextView
-                    android:id="@+id/tv_my_group_nick_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="right"
-                    android:drawableRight="@mipmap/ic_item_more"
-                    android:drawablePadding="@dimen/dp_5"
-                    android:ellipsize="end"
-                    android:gravity="center_vertical"
-                    android:maxLength="8"
-                    android:maxLines="1"
-                    android:textColor="#666666"
-                    android:textSize="@dimen/sp_14"
-                    tools:text="慕枫" />
-            </FrameLayout>
-
-
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
-                android:layout_marginBottom="1dp"
-                android:background="@color/white"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginTop="@dimen/dp_5"
+                android:layout_marginRight="@dimen/dp_15"
+                android:background="@drawable/selector_comm_btn"
                 android:paddingLeft="@dimen/dp_20"
                 android:paddingRight="@dimen/dp_20">
 
@@ -431,31 +375,13 @@
                     android:background="@null"
                     android:button="@drawable/selector_checkbox"
                     android:checked="false" />
-
-
             </RelativeLayout>
-
-            <TextView
-                android:id="@+id/tv_msg_record"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_45"
-                android:layout_centerVertical="true"
-                android:layout_marginBottom="1dp"
-                android:background="@color/white"
-                android:drawableRight="@mipmap/ic_item_more"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center_vertical"
-                android:paddingLeft="@dimen/dp_20"
-                android:paddingRight="@dimen/dp_20"
-                android:text="聊天记录"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/sp_15"
-                android:typeface="serif" />
 
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
-                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginRight="@dimen/dp_15"
                 android:background="@color/white"
                 android:paddingLeft="@dimen/dp_20"
                 android:paddingRight="@dimen/dp_20">
@@ -483,13 +409,13 @@
                     android:checked="false" />
             </FrameLayout>
 
-
             <TextView
                 android:id="@+id/tv_clear_msg"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
                 android:layout_centerVertical="true"
-                android:layout_marginBottom="1dp"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginRight="@dimen/dp_15"
                 android:background="@color/white"
                 android:drawableRight="@mipmap/ic_item_more"
                 android:foreground="?attr/selectableItemBackground"
@@ -505,7 +431,9 @@
                 android:id="@+id/fl_user_read_detail"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
+                android:layout_marginLeft="@dimen/dp_15"
                 android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginRight="@dimen/dp_15"
                 android:background="@color/white">
 
                 <TextView
@@ -517,7 +445,7 @@
                     android:gravity="center_vertical"
                     android:paddingLeft="@dimen/dp_20"
                     android:paddingRight="@dimen/dp_15"
-                    android:text="允许群成员之间互相查看用户详情"
+                    android:text="允许成员之间互相查看用户详情"
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/sp_15"
                     android:typeface="serif" />
@@ -539,7 +467,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="@dimen/dp_15"
                 android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginRight="@dimen/dp_15"
                 android:background="@color/white"
                 android:drawableRight="@mipmap/ic_item_more"
                 android:foreground="?attr/selectableItemBackground"
@@ -550,13 +480,15 @@
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/sp_15"
                 android:typeface="serif"
-                android:visibility="gone" />
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/tv_exit"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
+                android:layout_marginLeft="@dimen/dp_15"
                 android:layout_marginTop="@dimen/dp_8"
+                android:layout_marginRight="@dimen/dp_15"
                 android:layout_marginBottom="30dp"
                 android:background="@color/white"
                 android:foreground="?attr/selectableItemBackground"

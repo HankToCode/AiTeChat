@@ -11,13 +11,12 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/em_common_title_bar_height"
         app:titleBarDisplayHomeAsUpEnabled="true"
-        app:titleBarLeftImage="@mipmap/icon_back_white"
+        app:titleBarLeftImage="@drawable/ic_back"
         app:titleBarTitle="编辑"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_23"
         android:background="@color/white"
         android:paddingTop="@dimen/dp_20"
         android:paddingBottom="@dimen/dp_20">

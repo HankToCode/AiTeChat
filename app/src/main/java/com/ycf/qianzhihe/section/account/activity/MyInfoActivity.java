@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -79,7 +80,7 @@ public class MyInfoActivity extends BaseInitActivity {
     @BindView(R.id.rb_female)
     RadioButton rb_female;
     @BindView(R.id.ll_sign)
-    RadioButton ll_sign;
+    LinearLayout ll_sign;
 
     @Override
     protected int getLayoutId() {

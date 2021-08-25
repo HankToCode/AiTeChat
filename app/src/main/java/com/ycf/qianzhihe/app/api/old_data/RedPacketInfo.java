@@ -180,7 +180,7 @@ public class RedPacketInfo {
          * robUserHead : http://47.107.131.59:8763/chatinte/profile/http://dingyue.nosdn.127.net/0xLZWhWdfwnKpHgRUjpQCokz9ddDTm6LYWctCaXrxzuMG1548687047116.png
          */
 
-        private Long createTime;
+        private String createTime;
         private String updateTime;
         private String detailId;
         private String redPacketId;
@@ -192,11 +192,11 @@ public class RedPacketInfo {
         private String robUserName;
         private String robUserHead;
 
-        public Long getCreateTime() {
+        public String getCreateTime() {
             return createTime;
         }
 
-        public void setCreateTime(Long createTime) {
+        public void setCreateTime(String createTime) {
             this.createTime = createTime;
         }
 

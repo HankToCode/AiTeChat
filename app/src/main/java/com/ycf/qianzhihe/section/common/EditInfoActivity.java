@@ -74,7 +74,8 @@ public class EditInfoActivity extends BaseInitActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        title_bar.getRightText().setVisibility(View.VISIBLE);
+        title_bar.setOnBackPressListener(view -> finish());
+        title_bar.setRightLayoutVisibility(View.VISIBLE);
         title_bar.getRightText().setText("保存");
         if (mEtNickName.getText().length() > 0) {
             mImgDel.setVisibility(View.VISIBLE);
