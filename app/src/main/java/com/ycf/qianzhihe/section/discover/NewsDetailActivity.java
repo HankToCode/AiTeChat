@@ -23,6 +23,8 @@ public class NewsDetailActivity extends BaseInitActivity {
     TextView tv_content;
     @BindView(R.id.tv_time)
     TextView tv_time;
+    @BindView(R.id.tv_title)
+    TextView tv_title;
     @BindView(R.id.title_bar)
     EaseTitleBar title_bar;
     @BindView(R.id.iv_img)
@@ -56,8 +58,8 @@ public class NewsDetailActivity extends BaseInitActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        title_bar.setTitle(title);
         title_bar.setOnBackPressListener(view -> finish());
+        tv_title.setText(title);
         tv_time.setText(StringUtil.formatDateMinute(time, ""));
         GlideUtils.loadImageViewLoding(img, iv_img, R.mipmap.em_logo_uidemo);
         tv_content.setText(content);
