@@ -110,6 +110,8 @@ public class UserInfoDetailActivity extends BaseInitActivity {
     CheckBox mSwitchBlack;
     @BindView(R.id.iv_online_status)
     ImageView iv_online_status;
+    @BindView(R.id.iv_start)
+    ImageView iv_start;
 
 
     @Override
