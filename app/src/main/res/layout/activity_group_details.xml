@@ -50,7 +50,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/dp_20"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/tv_group_notice"
@@ -115,23 +116,23 @@
 
                     <TextView
                         android:layout_width="0dp"
-                        android:layout_weight="1"
                         android:layout_height="wrap_content"
                         android:layout_margin="@dimen/dp_10"
+                        android:layout_weight="1"
                         android:text="群员"
-                        android:textColor="#ff000000"
+                        android:textColor="@color/black"
                         android:textSize="14sp" />
 
                     <TextView
                         android:id="@+id/tv_total"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:gravity="center"
                         android:layout_gravity="center_vertical|right"
                         android:layout_marginLeft="@dimen/dp_15"
                         android:layout_marginRight="@dimen/dp_20"
                         android:drawableRight="@mipmap/ic_item_more"
                         android:drawablePadding="@dimen/dp_5"
+                        android:gravity="center"
                         android:text="群聊成员"
                         android:textColor="#666666"
                         android:textSize="@dimen/sp_11" />
@@ -163,8 +164,7 @@
                     android:layout_centerVertical="true"
                     android:text="群聊ID"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/sp_15"
-                    android:typeface="serif" />
+                    android:textSize="@dimen/sp_15" />
 
                 <TextView
                     android:id="@+id/tv_group_id"
@@ -178,7 +178,7 @@
                     android:gravity="center_vertical"
                     android:maxLines="1"
                     android:text="1111"
-                    android:textColor="@color/black"
+                    android:textColor="#666666"
                     android:textSize="@dimen/sp_14" />
             </RelativeLayout>
 
@@ -190,17 +190,16 @@
                 android:layout_marginTop="@dimen/dp_5"
                 android:layout_marginRight="@dimen/dp_15"
                 android:background="@drawable/selector_comm_btn"
+                android:paddingLeft="@dimen/dp_15"
                 android:visibility="visible">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:paddingLeft="@dimen/dp_20"
                     android:text="群备注"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/sp_15"
-                    android:typeface="serif" />
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp_15"  />
 
                 <TextView
                     android:id="@+id/tv_group_remark"
@@ -223,12 +222,13 @@
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
-                android:layout_marginLeft="@dimen/dp_15"
                 android:layout_marginTop="@dimen/dp_5"
+                android:layout_marginLeft="@dimen/dp_15"
                 android:layout_marginRight="@dimen/dp_15"
                 android:background="@drawable/selector_comm_btn"
                 android:paddingLeft="@dimen/dp_15"
-                android:paddingRight="@dimen/dp_15">
+                android:paddingRight="@dimen/dp_15"
+                >
 
 
                 <TextView
@@ -241,8 +241,7 @@
                     android:gravity="center_vertical"
                     android:text="我在本群的昵称"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/sp_15"
-                    android:typeface="serif" />
+                    android:textSize="@dimen/sp_15" />
 
                 <TextView
                     android:id="@+id/tv_my_group_nick_name"
@@ -288,8 +287,8 @@
                 android:layout_marginRight="@dimen/dp_15"
                 android:layout_marginBottom="1dp"
                 android:background="@drawable/selector_comm_btn"
-                android:paddingLeft="@dimen/dp_20"
-                android:paddingRight="@dimen/dp_20"
+                android:paddingLeft="@dimen/dp_15"
+                android:paddingRight="@dimen/dp_15"
                 android:visibility="visible">
 
                 <TextView
@@ -311,52 +310,34 @@
 
             </FrameLayout>
 
-            <RelativeLayout
+            <TextView
                 android:id="@+id/rl_container_group_single_member_jinyan"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_45"
-                android:layout_marginLeft="@dimen/dp_15"
-                android:layout_marginRight="@dimen/dp_15"
-                android:layout_marginBottom="1dp"
-                android:background="@drawable/selector_comm_btn"
-                android:visibility="visible">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="@dimen/dp_20"
-                    android:text="单个禁言"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/sp_15"
-                    android:typeface="serif" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/dp_20"
-                    android:drawableRight="@mipmap/ic_item_more"
-                    android:drawablePadding="@dimen/dp_5"
-                    android:ellipsize="end"
-                    android:gravity="center_vertical"
-                    android:maxLength="8"
-                    android:maxLines="1"
-                    android:textColor="@color/my_gray"
-                    android:textSize="@dimen/sp_14"
-                    tools:text="" />
-            </RelativeLayout>
-
-            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_45"
                 android:layout_marginLeft="@dimen/dp_15"
                 android:layout_marginTop="@dimen/dp_5"
                 android:layout_marginRight="@dimen/dp_15"
                 android:background="@drawable/selector_comm_btn"
-                android:paddingLeft="@dimen/dp_20"
-                android:paddingRight="@dimen/dp_20">
+                android:drawableRight="@drawable/more_1x"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:paddingLeft="@dimen/dp_15"
+                android:paddingRight="@dimen/dp_15"
+                android:text="单个禁言"
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_15" />
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_45"
+                android:layout_marginTop="@dimen/dp_5"
+                android:layout_marginLeft="@dimen/dp_15"
+                android:layout_marginRight="@dimen/dp_15"
+                android:background="@drawable/selector_comm_btn"
+                android:paddingLeft="@dimen/dp_15"
+                android:paddingRight="@dimen/dp_15"
+                >
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -383,8 +364,9 @@
                 android:layout_marginLeft="@dimen/dp_15"
                 android:layout_marginRight="@dimen/dp_15"
                 android:background="@color/white"
-                android:paddingLeft="@dimen/dp_20"
-                android:paddingRight="@dimen/dp_20">
+                android:paddingLeft="@dimen/dp_15"
+                android:paddingRight="@dimen/dp_15"
+                >
 
                 <TextView
                     android:id="@+id/tv_msg_disturb"
@@ -395,9 +377,8 @@
                     android:background="@color/white"
                     android:gravity="center_vertical"
                     android:text="消息免打扰"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/sp_15"
-                    android:typeface="serif" />
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp_15" />
 
                 <CheckBox
                     android:id="@+id/switch_msg"
@@ -420,12 +401,11 @@
                 android:drawableRight="@mipmap/ic_item_more"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
-                android:paddingLeft="@dimen/dp_20"
-                android:paddingRight="@dimen/dp_20"
+                android:paddingLeft="@dimen/dp_15"
+                android:paddingRight="@dimen/dp_15"
                 android:text="清空聊天记录"
-                android:textColor="@android:color/black"
-                android:textSize="@dimen/sp_15"
-                android:typeface="serif" />
+                android:textColor="@color/black"
+                android:textSize="@dimen/sp_15" />
 
             <FrameLayout
                 android:id="@+id/fl_user_read_detail"
@@ -434,6 +414,8 @@
                 android:layout_marginLeft="@dimen/dp_15"
                 android:layout_marginTop="@dimen/dp_8"
                 android:layout_marginRight="@dimen/dp_15"
+                android:paddingLeft="@dimen/dp_15"
+                android:paddingRight="@dimen/dp_15"
                 android:background="@color/white">
 
                 <TextView
@@ -443,19 +425,16 @@
                     android:layout_centerVertical="true"
                     android:background="@color/white"
                     android:gravity="center_vertical"
-                    android:paddingLeft="@dimen/dp_20"
-                    android:paddingRight="@dimen/dp_15"
+
                     android:text="允许成员之间互相查看用户详情"
-                    android:textColor="@android:color/black"
-                    android:textSize="@dimen/sp_15"
-                    android:typeface="serif" />
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/sp_15" />
 
                 <CheckBox
                     android:id="@+id/switch_user_red_detail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right|center_vertical"
-                    android:layout_marginRight="@dimen/dp_20"
                     android:background="@null"
                     android:button="@drawable/selector_checkbox"
                     android:checked="false" />
@@ -474,12 +453,11 @@
                 android:drawableRight="@mipmap/ic_item_more"
                 android:foreground="?attr/selectableItemBackground"
                 android:gravity="center_vertical"
-                android:paddingLeft="@dimen/dp_20"
-                android:paddingRight="@dimen/dp_20"
+                android:paddingLeft="@dimen/dp_15"
+                android:paddingRight="@dimen/dp_15"
                 android:text="群转让"
-                android:textColor="@android:color/black"
+                android:textColor="@color/black"
                 android:textSize="@dimen/sp_15"
-                android:typeface="serif"
                 android:visibility="visible" />
 
             <TextView
