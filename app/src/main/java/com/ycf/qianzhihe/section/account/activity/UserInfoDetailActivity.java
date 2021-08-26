@@ -546,6 +546,7 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                 intent1.putExtra("friendUserId", userId);
                 intent1.putExtra("categoryId", info.getCategoryId());
                 intent1.putExtra("categoryName", info.getCategoryName());
+                System.out.println("###分组好友的id传入=" + userId);
                 startActivityForResult(intent1, 301);
 //                FriendGroupingActvity.actionStart(mContext,userId,info.getCategoryId(),info.getCategoryName());
                 break;

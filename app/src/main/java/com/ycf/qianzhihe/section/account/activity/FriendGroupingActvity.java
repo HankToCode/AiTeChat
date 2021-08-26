@@ -13,7 +13,9 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.adapter.FriendGroupingAdapter;
+import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.new_data.FriendGroupingBean;
+import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
 import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
@@ -22,6 +24,8 @@ import com.ycf.qianzhihe.app.help.RclViewHelp;
 import com.ycf.qianzhihe.app.weight.ConfirmInputDialog;
 import com.ycf.qianzhihe.common.utils.ToastUtils;
 import com.zds.base.json.FastJsonUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,7 +69,7 @@ public class FriendGroupingActvity extends BaseInitActivity {
         friendUserId = intent.getStringExtra("friendUserId");
         categoryId = intent.getStringExtra("categoryId");
         categoryName = intent.getStringExtra("categoryName");
-        System.out.println("###好友的分组=" + categoryName);
+        System.out.println("###分组好友的id=" + friendUserId);
     }
 
     @Override
@@ -93,6 +97,7 @@ public class FriendGroupingActvity extends BaseInitActivity {
         ApiClient.requestNetHandle(this, AppConfig.modifyFriendCategory, "", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
+                EventBus.getDefault().post(new EventCenter(EventUtil.FLUSHGROUPING));//刷新好友分组
                 ToastUtils.showToast("设置成功");
                 Intent intent = new Intent();
                 intent.putExtra("categoryName",groupingDatas.get(position).getName());
@@ -134,6 +139,7 @@ public class FriendGroupingActvity extends BaseInitActivity {
             @Override
             public void onSuccess(String json, String msg) {
                 ToastUtils.showToast("添加分组成功");
+                EventBus.getDefault().post(new EventCenter(EventUtil.FLUSHGROUPING));//刷新好友分组
                 queryGrouping();
             }
 

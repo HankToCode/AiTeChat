@@ -1092,16 +1092,16 @@ public class AppConfig {
     public static String showStore = mainUrl + "common/showStore";
 
     //VIP信息展示
-    public static String getSysVipInfo = mainUrl + "/app_vip/getSysVipInfo";
+    public static String getSysVipInfo = mainUrl + "app_vip/getSysVipInfo";
     //购买VIP
-    public static String saveUserVip = mainUrl + "/app_vip/saveUserVip";
+    public static String saveUserVip = mainUrl + "app_vip/saveUserVip";
     //资讯
-    public static String findAllInformation = mainUrl + "/app_information/findAllInformation";
+    public static String findAllInformation = mainUrl + "app_information/findAllInformation";
     //好友分组查询
-    public static String selectFriendCategory = mainUrl + "/app_user_friend/selectFriendCategory";
+    public static String selectFriendCategory = mainUrl + "app_user_friend/selectFriendCategory";
     //保存好友分组
-    public static String saveFriendCategory = mainUrl + "/app_user_friend/saveFriendCategory";
-    public static String modifyFriendCategory = mainUrl + "/app_user_friend/modifyFriendCategory";
+    public static String saveFriendCategory = mainUrl + "app_user_friend/saveFriendCategory";
+    public static String modifyFriendCategory = mainUrl + "app_user_friend/modifyFriendCategory";
 
 
 

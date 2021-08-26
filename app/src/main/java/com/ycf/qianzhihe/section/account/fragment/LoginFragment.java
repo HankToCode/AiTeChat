@@ -124,6 +124,7 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
         super.initListener();
         mEtLoginName.addTextChangedListener(this);
         mEtLoginPwd.addTextChangedListener(this);
+        mEtLoginSms.addTextChangedListener(this);
         mTvLoginRegister.setOnClickListener(this);
         mBtnLogin.setOnClickListener(this);
         mEtLoginPwd.setOnEditorActionListener(this);
@@ -267,7 +268,9 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
         } else {
             loginMethod = 0;
         }
-
+        //切换登录方式时把密码或验证码框置空
+        mEtLoginPwd.setText("");
+        mEtLoginSms.setText("");
         mLlPwd.setVisibility(loginMethod == 0 ? View.VISIBLE : View.GONE);
         mLlSms.setVisibility(loginMethod == 1 ? View.VISIBLE : View.GONE);
         mTvSwitchLogin.setText(loginMethod == 0 ? "短信登录" : "密码登录");
@@ -333,7 +336,7 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
             return;
         }
 
-        if (TextUtils.isEmpty(mUserName) || TextUtils.isEmpty(mPwd)) {
+        if (TextUtils.isEmpty(mUserName) || TextUtils.isEmpty(mSms)) {
             ToastUtils.showToast(R.string.em_login_btn_sms_incomplete);
             return;
         }
@@ -439,6 +442,7 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
     }
 
     private void setButtonEnable(boolean enable) {
+        System.out.println("###登录信息=" + mUserName + "###mPwd=" + mPwd + "###mSms=" + mSms);
         mBtnLogin.setEnabled(enable);
         if (mEtLoginPwd.hasFocus()) {
             mEtLoginPwd.setImeOptions(enable ? EditorInfo.IME_ACTION_DONE : EditorInfo.IME_ACTION_PREVIOUS);

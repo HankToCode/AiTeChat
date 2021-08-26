@@ -25,8 +25,8 @@ public class EventUtil {
     //刷新群组
     public static final int FLUSHGROUP = 6;
 
-    //刷新群组
-    public static final int FLUSHBANNER = 7;
+    //刷新好友分组
+    public static final int FLUSHGROUPING = 7;
 
     //注册 chat
     public static final int REGISTERBUTTON = 8;
