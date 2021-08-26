@@ -53,6 +53,8 @@ import com.zds.base.Toast.ToastUtil;
 public class SendPersonRedPackageActivity extends BaseInitActivity {
     @BindView(R.id.toolbar_title)
     TextView mToolbarTitle;
+    @BindView(R.id.ll_back)
+    LinearLayout ll_back;
     @BindView(R.id.et_red_amount)
     EditText mEtRedAmount;
     @BindView(R.id.et_remark)
@@ -79,6 +81,7 @@ public class SendPersonRedPackageActivity extends BaseInitActivity {
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         mToolbarTitle.setText("发送红包");
+        ll_back.setOnClickListener(view -> finish());
         mEtRedAmount.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_CLASS_NUMBER);
         mEtRedAmount.setFilters(new InputFilter[]{
                 new InputFilter() {
@@ -181,7 +184,7 @@ public class SendPersonRedPackageActivity extends BaseInitActivity {
                                 remark);
                         intent.putExtra("redId", json);
                         setResult(Activity.RESULT_OK, intent);
-                        ToastUtil.toast(msg);
+//                        ToastUtil.toast(msg);
                         finish();
                     }
 

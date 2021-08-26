@@ -240,7 +240,7 @@ public class EaseContactListFragment extends BaseInitFragment {
             EaseUser user = new EaseUser(bean.getFriendUserId() + Constant.ID_REDPROJECT);
             user.setNickname(bean.getFriendNickName());
             user.setAvatar(bean.getFriendUserHead());
-            user.setLine(bean.getLine());//刷新在线状态
+            user.setLine(bean.getLine());//在线状态
             EaseCommonUtils.setUserInitialLetter(user);
             if (bean.getBlackStatus().equals("0")) {
                 contactList.add(user);
@@ -249,7 +249,7 @@ public class EaseContactListFragment extends BaseInitFragment {
 //            userLocal.setAvatar(bean.getFriendUserHead());
 //            userLocal.setNickname(bean.getFriendNickName());
 //            userLocal.setLine(bean.getLine());
-            EaseCommonUtils.setUserInitialLetter(user);
+//            EaseCommonUtils.setUserInitialLetter(user);
             userlist.put(bean.getFriendUserId() + Constant.ID_REDPROJECT, user);
 
         }

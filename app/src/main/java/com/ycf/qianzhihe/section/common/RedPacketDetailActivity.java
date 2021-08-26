@@ -222,7 +222,8 @@ public class RedPacketDetailActivity extends BaseInitActivity {
                             ll_user_money.setVisibility(View.VISIBLE);
                         } else if (allSize - ylSize > 0) {
                             ll_user_money.setVisibility(View.GONE);
-                            tv_message_hb.setText("红包" + (redPacketInfo.getMoney() - allMoney) + "金额等待对方领取");
+
+                            tv_message_hb.setText("红包" + StringUtil.getFormatValue2(redPacketInfo.getMoney() - allMoney) + "金额等待对方领取");
                         }
 
 

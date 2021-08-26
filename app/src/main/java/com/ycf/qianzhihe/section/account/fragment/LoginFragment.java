@@ -442,7 +442,6 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
     }
 
     private void setButtonEnable(boolean enable) {
-        System.out.println("###登录信息=" + mUserName + "###mPwd=" + mPwd + "###mSms=" + mSms);
         mBtnLogin.setEnabled(enable);
         if (mEtLoginPwd.hasFocus()) {
             mEtLoginPwd.setImeOptions(enable ? EditorInfo.IME_ACTION_DONE : EditorInfo.IME_ACTION_PREVIOUS);

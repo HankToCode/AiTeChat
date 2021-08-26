@@ -69,7 +69,6 @@ public class FriendGroupingActvity extends BaseInitActivity {
         friendUserId = intent.getStringExtra("friendUserId");
         categoryId = intent.getStringExtra("categoryId");
         categoryName = intent.getStringExtra("categoryName");
-        System.out.println("###分组好友的id=" + friendUserId);
     }
 
     @Override

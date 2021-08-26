@@ -16,6 +16,7 @@ public class ContactListInfo implements Serializable {
     public List<DataBean> getData() {
         return appUserFriendVoList;
     }
+
     public List<DataBean> getAppUserFriendVoList() {
         return appUserFriendVoList;
     }
@@ -38,6 +39,24 @@ public class ContactListInfo implements Serializable {
         private String addGroupFlag;
         private String nickName;
         private String line;
+        private String categoryId;//":"f1fe5602064911ecab930c42a1a8807a",
+        private String categoryName;//":"哈哈"
+
+        public String getCategoryId() {
+            return categoryId;
+        }
+
+        public void setCategoryId(String categoryId) {
+            this.categoryId = categoryId;
+        }
+
+        public String getCategoryName() {
+            return categoryName;
+        }
+
+        public void setCategoryName(String categoryName) {
+            this.categoryName = categoryName;
+        }
 
         public String getLine() {
             return line;

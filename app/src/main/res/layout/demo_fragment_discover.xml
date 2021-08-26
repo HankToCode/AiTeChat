@@ -43,7 +43,7 @@
             android:background="@mipmap/icon_dc2"
             android:gravity="bottom|center_horizontal"
             android:paddingBottom="@dimen/dp_4"
-            android:text="饭了就点饿了么"
+            android:text="饿了就点饿了么"
             android:textColor="@color/white"
             android:textStyle="bold" />
     </LinearLayout>

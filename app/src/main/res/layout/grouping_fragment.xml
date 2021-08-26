@@ -5,10 +5,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
+    <ExpandableListView
+        android:id="@+id/elv_expand"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        />
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible" />
+        android:visibility="gone"/>
+
+
 
 </RelativeLayout>

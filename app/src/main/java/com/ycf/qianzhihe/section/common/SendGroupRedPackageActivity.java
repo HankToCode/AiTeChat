@@ -128,7 +128,8 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
         list.add("专属红包");
         list.add("普通红包");
         tvSelect.setOnClickListener(view -> {
-            new RedPackagePopupWindow(SendGroupRedPackageActivity.this, this::switchMethod, currentRedPackageMethod).show(SendGroupRedPackageActivity.this, root, list);
+//            new RedPackagePopupWindow(SendGroupRedPackageActivity.this, this::switchMethod, currentRedPackageMethod).show(SendGroupRedPackageActivity.this, root, list);
+            toSelectItem();//更换样式
         });
 
 
@@ -139,6 +140,32 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
 
         switchMethod(currentRedPackageMethod);
 
+    }
+
+    private void toSelectItem() {
+        final CommonDialog.Builder builder = new CommonDialog.Builder(this).fullWidth().fromBottom().setView(R.layout.dialog_redpackage_select);
+        builder.setOnClickListener(R.id.tv_psj, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                builder.dismiss();
+                switchMethod(0);
+            }
+        });
+        builder.setOnClickListener(R.id.tv_zs, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                builder.dismiss();
+                switchMethod(1);
+            }
+        });
+        builder.setOnClickListener(R.id.tv_pt, new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                builder.dismiss();
+                switchMethod(2);
+            }
+        });
+        builder.create().show();
     }
 
     private ContactListInfo.DataBean dataBean;

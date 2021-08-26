@@ -20,6 +20,7 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMCmdMessageBody;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.easeui.constants.EaseConstant;
 import com.hyphenate.easeui.widget.EaseAlertDialog;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
@@ -32,6 +33,7 @@ import com.ycf.qianzhihe.app.api.old_data.LoginInfo;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
 import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
+import com.ycf.qianzhihe.app.base.ActivityStackManager;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
 import com.ycf.qianzhihe.app.operate.UserOperateManager;
 import com.ycf.qianzhihe.app.utils.ProjectUtil;
@@ -546,7 +548,6 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                 intent1.putExtra("friendUserId", userId);
                 intent1.putExtra("categoryId", info.getCategoryId());
                 intent1.putExtra("categoryName", info.getCategoryName());
-                System.out.println("###分组好友的id传入=" + userId);
                 startActivityForResult(intent1, 301);
 //                FriendGroupingActvity.actionStart(mContext,userId,info.getCategoryId(),info.getCategoryName());
                 break;
@@ -597,16 +598,22 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                     return;
                 }
                 //发消息
-                if (chatType == Constant.CHATTYPE_SINGLE) {
+                if (!userId.contains(Constant.ID_REDPROJECT)) {//friendUserId
+                    userId += Constant.ID_REDPROJECT;
+                }
+                ActivityStackManager.getInstance().killActivity(ChatActivity.class);
+                ChatActivity.actionStart(mContext, userId, EaseConstant.CHATTYPE_SINGLE);
+                finish();
+               /* if (chatType == Constant.CHATTYPE_SINGLE) {
                     finish();
                 } else {
-                    Intent intent = new Intent(this, ChatActivity.class);
+                    *//*Intent intent = new Intent(this, ChatActivity.class);
                     if (!userId.contains(Constant.ID_REDPROJECT)) {
                         userId += Constant.ID_REDPROJECT;
                     }
                     intent.putExtra(Constant.EXTRA_USER_ID, userId);
-                    startActivity(intent);
-                }
+                    startActivity(intent);*//*
+                }*/
                 break;
             case R.id.tv_add_friend:
                 //加好友

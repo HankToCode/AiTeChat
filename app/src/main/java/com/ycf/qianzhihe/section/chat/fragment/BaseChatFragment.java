@@ -1191,8 +1191,8 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
                     selectPicFromLocal();
                     break;
                 case ITEM_LOCATION:
-                    startActivityForResult(new Intent(getActivity(),
-                            SelAddrMapActivity.class), REQUEST_CODE_MAP);
+                    //无法使用暂时注释掉
+//                    startActivityForResult(new Intent(getActivity(), SelAddrMapActivity.class), REQUEST_CODE_MAP);
                     break;
                 default:
                     break;
