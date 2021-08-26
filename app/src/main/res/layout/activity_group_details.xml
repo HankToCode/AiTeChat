@@ -42,7 +42,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/dp_12"
-                android:text="柚子"
+                android:text="群名"
                 android:textColor="#ff000000"
                 android:textSize="17sp" />
 

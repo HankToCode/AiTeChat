@@ -294,12 +294,12 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
         map.put("packetAmount", currentRedPackageMethod == 1 ? 1 : etRedNum.getText().toString().trim());
         map.put("payType", isSelectBalance);
         map.put("huanxinGroupId", emGroupId);
-        map.put("type", 1);
-        map.put("redPacketType", currentRedPackageMethod);
+        map.put("type", 1);//type：1-群红包 2-个人红包 （由于是群红包，这里固定为1即可，必传）
+        map.put("redPacketType", currentRedPackageMethod);//0-拼手气，非专属红包 1-专属红包,2-群平均红包 （必传）
         if (currentRedPackageMethod == 1) {
             if (dataBean != null) {
                 map.put("toUserNickName", dataBean.getNickName());
-                map.put("belongUserId", dataBean.getUserId());
+                map.put("belongUserId", dataBean.getFriendUserId());//对方的id
             } else {
                 ToastUtil.toast("请先选择群成员");
                 return;
@@ -311,12 +311,6 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
                 StringUtil.isEmpty(etRemark.getText().toString().trim()) ?
                         "恭喜发财，大吉大利！" : etRemark.getText().toString().trim();
         map.put("remark", remark);
-        map.put("type", "1");//type：1-群红包 2-个人红包 （由于是群红包，这里固定为1即可，必传）
-        map.put("redPacketType", "0");//0-拼手气，非专属红包 1-专属红包,2-群平均红包 （必传）
-        // TODO: 2021/8/25/025
-        /*toUserNickName：专属红包用户昵称 （发送给谁的昵称 ， redPacketType==1时必传）
-        belongUserId：专属红包用户id （发送给谁的userId ， redPacketType==1时必传）
-        注意：如果是专属红包，则红包个数需要固定为1，单个红包最多200*/
 
         ApiClient.requestNetHandle(this, AppConfig.CREATE_RED_PACKE, "正在发送红包." +
                 "..", map, new ResultListener() {
