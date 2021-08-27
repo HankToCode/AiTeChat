@@ -27,9 +27,10 @@
             android:layout_marginLeft="@dimen/dp_5"
             android:src="@mipmap/img_default_avatar" />
 
+<!--        去掉图片的白色边框背景-->
+<!--        style="@style/chat_content_received_style"-->
         <RelativeLayout
             android:id="@+id/bubble"
-            style="@style/chat_content_received_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_userid"
