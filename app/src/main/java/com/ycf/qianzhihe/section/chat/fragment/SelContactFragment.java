@@ -224,6 +224,7 @@ public class SelContactFragment extends BaseInitFragment {
                         user.setAvatar(bean.getFriendUserHead());
                         user.setFriendUserCode(bean.getFriendUserCode());
                         user.setFriendUserId(bean.getFriendUserId());
+                        user.setLine(bean.getLine());
                         EaseCommonUtils.setUserInitialLetter(user);
                         contactList.add(user);
 
