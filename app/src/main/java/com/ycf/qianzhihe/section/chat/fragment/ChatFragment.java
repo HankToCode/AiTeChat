@@ -849,7 +849,6 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                 break;
             case ITEM_SEND_CARD:
                 //发送名片
-                //TODO
                 startActivityForResult(new Intent(requireActivity(),
                         SelContactActivity.class).putExtra("userId", emChatId), REQUEST_CODE_SEND_CARD);
                 break;

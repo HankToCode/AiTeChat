@@ -9,7 +9,8 @@
     <FrameLayout
         android:id="@+id/content_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <com.ycf.qianzhihe.app.weight.ease.EaseContactList
             android:id="@+id/contact_list"
@@ -17,4 +18,13 @@
             android:layout_height="match_parent" />
     </FrameLayout>
 
+    <TextView
+        android:id="@+id/tv_number"
+        android:layout_width="match_parent"
+        android:gravity="center"
+        android:layout_height="@dimen/dp_45"
+        android:text="0个朋友及联系人"
+        android:textColor="#ffadadbd"
+        android:textSize="13sp"
+        />
 </LinearLayout>

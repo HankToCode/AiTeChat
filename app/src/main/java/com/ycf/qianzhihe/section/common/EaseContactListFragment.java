@@ -18,6 +18,7 @@ import android.os.Handler;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMError;
@@ -62,6 +63,7 @@ public class EaseContactListFragment extends BaseInitFragment {
     protected boolean isConflict;
     protected FrameLayout contentContainer;
     List<ContactListInfo.DataBean> mContactList;
+    protected TextView tv_number;
 
 
     @Override
@@ -90,6 +92,7 @@ public class EaseContactListFragment extends BaseInitFragment {
         listView = contactListLayout.getListView();
         //search
         query = (EditText) getView().findViewById(R.id.query);
+        tv_number = (TextView) getView().findViewById(R.id.tv_number);
 
 
         EMClient.getInstance().addConnectionListener(connectionListener);
@@ -208,8 +211,7 @@ public class EaseContactListFragment extends BaseInitFragment {
                                 ContactListInfo.class);
                         List<ContactListInfo.DataBean> mContactList = new ArrayList<>();
                         mContactList.addAll(info.getData());
-
-
+                        tv_number.setText(mContactList.size()+"个朋友及联系人");
                         if (mContactList.size() > 0) {
                             UserOperateManager.getInstance().saveContactListToLocal(info, json);
                             setContactData(mContactList);

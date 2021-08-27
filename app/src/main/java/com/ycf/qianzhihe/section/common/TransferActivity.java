@@ -29,6 +29,8 @@ import com.ycf.qianzhihe.app.utils.ImageUtil;
 import com.ycf.qianzhihe.app.weight.CommonDialog;
 import com.ycf.qianzhihe.app.weight.CustomerKeyboard;
 import com.ycf.qianzhihe.app.weight.PasswordEditText;
+import com.ycf.qianzhihe.app.weight.passwoed_keyboard.OnNumberKeyboardListener;
+import com.ycf.qianzhihe.app.weight.passwoed_keyboard.XNumberKeyboardView;
 import com.zds.base.ImageLoad.GlideUtils;
 import com.zds.base.util.StringUtil;
 
@@ -37,6 +39,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
 import com.zds.base.Toast.ToastUtil;
 
 /**
@@ -214,27 +217,20 @@ public class TransferActivity extends BaseInitActivity {
                     }
                 });
         builder.create().show();
-        final CustomerKeyboard mCustomerKeyboard =
-                builder.getView(R.id.custom_key_board);
-        final PasswordEditText mPasswordEditText =
-                builder.getView(R.id.password_edit_text);
-        mCustomerKeyboard.setOnCustomerKeyboardClickListener(new CustomerKeyboard.CustomerKeyboardClickListener() {
+        final XNumberKeyboardView mCustomerKeyboard = builder.getView(R.id.kb_board);
+        final PasswordEditText mPasswordEditText = builder.getView(R.id.password_edit_text);
+        mCustomerKeyboard.setOnNumberKeyboardListener(new OnNumberKeyboardListener() {
             @Override
-            public void click(String number) {
-                if ("返回".equals(number)) {
-                    builder.dismiss();
-                } else if ("忘记密码？".equals(number)) {
-                    startActivity(new Intent(TransferActivity.this,
-                            VerifyingPayPasswordPhoneNumberActivity.class));
-
-                } else {
-                    mPasswordEditText.addPassword(number);
+            public void onNumberKey(int keyCode, String insert) {
+                // 右下角按键的点击事件，删除一位输入的文字
+                if (keyCode == XNumberKeyboardView.KEYCODE_BOTTOM_RIGHT) {
+                    mPasswordEditText.deleteLastPassword();
                 }
-            }
+                // 左下角按键和数字按键的点击事件，输入文字
+                else {
+                    mPasswordEditText.addPassword(insert);
+                }
 
-            @Override
-            public void delete() {
-                mPasswordEditText.deleteLastPassword();
             }
         });
 

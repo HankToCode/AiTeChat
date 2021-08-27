@@ -124,14 +124,15 @@
                 android:layout_centerVertical="true"
                 android:paddingEnd="16dp"
                 android:src="@mipmap/xuanz_green"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
         </RelativeLayout>
+
         <RelativeLayout
-            android:visibility="gone"
             android:id="@+id/llay_zfb_car_select"
             android:layout_width="match_parent"
-            android:layout_height="45dp">
+            android:layout_height="45dp"
+            android:visibility="gone">
 
             <TextView
                 android:id="@+id/tv_zfb_name"
@@ -154,7 +155,7 @@
                 android:layout_centerVertical="true"
                 android:paddingEnd="16dp"
                 android:src="@mipmap/xuanz_green"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
         </RelativeLayout>
 
@@ -178,10 +179,34 @@
         app:bgCorner="@dimen/dp_3"
         app:passwordColor="@color/black_deep" />
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_0_5"
+        android:layout_marginTop="@dimen/dp_10"
+        android:background="#d1d2d6" />
+    <com.ycf.qianzhihe.app.weight.passwoed_keyboard.XNumberKeyboardView
+        android:id="@+id/kb_board"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="#b0b0b0"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:keyBackground="@drawable/ripple_bg"
+        android:keyTextColor="@color/black_deep"
+        android:keyTextSize="@dimen/dp_16"
+        android:shadowColor="@android:color/transparent"
+        android:shadowRadius="0"
+        app:xnkv_blKeyBackground="@color/grey_2"
+        app:xnkv_brKeyBackground="@color/gray"
+        app:xnkv_brKeyDrawable="@mipmap/keyboard_backspace"
+        app:xnkv_brKeyDrawableWidth="24dp"
+        app:xnkv_type="number" />
 
     <com.ycf.qianzhihe.app.weight.CustomerKeyboard
         android:id="@+id/custom_key_board"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10" />
+        android:layout_marginTop="@dimen/dp_10"
+        android:visibility="gone" />
 </LinearLayout>

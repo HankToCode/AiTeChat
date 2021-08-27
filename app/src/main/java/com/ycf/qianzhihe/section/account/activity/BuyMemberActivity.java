@@ -35,6 +35,8 @@ import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.ycf.qianzhihe.app.weight.CustomerKeyboard;
 import com.ycf.qianzhihe.app.weight.PasswordEditText;
+import com.ycf.qianzhihe.app.weight.passwoed_keyboard.OnNumberKeyboardListener;
+import com.ycf.qianzhihe.app.weight.passwoed_keyboard.XNumberKeyboardView;
 import com.ycf.qianzhihe.common.utils.ToastUtils;
 import com.ycf.qianzhihe.section.common.InputPasswordActivity;
 import com.ycf.qianzhihe.section.common.VerifyingPayPasswordPhoneNumberActivity;
@@ -75,6 +77,7 @@ public class BuyMemberActivity extends BaseInitActivity implements View.OnClickL
     ChooseMemberLayout cml_member;
     private String vipId="";
     private int vipLevel=0;
+
 
     public static void actionStart(Context context) {
         Intent starter = new Intent(context, BuyMemberActivity.class);
@@ -273,11 +276,23 @@ public class BuyMemberActivity extends BaseInitActivity implements View.OnClickL
         });
 
 
-        final CustomerKeyboard mCustomerKeyboard =
-                builder.getView(R.id.custom_key_board);
-        final PasswordEditText mPasswordEditText =
-                builder.getView(R.id.password_edit_text);
-        mCustomerKeyboard.setOnCustomerKeyboardClickListener(new CustomerKeyboard.CustomerKeyboardClickListener() {
+        final XNumberKeyboardView mCustomerKeyboard = builder.getView(R.id.kb_board);
+        final PasswordEditText mPasswordEditText = builder.getView(R.id.password_edit_text);
+        mCustomerKeyboard.setOnNumberKeyboardListener(new OnNumberKeyboardListener() {
+            @Override
+            public void onNumberKey(int keyCode, String insert) {
+                // 右下角按键的点击事件，删除一位输入的文字
+                if (keyCode == XNumberKeyboardView.KEYCODE_BOTTOM_RIGHT) {
+                    mPasswordEditText.deleteLastPassword();
+                }
+                // 左下角按键和数字按键的点击事件，输入文字
+                else {
+                    mPasswordEditText.addPassword(insert);
+                }
+
+            }
+        });
+        /*mCustomerKeyboard.setOnCustomerKeyboardClickListener(new CustomerKeyboard.CustomerKeyboardClickListener() {
             @Override
             public void click(String number) {
                 System.out.println("###输入密码="+number);
@@ -298,7 +313,7 @@ public class BuyMemberActivity extends BaseInitActivity implements View.OnClickL
             public void delete() {
                 mPasswordEditText.deleteLastPassword();
             }
-        });
+        });*/
 
         mPasswordEditText.setOnPasswordFullListener(new PasswordEditText.PasswordFullListener() {
             @Override

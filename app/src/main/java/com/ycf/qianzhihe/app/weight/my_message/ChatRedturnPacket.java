@@ -50,9 +50,11 @@ public class ChatRedturnPacket extends EaseChatRow {
     @Override
     protected void onSetUpView() {
         String remark = message.getStringAttribute("remark", "");
-        if (remark != null && remark.length() > 0) {
+        //有BUG 第二条无备注的会自动显示上一条转账备注信息
+        /*if (remark != null && remark.length() > 0) {
             tv_messageRemark.setText(remark);
-        }
+        }*/
+        tv_messageRemark.setText(remark);
         tv_message.setText(message.getStringAttribute("money", "") + getResources().getString(R.string.glod));
     }
 
