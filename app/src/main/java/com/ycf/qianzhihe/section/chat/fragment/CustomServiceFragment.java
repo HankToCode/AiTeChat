@@ -74,6 +74,16 @@ public class CustomServiceFragment extends EaseBaseFragment {
     protected void initLogic() {
         title_bar.setTitle("客服列表");
         title_bar.setOnBackPressListener(view -> mContext.finish());
+        title_bar.getRightLayout().setVisibility(View.VISIBLE);
+        title_bar.setRightTitle("帮助中心");
+        title_bar.setOnRightClickListener(new EaseTitleBar.OnRightClickListener() {
+            @Override
+            public void onRightClick(View view) {
+                Intent intent = new Intent(getActivity(), Custom1Activity.class);
+                getActivity().startActivity(intent);
+            }
+        });
+
         list = new ArrayList<>();
         mServiceAdapter = new ServiceAdapter(list);
         mRecycleView.setLayoutManager(new LinearLayoutManager(getActivity()));

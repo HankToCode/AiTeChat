@@ -82,6 +82,7 @@ import com.ycf.qianzhihe.app.weight.my_message.UserOperatorGroupPresenter;
 import com.ycf.qianzhihe.app.weight.my_message.WalletPresenter;
 import com.ycf.qianzhihe.section.account.activity.UserInfoDetailActivity;
 import com.ycf.qianzhihe.section.chat.activity.ChatActivity;
+import com.ycf.qianzhihe.section.chat.activity.SelContactActivity;
 import com.ycf.qianzhihe.section.common.ChatCollectActivity;
 import com.ycf.qianzhihe.section.common.MyCollectActivity;
 import com.ycf.qianzhihe.section.common.RedPacketDetailActivity;
@@ -849,9 +850,8 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
             case ITEM_SEND_CARD:
                 //发送名片
                 //TODO
-//                startActivityForResult(new Intent(requireActivity(),
-//                        SelContactActivity.class).putExtra("userId",
-//                        emChatId), REQUEST_CODE_SEND_CARD);
+                startActivityForResult(new Intent(requireActivity(),
+                        SelContactActivity.class).putExtra("userId", emChatId), REQUEST_CODE_SEND_CARD);
                 break;
 
             case ITEM_INVITE_GROUP_CAMERA:

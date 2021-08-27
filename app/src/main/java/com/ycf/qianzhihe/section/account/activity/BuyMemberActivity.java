@@ -234,9 +234,7 @@ public class BuyMemberActivity extends BaseInitActivity implements View.OnClickL
                     InputPasswordActivity.class));
             return;
         }
-        final CommonDialog.Builder builder =
-                new CommonDialog.Builder(this).fullWidth().fromBottom()
-                        .setView(R.layout.dialog_customer_keyboard);
+        final CommonDialog.Builder builder = new CommonDialog.Builder(this).fullWidth().fromBottom().setView(R.layout.dialog_customer_keyboard);
 
         builder.setOnClickListener(R.id.delete_dialog,
                 new View.OnClickListener() {
@@ -282,6 +280,7 @@ public class BuyMemberActivity extends BaseInitActivity implements View.OnClickL
         mCustomerKeyboard.setOnCustomerKeyboardClickListener(new CustomerKeyboard.CustomerKeyboardClickListener() {
             @Override
             public void click(String number) {
+                System.out.println("###输入密码="+number);
                 if ("返回".equals(number)) {
                     builder.dismiss();
                 } else if ("忘记密码？".equals(number)) {
