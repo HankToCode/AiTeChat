@@ -21,6 +21,8 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.ycf.qianzhihe.R;
 import com.zds.base.Toast.ToastUtil;
 
@@ -32,7 +34,7 @@ import com.hyphenate.util.EMLog;
 public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnClickListener {
     private EditText editText;
     private View buttonSetModeKeyboard;
-    private RelativeLayout edittext_layout;
+    private ConstraintLayout edittext_layout;
     private View buttonSetModeVoice;
     private View buttonSend;
     private View buttonPressToSpeak;
@@ -40,7 +42,7 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
     private ImageView faceChecked;
     private Button buttonMore;
     private boolean ctrlPress = false;
-    private RelativeLayout faceLayout;
+    private ConstraintLayout faceLayout;
 
 
     public EaseChatPrimaryMenu(Context context, AttributeSet attrs,
