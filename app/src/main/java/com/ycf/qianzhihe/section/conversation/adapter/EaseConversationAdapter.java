@@ -233,7 +233,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                 String contactId = conversationId;
                 String headImg = AppConfig.checkimg(UserOperateManager.getInstance().getUserAvatar(contactId));
                 // TODO: 2021/3/30 xgp 处理客服图像 写死
-                if (contactId.contains("6a1bec8f64fe11eba89700163e0654c2")) {
+                if (contactId.contains("b9782f1804f111ecab930c42a1a8807a")) {
                     holder.avatar.setImageResource(R.mipmap.icon_kefu_avatar);
                 } else if (contactId.contains("0d777a9c8f9311eb844f00163e0654c2")) {
                     holder.avatar.setImageResource(R.mipmap.icon_exception_handle_kefu_avatar);
