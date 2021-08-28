@@ -20,6 +20,7 @@ public class SP {
     public static final String SP_CONTACT_DATA            = "contact_data";
 
     public static final String SP_LANDED_ON_LOGIN           = "landed_on_login";
+    public static final String SP_ACCOUNT_LOCAL          = "account_local";
 }
 
 

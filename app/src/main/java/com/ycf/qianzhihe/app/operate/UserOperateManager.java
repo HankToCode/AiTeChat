@@ -10,6 +10,7 @@ import com.hyphenate.chat.EMMessage;
 import com.ycf.qianzhihe.BuildConfig;
 import com.ycf.qianzhihe.DemoApplication;
 import com.ycf.qianzhihe.app.api.Constant;
+import com.ycf.qianzhihe.app.domain.EaseUser;
 import com.ycf.qianzhihe.app.utils.ImageUtil;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.json.FastJsonUtil;
@@ -22,6 +23,7 @@ import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.common.utils.PreferenceManager;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,6 +69,20 @@ public class UserOperateManager {
         this.contactVersion = version;
     }
 
+    //本地保存登录过的账号json数据
+    public void saveLoginAccountToLocal(String json) {
+        PreferenceManager.getInstance().setParam(SP.SP_ACCOUNT_LOCAL, json);
+    }
+
+    public List<EaseUser> getAccountList() {
+        List<EaseUser> accountList = new ArrayList<>();
+        String contactLocalData = (String) PreferenceManager.getInstance().getParam(SP.SP_ACCOUNT_LOCAL, "");
+        if (!TextUtils.isEmpty(contactLocalData)) {
+            accountList = FastJsonUtil.getList(contactLocalData, EaseUser.class);
+        }
+        return accountList;
+    }
+
 
     public void saveContactListToLocal(ContactListInfo info, String json) {
         contactList = info.getData();
@@ -74,6 +90,7 @@ public class UserOperateManager {
         updateUserList(info.getData());
         PreferenceManager.getInstance().setParam(SP.SP_CONTACT_DATA, json);
     }
+
 
     public List<ContactListInfo.DataBean> getContactList() {
         if (contactList == null) {

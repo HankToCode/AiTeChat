@@ -23,20 +23,27 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.alibaba.fastjson.JSON;
 import com.coorchice.library.SuperTextView;
+import com.hyphenate.EMCallBack;
 import com.hyphenate.EMError;
+import com.ycf.qianzhihe.DemoApplication;
 import com.ycf.qianzhihe.DemoHelper;
 import com.ycf.qianzhihe.MainActivity;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.Global;
+import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.global.SP;
 import com.ycf.qianzhihe.app.api.global.UserComm;
+import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.app.api.old_data.LoginInfo;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
 import com.ycf.qianzhihe.app.api.old_http.AppConfig;
+import com.ycf.qianzhihe.app.api.old_http.CommonApi;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.base.BaseInitFragment;
 import com.ycf.qianzhihe.app.domain.EaseUser;
+import com.ycf.qianzhihe.app.operate.UserOperateManager;
+import com.ycf.qianzhihe.app.utils.my.MyHelper;
 import com.ycf.qianzhihe.common.db.DemoDbHelper;
 import com.ycf.qianzhihe.common.interfaceOrImplement.OnResourceParseCallback;
 import com.ycf.qianzhihe.common.utils.DeviceIdUtil;
@@ -47,11 +54,15 @@ import com.ycf.qianzhihe.section.account.activity.AccountManagerActivity;
 import com.ycf.qianzhihe.section.account.activity.RegisterActivity;
 import com.ycf.qianzhihe.section.account.activity.UpDataPasswordActivity;
 import com.zds.base.Toast.ToastUtil;
+import com.zds.base.json.FastJsonUtil;
 import com.zds.base.util.StringUtil;
 import com.zds.base.util.SystemUtil;
 import com.ycf.qianzhihe.section.account.viewmodels.LoginFragmentViewModel;
 import com.hyphenate.easeui.utils.EaseEditTextUtils;
 
+import org.greenrobot.eventbus.EventBus;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -141,8 +152,11 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
         EaseEditTextUtils.clearEditTextListener(mEtLoginName);
         EaseEditTextUtils.clearEditTextListener(mEtLoginPwd);
         EaseEditTextUtils.clearEditTextListener(mEtLoginSms);
+        //加载已登录数据
+        localFriendList = UserOperateManager.getInstance().getAccountList();
     }
 
+    private List<EaseUser> localFriendList;
 
     @Override
     protected void initViewModel() {
@@ -155,7 +169,6 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
                 public void onSuccess(EaseUser data) {
                     dismissLoading();
                     DemoHelper.getInstance().setAutoLogin(true);
-                    // TODO: 2021/8/21 每次登录会添加一次数据 ~~去重
                     LoginInfo currentUser = UserComm.getUserInfo();
                     EaseUser user = new EaseUser();
                     user.setNickName(currentUser.getNickName());
@@ -163,7 +176,18 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
                     user.setUserCode(currentUser.getUserCode());
                     user.setAccount(currentUser.getPhone());
                     user.setPassword(currentUser.getPassword());
-                    mFragmentViewModel.getMyModel().saveLoginAccount(user);
+                    //去重
+                    if (localFriendList.size() > 0) {
+                        for (int i = 0; i < localFriendList.size(); i++) {
+                            if (!user.getAccount().equals(localFriendList.get(i).getAccount())) {
+                                localFriendList.add(user);
+                            }
+                        }
+                    } else {
+                        localFriendList.add(user);
+                    }
+                    UserOperateManager.getInstance().saveLoginAccountToLocal(FastJsonUtil.toJSONString(localFriendList));
+//                    mFragmentViewModel.getMyModel().saveLoginAccount(user);
                     //跳转到主页
                     MainActivity.actionStart(mContext);
                     mContext.finish();
@@ -183,10 +207,7 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
                     } else if (code == EMError.USER_ALREADY_LOGIN) {
                         //Same User is already login环信登录Error code=200
                         // TODO: 2021/8/21 用户已登录 需处理
-                    } else if (code == 218) {//另一个用户已经登录
-                        // TODO: 2021/8/21 切换账号时 如果登录的账号在另台设备未主动登出 此时登录报218错误
-                        //###code=218  Another User is already login
-                    } else {
+                    }  else {
                         ToastUtils.showToast(message);
                     }*/
                 }
@@ -278,11 +299,20 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
 
 
     private void loginToServer() {
-
-        if (loginMethod == 0) {
+        /*if (loginMethod == 0) {
             passwordLogin();
         } else {
             smsCodeLogin();
+        }*/
+        //判断之前是否登录过账号
+        if (DemoHelper.getInstance().isLoggedIn()) {
+            logout();
+        } else {
+            if (loginMethod == 0) {
+                passwordLogin();
+            } else {
+                smsCodeLogin();
+            }
         }
     }
 
@@ -314,7 +344,7 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
                     if (loginInfo != null) {
                         UserComm.saveUsersInfo(loginInfo);
                         DemoDbHelper.getInstance(mContext).initDb(mUserName);
-
+                        CommonApi.upUserInfo(mContext);
                     }
                 }
             }
@@ -472,11 +502,48 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
         return false;
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
+    private void logout() {
+        Map<String, Object> map = new HashMap<>();
+        map.put("deviceId", DeviceIdUtil.getDeviceId(mContext));
+        ApiClient.requestNetHandle(mContext, AppConfig.multiDeviceLogout, "", map, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                MyHelper.getInstance().logout(false, new EMCallBack() {
+                    @Override
+                    public void onSuccess() {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                dismissLoading();
+                                UserComm.clearUserInfo();
+                                if (loginMethod == 0) {
+                                    passwordLogin();
+                                } else {
+                                    smsCodeLogin();
+                                }
+                            }
+                        });
+                    }
 
+                    @Override
+                    public void onProgress(int progress, String status) { }
+                    @Override
+                    public void onError(int code, String message) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                dismissLoading();
+                            }
+                        });
+                    }
+                });
+            }
+            @Override
+            public void onFailure(String msg) { }
+        });
+
+
+    }
     @Override
     public void onDestroy() {
         super.onDestroy();
