@@ -31,12 +31,14 @@ import com.hyphenate.easecallkit.base.EaseCallType;
 import com.hyphenate.easecallkit.ui.EaseMultipleVideoActivity;
 import com.hyphenate.easecallkit.ui.EaseVideoCallActivity;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.app.api.old_data.ContactListInfo;
 import com.ycf.qianzhihe.app.api.old_data.MyGroupInfoList;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.operate.GroupOperateManager;
 import com.ycf.qianzhihe.section.discover.NewsFragment;
 import com.zds.base.ImageLoad.GlideUtils;
+import com.zds.base.Toast.ToastUtil;
 import com.zds.base.code.activity.CaptureActivity;
 import com.zds.base.json.FastJsonUtil;
 import com.zds.base.util.DensityUtils;
@@ -76,7 +78,9 @@ import com.hyphenate.easeui.ui.base.EaseBaseFragment;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 
@@ -183,6 +187,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
         }
 
         groupList();
+        getContactList();
 
     }
 
@@ -512,6 +517,8 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
             if (loginInfo != null) {
                 GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(loginInfo.getUserHead()), mIvAvatar, R.mipmap.img_default_avatar);
             }
+        } else if (center.getEventCode() == EventUtil.REFRESH_CONTACT) {
+            getContactList();
         }
     }
 
@@ -621,6 +628,37 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
                     @Override
                     public void onFailure(String msg) {
 
+                    }
+                });
+    }
+
+    /**
+     * query contact
+     *
+     * @param
+     */
+    public void getContactList() {
+        Map<String, Object> map = new HashMap<>(2);
+        map.put("pageNum", 1);
+        map.put("pageSize", 10000);
+
+        //未同步通讯录到本地
+        ApiClient.requestNetHandle(this, AppConfig.USER_FRIEND_LIST,
+                "", map, new ResultListener() {
+                    @Override
+                    public void onSuccess(String json, String msg) {
+                        ContactListInfo info = FastJsonUtil.getObject(json,
+                                ContactListInfo.class);
+                        List<ContactListInfo.DataBean> mContactList = new ArrayList<>();
+                        mContactList.addAll(info.getData());
+                        if (mContactList.size() > 0) {
+                            UserOperateManager.getInstance().saveContactListToLocal(info, json);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+                        ToastUtil.toast(msg);
                     }
                 });
     }
