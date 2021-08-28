@@ -16,20 +16,12 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-        android:id="@+id/srl_refresh"
+    <com.ycf.qianzhihe.app.weight.ease.EaseConversationList
+        android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_marginTop="10dp"
-        android:layout_height="match_parent">
-
-        <com.ycf.qianzhihe.app.weight.ease.EaseConversationList
-            android:id="@+id/list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/white"
-            android:cacheColorHint="#00000000"
-            android:divider="@null" />
-
-    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:cacheColorHint="#00000000"
+        android:divider="@null" />
 
 </LinearLayout>

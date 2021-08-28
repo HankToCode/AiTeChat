@@ -45,10 +45,13 @@ public class ConversationListFragment extends BaseConversationListFragment imple
             refresh();
         }
         if (center.getEventCode() == EventUtil.NOTICNUM) {
-            refreshApplyLayout();
+            refresh();
         }
         //修改头像和修改群名称
         if (center.getEventCode() == EventUtil.REFRESH_CONVERSION || center.getEventCode() == EventUtil.REFRESH_GROUP_NAME) {
+            refresh();
+        }
+        if (center.getEventCode() == EventUtil.UNREADCOUNT) {
             refresh();
         }
     }
@@ -201,7 +204,7 @@ public class ConversationListFragment extends BaseConversationListFragment imple
 
     @Override
     public void onClick(View v) {
-        if (v.getId()==R.id.tv_search) {
+        if (v.getId() == R.id.tv_search) {
             SearchConversationActivity.actionStart(mContext);
         }
     }

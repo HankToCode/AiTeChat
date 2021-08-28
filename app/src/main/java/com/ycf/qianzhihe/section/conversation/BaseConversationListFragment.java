@@ -45,7 +45,6 @@ public class BaseConversationListFragment extends BaseInitFragment {
     protected List<EMConversation> conversationList = new ArrayList<EMConversation>();
     protected EaseConversationList conversationListView;
     protected FrameLayout errorItemContainer;
-    protected SwipeRefreshLayout srlRefresh;
 
     protected boolean isConflict;
 
@@ -70,7 +69,6 @@ public class BaseConversationListFragment extends BaseInitFragment {
 
         inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         conversationListView = (EaseConversationList) getView().findViewById(R.id.list);
-        srlRefresh = (SwipeRefreshLayout) getView().findViewById(R.id.srl_refresh);
         // button to clear content in search bar
         errorItemContainer = (FrameLayout) getView().findViewById(R.id.fl_error_item);
 
@@ -101,7 +99,6 @@ public class BaseConversationListFragment extends BaseInitFragment {
     @Override
     protected void initListener() {
         super.initListener();
-        srlRefresh.setOnRefreshListener(this::refresh);
     }
 
     protected EMConnectionListener connectionListener = new EMConnectionListener() {
@@ -141,7 +138,6 @@ public class BaseConversationListFragment extends BaseInitFragment {
                             conversationList.clear();
                             conversationList.addAll(loadConversationList());
                             conversationListView.refresh();
-                            srlRefresh.setRefreshing(false);
                             EventBus.getDefault().post(new EventCenter<>(EventUtil.UNREADCOUNT));
                         }
                     }, 1000);
@@ -174,7 +170,6 @@ public class BaseConversationListFragment extends BaseInitFragment {
      */
     public void refresh() {
         if (!handler.hasMessages(MSG_REFRESH)) {
-            srlRefresh.setRefreshing(true);
             handler.sendEmptyMessage(MSG_REFRESH);
         }
 
