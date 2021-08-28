@@ -32,6 +32,7 @@ import com.ycf.qianzhihe.app.help.RclViewHelp;
 import com.ycf.qianzhihe.app.operate.UserOperateManager;
 import com.ycf.qianzhihe.app.utils.my.MyHelper;
 import com.ycf.qianzhihe.app.utils.my.MyModel;
+import com.ycf.qianzhihe.app.weight.CommonDialog;
 import com.ycf.qianzhihe.common.db.DemoDbHelper;
 import com.ycf.qianzhihe.common.interfaceOrImplement.OnResourceParseCallback;
 import com.ycf.qianzhihe.common.utils.DeviceIdUtil;
@@ -40,6 +41,7 @@ import com.ycf.qianzhihe.common.utils.ToastUtils;
 import com.ycf.qianzhihe.common.utils.log.LogUtils;
 import com.ycf.qianzhihe.section.account.activity.LoginActivity;
 import com.hyphenate.easeui.widget.EaseTitleBar;
+import com.ycf.qianzhihe.section.dialog.EditTextDialogFragment;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.util.SystemUtil;
 
@@ -64,6 +66,9 @@ public class MultiAccountActivity extends BaseInitActivity implements LoginAccou
     private LoginAccountAdapter adapter;
     private int position;
     private MyModel myModel;
+
+
+
     public static void actionStart(Context context) {
         Intent intent = new Intent(context, MultiAccountActivity.class);
         context.startActivity(intent);
@@ -92,8 +97,6 @@ public class MultiAccountActivity extends BaseInitActivity implements LoginAccou
         ll_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                ActivityStackManager.getInstance().killAllActivity();
-//                UserComm.clearUserInfo();
                 LoginActivity.actionStart(mContext);
                 finish();
             }
@@ -128,11 +131,19 @@ public class MultiAccountActivity extends BaseInitActivity implements LoginAccou
                                 //判断一下 点击保存的账号 有无密码
                                 if (!TextUtils.isEmpty(loginInfos.get(position).getPassword())) {
                                     //有密码则进行登录
-                                    passwordLogin();//把旧账号退出环信后 再把需要登录的账号进行登录
+                                    passwordLogin(loginInfos.get(position).getPassword());//把旧账号退出环信后 再把需要登录的账号进行登录
                                 } else {
                                     //无密码需要弹窗输入密码再进行登录密码，
-                                    //todo 弹窗输入登录密码
-                                    //....
+                                    new EditTextDialogFragment.Builder(mContext)
+                                            .setContentHint("请输入登录密码")
+                                            .setConfirmClickListener(new EditTextDialogFragment.ConfirmClickListener() {
+                                                @Override
+                                                public void onConfirmClick(View view, String content) {
+                                                    passwordLogin(content);//
+                                                }
+                                            })
+                                            .setTitle("验证密码")
+                                            .show();
                                 }
                             }
                         });
@@ -156,12 +167,12 @@ public class MultiAccountActivity extends BaseInitActivity implements LoginAccou
         });
     }
 
-    public void passwordLogin() {
+    public void passwordLogin(String password) {
         showLoading("正在登录");
         DemoDbHelper.getInstance(mContext).closeDb();
         Map<String, Object> map = new HashMap<>();
         map.put("phone", loginInfos.get(position).getAccount());
-        map.put("password", loginInfos.get(position).getPassword());
+        map.put("password", password);
         map.put("deviceId", DeviceIdUtil.getDeviceId(mContext));
         map.put("os", "Android");
         map.put("version", Global.loginVersion);
@@ -179,7 +190,7 @@ public class MultiAccountActivity extends BaseInitActivity implements LoginAccou
                         DemoDbHelper.getInstance(mContext).initDb(loginInfos.get(position).getAccount());
                         CommonApi.upUserInfo(mContext);
                     }
-                    // TODO: 2021/8/28/028  这里需要走环信SDK登录操作
+                    // TODO: 2021/8/28/028 接口登录成功后 这里需要走环信SDK登录操作
                     loginSDK();//....待处理
                 }
             }

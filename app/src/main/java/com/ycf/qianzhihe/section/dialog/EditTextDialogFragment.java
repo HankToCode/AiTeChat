@@ -13,6 +13,7 @@ import androidx.core.content.ContextCompat;
 
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.base.BaseActivity;
+import com.ycf.qianzhihe.common.utils.ToastUtils;
 
 public class EditTextDialogFragment extends DemoDialogFragment {
 
@@ -66,10 +67,14 @@ public class EditTextDialogFragment extends DemoDialogFragment {
 
     @Override
     public void onConfirmClick(View v) {
-        dismiss();
         String content = etInput.getText().toString().trim();
         if(listener != null) {
+            if (TextUtils.isEmpty(content)) {
+                ToastUtils.showToast("请输入内容");
+                return;
+            }
             listener.onConfirmClick(v, content);
+            dismiss();
         }
     }
 
