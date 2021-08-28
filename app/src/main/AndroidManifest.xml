@@ -1017,6 +1017,12 @@
             android:windowSoftInputMode="stateAlwaysHidden" />
 
 
+        <!--        高德地图··千纸鹤key:cfcdb949df63a30737552965fcf2ec9d-->
+        <meta-data
+            android:name="com.amap.api.v2.apikey"
+            android:value="cfcdb949df63a30737552965fcf2ec9d" /> <!-- =请检查配置文件是否配置服务，并且manifest中service标签是否配置在application标签内 -->
+        <service android:name="com.amap.api.location.APSService" />
+
     </application>
 
 </manifest>
