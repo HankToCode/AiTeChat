@@ -282,7 +282,7 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
                 titleBar.setTitle(getArguments().getString(Constant.NICKNAME));
                 mInputMenu.setVisibility(View.GONE);
             } else {
-                if (emChatId.contains("6a1bec8f64fe11eba89700163e0654c2")) {
+                if (emChatId.contains("b9782f1804f111ecab930c42a1a8807a")) {
                     titleBar.setTitle("客服");
                 } else if (emChatId.contains("0d777a9c8f9311eb844f00163e0654c2")) {
                     titleBar.setTitle("异常处理客服");

@@ -81,7 +81,7 @@ public class MultiAccountActivity extends BaseInitActivity implements LoginAccou
 
     @Override
     protected int getLayoutId() {
-        return R.layout.demo_activity_multi_device;
+        return R.layout.activity_multi_account_login;
     }
 
     @Override
