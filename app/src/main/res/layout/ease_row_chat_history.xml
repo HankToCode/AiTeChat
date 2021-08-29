@@ -54,6 +54,7 @@
             android:src="@mipmap/red_point" />
 
         <LinearLayout
+            android:id="@+id/ll_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignTop="@+id/avatar"
@@ -108,9 +109,9 @@
             android:id="@+id/msg_state"
             android:layout_width="@dimen/dp_20"
             android:layout_height="@dimen/dp_20"
-            android:layout_alignParentBottom="true"
             android:layout_marginLeft="@dimen/dp_7"
             android:layout_marginBottom="@dimen/dp_5"
+            android:layout_below="@id/ll_name"
             android:layout_toRightOf="@id/avatar"
             android:src="@drawable/ease_msg_state_fail_resend"
             android:visibility="gone" />
@@ -119,7 +120,7 @@
             android:id="@+id/mentioned"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/avatar"
+            android:layout_below="@id/ll_name"
             android:layout_toRightOf="@id/msg_state"
             android:paddingLeft="@dimen/dp_7"
             android:text="@string/were_mentioned"
@@ -131,7 +132,7 @@
             android:id="@+id/message"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/avatar"
+            android:layout_below="@id/ll_name"
             android:layout_toLeftOf="@id/time"
             android:layout_toRightOf="@id/mentioned"
             android:ellipsize="end"
@@ -163,12 +164,12 @@
             android:id="@+id/img_msg_free"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/avatar"
+            android:layout_below="@id/ll_name"
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/dp_20"
             android:layout_marginBottom="@dimen/dp_5"
             android:src="@mipmap/msg_free"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
     </RelativeLayout>
 
