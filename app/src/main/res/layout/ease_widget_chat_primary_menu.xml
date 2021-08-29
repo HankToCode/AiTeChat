@@ -18,6 +18,7 @@
         android:layout_height="wrap_content"
         android:background="#F6F6F6"
         android:orientation="horizontal"
+        android:gravity="bottom"
         android:paddingTop="@dimen/dp_10"
         android:paddingBottom="@dimen/dp_10">
 
@@ -26,9 +27,9 @@
             android:layout_width="@dimen/dp_32"
             android:layout_height="@dimen/dp_32"
             android:layout_gravity="bottom"
+            android:layout_marginBottom="2dp"
             android:layout_marginStart="@dimen/dp_6"
             android:background="@mipmap/yuy"
-            android:layout_marginBottom="2dp"
             android:visibility="visible" />
 
         <Button
@@ -46,9 +47,9 @@
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_6"
+            android:layout_marginBottom="4dp"
             android:layout_marginTop="@dimen/dp_6"
             android:layout_marginRight="@dimen/dp_6"
-            android:layout_marginBottom="@dimen/dp_6"
             android:layout_weight="1"
             android:background="@drawable/ease_chat_press_speak_btn"
             android:focusable="true"
