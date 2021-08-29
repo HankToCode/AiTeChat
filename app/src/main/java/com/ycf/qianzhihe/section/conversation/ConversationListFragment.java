@@ -41,17 +41,12 @@ public class ConversationListFragment extends BaseConversationListFragment imple
     @Override
     protected void onEventComing(EventCenter center) {
         //刷新通讯录和本地数据库
-        if (center.getEventCode() == EventUtil.REFRESH_REMARK) {
-            refresh();
-        }
-        if (center.getEventCode() == EventUtil.NOTICNUM) {
-            refresh();
-        }
         //修改头像和修改群名称
-        if (center.getEventCode() == EventUtil.REFRESH_CONVERSION || center.getEventCode() == EventUtil.REFRESH_GROUP_NAME) {
-            refresh();
-        }
-        if (center.getEventCode() == EventUtil.UNREADCOUNT) {
+        if (center.getEventCode() == EventUtil.REFRESH_CONVERSION ||
+                center.getEventCode() == EventUtil.REFRESH_GROUP_NAME ||
+                center.getEventCode() == EventUtil.FLUSHRENAME ||
+                center.getEventCode() == EventUtil.NOTICNUM ||
+                center.getEventCode() == EventUtil.REFRESH_REMARK) {
             refresh();
         }
     }
@@ -61,13 +56,13 @@ public class ConversationListFragment extends BaseConversationListFragment imple
         super.initViewModel();
         MessageViewModel messageViewModel = new ViewModelProvider(this).get(MessageViewModel.class);
         LiveDataBus messageChange = messageViewModel.getMessageChange();
-        messageChange.with(DemoConstant.NOTIFY_CHANGE, EaseEvent.class).observe(getViewLifecycleOwner(), easeEvent -> loadConversationList());
-        messageChange.with(DemoConstant.MESSAGE_CHANGE_CHANGE, EaseEvent.class).observe(getViewLifecycleOwner(), easeEvent -> loadConversationList());
-        messageChange.with(DemoConstant.GROUP_CHANGE, EaseEvent.class).observe(getViewLifecycleOwner(), easeEvent -> loadConversationList());
-        messageChange.with(DemoConstant.CHAT_ROOM_CHANGE, EaseEvent.class).observe(getViewLifecycleOwner(), easeEvent -> loadConversationList());
-        messageChange.with(DemoConstant.CONVERSATION_DELETE, EaseEvent.class).observe(getViewLifecycleOwner(), easeEvent -> loadConversationList());
-        messageChange.with(DemoConstant.CONVERSATION_READ, EaseEvent.class).observe(getViewLifecycleOwner(), easeEvent -> loadConversationList());
-        messageChange.with(DemoConstant.CONTACT_CHANGE, EaseEvent.class).observe(getViewLifecycleOwner(), easeEvent -> loadConversationList());
+        messageChange.with(DemoConstant.NOTIFY_CHANGE, EaseEvent.class).observe(getViewLifecycleOwner(), easeEvent -> refresh());
+        messageChange.with(DemoConstant.MESSAGE_CHANGE_CHANGE, EaseEvent.class).observe(getViewLifecycleOwner(), easeEvent -> refresh());
+        messageChange.with(DemoConstant.GROUP_CHANGE, EaseEvent.class).observe(getViewLifecycleOwner(), easeEvent -> refresh());
+        messageChange.with(DemoConstant.CHAT_ROOM_CHANGE, EaseEvent.class).observe(getViewLifecycleOwner(), easeEvent -> refresh());
+        messageChange.with(DemoConstant.CONVERSATION_DELETE, EaseEvent.class).observe(getViewLifecycleOwner(), easeEvent -> refresh());
+        messageChange.with(DemoConstant.CONVERSATION_READ, EaseEvent.class).observe(getViewLifecycleOwner(), easeEvent -> refresh());
+        messageChange.with(DemoConstant.CONTACT_CHANGE, EaseEvent.class).observe(getViewLifecycleOwner(), easeEvent -> refresh());
         messageChange.with(DemoConstant.MESSAGE_CALL_SAVE, Boolean.class).observe(getViewLifecycleOwner(), easeEvent -> refresh());
         messageChange.with(DemoConstant.MESSAGE_NOT_SEND, Boolean.class).observe(getViewLifecycleOwner(), easeEvent -> refresh());
     }
