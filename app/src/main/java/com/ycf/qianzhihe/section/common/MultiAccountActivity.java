@@ -8,12 +8,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.alibaba.fastjson.JSON;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.exceptions.HyphenateException;
 import com.hyphenate.util.EMLog;
+import com.ycf.qianzhihe.DemoApplication;
 import com.ycf.qianzhihe.DemoHelper;
 import com.ycf.qianzhihe.MainActivity;
 import com.ycf.qianzhihe.R;
@@ -34,6 +37,7 @@ import com.ycf.qianzhihe.app.utils.my.MyHelper;
 import com.ycf.qianzhihe.app.utils.my.MyModel;
 import com.ycf.qianzhihe.app.weight.CommonDialog;
 import com.ycf.qianzhihe.common.db.DemoDbHelper;
+import com.ycf.qianzhihe.common.interfaceOrImplement.DemoEmCallBack;
 import com.ycf.qianzhihe.common.interfaceOrImplement.OnResourceParseCallback;
 import com.ycf.qianzhihe.common.utils.DeviceIdUtil;
 import com.ycf.qianzhihe.common.utils.PreferenceManager;
@@ -41,6 +45,7 @@ import com.ycf.qianzhihe.common.utils.ToastUtils;
 import com.ycf.qianzhihe.common.utils.log.LogUtils;
 import com.ycf.qianzhihe.section.account.activity.LoginActivity;
 import com.hyphenate.easeui.widget.EaseTitleBar;
+import com.ycf.qianzhihe.section.account.viewmodels.SplashViewModel;
 import com.ycf.qianzhihe.section.dialog.EditTextDialogFragment;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.util.SystemUtil;
@@ -94,6 +99,7 @@ public class MultiAccountActivity extends BaseInitActivity implements LoginAccou
         loginInfos.addAll(localFriendList);
         adapter.notifyDataSetChanged();
         adapter.setOnItemClickListener(this);
+
         ll_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -180,6 +186,7 @@ public class MultiAccountActivity extends BaseInitActivity implements LoginAccou
         ApiClient.requestNetHandle(mContext, AppConfig.multiLogin, "", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
+                dismissLoading();
                 if (json != null) {
                     LoginInfo loginInfo = JSON.parseObject(json, LoginInfo.class);
                     loginInfo.setPassword(loginInfos.get(position).getPassword());
@@ -191,7 +198,7 @@ public class MultiAccountActivity extends BaseInitActivity implements LoginAccou
                         CommonApi.upUserInfo(mContext);
                     }
                     // TODO: 2021/8/28/028 接口登录成功后 这里需要走环信SDK登录操作
-                    loginSDK();//....待处理
+                    loginSDK();
                 }
             }
 
@@ -204,6 +211,38 @@ public class MultiAccountActivity extends BaseInitActivity implements LoginAccou
     }
 
     private void loginSDK() {
+        final LoginInfo loginInfo = UserComm.getUserInfo();
+        DemoHelper.getInstance().init(DemoApplication.getInstance());
+        DemoHelper.getInstance().getModel().setCurrentUserName(loginInfo.getNickName());
+        DemoHelper.getInstance().getModel().setCurrentUserPwd(loginInfo.getPassword());
+        EMClient.getInstance().login(loginInfo.getIdh(), "123456", new DemoEmCallBack() {
+            @Override
+            public void onSuccess() {
+                EMClient.getInstance().groupManager().loadAllGroups();
+                EMClient.getInstance().chatManager().loadAllConversations();
+                // update current user's display name for APNs
+                try {
+                    EMClient.getInstance().pushManager().updatePushNickname(loginInfo.getNickName());
+                } catch (HyphenateException e) {
+                    e.printStackTrace();
+                }
+                finish();
+                // get user's info (this should be get from App's server or 3rd party service)
+            }
 
+            @Override
+            public void onError(int code, String error) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (code == 200) {
+                            EMClient.getInstance().logout(false);
+                        }
+                        dismissLoading();
+                        ToastUtils.showToast("登录失败 code=" + code + " " );
+                    }
+                });
+            }
+        });
     }
 }
