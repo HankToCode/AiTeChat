@@ -36,6 +36,7 @@
             android:layout_width="@dimen/dp_29"
             android:layout_height="@dimen/dp_29"
             android:layout_marginStart="@dimen/dp_6"
+            android:layout_gravity="bottom"
             android:layout_marginBottom="2dp"
             android:background="@mipmap/jianp"
             android:visibility="gone" />
