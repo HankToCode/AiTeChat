@@ -73,7 +73,6 @@ public class RedPacketDetailActivity extends BaseInitActivity {
     private boolean fromRecord;
     private TextView tv_message_hb, tv_intro;
     private LinearLayout ll_user_money;
-    private FrameLayout ll_message_hb;
     private ImageView iv_back;
 
 
@@ -96,10 +95,9 @@ public class RedPacketDetailActivity extends BaseInitActivity {
         tv_intro = headView.findViewById(R.id.tv_intro);
         img_head = headView.findViewById(R.id.img_head);
         tv_message_hb = headView.findViewById(R.id.tv_message_hb);
-        ll_message_hb = headView.findViewById(R.id.ll_message_hb);
 
         ImageUtil.setAvatar(img_head);
-        img_head.setShapeType(1);
+        img_head.setShapeType(2);
 
         mList = new ArrayList<>();
         mAdapter = new RedPacketAdapter(mList);
@@ -119,7 +117,7 @@ public class RedPacketDetailActivity extends BaseInitActivity {
             GlideUtils.loadRoundCircleImage(AppConfig.checkimg(head), img_head,
                     R.mipmap.img_default_avatar, 10);
         if (!TextUtils.isEmpty(nickname))
-            tv_name.setText(nickname + "发出的的红包");
+            tv_name.setText(nickname + "发出的红包");
     }
 
     /**
@@ -155,7 +153,7 @@ public class RedPacketDetailActivity extends BaseInitActivity {
             public void onSuccess(String json, String msg) {
                 if (json != null) {
                     if (type.equals("1")) {
-                        ll_message_hb.setVisibility(View.VISIBLE);
+                        tv_message_hb.setVisibility(View.VISIBLE);
                     }
                     RedPacketInfo redPacketInfo = FastJsonUtil.getObject(json, RedPacketInfo.class);
 
@@ -163,6 +161,11 @@ public class RedPacketDetailActivity extends BaseInitActivity {
                         ToastUtil.toast("信息异常");
                         return;
                     }
+
+                    String time =
+                            StringUtil.isEmpty(redPacketInfo.getRobFinishTime()) ? "" : "，" + redPacketInfo.getRobFinishTime() + "被抢光";
+                    tv_message_hb.setText("红包个数" + (redPacketInfo.getPacketAmount() == 0 ? "1" : redPacketInfo.getPacketAmount()) + "个，" + "共计" + StringUtil
+                            .getFormatValue2(redPacketInfo.getMoney()) + "元" + time);
 
                     head = redPacketInfo.getUserHead();
                     nickname = redPacketInfo.getUserNickName();
@@ -180,7 +183,7 @@ public class RedPacketDetailActivity extends BaseInitActivity {
 
                     if (tv_money != null) {
                         tv_money.setText("￥" + StringUtil.getFormatValue2(redPacketInfo.getMoney()));
-                        tv_money.setText("￥" + redPacketInfo.getMoney());
+//                        tv_money.setText("￥" + redPacketInfo.getMoney());
                         if (redPacketInfo.getPacketAmount() > 0) {
                             List<RedPacketInfo.RedPacketDetailListBean> list = redPacketInfo.getRedPacketDetailList();
                             for (int i = 0; i < list.size(); i++) {
@@ -210,27 +213,30 @@ public class RedPacketDetailActivity extends BaseInitActivity {
                         for (int i = 0; i < mList.size(); i++) {
                             allMoney += mList.get(i).getMoney();
                         }
+                        /*tv_message_hb.setText("已领取" + ylSize + "/" + allSize + "，" + "共" + StringUtil.getFormatValue2(allMoney) +
+                                "/" + StringUtil.getFormatValue2(redPacketInfo.getMoney()) + "元" + time);*/
 
 //                                String time = StringUtil.isEmpty(redPacketInfo.getRobFinishTime()) ? "" : "，" + redPacketInfo.getRobFinishTime() + "被抢光";
 //                                tv_message_hb.setText("红包个数" + (redPacketInfo.getPacketAmount() == 0 ? "1" : redPacketInfo.getPacketAmount()) + "个，" + "共计" + StringUtil
 //                                        .getFormatValue2(redPacketInfo.getMoney()) + "元" + time);
-//                                tv_message_hb.setText("已领取" + ylSize + "/" + allSize + "，" + "共" + StringUtil.getFormatValue2(allMoney) +
-//                                        "/" + StringUtil.getFormatValue2(redPacketInfo.getMoney()) + "元" + time);
 
                         if (ylSize == allSize) {
-                            tv_message_hb.setText("已存入零钱");
-                            ll_user_money.setVisibility(View.VISIBLE);
-                        } else if (allSize - ylSize > 0) {
-                            ll_user_money.setVisibility(View.GONE);
+//                            tv_message_hb.setText("已存入零钱");
+//                            ll_user_money.setVisibility(View.VISIBLE);
 
-                            tv_message_hb.setText("红包" + StringUtil.getFormatValue2(redPacketInfo.getMoney() - allMoney) + "金额等待对方领取");
+                            tv_message_hb.setText("已领取" + ylSize + "/" + allSize + "，" + "已领完/共" + StringUtil.getFormatValue2(redPacketInfo.getMoney()) + "元" + time);
+                        } else if (allSize - ylSize > 0) {
+//                            ll_user_money.setVisibility(View.GONE);
+
+//                            tv_message_hb.setText("红包" + StringUtil.getFormatValue2(redPacketInfo.getMoney() - allMoney) + "金额等待对方领取");
+                            tv_message_hb.setText("已领取"+ylSize+"/"+allSize+"，剩余"+StringUtil.getFormatValue2(redPacketInfo.getMoney() - allMoney)+"待领取/"+"共"+StringUtil
+                                        .getFormatValue2(redPacketInfo.getMoney())+"元"+time);
                         }
 
-
                         if (type.equals("1")) {
-                            ll_message_hb.setVisibility(View.GONE);
+                            tv_message_hb.setVisibility(View.GONE);
                         } else {
-                            ll_message_hb.setVisibility(View.VISIBLE);
+                            tv_message_hb.setVisibility(View.VISIBLE);
                         }
                         if (ylSize == allSize) {
                             mAdapter.setIsfirsh(true);

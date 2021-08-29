@@ -120,6 +120,8 @@ public class UserInfoDetailActivity extends BaseInitActivity {
     LinearLayout ll_grouping;
     @BindView(R.id.tv_grouping)
     TextView tv_grouping;
+    @BindView(R.id.tv_del_friend)
+    TextView tv_del_friend;
 
 
     @Override
@@ -170,7 +172,7 @@ public class UserInfoDetailActivity extends BaseInitActivity {
             if (!TextUtils.isEmpty(emGroupId)) {
                 getGroupMuteList();
                 rlMute.setVisibility(View.VISIBLE);
-                kickOut.setVisibility(View.VISIBLE);
+                kickOut.setVisibility(View.GONE);
             }
         }
         queryFriendInfo();
@@ -454,8 +456,9 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                                     mLlFriend.setVisibility(View.GONE);
                                     mTvAddFriend.setVisibility(View.VISIBLE);
                                     mTvAddFriend.setText("移出黑名单");
-
+                                    tv_del_friend.setVisibility(View.GONE);
                                 } else {
+                                    tv_del_friend.setVisibility(View.VISIBLE);
                                     flSendButton.setVisibility(View.VISIBLE);
                                     mLlFriend.setVisibility(View.VISIBLE);
                                     mTvAddFriend.setVisibility(View.GONE);
@@ -474,6 +477,7 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                                 mTvAddFriend.setVisibility(View.VISIBLE);
                                 mLlFriend.setVisibility(View.GONE);
                                 mLlayRemark.setVisibility(View.GONE);
+                                tv_del_friend.setVisibility(View.GONE);//删除好友
                             }
                         }
                     }
