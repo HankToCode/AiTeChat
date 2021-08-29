@@ -10,8 +10,9 @@ import com.ycf.qianzhihe.section.account.fragment.LoginFragment;
 
 public class LoginActivity extends BaseInitActivity {
 
-    public static void actionStart(Context context) {
+    public static void actionStart(Context context,String fromType) {
         Intent intent = new Intent(context, LoginActivity.class);
+        intent.putExtra("fromType", fromType);
         context.startActivity(intent);
     }
 
@@ -30,9 +31,10 @@ public class LoginActivity extends BaseInitActivity {
         super.initView(savedInstanceState);
 
         initImmersionBar(true);
-        getSupportFragmentManager().
-                beginTransaction().
-                replace(R.id.fl_fragment, new LoginFragment()).
+        LoginFragment loginFragment = new LoginFragment();
+        loginFragment.setArguments(getIntent().getExtras());
+        getSupportFragmentManager().beginTransaction().
+                replace(R.id.fl_fragment, loginFragment).
                 commit();
     }
 

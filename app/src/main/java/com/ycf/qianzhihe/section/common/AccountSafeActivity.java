@@ -10,6 +10,7 @@ import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
 import com.ycf.qianzhihe.section.account.activity.UpDataPasswordActivity;
 import com.hyphenate.easeui.widget.EaseTitleBar;
+import com.ycf.qianzhihe.section.me.activity.MultiDeviceActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -24,6 +25,8 @@ public class AccountSafeActivity extends BaseInitActivity {
     TextView tv_login_pwd;
     @BindView(R.id.tv_wallet_lock)
     TextView tv_wallet_lock;
+    @BindView(R.id.tv_multi_device)
+    TextView tv_multi_device;
 
 
     public static void actionStart(Context context) {
@@ -45,9 +48,12 @@ public class AccountSafeActivity extends BaseInitActivity {
 
     }
 
-    @OnClick({R.id.tv_pay_pwd, R.id.tv_login_pwd, R.id.tv_wallet_lock})
+    @OnClick({R.id.tv_pay_pwd, R.id.tv_login_pwd, R.id.tv_wallet_lock, R.id.tv_multi_device})
     public void click(View v) {
         switch (v.getId()) {
+            case R.id.tv_multi_device:
+                MultiDeviceActivity.actionStart(this);
+                break;
             case R.id.tv_pay_pwd:
                 ResetPayPwdActivity.actionStart(this);
                 break;

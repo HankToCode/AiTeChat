@@ -4,6 +4,8 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -89,6 +91,14 @@ public class LoginAccountAdapter extends RecyclerView.Adapter<LoginAccountAdapte
         } else {
             holder.tv_status.setVisibility(View.GONE);
         }
+        holder.ll_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (mOnItemClickListener != null) {
+                    mOnItemClickListener.onItemClick(holder.ll_item,position);
+                }
+            }
+        });
 
     }
 
@@ -102,6 +112,7 @@ public class LoginAccountAdapter extends RecyclerView.Adapter<LoginAccountAdapte
         TextView tv_name;
         TextView tv_id;
         TextView tv_status;
+        RelativeLayout ll_item;
 
         public MyViewHolder(View view) {
             super(view);
@@ -109,6 +120,7 @@ public class LoginAccountAdapter extends RecyclerView.Adapter<LoginAccountAdapte
             tv_name = view.findViewById(R.id.tv_name);
             tv_id = view.findViewById(R.id.tv_id);
             tv_status = view.findViewById(R.id.tv_status);
+            ll_item = view.findViewById(R.id.ll_item);
         }
     }
 }

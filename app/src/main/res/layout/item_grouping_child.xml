@@ -8,6 +8,7 @@
 
 
     <RelativeLayout
+        android:id="@+id/rl_item"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_56"
         android:background="?attr/selectableItemBackground"
@@ -61,6 +62,16 @@
                 tools:text="test" />
         </LinearLayout>
 
+        <CheckBox
+            android:id="@+id/ck_contact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:button="@drawable/comm_checkbox"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/dp_20"/>
+
         <ImageView
             android:id="@+id/iv_online_status"
             android:layout_width="@dimen/dp_8"
@@ -68,7 +79,8 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginRight="@dimen/dp_20"
-            android:background="@drawable/dot_green" />
+            android:background="@drawable/dot_green"
+            android:visibility="gone"/>
 
     </RelativeLayout>
 

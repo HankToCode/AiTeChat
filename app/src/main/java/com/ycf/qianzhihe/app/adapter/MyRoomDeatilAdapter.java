@@ -13,6 +13,7 @@ import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.EaseConstant;
 import com.ycf.qianzhihe.app.api.Global;
 import com.ycf.qianzhihe.app.operate.GroupOperateManager;
+import com.ycf.qianzhihe.section.common.ContactGroupingActivity;
 import com.zds.base.ImageLoad.GlideUtils;
 import com.zds.base.Toast.ToastUtil;
 import com.ycf.qianzhihe.app.api.old_data.GroupDetailInfo;
@@ -80,7 +81,9 @@ public class MyRoomDeatilAdapter extends BaseQuickAdapter<GroupDetailInfo.GroupU
             helper.itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ContactActivity.actionStart(mContext, "2", groupName, item.getGroupId());
+                    //邀请好友入群
+//                    ContactActivity.actionStart(mContext, "2", groupName, item.getGroupId());//邀请--联系人列表
+                    ContactGroupingActivity.actionStart(mContext, "2", groupName, item.getGroupId());//按联系人分组邀请
                 }
             });
 

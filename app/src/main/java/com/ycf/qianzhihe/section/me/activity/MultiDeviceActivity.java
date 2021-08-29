@@ -14,33 +14,67 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMDeviceInfo;
 import com.ycf.qianzhihe.DemoHelper;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.app.adapter.MultiDeviceAdapter;
+import com.ycf.qianzhihe.app.api.global.UserComm;
+import com.ycf.qianzhihe.app.api.old_http.ApiClient;
+import com.ycf.qianzhihe.app.api.old_http.AppConfig;
+import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
+import com.ycf.qianzhihe.app.domain.MultiDevice;
+import com.ycf.qianzhihe.app.help.RclViewHelp;
+import com.ycf.qianzhihe.app.weight.CommonDialog;
+import com.ycf.qianzhihe.app.weight.VerifyCodeView;
 import com.ycf.qianzhihe.common.model.DemoModel;
 
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.hyphenate.exceptions.HyphenateException;
+import com.zds.base.Toast.ToastUtil;
+import com.zds.base.json.FastJsonUtil;
+import com.zds.base.util.StringUtil;
+import com.zds.base.util.SystemUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import butterknife.BindView;
 
 public class MultiDeviceActivity extends BaseInitActivity {
 
-    private static final int REQUEST_CODE_USERNAME_PASSWORD = 0;
+    @BindView(R.id.title_bar)
+    EaseTitleBar title_bar;
+    @BindView(R.id.switch_multi)
+    Switch switchMulti;
+    @BindView(R.id.mobile)
+    TextView mobile;
+    @BindView(R.id.ip)
+    TextView ip;
+    @BindView(R.id.address)
+    TextView address;
+    @BindView(R.id.time)
+    TextView time;
+    @BindView(R.id.kick_out)
+    TextView kickOut;
+    @BindView(R.id.recycler_view)
+    RecyclerView recyclerView;
+    MultiDeviceAdapter adapter;
+    private VerifyCodeView verifyCodeView;
+    private CommonDialog verifyDialog;
 
-    private EaseTitleBar titleBar;
-    private ListView listView;
-    List<EMDeviceInfo> deviceInfos;
-    String username;
-    String password;
+    private MultiDevice multiDevice;
+    public boolean openMultiDeviceStatus;
 
     public static void actionStart(Context context) {
         Intent intent = new Intent(context, MultiDeviceActivity.class);
@@ -49,136 +83,178 @@ public class MultiDeviceActivity extends BaseInitActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.demo_activity_multi_device;
+        return R.layout.activity_multi_device;
     }
 
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        titleBar = findViewById(R.id.title_bar);
-        listView = (ListView) findViewById(R.id.list);
+//        title_bar.setTitle();
+        title_bar.setOnBackPressListener(view -> finish());
+
+        mobile.setText(SystemUtil.getDeviceManufacturer() + " " + SystemUtil.getSystemModel());
+
+        verifyCodeView = new VerifyCodeView(this);
+        verifyDialog = new CommonDialog.Builder(this).fullWidth().center()
+                .setView(verifyCodeView)
+                .loadAniamtion()
+                .create();
+        verifyCodeView.setPhone(UserComm.getUserInfo().getPhone().replaceAll("(\\d{3})\\d{4}(\\d{4})", "$1****$2"));
+
+
+        verifyCodeView.setVerifyCodeListener(new VerifyCodeView.OnVerifyCodeListener() {
+            @Override
+            public void inputComplete(String code) {
+                verifyDialog.cancel();
+                verifyCodeView.reset();
+
+                if (!openMultiDeviceStatus) {
+                    openMultiDevice(code);
+                } else {
+                    closeMultiDevice(code);
+                }
+            }
+
+            @Override
+            public void invalidContent() {
+
+            }
+
+            @Override
+            public void getCode() {
+                getSMSCode();
+            }
+
+            @Override
+            public void close() {
+                verifyDialog.dismiss();
+                setMultiStatus(openMultiDeviceStatus);
+            }
+        });
+        checkMultiStatus();
+        getMultiDevices();
     }
+    public void checkMultiStatus() {
+        Map<String,Object> map =new HashMap<>();
+        ApiClient.requestNetHandle(this, AppConfig.isOpenMultiDevice, "", map, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                openMultiDeviceStatus = "1".equals(json);
+                setMultiStatus(openMultiDeviceStatus);
+            }
+            @Override
+            public void onFailure(String msg) {
+                setMultiStatus(false);
+            }
+        });
+    }
+
+
+    public void getMultiDevices() {
+        Map<String,Object> map =new HashMap<>();
+        ApiClient.requestNetHandle(this, AppConfig.getDeviceList, "请稍候", map, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                multiDevice =  FastJsonUtil.getObject(json, MultiDevice.class);
+                setData();
+            }
+            @Override
+            public void onFailure(String msg) {
+                ToastUtil.toast(msg);
+            }
+        });
+    }
+
+    public void setData() {
+        mobile.setText(multiDevice.getDname());
+        time.setText("登录时间: "+ StringUtil.formatTime(multiDevice.getUt(),"yyyy-MM-dd HH:mm:ss"));
+        address.setText("登录地点:  "+multiDevice.getAddress());
+        ip.setText("IP地址:  "+ multiDevice.getIp());
+        adapter = new MultiDeviceAdapter(multiDevice.getDevList());
+        RclViewHelp.initRcLmVertical(this, recyclerView, adapter);
+    }
+
+    public void openMultiDevice(String code){
+        Map<String,Object> map =new HashMap<>();
+        map.put("authCode", code);
+        ApiClient.requestNetHandle(this, AppConfig.openMultiDevice, "多设备登录开启中", map, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                ToastUtil.toast("多设备登录开启成功");
+                openMultiDeviceStatus = true;
+                setMultiStatus(openMultiDeviceStatus);
+                verifyCodeView.stopTimer();
+            }
+            @Override
+            public void onFailure(String msg) {
+                ToastUtil.toast(msg);
+                openMultiDeviceStatus = false;
+                setMultiStatus(openMultiDeviceStatus);
+                verifyCodeView.stopTimer();
+            }
+        });
+    }
+
+    public void closeMultiDevice(String code){
+        Map<String,Object> map =new HashMap<>();
+        map.put("authCode", code);
+        ApiClient.requestNetHandle(this, AppConfig.stopMultiDevice, "多设备登录关闭中", map, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                ToastUtil.toast("多设备登录关闭成功");
+                openMultiDeviceStatus = false;
+                setMultiStatus(openMultiDeviceStatus);
+                verifyCodeView.stopTimer();
+            }
+            @Override
+            public void onFailure(String msg) {
+                ToastUtil.toast(msg);
+                openMultiDeviceStatus = true;
+                setMultiStatus(openMultiDeviceStatus);
+                verifyCodeView.stopTimer();
+
+            }
+        });
+    }
+
+    public void setMultiStatus(boolean isOpen) {
+        switchMulti.setOnCheckedChangeListener(null);
+        switchMulti.setChecked(isOpen);
+
+        switchMulti.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            verifyDialog.show();
+        });
+    }
+
+    public void getSMSCode(){
+        Map<String,Object> map =new HashMap<>();
+        ApiClient.requestNetHandle(this, AppConfig.sendMultiDeviceCode, "", map, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                ToastUtil.toast(msg);
+            }
+            @Override
+            public void onFailure(String msg) {
+
+            }
+        });
+    }
+
 
     @Override
     protected void initListener() {
         super.initListener();
-        titleBar.setOnBackPressListener(new EaseTitleBar.OnBackPressListener() {
-            @Override
-            public void onBackPress(View view) {
-                onBackPressed();
-            }
-        });
+
     }
 
     @Override
     protected void initData() {
         super.initData();
-        registerForContextMenu(listView);
-        listView.setAdapter(new MultiDeviceAdapter(this, 0, new ArrayList<EMDeviceInfo>()));
-        DemoModel model = DemoHelper.getInstance().getModel();
-        if(TextUtils.isEmpty(model.getCurrentUserPwd())) {
-            startActivityForResult(new Intent(this, NamePasswordActivity.class), REQUEST_CODE_USERNAME_PASSWORD);
-        }else {
-            username = model.getCurrentUsername();
-            password = model.getCurrentUserPwd();
-            updateList(username, password);
-        }
-    }
 
-    @Override
-    public void onCreateContextMenu(ContextMenu menu, View v,
-                                    ContextMenu.ContextMenuInfo menuInfo) {
-        MenuInflater inflater = getMenuInflater();
-        //menu.setHeaderTitle("Multi-device context menu");
-        inflater.inflate(R.menu.demo_multi_device_menu_item, menu);
-
-        super.onCreateContextMenu(menu, v, menuInfo);
     }
 
 
-    @Override
-    public boolean onContextItemSelected(@NonNull MenuItem item) {
-        AdapterView.AdapterContextMenuInfo menuInfo = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
-        if (deviceInfos != null && menuInfo.position < deviceInfos.size()) {
-            final EMDeviceInfo deviceInfo = deviceInfos.get(menuInfo.position);
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        EMClient.getInstance().kickDevice(username, password, deviceInfo.getResource());
-                        updateList(username, password);
-                    } catch (HyphenateException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).start();
-        }
-        return super.onContextItemSelected(item);
-    }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data)  {
-        super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_CANCELED) {
-            finish();
-            return;
-        }
-        if (resultCode == RESULT_OK) {
-            username = data.getStringExtra("username");
-            password = data.getStringExtra("password");
-            updateList(username, password);
-        }
-    }
-
-    void updateList(final String username, final String password) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    deviceInfos = EMClient.getInstance().getLoggedInDevicesFromServer(username, password);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            listView.setAdapter(new MultiDeviceAdapter(MultiDeviceActivity.this, 0, deviceInfos));
-                        }
-                    });
-
-                } catch (HyphenateException e) {
-                    e.printStackTrace();
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            Toast.makeText(MultiDeviceActivity.this, "get logged in devices failed", Toast.LENGTH_LONG).show();
-                        }
-                    });
-                }
-            }
-        }).start();
-    }
-
-    private class MultiDeviceAdapter extends ArrayAdapter<EMDeviceInfo> {
-        private LayoutInflater inflater;
-
-        public MultiDeviceAdapter(Context context, int res, List<EMDeviceInfo> deviceInfos) {
-            super(context, res, deviceInfos);
-            this.inflater = LayoutInflater.from(context);
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if (convertView == null) {
-                convertView = inflater.inflate(R.layout.demo_multi_dev_item, parent, false);
-            }
-            ((TextView) convertView.findViewById(R.id.multi_device_name)).setText(getItem(position).getDeviceName());
-            ImageView icon = convertView.findViewById(R.id.iv_device_icon);
-            int deviceTypeIcon = getDeviceTypeIcon(getItem(position).getResource());
-            if(deviceTypeIcon != 0) {
-                icon.setImageResource(deviceTypeIcon);
-            }
-            convertView.setTag(getItem(position).getDeviceName());
-            return convertView;
-        }
-    }
 
     private int getDeviceTypeIcon(String deviceResource) {
         if(TextUtils.isEmpty(deviceResource) || !deviceResource.contains("_")) {
