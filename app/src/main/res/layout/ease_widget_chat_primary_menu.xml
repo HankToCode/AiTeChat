@@ -17,8 +17,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#F6F6F6"
-        android:orientation="horizontal"
         android:gravity="bottom"
+        android:orientation="horizontal"
         android:paddingTop="@dimen/dp_10"
         android:paddingBottom="@dimen/dp_10">
 
@@ -27,8 +27,8 @@
             android:layout_width="@dimen/dp_32"
             android:layout_height="@dimen/dp_32"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="2dp"
             android:layout_marginStart="@dimen/dp_6"
+            android:layout_marginBottom="2dp"
             android:background="@mipmap/yuy"
             android:visibility="visible" />
 
@@ -36,8 +36,8 @@
             android:id="@+id/btn_set_mode_keyboard"
             android:layout_width="@dimen/dp_29"
             android:layout_height="@dimen/dp_29"
-            android:layout_marginStart="@dimen/dp_6"
             android:layout_gravity="bottom"
+            android:layout_marginStart="@dimen/dp_6"
             android:layout_marginBottom="2dp"
             android:background="@mipmap/jianp"
             android:visibility="gone" />
@@ -47,9 +47,9 @@
             android:layout_width="@dimen/dp_0"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_6"
-            android:layout_marginBottom="4dp"
             android:layout_marginTop="@dimen/dp_6"
             android:layout_marginRight="@dimen/dp_6"
+            android:layout_marginBottom="4dp"
             android:layout_weight="1"
             android:background="@drawable/ease_chat_press_speak_btn"
             android:focusable="true"
@@ -58,11 +58,12 @@
             android:visibility="gone">
 
             <TextView
+                android:id="@+id/tv_speaker"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/dp_5"
                 android:text="@string/button_pushtotalk"
-                android:textColor="#666666"
+                android:textColor="@color/black"
                 android:textSize="@dimen/sp_16" />
         </LinearLayout>
 
@@ -104,20 +105,20 @@
                     android:layout_height="@dimen/dp_29"
                     android:layout_centerInParent="true"
                     android:scaleType="fitCenter"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:src="@mipmap/biaoq"
-                    android:visibility="invisible" />
+                    android:visibility="invisible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
                 <ImageView
                     android:id="@+id/iv_face_normal"
                     android:layout_width="@dimen/dp_29"
                     android:layout_height="@dimen/dp_29"
                     android:scaleType="fitCenter"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:src="@mipmap/biaoq"
-                    android:visibility="visible" />
+                    android:visibility="visible"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
@@ -127,9 +128,9 @@
             android:layout_width="@dimen/dp_29"
             android:layout_height="@dimen/dp_29"
             android:layout_gravity="bottom"
-            android:layout_marginBottom="2dp"
             android:layout_marginStart="@dimen/dp_4"
             android:layout_marginEnd="@dimen/dp_10"
+            android:layout_marginBottom="2dp"
             android:background="@mipmap/zhankai" />
 
         <TextView
@@ -138,11 +139,11 @@
             android:layout_height="@dimen/dp_32"
             android:layout_gravity="bottom"
             android:layout_marginEnd="@dimen/dp_6"
+            android:layout_marginBottom="2dp"
             android:background="@drawable/ease_chat_send_btn_selector"
             android:gravity="center"
             android:paddingLeft="@dimen/dp_8"
             android:paddingRight="@dimen/dp_8"
-            android:layout_marginBottom="2dp"
             android:text="@string/button_send"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_14"

@@ -1,5 +1,6 @@
 package com.ycf.qianzhihe.app.weight.ease;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Build;
 import android.text.Editable;
@@ -38,6 +39,7 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
     private View buttonSetModeVoice;
     private View buttonSend;
     private View buttonPressToSpeak;
+    private TextView tvSpeaker;
     private ImageView faceNormal;
     private ImageView faceChecked;
     private Button buttonMore;
@@ -60,6 +62,7 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
         init(context, null);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private void init(final Context context, AttributeSet attrs) {
 
         Context context1 = context;
@@ -70,6 +73,7 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
         buttonSetModeVoice = findViewById(R.id.btn_set_mode_voice);
         buttonSend = findViewById(R.id.btn_send);
         buttonPressToSpeak = findViewById(R.id.btn_press_to_speak);
+        tvSpeaker = findViewById(R.id.tv_speaker);
         faceNormal = findViewById(R.id.iv_face_normal);
         faceChecked = findViewById(R.id.iv_face_checked);
         faceLayout = findViewById(R.id.rl_face);
@@ -99,6 +103,7 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
 
             int addlength = 0;
             int startposition = 0;
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before,
                                       int count) {
@@ -109,7 +114,7 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
                     buttonMore.setVisibility(View.VISIBLE);
                     buttonSend.setVisibility(View.GONE);
                 }
-                if ( (addlength == 1)
+                if ((addlength == 1)
                         && (s.toString().charAt(startposition) == '@')) {
                     listener.onAtSomeOne();
                 }
@@ -120,8 +125,8 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
             @Override
             public void beforeTextChanged(CharSequence s, int start,
                                           int count, int after) {
-                                addlength = after;
-                                startposition = start;
+                addlength = after;
+                startposition = start;
 
             }
 
@@ -145,37 +150,39 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
             }
             return false;
         });
-        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView v, int actionId,
-                                          KeyEvent event) {
-                try {
-                    if (actionId == EditorInfo.IME_ACTION_SEND ||
-                            (event.getKeyCode() == KeyEvent.KEYCODE_ENTER &&
-                                    event.getAction() == KeyEvent.ACTION_DOWN &&
-                                    ctrlPress == true)) {
-                        String s = editText.getText().toString();
-                        editText.setText("");
-                        listener.onSendBtnClicked(s);
-                        return true;
-                    } else {
-                        return false;
-                    }
-                } catch (Exception e) {
+        editText.setOnEditorActionListener((v, actionId, event) -> {
+            try {
+                if (actionId == EditorInfo.IME_ACTION_SEND ||
+                        (event.getKeyCode() == KeyEvent.KEYCODE_ENTER &&
+                                event.getAction() == KeyEvent.ACTION_DOWN &&
+                                ctrlPress == true)) {
+                    String s = editText.getText().toString();
+                    editText.setText("");
+                    listener.onSendBtnClicked(s);
+                    return true;
+                } else {
                     return false;
                 }
+            } catch (Exception e) {
+                return false;
             }
         });
 
-        buttonPressToSpeak.setOnTouchListener(new OnTouchListener() {
+        buttonPressToSpeak.setOnTouchListener((v, event) -> {
 
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (listener != null) {
-                    return listener.onPressToSpeakBtnTouch(v, event);
-                }
-                return false;
+            switch (event.getAction()) {
+                case MotionEvent.ACTION_DOWN:
+                    tvSpeaker.setText(context.getString(R.string.button_pushtotalk_pressed));
+                    break;
+                case MotionEvent.ACTION_UP:
+                    tvSpeaker.setText(context.getString(R.string.button_pushtotalk));
+                    break;
             }
+
+            if (listener != null) {
+                return listener.onPressToSpeakBtnTouch(v, event);
+            }
+            return false;
         });
     }
 
@@ -294,10 +301,12 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
         faceChecked.setVisibility(View.INVISIBLE);
 
     }
+
     @Override
     public void hideVoice() {
         buttonSetModeVoice.setVisibility(View.GONE);
     }
+
     /**
      * show keyboard
      */
@@ -421,7 +430,8 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
 
 
         @Override
-        public void onDestroyActionMode(ActionMode mode) {}
+        public void onDestroyActionMode(ActionMode mode) {
+        }
     }
 
 }
