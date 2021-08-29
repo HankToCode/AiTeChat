@@ -500,7 +500,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
             finish();
             ActivityStackManager.getInstance().killAllActivity();
             UserComm.clearUserInfo();
-            LoginActivity.actionStart(this);
+            LoginActivity.actionStart(this,"");
             //刷新公告数量
         } else if (center.getEventCode() == EventUtil.UNREADCOUNT) {
             checkUnreadMsg();

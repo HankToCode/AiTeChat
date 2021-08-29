@@ -70,6 +70,16 @@ public class GroupingListFragment extends BaseInitFragment {
                 return true;
             }
         });
+        elv_expand.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
+            @Override
+            public void onGroupExpand(int position) {
+                for (int i = 0; i < mGroupingNameList.size(); i++) {
+                    if (position != i) {
+                        elv_expand.collapseGroup(i);
+                    }
+                }
+            }
+        });
     }
 
     @Override

@@ -757,6 +757,12 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
+            android:name="com.ycf.qianzhihe.section.common.ContactGroupingActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
             android:name="com.ycf.qianzhihe.section.common.EaseShowBigImageNewActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"

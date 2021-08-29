@@ -18,8 +18,12 @@
             android:id="@+id/rv_group"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible"/>
+            android:visibility="gone"/>
 
+        <ExpandableListView
+            android:id="@+id/elv_expand"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
     </RelativeLayout>
 
 </LinearLayout>

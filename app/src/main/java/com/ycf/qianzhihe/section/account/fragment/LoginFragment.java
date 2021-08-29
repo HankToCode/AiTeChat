@@ -297,23 +297,41 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
         mTvSwitchLogin.setText(loginMethod == 0 ? "短信登录" : "密码登录");
     }
 
+    private String fromType = "";
+    @Override
+    protected void initArgument() {
+        super.initArgument();
+        Bundle extras = getArguments();
+        fromType = extras.getString("fromType");
+    }
 
     private void loginToServer() {
-        /*if (loginMethod == 0) {
-            passwordLogin();
-        } else {
-            smsCodeLogin();
-        }*/
-        //判断之前是否登录过账号
-        if (DemoHelper.getInstance().isLoggedIn()) {
-            logout();
-        } else {
-            if (loginMethod == 0) {
-                passwordLogin();
+        if (!TextUtils.isEmpty(fromType)) {//处理账号切换
+            //判断之前是否登录过账号
+            if (DemoHelper.getInstance().isLoggedIn()) {
+                logout();// 退出登录接口 退出环信
             } else {
-                smsCodeLogin();
+                if (loginMethod == 0) {
+                    passwordLogin();
+                } else {
+                    smsCodeLogin();
+                }
             }
+        } else {
+            //处理多端登录异常
+            if (DemoHelper.getInstance().isLoggedIn()) {
+                logouHx();//当前设备已登录过，则退出环信SDK 再走登录
+            } else {
+                if (loginMethod == 0) {
+                    passwordLogin();
+                } else {
+                    smsCodeLogin();
+                }
+            }
+
         }
+
+
     }
 
     /**
@@ -502,6 +520,38 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
         return false;
     }
 
+    private void logouHx() {
+        MyHelper.getInstance().logout(false, new EMCallBack() {
+            @Override
+            public void onSuccess() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        dismissLoading();
+                        UserComm.clearUserInfo();
+                        if (loginMethod == 0) {
+                            passwordLogin();
+                        } else {
+                            smsCodeLogin();
+                        }
+                    }
+                });
+            }
+
+            @Override
+            public void onProgress(int progress, String status) { }
+            @Override
+            public void onError(int code, String message) {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        dismissLoading();
+                    }
+                });
+            }
+        });
+    }
+
     private void logout() {
         Map<String, Object> map = new HashMap<>();
         map.put("deviceId", DeviceIdUtil.getDeviceId(mContext));
@@ -541,9 +591,12 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
             @Override
             public void onFailure(String msg) { }
         });
-
-
     }
+
+
+
+
+
     @Override
     public void onDestroy() {
         super.onDestroy();

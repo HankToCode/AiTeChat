@@ -103,7 +103,7 @@ public class MultiAccountActivity extends BaseInitActivity implements LoginAccou
         ll_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LoginActivity.actionStart(mContext);
+                LoginActivity.actionStart(mContext,"1");
                 finish();
             }
         });

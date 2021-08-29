@@ -160,7 +160,7 @@ public class SplashActivity extends BaseInitActivity {
                 public void onError(int code, String message) {
                     super.onError(code, message);
                     EMLog.i("TAG", "error message = " + response.getMessage());
-                    LoginActivity.actionStart(mContext);
+                    LoginActivity.actionStart(mContext,"");
                     finish();
                 }
             });

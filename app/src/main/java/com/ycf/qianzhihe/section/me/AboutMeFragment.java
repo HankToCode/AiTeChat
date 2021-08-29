@@ -96,7 +96,7 @@ public class AboutMeFragment extends BaseInitFragment implements View.OnClickLis
                         DemoHelper.getInstance().logout(true, new EMCallBack() {
                             @Override
                             public void onSuccess() {
-                                LoginActivity.actionStart(mContext);
+                                LoginActivity.actionStart(mContext,"");
                                 mContext.finish();
                             }
 
