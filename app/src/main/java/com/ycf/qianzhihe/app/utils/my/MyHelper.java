@@ -1,9 +1,9 @@
 package com.ycf.qianzhihe.app.utils.my;
 
-import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
-
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Looper;
 import android.os.Message;
 import android.util.Log;
@@ -30,8 +30,9 @@ import com.hyphenate.chat.EMMucSharedFile;
 import com.hyphenate.chat.EMOptions;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.easecallkit.ui.EaseVideoCallActivity;
+import com.hyphenate.exceptions.HyphenateException;
+import com.hyphenate.util.EMLog;
 import com.ycf.qianzhihe.BuildConfig;
-import com.ycf.qianzhihe.DemoApplication;
 import com.ycf.qianzhihe.MainActivity;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
@@ -42,25 +43,23 @@ import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.app.api.old_data.GroupInfo;
 import com.ycf.qianzhihe.app.db.DemoDBManager;
 import com.ycf.qianzhihe.app.db.InviteMessgeDao;
+import com.ycf.qianzhihe.app.domain.EaseAvatarOptions;
+import com.ycf.qianzhihe.app.domain.EaseEmojicon;
+import com.ycf.qianzhihe.app.domain.EaseEmojiconGroupEntity;
+import com.ycf.qianzhihe.app.domain.EaseUser;
+import com.ycf.qianzhihe.app.domain.EmojiconExampleGroupData;
 import com.ycf.qianzhihe.app.operate.GroupOperateManager;
 import com.ycf.qianzhihe.app.operate.UserOperateManager;
+import com.ycf.qianzhihe.app.receiver.CallReceiver;
 import com.ycf.qianzhihe.app.utils.ProjectUtil;
-import com.ycf.qianzhihe.common.model.EmojiconExampleGroupData;
-import com.ycf.qianzhihe.common.utils.PreferenceManager;
+import com.ycf.qianzhihe.app.weight.ease.EaseCommonUtils;
+import com.ycf.qianzhihe.app.weight.ease.EaseNotifier;
+import com.ycf.qianzhihe.app.weight.ease.EaseUI;
+import com.ycf.qianzhihe.app.weight.ease.model.EaseAtMessageHelper;
 import com.ycf.qianzhihe.common.db.entity.InviteMessageStatus;
+import com.ycf.qianzhihe.common.receiver.HeadsetReceiver;
+import com.ycf.qianzhihe.common.utils.PreferenceManager;
 import com.ycf.qianzhihe.section.chat.activity.ChatActivity;
-import com.hyphenate.easeui.EaseIM;
-import com.hyphenate.easeui.domain.EaseAvatarOptions;
-import com.hyphenate.easeui.domain.EaseEmojicon;
-import com.hyphenate.easeui.domain.EaseEmojiconGroupEntity;
-import com.hyphenate.easeui.domain.EaseUser;
-import com.hyphenate.easeui.manager.EaseAtMessageHelper;
-import com.hyphenate.easeui.model.EaseNotifier;
-import com.hyphenate.easeui.provider.EaseEmojiconInfoProvider;
-import com.hyphenate.easeui.provider.EaseSettingsProvider;
-import com.hyphenate.easeui.utils.EaseCommonUtils;
-import com.hyphenate.exceptions.HyphenateException;
-import com.hyphenate.util.EMLog;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -77,7 +76,7 @@ public class MyHelper {
 
     protected static final String TAG = "MyHelper";
 
-    private EaseIM easeUI;
+    private EaseUI easeUI;
 
     /**
      * EMEventListener
@@ -93,6 +92,8 @@ public class MyHelper {
     public boolean isVideoCalling;
 
     private Context appContext;
+
+    private CallReceiver callReceiver;
 
     private LocalBroadcastManager broadcastManager;
 
@@ -138,20 +139,20 @@ public class MyHelper {
 //        options.setImPort(31097);
 
         //use default options if options is null
-        if (EaseIM.getInstance().init(context, options)) {
+        if (EaseUI.getInstance().init(context, options)) {
             appContext = context;
 
             //debug mode, you'd better set it to false, if you want release
             // your App officially.
             EMClient.getInstance().setDebugMode(BuildConfig.DEBUG);
             //get easeui instance
-            easeUI = EaseIM.getInstance();
+            easeUI = EaseUI.getInstance();
             //to set user's profile and avatar
             setEaseUIProviders();
             //initialize preference manager
             PreferenceManager.init(context);
             //set Call options
-//            setCallOptions();
+            setCallOptions();
 
             setGlobalListeners();
             broadcastManager = LocalBroadcastManager.getInstance(appContext);
@@ -206,6 +207,76 @@ public class MyHelper {
         return options;
     }
 
+    private void setCallOptions() {
+        HeadsetReceiver headsetReceiver = new HeadsetReceiver();
+        IntentFilter headsetFilter =
+                new IntentFilter(Intent.ACTION_HEADSET_PLUG);
+        appContext.registerReceiver(headsetReceiver, headsetFilter);
+
+        // min video kbps
+        int minBitRate = PreferenceManager.getInstance().getCallMinVideoKbps();
+        if (minBitRate != -1) {
+//            EMClient.getInstance().callManager().getCallOptions().setMinVideoKbps(minBitRate);
+        }
+
+        // max video kbps
+        int maxBitRate = PreferenceManager.getInstance().getCallMaxVideoKbps();
+        if (maxBitRate != -1) {
+//            EMClient.getInstance().callManager().getCallOptions().setMaxVideoKbps(maxBitRate);
+        }
+
+        // max frame rate
+        int maxFrameRate =
+                PreferenceManager.getInstance().getCallMaxFrameRate();
+        if (maxFrameRate != -1) {
+//            EMClient.getInstance().callManager().getCallOptions().setMaxVideoFrameRate(maxFrameRate);
+        }
+
+        // audio sample rate
+        int audioSampleRate =
+                PreferenceManager.getInstance().getCallAudioSampleRate();
+        if (audioSampleRate != -1) {
+//            EMClient.getInstance().callManager().getCallOptions().setAudioSampleRate(audioSampleRate);
+        }
+
+        /**
+         * This function is only meaningful when your app need recording
+         * If not, remove it.
+         * This function need be called before the video stream started, so
+         * we set it in onCreate function.
+         * This method will set the preferred video record encoding codec.
+         * Using default encoding format, recorded file may not be played by
+         * mobile player.
+         */
+        //EMClient.getInstance().callManager().getVideoCallHelper()
+        // .setPreferMovFormatEnable(true);
+
+        // resolution
+        String resolution =
+                PreferenceManager.getInstance().getCallBackCameraResolution();
+        if (resolution.equals("")) {
+            resolution =
+                    PreferenceManager.getInstance().getCallFrontCameraResolution();
+        }
+        String[] wh = resolution.split("x");
+        if (wh.length == 2) {
+            try {
+//                EMClient.getInstance().callManager().getCallOptions().setVideoResolution(new Integer(wh[0]).intValue(),
+//                        new Integer(wh[1]).intValue());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        // enabled fixed sample rate
+        boolean enableFixSampleRate =
+                PreferenceManager.getInstance().isCallFixedVideoResolution();
+//        EMClient.getInstance().callManager().getCallOptions().enableFixedVideoResolution(enableFixSampleRate);
+
+        // Offline call push
+//        EMClient.getInstance().callManager().getCallOptions().setIsSendPushIfOffline(getModel().isPushCall());
+    }
+
     protected void setEaseUIProviders() {
         //set user avatar to circle shape
         EaseAvatarOptions avatarOptions = new EaseAvatarOptions();
@@ -213,10 +284,16 @@ public class MyHelper {
         easeUI.setAvatarOptions(avatarOptions);
 
         // set profile provider if you want easeUI to handle avatar and nickname
-        easeUI.setUserProvider(emUserId -> getUserInfo(emUserId));
+        easeUI.setUserProfileProvider(new EaseUI.EaseUserProfileProvider() {
 
-        //set options 
-        easeUI.setSettingsProvider(new EaseSettingsProvider() {
+            @Override
+            public EaseUser getUser(String emUserId) {
+                return getUserInfo(emUserId);
+            }
+        });
+
+        //set options
+        easeUI.setSettingsProvider(new EaseUI.EaseSettingsProvider() {
 
             @Override
             public boolean isSpeakerOpened() {
@@ -262,7 +339,7 @@ public class MyHelper {
             }
         });
         //set emoji icon provider
-        easeUI.setEmojiconInfoProvider(new EaseEmojiconInfoProvider() {
+        easeUI.setEmojiconInfoProvider(new EaseUI.EaseEmojiconInfoProvider() {
 
             @Override
             public EaseEmojicon getEmojiconInfo(String emojiconIdentityCode) {
@@ -336,10 +413,10 @@ public class MyHelper {
                 // the notification
                 Intent intent = new Intent(appContext, ChatActivity.class);
                 // open calling activity if there is call
-
-                if (isVideoCalling || isVoiceCalling) {
-                    EaseVideoCallActivity callActivity = new EaseVideoCallActivity();
-                    intent = new Intent(DemoApplication.getInstance().getApplicationContext(), callActivity.getClass()).addFlags(FLAG_ACTIVITY_NEW_TASK);
+                if (isVideoCalling) {
+                    intent = new Intent(appContext,  EaseVideoCallActivity.class);
+                } else if (isVoiceCalling) {
+                    intent = new Intent(appContext, EaseVideoCallActivity.class);
                 } else {
                     ChatType chatType = message.getChatType();
                     if (chatType == ChatType.Chat) { // single chat message
@@ -397,6 +474,14 @@ public class MyHelper {
             }
         };
 
+
+        //register incoming call receiver
+       /* IntentFilter callFilter =
+                new IntentFilter(EMClient.getInstance().callManager().getIncomingCallBroadcastAction());
+        if (callReceiver == null) {
+            callReceiver = new CallReceiver();
+        }
+        appContext.registerReceiver(callReceiver, callFilter);*/
         //register connection listener
         EMClient.getInstance().addConnectionListener(connectionListener);
         //register group and contact event listener
@@ -536,7 +621,7 @@ public class MyHelper {
             msg.setTo(groupId);
             msg.setMsgId(UUID.randomUUID().toString());
             msg.addBody(new EMTextMessageBody(inviter + " " + st3));
-            msg.setStatus(Status.SUCCESS);
+            msg.setStatus(EMMessage.Status.SUCCESS);
             // save invitation as messages
             EMClient.getInstance().chatManager().saveMessage(msg);
             // notify invitation message
@@ -818,7 +903,7 @@ public class MyHelper {
                                 msg.setTo(groupId);
                                 msg.setMsgId(UUID.randomUUID().toString());
                                 msg.addBody(new EMTextMessageBody(msg.getFrom() + " " + st3));
-                                msg.setStatus(Status.SUCCESS);
+                                msg.setStatus(EMMessage.Status.SUCCESS);
                                 // save invitation as messages
                                 EMClient.getInstance().chatManager().saveMessage(msg);
 
@@ -991,14 +1076,13 @@ public class MyHelper {
             @Override
             public void onMessageReceived(List<EMMessage> messages) {
 
-                //TODO
-                /*try {
+                try {
                     if (getModel().getSettingMsgNotification()) {
                         getNotifier().onNewMesg(messages);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-                }*/
+                }
                 for (EMMessage message : messages) {
 
                     if (message.getType().equals(Type.TXT)) {
@@ -1010,8 +1094,8 @@ public class MyHelper {
                         }
                     }
 
-                    if (message.getStringAttribute(Constant.MSGTYPE, "").equals(Constant.SYSTEM_GROUP_ADD)) {
-                        if (!UserComm.getUserId().equals(message.getStringAttribute("sendid", ""))) {
+                    if(message.getStringAttribute(Constant.MSGTYPE, "").equals(Constant.SYSTEM_GROUP_ADD)){
+                        if (!UserComm.getUserId().equals(message.getStringAttribute("sendid", ""))){
                             EMConversation conversation = EMClient.getInstance().chatManager().getConversation(message.conversationId());
                             conversation.removeMessage(message.getMsgId());
                             continue;
@@ -1065,19 +1149,18 @@ public class MyHelper {
                         if (to.equals(UserComm.getUserId())) {
                             notifyNewInviteMessage();
                         }
-                    } else if (action.equals(Constant.ACTION_ALONE_REDPACKET)) {
-                        message.ext().put(Constant.MSGTYPE, Constant.PERSON_RED_BAG);
+                    }else if (action.equals(Constant.ACTION_ALONE_REDPACKET)){
+                        message.ext().put(Constant.MSGTYPE,Constant.PERSON_RED_BAG);
                         createAloneRedPackageMessage(message);
-                    } else if (action.equals(Constant.ACTION_RAB)) {
+                    }else if (action.equals(Constant.ACTION_RAB)){
                         createMessage(message);
-                    } else if (action.equals(Constant.ACTION_RAB_SELF)) {
+                    }else if (action.equals(Constant.ACTION_RAB_SELF)){
                         //当抢红包的人是自己的时候不显示message
                         try {
-                            if (message.ext().get("sendid").equals(UserComm.getUserId())) {
+                            if (message.ext().get("sendid").equals(UserComm.getUserId())){
                                 return;
                             }
-                        } catch (Exception e) {
-                        }
+                        } catch (Exception e) {}
                         createMessage(message);
                         EventBus.getDefault().post(new EventCenter<>(EventUtil.REFRESH_MESSAGE_LIST));
                         EventBus.getDefault().post(new EventCenter<>(EventUtil.REFRESH_CONVERSION));
@@ -1101,12 +1184,11 @@ public class MyHelper {
                     }
                     String recallUserName = "";
                     try {
-                        recallUserName = msg.getStringAttribute(Constant.NICKNAME);
+                        recallUserName  = msg.getStringAttribute(Constant.NICKNAME);
                         if (UserOperateManager.getInstance().hasUserName(msg.getFrom())) {
                             recallUserName = UserOperateManager.getInstance().getUserName(msg.getFrom());
                         }
-                    } catch (HyphenateException e) {
-                    }
+                    } catch (HyphenateException e) {}
                     EMMessage msgNotification =
                             EMMessage.createReceiveMessage(Type.TXT);
                     EMTextMessageBody txtBody =
@@ -1134,17 +1216,17 @@ public class MyHelper {
     }
 
     public void createMessage(EMMessage cmdMessage) {
-        Map<String, Object> map = cmdMessage.ext();
+        Map<String ,Object> map = cmdMessage.ext();
 
         EMMessage emMessage =
                 EMMessage.createReceiveMessage(Type.TXT);
 
-        emMessage.setChatType(ChatType.GroupChat);
+        emMessage.setChatType(EMMessage.ChatType.GroupChat);
         emMessage.setFrom(map.get("id") + Constant.ID_REDPROJECT);
-        emMessage.setTo((String) map.get("huanxinGroupId"));
+        emMessage.setTo((String)map.get("huanxinGroupId" ));
         emMessage.setMsgId(UUID.randomUUID().toString());
         emMessage.addBody(new EMTextMessageBody(ProjectUtil.rabPackageMessageTip(cmdMessage)));
-        emMessage.setAttribute(Constant.MSGTYPE, (String) map.get("msgType"));
+        emMessage.setAttribute(Constant.MSGTYPE,(String)map.get("msgType"));
         emMessage.setUnread(false);
         for (String key : map.keySet()) {
             emMessage.setAttribute(key, (String) map.get(key));
@@ -1154,13 +1236,13 @@ public class MyHelper {
     }
 
     public void createAloneRedPackageMessage(EMMessage cmdMessage) {
-        Map<String, Object> map = cmdMessage.ext();
+        Map<String ,Object> map = cmdMessage.ext();
         EMMessage emMessage =
                 EMMessage.createReceiveMessage(Type.TXT);
-        emMessage.addBody(new EMTextMessageBody(appContext.getString(R.string.type_red_package)));
-        emMessage.setFrom((String) map.get("id") + Constant.ID_REDPROJECT);
-        emMessage.setTo((String) map.get("toUserId") + Constant.ID_REDPROJECT);
-        emMessage.setChatType(ChatType.Chat);
+        emMessage.addBody(new EMTextMessageBody("[红包]"));
+        emMessage.setFrom((String)map.get("id" ) + Constant.ID_REDPROJECT);
+        emMessage.setTo((String)map.get("toUserId" ) + Constant.ID_REDPROJECT);
+        emMessage.setChatType(EMMessage.ChatType.Chat);
         emMessage.setMsgId(UUID.randomUUID().toString());
         emMessage.setUnread(false);
         emMessage.setDirection(EMMessage.Direct.SEND);
@@ -1168,7 +1250,7 @@ public class MyHelper {
         for (String key : map.keySet()) {
             emMessage.setAttribute(key, (String) map.get(key));
         }
-        EMConversation conversation = EMClient.getInstance().chatManager().getConversation((String) map.get("toUserId") + Constant.ID_REDPROJECT);
+        EMConversation conversation = EMClient.getInstance().chatManager().getConversation((String)map.get("toUserId" ) + Constant.ID_REDPROJECT);
         conversation.insertMessage(emMessage);
 
 //        EMClient.getInstance().chatManager().saveMessage(emMessage);
@@ -1235,12 +1317,11 @@ public class MyHelper {
     }
 
     void endCall() {
-        //TODO
-        /*try {
-            EMClient.getInstance().callManager().endCall();
+        try {
+//            EMClient.getInstance().callManager().endCall();
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
     /**
@@ -1251,17 +1332,19 @@ public class MyHelper {
      */
 
 
+
+
     synchronized void reset() {
         isGroupAndContactListenerRegisted = false;
         DemoDBManager.getInstance().closeDB();
     }
 
-   /* public void pushActivity(Activity activity) {
+    public void pushActivity(Activity activity) {
         easeUI.pushActivity(activity);
     }
 
     public void popActivity(Activity activity) {
         easeUI.popActivity(activity);
     }
-*/
+
 }

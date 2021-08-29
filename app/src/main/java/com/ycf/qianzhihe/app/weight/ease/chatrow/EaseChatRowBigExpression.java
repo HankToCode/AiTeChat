@@ -7,11 +7,11 @@ import android.widget.TextView;
 
 import com.hyphenate.chat.EMMessage;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.app.api.EaseConstant;
+import com.ycf.qianzhihe.app.domain.EaseEmojicon;
 import com.ycf.qianzhihe.app.weight.ease.EaseUI;
 import com.zds.base.ImageLoad.GlideUtils;
 
-import com.hyphenate.easeui.constants.EaseConstant;
-import com.hyphenate.easeui.domain.EaseEmojicon;
 
 /**
  * big emoji icons

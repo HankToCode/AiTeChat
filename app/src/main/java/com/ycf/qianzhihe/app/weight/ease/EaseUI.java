@@ -13,10 +13,10 @@ import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMOptions;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.UserComm;
+import com.ycf.qianzhihe.app.domain.EaseAvatarOptions;
+import com.ycf.qianzhihe.app.domain.EaseEmojicon;
 import com.ycf.qianzhihe.app.domain.EaseUser;
-import com.hyphenate.easeui.domain.EaseAvatarOptions;
-import com.hyphenate.easeui.domain.EaseEmojicon;
-import com.hyphenate.easeui.manager.EaseAtMessageHelper;
+import com.ycf.qianzhihe.app.weight.ease.model.EaseAtMessageHelper;
 
 import java.util.ArrayList;
 import java.util.Iterator;
