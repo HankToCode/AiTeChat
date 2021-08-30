@@ -84,7 +84,7 @@ public class ConversationListFragment extends BaseConversationListFragment imple
         conversationListView.setOnItemClickListener((parent, view, position, id) -> {
             EMConversation conversation =
                     conversationListView.getItem(position);
-            String emUserId = conversation.conversationId();
+            String emUserId = conversation.conversationId();//在消息列表，不确定点到哪了  报空指针闪退
 
             if (id == Integer.MAX_VALUE) {
                 //删除和某个user会话，如果需要保留聊天记录，传false

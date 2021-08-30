@@ -91,6 +91,8 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
     TextView tvSelect;
     @BindView(R.id.root)
     LinearLayout root;
+    @BindView(R.id.tv_member)
+    TextView tv_member;
 
     private int isSelectBalance = 0;
     private TextView tv_bank_name;
@@ -114,7 +116,8 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        title_bar.setTitle("发送红包");
+        initImmersionBar(false);
+        title_bar.setTitle("千纸鹤红包");
         title_bar.setOnBackPressListener(view -> finish());
 
         mTvSendRed.setOnClickListener(view -> {
@@ -141,6 +144,7 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
         etRedNum.addTextChangedListener(textWatcher);
 
         switchMethod(currentRedPackageMethod);
+        tv_member.setOnClickListener(view -> ToastUtil.toast("即将推出，敬请期待"));
 
     }
 

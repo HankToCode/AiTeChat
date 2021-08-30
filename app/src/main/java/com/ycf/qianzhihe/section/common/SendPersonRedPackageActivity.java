@@ -18,6 +18,7 @@ import android.widget.TextView;
 
 import com.ehking.sdk.wepay.interfaces.WalletPay;
 import com.ehking.sdk.wepay.net.bean.AuthType;
+import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
@@ -35,6 +36,7 @@ import com.ycf.qianzhihe.app.weight.CustomerKeyboard;
 import com.ycf.qianzhihe.app.weight.PasswordEditText;
 import com.ycf.qianzhihe.app.weight.passwoed_keyboard.OnNumberKeyboardListener;
 import com.ycf.qianzhihe.app.weight.passwoed_keyboard.XNumberKeyboardView;
+import com.ycf.qianzhihe.common.utils.ToastUtils;
 import com.zds.base.json.FastJsonUtil;
 import com.zds.base.upDated.utils.NetWorkUtils;
 import com.zds.base.util.StringUtil;
@@ -53,10 +55,9 @@ import com.zds.base.Toast.ToastUtil;
  * 发送个人红包
  */
 public class SendPersonRedPackageActivity extends BaseInitActivity {
-    @BindView(R.id.toolbar_title)
-    TextView mToolbarTitle;
-    @BindView(R.id.ll_back)
-    LinearLayout ll_back;
+    @BindView(R.id.title_bar)
+    EaseTitleBar title_bar;
+
     @BindView(R.id.et_red_amount)
     EditText mEtRedAmount;
     @BindView(R.id.et_remark)
@@ -65,6 +66,8 @@ public class SendPersonRedPackageActivity extends BaseInitActivity {
     TextView mTvRedAmount;
     @BindView(R.id.tv_send_red)
     TextView mTvSendRed;
+    @BindView(R.id.tv_member)
+    TextView tv_member;
 
     private String toChatUsername;
     private boolean isSelectBalance = true;
@@ -82,8 +85,9 @@ public class SendPersonRedPackageActivity extends BaseInitActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        mToolbarTitle.setText("发送红包");
-        ll_back.setOnClickListener(view -> finish());
+        initImmersionBar(false);
+        title_bar.setTitle("千纸鹤红包");
+        title_bar.setOnBackPressListener(view -> finish());
         mEtRedAmount.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_CLASS_NUMBER);
         mEtRedAmount.setFilters(new InputFilter[]{
                 new InputFilter() {
@@ -134,6 +138,7 @@ public class SendPersonRedPackageActivity extends BaseInitActivity {
         });
 
         mTvSendRed.setOnClickListener(view -> payPassword());
+        tv_member.setOnClickListener(view -> ToastUtils.showToast("即将推出，敬请期待"));
     }
 
     @Override

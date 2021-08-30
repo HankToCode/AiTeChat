@@ -35,7 +35,7 @@ public class RedPacketAdapter extends BaseQuickAdapter<RedPacketInfo.RedPacketDe
 
         // luckFlag 手气最佳 0-不是 1-是
         if ("1".equals(item.getLuckFlag())) {
-            helper.setGone(R.id.ll_shouqi, true);
+            helper.setGone(R.id.tv_cailei, true);
             if (!isfirsh) {
                 StringBuilder sb = new StringBuilder(StringUtil.getFormatValue2(item.getMoney()));
                 helper.setText(R.id.tv_money, sb.toString() + mContext.getResources().getString(R.string.glod));
@@ -45,7 +45,7 @@ public class RedPacketAdapter extends BaseQuickAdapter<RedPacketInfo.RedPacketDe
             }
 
         } else {
-            helper.setGone(R.id.ll_shouqi, false);
+            helper.setGone(R.id.tv_cailei, false);
             helper.setText(R.id.tv_money, StringUtil.getFormatValue2(item.getMoney()) + mContext.getResources().getString(R.string.glod));
         }
 
