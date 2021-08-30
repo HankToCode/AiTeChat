@@ -8,7 +8,8 @@ public class OptionsHelper {
     private String DEF_APPKEY = "";
     private static final String DEF_IM_SERVER = "msync-im1.sandbox.easemob.com";
     private static final int DEF_IM_PORT = 6717;
-    private static final String DEF_REST_SERVER = "a1.sdb.easemob.com";
+//    private static final String DEF_REST_SERVER = "a1.sdb.easemob.com";
+    private static final String DEF_REST_SERVER = "a11-s.easemob.com ";
 
     private static OptionsHelper instance;
 

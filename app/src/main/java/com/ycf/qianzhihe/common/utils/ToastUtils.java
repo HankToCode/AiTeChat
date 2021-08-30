@@ -310,7 +310,7 @@ public class ToastUtils {
         }
         toast.setDuration(duration);
         toast.setGravity(gravity, 0, yOffset);
-        hookToast(toast);
+//        hookToast(toast);
         return toast;
     }
 

@@ -89,9 +89,12 @@
                 android:id="@+id/tv_cailei"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:gravity="center_vertical"
                 android:paddingLeft="@dimen/dp_5"
-                android:text="手气最佳"
-                android:textColor="#D8593F"
+                android:drawableLeft="@mipmap/shouqizuijia"
+                android:drawablePadding="@dimen/dp_5"
+                android:text="运气王"
+                android:textColor="@color/cl21"
                 android:textSize="@dimen/sp_14" />
 
 

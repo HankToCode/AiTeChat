@@ -29,7 +29,7 @@ public class RedPacketAdapter extends BaseQuickAdapter<RedPacketInfo.RedPacketDe
     protected void convert(BaseViewHolder helper, RedPacketInfo.RedPacketDetailListBean item) {
         helper.setText(R.id.tv_name, item.getRobUserName());
         try {
-            helper.setText(R.id.tv_time, StringUtil.formatDateMinute(item.getRobTime(),"yyyy-MM-dd HH:mm:ss"));
+            helper.setText(R.id.tv_time, StringUtil.formatDateMinute(item.getRobTime(),"HH:mm:ss"));
         } catch (Exception e) {
         }
 
