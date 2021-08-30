@@ -25,6 +25,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ycf.qianzhihe.BuildConfig;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.base.BaseFragment;
 import com.ycf.qianzhihe.common.interfaceOrImplement.OnResourceParseCallback;
 import com.ycf.qianzhihe.common.utils.video.ImageCache;
@@ -190,9 +191,9 @@ public class ImageGridFragment extends BaseFragment implements OnItemClickListen
 			    return;
 			}
 			if(vEntty.uri != null) {
-				intent=getActivity().getIntent().putExtra("uri", vEntty.uri.toString()).putExtra("dur", vEntty.duration);
+				intent=getActivity().getIntent().putExtra(Constant.URI, vEntty.uri.toString()).putExtra(Constant.DUR, vEntty.duration);
 			}else {
-				intent=getActivity().getIntent().putExtra("path", vEntty.filePath).putExtra("dur", vEntty.duration);
+				intent=getActivity().getIntent().putExtra(Constant.PATH, vEntty.filePath).putExtra(Constant.DUR, vEntty.duration);
 			}
 			getActivity().setResult(Activity.RESULT_OK, intent);
 			getActivity().finish();
@@ -334,8 +335,8 @@ public class ImageGridFragment extends BaseFragment implements OnItemClickListen
 						e.printStackTrace();
 					}
 					Intent intent = new Intent();
-					intent.putExtra("path", videoFile.getAbsolutePath());
-					intent.putExtra("dur", duration);
+					intent.putExtra(Constant.PATH, videoFile.getAbsolutePath());
+					intent.putExtra(Constant.DUR, duration);
 					mContext.setResult(Activity.RESULT_OK, intent);
 				}
 				mContext.finish();

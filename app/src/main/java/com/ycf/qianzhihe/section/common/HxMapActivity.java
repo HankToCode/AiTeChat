@@ -12,6 +12,7 @@ import com.amap.api.maps.model.BitmapDescriptorFactory;
 import com.amap.api.maps.model.LatLng;
 import com.amap.api.maps.model.MarkerOptions;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
 import com.hyphenate.easeui.widget.EaseTitleBar;
@@ -50,8 +51,8 @@ public class HxMapActivity extends BaseInitActivity {
     @Override
     protected void initIntent(Intent intent) {
         super.initIntent(intent);
-        mLatLng = new LatLng(intent.getDoubleExtra("latitude", 0d), intent.getDoubleExtra("longitude", 0d));
-        addressDetail = intent.getStringExtra("addressDetail");
+        mLatLng = new LatLng(intent.getDoubleExtra(Constant.LATITUDE, 0d), intent.getDoubleExtra(Constant.LONGITUDE, 0d));
+        addressDetail = intent.getStringExtra(Constant.ADDRESS_DETAIL);
         MarkerOptions markerOptions = new MarkerOptions();
         markerOptions.position(mLatLng);
         markerOptions.title("当前位置 :" + "\n" + addressDetail);

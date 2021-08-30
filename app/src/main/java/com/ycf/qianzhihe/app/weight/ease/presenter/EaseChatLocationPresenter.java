@@ -36,14 +36,14 @@ public class EaseChatLocationPresenter extends EaseChatRowPresenter {
     @Override
     public void onBubbleClick(EMMessage message) {
         if (message.getBooleanAttribute(Constant.SEND_LOCATION, false)) {
-            String latitude = message.getStringAttribute("latitude", "");
-            String longitude = message.getStringAttribute("longitude", "");
-            String localDetail = message.getStringAttribute("localDetail", "");
+            String latitude = message.getStringAttribute(Constant.LATITUDE, "");
+            String longitude = message.getStringAttribute(Constant.LONGITUDE, "");
+            String localDetail = message.getStringAttribute(Constant.LOCAL_DETAIL, "");
 
             Intent intent = new Intent(getContext(), HxMapActivity.class);
-            intent.putExtra("latitude", Double.valueOf(latitude));
-            intent.putExtra("longitude", Double.valueOf(longitude));
-            intent.putExtra("addressDetail", localDetail);
+            intent.putExtra(Constant.LATITUDE, Double.valueOf(latitude));
+            intent.putExtra(Constant.LONGITUDE, Double.valueOf(longitude));
+            intent.putExtra(Constant.ADDRESS_DETAIL, localDetail);
 
             getContext().startActivity(intent);
         }

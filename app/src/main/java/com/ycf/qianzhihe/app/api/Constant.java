@@ -472,4 +472,54 @@ public class Constant extends EaseConstant {
      * 商户编号
      */
     public static final String MERCHANT_ID = "897301977";
+
+    /**
+     * 用户所在群 昵称
+     */
+    public static final String USER_IN_GROUP_NAME = "userInGroupName";
+    /**
+     * 纬度
+     */
+    public static final String LATITUDE = "latitude";
+
+    /**
+     * 经度
+     */
+    public static final String LONGITUDE = "longitude";
+    /**
+     * 地址
+     */
+    public static final String ADDRESS = "address";
+    /**
+     * 地址详情
+     */
+    public static final String ADDRESS_DETAIL = "addressDetail";
+    /**
+     * json
+     */
+    public static final String JSON = "json";
+    /**
+     * 地址详情
+     */
+    public static final String LOCAL_DETAIL = "localDetail";
+    /**
+     * 本地地址
+     */
+    public static final String LOCATION_ADDRESS = "locationAddress";
+    /**
+     * 路径
+     */
+    public static final String PATH = "path";
+    /**
+     * uri
+     */
+    public static final String URI = "uri";
+    /**
+     * uri
+     */
+    public static final String DUR = "dur";
+
+
+
+
 }

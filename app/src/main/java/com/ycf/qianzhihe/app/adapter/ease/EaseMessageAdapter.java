@@ -319,7 +319,7 @@ public class EaseMessageAdapter extends BaseAdapter {
     public View getView(final int position, View convertView, ViewGroup parent) {
         EMMessage message = getItem(position);
 
-        EaseChatRowPresenter presenter = null;
+        EaseChatRowPresenter presenter;
 
         if (convertView == null) {
             presenter = createChatRowPresenter(message, position);
@@ -341,7 +341,7 @@ public class EaseMessageAdapter extends BaseAdapter {
                 userName = UserOperateManager.getInstance().getUserName(message.getFrom());
             }
 
-            message.setAttribute("userInGroupName", userName);
+            message.setAttribute(Constant.USER_IN_GROUP_NAME, userName);
 
         }
         presenter.setup(message, position, itemClickListener, itemStyle);

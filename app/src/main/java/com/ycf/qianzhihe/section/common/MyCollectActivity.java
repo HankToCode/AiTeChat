@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.adapter.MyCollectAdapter;
+import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.old_data.CollectInfo;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
@@ -113,7 +114,7 @@ public class MyCollectActivity extends BaseInitActivity {
             public void collect(String collectId, int position) {
                 // TODO: 2021/3/4 跳转页面
                 String json = FastJsonUtil.toJSONString(dataBean.get(position));
-                setResult(1023, new Intent().putExtra("json", json));
+                setResult(1023, new Intent().putExtra(Constant.JSON, json));
                 finish();
             }
 

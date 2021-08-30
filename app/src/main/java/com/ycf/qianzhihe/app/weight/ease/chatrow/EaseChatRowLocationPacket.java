@@ -45,11 +45,11 @@ public class EaseChatRowLocationPacket extends EaseChatRow {
 
     @Override
     protected void onSetUpView() {
-        String latitude = message.getStringAttribute("latitude", "");
-        String longitude = message.getStringAttribute("longitude", "");
-        String locationAddress = message.getStringAttribute("locationAddress", "");
-        String localDetail = message.getStringAttribute("localDetail", "");
-        String path = message.getStringAttribute("path", "");
+        String latitude = message.getStringAttribute(Constant.LATITUDE, "");
+        String longitude = message.getStringAttribute(Constant.LONGITUDE, "");
+        String locationAddress = message.getStringAttribute(Constant.LOCATION_ADDRESS, "");
+        String localDetail = message.getStringAttribute(Constant.LOCAL_DETAIL, "");
+        String path = message.getStringAttribute(Constant.PATH, "");
         locationView.setText(locationAddress + "");
         locationViewDetail.setText(localDetail + "");
         if (imgLocation != null) {

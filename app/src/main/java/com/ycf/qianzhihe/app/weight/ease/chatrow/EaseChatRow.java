@@ -184,7 +184,7 @@ public abstract class EaseChatRow extends LinearLayout {
             if (message.getChatType() == EMMessage.ChatType.Chat) {
                 EaseUserUtils.setUserNick(message.getFrom(), usernickView);
             } else if (message.getChatType() == EMMessage.ChatType.GroupChat) {
-                String userName = message.getStringAttribute("userInGroupName");
+                String userName = message.getStringAttribute(Constant.USER_IN_GROUP_NAME);
 
                 if (usernickView != null) {
                     usernickView.setText(userName);

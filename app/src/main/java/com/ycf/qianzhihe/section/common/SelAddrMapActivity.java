@@ -36,6 +36,7 @@ import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.adapter.AddressAdapter;
+import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
 import com.ycf.qianzhihe.app.api.old_http.AppConfig;
@@ -55,6 +56,7 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
 import com.zds.base.Toast.ToastUtil;
 
 
@@ -314,7 +316,7 @@ public class SelAddrMapActivity extends BaseInitActivity implements LocationSour
                 (this, address, addDetail, addIndex);
         mRecyclerCard.setLayoutManager(new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.VERTICAL));
         mRecyclerCard.setAdapter(mAddressAdapter);
-                    mAddressAdapter.setOnItemClickListener(new AddressAdapter.OnItemClickListener() {
+        mAddressAdapter.setOnItemClickListener(new AddressAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
                 mAddIndex = position;
@@ -478,11 +480,11 @@ public class SelAddrMapActivity extends BaseInitActivity implements LocationSour
                 dismissLoading();
                 dismissLoading();
                 Intent resultIntent = new Intent();
-                resultIntent.putExtra("latitude", mLatList.get(mAddIndex));
-                resultIntent.putExtra("longitude", mLonList.get(mAddIndex));
-                resultIntent.putExtra("address", address.get(mAddIndex));
-                resultIntent.putExtra("addressDetail", mAddressDetailList.get(mAddIndex));
-                resultIntent.putExtra("path", json);
+                resultIntent.putExtra(Constant.LATITUDE, mLatList.get(mAddIndex));
+                resultIntent.putExtra(Constant.LONGITUDE, mLonList.get(mAddIndex));
+                resultIntent.putExtra(Constant.ADDRESS, address.get(mAddIndex));
+                resultIntent.putExtra(Constant.ADDRESS_DETAIL, mAddressDetailList.get(mAddIndex));
+                resultIntent.putExtra(Constant.PATH, json);
 
                 SelAddrMapActivity.this.setResult(-1, resultIntent);
                 finish();

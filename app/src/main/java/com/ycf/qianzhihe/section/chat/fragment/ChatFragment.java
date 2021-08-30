@@ -363,8 +363,8 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                 //send the video
                 case REQUEST_CODE_SELECT_VIDEO:
                     if (data != null) {
-                        int duration = data.getIntExtra("dur", 0);
-                        String videoPath = data.getStringExtra("path");
+                        int duration = data.getIntExtra(Constant.DUR, 0);
+                        String videoPath = data.getStringExtra(Constant.PATH);
                         File file =
                                 new File(PathUtil.getInstance().getImagePath(), "thvideo" + System.currentTimeMillis());
                         try {
@@ -398,12 +398,12 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
 
                 case REQUEST_CODE_MAP:
                     // location
-                    double latitude = data.getDoubleExtra("latitude", 0);
-                    double longitude = data.getDoubleExtra("longitude", 0);
-                    String locationAddress = data.getStringExtra("address");
+                    double latitude = data.getDoubleExtra(Constant.LATITUDE, 0);
+                    double longitude = data.getDoubleExtra(Constant.LONGITUDE, 0);
+                    String locationAddress = data.getStringExtra(Constant.ADDRESS);
                     String locationAddressDetail = data.getStringExtra(
-                            "addressDetail");
-                    String path = data.getStringExtra("path");
+                            Constant.ADDRESS_DETAIL);
+                    String path = data.getStringExtra(Constant.PATH);
 
                     if (locationAddress != null && !"".equals(locationAddress)) {
                         sendCustomLocationMessage(latitude, longitude,
@@ -519,7 +519,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                     break;
             }
         } else if (requestCode == 1023 && resultCode == 1023) {
-            String json = data.getStringExtra("json");
+            String json = data.getStringExtra(Constant.JSON);
             if (!StringUtil.isEmpty(json)) {
                 CollectInfo.DataBean bean = FastJsonUtil.getObject(json, CollectInfo.DataBean.class);
                 if (bean != null) {

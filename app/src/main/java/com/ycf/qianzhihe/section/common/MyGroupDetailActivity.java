@@ -62,6 +62,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
 import com.zds.base.Toast.ToastUtil;
 
 /**
@@ -97,7 +98,7 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
     @BindView(R.id.tv_my_group_nick_name)
     TextView mTvMyGroupNickName;
 
-//    @BindView(R.id.tv_group_announcement)
+    //    @BindView(R.id.tv_group_announcement)
 //    TextView mTvGroupAnnouncement;
     @BindView(R.id.tv_user_red_detail)
     TextView tvUserRedDetail;
@@ -525,7 +526,7 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
                         groupInfo.setGroupName(info.getGroupName());
                         groupInfo.setGroupHead(headUrl);
                         groupInfo.setGroupSayFlag(info.getGroupSayFlag());
-                        GroupOperateManager.getInstance().saveGroupInfo(groupInfo, "json");
+                        GroupOperateManager.getInstance().saveGroupInfo(groupInfo, Constant.JSON);
                         ToastUtil.toast("上传成功");
                     }
 
@@ -659,7 +660,7 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
 
     private String headUrl = "";
 
-    @OnClick({ R.id.fl_group_member, R.id.tv_my_group_nick_name_s,
+    @OnClick({R.id.fl_group_member, R.id.tv_my_group_nick_name_s,
             R.id.tv_group_zx, R.id.tv_group_name, R.id.rl_container_group_remark,
             R.id.tv_group_notice, R.id.tv_msg_record,
             R.id.tv_group_manager, R.id.rl_container_group_single_member_jinyan,
@@ -778,8 +779,8 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
                 Global.addUserOriginName = info.getGroupName();
                 Intent memberIntent = new Intent(this, GroupMemberActivity.class);
                 Bundle memberBundle = new Bundle();
-                memberBundle.putString(Constant.PARAM_GROUP_ID,groupId);
-                memberBundle.putString(Constant.PARAM_EM_GROUP_ID,emChatId);
+                memberBundle.putString(Constant.PARAM_GROUP_ID, groupId);
+                memberBundle.putString(Constant.PARAM_EM_GROUP_ID, emChatId);
                 memberIntent.putExtras(memberBundle);
                 startActivity(memberIntent);
                 break;

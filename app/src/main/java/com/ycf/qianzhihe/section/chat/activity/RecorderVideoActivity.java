@@ -45,6 +45,7 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.common.utils.video.Utils;
 
 import com.hyphenate.easeui.ui.base.EaseBaseActivity;
@@ -484,9 +485,9 @@ public class RecorderVideoActivity extends EaseBaseActivity implements
     						msc.disconnect();
     						progressDialog.dismiss();
     						if(uri == null) {
-								setResult(RESULT_OK, getIntent().putExtra("path", path));
+								setResult(RESULT_OK, getIntent().putExtra(Constant.PATH, path));
     						}else {
-								setResult(RESULT_OK, getIntent().putExtra("uri", uri));
+								setResult(RESULT_OK, getIntent().putExtra(Constant.URI, uri));
 							}
     						finish();
     					}
