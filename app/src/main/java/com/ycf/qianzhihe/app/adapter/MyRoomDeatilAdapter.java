@@ -104,8 +104,7 @@ public class MyRoomDeatilAdapter extends BaseQuickAdapter<GroupDetailInfo.GroupU
             });
 
         } else {
-            EaseUser userInfo =
-                    EaseUserUtils.getUserInfo(item.getUserNickName());
+            EaseUser userInfo = EaseUserUtils.getUserInfo(item.getUserNickName());
 
             if (mode == 1) {
                 helper.setGone(R.id.badge_delete, true);
@@ -117,8 +116,8 @@ public class MyRoomDeatilAdapter extends BaseQuickAdapter<GroupDetailInfo.GroupU
 //                helper.setText(R.id.tv_name, userInfo.getNickname());
 //            }
 
-            if (!TextUtils.isEmpty(item.getFriendNickName())) {
-                helper.setText(R.id.tv_name, item.getFriendNickName());
+            if (!TextUtils.isEmpty(item.getUserNickName())) {
+                helper.setText(R.id.tv_name, item.getUserNickName());
             } else if (userInfo != null && !TextUtils.isEmpty(userInfo.getNickname())) {
                 helper.setText(R.id.tv_name, userInfo.getNickname());
             }
@@ -131,14 +130,11 @@ public class MyRoomDeatilAdapter extends BaseQuickAdapter<GroupDetailInfo.GroupU
 
 
             helper.setOnClickListener(R.id.badge_delete,
-                    new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (mOnDelClickListener != null) {
-                                mOnDelClickListener.delUser(helper.getPosition());
-                            }
-
+                    v -> {
+                        if (mOnDelClickListener != null) {
+                            mOnDelClickListener.delUser(helper.getPosition());
                         }
+
                     });
 
             if (item.getUserRank().equals("1")) {
