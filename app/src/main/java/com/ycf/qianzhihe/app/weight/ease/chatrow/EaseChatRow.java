@@ -15,15 +15,13 @@ import android.widget.TextView;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
-import com.hyphenate.chat.EMMessage.Direct;
-import com.hyphenate.easecallkit.widget.EaseImageView;
+import com.hyphenate.easeui.widget.EaseImageView;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.adapter.ease.EaseMessageAdapter;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.ycf.qianzhihe.app.operate.UserOperateManager;
-import com.ycf.qianzhihe.app.utils.ImageUtil;
 import com.ycf.qianzhihe.app.utils.ProjectUtil;
 import com.ycf.qianzhihe.app.weight.ease.EaseChatMessageList;
 import com.zds.base.ImageLoad.GlideUtils;
@@ -53,7 +51,7 @@ public abstract class EaseChatRow extends LinearLayout {
     protected int position;
 
     protected TextView timeStampView;
-    protected ImageView userAvatarView;
+    protected EaseImageView userAvatarView;
     protected View bubbleLayout;
     protected TextView usernickView;
 
@@ -165,7 +163,7 @@ public abstract class EaseChatRow extends LinearLayout {
 //            ImageUtil.setAvatar(easeImageView);//转换异常
             easeImageView.setShapeType(1);
         }
-        if (message.direct() == Direct.SEND) {
+        if (message.direct() == EMMessage.Direct.SEND) {
             if (!TextUtils.isEmpty(UserComm.getUserInfo().getUserHead()))
                 GlideUtils.loadImageViewLoding(AppConfig.checkimg(UserComm.getUserInfo().getUserHead()), userAvatarView, R.mipmap.img_default_avatar);
             if (usernickView != null)
@@ -232,11 +230,11 @@ public abstract class EaseChatRow extends LinearLayout {
                 }
             }
             if (bubbleLayout != null) {
-                if (message.direct() == Direct.SEND) {
+                if (message.direct() == EMMessage.Direct.SEND) {
                     if (itemStyle.getMyBubbleBg() != null) {
                         bubbleLayout.setBackgroundDrawable(((EaseMessageAdapter) adapter).getMyBubbleBg());
                     }
-                } else if (message.direct() == Direct.RECEIVE) {
+                } else if (message.direct() == EMMessage.Direct.RECEIVE) {
                     if (itemStyle.getOtherBubbleBg() != null) {
                         bubbleLayout.setBackgroundDrawable(((EaseMessageAdapter) adapter).getOtherBubbleBg());
                     }
@@ -291,7 +289,7 @@ public abstract class EaseChatRow extends LinearLayout {
                 @Override
                 public void onClick(View v) {
                     if (itemClickListener != null) {
-                        if (message.direct() == Direct.SEND) {
+                        if (message.direct() == EMMessage.Direct.SEND) {
                             itemClickListener.onUserAvatarClick(EMClient.getInstance().getCurrentUser());
                         } else {
                             itemClickListener.onUserAvatarClick(message.getFrom());
@@ -305,7 +303,7 @@ public abstract class EaseChatRow extends LinearLayout {
                 public boolean onLongClick(View v) {
                     if (itemClickListener != null) {
 
-                        if (message.direct() == Direct.SEND) {
+                        if (message.direct() == EMMessage.Direct.SEND) {
                             ToastUtil.toast("不能@自己");
                         } else {
                             String fromNick = message.getStringAttribute(Constant.NICKNAME, "");

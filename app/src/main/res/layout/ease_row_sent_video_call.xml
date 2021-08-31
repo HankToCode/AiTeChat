@@ -20,7 +20,13 @@
 
         <com.hyphenate.easeui.widget.EaseImageView
             android:id="@+id/iv_userhead"
-            style="@style/ease_row_sent_iv_userhead_style"/>
+            android:layout_width="@dimen/chat_user_head_size"
+            android:layout_height="@dimen/chat_user_head_size"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="@dimen/dp_5"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/img_default_avatar" />
 
         <RelativeLayout
             android:id="@+id/bubble"

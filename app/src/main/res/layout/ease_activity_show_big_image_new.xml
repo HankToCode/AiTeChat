@@ -26,7 +26,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_48"
+            android:layout_height="@dimen/chat_user_head_size"
             android:layout_below="@+id/bar"
             android:elevation="@dimen/dp_0"
             app:contentInsetLeft="0dp"

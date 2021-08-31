@@ -31,8 +31,8 @@
 
             <com.hyphenate.easecallkit.widget.EaseImageView
                 android:id="@+id/img_head"
-                android:layout_width="@dimen/dp_48"
-                android:layout_height="@dimen/dp_48"
+                android:layout_width="@dimen/chat_user_head_size"
+                android:layout_height="@dimen/chat_user_head_size"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/dp_15"
                 android:src="@mipmap/img_default_avatar" />

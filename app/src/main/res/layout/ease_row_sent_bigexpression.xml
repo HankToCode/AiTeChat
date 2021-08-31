@@ -17,10 +17,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_5">
 
-        <com.hyphenate.easecallkit.widget.EaseImageView
+        <com.hyphenate.easeui.widget.EaseImageView
             android:id="@+id/iv_userhead"
-            android:layout_width="@dimen/dp_48"
-            android:layout_height="@dimen/dp_48"
+            android:layout_width="@dimen/chat_user_head_size"
+            android:layout_height="@dimen/chat_user_head_size"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_marginRight="@dimen/dp_5"

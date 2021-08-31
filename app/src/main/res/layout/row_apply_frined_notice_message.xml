@@ -6,12 +6,11 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
     <!-- 需要设置个不显示的用户头像 否则会报错-->
-    <ImageView
+    <com.hyphenate.easeui.widget.EaseImageView
         android:id="@+id/iv_userhead"
         android:layout_width="@dimen/dp_0"
         android:layout_height="@dimen/dp_0"
-        android:src="@mipmap/img_default_avatar"
-        />
+        android:src="@mipmap/img_default_avatar" />
 
     <TextView
         android:id="@+id/timestamp"
@@ -19,21 +18,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/dp_5"
-        />
+        android:layout_marginTop="@dimen/dp_5" />
 
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginLeft="@dimen/dp_20"
-        android:layout_marginRight="@dimen/dp_20"
         android:layout_marginTop="@dimen/dp_5"
+        android:layout_marginRight="@dimen/dp_20"
         android:background="@drawable/bor_gray_chat"
         android:gravity="center"
-        android:orientation="horizontal"
-        >
-
+        android:orientation="horizontal">
 
 
         <TextView
@@ -47,9 +43,8 @@
             android:maxLength="70"
             android:maxLines="3"
             android:textColor="@color/black_text"
-            tools:text="xx拒绝你的好友申请"
             android:textSize="@dimen/sp_12"
-            />
+            tools:text="xx拒绝你的好友申请" />
     </LinearLayout>
 
 
