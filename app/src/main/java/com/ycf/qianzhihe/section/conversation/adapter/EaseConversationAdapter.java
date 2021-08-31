@@ -236,7 +236,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                 // TODO: 2021/3/30 xgp 处理客服图像 写死
                 if (contactId.contains("6a1bec8f64fe11eba89700163e0654c2")) {
                     holder.avatar.setImageResource(R.mipmap.icon_kefu_avatar);
-                } else if (contactId.contains("b9782f1804f111ecab930c42a1a8807a")) {
+                } else if (contactId.contains("fbce17090a6611ecab930c42a1a8807a")) {
                     holder.avatar.setImageResource(R.mipmap.icon_exception_handle_kefu_avatar);
                 } else {
                     GlideUtils.loadImageViewLoding(headImg, holder.avatar, R.mipmap.img_default_avatar);
@@ -248,7 +248,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                     username = tempNickname;
                 }
 
-                if (contactId.contains("b9782f1804f111ecab930c42a1a8807a")) {
+                if (contactId.contains("fbce17090a6611ecab930c42a1a8807a")) {
                     holder.name.setText("客服");
                 } else if (contactId.contains("0d777a9c8f9311eb844f00163e0654c2")) {
                     holder.name.setText("异常处理客服");
