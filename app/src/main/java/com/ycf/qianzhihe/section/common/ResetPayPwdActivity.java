@@ -161,6 +161,8 @@ public class ResetPayPwdActivity extends BaseInitActivity {
                 getCode();
                 break;
             case R.id.tv_step:
+                pwd = et_pwd.getText().toString().trim();
+                pwd2 = et_pwd2.getText().toString().trim();
                 if (StringUtil.isEmpty(et_code.getText().toString())) {
                     ToastUtil.toast("验证码不能为空");
                     return;
@@ -169,8 +171,7 @@ public class ResetPayPwdActivity extends BaseInitActivity {
                     ToastUtil.toast("密码不能为空");
                     return;
                 }
-                pwd = et_pwd.getText().toString().trim();
-                pwd2 = et_pwd2.getText().toString().trim();
+
                 if (!pwd.equals(pwd2)) {
                     ToastUtil.toast("两次密码不一致");
                     return;
