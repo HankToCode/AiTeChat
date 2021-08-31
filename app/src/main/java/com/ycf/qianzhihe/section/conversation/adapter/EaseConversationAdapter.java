@@ -21,6 +21,7 @@ import com.hyphenate.chat.EMConversation.EMConversationType;
 import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easecallkit.widget.EaseImageView;
+import com.hyphenate.exceptions.HyphenateException;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.UserComm;
@@ -172,17 +173,17 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                 holder.motioned.setVisibility(View.GONE);
             }
             // group message, show group avatar
-//            EMGroup group = EMClient.getInstance().groupManager().getGroup(groupId);
+            EMGroup group1 = EMClient.getInstance().groupManager().getGroup(groupId);
             GroupInfo group = GroupOperateManager.getInstance().getGroupInfo(groupId);
             String groupHead = "";
-           /* if (conversation.getLastMessage() != null){
+            if (conversation.getLastMessage() != null){
                 EMMessage emMessage = conversation.getLastMessage();
                 try {
                     groupHead = emMessage.getStringAttribute("groupHead");
                 } catch (HyphenateException e) {
                     e.printStackTrace();
                 }
-            }*/
+            }
             if (TextUtils.isEmpty(groupHead)) {
                 groupHead = GroupOperateManager.getInstance().getGroupAvatar(groupId);
             }
@@ -190,7 +191,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             String imgUrl = ImageUtil.checkimg(groupHead);
 //            Log.e("LEOLEO", "头像地址："+imgUrl);
             GlideUtils.loadImageViewLoding(imgUrl, holder.avatar, R.mipmap.ic_group_default);
-            holder.name.setText(group != null ? group.getGroupName() : groupId);
+            holder.name.setText(group != null ? group.getGroupName() : group1.getGroupName());
 
         } else {
 
