@@ -3,6 +3,7 @@ package com.ycf.qianzhihe.section.account.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
@@ -33,12 +35,15 @@ import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
-import com.ycf.qianzhihe.app.weight.CustomerKeyboard;
 import com.ycf.qianzhihe.app.weight.PasswordEditText;
+import com.ycf.qianzhihe.app.weight.passdialog.PayDialog;
 import com.ycf.qianzhihe.app.weight.passwoed_keyboard.OnNumberKeyboardListener;
 import com.ycf.qianzhihe.app.weight.passwoed_keyboard.XNumberKeyboardView;
 import com.ycf.qianzhihe.common.utils.ToastUtils;
+import com.ycf.qianzhihe.section.common.BankActivity;
 import com.ycf.qianzhihe.section.common.InputPasswordActivity;
+import com.ycf.qianzhihe.section.common.ResetPayPwdActivity;
+import com.ycf.qianzhihe.section.common.SendGroupRedPackageActivity;
 import com.ycf.qianzhihe.section.common.VerifyingPayPasswordPhoneNumberActivity;
 import com.zds.base.ImageLoad.GlideUtils;
 import com.zds.base.Toast.ToastUtil;
@@ -77,6 +82,7 @@ public class BuyMemberActivity extends BaseInitActivity implements View.OnClickL
     ChooseMemberLayout cml_member;
     private String vipId="";
     private int vipLevel=0;
+    private String vipPrice = "";
 
 
     public static void actionStart(Context context) {
@@ -161,8 +167,10 @@ public class BuyMemberActivity extends BaseInitActivity implements View.OnClickL
                 if (isCheck) {
                     vipId = itemData.getVipId();
                     vipLevel = Double.valueOf(itemData.getVipLevel()).intValue();
+                    vipPrice = itemData.getVipPrice();
                 } else {
                     vipId = "";
+                    vipPrice = "";
                     vipLevel=0;
                 }
             }
@@ -219,129 +227,66 @@ public class BuyMemberActivity extends BaseInitActivity implements View.OnClickL
                         return;
                     }
                 }
-                payPassword();
+//                payPassword();
+                payDialog();
                 break;
             default:
                 break;
         }
     }
 
-    /**
-     * 支付密码
-     */
-    private void payPassword() {
-
+    private PayDialog payDialog;
+    private void payDialog() {
         LoginInfo userInfo = UserComm.getUserInfo();
         if (userInfo.getPayPwdFlag() == 0) {
             startActivity(new Intent(BuyMemberActivity.this,
                     InputPasswordActivity.class));
             return;
         }
-        final CommonDialog.Builder builder = new CommonDialog.Builder(this).fullWidth().fromBottom().setView(R.layout.dialog_customer_keyboard);
-
-        builder.setOnClickListener(R.id.delete_dialog,
-                new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        builder.dismiss();
-                    }
-                });
-        builder.create().show();
-
-        LinearLayout mLlaySelectMode = builder.getView(R.id.llay_select_mode);
-        mLlaySelectMode.setVisibility(View.GONE);
-
-        RelativeLayout mLlayBalanceSelect =
-                builder.getView(R.id.llay_balance_select);
-        ImageView mImgBalanceSelect = builder.getView(R.id.img_balance_select);
-
-        RelativeLayout mLlayBankCarSelect =
-                builder.getView(R.id.llay_bank_car_select);
-        ImageView mImgBankCarSelect = builder.getView(R.id.img_bank_car_select);
-
-        mLlayBalanceSelect.setOnClickListener(new View.OnClickListener() {
+         payDialog = new PayDialog(mContext, "支付金额："+vipPrice, new PayDialog.PayInterface() {
             @Override
-            public void onClick(View v) {
-                mImgBalanceSelect.setVisibility(View.VISIBLE);
-                mImgBankCarSelect.setVisibility(View.GONE);
-            }
-        });
-
-        mLlayBankCarSelect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mImgBalanceSelect.setVisibility(View.GONE);
-                mImgBankCarSelect.setVisibility(View.VISIBLE);
-            }
-        });
-
-
-        final XNumberKeyboardView mCustomerKeyboard = builder.getView(R.id.kb_board);
-        final PasswordEditText mPasswordEditText = builder.getView(R.id.password_edit_text);
-        mCustomerKeyboard.setOnNumberKeyboardListener(new OnNumberKeyboardListener() {
-            @Override
-            public void onNumberKey(int keyCode, String insert) {
-                // 右下角按键的点击事件，删除一位输入的文字
-                if (keyCode == XNumberKeyboardView.KEYCODE_BOTTOM_RIGHT) {
-                    mPasswordEditText.deleteLastPassword();
-                }
-                // 左下角按键和数字按键的点击事件，输入文字
-                else {
-                    mPasswordEditText.addPassword(insert);
-                }
-
-            }
-        });
-        /*mCustomerKeyboard.setOnCustomerKeyboardClickListener(new CustomerKeyboard.CustomerKeyboardClickListener() {
-            @Override
-            public void click(String number) {
-                System.out.println("###输入密码="+number);
-                if ("返回".equals(number)) {
-                    builder.dismiss();
-                } else if ("忘记密码？".equals(number)) {
-//                    if (MyApplication.getInstance().getUserInfo().getIsBind() == 2) {
-//                        toast("请先绑定手机号");
-//                    } else {
-                    startActivity(new Intent(BuyMemberActivity.this, VerifyingPayPasswordPhoneNumberActivity.class));
-//                    }
-                } else {
-                    mPasswordEditText.addPassword(number);
-                }
-            }
-
-            @Override
-            public void delete() {
-                mPasswordEditText.deleteLastPassword();
-            }
-        });*/
-
-        mPasswordEditText.setOnPasswordFullListener(new PasswordEditText.PasswordFullListener() {
-            @Override
-            public void passwordFull(String password) {
+            public void Payfinish(String password) {
                 bugVip(password);
-                builder.dismiss();
+            }
+
+            @Override
+            public void onSucc() {
+                //回调 成功，关闭dialog 做自己的操作
+                payDialog.cancel();
+            }
+
+            @Override
+            public void onForget() {
+                //当progress显示时，说明在请求网络，这时点击忘记密码不作处理
+                if(payDialog.payPassView.progress.getVisibility()!=View.VISIBLE){
+                    ResetPayPwdActivity.actionStart(mContext);
+//                    startActivityForResult(new Intent(BuyMemberActivity.this, BankActivity.class), 66);
+                }
             }
         });
-
+        payDialog.show();
     }
-
 
     private void bugVip(String password) {
         Map<String, Object> map = new HashMap<>();
         map.put("vipId", vipId);
         map.put("payPassword", password);
-        ApiClient.requestNetHandle(mContext, AppConfig.saveUserVip, "提交中..", map, new ResultListener() {
+        ApiClient.requestNetHandle(mContext, AppConfig.saveUserVip, "", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 if (json != null) {
-                    System.out.println("###会员返回="+json.toString());
+                    payDialog.setSucc();
+                    System.out.println("###会员返回=" + json.toString());
                     ToastUtils.showToast("购买成功");
                     finish();
+                } else {
+                    payDialog.setError("支付密码不正确");
                 }
             }
 
             @Override
             public void onFailure(String msg) {
+                payDialog.setError("支付失败");
                 ToastUtils.showToast(msg);
             }
         });

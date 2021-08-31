@@ -28,6 +28,7 @@ import com.ycf.qianzhihe.DemoApplication;
 import com.ycf.qianzhihe.DemoHelper;
 import com.ycf.qianzhihe.MainActivity;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.app.weight.ease.EaseCommonUtils;
 import com.ycf.qianzhihe.common.constant.DemoConstant;
 import com.ycf.qianzhihe.common.db.DemoDbHelper;
 import com.ycf.qianzhihe.common.livedatas.LiveDataBus;
@@ -159,6 +160,10 @@ public class ChatPresenter extends EaseChatPresenter {
             // in background, do not refresh UI, notify it in notification bar
             if(!DemoApplication.getInstance().getLifecycleCallbacks().isFront()){
                 getNotifier().notify(message);
+            }
+            //拦截免打扰的消息
+            if (EaseCommonUtils.isSilentMessage(message)) {
+                return;
             }
             //notify new message
             getNotifier().vibrateAndPlayTone(message);

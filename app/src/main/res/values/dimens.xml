@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="dp_line">0.5dp</dimen>
     <dimen name="dp_1">1dp</dimen>
     <dimen name="dp_5">5dp</dimen>
     <dimen name="dp_8">8dp</dimen>
@@ -13,7 +14,7 @@
 
     <!-- font size,you can add if there is no one -->
     <dimen name="sp_14">14sp</dimen>
-
+    <dimen name="material_status_progress_border">3dp</dimen>
     <dimen name="default_circle_view_size">200dp</dimen>
 
 

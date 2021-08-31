@@ -113,4 +113,8 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="materialStatusProgressAttr">
+        <attr name="arcColor" format="reference|color"/>
+        <attr name="progressBarBorderWidth" format="dimension"/>
+    </declare-styleable>
 </resources>

@@ -74,6 +74,7 @@ public class RedPacketDetailActivity extends BaseInitActivity {
     private TextView tv_message_hb, tv_intro;
     private LinearLayout ll_user_money;
     private ImageView iv_back;
+    private TextView tv_tips;
 
 
     @Override
@@ -95,6 +96,7 @@ public class RedPacketDetailActivity extends BaseInitActivity {
         tv_intro = headView.findViewById(R.id.tv_intro);
         img_head = headView.findViewById(R.id.img_head);
         tv_message_hb = headView.findViewById(R.id.tv_message_hb);
+        tv_tips = headView.findViewById(R.id.tv_tips);
 
         ImageUtil.setAvatar(img_head);
         img_head.setShapeType(2);
@@ -182,13 +184,13 @@ public class RedPacketDetailActivity extends BaseInitActivity {
                     ll_user_money.setVisibility(View.VISIBLE);
 
                     if (tv_money != null) {
-                        tv_money.setText("￥" + StringUtil.getFormatValue2(redPacketInfo.getMoney()));
+                        tv_money.setText(StringUtil.getFormatValue2(redPacketInfo.getMoney()));
 //                        tv_money.setText("￥" + redPacketInfo.getMoney());
                         if (redPacketInfo.getPacketAmount() > 0) {
                             List<RedPacketInfo.RedPacketDetailListBean> list = redPacketInfo.getRedPacketDetailList();
                             for (int i = 0; i < list.size(); i++) {
                                 if (list.get(i).getUserId().equals(UserComm.getUserInfo().getUserId())) {
-                                    tv_money.setText("￥" + StringUtil.getFormatValue2(list.get(i).getMoney()));
+                                    tv_money.setText(StringUtil.getFormatValue2(list.get(i).getMoney()));
                                     break;
                                 }
                             }
@@ -235,8 +237,10 @@ public class RedPacketDetailActivity extends BaseInitActivity {
 
                         if (type.equals("1")) {
                             tv_message_hb.setVisibility(View.GONE);
+                            tv_tips.setVisibility(View.GONE);
                         } else {
                             tv_message_hb.setVisibility(View.VISIBLE);
+                            tv_tips.setVisibility(View.VISIBLE);
                         }
                         if (ylSize == allSize) {
                             mAdapter.setIsfirsh(true);

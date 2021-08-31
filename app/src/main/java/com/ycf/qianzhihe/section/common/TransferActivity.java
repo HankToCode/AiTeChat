@@ -29,8 +29,10 @@ import com.ycf.qianzhihe.app.utils.ImageUtil;
 import com.ycf.qianzhihe.app.weight.CommonDialog;
 import com.ycf.qianzhihe.app.weight.CustomerKeyboard;
 import com.ycf.qianzhihe.app.weight.PasswordEditText;
+import com.ycf.qianzhihe.app.weight.passdialog.PayDialog;
 import com.ycf.qianzhihe.app.weight.passwoed_keyboard.OnNumberKeyboardListener;
 import com.ycf.qianzhihe.app.weight.passwoed_keyboard.XNumberKeyboardView;
+import com.ycf.qianzhihe.section.account.activity.BuyMemberActivity;
 import com.zds.base.ImageLoad.GlideUtils;
 import com.zds.base.util.StringUtil;
 
@@ -130,10 +132,11 @@ public class TransferActivity extends BaseInitActivity {
         map.put("remark", mEtRemark.getText().toString());
         map.put("userId", emChatId.contains(Constant.ID_REDPROJECT) ?
                 emChatId.split("-")[0] : emChatId);
-        ApiClient.requestNetHandle(this, AppConfig.transfer, "正在转账...", map,
+        ApiClient.requestNetHandle(this, AppConfig.transfer, "", map,
                 new ResultListener() {
                     @Override
                     public void onSuccess(String json, String msg) {
+                        payDialog.setSucc();
                         //发送名片
                         Intent intent = new Intent();
                         intent.putExtra("money",
@@ -149,6 +152,7 @@ public class TransferActivity extends BaseInitActivity {
 
                     @Override
                     public void onFailure(String msg) {
+                        payDialog.setError("支付失败");
                         ToastUtil.toast(msg);
                     }
                 });
@@ -176,13 +180,58 @@ public class TransferActivity extends BaseInitActivity {
         switch (view.getId()) {
             case R.id.tv_transfer:
                 //转账
-                PayPassword();
+//                PayPassword();
+                payDialog();
                 break;
             default:
                 break;
         }
     }
 
+    private PayDialog payDialog;
+    private void payDialog() {
+        if (mEtMoney.getText().length() <= 0 || mEtMoney.getText().toString().equals("") || mEtMoney.getText().toString().equals("0.") || mEtMoney.getText().toString().equals("0.0")
+                || mEtMoney.getText().toString().equals("0.00")) {
+            ToastUtil.toast("请填写正确的金额");
+            return;
+        }
+
+        double price =
+                Double.parseDouble(mEtMoney.getText().toString().trim());
+        if (price > 10000) {
+            ToastUtil.toast("金额不得超过10000元");
+            return;
+        }
+
+        LoginInfo userInfo = UserComm.getUserInfo();
+        if (userInfo.getPayPwdFlag() == 0) {
+            startActivity(new Intent(this,
+                    InputPasswordActivity.class));
+            return;
+        }
+        payDialog = new PayDialog(mContext, "支付金额："+mEtMoney.getText().toString().trim(), new PayDialog.PayInterface() {
+            @Override
+            public void Payfinish(String password) {
+                transfer(password);
+            }
+
+            @Override
+            public void onSucc() {
+                //回调 成功，关闭dialog 做自己的操作
+                payDialog.cancel();
+            }
+
+            @Override
+            public void onForget() {
+                //当progress显示时，说明在请求网络，这时点击忘记密码不作处理
+                if(payDialog.payPassView.progress.getVisibility()!=View.VISIBLE){
+                    ResetPayPwdActivity.actionStart(mContext);
+//                    startActivityForResult(new Intent(BuyMemberActivity.this, BankActivity.class), 66);
+                }
+            }
+        });
+        payDialog.show();
+    }
     /**
      * 支付密码
      */

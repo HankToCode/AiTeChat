@@ -125,7 +125,11 @@
 
     <color name="blue">#FF5A5DD0</color>
     <color name="black">#ff000000</color>
-
+    <color name="gray_gb">#dddddd</color>
+    <color name="grayc4">#c4c4c4</color>
+    <color name="alipay">#00a5ff</color>
+    <color name="graye3">#e3e7ee</color>
+    <color name="gray_e5">#e5e5e5</color>
     <color name="em_color_brand">#ff04aef0</color>
     <color name="em_color_warning">#ffff2b2b</color>
     <color name="em_color_common_text_black">#ff333333</color>
