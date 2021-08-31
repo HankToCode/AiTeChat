@@ -19,7 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
-import com.hyphenate.easeui.widget.EaseImageView;
+import com.hyphenate.easecallkit.widget.EaseImageView;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.adapter.MyRoomDeatilAdapter;
@@ -35,6 +35,7 @@ import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
 import com.ycf.qianzhihe.app.operate.GroupOperateManager;
+import com.ycf.qianzhihe.app.operate.UserOperateManager;
 import com.ycf.qianzhihe.app.utils.hxSetMessageFree.EaseSharedUtils;
 import com.ycf.qianzhihe.app.utils.my.MyHelper;
 import com.ycf.qianzhihe.app.weight.CommonDialog;
@@ -285,8 +286,9 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
         // .checkimg(info
         // .getGroupHead()), (ImageView) mGroupImg, R.mipmap
         // .img_default_avatar, 12);
-        GlideUtils.GlideLoadCircleErrorImageUtils(MyGroupDetailActivity.this, AppConfig.checkimg(info.getGroupHead())
-                , iv_group_head, R.mipmap.img_default_avatar);
+        /*GlideUtils.GlideLoadCircleErrorImageUtils(MyGroupDetailActivity.this, AppConfig.checkimg(info.getGroupHead())
+                , iv_group_head, R.mipmap.img_default_avatar);*/
+        GlideUtils.loadImageViewLoding(MyGroupDetailActivity.this,AppConfig.checkimg(info.getGroupHead()), iv_group_head, R.mipmap.img_default_avatar, R.mipmap.img_default_avatar);
 
         tv_group_name.setText(info.getGroupName());
         tv_group_remark.setText(info.groupNickName);
@@ -715,7 +717,6 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
                 break;
 
             case R.id.tv_group_manager:
-                //设置管理员
                 //设置群管理员
                 SetGroupManageActivity.actionStart(this, groupId, emChatId);
                 break;

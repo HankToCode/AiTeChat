@@ -7,6 +7,7 @@ import android.widget.ImageView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.hyphenate.easecallkit.widget.EaseImageView;
 import com.ycf.qianzhihe.MainActivity;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
@@ -14,6 +15,7 @@ import com.ycf.qianzhihe.app.api.EaseConstant;
 import com.ycf.qianzhihe.app.api.Global;
 import com.ycf.qianzhihe.app.operate.GroupOperateManager;
 import com.ycf.qianzhihe.section.common.ContactGroupingActivity;
+import com.ycf.qianzhihe.section.common.MyGroupDetailActivity;
 import com.zds.base.ImageLoad.GlideUtils;
 import com.zds.base.Toast.ToastUtil;
 import com.ycf.qianzhihe.app.api.old_data.GroupDetailInfo;
@@ -123,10 +125,9 @@ public class MyRoomDeatilAdapter extends BaseQuickAdapter<GroupDetailInfo.GroupU
             }
 
 
-            GlideUtils.GlideLoadCircleErrorImageUtils(mContext,
-                    AppConfig.checkimg(item.getUserHead()),
-                    (ImageView) helper.getView(R.id.iv_avatar),
-                    R.mipmap.img_default_avatar);
+//            GlideUtils.GlideLoadCircleErrorImageUtils(mContext, AppConfig.checkimg(item.getUserHead()), (EaseImageView) helper.getView(R.id.iv_avatar), R.mipmap.img_default_avatar);
+            GlideUtils.loadImageViewLoding(mContext, AppConfig.checkimg(item.getUserHead()), (EaseImageView)helper.getView(R.id.iv_avatar), R.mipmap.img_default_avatar, R.mipmap.img_default_avatar);
+
 
 
             helper.setOnClickListener(R.id.badge_delete,
