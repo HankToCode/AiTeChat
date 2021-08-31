@@ -9,6 +9,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.old_data.GroupManageListInfo;
+import com.zds.base.ImageLoad.GlideUtils;
 
 import java.util.List;
 
@@ -26,6 +27,8 @@ public class SetGroupManageAdapter extends BaseQuickAdapter<GroupManageListInfo,
     @Override
     protected void convert(BaseViewHolder helper, GroupManageListInfo item) {
         helper.setText(R.id.tv_group_user, item.getUserNickName());
+//        helper.setText(R.id.iv_avatar, item.getUserHead());
+        GlideUtils.GlideLoadCircleErrorImageUtils(mContext, item.getUserHead(), helper.getView(R.id.iv_avatar), R.mipmap.img_default_avatar);
         TextView mDeleteTv = helper.getView(R.id.tv_del);
 
         if (!mDeleteTv.hasOnClickListeners()) {

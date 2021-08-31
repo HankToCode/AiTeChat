@@ -42,7 +42,8 @@ public class SetGroupManageActivity extends BaseInitActivity implements SetGroup
 
 
     public static void actionStart(Context context, String groupId, String emChatId) {
-        Intent starter = new Intent(context, GroupAdminAuthorityActivity.class);
+//        Intent starter = new Intent(context, GroupAdminAuthorityActivity.class);
+        Intent starter = new Intent(context, SetGroupManageActivity.class);
         starter.putExtra("groupId", groupId);
         starter.putExtra(Constant.PARAM_EM_CHAT_ID, emChatId);
         context.startActivity(starter);

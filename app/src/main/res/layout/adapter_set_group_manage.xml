@@ -1,27 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/dp_35"
+    android:layout_height="@dimen/dp_60"
     android:background="@color/white"
     android:orientation="horizontal">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_gravity="center_vertical"
-        android:visibility="visible">
+        android:layout_height="@dimen/dp_55"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dp_15"
+        android:paddingRight="@dimen/dp_15">
+
+        <com.hyphenate.easecallkit.widget.EaseImageView
+            android:id="@+id/iv_avatar"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            android:scaleType="fitXY"
+            android:src="@mipmap/img_default_avatar"
+            app:ease_shape_type="rectangle" />
 
         <TextView
             android:id="@+id/tv_group_user"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/dp_13"
+            android:layout_marginLeft="@dimen/dp_8"
             android:gravity="center_vertical"
-            android:textColor="@color/blue5"
-            android:textSize="@dimen/sp_12"
-            tools:text="小小春" />
+            android:text="小小春"
+            android:textColor="@color/black"
+            android:textSize="@dimen/sp_16" />
     </LinearLayout>
+
 
     <LinearLayout
         android:layout_width="@dimen/dp_130"
