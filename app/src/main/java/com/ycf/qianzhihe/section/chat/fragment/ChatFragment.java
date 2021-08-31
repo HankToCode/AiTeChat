@@ -292,7 +292,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                     ITEM_VOICE_CALL, extendMenuItemClickListener);
             //视频通话
             mInputMenu.registerExtendSmallMenuItem(R.mipmap.ship_small,
-                    ITEM_VOICE_CALL, extendMenuItemClickListener);
+                    ITEM_VIDEO_CALL, extendMenuItemClickListener);
             //红包
             mInputMenu.registerExtendSmallMenuItem(R.mipmap.hongbao_small,
                     ITEM_MY_RED_PACKET, extendMenuItemClickListener);
