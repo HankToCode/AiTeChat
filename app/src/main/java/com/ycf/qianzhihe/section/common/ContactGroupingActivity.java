@@ -321,7 +321,7 @@ public class ContactGroupingActivity extends BaseInitActivity {
         mItemSet.clear();//分组成员
         //读取本地缓存好友数据
         //List<ContactListInfo.DataBean> localFriendList = UserOperateManager.getInstance().getContactList();
-        if (categoryDatas.size() > 0) {
+        /*if (categoryDatas.size() > 0) {
             for (int i = 0; i < categoryDatas.size(); i++) {
                 mGroupingNameList.add(categoryDatas.get(i).getName());
                 ArrayList<ContactListInfo.DataBean> item = new ArrayList<>();
@@ -332,9 +332,34 @@ public class ContactGroupingActivity extends BaseInitActivity {
                 }
                 mItemSet.add(item);
             }
-        }
-        mGroupingAdapter.notifyDataSetChanged();
+        }*/
 
+        if (categoryDatas.size() > 0) {
+            /*FriendGroupingBean bean = new FriendGroupingBean();
+            bean.setName("默认分组");
+            categoryDatas.add(bean);*/
+
+            ArrayList<ContactListInfo.DataBean> defaultitem = new ArrayList<>();
+            for (int i = 0; i < categoryDatas.size(); i++) {
+                mGroupingNameList.add(categoryDatas.get(i).getName());
+                ArrayList<ContactListInfo.DataBean> item = new ArrayList<>();
+                for (int k = 0; k < mContactList.size(); k++) {
+                    if (TextUtils.isEmpty(mContactList.get(k).getCategoryId())) {
+                        if (!defaultitem.contains(mContactList.get(k))) {
+                            defaultitem.add(mContactList.get(k));
+                        }
+                    } else if (categoryDatas.get(i).getCategoryId().equals(mContactList.get(k).getCategoryId())) {
+                        item.add(mContactList.get(k));//成员
+                    }
+                }
+                mItemSet.add(item);
+            }
+            mItemSet.add(defaultitem);
+            mGroupingNameList.add(new String("默认分组"));
+        }
+
+
+        mGroupingAdapter.notifyDataSetChanged();
         mContactAdapter.notifyDataSetChanged();
     }
 
