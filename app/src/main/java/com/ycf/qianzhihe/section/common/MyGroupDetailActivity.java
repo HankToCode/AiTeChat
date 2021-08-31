@@ -159,17 +159,12 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
         //消息免打扰
         mSwitchMsg.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton buttonView,
-                                         boolean isChecked) {
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if (isChecked) {
-                    EaseSharedUtils.setEnableMsgRing(Utils.getContext(),
-                            UserComm.getUserId() + Constant.ID_REDPROJECT,
-                            emChatId, false);
+                    EaseSharedUtils.setEnableMsgRing(Utils.getContext(), UserComm.getUserId() + Constant.ID_REDPROJECT, emChatId, false);
                     MyHelper.getInstance().getModel().saveChatBg(emChatId, null, "false", null);
                 } else {
-                    EaseSharedUtils.setEnableMsgRing(Utils.getContext(),
-                            UserComm.getUserId() + Constant.ID_REDPROJECT,
-                            emChatId, true);
+                    EaseSharedUtils.setEnableMsgRing(Utils.getContext(), UserComm.getUserId() + Constant.ID_REDPROJECT, emChatId, true);
                     MyHelper.getInstance().getModel().saveChatBg(emChatId, null, "true", null);
                 }
             }

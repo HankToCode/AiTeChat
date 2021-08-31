@@ -175,6 +175,7 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
                 switchMethod(2);
             }
         });
+        builder.setOnClickListener(R.id.tv_cell, view -> builder.dismiss());
         builder.create().show();
     }
 

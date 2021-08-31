@@ -11,17 +11,12 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/dp_15"
         android:layout_marginRight="@dimen/dp_15"
+        android:padding="@dimen/dp_15"
         android:background="@drawable/bor_white_8"
         android:orientation="vertical"
         >
 
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_1"
-            android:visibility="gone"
-            android:background="@color/login_lie"
-            />
 
         <TextView
             android:id="@+id/tv_psj"
@@ -29,35 +24,32 @@
             android:layout_height="@dimen/dp_45"
             android:gravity="center"
             android:text="拼手气红包"
-            android:textColor="@color/btn_blue_normal"
+            android:background="@drawable/bor_login"
+            android:textColor="@color/white"
             android:textSize="@dimen/sp_14"
             />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_1"
-            android:background="@color/login_lie"
-            />
+
         <TextView
             android:id="@+id/tv_zs"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_45"
             android:gravity="center"
+            android:layout_marginTop="@dimen/dp_10"
             android:text="专属红包"
-            android:textColor="@color/btn_blue_normal"
+            android:background="@drawable/bor_login"
             android:textSize="@dimen/sp_14"
+            android:textColor="@color/white"
             />
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_1"
-            android:background="@color/login_lie"
-            />
+
         <TextView
             android:id="@+id/tv_pt"
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_45"
             android:gravity="center"
             android:text="普通红包"
-            android:textColor="@color/btn_blue_normal"
+            android:layout_marginTop="@dimen/dp_10"
+            android:textColor="@color/white"
+            android:background="@drawable/bor_login"
             android:textSize="@dimen/sp_14"
             />
 
