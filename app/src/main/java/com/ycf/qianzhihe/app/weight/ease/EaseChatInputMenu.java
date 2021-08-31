@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.domain.EaseDefaultEmojiconDatas;
 import com.ycf.qianzhihe.app.domain.EaseEmojicon;
 import com.ycf.qianzhihe.app.domain.EaseEmojiconGroupEntity;
@@ -35,6 +36,7 @@ public class EaseChatInputMenu extends LinearLayout {
     protected EaseChatPrimaryMenuBase chatPrimaryMenu;
     protected EaseEmojiconMenuBase emojiconMenu;
     protected EaseChatExtendMenu chatExtendMenu;
+    protected EaseChatExtendSmallMenu chatExtendSmallMenu;
     protected FrameLayout chatExtendMenuContainer;
     protected LayoutInflater layoutInflater;
 
@@ -67,6 +69,7 @@ public class EaseChatInputMenu extends LinearLayout {
 
         // extend menu
         chatExtendMenu = (EaseChatExtendMenu) findViewById(R.id.extend_menu);
+        chatExtendSmallMenu = (EaseChatExtendSmallMenu) findViewById(R.id.extend_menu_small);
 
 
     }
@@ -102,6 +105,7 @@ public class EaseChatInputMenu extends LinearLayout {
 
         processChatMenu();
         chatExtendMenu.init();
+        chatExtendSmallMenu.init();
 
         inited = true;
     }
@@ -136,6 +140,10 @@ public class EaseChatInputMenu extends LinearLayout {
         return chatExtendMenu;
     }
 
+    public EaseChatExtendSmallMenu getExtendSmallMenu() {
+        return chatExtendSmallMenu;
+    }
+
     public EaseEmojiconMenuBase getEmojiconMenu() {
         return emojiconMenu;
     }
@@ -157,9 +165,21 @@ public class EaseChatInputMenu extends LinearLayout {
     /**
      * register menu item
      *
-     * @param name        item name
-     * @param number      id
+     * @param drawableRes background of item
+     * @param itemId      id
      * @param listener    on click event of item
+     */
+    public void registerExtendSmallMenuItem(int drawableRes, int itemId,
+                                            EaseChatExtendMenu.EaseChatExtendMenuItemClickListener listener) {
+        chatExtendSmallMenu.registerMenuItem(drawableRes, itemId, listener);
+    }
+
+    /**
+     * register menu item
+     *
+     * @param name     item name
+     * @param number   id
+     * @param listener on click event of item
      */
     public void registerMenuItemNumber(String name, int number, int itemId,
                                        EaseChatExtendMenu.EaseChatExtendMenuItemClickListener listener) {
@@ -169,7 +189,7 @@ public class EaseChatInputMenu extends LinearLayout {
     /**
      * register menu item
      *
-     * @param nameRes        resource id of item name
+     * @param nameRes     resource id of item name
      * @param drawableRes background of item
      * @param itemId      id
      * @param listener    on click event of item
@@ -213,7 +233,7 @@ public class EaseChatInputMenu extends LinearLayout {
 
             @Override
             public void onAtSomeOne() {
-                if (listener != null){
+                if (listener != null) {
                     listener.onAtSomeOne();
                 }
             }
@@ -349,6 +369,14 @@ public class EaseChatInputMenu extends LinearLayout {
         this.listener = listener;
     }
 
+    public void setChatType(int chatType) {
+        if (chatType == Constant.CHATTYPE_SINGLE) {
+            chatExtendSmallMenu.setVisibility(View.GONE);
+        } else if (chatType == Constant.CHATTYPE_GROUP) {
+            chatExtendSmallMenu.setVisibility(View.VISIBLE);
+        }
+    }
+
     public interface ChatInputMenuListener {
         /**
          * when send message button pressed
@@ -378,5 +406,6 @@ public class EaseChatInputMenu extends LinearLayout {
          */
         void onAtSomeOne();
     }
+
 
 }

@@ -281,25 +281,26 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
 
         } else if (chatType == Constant.CHATTYPE_GROUP) {
             //图片
-            mInputMenu.registerExtendMenuItem("图片", R.mipmap.zhaop,
+            mInputMenu.registerExtendSmallMenuItem(R.mipmap.zhaop_small,
                     ITEM_PICTURE, extendMenuItemClickListener);
             //相机
-            mInputMenu.registerExtendMenuItem("相机", R.mipmap.xj_11,
+            mInputMenu.registerExtendSmallMenuItem(R.mipmap.xj_11_small,
                     ITEM_INVITE_GROUP_CAMERA, extendMenuItemClickListener);
 
+            //语音电话
+            mInputMenu.registerExtendSmallMenuItem(R.mipmap.yuyt_small,
+                    ITEM_VOICE_CALL, extendMenuItemClickListener);
+            //视频通话
+            mInputMenu.registerExtendSmallMenuItem(R.mipmap.ship_small,
+                    ITEM_VOICE_CALL, extendMenuItemClickListener);
             //红包
-            mInputMenu.registerExtendMenuItem("红包", R.mipmap.hongbao,
+            mInputMenu.registerExtendSmallMenuItem(R.mipmap.hongbao_small,
                     ITEM_MY_RED_PACKET, extendMenuItemClickListener);
-//            mInputMenu.registerExtendMenuItem("语音电话", R.mipmap.yydh,
-//            ITEM_VOICE_CALL, extendMenuItemClickListener);
-            //位置
-            mInputMenu.registerExtendMenuItem("位置", R.mipmap.dinwei,
-                    ITEM_LOCATION, extendMenuItemClickListener);
-            //名片
-            mInputMenu.registerExtendMenuItem("名片", R.mipmap.minp,
-                    ITEM_SEND_CARD, extendMenuItemClickListener);
-//            mInputMenu.registerExtendMenuItem("收藏", R.mipmap.sc_11,
-//                    ITEM_MY_COLLECT, extendMenuItemClickListener);
+            //转账
+            mInputMenu.registerExtendSmallMenuItem(R.mipmap.zhuanz_small,
+                    ITEM_TRANSFER, extendMenuItemClickListener);
+
+            mInputMenu.setChatType(chatType);
         }
     }
 

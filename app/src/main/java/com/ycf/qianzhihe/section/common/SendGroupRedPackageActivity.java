@@ -32,11 +32,9 @@ import com.ycf.qianzhihe.app.base.BaseInitActivity;
 import com.ycf.qianzhihe.app.base.WebViewActivity;
 import com.ycf.qianzhihe.app.utils.NumberExKt;
 import com.ycf.qianzhihe.app.weight.CommonDialog;
-import com.ycf.qianzhihe.app.weight.CustomerKeyboard;
 import com.ycf.qianzhihe.app.weight.PasswordEditText;
 import com.ycf.qianzhihe.app.weight.passwoed_keyboard.OnNumberKeyboardListener;
 import com.ycf.qianzhihe.app.weight.passwoed_keyboard.XNumberKeyboardView;
-import com.ycf.qianzhihe.app.weight.popup.RedPackagePopupWindow;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.json.FastJsonUtil;
 import com.zds.base.upDated.utils.NetWorkUtils;
@@ -133,7 +131,6 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
         list.add("专属红包");
         list.add("普通红包");
         tvSelect.setOnClickListener(view -> {
-//            new RedPackagePopupWindow(SendGroupRedPackageActivity.this, this::switchMethod, currentRedPackageMethod).show(SendGroupRedPackageActivity.this, root, list);
             toSelectItem();//更换样式
         });
 

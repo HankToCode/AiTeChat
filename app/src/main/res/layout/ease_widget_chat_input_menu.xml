@@ -35,6 +35,15 @@
             android:layout_marginTop="@dimen/dp_9"
             hyphenate:numColumns="5"/>
 
+        <com.ycf.qianzhihe.app.weight.ease.EaseChatExtendSmallMenu
+            android:id="@+id/extend_menu_small"
+            android:layout_width="match_parent"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/dp_7"
+            android:layout_marginTop="@dimen/dp_9"
+            hyphenate:numColumns="6"/>
+
         <FrameLayout
             android:id="@+id/emojicon_menu_container"
             android:layout_width="match_parent"
