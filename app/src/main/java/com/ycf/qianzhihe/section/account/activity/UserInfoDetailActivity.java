@@ -449,7 +449,7 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                                 } else {
                                     iv_start.setVisibility(View.GONE);
                                 }
-
+                                ll_grouping.setVisibility(View.VISIBLE);
                                 tv_grouping.setText(info.getCategoryName());
                                 if (info.getBlackStatus().equals("1")) {
                                     //黑名单中
@@ -477,6 +477,7 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                                 mTvAddFriend.setVisibility(View.VISIBLE);
                                 mLlFriend.setVisibility(View.GONE);
                                 mLlayRemark.setVisibility(View.GONE);
+                                ll_grouping.setVisibility(View.GONE);
                                 tv_del_friend.setVisibility(View.GONE);//删除好友
                             }
                         }
