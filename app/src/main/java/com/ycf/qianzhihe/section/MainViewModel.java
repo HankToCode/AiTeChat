@@ -7,8 +7,12 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMConversation;
 import com.ycf.qianzhihe.DemoHelper;
+import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.SP;
+import com.ycf.qianzhihe.app.utils.hxSetMessageFree.UnReadMsgCount;
 import com.ycf.qianzhihe.common.db.DemoDbHelper;
 import com.ycf.qianzhihe.common.db.dao.InviteMessageDao;
 import com.ycf.qianzhihe.common.livedatas.LiveDataBus;
@@ -53,7 +57,9 @@ public class MainViewModel extends AndroidViewModel {
         if (inviteMessageDao != null) {
             unreadCount = inviteMessageDao.queryUnreadCount();
         }
-        int unreadMessageCount = DemoHelper.getInstance().getChatManager().getUnreadMessageCount();
+
+        EMConversation conversation = EMClient.getInstance().chatManager().getConversation(Constant.ADMIN);
+        int unreadMessageCount = UnReadMsgCount.getUnreadMessageCount() - ((conversation != null && conversation.getUnreadMsgCount() > 0) ? conversation.getUnreadMsgCount() : 0);
 
         int applyJoinGroupcount = (int) PreferenceManager.getInstance().getParam(SP.APPLY_JOIN_GROUP_NUM, 0);
         int addUserCount = (int) PreferenceManager.getInstance().getParam(SP.APPLY_ADD_USER_NUM, 0);
