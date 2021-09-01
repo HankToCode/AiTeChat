@@ -15,7 +15,7 @@
         android:duplicateParentState="true">
 
 
-        <com.hyphenate.easecallkit.widget.EaseImageView
+        <com.hyphenate.easeui.widget.EaseImageView
             android:id="@+id/avatar"
             android:layout_width="@dimen/dp_36"
             android:layout_height="@dimen/dp_36"

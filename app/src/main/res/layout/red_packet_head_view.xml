@@ -47,7 +47,7 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-        <com.hyphenate.easecallkit.widget.EaseImageView
+        <com.hyphenate.easeui.widget.EaseImageView
             android:id="@+id/img_head"
             android:layout_width="@dimen/dp_40"
             android:layout_height="@dimen/dp_40"

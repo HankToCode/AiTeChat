@@ -1,6 +1,8 @@
 package com.ycf.qianzhihe.section.common;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,7 +10,11 @@ import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -18,13 +24,13 @@ import com.amap.api.location.AMapLocation;
 import com.amap.api.location.AMapLocationClient;
 import com.amap.api.location.AMapLocationClientOption;
 import com.amap.api.location.AMapLocationListener;
-import com.amap.api.maps.AMap;
-import com.amap.api.maps.CameraUpdateFactory;
-import com.amap.api.maps.LocationSource;
-import com.amap.api.maps.MapView;
-import com.amap.api.maps.model.CameraPosition;
-import com.amap.api.maps.model.LatLng;
-import com.amap.api.maps.model.MyLocationStyle;
+import com.amap.api.maps2d.AMap;
+import com.amap.api.maps2d.CameraUpdateFactory;
+import com.amap.api.maps2d.LocationSource;
+import com.amap.api.maps2d.MapView;
+import com.amap.api.maps2d.model.CameraPosition;
+import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.maps2d.model.MyLocationStyle;
 import com.amap.api.services.core.LatLonPoint;
 import com.amap.api.services.core.PoiItem;
 import com.amap.api.services.geocoder.GeocodeResult;
@@ -89,7 +95,7 @@ public class SelAddrMapActivity extends BaseInitActivity implements LocationSour
     private ArrayList<String> mAddressDetailList;
 
 
-    private OnLocationChangedListener mListener;
+    private LocationSource.OnLocationChangedListener mListener;
     private AMapLocationClient mlocationClient;
     private AMapLocationClientOption mLocationOption;
     private GeocodeSearch geocodeSearch;
@@ -109,15 +115,18 @@ public class SelAddrMapActivity extends BaseInitActivity implements LocationSour
         mToolbarSubtitle.setText("确定");
 
         // 此方法必须重写
-        init();
+        init(savedInstanceState);
     }
 
 
     /**
      * 初始化AMap对象
      */
-    private void init() {
+    private void init(Bundle savedInstanceState) {
+        requestPermission();
         if (aMap == null) {
+            // 此方法必须重写
+            mapView.onCreate(savedInstanceState);
             // 添加移动地图事件监听器
             aMap = mapView.getMap();
             aMap.setOnCameraChangeListener(this);
@@ -130,6 +139,57 @@ public class SelAddrMapActivity extends BaseInitActivity implements LocationSour
 
     }
 
+    private void requestPermission() {
+        // 首先处理权限
+        if (ContextCompat.checkSelfPermission(SelAddrMapActivity.this, Manifest.permission.INTERNET)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(SelAddrMapActivity.this, new String[]{Manifest.permission.INTERNET}, 1);
+        }
+        if (ContextCompat.checkSelfPermission(SelAddrMapActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(SelAddrMapActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 2);
+        }
+        if (ContextCompat.checkSelfPermission(SelAddrMapActivity.this, Manifest.permission.ACCESS_NETWORK_STATE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(SelAddrMapActivity.this, new String[]{Manifest.permission.ACCESS_NETWORK_STATE}, 3);
+        }
+        if (ContextCompat.checkSelfPermission(SelAddrMapActivity.this, Manifest.permission.ACCESS_WIFI_STATE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(SelAddrMapActivity.this, new String[]{Manifest.permission.ACCESS_WIFI_STATE}, 4);
+        }
+        if (ContextCompat.checkSelfPermission(SelAddrMapActivity.this, Manifest.permission.READ_PHONE_STATE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(SelAddrMapActivity.this, new String[]{Manifest.permission.READ_PHONE_STATE}, 5);
+        }
+        if (ContextCompat.checkSelfPermission(SelAddrMapActivity.this, Manifest.permission.ACCESS_COARSE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(SelAddrMapActivity.this, new String[]{Manifest.permission.ACCESS_COARSE_LOCATION}, 6);
+        }
+        if (ContextCompat.checkSelfPermission(SelAddrMapActivity.this, Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(SelAddrMapActivity.this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 7);
+
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch (requestCode) {
+            case 1:
+            case 2:
+            case 3:
+            case 4:
+            case 5:
+            case 6:
+            case 7:
+                if (grantResults.length > 0 && grantResults[0] != PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, "拒绝权限将无法使用程序", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+                break;
+            default:
+        }
+    }
 
     /**
      * 设置一些amap的属性
@@ -307,7 +367,8 @@ public class SelAddrMapActivity extends BaseInitActivity implements LocationSour
 
     }
 
-    protected void showAddress(ArrayList<String> address, ArrayList<String> addDetail, int addIndex) {
+    protected void showAddress(ArrayList<String> address, ArrayList<String> addDetail,
+                               int addIndex) {
         //设置显示布局
         mRecyclerCard.setLayoutManager(new LinearLayoutManager(this));
         //设置删除与加入的动画
@@ -327,13 +388,6 @@ public class SelAddrMapActivity extends BaseInitActivity implements LocationSour
 
             }
         });
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 
     @Override
@@ -459,10 +513,6 @@ public class SelAddrMapActivity extends BaseInitActivity implements LocationSour
                 }
             }
 
-            @Override
-            public void onMapScreenShot(Bitmap bitmap, int i) {
-
-            }
         });
 
     }

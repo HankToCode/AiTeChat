@@ -4,13 +4,13 @@ import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
-import com.amap.api.maps.AMap;
-import com.amap.api.maps.CameraUpdateFactory;
-import com.amap.api.maps.MapView;
-import com.amap.api.maps.model.BitmapDescriptor;
-import com.amap.api.maps.model.BitmapDescriptorFactory;
-import com.amap.api.maps.model.LatLng;
-import com.amap.api.maps.model.MarkerOptions;
+import com.amap.api.maps2d.AMap;
+import com.amap.api.maps2d.CameraUpdateFactory;
+import com.amap.api.maps2d.MapView;
+import com.amap.api.maps2d.model.BitmapDescriptor;
+import com.amap.api.maps2d.model.BitmapDescriptorFactory;
+import com.amap.api.maps2d.model.LatLng;
+import com.amap.api.maps2d.model.MarkerOptions;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
@@ -28,7 +28,7 @@ import butterknife.OnClick;
 public class HxMapActivity extends BaseInitActivity {
     @BindView(R.id.map)
     MapView mMapView;
-    @BindView(R.id.toolbar_title)
+    @BindView(R.id.title_bar)
     EaseTitleBar mToolbarTitle;
     private AMap aMap;
     private LatLng mLatLng;
@@ -53,15 +53,6 @@ public class HxMapActivity extends BaseInitActivity {
         super.initIntent(intent);
         mLatLng = new LatLng(intent.getDoubleExtra(Constant.LATITUDE, 0d), intent.getDoubleExtra(Constant.LONGITUDE, 0d));
         addressDetail = intent.getStringExtra(Constant.ADDRESS_DETAIL);
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(mLatLng);
-        markerOptions.title("当前位置 :" + "\n" + addressDetail);
-        markerOptions.visible(true);
-        BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.dinwei_center));
-        markerOptions.icon(bitmapDescriptor);
-        aMap.addMarker(markerOptions);
-
-        location();
 
     }
 
@@ -69,6 +60,16 @@ public class HxMapActivity extends BaseInitActivity {
     private void init() {
         if (aMap == null) {
             aMap = mMapView.getMap();
+
+            MarkerOptions markerOptions = new MarkerOptions();
+            markerOptions.position(mLatLng);
+            markerOptions.title("当前位置 :" + "\n" + addressDetail);
+            markerOptions.visible(true);
+            BitmapDescriptor bitmapDescriptor = BitmapDescriptorFactory.fromBitmap(BitmapFactory.decodeResource(getResources(), R.mipmap.dinwei_center));
+            markerOptions.icon(bitmapDescriptor);
+            aMap.addMarker(markerOptions);
+
+            location();
         }
     }
 

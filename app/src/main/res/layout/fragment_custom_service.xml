@@ -29,7 +29,7 @@
             android:background="?android:attr/selectableItemBackground"
             android:visibility="gone">
 
-            <com.hyphenate.easecallkit.widget.EaseImageView
+            <com.hyphenate.easeui.widget.EaseImageView
                 android:id="@+id/img_head"
                 android:layout_width="@dimen/chat_user_head_size"
                 android:layout_height="@dimen/chat_user_head_size"

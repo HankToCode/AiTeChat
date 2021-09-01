@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_5">
 
-        <com.hyphenate.easecallkit.widget.EaseImageView
+        <com.hyphenate.easeui.widget.EaseImageView
             android:id="@+id/iv_userhead"
             android:layout_width="@dimen/chat_user_head_size"
             android:layout_height="@dimen/chat_user_head_size"
@@ -62,7 +62,7 @@
                 android:textSize="@dimen/sp_10"
                 tools:text="安徽省合肥市软件行业协会蜀山区..." />
             
-            <com.hyphenate.easecallkit.widget.EaseImageView
+            <com.hyphenate.easeui.widget.EaseImageView
                 android:id="@+id/img_location"
                 android:layout_width="match_parent"
                 android:layout_marginTop="@dimen/dp_10"

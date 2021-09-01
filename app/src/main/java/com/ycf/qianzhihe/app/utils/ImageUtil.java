@@ -1,7 +1,7 @@
 package com.ycf.qianzhihe.app.utils;
 
 
-import com.hyphenate.easecallkit.widget.EaseImageView;
+import com.hyphenate.easeui.widget.EaseImageView;
 import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.hyphenate.easeui.EaseIM;
 import com.hyphenate.easeui.domain.EaseAvatarOptions;

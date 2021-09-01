@@ -63,6 +63,10 @@ android {
         }
     }
 
+    /*packagingOptions {
+        exclude 'assets/*'
+    }*/
+
     flavorDimensions "min"
 
     productFlavors {
@@ -127,6 +131,8 @@ android {
         pickFirst 'lib/x86_64/libhyphenate.so'
         pickFirst 'lib/armeabi-v7a/libhyphenate.so'
         pickFirst 'lib/arm64-v8a/libhyphenate.so'
+        exclude 'assets/*'
+
     }
 }
 
@@ -196,7 +202,7 @@ dependencies {
     implementation rootProject.ext.dependencies["tablayout"]
     implementation rootProject.ext.dependencies["swipereveallayout"]
     //地图
-    api rootProject.ext.dependencies["3dmap"]
+//    api rootProject.ext.dependencies["3dmap"]
     //banner 广告
     implementation rootProject.ext.dependencies["banner"]
     //banner
@@ -209,10 +215,13 @@ dependencies {
     //日历
     implementation 'com.prolificinteractive:material-calendarview:1.4.3'
     implementation files('libs/alipaySdk-20180601.jar')
-    implementation files('libs/AMap_Location_V4.4.0_20181122.jar')
     implementation rootProject.ext.dependencies["zxing"]
     implementation rootProject.ext.dependencies["zxing-core"]
-    implementation files('libs/AMap2DMap_5.2.0_AMapSearch_6.9.0_20190530.jar')
+
+    //高德地图
+    implementation files('libs/AMap_Location_V5.3.1_20210331.jar')
+    implementation files('libs/AMap_Search_V7.9.0_20210331.jar')
+    implementation files('libs/Amap_2DMap_V6.0.0_20191106.jar')
     //AOP处理快速点击
     implementation 'org.aspectj:aspectjrt:1.8.9'
 

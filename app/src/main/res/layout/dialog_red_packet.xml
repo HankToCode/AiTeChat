@@ -25,7 +25,7 @@
             android:layout_centerHorizontal="true"
             android:orientation="vertical">
 
-            <com.hyphenate.easecallkit.widget.EaseImageView
+            <com.hyphenate.easeui.widget.EaseImageView
                 android:id="@+id/img_head"
                 android:layout_width="25dp"
                 android:layout_height="25dp"

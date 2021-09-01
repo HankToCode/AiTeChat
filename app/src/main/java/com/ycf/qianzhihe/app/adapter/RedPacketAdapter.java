@@ -2,7 +2,7 @@ package com.ycf.qianzhihe.app.adapter;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
-import com.hyphenate.easecallkit.widget.EaseImageView;
+import com.hyphenate.easeui.widget.EaseImageView;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.utils.ImageUtil;
 import com.zds.base.ImageLoad.GlideUtils;

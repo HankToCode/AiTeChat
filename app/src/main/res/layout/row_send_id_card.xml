@@ -36,7 +36,7 @@
             android:layout_toLeftOf="@id/iv_userhead"
             android:background="@drawable/shape_card_white_radius">
 
-            <com.hyphenate.easecallkit.widget.EaseImageView
+            <com.hyphenate.easeui.widget.EaseImageView
                 android:id="@+id/img_card_head"
                 android:layout_width="@dimen/dp_35"
                 android:layout_height="@dimen/dp_35"

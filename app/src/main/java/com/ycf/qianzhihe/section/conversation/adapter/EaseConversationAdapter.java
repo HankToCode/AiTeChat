@@ -20,7 +20,7 @@ import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMConversation.EMConversationType;
 import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMMessage;
-import com.hyphenate.easecallkit.widget.EaseImageView;
+import com.hyphenate.easeui.widget.EaseImageView;
 import com.hyphenate.exceptions.HyphenateException;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
@@ -176,7 +176,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             EMGroup group1 = EMClient.getInstance().groupManager().getGroup(groupId);
             GroupInfo group = GroupOperateManager.getInstance().getGroupInfo(groupId);
             String groupHead = "";
-            if (conversation.getLastMessage() != null){
+            if (conversation.getLastMessage() != null) {
                 EMMessage emMessage = conversation.getLastMessage();
                 try {
                     groupHead = emMessage.getStringAttribute("groupHead");
