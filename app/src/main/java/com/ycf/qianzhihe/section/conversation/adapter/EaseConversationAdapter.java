@@ -20,6 +20,7 @@ import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMConversation.EMConversationType;
 import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.easeui.widget.EaseImageView;
 import com.hyphenate.exceptions.HyphenateException;
 import com.ycf.qianzhihe.R;
@@ -33,15 +34,14 @@ import com.ycf.qianzhihe.app.utils.ImageUtil;
 import com.ycf.qianzhihe.app.utils.ProjectUtil;
 import com.ycf.qianzhihe.app.utils.ease.EaseSmileUtils;
 import com.ycf.qianzhihe.app.utils.hxSetMessageFree.EaseSharedUtils;
+import com.ycf.qianzhihe.app.weight.ease.EaseCommonUtils;
 import com.ycf.qianzhihe.app.weight.ease.EaseConversationList;
+import com.ycf.qianzhihe.app.weight.ease.model.EaseAtMessageHelper;
 import com.zds.base.ImageLoad.GlideUtils;
 import com.zds.base.json.FastJsonUtil;
 import com.zds.base.util.Utils;
 
 import com.hyphenate.easeui.domain.EaseUser;
-import com.hyphenate.easeui.manager.EaseAtMessageHelper;
-import com.hyphenate.easeui.utils.EaseCommonUtils;
-import com.hyphenate.easeui.utils.EaseUserUtils;
 import com.hyphenate.util.DateUtils;
 
 import java.util.ArrayList;
