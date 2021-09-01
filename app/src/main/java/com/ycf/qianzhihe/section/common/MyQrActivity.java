@@ -21,7 +21,7 @@ import com.bumptech.glide.Glide;
 import com.github.dfqin.grantor.PermissionListener;
 import com.github.dfqin.grantor.PermissionsUtil;
 import com.google.zxing.WriterException;
-import com.hyphenate.easecallkit.widget.EaseImageView;
+import com.hyphenate.easeui.widget.EaseImageView;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.global.UserComm;

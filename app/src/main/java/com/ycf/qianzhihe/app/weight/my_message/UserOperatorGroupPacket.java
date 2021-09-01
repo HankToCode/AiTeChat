@@ -6,7 +6,7 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.hyphenate.easecallkit.widget.EaseImageView;
+import com.hyphenate.easeui.widget.EaseImageView;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.operate.UserOperateManager;

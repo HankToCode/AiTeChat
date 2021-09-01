@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.gyf.immersionbar.ImmersionBar;
-import com.hyphenate.easecallkit.widget.EaseImageView;
+import com.hyphenate.easeui.widget.EaseImageView;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.adapter.RedPacketAdapter;
 import com.ycf.qianzhihe.app.api.global.UserComm;

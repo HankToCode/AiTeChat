@@ -68,7 +68,7 @@
                 android:textSize="@dimen/sp_10"
                 tools:text="安徽省合肥市软件行业协会蜀山区..." />
 
-            <com.hyphenate.easecallkit.widget.EaseImageView
+            <com.hyphenate.easeui.widget.EaseImageView
                 android:id="@+id/img_location"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/dp_96"

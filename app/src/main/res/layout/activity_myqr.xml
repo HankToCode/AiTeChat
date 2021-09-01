@@ -36,7 +36,7 @@
                 android:scaleType="fitXY"
                 android:background="@color/white" />
 
-            <com.hyphenate.easecallkit.widget.EaseImageView
+            <com.hyphenate.easeui.widget.EaseImageView
                 android:layout_centerInParent="true"
                 android:id="@+id/img_qr_head"
                 android:layout_width="@dimen/dp_50"

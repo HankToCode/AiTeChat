@@ -15,15 +15,13 @@ import android.widget.ImageView;
 import android.widget.SectionIndexer;
 import android.widget.TextView;
 
-import com.hyphenate.easecallkit.widget.EaseImageView;
+import com.hyphenate.easeui.widget.EaseImageView;
+import com.hyphenate.util.EMLog;
 import com.ycf.qianzhihe.R;
-import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.domain.EaseUser;
 import com.ycf.qianzhihe.app.operate.UserOperateManager;
 import com.ycf.qianzhihe.app.utils.ImageUtil;
 import com.zds.base.ImageLoad.GlideUtils;
-
-import com.hyphenate.util.EMLog;
 
 import java.util.ArrayList;
 import java.util.List;
