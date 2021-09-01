@@ -208,7 +208,7 @@ public class BaseConversationListFragment extends BaseInitFragment {
         synchronized (conversations) {
             for (EMConversation conversation : conversations.values()) {
                 if (conversation.getAllMessages().size() != 0 && !conversation.conversationId().equals(Constant.ADMIN) && !conversation.getExtField().equals("toTop")) {
-                    if (!conversation.getLastMessage().getFrom().equals("系统管理员")) {
+                    if (!"系统管理员".equals(conversation.getLastMessage().getFrom()) && !"em_system".equals(conversation.getLastMessage().getFrom())) {
                         sortList.add(new Pair<Long, EMConversation>(conversation.getLastMessage().getMsgTime(), conversation));
                     }
                 }

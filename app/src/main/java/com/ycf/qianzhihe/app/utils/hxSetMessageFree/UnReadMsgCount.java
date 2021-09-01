@@ -19,9 +19,9 @@ public class UnReadMsgCount {
         Iterator iterator = emaConversationList.iterator();
         while (iterator.hasNext()) {
             EMAConversation conversation = (EMAConversation) iterator.next();
-            if (conversation.messagesCount()>0){
+            if (conversation.messagesCount() > 0) {
                 if (conversation._getType() != EMAConversation.EMAConversationType.CHATROOM &&
-                        EaseSharedUtils.isEnableMsgRing(Utils.getContext(), EMClient.getInstance().getCurrentUser(), conversation.conversationId())  && conversation.latestMessage().from() !=null && !conversation.latestMessage().from().equals("系统管理员")) {
+                        EaseSharedUtils.isEnableMsgRing(Utils.getContext(), EMClient.getInstance().getCurrentUser(), conversation.conversationId()) && conversation.latestMessage().from() != null && !"系统管理员".equals(conversation.latestMessage().from()) && !"em_system".equals(conversation.latestMessage().from())) {
                     unRead += conversation.unreadMessagesCount();
                 }
             }
