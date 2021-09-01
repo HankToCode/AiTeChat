@@ -119,7 +119,7 @@ public class RedPacketDetailActivity extends BaseInitActivity {
             GlideUtils.loadRoundCircleImage(AppConfig.checkimg(head), img_head,
                     R.mipmap.img_default_avatar, 10);
         if (!TextUtils.isEmpty(nickname))
-            tv_name.setText(nickname + "发出的红包");
+            tv_name.setText(nickname + "的红包");
     }
 
     /**

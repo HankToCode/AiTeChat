@@ -7,39 +7,63 @@
     android:background="@drawable/bg_red_packet_detail_bg"
     android:orientation="vertical">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/csTopBg"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white">
+        android:layout_height="@dimen/dp_100">
 
-        <com.github.florent37.arclayout.ArcLayout
+        <View
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:arc_cropDirection="cropOutside"
-            app:arc_height="20dp"
-            app:arc_position="bottom"
-            app:layout_constraintDimensionRatio="4.3:1"
-            app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:layout_height="match_parent"
+            android:background="@color/white"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/csTopBg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white">
+
+            <com.github.florent37.arclayout.ArcLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:arc_cropDirection="cropOutside"
+                app:arc_height="20dp"
+
+                app:arc_position="bottom"
+                app:layout_constraintDimensionRatio="4.3:1"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/bg_red_packet_detail_bg" />
+
+            </com.github.florent37.arclayout.ArcLayout>
+
 
             <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:src="@drawable/bg_red_packet_detail_bg" />
+                android:id="@+id/iv_back"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_margin="12dp"
+                android:src="@drawable/em_mm_title_back"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-        </com.github.florent37.arclayout.ArcLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <ImageView
-            android:id="@+id/iv_back"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_margin="12dp"
-            android:src="@drawable/em_mm_title_back"
+        <com.hyphenate.easeui.widget.EaseImageView
+            android:id="@+id/img_head"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="@dimen/dp_40"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/dp_10"
+            android:src="@mipmap/img_default_avatar" />
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,25 +71,17 @@
         android:background="@color/white"
         android:orientation="vertical">
 
-        <com.hyphenate.easeui.widget.EaseImageView
-            android:id="@+id/img_head"
-            android:layout_width="@dimen/dp_40"
-            android:layout_height="@dimen/dp_40"
-            android:layout_gravity="center"
-            android:layout_marginTop="@dimen/dp_20"
-            android:src="@mipmap/img_default_avatar" />
         <TextView
             android:id="@+id/tv_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_marginTop="@dimen/dp_10"
             android:text=""
             android:textColor="@color/black"
-            android:textSize="20dp"
-            tools:text="xxx的红包"
-            android:textStyle="bold"/>
+            android:textSize="15dp"
+            android:textStyle="bold"
+            tools:text="xxx的红包" />
+
         <LinearLayout
             android:id="@+id/ll_user_money"
             android:layout_width="match_parent"
@@ -82,7 +98,7 @@
                 android:maxLines="1"
                 android:text="0"
                 android:textColor="#D1BB78"
-                android:textSize="@dimen/sp_48" />
+                android:textSize="@dimen/sp_40" />
 
             <TextView
                 android:id="@+id/tv_glod"
@@ -94,6 +110,19 @@
                 android:textSize="@dimen/sp_12" />
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/tv_tips"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:ellipsize="end"
+            android:gravity="center_vertical"
+            android:maxLines="1"
+            android:text="已存入零钱，可直接消费"
+            android:textColor="#D1BB78"
+            android:textSize="@dimen/sp_12" />
+
         <TextView
             android:id="@+id/tv_intro"
             android:layout_width="wrap_content"
@@ -104,19 +133,8 @@
             android:maxLength="40"
             android:maxLines="1"
             android:text="恭喜发财，大吉大利"
-            android:textSize="@dimen/sp_12"/>
-        <TextView
-            android:id="@+id/tv_tips"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:ellipsize="end"
-            android:gravity="center_vertical"
-            android:maxLines="1"
-            android:text="已存入零钱，可直接消费"
-            android:textSize="@dimen/sp_12"
-            android:textColor="#D1BB78"
-            />
+            android:textSize="@dimen/sp_18" />
+
 
         <TextView
             android:id="@+id/tv_message_hb"
@@ -124,7 +142,6 @@
             android:layout_height="@dimen/dp_30"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dp_25"
-            android:layout_marginTop="@dimen/dp_15"
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:maxLines="1"
@@ -145,6 +162,5 @@
 
 
     </LinearLayout>
-
 
 </LinearLayout>
