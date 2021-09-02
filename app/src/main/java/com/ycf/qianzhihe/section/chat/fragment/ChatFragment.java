@@ -288,19 +288,28 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
             //相机
             mInputMenu.registerExtendSmallMenuItem(R.mipmap.xj_11_small,
                     ITEM_INVITE_GROUP_CAMERA, extendMenuItemClickListener);
+            //位置
+            mInputMenu.registerExtendSmallMenuItem(R.mipmap.icon_location_small,
+                    ITEM_LOCATION, extendMenuItemClickListener);
 
             //语音电话
-            mInputMenu.registerExtendSmallMenuItem(R.mipmap.yuyt_small,
-                    ITEM_VOICE_CALL, extendMenuItemClickListener);
+          /*  mInputMenu.registerExtendSmallMenuItem(R.mipmap.yuyt_small,
+                    ITEM_VOICE_CALL, extendMenuItemClickListener);*/
             //视频通话
-            mInputMenu.registerExtendSmallMenuItem(R.mipmap.ship_small,
-                    ITEM_VIDEO_CALL, extendMenuItemClickListener);
+            /*mInputMenu.registerExtendSmallMenuItem(R.mipmap.ship_small,
+                    ITEM_VIDEO_CALL, extendMenuItemClickListener);*/
+            //收藏
+            mInputMenu.registerExtendSmallMenuItem(R.mipmap.sc_ll_small,
+                    ITEM_MY_COLLECT, extendMenuItemClickListener);
             //红包
             mInputMenu.registerExtendSmallMenuItem(R.mipmap.hongbao_small,
                     ITEM_MY_RED_PACKET, extendMenuItemClickListener);
             //转账
-            mInputMenu.registerExtendSmallMenuItem(R.mipmap.zhuanz_small,
-                    ITEM_TRANSFER, extendMenuItemClickListener);
+            /*mInputMenu.registerExtendSmallMenuItem(R.mipmap.zhuanz_small,
+                    ITEM_TRANSFER, extendMenuItemClickListener);*/
+            //名片
+            mInputMenu.registerExtendSmallMenuItem(R.mipmap.minp_ll_small,
+                    ITEM_SEND_CARD, extendMenuItemClickListener);
         }
         mInputMenu.setChatType(chatType);
 
