@@ -5,10 +5,16 @@ import static android.view.View.VISIBLE;
 
 import android.app.Activity;
 import android.content.ClipboardManager;
+import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
+import android.media.ThumbnailUtils;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,6 +28,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
+import android.webkit.MimeTypeMap;
 import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -44,6 +51,10 @@ import com.hyphenate.easecallkit.base.EaseCallKitConfig;
 import com.hyphenate.easecallkit.base.EaseCallType;
 import com.hyphenate.easecallkit.ui.EaseVideoCallActivity;
 import com.hyphenate.easecallkit.utils.EaseFileUtils;
+import com.luck.picture.lib.PictureSelector;
+import com.luck.picture.lib.config.PictureConfig;
+import com.luck.picture.lib.config.PictureMimeType;
+import com.luck.picture.lib.entity.LocalMedia;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.EaseConstant;
@@ -72,6 +83,7 @@ import com.ycf.qianzhihe.app.weight.ease.EaseUI;
 import com.ycf.qianzhihe.app.weight.ease.EaseVoiceRecorderView;
 import com.ycf.qianzhihe.app.weight.ease.chatrow.EaseCustomChatRowProvider;
 import com.ycf.qianzhihe.app.weight.ease.model.EaseAtMessageHelper;
+import com.ycf.qianzhihe.section.account.activity.BuyMemberActivity;
 import com.ycf.qianzhihe.section.account.activity.UserInfoDetailActivity;
 import com.ycf.qianzhihe.section.common.GroupMemberActivity;
 import com.ycf.qianzhihe.section.common.MyGroupDetailActivity;
@@ -89,6 +101,7 @@ import com.zds.base.util.UriUtil;
 import org.json.JSONArray;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -863,60 +876,108 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
         if (resultCode == Activity.RESULT_OK) {
             // capture new image
             if (requestCode == REQUEST_CODE_CAMERA) {
                 if (cameraFile != null && cameraFile.exists()) {
                     sendImageMessage(cameraFile.getAbsolutePath());
                 }
-            } else
-                // send local image
-                if (requestCode == REQUEST_CODE_LOCAL) {
-                    if (data != null) {
-                        Uri selectedImage = data.getData();
+            } else if (requestCode == REQUEST_CODE_LOCAL) {// send local image
+                if (data != null) {
+                       /* Uri selectedImage = data.getData();
                         if (selectedImage != null) {
                             sendPicByUri(selectedImage);
+                        }*/
+
+                    List<LocalMedia> selectList =
+                            PictureSelector.obtainMultipleResult(data);
+
+                    if (selectList != null && selectList.size() > 0) {
+                        LocalMedia localMedia = selectList.get(0);
+                        String path;
+                        if (localMedia.getCompressPath() != null) {
+                            path = localMedia.getCompressPath();
+                        } else {
+                            path = localMedia.getPath();
                         }
-//                        Uri selectedImage = data.getData();
-//                        if (selectedImage != null) {
-//                            if (selectedImage.toString().contains("video")) {
-//                                try {
-//                                    String[] filePathColumn = {MediaStore.Video.Media.DATA, MediaStore.Video.Media.DURATION};
-//                                    Cursor cursor = getContext().getContentResolver().query(selectedImage,
-//                                            filePathColumn, null, null, null);
-//                                    if (null != cursor) {
-//                                        cursor.moveToFirst();
-//                                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-//                                        int columnIndexDur = cursor.getColumnIndex(filePathColumn[1]);
-//                                        String videoPath = cursor.getString(columnIndex);
-//                                        int dur = cursor.getInt(columnIndexDur);
-//                                        cursor.close();
-//                                        File file =
-//                                                new File(PathUtil.getInstance().getImagePath(), "thvideo" + System.currentTimeMillis());
-//
-//                                        FileOutputStream fos = new FileOutputStream(file);
-//                                        Bitmap ThumbBitmap =
-//                                                ThumbnailUtils.createVideoThumbnail(videoPath, 3);
-//                                        ThumbBitmap.compress(Bitmap.CompressFormat.JPEG, 85, fos);
-//                                        fos.close();
-//                                        sendVideoMessage(videoPath,
-//                                                file.getAbsolutePath(), dur);
-//                                    }
-//                                    return;
-//                                } catch (Exception e) {
-//                                    e.printStackTrace();
-//                                }
-//                            }
-//                            sendPicByUri(selectedImage);
-//                        }
+
+                        Uri selectedImage = Uri.fromFile(new File(path));
+                        Uri selectedImageCursor = getMediaUriFromPath(requireContext(), path);
+                        //第一步先判断是否需要发送视频
+                        if (selectedImageCursor != null) {
+                            String fileExtension = MimeTypeMap.getFileExtensionFromUrl(selectedImage.toString());
+                            String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExtension);
+                            if (mimeType != null && mimeType.contains("video")) {
+                                try {
+                                    String[] filePathColumn = {MediaStore.Video.Media.DATA, MediaStore.Video.Media.DURATION};
+                                    Cursor cursor = requireContext().getContentResolver().query(selectedImageCursor,
+                                            null, null, null, null);
+                                    if (null != cursor) {
+                                        cursor.moveToFirst();
+                                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                                        int columnIndexDur = cursor.getColumnIndex(filePathColumn[1]);
+                                        String videoPath = cursor.getString(columnIndex);
+                                        int dur = cursor.getInt(columnIndexDur);
+                                        cursor.close();
+                                        File file =
+                                                new File(PathUtil.getInstance().getImagePath(), "thvideo" + System.currentTimeMillis());
+
+                                        FileOutputStream fos = new FileOutputStream(file);
+                                        Bitmap thumbBitmap =
+                                                ThumbnailUtils.createVideoThumbnail(videoPath, 3);
+                                        if (thumbBitmap != null) {
+                                            thumbBitmap.compress(Bitmap.CompressFormat.JPEG, 85, fos);
+                                        }
+                                        fos.close();
+                                        sendVideoMessage(videoPath,
+                                                file.getAbsolutePath(), dur);
+                                    }
+                                    return;
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                        //第二步再执行发送图片
+                        sendPicByUri(selectedImage);
                     }
-                } else if (requestCode == Constant.REQUEST_AT_MERBER_CODE) {
-                    EaseAtMessageHelper.get().addAtUser(data.getStringExtra(Constant.PARAM_AT_USERID));
-                    inputAtUsername(data.getStringExtra(Constant.PARAM_AT_USERID), false);
                 }
+            } else if (requestCode == Constant.REQUEST_AT_MERBER_CODE) {
+                EaseAtMessageHelper.get().addAtUser(data.getStringExtra(Constant.PARAM_AT_USERID));
+                inputAtUsername(data.getStringExtra(Constant.PARAM_AT_USERID), false);
+            }
 
         }
+    }
+
+    public Uri getMediaUriFromPath(Context context, String path) {
+        Uri mediaUri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+        Cursor cursor = context.getContentResolver().query(mediaUri,
+                null,
+                null,
+                null,
+                null);
+
+        Uri uri;
+        if (cursor.getCount() > 0) {
+            for (int i = 0; i < cursor.getCount(); i++) {
+                cursor.moveToPosition(i);
+                int index = cursor.getColumnIndex(MediaStore.Video.Media.DATA);
+                if (index != -1) {
+                    String path1 = cursor.getString(index);
+                    if (path1.equals(path)) {
+                        uri = ContentUris.withAppendedId(mediaUri,
+                                cursor.getLong(cursor.getColumnIndex(MediaStore.Video.Media._ID)));
+                        return uri;
+                    }
+                }
+
+            }
+        } else {
+            return null;
+        }
+        cursor.close();
+        return null;
     }
 
     @Override
@@ -1559,16 +1620,39 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
      * select local image
      */
     protected void selectPicFromLocal() {
-        Intent intent;
+
+       /* Matisse.from(getDialogFragment())
+                .choose(MimeType.ofImage())
+                .countable(true)
+                .maxSelectable(1)
+                //选择照片时，是否显示拍照
+                .capture(true)
+                .captureStrategy(new CaptureStrategy(true, "com.klzz.vipthink.pad.provider"))
+                .restrictOrientation(ActivityInfo.SCREEN_ORIENTATION_UNSPECIFIED)
+                .thumbnailScale(0.85f)
+                .imageEngine(new MyGlideEngine())
+                .forResult(REQUEST_CODE);*/
+
+        PictureSelector.create(getActivity())
+                .openGallery(PictureMimeType.ofAll())
+                .selectionMode(PictureConfig.SINGLE)
+                .withAspectRatio(1, 1)
+                .enableCrop(false)
+                .showCropFrame(false)
+                .showCropGrid(false)
+                .freeStyleCropEnabled(false)
+                .circleDimmedLayer(false)
+                .forResult(REQUEST_CODE_LOCAL);
+
+        /*Intent intent;
         if (Build.VERSION.SDK_INT < 19) {
             intent = new Intent(Intent.ACTION_GET_CONTENT);
             intent.setType("image/*");
 
         } else {
-            intent = new Intent(Intent.ACTION_PICK,
-                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            intent = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Video.Media.EXTERNAL_CONTENT_URI);
         }
-        startActivityForResult(intent, REQUEST_CODE_LOCAL);
+        startActivityForResult(intent, REQUEST_CODE_LOCAL);*/
     }
 
 

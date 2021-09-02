@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.WindowManager;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.hyphenate.chat.EMMessage;
 import com.ycf.qianzhihe.MainActivity;
@@ -91,6 +92,15 @@ public class ChatActivity extends BaseInitActivity {
         super.initIntent(intent);
         toChatUsername = intent.getStringExtra("userId");
 
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (chatFragment != null) {
+            chatFragment.onActivityResult(requestCode, resultCode, data);
+        }
     }
 
     @Override
