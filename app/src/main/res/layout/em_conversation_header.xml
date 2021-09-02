@@ -21,13 +21,21 @@
         android:layout_height="@dimen/main_message_item_height"
         app:conversationItemImage="@drawable/ic_new_friends"
         app:conversationItemName="@string/new_friends"/>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_alignParentBottom="true"
+        android:background="@color/gray"/>
     <com.ycf.qianzhihe.app.weight.ConversationItemView
         android:id="@+id/group_notice"
         android:layout_width="match_parent"
         android:layout_height="@dimen/main_message_item_height"
         app:conversationItemImage="@drawable/ic_group_notice"
         app:conversationItemName="@string/groups_notice"/>
-
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_1"
+        android:layout_alignParentBottom="true"
+        android:background="@color/gray"/>
 
 </LinearLayout>

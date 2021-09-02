@@ -1,5 +1,6 @@
 package com.ycf.qianzhihe.section.chat.fragment;
 
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static android.view.View.VISIBLE;
 
 import android.app.Activity;
@@ -38,6 +39,11 @@ import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMImageMessageBody;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
+import com.hyphenate.easecallkit.EaseCallKit;
+import com.hyphenate.easecallkit.base.EaseCallKitConfig;
+import com.hyphenate.easecallkit.base.EaseCallType;
+import com.hyphenate.easecallkit.ui.EaseVideoCallActivity;
+import com.hyphenate.easecallkit.utils.EaseFileUtils;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.EaseConstant;
@@ -419,7 +425,7 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
 //            startActivity(new Intent(getActivity(), VoiceCallActivity.class).putExtra("username", toChatUsername)
 //                    .putExtra("isComingCall", false));
             // voiceCallBtn.setEnabled(false);
-            mInputMenu.hideExtendMenuContainer();
+            EaseCallKit.getInstance().startSingleCall(EaseCallType.SINGLE_VOICE_CALL, toChatUsername, null);
         }
     }
 

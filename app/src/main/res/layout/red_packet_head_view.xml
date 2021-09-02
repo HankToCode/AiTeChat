@@ -53,8 +53,8 @@
 
         <com.hyphenate.easeui.widget.EaseImageView
             android:id="@+id/img_head"
-            android:layout_width="@dimen/dp_40"
-            android:layout_height="@dimen/dp_40"
+            android:layout_width="@dimen/dp_42"
+            android:layout_height="@dimen/dp_42"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

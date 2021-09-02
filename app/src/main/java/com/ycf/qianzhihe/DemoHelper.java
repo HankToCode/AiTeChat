@@ -24,6 +24,11 @@ import com.hyphenate.chat.EMOptions;
 import com.hyphenate.chat.EMPushManager;
 import com.hyphenate.cloud.EMHttpClient;
 import com.hyphenate.easecallkit.base.EaseGetUserAccountCallback;
+import com.hyphenate.easecallkit.utils.EaseFileUtils;
+import com.ycf.qianzhihe.app.api.old_data.GroupDetailInfo;
+import com.ycf.qianzhihe.app.api.old_http.ApiClient;
+import com.ycf.qianzhihe.app.api.old_http.AppConfig;
+import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.common.constant.DemoConstant;
 import com.ycf.qianzhihe.common.db.DemoDbHelper;
 import com.ycf.qianzhihe.common.livedatas.LiveDataBus;
@@ -32,6 +37,7 @@ import com.ycf.qianzhihe.common.model.DemoModel;
 import com.ycf.qianzhihe.common.model.EmojiconExampleGroupData;
 import com.ycf.qianzhihe.common.receiver.HeadsetReceiver;
 import com.ycf.qianzhihe.common.utils.PreferenceManager;
+import com.ycf.qianzhihe.common.utils.ToastUtils;
 import com.ycf.qianzhihe.section.chat.ChatPresenter;
 import com.ycf.qianzhihe.section.chat.delegates.ChatConferenceInviteAdapterDelegate;
 import com.ycf.qianzhihe.section.chat.delegates.ChatNotificationAdapterDelegate;
@@ -69,6 +75,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
@@ -81,8 +88,10 @@ import com.hyphenate.easecallkit.base.EaseCallUserInfo;
 import com.hyphenate.easecallkit.base.EaseCallEndReason;
 import com.hyphenate.easecallkit.base.EaseCallKitListener;
 import com.hyphenate.easecallkit.base.EaseCallType;
+import com.zds.base.json.FastJsonUtil;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static com.ycf.qianzhihe.app.api.old_http.AppConfig.mainUrl;
 
 /**
  * 作为hyphenate-sdk的入口控制类，获取sdk下的基础类均通过此类
@@ -98,7 +107,8 @@ public class DemoHelper {
 
     private EaseCallKitListener callKitListener;
     private Context mianContext;
-    private String tokenUrl = "http://a1-hsb.easemob.com/token/rtcToken";
+//    private String tokenUrl = "http://a1-hsb.easemob.com/token/rtcToken";
+    private String tokenUrl = mainUrl + "app_user/getRtcToken";
 
     private DemoHelper() {
     }
@@ -149,8 +159,8 @@ public class DemoHelper {
 //        String headImage = EaseFileUtils.getModelFilePath(context,"test.png");
 //        callKitConfig.setDefaultHeadImage(headImage);
 //        //设置振铃文件
-//        String ringFile = EaseFileUtils.getModelFilePath(context,"huahai.mp3");
-//        callKitConfig.setRingFile(ringFile);
+        String ringFile = EaseFileUtils.getModelFilePath(context,"call.mp3");
+        callKitConfig.setRingFile(ringFile);
         //设置呼叫超时时间
         callKitConfig.setCallTimeOut(30 * 1000);
         //设置声网AgoraAppId
@@ -752,22 +762,27 @@ public class DemoHelper {
             public void onGenerateToken(String userId, String channelName, String appKey, EaseCallKitTokenCallback callback) {
                 EMLog.d(TAG, "onGenerateToken userId:" + userId + " channelName:" + channelName + " appKey:" + appKey);
                 String url = tokenUrl;
-                url += "?";
+                /*url += "?";
                 url += "userAccount=";
                 url += userId;
                 url += "&channelName=";
                 url += channelName;
                 url += "&appkey=";
-                url += appKey;
+                url += appKey;*/
 
+                //设置自己头像昵称
+                setEaseCallKitUserInfo(EMClient.getInstance().getCurrentUser());
                 //获取声网Token
-                getRtcToken(url, callback);
+//                getRtcToken(url, callback);
+                getRTCToken(url, callback);
+
             }
 
             @Override
             public void onReceivedCall(EaseCallType callType, String fromUserId, JSONObject ext) {
                 //收到接听电话
                 EMLog.d(TAG, "onRecivedCall" + callType.name() + " fromUserId:" + fromUserId);
+
             }
 
             @Override
@@ -788,11 +803,29 @@ public class DemoHelper {
         EaseCallKit.getInstance().setCallKitListener(callKitListener);
     }
 
+    private void getRTCToken(String url, EaseCallKitTokenCallback callback) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("channelName", "huanxin");
+        ApiClient.requestNetHandle(mianContext, url, "", map, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                String token= FastJsonUtil.getObject(json, String.class);
+                callback.onSetToken(token,0);
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                ToastUtils.showToast(msg);
+            }
+        });
+    }
+
 
     /**
      * 获取声网Token
      */
     private void getRtcToken(String tokenUrl, EaseCallKitTokenCallback callback) {
+
         new AsyncTask<String, Void, Pair<Integer, String>>() {
             @Override
             protected Pair<Integer, String> doInBackground(String... str) {

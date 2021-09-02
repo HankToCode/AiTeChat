@@ -10,15 +10,15 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_46"
+        android:layout_height="@dimen/dp_56"
         android:background="@drawable/item_select_bg"
         android:orientation="horizontal"
         >
 
         <com.hyphenate.easeui.widget.EaseImageView
             android:id="@+id/avatar_user"
-            android:layout_width="@dimen/dp_28"
-            android:layout_height="@dimen/dp_28"
+            android:layout_width="@dimen/dp_42"
+            android:layout_height="@dimen/dp_42"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/dp_10"
             android:src="@mipmap/img_default_avatar"

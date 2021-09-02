@@ -22,6 +22,8 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMImageMessageBody;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
+import com.hyphenate.easecallkit.EaseCallKit;
+import com.hyphenate.easecallkit.base.EaseCallType;
 import com.hyphenate.easeui.constants.EaseConstant;
 import com.hyphenate.easeui.widget.EaseImageView;
 import com.hyphenate.exceptions.HyphenateException;
@@ -788,10 +790,9 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
             case ITEM_VOICE_CALL:
                 startVoiceCall(emChatId);
 //                startVideoCall();
-
                 break;
             case ITEM_VIDEO_CALL:
-                startVideoCall();
+                startVideoCall(UserOperateManager.getInstance().getUserName(emChatId));
                 break;
             case ITEM_CONTACT_GROUP_OWER:
 
@@ -1292,8 +1293,9 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
 
     /**
      * make a video call
+     * @param emChatId
      */
-    protected void startVideoCall() {
+    protected void startVideoCall(String emChatId) {
         if (!EMClient.getInstance().isConnected()) {
             Toast.makeText(requireActivity(), R.string.not_connect_to_server,
                     Toast.LENGTH_SHORT).show();
@@ -1302,6 +1304,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
 //            startActivity(new Intent(requireActivity(), VideoCallActivity.class).putExtra("username", emChatId)
 //                    .putExtra("isComingCall", false));
 //             videoCallBtn.setEnabled(false);
+            EaseCallKit.getInstance().startSingleCall(EaseCallType.SINGLE_VIDEO_CALL,emChatId,null);
             mInputMenu.hideExtendMenuContainer();
         }
     }
