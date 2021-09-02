@@ -33,7 +33,7 @@
         android:id="@+id/extend_menu_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#F6F6F6"
+        android:background="#EFF2FC"
         android:visibility="gone">
 
         <com.ycf.qianzhihe.app.weight.ease.EaseChatExtendMenu
