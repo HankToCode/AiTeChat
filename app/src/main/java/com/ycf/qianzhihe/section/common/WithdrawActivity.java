@@ -36,6 +36,7 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.zds.base.Toast.ToastUtil;
+import com.zds.base.util.NumberUtils;
 
 /**
  * 提现
@@ -162,7 +163,7 @@ public class WithdrawActivity extends BaseInitActivity {
      */
     private void withdraw(String id, String psw) {
         try {
-            double moey = Double.valueOf(mWithdrawMoney.getText().toString());
+            double moey = NumberUtils.parseDouble(mWithdrawMoney.getText().toString());
             if (moey <= 0) {
                 ToastUtil.toast("请输入金额");
                 return;

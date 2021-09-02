@@ -48,6 +48,7 @@ import com.ycf.qianzhihe.section.common.VerifyingPayPasswordPhoneNumberActivity;
 import com.zds.base.ImageLoad.GlideUtils;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.json.FastJsonUtil;
+import com.zds.base.util.NumberUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -139,7 +140,7 @@ public class BuyMemberActivity extends BaseInitActivity implements View.OnClickL
         //初始化金额选择
         cml_member.setMoneyData(data);
         if (!TextUtils.isEmpty(UserComm.getUserInfo().getVipLevel())) {
-            int lve = Double.valueOf(UserComm.getUserInfo().getVipLevel()).intValue();
+            int lve = (int) NumberUtils.parseDouble(UserComm.getUserInfo().getVipLevel());
             cml_member.setDefaultPositon(lve - 1);
         } else {
             cml_member.setDefaultPositon(0);
@@ -166,7 +167,7 @@ public class BuyMemberActivity extends BaseInitActivity implements View.OnClickL
                 //选择金额回调
                 if (isCheck) {
                     vipId = itemData.getVipId();
-                    vipLevel = Double.valueOf(itemData.getVipLevel()).intValue();
+                    vipLevel = (int) NumberUtils.parseDouble(itemData.getVipLevel());
                     vipPrice = itemData.getVipPrice();
                 } else {
                     vipId = "";
@@ -195,7 +196,7 @@ public class BuyMemberActivity extends BaseInitActivity implements View.OnClickL
             iv_user_level_tag.setBackgroundResource(R.drawable.ic_mine_level_tag);
 //            tv_pay.setShaderStartColor(R.color.cl72);
 //            tv_pay.setShaderStartColor(R.color.cl21);
-            if (Double.valueOf(loginInfo.getVipLevel()).intValue() < 4) {
+            if (NumberUtils.parseDouble(loginInfo.getVipLevel()) < 4) {
                 tv_pay.setText("立即升级 尊享更高权益");
             } else {
                 tv_pay.setShaderStartColor(R.color.cl72);
@@ -222,7 +223,7 @@ public class BuyMemberActivity extends BaseInitActivity implements View.OnClickL
                 break;
             case R.id.tv_pay:
                 if (!TextUtils.isEmpty(UserComm.getUserInfo().getVipLevel())) {
-                    if (vipLevel <= Double.valueOf(UserComm.getUserInfo().getVipLevel()).intValue()) {
+                    if (vipLevel <= NumberUtils.parseDouble(UserComm.getUserInfo().getVipLevel())) {
                         ToastUtil.toast("请选择更高会员等级");
                         return;
                     }

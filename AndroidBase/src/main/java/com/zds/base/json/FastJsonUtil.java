@@ -5,6 +5,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.zds.base.log.XLog;
+import com.zds.base.util.NumberUtils;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -101,7 +102,7 @@ public class FastJsonUtil {
         if (jsonobj == null) {
             return null;
         }
-        if (jsonobj.get(obj_str)==null){
+        if (jsonobj.get(obj_str) == null) {
             return null;
         }
         String obj = jsonobj.get(obj_str).getAsString();
@@ -141,7 +142,7 @@ public class FastJsonUtil {
             return 0;
         }
         try {
-            return Double.valueOf(obj.toString()).intValue();
+            return (int) NumberUtils.parseDouble(obj.toString());
         } catch (Exception e) {
             return 0;
         }
@@ -164,12 +165,13 @@ public class FastJsonUtil {
             return 0;
         }
         try {
-            return Double.valueOf(obj.toString());
+            return NumberUtils.parseDouble(obj.toString());
         } catch (Exception e) {
             return 0;
         }
 
     }
+
     /**
      * 解析集合
      *

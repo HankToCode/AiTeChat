@@ -17,6 +17,7 @@ import com.ycf.qianzhihe.app.domain.EaseAvatarOptions;
 import com.ycf.qianzhihe.app.domain.EaseEmojicon;
 import com.ycf.qianzhihe.app.domain.EaseUser;
 import com.ycf.qianzhihe.app.weight.ease.model.EaseAtMessageHelper;
+import com.zds.base.util.NumberUtils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -226,7 +227,7 @@ public final class EaseUI {
                     for (String key : emMessage.ext().keySet()) {
                         if (emMessage.ext().get(key) instanceof Integer) {
                             try {
-                                msg.setAttribute(key, Integer.valueOf((Integer) emMessage.ext().get(key)));
+                                msg.setAttribute(key, (Integer) emMessage.ext().get(key));
                             } catch (Exception e) {
                             }
                         } else if (emMessage.ext().get(key) instanceof String) {

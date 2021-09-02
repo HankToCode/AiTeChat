@@ -179,7 +179,7 @@ public class StringUtil {
     public static String getFormatValue2(String d) {
         double number = 0;
         try {
-            number = Double.valueOf(d);
+            number = NumberUtils.parseDouble(d);
         } catch (Exception e) {
             e.getStackTrace();
         }

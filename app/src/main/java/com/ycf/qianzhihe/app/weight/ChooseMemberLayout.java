@@ -17,6 +17,7 @@ import android.widget.TextView;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.new_data.VipBean;
+import com.zds.base.util.NumberUtils;
 
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -104,7 +105,7 @@ public class ChooseMemberLayout extends GridView {
             holder.tv_money.setText(nf.format(Double.parseDouble(data.get(position).getVipPrice())) + "");
             holder.tv_lev.setText(data.get(position).getName());
             if (!TextUtils.isEmpty(UserComm.getUserInfo().getVipLevel())) {
-                if (Double.valueOf(UserComm.getUserInfo().getVipLevel()).intValue() - 1 == position) {
+                if (NumberUtils.parseDouble(UserComm.getUserInfo().getVipLevel()) - 1 == position) {
                     holder.iv_member_me.setVisibility(VISIBLE);
                 } else {
                     holder.iv_member_me.setVisibility(GONE);

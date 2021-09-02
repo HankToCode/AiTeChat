@@ -2,6 +2,8 @@ package com.ycf.qianzhihe.common.model;
 
 import android.text.TextUtils;
 
+import com.zds.base.util.NumberUtils;
+
 /**
  * 服务器设置model
  */
@@ -30,7 +32,7 @@ public class DemoServerSetBean {
         if(TextUtils.isEmpty(imServer) && imServer.contains(":")) {
             this.imServer = imServer.split(":")[0];
             try {
-                this.imPort = Integer.valueOf(imServer.split(":")[1]);
+                this.imPort = NumberUtils.parseInt(imServer.split(":")[1]);
             } catch (NumberFormatException e) {
                 e.printStackTrace();
             }

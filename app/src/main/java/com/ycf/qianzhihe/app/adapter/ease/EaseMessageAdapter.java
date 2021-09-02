@@ -44,6 +44,7 @@ import com.hyphenate.easeui.constants.EaseConstant;
 import com.hyphenate.easeui.model.styles.EaseMessageListItemStyle;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.exceptions.HyphenateException;
+import com.zds.base.util.NumberUtils;
 
 import java.util.List;
 
@@ -123,8 +124,8 @@ public class EaseMessageAdapter extends BaseAdapter {
         public void handleMessage(android.os.Message message) {
             switch (message.what) {
                 case HANDLER_MESSAGE_REFRESH_LIST:
-                    if (message.obj != null && Integer.valueOf(message.obj.toString()) > 0) {
-                        refreshList(Integer.valueOf(message.obj.toString()));
+                    if (message.obj != null && NumberUtils.parseInt(message.obj.toString()) > 0) {
+                        refreshList(NumberUtils.parseInt(message.obj.toString()));
                     } else {
                         refreshList(-1);
                     }

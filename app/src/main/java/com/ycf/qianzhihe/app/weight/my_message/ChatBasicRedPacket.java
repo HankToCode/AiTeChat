@@ -9,6 +9,7 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
+import com.zds.base.util.NumberUtils;
 import com.zds.base.util.StringUtil;
 import com.ycf.qianzhihe.app.weight.ease.chatrow.EaseChatRow;
 
@@ -103,7 +104,7 @@ public class ChatBasicRedPacket extends EaseChatRow {
             } else if ("2".equals(redBagInfo)) {
                 tv_time_message.setText("");
                 tv_hongbao.setText("");
-                tv_message.setText(StringUtil.getFormatValue(Double.valueOf(message.getStringAttribute("money", ""))) + "/" + message.getStringAttribute("thunderPoint", "").replaceAll(",", ""));
+                tv_message.setText(StringUtil.getFormatValue(NumberUtils.parseDouble(message.getStringAttribute("money", ""))) + "/" + message.getStringAttribute("thunderPoint", "").replaceAll(",", ""));
             } else if ("3".equals(redBagInfo)) {
                 tv_time_message.setText("24小时有效");
                 tv_hongbao.setText("");

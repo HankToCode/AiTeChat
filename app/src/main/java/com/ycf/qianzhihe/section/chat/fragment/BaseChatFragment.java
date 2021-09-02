@@ -1110,7 +1110,7 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
                 if (emMessage.ext().get(key) instanceof Integer) {
                     try {
                         msg.setAttribute(key,
-                                Integer.valueOf((Integer) emMessage.ext().get(key)));
+                                (Integer) emMessage.ext().get(key));
                     } catch (Exception e) {
                     }
                 } else if (emMessage.ext().get(key) instanceof String) {

@@ -25,6 +25,7 @@ import com.ycf.qianzhihe.section.group.fragment.GroupEditFragment;
 import com.hyphenate.easeui.model.EaseEvent;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.hyphenate.chat.EMGroupManager.EMGroupStyle;
+import com.zds.base.util.NumberUtils;
 
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
@@ -252,9 +253,9 @@ public class NewGroupActivity extends BaseInitActivity implements EaseTitleBar.O
                     @Override
                     public void onConfirmClick(View view, String content) {
                         if(!TextUtils.isEmpty(content)) {
-                            maxUsers = Integer.valueOf(content);
+                            maxUsers = NumberUtils.parseInt(content);
                             if(maxUsers > MAX_GROUP_USERS) {
-                                maxUsers = Integer.valueOf(itemGroupMaxUsers.getTvContent().getText().toString().trim());
+                                maxUsers = NumberUtils.parseInt(itemGroupMaxUsers.getTvContent().getText().toString().trim());
                                 showToast("建群最大人数不能超过3000！");
                                 return;
                             }

@@ -89,6 +89,7 @@ import com.hyphenate.easecallkit.base.EaseCallEndReason;
 import com.hyphenate.easecallkit.base.EaseCallKitListener;
 import com.hyphenate.easecallkit.base.EaseCallType;
 import com.zds.base.json.FastJsonUtil;
+import com.zds.base.util.NumberUtils;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static com.ycf.qianzhihe.app.api.old_http.AppConfig.mainUrl;
@@ -438,7 +439,7 @@ public class DemoHelper {
                 if (demoModel.getIMServer().contains(":")) {
                     options.setIMServer(demoModel.getIMServer().split(":")[0]);
                     // 设置im server 端口号，默认443
-                    options.setImPort(Integer.valueOf(demoModel.getIMServer().split(":")[1]));
+                    options.setImPort(NumberUtils.parseInt(demoModel.getIMServer().split(":")[1]));
                 } else {
                     //如果不包含端口号
                     if (demoModel.getIMServerPort() != 0) {

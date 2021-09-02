@@ -22,6 +22,7 @@ import com.zds.base.code.Result;
 import com.zds.base.code.ResultMetadataType;
 import com.zds.base.code.ResultPoint;
 import com.zds.base.code.common.BitArray;
+import com.zds.base.util.NumberUtils;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -105,7 +106,7 @@ final class UPCEANExtension2Support {
       return null;
     }
     Map<ResultMetadataType,Object> result = new EnumMap<>(ResultMetadataType.class);
-    result.put(ResultMetadataType.ISSUE_NUMBER, Integer.valueOf(raw));
+    result.put(ResultMetadataType.ISSUE_NUMBER, NumberUtils.parseInt(raw));
     return result;
   }
 

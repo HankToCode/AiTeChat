@@ -60,6 +60,7 @@ import com.ycf.qianzhihe.common.db.entity.InviteMessageStatus;
 import com.ycf.qianzhihe.common.receiver.HeadsetReceiver;
 import com.ycf.qianzhihe.common.utils.PreferenceManager;
 import com.ycf.qianzhihe.section.chat.activity.ChatActivity;
+import com.zds.base.util.NumberUtils;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -188,7 +189,7 @@ public class MyHelper {
             options.setIMServer(demoModel.getIMServer());
             if (demoModel.getIMServer().contains(":")) {
                 options.setIMServer(demoModel.getIMServer().split(":")[0]);
-                options.setImPort(Integer.valueOf(demoModel.getIMServer().split(":")[1]));
+                options.setImPort(NumberUtils.parseInt(demoModel.getIMServer().split(":")[1]));
             }
         }
 

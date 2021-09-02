@@ -35,6 +35,7 @@ import android.view.View;
 import com.zds.base.R;
 import com.zds.base.code.ResultPoint;
 import com.zds.base.code.camera.CameraManager;
+import com.zds.base.util.NumberUtils;
 
 import java.util.Collection;
 import java.util.HashSet;

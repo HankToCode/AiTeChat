@@ -48,6 +48,7 @@ import com.ycf.qianzhihe.section.common.VerifyingPayPasswordPhoneNumberActivity;
 import com.zds.base.ImageLoad.GlideUtils;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.json.FastJsonUtil;
+import com.zds.base.util.NumberUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -121,24 +122,24 @@ public class AccountInfoActivity extends BaseInitActivity {
         super.initView(savedInstanceState);
         initImmersionBar(true);
         if (!TextUtils.isEmpty(UserComm.getUserInfo().getVipLevel())) {
-            if (Double.valueOf(UserComm.getUserInfo().getVipLevel()).intValue() == 1) {
+            if (NumberUtils.parseDouble(UserComm.getUserInfo().getVipLevel()) == 1) {
                 tv_l1.setText("我的Lv1会员权益");
                 tv_l1.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-            } else if (Double.valueOf(UserComm.getUserInfo().getVipLevel()).intValue() == 2) {
+            } else if (NumberUtils.parseDouble(UserComm.getUserInfo().getVipLevel()) == 2) {
                 tv_l2.setText("我的Lv2会员权益");
                 tv_l2.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-            } else if (Double.valueOf(UserComm.getUserInfo().getVipLevel()).intValue() == 3) {
+            } else if (NumberUtils.parseDouble(UserComm.getUserInfo().getVipLevel()) == 3) {
                 tv_l3.setText("我的Lv3会员权益");
                 tv_l3.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
-            } else if (Double.valueOf(UserComm.getUserInfo().getVipLevel()).intValue() == 4) {
+            } else if (NumberUtils.parseDouble(UserComm.getUserInfo().getVipLevel()) == 4) {
                 tv_l4.setText("我的Lv4会员权益");
                 tv_l4.setTypeface(Typeface.defaultFromStyle(Typeface.BOLD));
             }
         }
-        tv_l1_tip.setText(Html.fromHtml("LV1全部" + "<font color='#C29525'>" + "4项" + "</font>"+"权益"));
-        tv_l2_tip.setText(Html.fromHtml("LV2全部" + "<font color='#C29525'>" + "5项" + "</font>"+"权益"));
-        tv_l3_tip.setText(Html.fromHtml("LV3全部" + "<font color='#C29525'>" + "6项" + "</font>"+"权益"));
-        tv_l4_tip.setText(Html.fromHtml("LV4全部" + "<font color='#C29525'>" + "8项" + "</font>"+"权益"));
+        tv_l1_tip.setText(Html.fromHtml("LV1全部" + "<font color='#C29525'>" + "4项" + "</font>" + "权益"));
+        tv_l2_tip.setText(Html.fromHtml("LV2全部" + "<font color='#C29525'>" + "5项" + "</font>" + "权益"));
+        tv_l3_tip.setText(Html.fromHtml("LV3全部" + "<font color='#C29525'>" + "6项" + "</font>" + "权益"));
+        tv_l4_tip.setText(Html.fromHtml("LV4全部" + "<font color='#C29525'>" + "8项" + "</font>" + "权益"));
     }
 
     @OnClick({R.id.iv_up})
@@ -150,6 +151,7 @@ public class AccountInfoActivity extends BaseInitActivity {
                 break;
         }
     }
+
     @Override
     protected void initListener() {
         super.initListener();

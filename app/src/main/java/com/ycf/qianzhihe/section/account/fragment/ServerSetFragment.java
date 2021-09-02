@@ -22,6 +22,7 @@ import com.ycf.qianzhihe.section.dialog.DemoDialogFragment;
 import com.ycf.qianzhihe.section.dialog.SimpleDialogFragment;
 
 import com.hyphenate.easeui.widget.EaseTitleBar;
+import com.zds.base.util.NumberUtils;
 
 public class ServerSetFragment extends BaseInitFragment implements EaseTitleBar.OnBackPressListener, CompoundButton.OnCheckedChangeListener, TextWatcher, View.OnClickListener {
     private EaseTitleBar mToolbarServer;
@@ -241,7 +242,7 @@ public class ServerSetFragment extends BaseInitFragment implements EaseTitleBar.
             DemoHelper.getInstance().getModel().setIMServer(mServerAddress);
         }
         if(!TextUtils.isEmpty(mServerPort)) {
-            DemoHelper.getInstance().getModel().setIMServerPort(Integer.valueOf(mServerPort));
+            DemoHelper.getInstance().getModel().setIMServerPort(NumberUtils.parseInt(mServerPort));
         }
         if(!TextUtils.isEmpty(mRestServerAddress)) {
             DemoHelper.getInstance().getModel().setRestServer(mRestServerAddress);

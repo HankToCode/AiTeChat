@@ -1,6 +1,7 @@
 package com.ycf.qianzhihe.app.api.old_data;
 
 import com.chad.library.adapter.base.entity.MultiItemEntity;
+import com.zds.base.util.NumberUtils;
 
 import java.util.List;
 
@@ -357,7 +358,7 @@ public class CollectInfo {
 
         @Override
         public int getItemType() {
-            return Integer.valueOf(linkType);
+            return NumberUtils.parseInt(linkType);
         }
     }
 }
