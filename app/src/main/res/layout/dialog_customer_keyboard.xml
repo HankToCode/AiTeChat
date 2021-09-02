@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:padding="@dimen/dp_15"
-            android:src="@mipmap/delete_black" />
+            android:src="@mipmap/ic_close" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -28,7 +28,7 @@
             android:layout_marginTop="@dimen/dp_5"
             android:layout_marginBottom="@dimen/dp_5"
             android:padding="@dimen/dp_10"
-            android:text="输入密码"
+            android:text="输入支付密码"
             android:textColor="#000000"
             android:textSize="@dimen/sp_15" />
     </RelativeLayout>
@@ -166,9 +166,9 @@
         android:id="@+id/password_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_60"
+        android:layout_marginLeft="@dimen/dp_15"
         android:layout_marginTop="@dimen/dp_10"
-        android:layout_marginRight="@dimen/dp_60"
+        android:layout_marginRight="@dimen/dp_15"
         android:background="@null"
         android:focusable="false"
         android:focusableInTouchMode="false"
@@ -178,26 +178,37 @@
         android:paddingBottom="@dimen/dp_8"
         app:bgCorner="@dimen/dp_3"
         app:passwordColor="@color/black_deep" />
-
+    <TextView
+        android:id="@+id/tv_forget"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_30"
+        android:gravity="right|center_vertical"
+        android:paddingRight="@dimen/dp_15"
+        android:layout_marginTop="@dimen/dp_5"
+        android:textColor="@color/black"
+        android:text="忘记密码"
+        android:textSize="15dp" />
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_0_5"
         android:layout_marginTop="@dimen/dp_10"
         android:background="#d1d2d6" />
+
     <com.ycf.qianzhihe.app.weight.passwoed_keyboard.XNumberKeyboardView
         android:id="@+id/kb_board"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:background="#b0b0b0"
+        android:background="@drawable/selector_gride"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:keyBackground="@drawable/ripple_bg"
-        android:keyTextColor="@color/black_deep"
-        android:keyTextSize="@dimen/dp_16"
+        android:keyTextColor="@color/black"
+        android:keyTextSize="@dimen/dp_26"
         android:shadowColor="@android:color/transparent"
         android:shadowRadius="0"
-        app:xnkv_blKeyBackground="@color/grey_2"
+        android:textColor="#1d1c1e"
+        app:xnkv_blKeyBackground="@color/gray"
         app:xnkv_brKeyBackground="@color/gray"
         app:xnkv_brKeyDrawable="@mipmap/keyboard_backspace"
         app:xnkv_brKeyDrawableWidth="24dp"

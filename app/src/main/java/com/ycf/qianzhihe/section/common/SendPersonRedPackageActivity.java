@@ -11,9 +11,6 @@ import android.text.Spanned;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ehking.sdk.wepay.interfaces.WalletPay;
@@ -32,13 +29,10 @@ import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
 import com.ycf.qianzhihe.app.weight.CommonDialog;
-import com.ycf.qianzhihe.app.weight.CustomerKeyboard;
 import com.ycf.qianzhihe.app.weight.PasswordEditText;
-import com.ycf.qianzhihe.app.weight.passdialog.PayDialog;
 import com.ycf.qianzhihe.app.weight.passwoed_keyboard.OnNumberKeyboardListener;
 import com.ycf.qianzhihe.app.weight.passwoed_keyboard.XNumberKeyboardView;
 import com.ycf.qianzhihe.common.utils.ToastUtils;
-import com.ycf.qianzhihe.section.account.activity.BuyMemberActivity;
 import com.zds.base.json.FastJsonUtil;
 import com.zds.base.upDated.utils.NetWorkUtils;
 import com.zds.base.util.StringUtil;
@@ -139,8 +133,7 @@ public class SendPersonRedPackageActivity extends BaseInitActivity {
             }
         });
 
-//        mTvSendRed.setOnClickListener(view -> payPassword());
-        mTvSendRed.setOnClickListener(view -> payDialog());
+        mTvSendRed.setOnClickListener(view -> payPassword());
         tv_member.setOnClickListener(view -> ToastUtils.showToast("即将推出，敬请期待"));
     }
 
@@ -185,7 +178,6 @@ public class SendPersonRedPackageActivity extends BaseInitActivity {
         ApiClient.requestNetHandle(this, AppConfig.CREATE_PERSON_RED_PACKE, "" , map, new ResultListener() {
                     @Override
                     public void onSuccess(String json, String msg) {
-                        payDialog.setSucc();
                         Intent intent = new Intent();
                         intent.putExtra("money",
                                 mEtRedAmount.getText().toString().trim());
@@ -199,7 +191,6 @@ public class SendPersonRedPackageActivity extends BaseInitActivity {
 
                     @Override
                     public void onFailure(String msg) {
-                        payDialog.setError("支付失败");
                         ToastUtil.toast(msg);
                         mLastClickTime = 0;
                     }
@@ -331,50 +322,6 @@ public class SendPersonRedPackageActivity extends BaseInitActivity {
                 });
     }
 
-    private PayDialog payDialog;
-    private void payDialog() {
-        if (mEtRedAmount.getText().length() <= 0 || mEtRedAmount.getText().toString().equals("") || mEtRedAmount.getText().toString().equals("0.") || mEtRedAmount.getText().toString().equals("0.0")
-                || mEtRedAmount.getText().toString().equals("0.00")) {
-            ToastUtil.toast("请填写正确的金额");
-            return;
-        }
-
-        double price =
-                Double.parseDouble(mEtRedAmount.getText().toString().trim());
-        if (price > 200) {
-            ToastUtil.toast("金额不得超过200元");
-            return;
-        }
-
-        LoginInfo userInfo = UserComm.getUserInfo();
-        if (userInfo.getPayPwdFlag() == 0) {
-            startActivity(new Intent(this,
-                    InputPasswordActivity.class));
-            return;
-        }
-        payDialog = new PayDialog(mContext, "支付金额："+mEtRedAmount.getText().toString().trim(), new PayDialog.PayInterface() {
-            @Override
-            public void Payfinish(String password) {
-                sendRedPacket(password);
-            }
-
-            @Override
-            public void onSucc() {
-                //回调 成功，关闭dialog 做自己的操作
-                payDialog.cancel();
-            }
-
-            @Override
-            public void onForget() {
-                //当progress显示时，说明在请求网络，这时点击忘记密码不作处理
-                if(payDialog.payPassView.progress.getVisibility()!=View.VISIBLE){
-                    ResetPayPwdActivity.actionStart(mContext);
-                }
-            }
-        });
-        payDialog.show();
-    }
-
     /**
      * 支付密码
      */
@@ -410,32 +357,10 @@ public class SendPersonRedPackageActivity extends BaseInitActivity {
                 });
         builder.create().show();
 
-        LinearLayout mLlaySelectMode = builder.getView(R.id.llay_select_mode);
-        mLlaySelectMode.setVisibility(View.GONE);
-
-        RelativeLayout mLlayBalanceSelect =
-                builder.getView(R.id.llay_balance_select);
-        ImageView mImgBalanceSelect = builder.getView(R.id.img_balance_select);
-
-        RelativeLayout mLlayBankCarSelect =
-                builder.getView(R.id.llay_bank_car_select);
-        ImageView mImgBankCarSelect = builder.getView(R.id.img_bank_car_select);
-
-        mLlayBalanceSelect.setOnClickListener(new View.OnClickListener() {
+        builder.getView(R.id.tv_forget).setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                isSelectBalance = true;
-                mImgBalanceSelect.setVisibility(View.VISIBLE);
-                mImgBankCarSelect.setVisibility(View.GONE);
-            }
-        });
-
-        mLlayBankCarSelect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                isSelectBalance = false;
-                mImgBalanceSelect.setVisibility(View.GONE);
-                mImgBankCarSelect.setVisibility(View.VISIBLE);
+            public void onClick(View view) {
+                ResetPayPwdActivity.actionStart(mContext);
             }
         });
 
@@ -459,8 +384,8 @@ public class SendPersonRedPackageActivity extends BaseInitActivity {
         mPasswordEditText.setOnPasswordFullListener(new PasswordEditText.PasswordFullListener() {
             @Override
             public void passwordFull(String password) {
-                sendRedPacket(password);
                 builder.dismiss();
+                sendRedPacket(password);
             }
         });
 

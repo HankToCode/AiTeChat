@@ -8,9 +8,7 @@ import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.ehking.sdk.wepay.interfaces.WalletPay;
@@ -33,11 +31,8 @@ import com.ycf.qianzhihe.app.base.WebViewActivity;
 import com.ycf.qianzhihe.app.utils.NumberExKt;
 import com.ycf.qianzhihe.app.weight.CommonDialog;
 import com.ycf.qianzhihe.app.weight.PasswordEditText;
-import com.ycf.qianzhihe.app.weight.passdialog.PayDialog;
 import com.ycf.qianzhihe.app.weight.passwoed_keyboard.OnNumberKeyboardListener;
 import com.ycf.qianzhihe.app.weight.passwoed_keyboard.XNumberKeyboardView;
-import com.ycf.qianzhihe.common.utils.ToastUtils;
-import com.ycf.qianzhihe.section.account.activity.BuyMemberActivity;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.json.FastJsonUtil;
 import com.zds.base.upDated.utils.NetWorkUtils;
@@ -123,8 +118,7 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
 
         mTvSendRed.setOnClickListener(view -> {
             //发红包
-//            payPassword();
-            payDialog();
+            payPassword();
         });
 
         llSendTo.setOnClickListener(view -> {
@@ -352,7 +346,6 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
             public void onSuccess(String json, String msg) {
 //                if (isSelectBalance) {
 //                toast(msg);
-                payDialog.setSucc();
                 if (json.length() > 1500) {
                     startActivity(new Intent(SendGroupRedPackageActivity.this, WebViewActivity.class).putExtra("url", json).putExtra("title", "充值"));
                 }
@@ -370,7 +363,6 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
 
             @Override
             public void onFailure(String msg) {
-                payDialog.setError("支付失败");
                 ToastUtil.toast(msg);
                 bankId = "";
                 mLastClickTime = 0;
@@ -524,71 +516,6 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
                 });
     }
 
-    private PayDialog payDialog;
-
-    private void payDialog() {
-        if (etRedAmount.getText().length() <= 0
-                || etRedAmount.getText().toString().equals("")
-                || etRedAmount.getText().toString().equals("0.")
-                || etRedAmount.getText().toString().equals("0.0")
-                || etRedAmount.getText().toString().equals("0.00")) {
-            ToastUtil.toast("请填写正确的金额");
-            return;
-        }
-
-        if (currentRedPackageMethod != 1 && etRedNum.getText().toString().length() <= 0) {
-            ToastUtil.toast("请填写红包个数");
-            return;
-        }
-
-        //1.总金额是200乘以个数 单个平均最高是200 2.红包个数最多是100个，同时还要小于群人数；
-        int redCount = currentRedPackageMethod == 1 ? 1 : Integer.parseInt(etRedNum.getText().toString().trim());
-        //校验总金额
-        double redAmount = NumberUtils.parseDouble(etRedAmount.getText().toString().trim());
-        if (redAmount > 200 * redCount) {
-            ToastUtil.toast("单个红包不能超过200元");
-            return;
-        }
-        //校验红包个数
-        if (redCount > Math.min(mGroupUserCount, 100)) {
-            if (mGroupUserCount < 100) {
-                ToastUtil.toast("红包个数不能超过群成员总数");
-            } else {
-                ToastUtil.toast("红包个数不能超过100");
-            }
-            return;
-        }
-
-        LoginInfo userInfo = UserComm.getUserInfo();
-        if (userInfo.getPayPwdFlag() == 0) {
-            startActivity(new Intent(SendGroupRedPackageActivity.this,
-                    InputPasswordActivity.class));
-            return;
-        }
-
-        payDialog = new PayDialog(mContext, "支付金额：" + money, new PayDialog.PayInterface() {
-            @Override
-            public void Payfinish(String password) {
-                sendRedPacket(password);
-            }
-
-            @Override
-            public void onSucc() {
-                //回调 成功，关闭dialog 做自己的操作
-                payDialog.cancel();
-            }
-
-            @Override
-            public void onForget() {
-                //当progress显示时，说明在请求网络，这时点击忘记密码不作处理
-                if (payDialog.payPassView.progress.getVisibility() != View.VISIBLE) {
-                    ResetPayPwdActivity.actionStart(mContext);
-                }
-            }
-        });
-        payDialog.show();
-    }
-
     /**
      * 支付密码
      */
@@ -625,18 +552,14 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
             }
             return;
         }
-
         LoginInfo userInfo = UserComm.getUserInfo();
         if (userInfo.getPayPwdFlag() == 0) {
             startActivity(new Intent(SendGroupRedPackageActivity.this,
                     InputPasswordActivity.class));
             return;
         }
-
-        final CommonDialog.Builder builder =
-                new CommonDialog.Builder(this).fullWidth().fromBottom()
+        final CommonDialog.Builder builder = new CommonDialog.Builder(this).fullWidth().fromBottom()
                         .setView(R.layout.dialog_customer_keyboard);
-
         builder.setOnClickListener(R.id.delete_dialog,
                 new View.OnClickListener() {
                     @Override
@@ -645,53 +568,12 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
                     }
                 });
         builder.create().show();
-
-        LinearLayout mLlaySelectMode = builder.getView(R.id.llay_select_mode);
-        mLlaySelectMode.setVisibility(View.VISIBLE);
-
-        RelativeLayout mLlayBalanceSelect = builder.getView(R.id.llay_balance_select);
-        ImageView mImgBalanceSelect = builder.getView(R.id.img_balance_select);
-
-        RelativeLayout mLlayBankCarSelect = builder.getView(R.id.llay_bank_car_select);
-        mLlayBankCarSelect.setVisibility(View.GONE);
-        ImageView mImgBankCarSelect = builder.getView(R.id.img_bank_car_select);
-
-        RelativeLayout mLlayZfbCarSelect = builder.getView(R.id.llay_zfb_car_select);
-        ImageView mImgZfbCarSelect = builder.getView(R.id.img_zfb_car_select);
-
-
-        tv_bank_name = builder.getView(R.id.tv_bank_name);
-        mLlayBalanceSelect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                isSelectBalance = 0;
-                mImgBalanceSelect.setVisibility(View.VISIBLE);
-                mImgBankCarSelect.setVisibility(View.GONE);
-                mImgZfbCarSelect.setVisibility(View.GONE);
-            }
-        });
-
-        mLlayBankCarSelect.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                isSelectBalance = 1;
-                mImgBalanceSelect.setVisibility(View.GONE);
-                mImgBankCarSelect.setVisibility(View.VISIBLE);
-                mImgZfbCarSelect.setVisibility(View.GONE);
-                startActivityForResult(new Intent(SendGroupRedPackageActivity.this, BankActivity.class), 66);
-            }
-        });
-        mLlayZfbCarSelect.setOnClickListener(new View.OnClickListener() {
+        builder.getView(R.id.tv_forget).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                isSelectBalance = 2;
-                mImgBalanceSelect.setVisibility(View.GONE);
-                mImgBankCarSelect.setVisibility(View.GONE);
-                mImgZfbCarSelect.setVisibility(View.VISIBLE);
+                ResetPayPwdActivity.actionStart(mContext);
             }
         });
-
-
         final XNumberKeyboardView mCustomerKeyboard = builder.getView(R.id.kb_board);
         final PasswordEditText mPasswordEditText = builder.getView(R.id.password_edit_text);
         mCustomerKeyboard.setOnNumberKeyboardListener(new OnNumberKeyboardListener() {
