@@ -87,8 +87,10 @@ public class EaseChatInputMenu extends LinearLayout {
             return;
         }
         // primary menu, use default if no customized one
+        chatExtendSmallMenu.init();
         if (chatPrimaryMenu == null) {
             chatPrimaryMenu = (EaseChatPrimaryMenu) layoutInflater.inflate(R.layout.ease_layout_chat_primary_menu, null);
+            chatPrimaryMenu.setChatType(chatType);
         }
         primaryMenuContainer.addView(chatPrimaryMenu);
 
@@ -105,7 +107,6 @@ public class EaseChatInputMenu extends LinearLayout {
 
         processChatMenu();
         chatExtendMenu.init();
-        chatExtendSmallMenu.init();
 
         inited = true;
     }
@@ -369,12 +370,15 @@ public class EaseChatInputMenu extends LinearLayout {
         this.listener = listener;
     }
 
+    private int chatType;
+
     public void setChatType(int chatType) {
-        if (chatType == Constant.CHATTYPE_SINGLE) {
-            chatExtendSmallMenu.setVisibility(View.GONE);
-        } else if (chatType == Constant.CHATTYPE_GROUP) {
+        this.chatType = chatType;
+
+        if (chatType != Constant.CHATTYPE_SINGLE) {
             chatExtendSmallMenu.setVisibility(View.VISIBLE);
-        }
+            chatExtendMenu.setVisibility(GONE);
+        } 
     }
 
     public interface ChatInputMenuListener {

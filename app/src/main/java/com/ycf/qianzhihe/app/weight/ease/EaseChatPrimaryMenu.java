@@ -19,12 +19,12 @@ import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.app.api.Constant;
 import com.zds.base.Toast.ToastUtil;
 
 import com.hyphenate.util.EMLog;
@@ -107,13 +107,20 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
             @Override
             public void onTextChanged(CharSequence s, int start, int before,
                                       int count) {
-                if (!TextUtils.isEmpty(s)) {
-                    buttonMore.setVisibility(View.GONE);
+
+                if (chatType != Constant.CHATTYPE_SINGLE) {
+                    buttonMore.setVisibility(GONE);
                     buttonSend.setVisibility(View.VISIBLE);
                 } else {
-                    buttonMore.setVisibility(View.VISIBLE);
-                    buttonSend.setVisibility(View.GONE);
+                    if (!TextUtils.isEmpty(s)) {
+                        buttonMore.setVisibility(View.GONE);
+                        buttonSend.setVisibility(View.VISIBLE);
+                    } else {
+                        buttonMore.setVisibility(View.VISIBLE);
+                        buttonSend.setVisibility(View.GONE);
+                    }
                 }
+
                 if ((addlength == 1)
                         && (s.toString().charAt(startposition) == '@')) {
                     listener.onAtSomeOne();
@@ -230,6 +237,10 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
 
             if (listener != null) {
                 String s = editText.getText().toString();
+                if (s.length() <= 0) {
+                    ToastUtil.toast("请输入内容");
+                    return;
+                }
                 if (s.length() > 600 && !s.contains("水")) {
                     ToastUtil.toast("发送文本不能超出600个字符");
                     return;
@@ -295,7 +306,11 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
         buttonSetModeVoice.setVisibility(View.GONE);
         buttonSetModeKeyboard.setVisibility(View.VISIBLE);
         buttonSend.setVisibility(View.GONE);
-        buttonMore.setVisibility(View.VISIBLE);
+        if (chatType != Constant.CHATTYPE_SINGLE) {
+            buttonMore.setVisibility(View.GONE);
+        } else {
+            buttonMore.setVisibility(View.VISIBLE);
+        }
         buttonPressToSpeak.setVisibility(View.VISIBLE);
         faceNormal.setVisibility(View.VISIBLE);
         faceChecked.setVisibility(View.INVISIBLE);
@@ -318,13 +333,20 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
         editText.requestFocus();
         // buttonSend.setVisibility(View.VISIBLE);
         buttonPressToSpeak.setVisibility(View.GONE);
-        if (TextUtils.isEmpty(editText.getText())) {
-            buttonMore.setVisibility(View.VISIBLE);
-            buttonSend.setVisibility(View.GONE);
-        } else {
+
+        if (chatType != Constant.CHATTYPE_SINGLE) {
             buttonMore.setVisibility(View.GONE);
             buttonSend.setVisibility(View.VISIBLE);
+        } else {
+            if (TextUtils.isEmpty(editText.getText())) {
+                buttonMore.setVisibility(View.VISIBLE);
+                buttonSend.setVisibility(View.GONE);
+            } else {
+                buttonMore.setVisibility(View.GONE);
+                buttonSend.setVisibility(View.VISIBLE);
+            }
         }
+
 
     }
 
@@ -364,6 +386,18 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
     @Override
     public EditText getEditText() {
         return editText;
+    }
+
+
+    private int chatType;
+
+    @Override
+    public void setChatType(int chatType) {
+        this.chatType = chatType;
+        if (chatType != Constant.CHATTYPE_SINGLE) {
+            buttonSend.setVisibility(View.VISIBLE);
+            buttonMore.setVisibility(GONE);
+        }
     }
 
     @Override

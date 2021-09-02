@@ -301,9 +301,9 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
             //转账
             mInputMenu.registerExtendSmallMenuItem(R.mipmap.zhuanz_small,
                     ITEM_TRANSFER, extendMenuItemClickListener);
-
-            mInputMenu.setChatType(chatType);
         }
+        mInputMenu.setChatType(chatType);
+
     }
 
     private void registerMenu() {

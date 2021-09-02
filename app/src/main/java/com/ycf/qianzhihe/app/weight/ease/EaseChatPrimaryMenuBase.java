@@ -76,6 +76,8 @@ public abstract class EaseChatPrimaryMenuBase extends RelativeLayout {
 
     public abstract EditText getEditText();
 
+    public abstract void setChatType(int chatType);
+
     public abstract void executeMute();
 
     public abstract void relieveMute();
