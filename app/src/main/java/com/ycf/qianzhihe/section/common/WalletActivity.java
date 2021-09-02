@@ -101,8 +101,8 @@ public class WalletActivity extends BaseInitActivity {
                 break;
             case R.id.tv_my_redpack_record:
                 //我的红包记录
-                //TODO
 //                startActivity(MyRedRecordActivity.class);
+                ChatRedRecordActivity.actionStart(mContext);
                 break;
             case R.id.tv_my_transfer:
                 //我的转账记录
