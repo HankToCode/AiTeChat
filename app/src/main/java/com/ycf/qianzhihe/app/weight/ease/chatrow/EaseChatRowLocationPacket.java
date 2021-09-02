@@ -29,7 +29,7 @@ public class EaseChatRowLocationPacket extends EaseChatRow {
 
     @Override
     protected void onInflateView() {
-        if (message.getBooleanAttribute(Constant.SEND_LOCATION, false)) {
+        if (message.getType() == EMMessage.Type.LOCATION) {
             inflater.inflate(message.direct() == EMMessage.Direct.RECEIVE ?
                     R.layout.ease_row_received_location : R.layout.ease_row_sent_location, this);
         }

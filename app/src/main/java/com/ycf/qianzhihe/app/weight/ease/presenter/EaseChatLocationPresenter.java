@@ -11,6 +11,7 @@ import com.ycf.qianzhihe.app.weight.ease.chatrow.EaseChatRow;
 import com.ycf.qianzhihe.app.weight.ease.chatrow.EaseChatRowLocationPacket;
 import com.ycf.qianzhihe.section.common.HxMapActivity;
 import com.hyphenate.exceptions.HyphenateException;
+import com.zds.base.util.NumberUtils;
 
 /**
  * Created by zhangsong on 17-10-12.
@@ -35,14 +36,14 @@ public class EaseChatLocationPresenter extends EaseChatRowPresenter {
 
     @Override
     public void onBubbleClick(EMMessage message) {
-        if (message.getBooleanAttribute(Constant.SEND_LOCATION, false)) {
+        if (message.getType() == EMMessage.Type.LOCATION) {
             String latitude = message.getStringAttribute(Constant.LATITUDE, "");
             String longitude = message.getStringAttribute(Constant.LONGITUDE, "");
             String localDetail = message.getStringAttribute(Constant.LOCAL_DETAIL, "");
 
             Intent intent = new Intent(getContext(), HxMapActivity.class);
-            intent.putExtra(Constant.LATITUDE, Double.valueOf(latitude));
-            intent.putExtra(Constant.LONGITUDE, Double.valueOf(longitude));
+            intent.putExtra(Constant.LATITUDE, NumberUtils.parseDouble(latitude));
+            intent.putExtra(Constant.LONGITUDE, NumberUtils.parseDouble(longitude));
             intent.putExtra(Constant.ADDRESS_DETAIL, localDetail);
 
             getContext().startActivity(intent);

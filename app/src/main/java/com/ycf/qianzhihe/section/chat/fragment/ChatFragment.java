@@ -1293,6 +1293,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
 
     /**
      * make a video call
+     *
      * @param emChatId
      */
     protected void startVideoCall(String emChatId) {
@@ -1304,7 +1305,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
 //            startActivity(new Intent(requireActivity(), VideoCallActivity.class).putExtra("username", emChatId)
 //                    .putExtra("isComingCall", false));
 //             videoCallBtn.setEnabled(false);
-            EaseCallKit.getInstance().startSingleCall(EaseCallType.SINGLE_VIDEO_CALL,emChatId,null);
+            EaseCallKit.getInstance().startSingleCall(EaseCallType.SINGLE_VIDEO_CALL, emChatId, null);
             mInputMenu.hideExtendMenuContainer();
         }
     }
@@ -1436,11 +1437,6 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                     //名片
                     return message.direct() == EMMessage.Direct.RECEIVE ?
                             MESSAGE_CARD_RECV : MESSAGE_CARD_SEND;
-                } else if (message.getBooleanAttribute(Constant.SEND_LOCATION
-                        , false)) {
-                    //地图
-                    return message.direct() == EMMessage.Direct.RECEIVE ?
-                            MESSAGE_LOCATION_SRECV : MESSAGE_LOCATION_SEND;
                 } else if (message.getStringAttribute(Constant.MSGTYPE, "").equals(Constant.WITHDRAW)) {
                     //系统公告
                     return message.direct() == EMMessage.Direct.RECEIVE ?
@@ -1458,6 +1454,10 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                             49 : 49;
                 }
 
+            } else if (message.getType() == EMMessage.Type.LOCATION) {
+                //地图
+                return message.direct() == EMMessage.Direct.RECEIVE ?
+                        MESSAGE_LOCATION_SRECV : MESSAGE_LOCATION_SEND;
             }
             return 0;
         }
@@ -1616,6 +1616,10 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                             new UserOperatorGroupPresenter();
                     return presenter;
                 }
+            } else if (message.getType() == EMMessage.Type.LOCATION) {
+                //自定义地图
+                EaseChatRowPresenter presenter = new EaseChatLocationPresenter();
+                return presenter;
             }
             return null;
         }

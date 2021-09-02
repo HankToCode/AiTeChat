@@ -1442,7 +1442,6 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
         EMMessage message = EMMessage.createLocationSendMessage(latitude,
                 longitude, locationAddress, emChatId);
 
-        message.setAttribute(Constant.SEND_LOCATION, true);
         message.setAttribute(Constant.LATITUDE, String.valueOf(latitude));
         message.setAttribute(Constant.LONGITUDE, String.valueOf(longitude));
         message.setAttribute(Constant.LOCATION_ADDRESS, locationAddress);

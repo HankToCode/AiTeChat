@@ -233,9 +233,6 @@ public class EaseMessageAdapter extends BaseAdapter {
             } else if (message.getBooleanAttribute(Constant.SEND_CARD, false)) {
                 //自定义消息扩展(名片) APP自己实现
                 return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_EXTENDS : MESSAGE_TYPE_SEND_EXTENDS;
-            } else if (message.getBooleanAttribute(Constant.SEND_LOCATION, false)) {
-                //自定义消息扩展（发送位置）APP自己实现
-                return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_EXTENDS : MESSAGE_TYPE_SEND_EXTENDS;
             } else if (message.getBooleanAttribute(Constant.TURN, false)) {
                 //自定义消息扩展（发送位置）APP自己实现
                 return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_EXTENDS : MESSAGE_TYPE_SEND_EXTENDS;
@@ -246,11 +243,6 @@ public class EaseMessageAdapter extends BaseAdapter {
             return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_IMAGE : MESSAGE_TYPE_SENT_IMAGE;
         }
         if (message.getType() == EMMessage.Type.LOCATION) {
-            if (message.getBooleanAttribute(Constant.SEND_LOCATION, false)) {
-                //自定义消息扩展（发送位置）APP自己实现
-                return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_EXTENDS : MESSAGE_TYPE_SEND_EXTENDS;
-            }
-
             return message.direct() == EMMessage.Direct.RECEIVE ? MESSAGE_TYPE_RECV_LOCATION : MESSAGE_TYPE_SENT_LOCATION;
         }
         if (message.getType() == EMMessage.Type.VOICE) {
@@ -280,19 +272,14 @@ public class EaseMessageAdapter extends BaseAdapter {
                     presenter = new EaseChatBigExpressionPresenter();
                 } else if (message.getBooleanAttribute(Constant.SEND_CARD, false)) {
                     presenter = new ChatidCardPresenter();
-                } else if (message.getBooleanAttribute(Constant.SEND_LOCATION, false)) {
-                    presenter = new EaseChatLocationPresenter();
-                } else if (message.getBooleanAttribute(Constant.TURN, false)) {
+                }  else if (message.getBooleanAttribute(Constant.TURN, false)) {
                     presenter = new ChatRedPacketturnPresenter();
                 } else {
                     presenter = new EaseChatTextPresenter();
                 }
                 break;
             case LOCATION:
-                if (message.getBooleanAttribute(Constant.SEND_LOCATION, false)) {
-                    presenter = new EaseChatLocationPresenter();
-                }
-//                presenter = new EaseChatLocationPresenter();
+                presenter = new EaseChatLocationPresenter();
                 break;
             case FILE:
                 presenter = new EaseChatFilePresenter();
