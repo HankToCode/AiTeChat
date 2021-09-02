@@ -4,12 +4,7 @@
     <item
         android:id="@+id/em_main_nav_find"
         android:icon="@drawable/demo_main_tab_find_selector"
-        android:title="@string/em_main_title_news"/>
-
-    <item
-        android:id="@+id/em_main_nav_contacts"
-        android:icon="@drawable/demo_main_tab_contacts_selector"
-        android:title="@string/em_main_title_contacts" />
+        android:title="@string/em_main_title_news" />
 
     <item
         android:id="@+id/em_main_nav_message"
@@ -17,9 +12,14 @@
         android:title="@string/em_main_title_message" />
 
     <item
+        android:id="@+id/em_main_nav_contacts"
+        android:icon="@drawable/demo_main_tab_contacts_selector"
+        android:title="@string/em_main_title_contacts" />
+
+    <item
         android:id="@+id/em_main_nav_discover"
         android:icon="@drawable/demo_main_tab_discover_selector"
-        android:title="@string/em_main_title_discover"/>
+        android:title="@string/em_main_title_discover" />
 
 
 </menu>
