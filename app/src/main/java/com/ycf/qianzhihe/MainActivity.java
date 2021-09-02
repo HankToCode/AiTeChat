@@ -252,10 +252,10 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
                     mTvMainFindMsg = badge.findViewById(msgIds[0]);
                     break;
                 case 1:
-                    mTvMainContactsMsg = badge.findViewById(msgIds[1]);
+                    mTvMainMessageMsg = badge.findViewById(msgIds[1]);
                     break;
                 case 2:
-                    mTvMainMessageMsg = badge.findViewById(msgIds[2]);
+                    mTvMainContactsMsg = badge.findViewById(msgIds[2]);
                     break;
                 case 3:
                     mTvMainDiscoverMsg = badge.findViewById(msgIds[3]);
@@ -500,7 +500,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
             finish();
             ActivityStackManager.getInstance().killAllActivity();
             UserComm.clearUserInfo();
-            LoginActivity.actionStart(this,"");
+            LoginActivity.actionStart(this, "");
             //刷新公告数量
         } else if (center.getEventCode() == EventUtil.UNREADCOUNT) {
             checkUnreadMsg();
