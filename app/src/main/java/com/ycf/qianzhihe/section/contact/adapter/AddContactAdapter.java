@@ -23,7 +23,7 @@ public class AddContactAdapter extends EaseBaseRecyclerViewAdapter<String> {
 
     @Override
     public ViewHolder getViewHolder(ViewGroup parent, int viewType) {
-        return new MyViewHolder(LayoutInflater.from(mContext).inflate(R.layout.demo_item_search_list, parent, false));
+        return new MyViewHolder(LayoutInflater.from(mContext).inflate(R.layout.item_search_list, parent, false));
     }
 
     @Override

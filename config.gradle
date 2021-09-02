@@ -93,6 +93,7 @@ ext {
             "PictureSelector"              : "com.github.LuckSiege.PictureSelector:picture_library:v2.2.3",//图片选择
             "swipereveallayout"            : "com.chauthai.swipereveallayout:swipe-reveal-layout:1.4.1",
 
+
     ]
 
     networkLibs = retrofit.values()
