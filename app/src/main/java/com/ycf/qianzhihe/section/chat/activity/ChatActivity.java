@@ -90,7 +90,8 @@ public class ChatActivity extends BaseInitActivity {
     @Override
     protected void initIntent(Intent intent) {
         super.initIntent(intent);
-        toChatUsername = intent.getStringExtra("userId");
+//        toChatUsername = intent.getStringExtra("userId");
+        toChatUsername = intent.getStringExtra(EaseConstant.EXTRA_USER_ID);
 
     }
 
@@ -124,15 +125,18 @@ public class ChatActivity extends BaseInitActivity {
 
     @Override
     protected void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        setIntent(intent);
+//        toChatUsername = intent.getStringExtra("userId");
+        toChatUsername = intent.getStringExtra(EaseConstant.EXTRA_USER_ID);
         // make sure only one chat activity is opened
-        String username = intent.getStringExtra("userId");
+       /* String username = intent.getStringExtra("userId");
         if (toChatUsername.equals(username)) {
-            super.onNewIntent(intent);
+
         } else {
             finish();
             startActivity(intent);
-        }
-
+        }*/
     }
 
     @Override

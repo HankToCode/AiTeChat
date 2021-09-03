@@ -606,7 +606,7 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                 if (!userId.contains(Constant.ID_REDPROJECT)) {//friendUserId
                     userId += Constant.ID_REDPROJECT;
                 }
-                ActivityStackManager.getInstance().killActivity(ChatActivity.class);
+//                ActivityStackManager.getInstance().killActivity(ChatActivity.class);
                 ChatActivity.actionStart(mContext, userId, EaseConstant.CHATTYPE_SINGLE);
                 finish();
                /* if (chatType == Constant.CHATTYPE_SINGLE) {

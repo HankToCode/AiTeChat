@@ -37,6 +37,15 @@ public class UserCodeMallListBean {
         private String money;//":0,//价格
         private String category;//":0,// 0：特价靓号，1：精选靓号，2：精选叠号
         private String soldOut;//":0//0 未售 ， 1 已售
+        private String codeId;//":
+
+        public String getCodeId() {
+            return codeId;
+        }
+
+        public void setCodeId(String codeId) {
+            this.codeId = codeId;
+        }
 
         public String getUserCode() {
             return userCode;
