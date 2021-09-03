@@ -84,9 +84,10 @@
                 android:paddingStart="3dp"
                 android:paddingTop="1dp"
                 android:paddingEnd="3dp"
+                android:background="@color/btn_blue_normal"
                 android:paddingBottom="1dp"
                 android:text="官方"
-                android:textColor="@color/color_53B0F7"
+                android:textColor="@color/white"
                 android:textSize="8dp"
                 app:stv_stroke_color="@color/color_53B0F7"
                 app:stv_stroke_width="0.5dp" />

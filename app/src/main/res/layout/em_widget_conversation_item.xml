@@ -50,7 +50,8 @@
                 android:textColor="@color/color_53B0F7"
                 android:textSize="8dp"
                 app:stv_stroke_color="@color/color_53B0F7"
-                app:stv_stroke_width="0.5dp" />
+                app:stv_stroke_width="0.5dp"
+                android:visibility="gone"/>
         </LinearLayout>
 
 
@@ -80,7 +81,8 @@
             app:layout_constraintEnd_toEndOf="@id/msg_date"
             app:layout_constraintTop_toBottomOf="@+id/msg_date"
             app:stv_corner="30dp"
-            app:stv_solid="@color/color_FF0000" />
+            app:stv_solid="@color/color_FF0000"
+            android:visibility="gone"/>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

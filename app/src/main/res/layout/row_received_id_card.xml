@@ -30,8 +30,8 @@
 
         <RelativeLayout
             android:id="@+id/bubble"
-            android:layout_width="@dimen/dp_192"
-            android:layout_height="@dimen/dp_67"
+            android:layout_width="@dimen/dp_240"
+            android:layout_height="@dimen/dp_87"
             android:layout_below="@+id/tv_userid"
             android:layout_marginLeft="@dimen/dp_5"
             android:layout_toRightOf="@+id/iv_userhead"
@@ -41,7 +41,7 @@
                 android:id="@+id/img_card_head"
                 android:layout_width="@dimen/dp_35"
                 android:layout_height="@dimen/dp_35"
-                android:layout_marginStart="10dp"
+                android:layout_marginStart="20dp"
                 android:layout_alignParentTop="true"
                 android:layout_marginTop="@dimen/dp_10"
                 android:layout_marginRight="@dimen/dp_10"
@@ -90,13 +90,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:layout_marginBottom="@dimen/dp_4"
+                android:layout_marginLeft="@dimen/dp_20"
+                android:layout_marginBottom="@dimen/dp_6"
                 android:maxLength="20"
                 android:maxLines="1"
                 android:text="名片"
                 android:textColor="@color/grey_2"
-                android:textSize="@dimen/sp_10" />
+                android:textSize="@dimen/sp_13" />
 
         </RelativeLayout>
 
