@@ -117,6 +117,7 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
         title_bar.setOnBackPressListener(view -> finish());
 
         mTvSendRed.setOnClickListener(view -> {
+            hideKeyboard();
             //发红包
             payPassword();
         });

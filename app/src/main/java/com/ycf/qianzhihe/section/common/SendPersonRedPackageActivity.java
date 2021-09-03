@@ -326,6 +326,7 @@ public class SendPersonRedPackageActivity extends BaseInitActivity {
      * 支付密码
      */
     private void payPassword() {
+        hideKeyboard();
         if (mEtRedAmount.getText().length() <= 0 || mEtRedAmount.getText().toString().equals("") || mEtRedAmount.getText().toString().equals("0.") || mEtRedAmount.getText().toString().equals("0.0")
                 || mEtRedAmount.getText().toString().equals("0.00")) {
             ToastUtil.toast("请填写正确的金额");

@@ -233,10 +233,10 @@
 
     <style name="chat_content_received_style">
         <item name="android:background">@drawable/bqp</item>
-        <item name="android:paddingStart">16dp</item>
-        <item name="android:paddingTop">12dp</item>
-        <item name="android:paddingEnd">16dp</item>
-        <item name="android:paddingBottom">12dp</item>
+        <item name="android:paddingStart">10dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingEnd">8dp</item>
+        <item name="android:paddingBottom">8dp</item>
         <item name="android:layout_marginStart">5dp</item>
         <item name="android:layout_marginEnd">5dp</item>
         <item name="android:layout_width">wrap_content</item>
@@ -246,10 +246,10 @@
 
     <style name="chat_content_sent_style">
         <item name="android:background">@drawable/ltian</item>
-        <item name="android:paddingStart">16dp</item>
-        <item name="android:paddingTop">12dp</item>
-        <item name="android:paddingEnd">16dp</item>
-        <item name="android:paddingBottom">12dp</item>
+        <item name="android:paddingStart">8dp</item>
+        <item name="android:paddingTop">8dp</item>
+        <item name="android:paddingEnd">10dp</item>
+        <item name="android:paddingBottom">8dp</item>
         <item name="android:layout_marginEnd">5dp</item>
         <item name="android:layout_marginStart">5dp</item>
         <item name="android:layout_width">wrap_content</item>

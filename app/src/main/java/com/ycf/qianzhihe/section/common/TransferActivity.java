@@ -171,6 +171,7 @@ public class TransferActivity extends BaseInitActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_transfer:
+                hideKeyboard();
                 //转账
                 PayPassword();
                 break;
