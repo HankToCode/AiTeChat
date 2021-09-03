@@ -268,8 +268,7 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
                 break;
             case R.id.tv_groups:
                 //靓号商城
-//                startActivity(new Intent(getActivity(), WebViewActivity.class).putExtra("title","千纸鹤商城").putExtra("url",AppConfig.shopUrl));
-
+                BeautifulMallActivity.actionStart(this);
                 break;
             case R.id.tv_switch_account:
 //                startActivity(new Intent(this, MultiDeviceActivity.class));

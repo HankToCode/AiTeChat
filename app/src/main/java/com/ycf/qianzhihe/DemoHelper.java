@@ -24,7 +24,9 @@ import com.hyphenate.chat.EMOptions;
 import com.hyphenate.chat.EMPushManager;
 import com.hyphenate.cloud.EMHttpClient;
 import com.hyphenate.easecallkit.base.EaseGetUserAccountCallback;
+import com.hyphenate.easecallkit.base.EaseUserAccount;
 import com.hyphenate.easecallkit.utils.EaseFileUtils;
+import com.ycf.qianzhihe.app.api.new_data.RtcTokenBean;
 import com.ycf.qianzhihe.app.api.old_data.GroupDetailInfo;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
 import com.ycf.qianzhihe.app.api.old_http.AppConfig;
@@ -75,8 +77,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
@@ -108,8 +112,9 @@ public class DemoHelper {
 
     private EaseCallKitListener callKitListener;
     private Context mianContext;
-//    private String tokenUrl = "http://a1-hsb.easemob.com/token/rtcToken";
-    private String tokenUrl = mainUrl + "app_user/getRtcToken";
+    private String uIdUrl = "http://a1.easemob.com/channel/mapper";
+    private String tokenUrl = "http://a1.easemob.com/token/rtcToken/v1";
+//    private String tokenUrl = mainUrl + "app_user/getRtcToken";
 
     private DemoHelper() {
     }
@@ -763,19 +768,19 @@ public class DemoHelper {
             public void onGenerateToken(String userId, String channelName, String appKey, EaseCallKitTokenCallback callback) {
                 EMLog.d(TAG, "onGenerateToken userId:" + userId + " channelName:" + channelName + " appKey:" + appKey);
                 String url = tokenUrl;
-                /*url += "?";
+                url += "?";
                 url += "userAccount=";
                 url += userId;
                 url += "&channelName=";
                 url += channelName;
                 url += "&appkey=";
-                url += appKey;*/
+                url += appKey;
 
                 //设置自己头像昵称
-                setEaseCallKitUserInfo(EMClient.getInstance().getCurrentUser());
+//                setEaseCallKitUserInfo(EMClient.getInstance().getCurrentUser());
                 //获取声网Token
-//                getRtcToken(url, callback);
-                getRTCToken(url, callback);
+                getRtcToken(url, callback);
+//                getRTCToken(url, callback);
 
             }
 
@@ -798,7 +803,24 @@ public class DemoHelper {
 
             @Override
             public void onRemoteUserJoinChannel(String channelName, String userName, int uid, EaseGetUserAccountCallback callback) {
-
+                if(userName == null || userName == ""){
+                    String url = uIdUrl;
+                    url += "?";
+                    url += "channelName=";
+                    url += channelName;
+                    url += "&userAccount=";
+                    url += EMClient.getInstance().getCurrentUser();
+                    url += "&appkey=";
+                    url +=  EMClient.getInstance().getOptions().getAppKey();
+                    getUserIdAgoraUid(uid,url,callback);
+                }else{
+                    //设置用户昵称 头像
+                    setEaseCallKitUserInfo(userName);
+                    EaseUserAccount account = new EaseUserAccount(uid,userName);
+                    List<EaseUserAccount> accounts = new ArrayList<>();
+                    accounts.add(account);
+                    callback.onUserAccount(accounts);
+                }
             }
         };
         EaseCallKit.getInstance().setCallKitListener(callKitListener);
@@ -810,8 +832,8 @@ public class DemoHelper {
         ApiClient.requestNetHandle(mianContext, url, "", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
-                String token= FastJsonUtil.getObject(json, String.class);
-                callback.onSetToken(token,0);
+                RtcTokenBean tokenBean= FastJsonUtil.getObject(json, RtcTokenBean.class);
+                callback.onSetToken(tokenBean.getToken(),0);
             }
 
             @Override
@@ -874,6 +896,67 @@ public class DemoHelper {
         }.execute(tokenUrl);
     }
 
+    /**
+     * 根据channelName和声网uId获取频道内所有人的UserId
+     * @param uId
+     * @param url
+     * @param callback
+     */
+    private void getUserIdAgoraUid(int uId, String url, EaseGetUserAccountCallback callback){
+        new AsyncTask<String, Void, Pair<Integer, String>>(){
+            @Override
+            protected Pair<Integer, String> doInBackground(String... str) {
+                try {
+                    Pair<Integer, String> response = EMHttpClient.getInstance().sendRequestWithToken(url, null,EMHttpClient.GET);
+                    return response;
+                }catch (HyphenateException exception) {
+                    exception.printStackTrace();
+                }
+                return  null;
+            }
+            @Override
+            protected void onPostExecute(Pair<Integer, String> response) {
+                if(response != null) {
+                    try {
+                        int resCode = response.first;
+                        if(resCode == 200){
+                            String responseInfo = response.second;
+                            List<EaseUserAccount> userAccounts = new ArrayList<>();
+                            if(responseInfo != null && responseInfo.length() > 0){
+                                try {
+                                    JSONObject object = new JSONObject(responseInfo);
+                                    JSONObject resToken = object.getJSONObject("result");
+                                    Iterator it = resToken.keys();
+                                    while(it.hasNext()) {
+                                        String uIdStr = it.next().toString();
+                                        int uid = 0;
+                                        uid = Integer.valueOf(uIdStr).intValue();
+                                        String username = resToken.optString(uIdStr);
+                                        if(uid == uId){
+                                            //获取到当前用户的userName 设置头像昵称等信息
+                                            setEaseCallKitUserInfo(username);
+                                        }
+                                        userAccounts.add(new EaseUserAccount(uid, username));
+                                    }
+                                    callback.onUserAccount(userAccounts);
+                                }catch (Exception e){
+                                    e.getStackTrace();
+                                }
+                            }else{
+                                callback.onSetUserAccountError(response.first,response.second);
+                            }
+                        }else{
+                            callback.onSetUserAccountError(response.first,response.second);
+                        }
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+                }else{
+                    callback.onSetUserAccountError(100,"response is null");
+                }
+            }
+        }.execute(url);
+    }
     /**
      * 设置callKit 用户头像昵称
      *

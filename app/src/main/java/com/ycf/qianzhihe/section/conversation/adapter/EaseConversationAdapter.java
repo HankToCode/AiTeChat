@@ -214,7 +214,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             }
 
 //            holder.ImgMsgFree.setVisibility(View.GONE);
-            if (username.equals(Constant.ADMIN)) {
+            if (username.equals(Constant.ADMIN)) {//778899445566112233-qianzhihe
                 holder.swipeRevealLayout.setLockDrag(true);
                 holder.name.setText("千纸鹤小助手");//千纸鹤官方
                 holder.iv_aite_guanfang.setVisibility(View.VISIBLE);

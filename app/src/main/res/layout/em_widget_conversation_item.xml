@@ -21,18 +21,39 @@
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-
-        <TextView
-            android:id="@+id/name"
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_weight="1"
-            android:text="新朋友"
-            android:textColor="@color/color_171C20"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/avatar"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginStart="20dp">
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="新朋友"
+                android:textColor="@color/color_171C20" />
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/iv_aite_guanfang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:paddingStart="3dp"
+                android:paddingTop="1dp"
+                android:paddingEnd="3dp"
+                android:paddingBottom="1dp"
+                android:text="官方"
+                android:textColor="@color/color_53B0F7"
+                android:textSize="8dp"
+                app:stv_stroke_color="@color/color_53B0F7"
+                app:stv_stroke_width="0.5dp" />
+        </LinearLayout>
+
+
 
         <TextView
             android:id="@+id/msg_date"

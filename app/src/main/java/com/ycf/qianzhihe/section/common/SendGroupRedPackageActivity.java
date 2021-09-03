@@ -341,7 +341,7 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
                         "恭喜发财，大吉大利！" : etRemark.getText().toString().trim();
         map.put("remark", remark);
 
-        ApiClient.requestNetHandle(this, AppConfig.CREATE_RED_PACKE, "", map, new ResultListener() {
+        ApiClient.requestNetHandle(this, AppConfig.CREATE_RED_PACKE, "发送中...", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
 //                if (isSelectBalance) {
@@ -594,8 +594,8 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
         mPasswordEditText.setOnPasswordFullListener(new PasswordEditText.PasswordFullListener() {
             @Override
             public void passwordFull(String password) {
-                sendRedPacket(password);
                 builder.dismiss();
+                sendRedPacket(password);
             }
         });
 

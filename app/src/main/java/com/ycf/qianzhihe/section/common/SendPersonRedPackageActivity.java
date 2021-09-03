@@ -175,7 +175,7 @@ public class SendPersonRedPackageActivity extends BaseInitActivity {
                         "恭喜发财，大吉大利！" : mEtRemark.getText().toString().trim();
         map.put("remark", remark);
 
-        ApiClient.requestNetHandle(this, AppConfig.CREATE_PERSON_RED_PACKE, "" , map, new ResultListener() {
+        ApiClient.requestNetHandle(this, AppConfig.CREATE_PERSON_RED_PACKE, "发送中..." , map, new ResultListener() {
                     @Override
                     public void onSuccess(String json, String msg) {
                         Intent intent = new Intent();

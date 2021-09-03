@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.hyphenate.easeui.widget.EaseTitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/em_common_title_bar_height"
+        android:background="@color/white"
+        app:titleBarDisplayHomeAsUpEnabled="true"
+        app:titleBarLeftImage="@drawable/ic_back"
+        app:titleBarTitle="靓号详情" />
+
+    <LinearLayout
+        android:id="@+id/ll_top"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginRight="@dimen/dp_15"
+        android:background="@drawable/shap_white"
+        android:padding="@dimen/dp_15"
+        android:orientation="vertical">
+        <ImageView
+            android:id="@+id/tv_lh"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/icon_lh"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tv_user_code"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="6666666"
+            android:drawableLeft="@mipmap/icon_lh"
+            android:gravity="center"
+            android:drawablePadding="@dimen/dp_5"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="@dimen/dp_30"
+            android:textColor="@color/black"
+            android:textSize="30sp" />
+        <TextView
+            android:id="@+id/tv_money"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="¥0"
+            android:layout_marginTop="@dimen/dp_30"
+            android:textColor="#2B2929"
+            android:textSize="@dimen/sp_30" />
+        <TextView
+            android:id="@+id/tv_my_money_hint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_27"
+            android:layout_marginTop="@dimen/dp_10"
+            android:layout_marginBottom="@dimen/dp_11"
+            android:textColor="#9D9D9D"
+            android:textSize="@dimen/sp_12"
+            android:text="说明：靓号属于平台特有资源，用户购买后可享受永久使用权，平台有权进行管理和处置" />
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/tv_pay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_30"
+            android:layout_marginBottom="@dimen/dp_30"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="立即购买 永久尊享权益"
+            android:textColor="#985418"
+            android:layout_gravity="center"
+            app:stv_corner="20dp"
+            app:stv_shaderEnable="true"
+            app:stv_shaderEndColor="#CA9221"
+            app:stv_shaderStartColor="#F9D572"
+            app:stv_textShaderMode="leftToRight" />
+
+    </LinearLayout>
+
+
+</LinearLayout>

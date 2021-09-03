@@ -129,18 +129,15 @@ public class TransferActivity extends BaseInitActivity {
         map.put("remark", mEtRemark.getText().toString());
         map.put("userId", emChatId.contains(Constant.ID_REDPROJECT) ?
                 emChatId.split("-")[0] : emChatId);
-        ApiClient.requestNetHandle(this, AppConfig.transfer, "", map,
+        ApiClient.requestNetHandle(this, AppConfig.transfer, "发送中...", map,
                 new ResultListener() {
                     @Override
                     public void onSuccess(String json, String msg) {
                         //发送名片
                         Intent intent = new Intent();
-                        intent.putExtra("money",
-                                mEtMoney.getText().toString().trim());
-                        intent.putExtra("remark",
-                                mEtRemark.getText().toString().trim());
-                        intent.putExtra("turnId",
-                                json);
+                        intent.putExtra("money", mEtMoney.getText().toString().trim());
+                        intent.putExtra("remark", mEtRemark.getText().toString().trim());
+                        intent.putExtra("turnId", json);
                         setResult(Activity.RESULT_OK, intent);
                         ToastUtil.toast("转账成功");
                         finish();

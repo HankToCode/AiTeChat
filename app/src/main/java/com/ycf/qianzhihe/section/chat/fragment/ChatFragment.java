@@ -465,8 +465,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                     String serialNumber = data.getStringExtra("serialNumber");
                     String requestId = data.getStringExtra("requestId");
 
-                    EMMessage message = EMMessage.createTxtSendMessage("转账",
-                            emChatId);
+                    EMMessage message = EMMessage.createTxtSendMessage("转账", emChatId);
                     message.setAttribute(Constant.TURN, true);
                     message.setAttribute("money", money);
                     message.setAttribute("remark", remark);
@@ -801,7 +800,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
 //                startVideoCall();
                 break;
             case ITEM_VIDEO_CALL:
-                startVideoCall(UserOperateManager.getInstance().getUserName(emChatId));
+                startVideoCall(emChatId);
                 break;
             case ITEM_CONTACT_GROUP_OWER:
 

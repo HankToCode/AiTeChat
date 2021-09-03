@@ -1101,7 +1101,12 @@ public class AppConfig {
     public static String selectFriendCategory = mainUrl + "app_user_friend/selectFriendCategory";
     //保存好友分组
     public static String saveFriendCategory = mainUrl + "app_user_friend/saveFriendCategory";
+    //修改好友分组
     public static String modifyFriendCategory = mainUrl + "app_user_friend/modifyFriendCategory";
+    //靓号商城首页
+    public static String getUserCodeMallList = mainUrl + "app_user_code_mall/getUserCodeMallList";
+    //靓号购买
+    public static String saveUserCodeMall = mainUrl + "app_user_code_mall/saveUserCodeMall";
 
 
 

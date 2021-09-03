@@ -59,8 +59,9 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_20"
             android:layout_marginRight="@dimen/dp_20"
-            android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/time"
+            android:layout_marginTop="@dimen/dp_6"
+            android:layout_alignTop="@id/avatar"
             android:layout_toRightOf="@id/avatar"
             android:gravity="center_vertical"
             android:orientation="horizontal">
