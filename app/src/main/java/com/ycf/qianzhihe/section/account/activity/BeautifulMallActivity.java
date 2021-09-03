@@ -67,19 +67,19 @@ public class BeautifulMallActivity extends BaseInitActivity {
         gv_gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                BeautifulMallDetailActivity.actionStart(mContext, tjDatas.get(i).getMoney(), tjDatas.get(i).getUserCode(), tjDatas.get(i).getCategory());
+                BeautifulMallDetailActivity.actionStart(mContext, tjDatas.get(i).getMoney(), tjDatas.get(i).getUserCode(), tjDatas.get(i).getCodeId());
             }
         });
         gv_gridview2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                BeautifulMallDetailActivity.actionStart(mContext, tjDatas.get(i).getMoney(), tjDatas.get(i).getUserCode(), tjDatas.get(i).getCategory());
+                BeautifulMallDetailActivity.actionStart(mContext, jxDatas.get(i).getMoney(), jxDatas.get(i).getUserCode(), jxDatas.get(i).getCodeId());
             }
         });
         gv_gridview3.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                BeautifulMallDetailActivity.actionStart(mContext, tjDatas.get(i).getMoney(), tjDatas.get(i).getUserCode(), tjDatas.get(i).getCategory());
+                BeautifulMallDetailActivity.actionStart(mContext, dhDatas.get(i).getMoney(), dhDatas.get(i).getUserCode(), dhDatas.get(i).getCodeId());
             }
         });
     }
