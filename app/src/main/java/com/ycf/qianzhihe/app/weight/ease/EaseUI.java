@@ -177,12 +177,13 @@ public final class EaseUI {
             public void onMessageChanged(EMMessage message, Object change) {
 
             }
-//            msg{from:e49e078df19b11ea909d506b4bbe21ec, to:53b54a96e39711ea909d506b4bbe21ec-liaoqu body:cmd:"action_apply_add_friend"
+
+            //            msg{from:e49e078df19b11ea909d506b4bbe21ec, to:53b54a96e39711ea909d506b4bbe21ec-liaoqu body:cmd:"action_apply_add_friend"
             @Override
             public void onCmdMessageReceived(List<EMMessage> messages) {
                 for (EMMessage emMessage : messages) {
                     if (emMessage.getStringAttribute(Constant.MSGTYPE, "").equals(Constant.REDPACKET)) {
-                        String currentUser = UserComm.getUserInfo().getUserId() +Constant.ID_REDPROJECT;
+                        String currentUser = UserComm.getUserInfo().getUserId() + Constant.ID_REDPROJECT;
                         if (currentUser.contains(emMessage.getFrom())) {
                         } else {
                             continue;
@@ -201,59 +202,62 @@ public final class EaseUI {
                     if (action.contains(Constant.ACTION_ALONE_REDPACKET)) {
                         continue;
                     }
-                    if (action.equals(Constant.ACTION_RAB)){
+                    if (action.equals(Constant.ACTION_RAB)) {
                         continue;
                     }
-                    if (action.equals(Constant.ACTION_RAB_SELF)){
+                    if (action.equals(Constant.ACTION_RAB_SELF)) {
                         continue;
                     }
 
                     EaseCommonUtils.initMessage(emMessage);
-                    EMMessage msg = EMMessage.createTxtSendMessage(emMessage.getStringAttribute("message",""), emMessage.getTo());
-                    msg.setChatType(EMMessage.ChatType.GroupChat);
-                    msg.setFrom(emMessage.getFrom());
-                    msg.setTo(emMessage.getTo());
-                    msg.setMsgId(emMessage.getMsgId());
-                    msg.setMsgTime(emMessage.getMsgTime());
+                    EMMessage msg = EMMessage.createTxtSendMessage(emMessage.getStringAttribute("message", ""), emMessage.getTo());
+                    if (msg != null) {
 
-                    if (emMessage.getFrom().equals(UserComm.getUserId())) {
+                        msg.setChatType(EMMessage.ChatType.GroupChat);
+                        msg.setFrom(emMessage.getFrom());
+                        msg.setTo(emMessage.getTo());
+                        msg.setMsgId(emMessage.getMsgId());
+                        msg.setMsgTime(emMessage.getMsgTime());
 
-                        msg.setDirection(EMMessage.Direct.SEND);
-                    } else {
-                        msg.setDirection(EMMessage.Direct.RECEIVE);
-                    }
-                    msg.setUnread(false);
-                    msg.setAttribute("cmd",true);
-                    for (String key : emMessage.ext().keySet()) {
-                        if (emMessage.ext().get(key) instanceof Integer) {
-                            try {
-                                msg.setAttribute(key, (Integer) emMessage.ext().get(key));
-                            } catch (Exception e) {
-                            }
-                        } else if (emMessage.ext().get(key) instanceof String) {
-                            try {
-                                msg.setAttribute(key, emMessage.ext().get(key).toString());
-                            } catch (Exception e) {
-                            }
-                        } else if (emMessage.ext().get(key) instanceof Boolean) {
-                            try {
-                                msg.setAttribute(key, emMessage.ext().get(key).toString());
-                            } catch (Exception e) {
-                            }
-                        } else if (emMessage.ext().get(key) instanceof Boolean) {
-                            try {
-                                msg.setAttribute(key, (Boolean) emMessage.ext().get(key));
-                            } catch (Exception e) {
-                            }
-                        } else if (emMessage.ext().get(key) instanceof Long) {
-                            try {
-                                msg.setAttribute(key, (Long) emMessage.ext().get(key));
-                            } catch (Exception e) {
+                        if (emMessage.getFrom().equals(UserComm.getUserId())) {
+
+                            msg.setDirection(EMMessage.Direct.SEND);
+                        } else {
+                            msg.setDirection(EMMessage.Direct.RECEIVE);
+                        }
+                        msg.setUnread(false);
+                        msg.setAttribute("cmd", true);
+                        for (String key : emMessage.ext().keySet()) {
+                            if (emMessage.ext().get(key) instanceof Integer) {
+                                try {
+                                    msg.setAttribute(key, (Integer) emMessage.ext().get(key));
+                                } catch (Exception e) {
+                                }
+                            } else if (emMessage.ext().get(key) instanceof String) {
+                                try {
+                                    msg.setAttribute(key, emMessage.ext().get(key).toString());
+                                } catch (Exception e) {
+                                }
+                            } else if (emMessage.ext().get(key) instanceof Boolean) {
+                                try {
+                                    msg.setAttribute(key, emMessage.ext().get(key).toString());
+                                } catch (Exception e) {
+                                }
+                            } else if (emMessage.ext().get(key) instanceof Boolean) {
+                                try {
+                                    msg.setAttribute(key, (Boolean) emMessage.ext().get(key));
+                                } catch (Exception e) {
+                                }
+                            } else if (emMessage.ext().get(key) instanceof Long) {
+                                try {
+                                    msg.setAttribute(key, (Long) emMessage.ext().get(key));
+                                } catch (Exception e) {
+                                }
                             }
                         }
+                        //保存消息
+                        EMClient.getInstance().chatManager().saveMessage(msg);
                     }
-                    //保存消息
-                    EMClient.getInstance().chatManager().saveMessage(msg);
                 }
             }
         });

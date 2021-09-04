@@ -186,6 +186,9 @@ dependencies {
         exclude group: 'com.github.bumptech.glide'
     })
 
+    //声网SDK
+    implementation 'io.agora.rtc:full-sdk:3.5.0'
+
     //--- 旧Lib ---
     implementation project(':AndroidBase')
 
