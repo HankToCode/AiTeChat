@@ -1,6 +1,7 @@
 package com.ycf.qianzhihe.section.contact.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -102,10 +103,22 @@ public class ContactGroupingAdapter extends BaseExpandableListAdapter {
         ImageView iv_online_status = (ImageView)convertView.findViewById(R.id.iv_online_status);
         RelativeLayout rl_item = (RelativeLayout)convertView.findViewById(R.id.rl_item);
         CheckBox ck_contact = (CheckBox)convertView.findViewById(R.id.ck_contact);
+        TextView tv_sign = convertView.findViewById(R.id.tv_sign);
         ck_contact.setChecked(false);
         tv_name.setText(child.getNickName());
         ImageUtil.setAvatar((EaseImageView) avatar);
         GlideUtils.loadImageViewLoding(child.getFriendUserHead(), avatar,R.mipmap.img_default_avatar);
+        if (!TextUtils.isEmpty(child.getUserSign())) {
+            tv_sign.setText(child.getUserSign());
+        } else {
+            tv_sign.setText("这家伙很懒,什么都没有留下,心里却有一个你");
+        }
+        //是否为会员vipLevel
+        if (!TextUtils.isEmpty(child.getVipLevel())) {
+            tv_name.setTextColor(Color.parseColor("#ffff0000"));
+        } else {
+            tv_name.setTextColor(Color.parseColor("#000000"));
+        }
         //是否在线
         /*if (!TextUtils.isEmpty(child.getLine())) {
             if (child.getLine().equals("online")) {
