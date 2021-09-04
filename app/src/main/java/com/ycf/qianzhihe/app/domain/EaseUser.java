@@ -25,8 +25,27 @@ public class EaseUser extends com.hyphenate.easeui.domain.EaseUser {
     private String account;
     private String password;
     private String line;
+    private String vipLevel;
+    private String userSign;
 
     private String type;
+
+
+    public String getUserSign() {
+        return userSign;
+    }
+
+    public void setUserSign(String userSign) {
+        this.userSign = userSign;
+    }
+
+    public String getVipLevel() {
+        return vipLevel;
+    }
+
+    public void setVipLevel(String vipLevel) {
+        this.vipLevel = vipLevel;
+    }
 
     public String getLine() {
         return line;

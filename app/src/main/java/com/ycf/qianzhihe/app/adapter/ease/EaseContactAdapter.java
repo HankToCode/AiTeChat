@@ -1,6 +1,7 @@
 package com.ycf.qianzhihe.app.adapter.ease;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.Log;
@@ -53,6 +54,7 @@ public class EaseContactAdapter extends ArrayAdapter<EaseUser> implements Sectio
     private static class ViewHolder {
         ImageView avatar;
         TextView nameView;
+        TextView tv_sign;
         TextView headerView;
         ImageView onlineStatus;
     }
@@ -69,6 +71,7 @@ public class EaseContactAdapter extends ArrayAdapter<EaseUser> implements Sectio
             }
             holder.avatar = (ImageView) convertView.findViewById(R.id.avatar);
             holder.nameView = (TextView) convertView.findViewById(R.id.name);
+            holder.tv_sign = (TextView) convertView.findViewById(R.id.tv_sign);
             holder.headerView = (TextView) convertView.findViewById(R.id.header);
             holder.onlineStatus=(ImageView) convertView.findViewById(R.id.iv_online_status);
             convertView.setTag(holder);
@@ -105,6 +108,17 @@ public class EaseContactAdapter extends ArrayAdapter<EaseUser> implements Sectio
         }
 
         holder.nameView.setText(UserOperateManager.getInstance().getUserName(username));
+        if (!TextUtils.isEmpty(user.getUserSign())) {
+            holder.tv_sign.setText(user.getUserSign());
+        } else {
+            holder.tv_sign.setText("这家伙很懒,什么都没有留下,心里却有一个你");
+        }
+        //是否为会员vipLevel
+        if (!TextUtils.isEmpty(user.getVipLevel())) {
+            holder.nameView.setTextColor(Color.parseColor("#ffff0000"));
+        } else {
+            holder.nameView.setTextColor(Color.parseColor("#000000"));
+        }
 
         ImageUtil.setAvatar((EaseImageView) holder.avatar);
         GlideUtils.loadImageViewLoding(UserOperateManager.getInstance().getUserAvatar(username), holder.avatar, R.mipmap.img_default_avatar);

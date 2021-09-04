@@ -243,6 +243,8 @@ public class EaseContactListFragment extends BaseInitFragment {
             user.setNickname(bean.getFriendNickName());
             user.setAvatar(bean.getFriendUserHead());
             user.setLine(bean.getLine());//在线状态
+            user.setUserSign(bean.getUserSign());
+            user.setVipLevel(bean.getVipLevel());
             EaseCommonUtils.setUserInitialLetter(user);
             if (bean.getBlackStatus().equals("0")) {
                 contactList.add(user);

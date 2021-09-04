@@ -41,6 +41,24 @@ public class ContactListInfo implements Serializable {
         private String line;
         private String categoryId;//":"f1fe5602064911ecab930c42a1a8807a",
         private String categoryName;//":"哈哈"
+        private String vipLevel;
+        private String userSign;
+
+        public String getVipLevel() {
+            return vipLevel;
+        }
+
+        public void setVipLevel(String vipLevel) {
+            this.vipLevel = vipLevel;
+        }
+
+        public String getUserSign() {
+            return userSign;
+        }
+
+        public void setUserSign(String userSign) {
+            this.userSign = userSign;
+        }
 
         public String getCategoryId() {
             return categoryId;
