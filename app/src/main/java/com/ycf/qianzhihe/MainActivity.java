@@ -36,6 +36,7 @@ import com.ycf.qianzhihe.app.api.old_data.MyGroupInfoList;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.operate.GroupOperateManager;
+import com.ycf.qianzhihe.section.contact.activity.AddUserActivity;
 import com.ycf.qianzhihe.section.discover.NewsFragment;
 import com.zds.base.ImageLoad.GlideUtils;
 import com.zds.base.Toast.ToastUtil;
@@ -140,7 +141,8 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
             @Override
             public void onClick(View view) {
                 if (mTitleBar.getTitle().getText().equals("联系人")) {
-                    AddContactActivity.actionStart(mContext, SearchType.CHAT);//搜索>添加好友
+//                    AddContactActivity.actionStart(mContext, SearchType.CHAT);//搜索>添加好友
+                    AddUserActivity.actionStart(mContext);
                 } else if (mTitleBar.getTitle().getText().equals("消息")) {
                     showPopWinShare(mTitleBar.getRightImage());
                 }
@@ -472,7 +474,8 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.iv_add:
-                AddContactActivity.actionStart(mContext, SearchType.CHAT);//搜索>添加好友
+//                AddContactActivity.actionStart(mContext, SearchType.CHAT);//搜索>添加好友
+                AddUserActivity.actionStart(mContext);
                 break;
             case R.id.iv_search:
                 SearchConversationActivity.actionStart(mContext);
@@ -542,7 +545,8 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
                                 startActivityForResult(intent, REQUEST_CODE);
                             }//添加好友
                             else if (v.getId() == R.id.layout_add_firend) {
-                                AddContactActivity.actionStart(mContext, SearchType.CHAT);
+//                                AddContactActivity.actionStart(mContext, SearchType.CHAT);
+                                AddUserActivity.actionStart(mContext);
                             } else if (v.getId() == R.id.layout_group) {
                                 ContactActivity.actionStart(MainActivity.this, "1", null, null);
                             } else if (v.getId() == R.id.layout_my_qr) {
