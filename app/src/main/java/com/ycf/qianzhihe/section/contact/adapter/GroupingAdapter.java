@@ -1,6 +1,7 @@
 package com.ycf.qianzhihe.section.contact.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -91,6 +92,7 @@ public class GroupingAdapter extends BaseExpandableListAdapter {
         TextView tv_name = (TextView)convertView.findViewById(R.id.tv_name);
         EaseImageView avatar = (EaseImageView)convertView.findViewById(R.id.avatar);
         ImageView iv_online_status = (ImageView)convertView.findViewById(R.id.iv_online_status);
+        TextView tv_sign = convertView.findViewById(R.id.tv_sign);
 
         tv_name.setText(child.getNickName());
         ImageUtil.setAvatar((EaseImageView) avatar);
@@ -105,6 +107,18 @@ public class GroupingAdapter extends BaseExpandableListAdapter {
         } else {
             iv_online_status.setBackgroundResource(R.drawable.dot_gray);
         }
+        if (!TextUtils.isEmpty(child.getUserSign())) {
+            tv_sign.setText(child.getUserSign());
+        } else {
+            tv_sign.setText("这家伙很懒,什么都没有留下,心里却有一个你");
+        }
+        //是否为会员vipLevel
+        if (!TextUtils.isEmpty(child.getVipLevel())) {
+            tv_name.setTextColor(Color.parseColor("#ffff0000"));
+        } else {
+            tv_name.setTextColor(Color.parseColor("#000000"));
+        }
+
         /*tv_name.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

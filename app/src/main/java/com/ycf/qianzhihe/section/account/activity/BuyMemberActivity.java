@@ -21,6 +21,7 @@ import com.ycf.qianzhihe.app.api.new_data.VipBean;
 import com.ycf.qianzhihe.app.api.old_data.LoginInfo;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
 import com.ycf.qianzhihe.app.api.old_http.AppConfig;
+import com.ycf.qianzhihe.app.api.old_http.CommonApi;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
 import com.ycf.qianzhihe.app.weight.ChooseMemberLayout;
@@ -282,6 +283,7 @@ public class BuyMemberActivity extends BaseInitActivity implements View.OnClickL
 //                    payDialog.setSucc();
                     System.out.println("###会员返回=" + json.toString());
                     ToastUtils.showToast("购买成功");
+                    CommonApi.upUserInfo(mContext);//刷新用户数据
                     finish();
                 }
             }

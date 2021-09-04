@@ -95,7 +95,7 @@ public class ContactGroupingAdapter extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         final ContactListInfo.DataBean child = mItemList.get(groupPosition).get(childPosition);
         if (convertView == null){
-            convertView = mInflater.inflate(R.layout.item_grouping_child,parent,false);
+            convertView = mInflater.inflate(R.layout.item_contact_grouping,parent,false);
         }
         TextView tv_name = (TextView)convertView.findViewById(R.id.tv_name);
         EaseImageView avatar = (EaseImageView)convertView.findViewById(R.id.avatar);
