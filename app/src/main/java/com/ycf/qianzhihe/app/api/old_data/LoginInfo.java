@@ -59,6 +59,15 @@ public class LoginInfo implements Serializable {
     private String vipLevel;
     private String openid;
     private String userLevel;
+    private String line;
+
+    public String getLine() {
+        return line;
+    }
+
+    public void setLine(String line) {
+        this.line = line;
+    }
 
     public int getSex() {
         return sex;

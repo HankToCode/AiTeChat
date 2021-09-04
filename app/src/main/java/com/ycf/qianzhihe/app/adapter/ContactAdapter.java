@@ -1,5 +1,6 @@
 package com.ycf.qianzhihe.app.adapter;
 
+import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.CheckBox;
@@ -55,6 +56,12 @@ public class ContactAdapter extends BaseQuickAdapter<ContactListInfo.DataBean, B
         helper.setText(R.id.tv_name, item.getFriendNickName());
         GlideUtils.GlideLoadCircleErrorImageUtils(mContext, item.getFriendUserHead(), helper.getView(R.id.img_group), R.mipmap.img_default_avatar);
 
+        //是否为会员vipLevel
+        if (!TextUtils.isEmpty(item.getVipLevel())) {
+            helper.setTextColor(R.id.tv_name,Color.parseColor("#ffff0000"));
+        } else {
+            helper.setTextColor(R.id.tv_name,Color.parseColor("#000000"));
+        }
 
         Glide.with(mContext).load(item.getFriendUserHead()).into((ImageView) helper.getView(R.id.img_group));
 
