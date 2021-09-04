@@ -97,6 +97,7 @@ public class EaseChatMessageList extends RelativeLayout {
         if (messageAdapter != null) {
             messageAdapter.refresh();
         }
+
     }
 
     /**

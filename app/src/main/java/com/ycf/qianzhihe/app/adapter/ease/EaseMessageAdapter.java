@@ -273,7 +273,7 @@ public class EaseMessageAdapter extends BaseAdapter {
                     presenter = new EaseChatBigExpressionPresenter();
                 } else if (message.getBooleanAttribute(Constant.SEND_CARD, false)) {
                     presenter = new ChatidCardPresenter();
-                }  else if (message.getBooleanAttribute(Constant.TURN, false)) {
+                } else if (message.getBooleanAttribute(Constant.TURN, false)) {
                     presenter = new ChatRedPacketturnPresenter();
                 } else {
                     presenter = new EaseChatTextPresenter();
@@ -371,4 +371,19 @@ public class EaseMessageAdapter extends BaseAdapter {
         return otherBuddleBg;
     }
 
+    @Override
+    public void notifyDataSetChanged() {
+        super.notifyDataSetChanged();
+        if (listView != null) {
+            listView.setSelection(listView.getBottom());
+        }
+    }
+
+    @Override
+    public void notifyDataSetInvalidated() {
+        super.notifyDataSetInvalidated();
+        if (listView != null) {
+            listView.setSelection(listView.getBottom());
+        }
+    }
 }
