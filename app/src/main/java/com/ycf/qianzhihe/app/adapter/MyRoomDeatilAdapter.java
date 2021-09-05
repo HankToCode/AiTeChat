@@ -1,6 +1,7 @@
 package com.ycf.qianzhihe.app.adapter;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
@@ -124,6 +125,12 @@ public class MyRoomDeatilAdapter extends BaseQuickAdapter<GroupDetailInfo.GroupU
                 helper.setText(R.id.tv_name, userInfo.getNickname());
             }
 
+            //是否为会员vipLevel
+            if (!TextUtils.isEmpty(item.getVipLevel())) {
+                helper.setTextColor(R.id.tv_name, Color.parseColor("#ffff0000"));
+            } else {
+                helper.setTextColor(R.id.tv_name,Color.parseColor("#000000"));
+            }
 
 //            GlideUtils.GlideLoadCircleErrorImageUtils(mContext, AppConfig.checkimg(item.getUserHead()), (EaseImageView) helper.getView(R.id.iv_avatar), R.mipmap.img_default_avatar);
             GlideUtils.loadImageViewLoding(mContext, AppConfig.checkimg(item.getUserHead()), (EaseImageView)helper.getView(R.id.iv_avatar), R.mipmap.img_default_avatar, R.mipmap.img_default_avatar);

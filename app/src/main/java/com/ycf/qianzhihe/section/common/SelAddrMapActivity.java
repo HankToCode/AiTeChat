@@ -40,6 +40,7 @@ import com.amap.api.services.geocoder.RegeocodeQuery;
 import com.amap.api.services.geocoder.RegeocodeResult;
 import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
+import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.adapter.AddressAdapter;
 import com.ycf.qianzhihe.app.api.Constant;
@@ -77,10 +78,9 @@ public class SelAddrMapActivity extends BaseInitActivity implements LocationSour
 
     @BindView(R.id.map)
     MapView mapView;
-    @BindView(R.id.toolbar_title)
-    TextView mToolbarTitle;
-    @BindView(R.id.toolbar_subtitle)
-    TextView mToolbarSubtitle;
+    @BindView(R.id.title_bar)
+    EaseTitleBar title_bar;
+
     @BindView(R.id.rv_recycler)
     RecyclerView mRecyclerCard;
     private AMap aMap;
@@ -111,8 +111,22 @@ public class SelAddrMapActivity extends BaseInitActivity implements LocationSour
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        mToolbarTitle.setText("位置选择");
-        mToolbarSubtitle.setText("确定");
+        title_bar.setTitle("位置选择");
+        title_bar.setOnBackPressListener(view -> finish());
+        title_bar.setRightTitle("确定");
+        title_bar.setOnRightClickListener(new EaseTitleBar.OnRightClickListener() {
+            @Override
+            public void onRightClick(View view) {
+                showLoading("正在发送");
+                ThreadPoolManager.getInstance().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        aMapScreenShot();
+                    }
+                });
+            }
+        });
+
 
         // 此方法必须重写
         init(savedInstanceState);
@@ -268,19 +282,9 @@ public class SelAddrMapActivity extends BaseInitActivity implements LocationSour
     }
 
 
-    @OnClick({R.id.toolbar_subtitle, R.id.map})
+    @OnClick({R.id.map})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.toolbar_subtitle:
-                showLoading("正在发送");
-                ThreadPoolManager.getInstance().execute(new Runnable() {
-                    @Override
-                    public void run() {
-                        aMapScreenShot();
-                    }
-                });
-
-                break;
             case R.id.map:
                 break;
             default:

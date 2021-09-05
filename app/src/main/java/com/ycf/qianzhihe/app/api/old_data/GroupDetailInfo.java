@@ -164,6 +164,15 @@ public class GroupDetailInfo implements Serializable {
         private String sayStatus;
         private String friendNickName;
         private String nickName;
+        private String vipLevel;
+
+        public String getVipLevel() {
+            return vipLevel;
+        }
+
+        public void setVipLevel(String vipLevel) {
+            this.vipLevel = vipLevel;
+        }
 
         public String getFriendNickName() {
             return friendNickName;
