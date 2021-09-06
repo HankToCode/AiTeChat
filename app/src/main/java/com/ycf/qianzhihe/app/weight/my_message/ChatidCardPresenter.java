@@ -46,7 +46,7 @@ public class ChatidCardPresenter extends EaseChatRowPresenter {
             Global.addUserOriginType = Constant.ADD_USER_ORIGIN_TYPE_RECOMMEND;
             Global.addUserOriginName = message.getStringAttribute(Constant.NICKNAME,"");
             Global.addUserOriginId   = ProjectUtil.transformId(message.getFrom());
-            getContext().startActivity(new Intent(getContext(), UserInfoDetailActivity.class).putExtra("friendUserId", friendUserId).putExtra("from", "1"));
+            getContext().startActivity(new Intent(getContext(), UserInfoDetailActivity.class).putExtra("friendUserId", friendUserId).putExtra("chatType", message.getChatType()));
 
         }
     }

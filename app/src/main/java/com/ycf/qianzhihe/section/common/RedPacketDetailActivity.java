@@ -187,10 +187,10 @@ public class RedPacketDetailActivity extends BaseInitActivity {
                         tv_money.setText(StringUtil.getFormatValue2(redPacketInfo.getMoney()));
 //                        tv_money.setText("￥" + redPacketInfo.getMoney());
                         if (redPacketInfo.getPacketAmount() > 0) {
-                            List<RedPacketInfo.RedPacketDetailListBean> list = redPacketInfo.getRedPacketDetailList();
-                            for (int i = 0; i < list.size(); i++) {
-                                if (list.get(i).getUserId().equals(UserComm.getUserInfo().getUserId())) {
-                                    tv_money.setText(StringUtil.getFormatValue2(list.get(i).getMoney()));
+//                            List<RedPacketInfo.RedPacketDetailListBean> list = redPacketInfo.getRedPacketDetailList();
+                            for (int i = 0; i < redPacketInfo.getRedPacketDetailList().size(); i++) {
+                                if (redPacketInfo.getRedPacketDetailList().get(i).getUserId().equals(UserComm.getUserInfo().getUserId())) {
+                                    tv_money.setText(StringUtil.getFormatValue2(redPacketInfo.getRedPacketDetailList().get(i).getMoney()));
                                     break;
                                 }
                             }
@@ -199,18 +199,9 @@ public class RedPacketDetailActivity extends BaseInitActivity {
 
                     if (redPacketInfo.getRedPacketDetailList() != null && redPacketInfo.getRedPacketDetailList().size() > 0) {
                         mList.addAll(redPacketInfo.getRedPacketDetailList());
-                        /**
-                         * 已领数量
-                         */
-                        int ylSize = mList.size();
-                        /**
-                         * 总数量
-                         */
-                        int allSize = redPacketInfo.getPacketAmount();
-
+                        int ylSize = mList.size();//已领数量
+                        int allSize = redPacketInfo.getPacketAmount();//总数量
                         mAdapter.setIsfirsh(false);
-
-
                         double allMoney = 0;
                         for (int i = 0; i < mList.size(); i++) {
                             allMoney += mList.get(i).getMoney();
@@ -225,16 +216,13 @@ public class RedPacketDetailActivity extends BaseInitActivity {
                         if (ylSize == allSize) {
 //                            tv_message_hb.setText("已存入零钱");
 //                            ll_user_money.setVisibility(View.VISIBLE);
-
                             tv_message_hb.setText("已领取" + ylSize + "/" + allSize + "，" + "已领完/共" + StringUtil.getFormatValue2(redPacketInfo.getMoney()) + "元" + time);
                         } else if (allSize - ylSize > 0) {
 //                            ll_user_money.setVisibility(View.GONE);
-
 //                            tv_message_hb.setText("红包" + StringUtil.getFormatValue2(redPacketInfo.getMoney() - allMoney) + "金额等待对方领取");
                             tv_message_hb.setText("已领取"+ylSize+"/"+allSize+"，剩余"+StringUtil.getFormatValue2(redPacketInfo.getMoney() - allMoney)+"待领取/"+"共"+StringUtil
                                         .getFormatValue2(redPacketInfo.getMoney())+"元"+time);
                         }
-
                         if (type.equals("1")) {
                             tv_message_hb.setVisibility(View.GONE);
                             tv_tips.setVisibility(View.GONE);

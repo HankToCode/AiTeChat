@@ -474,7 +474,11 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                                     e.printStackTrace();
                                 }
                             } else {
-                                mTvAddFriend.setVisibility(View.VISIBLE);
+                                if (userId.contains(UserComm.getUserId())) {//自己
+                                    mTvAddFriend.setVisibility(View.GONE);
+                                } else {
+                                    mTvAddFriend.setVisibility(View.VISIBLE);
+                                }
                                 mLlFriend.setVisibility(View.GONE);
                                 mLlayRemark.setVisibility(View.GONE);
                                 ll_grouping.setVisibility(View.GONE);
@@ -606,9 +610,18 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                 if (!userId.contains(Constant.ID_REDPROJECT)) {//friendUserId
                     userId += Constant.ID_REDPROJECT;
                 }
-//                ActivityStackManager.getInstance().killActivity(ChatActivity.class);
+                //这里有BUG，群名片跳过来的 发消息有偶发机率还是进入群会话，
+                ActivityStackManager.getInstance().killActivity(ChatActivity.class);
                 ChatActivity.actionStart(mContext, userId, EaseConstant.CHATTYPE_SINGLE);
                 finish();
+               /* if (chatType == Constant.CHATTYPE_SINGLE) {//如果是单聊则直接返回复用上个聊天页面
+                    ChatActivity.actionStart(mContext, userId, EaseConstant.CHATTYPE_SINGLE);
+                    finish();
+                } else {//如果是群聊中的名片跳过来的或群个人详情过来的 需要先关闭群聊会话窗口 再进入单聊会话
+                    ActivityStackManager.getInstance().killActivity(ChatActivity.class);
+                    ChatActivity.actionStart(mContext, userId, EaseConstant.CHATTYPE_SINGLE);
+                    finish();
+                }*/
                /* if (chatType == Constant.CHATTYPE_SINGLE) {
                     finish();
                 } else {
@@ -748,7 +761,17 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                 new ResultListener() {
                     @Override
                     public void onSuccess(String json, String msg) {
-                        if (from.equals("3")) {
+                        if (mSwitchBlack.isChecked()) {
+                            ToastUtil.toast("拉黑成功");
+                            EMClient.getInstance().chatManager().deleteConversation(userId.contains(Constant.ID_REDPROJECT) ? userName : userId + Constant.ID_REDPROJECT, false);
+                            EventBus.getDefault().post(new EventCenter<>(EventUtil.OPERATE_BLACK));
+                            finish();
+                        } else {
+                            EventBus.getDefault().post(new EventCenter<>(EventUtil.REFRESH_BLACK));
+                            ToastUtil.toast("移除成功");
+                            finish();
+                        }
+                        /*if (from.equals("3")) {
                             EventBus.getDefault().post(new EventCenter<>(EventUtil.REFRESH_BLACK));
                             ToastUtil.toast(" 移除成功");
                             finish();
@@ -759,7 +782,7 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                                 EventBus.getDefault().post(new EventCenter<>(EventUtil.OPERATE_BLACK));
                                 finish();
                             }
-                        }
+                        }*/
                     }
 
                     @Override

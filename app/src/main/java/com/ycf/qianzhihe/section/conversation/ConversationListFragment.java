@@ -18,6 +18,7 @@ import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.db.InviteMessgeDao;
 import com.ycf.qianzhihe.app.weight.ConversationItemView;
+import com.ycf.qianzhihe.app.weight.ease.model.EaseAtMessageHelper;
 import com.ycf.qianzhihe.common.constant.DemoConstant;
 import com.ycf.qianzhihe.common.livedatas.LiveDataBus;
 import com.ycf.qianzhihe.common.utils.PreferenceManager;
@@ -28,7 +29,6 @@ import com.ycf.qianzhihe.app.api.global.SP;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.section.chat.activity.ChatActivity;
 import com.ycf.qianzhihe.section.chat.viewmodel.MessageViewModel;
-import com.hyphenate.easeui.manager.EaseAtMessageHelper;
 import com.hyphenate.easeui.model.EaseEvent;
 
 
@@ -84,7 +84,7 @@ public class ConversationListFragment extends BaseConversationListFragment imple
         conversationListView.setOnItemClickListener((parent, view, position, id) -> {
             EMConversation conversation =
                     conversationListView.getItem(position);
-            String emUserId = conversation.conversationId();//在消息列表，不确定点到哪了  报空指针闪退
+            String emUserId = conversation.conversationId();
 
             if (id == Integer.MAX_VALUE) {
                 //删除和某个user会话，如果需要保留聊天记录，传false
@@ -108,7 +108,7 @@ public class ConversationListFragment extends BaseConversationListFragment imple
                         String msgType = FastJsonUtil.getString(json, "msgType");
 
                         if ("systematic".equals(msgType)) {
-                            intent.putExtra(Constant.NICKNAME, "千纸鹤官方");
+                            intent.putExtra(Constant.NICKNAME, "千纸鹤小助手");//千纸鹤官方
                             isSystem = true;
                         } else if ("walletMsg".equals(msgType)) {
                             intent.putExtra(Constant.NICKNAME, "钱包助手");
