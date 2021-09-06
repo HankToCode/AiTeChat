@@ -173,5 +173,11 @@
     <color name="em_blue_pressed">#0000aF</color>
     <color name="color_FB6168">#FB6168</color>
 
+    <!-- 按压效果颜色-->
+    <color name="selector_primary_default">#FFFF7500</color>
+    <color name="selector_primary_pressed">#FFFFA400</color>
+    <color name="selector_white_default">#FFFFFF</color>
+    <color name="selector_white_pressed">#EEEEEE</color>
+    <color name="line_gray">#ffededed</color>
 
 </resources>

@@ -1014,7 +1014,7 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
-<!--        名片-->
+        <!--        名片-->
         <activity
             android:name=".section.chat.activity.SelContactActivity"
             android:launchMode="singleTop"
@@ -1041,6 +1041,13 @@
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".section.account.activity.AddUserDetailActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <activity
+            android:name=".common.image.ImageActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"

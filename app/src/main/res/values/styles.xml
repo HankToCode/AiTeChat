@@ -284,4 +284,21 @@
         <item name="android:backgroundDimAmount">0.4</item><!--弹框背景灰度-->
     </style>
 
+    <!--横线样式-->
+    <style name="LineGray">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:background">@color/line_gray</item>
+    </style>
+
+    <!--按钮样式-->
+    <style name="ButtonStylePrimary" parent="Widget.AppCompat.Button">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">38dp</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:background">@drawable/shape_primary_gradient_8</item>
+        <item name="android:foreground">?attr/selectableItemBackground</item>
+    </style>
+
 </resources>

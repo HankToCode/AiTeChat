@@ -46,11 +46,11 @@ public class FilePathUtils {
 
             String selection = MediaStore.Images.Media._ID;
             String filePath = getDataColumn(context, MediaStore.Images.Media.EXTERNAL_CONTENT_URI, selection, null);
-            if(!StringUtil.isEmpty(filePath)){
+            if (!StringUtil.isEmpty(filePath)) {
                 String rootPath = new File(filePath).getParent();
-                if(!StringUtil.isEmpty(filePath)) {
+                if (!StringUtil.isEmpty(filePath)) {
                     File rootFile = new File(rootPath);
-                    if(rootFile.exists() && rootFile.isDirectory()){
+                    if (rootFile.exists() && rootFile.isDirectory()) {
                         return rootFile.getAbsolutePath();
                     }
                 }
@@ -146,8 +146,11 @@ public class FilePathUtils {
         return "com.android.providers.downloads.documents".equals(uri.getAuthority());
     }
 
+    public static String getSavePhotoFilePath() {
+        return Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + Environment.DIRECTORY_PICTURES + "/image";
+    }
 
-    public static String getTakePhotoFilePath(){
+    public static String getTakePhotoFilePath() {
         return Environment.getExternalStorageDirectory().getAbsolutePath() + "/" + Environment.DIRECTORY_PICTURES + "/" + System.currentTimeMillis() + "_lq.jpg";
     }
 }

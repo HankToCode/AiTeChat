@@ -14,6 +14,7 @@ import com.ycf.qianzhihe.app.adapter.ease.EaseMessageAdapter;
 import com.ycf.qianzhihe.app.domain.EaseShowBigImageNewItem;
 import com.ycf.qianzhihe.app.weight.ease.chatrow.EaseChatRow;
 import com.ycf.qianzhihe.app.weight.ease.chatrow.EaseChatRowImage;
+import com.ycf.qianzhihe.common.image.ImageActivity;
 import com.ycf.qianzhihe.section.common.EaseShowBigImageNewActivity;
 
 import java.io.File;
@@ -106,10 +107,13 @@ public class EaseChatImagePresenter extends EaseChatFilePresenter {
             }
 
             if (list.isEmpty()) return;
-            Intent intent = new Intent(getContext(), EaseShowBigImageNewActivity.class);//查看大图
+
+            ImageActivity.Companion.actionStart(getContext(), position, list);
+
+            /*Intent intent = new Intent(getContext(), EaseShowBigImageNewActivity.class);//查看大图
             intent.putParcelableArrayListExtra("images",list);
             intent.putExtra("position",position);
-            getContext().startActivity(intent);
+            getContext().startActivity(intent);*/
         }
 
 //        Intent intent = new Intent(getContext(), EaseShowBigImageActivity.class);
