@@ -120,7 +120,7 @@ public class UserOperateManager {
                 contactList.add(user);
             }
         }
-        return null;
+        return contactList;
     }
 
     public EaseUser toContactBean(ContactListInfo.DataBean bean) {
