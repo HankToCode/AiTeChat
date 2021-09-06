@@ -828,7 +828,7 @@ public class DemoHelper {
                     getUserIdAgoraUid(uid, url, callback);
                 } else {
                     //设置用户昵称 头像
-//                    setEaseCallKitUserInfo(userName);
+                    setEaseCallKitUserInfo(userName);
                     EaseUserAccount account = new EaseUserAccount(uid, userName);
                     List<EaseUserAccount> accounts = new ArrayList<>();
                     accounts.add(account);
@@ -888,7 +888,7 @@ public class DemoHelper {
                                     int uId = object.getInt("agoraUserId");
 
                                     //设置自己头像昵称
-//                                    setEaseCallKitUserInfo(EMClient.getInstance().getCurrentUser());
+                                    setEaseCallKitUserInfo(EMClient.getInstance().getCurrentUser());
                                     callback.onSetToken(token, uId);
                                 } catch (Exception e) {
                                     e.getStackTrace();
@@ -949,7 +949,7 @@ public class DemoHelper {
                                         String username = resToken.optString(uIdStr);
                                         if (uid == uId) {
                                             //获取到当前用户的userName 设置头像昵称等信息
-//                                            setEaseCallKitUserInfo(username);
+                                            setEaseCallKitUserInfo(username);
                                         }
                                         userAccounts.add(new EaseUserAccount(uid, username));
                                     }
