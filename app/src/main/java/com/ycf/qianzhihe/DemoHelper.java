@@ -166,7 +166,7 @@ public class DemoHelper {
 //        String headImage = EaseFileUtils.getModelFilePath(context,"test.png");
 //        callKitConfig.setDefaultHeadImage(headImage);
 //        //设置振铃文件
-        String ringFile = EaseFileUtils.getModelFilePath(context,"call.mp3");
+        String ringFile = EaseFileUtils.getModelFilePath(context, "call.mp3");
         callKitConfig.setRingFile(ringFile);
         //设置呼叫超时时间
         callKitConfig.setCallTimeOut(30 * 1000);
@@ -643,7 +643,6 @@ public class DemoHelper {
      */
     public Map<String, EaseUser> getContactList() {
         if (isLoggedIn() && contactList == null) {
-            UserOperateManager.getInstance().getContactList();
             contactList = demoModel.getContactList();
         }
 
@@ -805,7 +804,7 @@ public class DemoHelper {
 
             @Override
             public void onRemoteUserJoinChannel(String channelName, String userName, int uid, EaseGetUserAccountCallback callback) {
-                if(userName == null || userName == ""){
+                if (userName == null || userName == "") {
                     String url = uIdUrl;
                     url += "?";
                     url += "channelName=";
@@ -813,12 +812,12 @@ public class DemoHelper {
                     url += "&userAccount=";
                     url += EMClient.getInstance().getCurrentUser();
                     url += "&appkey=";
-                    url +=  EMClient.getInstance().getOptions().getAppKey();
-                    getUserIdAgoraUid(uid,url,callback);
-                }else{
+                    url += EMClient.getInstance().getOptions().getAppKey();
+                    getUserIdAgoraUid(uid, url, callback);
+                } else {
                     //设置用户昵称 头像
                     setEaseCallKitUserInfo(userName);
-                    EaseUserAccount account = new EaseUserAccount(uid,userName);
+                    EaseUserAccount account = new EaseUserAccount(uid, userName);
                     List<EaseUserAccount> accounts = new ArrayList<>();
                     accounts.add(account);
                     callback.onUserAccount(accounts);
@@ -834,8 +833,8 @@ public class DemoHelper {
         ApiClient.requestNetHandle(mianContext, url, "", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
-                RtcTokenBean tokenBean= FastJsonUtil.getObject(json, RtcTokenBean.class);
-                callback.onSetToken(tokenBean.getToken(),0);
+                RtcTokenBean tokenBean = FastJsonUtil.getObject(json, RtcTokenBean.class);
+                callback.onSetToken(tokenBean.getToken(), 0);
             }
 
             @Override
@@ -900,65 +899,68 @@ public class DemoHelper {
 
     /**
      * 根据channelName和声网uId获取频道内所有人的UserId
+     *
      * @param uId
      * @param url
      * @param callback
      */
-    private void getUserIdAgoraUid(int uId, String url, EaseGetUserAccountCallback callback){
-        new AsyncTask<String, Void, Pair<Integer, String>>(){
+    private void getUserIdAgoraUid(int uId, String url, EaseGetUserAccountCallback callback) {
+        new AsyncTask<String, Void, Pair<Integer, String>>() {
             @Override
             protected Pair<Integer, String> doInBackground(String... str) {
                 try {
-                    Pair<Integer, String> response = EMHttpClient.getInstance().sendRequestWithToken(url, null,EMHttpClient.GET);
+                    Pair<Integer, String> response = EMHttpClient.getInstance().sendRequestWithToken(url, null, EMHttpClient.GET);
                     return response;
-                }catch (HyphenateException exception) {
+                } catch (HyphenateException exception) {
                     exception.printStackTrace();
                 }
-                return  null;
+                return null;
             }
+
             @Override
             protected void onPostExecute(Pair<Integer, String> response) {
-                if(response != null) {
+                if (response != null) {
                     try {
                         int resCode = response.first;
-                        if(resCode == 200){
+                        if (resCode == 200) {
                             String responseInfo = response.second;
                             List<EaseUserAccount> userAccounts = new ArrayList<>();
-                            if(responseInfo != null && responseInfo.length() > 0){
+                            if (responseInfo != null && responseInfo.length() > 0) {
                                 try {
                                     JSONObject object = new JSONObject(responseInfo);
                                     JSONObject resToken = object.getJSONObject("result");
                                     Iterator it = resToken.keys();
-                                    while(it.hasNext()) {
+                                    while (it.hasNext()) {
                                         String uIdStr = it.next().toString();
                                         int uid = 0;
                                         uid = Integer.valueOf(uIdStr).intValue();
                                         String username = resToken.optString(uIdStr);
-                                        if(uid == uId){
+                                        if (uid == uId) {
                                             //获取到当前用户的userName 设置头像昵称等信息
                                             setEaseCallKitUserInfo(username);
                                         }
                                         userAccounts.add(new EaseUserAccount(uid, username));
                                     }
                                     callback.onUserAccount(userAccounts);
-                                }catch (Exception e){
+                                } catch (Exception e) {
                                     e.getStackTrace();
                                 }
-                            }else{
-                                callback.onSetUserAccountError(response.first,response.second);
+                            } else {
+                                callback.onSetUserAccountError(response.first, response.second);
                             }
-                        }else{
-                            callback.onSetUserAccountError(response.first,response.second);
+                        } else {
+                            callback.onSetUserAccountError(response.first, response.second);
                         }
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
-                }else{
-                    callback.onSetUserAccountError(100,"response is null");
+                } else {
+                    callback.onSetUserAccountError(100, "response is null");
                 }
             }
         }.execute(url);
     }
+
     /**
      * 设置callKit 用户头像昵称
      *
@@ -972,6 +974,10 @@ public class DemoHelper {
             userInfo.setHeadImage(user.getAvatar());
         }
         EaseCallKit.getInstance().getCallKitConfig().setUserInfo(userName, userInfo);
+    }
+
+    public boolean saveContactList(List<EaseUser> contactList) {
+        return demoModel.saveContactList(contactList);
     }
 
     /**

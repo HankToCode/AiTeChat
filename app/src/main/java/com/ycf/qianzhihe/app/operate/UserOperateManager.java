@@ -9,9 +9,11 @@ import com.hyphenate.chat.EMCmdMessageBody;
 import com.hyphenate.chat.EMMessage;
 import com.ycf.qianzhihe.BuildConfig;
 import com.ycf.qianzhihe.DemoApplication;
+import com.ycf.qianzhihe.DemoHelper;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.domain.EaseUser;
 import com.ycf.qianzhihe.app.utils.ImageUtil;
+import com.ycf.qianzhihe.app.weight.ease.EaseCommonUtils;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.json.FastJsonUtil;
 import com.ycf.qianzhihe.app.api.old_data.ContactListInfo;
@@ -89,6 +91,24 @@ public class UserOperateManager {
         contactVersion = info.getCacheVersion();
         updateUserList(info.getData());
         PreferenceManager.getInstance().setParam(SP.SP_CONTACT_DATA, json);
+
+
+        List<EaseUser> easeContactList = new ArrayList<>();
+        for (ContactListInfo.DataBean bean : contactList) {
+            EaseUser user = new EaseUser(bean.getFriendUserId() + Constant.ID_REDPROJECT);
+            user.setNickname(bean.getFriendNickName());
+            user.setAvatar(bean.getFriendUserHead());
+            user.setLine(bean.getLine());//在线状态
+            user.setUserSign(bean.getUserSign());
+            user.setVipLevel(bean.getVipLevel());
+            EaseCommonUtils.setUserInitialLetter(user);
+            if (bean.getBlackStatus().equals("0")) {
+                easeContactList.add(user);
+            }
+        }
+
+        DemoHelper.getInstance().saveContactList(easeContactList);
+
     }
 
 

@@ -66,9 +66,6 @@ public class EaseContactListFragment extends BaseInitFragment {
     List<ContactListInfo.DataBean> mContactList;
     protected TextView tv_number;
 
-    private DemoModel demoModel = null;
-
-
     @Override
     protected int getLayoutId() {
         return R.layout.ease_fragment_contact_list;
@@ -88,8 +85,6 @@ public class EaseContactListFragment extends BaseInitFragment {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-
-        demoModel = new DemoModel(requireContext());
 
         contentContainer =
                 (FrameLayout) getView().findViewById(R.id.content_container);
@@ -283,8 +278,6 @@ public class EaseContactListFragment extends BaseInitFragment {
                 }
             }
         });
-
-        demoModel.saveContactList(contactList);
 
         contactListLayout.refresh();
     }

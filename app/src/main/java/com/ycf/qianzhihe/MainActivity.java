@@ -36,6 +36,7 @@ import com.ycf.qianzhihe.app.api.old_data.MyGroupInfoList;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.operate.GroupOperateManager;
+import com.ycf.qianzhihe.common.model.DemoModel;
 import com.ycf.qianzhihe.section.contact.activity.AddUserActivity;
 import com.ycf.qianzhihe.section.discover.NewsFragment;
 import com.zds.base.ImageLoad.GlideUtils;
