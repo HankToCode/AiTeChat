@@ -26,7 +26,10 @@ import com.hyphenate.cloud.EMHttpClient;
 import com.hyphenate.easecallkit.base.EaseGetUserAccountCallback;
 import com.hyphenate.easecallkit.base.EaseUserAccount;
 import com.hyphenate.easecallkit.utils.EaseFileUtils;
+import com.ycf.qianzhihe.app.api.Constant;
+import com.ycf.qianzhihe.app.api.global.SP;
 import com.ycf.qianzhihe.app.api.new_data.RtcTokenBean;
+import com.ycf.qianzhihe.app.api.old_data.ContactListInfo;
 import com.ycf.qianzhihe.app.api.old_data.GroupDetailInfo;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
 import com.ycf.qianzhihe.app.api.old_http.AppConfig;
@@ -392,6 +395,15 @@ public class DemoHelper {
         // To get instance of EaseUser, here we get it from the user list in memory
         // You'd better cache it if you get it from your server
         EaseUser user = null;
+        List<ContactListInfo.DataBean> mContactList = UserOperateManager.getInstance().getContactList();
+        if (mContactList != null) {
+            for (ContactListInfo.DataBean dataBean : mContactList) {
+                if (dataBean != null && username.equals(dataBean.getFriendUserId() + Constant.ID_REDPROJECT)) {
+                    return UserOperateManager.getInstance().toContactBean(dataBean);
+                }
+            }
+        }
+
         if (username.equals(EMClient.getInstance().getCurrentUser()))
             return getUserProfileManager().getCurrentUserInfo();
         user = getContactList().get(username);
@@ -816,7 +828,7 @@ public class DemoHelper {
                     getUserIdAgoraUid(uid, url, callback);
                 } else {
                     //设置用户昵称 头像
-                    setEaseCallKitUserInfo(userName);
+//                    setEaseCallKitUserInfo(userName);
                     EaseUserAccount account = new EaseUserAccount(uid, userName);
                     List<EaseUserAccount> accounts = new ArrayList<>();
                     accounts.add(account);
@@ -876,7 +888,7 @@ public class DemoHelper {
                                     int uId = object.getInt("agoraUserId");
 
                                     //设置自己头像昵称
-                                    setEaseCallKitUserInfo(EMClient.getInstance().getCurrentUser());
+//                                    setEaseCallKitUserInfo(EMClient.getInstance().getCurrentUser());
                                     callback.onSetToken(token, uId);
                                 } catch (Exception e) {
                                     e.getStackTrace();
@@ -937,7 +949,7 @@ public class DemoHelper {
                                         String username = resToken.optString(uIdStr);
                                         if (uid == uId) {
                                             //获取到当前用户的userName 设置头像昵称等信息
-                                            setEaseCallKitUserInfo(username);
+//                                            setEaseCallKitUserInfo(username);
                                         }
                                         userAccounts.add(new EaseUserAccount(uid, username));
                                     }
@@ -966,7 +978,7 @@ public class DemoHelper {
      *
      * @param userName
      */
-    private void setEaseCallKitUserInfo(String userName) {
+    public void setEaseCallKitUserInfo(String userName) {
         EaseUser user = getUserInfo(userName);
         EaseCallUserInfo userInfo = new EaseCallUserInfo();
         if (user != null) {

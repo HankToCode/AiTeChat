@@ -238,7 +238,9 @@ public class EaseContactListFragment extends BaseInitFragment {
 
     protected void setContactData(List<ContactListInfo.DataBean> mContactList) {
         contactList.clear();
-        //todo 需要优化
+
+        contactList.addAll(UserOperateManager.getInstance().toContactList(mContactList));
+        /*//todo 需要优化
         Map<String, EaseUser> userlist = new HashMap<String,
                 EaseUser>(5);
         for (ContactListInfo.DataBean bean : mContactList) {
@@ -259,7 +261,7 @@ public class EaseContactListFragment extends BaseInitFragment {
 //            EaseCommonUtils.setUserInitialLetter(user);
             userlist.put(bean.getFriendUserId() + Constant.ID_REDPROJECT, user);
 
-        }
+        }*/
 
 
         Collections.sort(contactList, new Comparator<EaseUser>() {

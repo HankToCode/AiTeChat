@@ -29,6 +29,7 @@ import com.hyphenate.easeui.widget.EaseImageView;
 import com.hyphenate.exceptions.HyphenateException;
 import com.hyphenate.util.EasyUtils;
 import com.hyphenate.util.PathUtil;
+import com.ycf.qianzhihe.DemoHelper;
 import com.ycf.qianzhihe.MainActivity;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
@@ -796,10 +797,12 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                 startActivityForResult(new Intent(requireContext(), MyCollectActivity.class), 1023);
                 break;
             case ITEM_VOICE_CALL:
+                DemoHelper.getInstance().setEaseCallKitUserInfo(emChatId);
                 startVoiceCall(emChatId);
 //                startVideoCall();
                 break;
             case ITEM_VIDEO_CALL:
+                DemoHelper.getInstance().setEaseCallKitUserInfo(emChatId);
                 startVideoCall(emChatId);
                 break;
             case ITEM_CONTACT_GROUP_OWER:

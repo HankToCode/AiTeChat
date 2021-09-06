@@ -26,6 +26,7 @@ import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.common.utils.PreferenceManager;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -109,6 +110,28 @@ public class UserOperateManager {
 
         DemoHelper.getInstance().saveContactList(easeContactList);
 
+    }
+
+    public List<EaseUser> toContactList(List<ContactListInfo.DataBean> mContactList) {
+        List<EaseUser> contactList = new ArrayList<>();
+        for (ContactListInfo.DataBean bean : mContactList) {
+            EaseUser user = toContactBean(bean);
+            if (bean.getBlackStatus().equals("0")) {
+                contactList.add(user);
+            }
+        }
+        return null;
+    }
+
+    public EaseUser toContactBean(ContactListInfo.DataBean bean) {
+        EaseUser user = new EaseUser(bean.getFriendUserId() + Constant.ID_REDPROJECT);
+        user.setNickname(bean.getFriendNickName());
+        user.setAvatar(bean.getFriendUserHead());
+        user.setLine(bean.getLine());//在线状态
+        user.setUserSign(bean.getUserSign());
+        user.setVipLevel(bean.getVipLevel());
+        EaseCommonUtils.setUserInitialLetter(user);
+        return user;
     }
 
 
