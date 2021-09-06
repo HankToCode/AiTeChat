@@ -15,7 +15,7 @@ import com.ycf.qianzhihe.common.interfaceOrImplement.OnResourceParseCallback;
 import com.ycf.qianzhihe.common.widget.ArrowItemView;
 import com.ycf.qianzhihe.section.group.viewmodels.GroupMemberAuthorityViewModel;
 
-import com.hyphenate.easeui.domain.EaseUser;
+import com.ycf.qianzhihe.app.domain.EaseUser;
 import com.hyphenate.easeui.model.EaseEvent;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 

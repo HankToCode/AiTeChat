@@ -49,7 +49,7 @@ public class ChatRoomAdminAuthorityActivity extends ChatRoomMemberAuthorityActiv
                         adminList = new ArrayList<>();
                     }
                     adminList.add(group.getOwner());
-                    adapter.setData(EmUserEntity.parse(adminList));
+                    adapter.setData(EmUserEntity.parses(adminList));
                 }
 
                 @Override

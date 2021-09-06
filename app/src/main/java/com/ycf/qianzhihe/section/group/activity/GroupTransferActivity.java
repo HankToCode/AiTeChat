@@ -19,7 +19,7 @@ import com.ycf.qianzhihe.common.db.entity.EmUserEntity;
 import com.ycf.qianzhihe.common.interfaceOrImplement.OnResourceParseCallback;
 import com.ycf.qianzhihe.common.livedatas.LiveDataBus;
 
-import com.hyphenate.easeui.domain.EaseUser;
+import com.ycf.qianzhihe.app.domain.EaseUser;
 import com.hyphenate.easeui.model.EaseEvent;
 
 import java.util.ArrayList;
@@ -49,7 +49,7 @@ public class GroupTransferActivity extends GroupMemberAuthorityActivity {
                     if(adminList == null) {
                         adminList = new ArrayList<>();
                     }
-                    adapter.setData(EmUserEntity.parse(adminList));
+                    adapter.setData(EmUserEntity.parses(adminList));
                     viewModel.getMembers(groupId);
                 }
 

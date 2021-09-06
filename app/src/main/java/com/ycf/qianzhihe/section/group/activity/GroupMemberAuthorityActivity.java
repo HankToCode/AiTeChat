@@ -28,7 +28,7 @@ import com.hyphenate.easeui.manager.SidebarPresenter;
 
 import com.ycf.qianzhihe.section.contact.activity.ContactDetailActivity;
 
-import com.hyphenate.easeui.domain.EaseUser;
+import com.ycf.qianzhihe.app.domain.EaseUser;
 import com.hyphenate.easeui.interfaces.OnItemClickListener;
 import com.hyphenate.easeui.interfaces.OnItemLongClickListener;
 import com.hyphenate.easeui.model.EaseEvent;
@@ -242,7 +242,7 @@ public class GroupMemberAuthorityActivity extends BaseInitActivity implements Ea
                     muteMembers.clear();
                     muteMembers.addAll(data.keySet());
                     if(flag == TYPE_MUTE) {
-                        List<EaseUser> muteUsers = EmUserEntity.parse(muteMembers);
+                        List<EaseUser> muteUsers = EmUserEntity.parses(muteMembers);
                         adapter.setData(muteUsers);
                     }
                 }
@@ -263,7 +263,7 @@ public class GroupMemberAuthorityActivity extends BaseInitActivity implements Ea
                     blackMembers.clear();
                     blackMembers.addAll(data);
                     if(flag == TYPE_BLACK) {
-                        List<EaseUser> blackUsers = EmUserEntity.parse(blackMembers);
+                        List<EaseUser> blackUsers = EmUserEntity.parses(blackMembers);
                         adapter.setData(blackUsers);
                     }
                 }

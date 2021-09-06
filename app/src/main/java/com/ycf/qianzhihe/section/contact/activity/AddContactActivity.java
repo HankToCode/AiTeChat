@@ -28,7 +28,7 @@ import com.zds.base.json.FastJsonUtil;
 import com.zds.base.util.StringUtil;
 
 import com.hyphenate.easeui.adapter.EaseBaseRecyclerViewAdapter;
-import com.hyphenate.easeui.domain.EaseUser;
+import com.ycf.qianzhihe.app.domain.EaseUser;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 
 import java.util.HashMap;

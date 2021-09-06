@@ -13,7 +13,7 @@ import com.hyphenate.easeui.manager.EaseThreadManager;
 import com.ycf.qianzhihe.section.contact.activity.ContactDetailActivity;
 import com.ycf.qianzhihe.section.contact.adapter.ContactListAdapter;
 import com.hyphenate.easeui.adapter.EaseBaseRecyclerViewAdapter;
-import com.hyphenate.easeui.domain.EaseUser;
+import com.ycf.qianzhihe.app.domain.EaseUser;
 
 import java.util.ArrayList;
 import java.util.List;

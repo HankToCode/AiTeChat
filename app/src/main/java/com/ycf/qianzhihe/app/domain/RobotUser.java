@@ -14,7 +14,7 @@
 package com.ycf.qianzhihe.app.domain;
 
 
-import com.hyphenate.easeui.domain.EaseUser;
+import com.ycf.qianzhihe.app.domain.EaseUser;
 
 public class RobotUser extends EaseUser {
 	public RobotUser(String username) {

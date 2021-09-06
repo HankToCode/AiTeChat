@@ -378,8 +378,8 @@ public class DemoDBManager {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(UserDao.COLUMN_NAME_ID, groupInfo.getUsername());
-        if (groupInfo.getNickName() != null) {
-            values.put(UserDao.COLUMN_NAME_ID, groupInfo.getNickName());
+        if (groupInfo.getNickname() != null) {
+            values.put(UserDao.COLUMN_NAME_ID, groupInfo.getNickname());
         }
         if (groupInfo.getUserCode() != null) {
             values.put(UserDao.USER_CODE, groupInfo.getUserCode());
@@ -415,7 +415,7 @@ public class DemoDBManager {
                 String account = cursor.getString(cursor.getColumnIndex(UserDao.ACCOUNT));
                 String password = cursor.getString(cursor.getColumnIndex(UserDao.PASSWORD));
                 EaseUser user = new EaseUser();
-                user.setNickName(username);
+                user.setUsername(username);
                 user.setAvatar(avatar);
                 user.setUserCode(usercode);
                 user.setAccount(account);

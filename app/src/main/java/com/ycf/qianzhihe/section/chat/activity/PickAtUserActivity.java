@@ -18,7 +18,7 @@ import com.ycf.qianzhihe.section.chat.adapter.PickUserAdapter;
 import com.hyphenate.easeui.manager.EaseThreadManager;
 
 import com.ycf.qianzhihe.section.contact.viewmodels.GroupContactViewModel;
-import com.hyphenate.easeui.domain.EaseUser;
+import com.ycf.qianzhihe.app.domain.EaseUser;
 import com.hyphenate.easeui.interfaces.OnItemClickListener;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.widget.EaseRecyclerView;

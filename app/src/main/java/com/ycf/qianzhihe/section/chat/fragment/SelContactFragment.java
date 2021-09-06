@@ -143,7 +143,7 @@ public class SelContactFragment extends BaseInitFragment {
                 //发送名片
                 Intent intent = new Intent();
                 intent.putExtra("username", user.getFriendUserCode());
-                intent.putExtra("nickname", user.getNickName());
+                intent.putExtra("nickname", user.getNickname());
                 intent.putExtra("avatar", user.getAvatar());
                 intent.putExtra("friendUserId", user.getFriendUserId());
                 getActivity().setResult(Activity.RESULT_OK, intent);
@@ -219,8 +219,8 @@ public class SelContactFragment extends BaseInitFragment {
                     Map<String, EaseUser> userlist = new HashMap<String, EaseUser>();
                     for (ContactListInfo.DataBean bean : mContactList) {
                         EaseUser user = new EaseUser(bean.getFriendUserId() + Constant.ID_REDPROJECT);
-                        user.setNickname(bean.getFriendNickName());
-                        user.setNickName(bean.getNickName());
+                        user.setFriendNickName(bean.getFriendNickName());
+                        user.setNickname(bean.getNickName());
                         user.setAvatar(bean.getFriendUserHead());
                         user.setFriendUserCode(bean.getFriendUserCode());
                         user.setFriendUserId(bean.getFriendUserId());

@@ -5,7 +5,7 @@ import android.app.Application;
 import com.ycf.qianzhihe.common.livedatas.SingleSourceLiveData;
 import com.ycf.qianzhihe.common.net.Resource;
 import com.ycf.qianzhihe.common.repositories.EMContactManagerRepository;
-import com.hyphenate.easeui.domain.EaseUser;
+import com.ycf.qianzhihe.app.domain.EaseUser;
 
 import java.util.List;
 

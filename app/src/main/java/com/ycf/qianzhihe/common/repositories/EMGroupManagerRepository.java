@@ -22,7 +22,7 @@ import com.ycf.qianzhihe.common.db.entity.EmUserEntity;
 import com.ycf.qianzhihe.common.interfaceOrImplement.ResultCallBack;
 
 import com.hyphenate.easeui.manager.EaseThreadManager;
-import com.hyphenate.easeui.domain.EaseUser;
+import com.ycf.qianzhihe.app.domain.EaseUser;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.exceptions.HyphenateException;
 
@@ -295,7 +295,7 @@ public class EMGroupManagerRepository extends BaseEMRepository{
                         members.addAll(value.getAdminList());
                         members.add(value.getOwner());
                         if(!members.isEmpty()) {
-                            List<EaseUser> users = EmUserEntity.parse(members);
+                            List<EaseUser> users = EmUserEntity.parses(members);
                             sortUserData(users);
                             callBack.onSuccess(createLiveData(users));
                         }else {
@@ -335,7 +335,7 @@ public class EMGroupManagerRepository extends BaseEMRepository{
                         if(members.size() < (value.getMemberCount() - value.getAdminList().size() - 1)) {
                             members = getAllGroupMemberByServer(groupId);
                         }
-                        List<EaseUser> users = EmUserEntity.parse(members);
+                        List<EaseUser> users = EmUserEntity.parses(members);
                         sortUserData(users);
                         callBack.onSuccess(createLiveData(users));
 

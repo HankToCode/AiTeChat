@@ -6,7 +6,7 @@ import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMClient;
 import com.ycf.qianzhihe.DemoHelper;
 import com.ycf.qianzhihe.common.utils.PreferenceManager;
-import com.hyphenate.easeui.domain.EaseUser;
+import com.ycf.qianzhihe.app.domain.EaseUser;
 
 import java.util.ArrayList;
 import java.util.List;

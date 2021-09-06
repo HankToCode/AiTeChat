@@ -7,7 +7,7 @@ import com.ycf.qianzhihe.common.livedatas.LiveDataBus;
 import com.ycf.qianzhihe.common.livedatas.SingleSourceLiveData;
 import com.ycf.qianzhihe.common.net.Resource;
 import com.ycf.qianzhihe.common.repositories.EMGroupManagerRepository;
-import com.hyphenate.easeui.domain.EaseUser;
+import com.ycf.qianzhihe.app.domain.EaseUser;
 
 import java.util.List;
 import java.util.Map;

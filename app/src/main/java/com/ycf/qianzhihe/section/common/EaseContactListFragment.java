@@ -28,6 +28,7 @@ import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.base.BaseInitFragment;
 import com.ycf.qianzhihe.app.domain.EaseUser;
 import com.ycf.qianzhihe.app.operate.UserOperateManager;
+import com.ycf.qianzhihe.common.model.DemoModel;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.json.FastJsonUtil;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
@@ -65,6 +66,8 @@ public class EaseContactListFragment extends BaseInitFragment {
     List<ContactListInfo.DataBean> mContactList;
     protected TextView tv_number;
 
+    private DemoModel demoModel = null;
+
 
     @Override
     protected int getLayoutId() {
@@ -85,6 +88,9 @@ public class EaseContactListFragment extends BaseInitFragment {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
+
+        demoModel = new DemoModel(requireContext());
+
         contentContainer =
                 (FrameLayout) getView().findViewById(R.id.content_container);
         contactListLayout =
@@ -211,7 +217,7 @@ public class EaseContactListFragment extends BaseInitFragment {
                                 ContactListInfo.class);
                         List<ContactListInfo.DataBean> mContactList = new ArrayList<>();
                         mContactList.addAll(info.getData());
-                        tv_number.setText(mContactList.size()+"个朋友及联系人");
+                        tv_number.setText(mContactList.size() + "个朋友及联系人");
                         if (mContactList.size() > 0) {
                             UserOperateManager.getInstance().saveContactListToLocal(info, json);
                             setContactData(mContactList);
@@ -219,6 +225,8 @@ public class EaseContactListFragment extends BaseInitFragment {
                             contactList.clear();
                             contactListLayout.refresh();
                         }
+
+
                     }
 
                     @Override
@@ -275,6 +283,8 @@ public class EaseContactListFragment extends BaseInitFragment {
                 }
             }
         });
+
+        demoModel.saveContactList(contactList);
 
         contactListLayout.refresh();
     }

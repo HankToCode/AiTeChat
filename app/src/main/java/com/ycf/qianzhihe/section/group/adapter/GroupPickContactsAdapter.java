@@ -11,7 +11,7 @@ import android.widget.TextView;
 import com.ycf.qianzhihe.DemoHelper;
 import com.ycf.qianzhihe.R;
 import com.hyphenate.easeui.adapter.EaseBaseRecyclerViewAdapter;
-import com.hyphenate.easeui.domain.EaseUser;
+import com.ycf.qianzhihe.app.domain.EaseUser;
 import com.hyphenate.easeui.widget.EaseImageView;
 
 import java.util.ArrayList;

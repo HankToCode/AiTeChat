@@ -15,7 +15,7 @@ import com.ycf.qianzhihe.common.constant.DemoConstant;
 import com.ycf.qianzhihe.common.interfaceOrImplement.OnResourceParseCallback;
 import com.ycf.qianzhihe.common.livedatas.LiveDataBus;
 import com.ycf.qianzhihe.section.contact.viewmodels.ContactBlackViewModel;
-import com.hyphenate.easeui.domain.EaseUser;
+import com.ycf.qianzhihe.app.domain.EaseUser;
 import com.hyphenate.easeui.model.EaseEvent;
 import com.hyphenate.easeui.widget.EaseRecyclerView;
 

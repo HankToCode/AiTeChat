@@ -59,7 +59,7 @@ public class GroupAdminAuthorityActivity extends GroupMemberAuthorityActivity {
                         adminList = new ArrayList<>();
                     }
                     adminList.add(group.getOwner());
-                    adapter.setData(EmUserEntity.parse(adminList));
+                    adapter.setData(EmUserEntity.parses(adminList));
                 }
 
                 @Override

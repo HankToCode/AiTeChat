@@ -17,7 +17,7 @@ import com.ycf.qianzhihe.section.search.SearchBlackActivity;
 import com.ycf.qianzhihe.section.contact.adapter.BlackContactAdapter;
 import com.ycf.qianzhihe.section.contact.viewmodels.ContactBlackViewModel;
 
-import com.hyphenate.easeui.domain.EaseUser;
+import com.ycf.qianzhihe.app.domain.EaseUser;
 import com.hyphenate.easeui.interfaces.OnItemClickListener;
 import com.hyphenate.easeui.model.EaseEvent;
 import com.hyphenate.easeui.widget.EaseRecyclerView;

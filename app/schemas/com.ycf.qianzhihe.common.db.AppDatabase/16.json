@@ -2,12 +2,72 @@
   "formatVersion": 1,
   "database": {
     "version": 16,
-    "identityHash": "674594264705153f26e2d2855d291746",
+    "identityHash": "1fe0cb462c46a6c0e143f226583b55cf",
     "entities": [
       {
         "tableName": "em_users",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`username` TEXT NOT NULL, `nickname` TEXT, `initialLetter` TEXT, `avatar` TEXT, `contact` INTEGER NOT NULL, `lastModifyTimestamp` INTEGER NOT NULL, `modifyInitialLetterTimestamp` INTEGER NOT NULL, `email` TEXT, `phone` TEXT, `gender` INTEGER NOT NULL, `sign` TEXT, `birth` TEXT, `ext` TEXT, PRIMARY KEY(`username`))",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`friendUserCode` TEXT, `friendUserId` TEXT, `friendNickName` TEXT, `userCode` TEXT, `account` TEXT, `password` TEXT, `line` TEXT, `vipLevel` TEXT, `userSign` TEXT, `type` TEXT, `username` TEXT NOT NULL, `nickname` TEXT, `initialLetter` TEXT, `avatar` TEXT, `contact` INTEGER NOT NULL, `lastModifyTimestamp` INTEGER NOT NULL, `modifyInitialLetterTimestamp` INTEGER NOT NULL, `email` TEXT, `phone` TEXT, `gender` INTEGER NOT NULL, `sign` TEXT, `birth` TEXT, `ext` TEXT, PRIMARY KEY(`username`))",
         "fields": [
+          {
+            "fieldPath": "friendUserCode",
+            "columnName": "friendUserCode",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "friendUserId",
+            "columnName": "friendUserId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "friendNickName",
+            "columnName": "friendNickName",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "userCode",
+            "columnName": "userCode",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "account",
+            "columnName": "account",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "password",
+            "columnName": "password",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "line",
+            "columnName": "line",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "vipLevel",
+            "columnName": "vipLevel",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "userSign",
+            "columnName": "userSign",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "type",
+            "columnName": "type",
+            "affinity": "TEXT",
+            "notNull": false
+          },
           {
             "fieldPath": "username",
             "columnName": "username",
@@ -250,7 +310,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '674594264705153f26e2d2855d291746')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '1fe0cb462c46a6c0e143f226583b55cf')"
     ]
   }
 }

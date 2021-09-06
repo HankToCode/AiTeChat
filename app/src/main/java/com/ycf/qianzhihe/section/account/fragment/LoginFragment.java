@@ -171,7 +171,7 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
                     DemoHelper.getInstance().setAutoLogin(true);
                     LoginInfo currentUser = UserComm.getUserInfo();
                     EaseUser user = new EaseUser();
-                    user.setNickName(currentUser.getNickName());
+                    user.setNickname(currentUser.getNickName());
                     user.setAvatar(currentUser.getUserHead());
                     user.setUserCode(currentUser.getUserCode());
                     user.setAccount(currentUser.getPhone());

@@ -16,7 +16,7 @@ import com.ycf.qianzhihe.common.livedatas.LiveDataBus;
 import com.ycf.qianzhihe.section.group.GroupHelper;
 import com.ycf.qianzhihe.section.group.viewmodels.ChatRoomMemberViewModel;
 
-import com.hyphenate.easeui.domain.EaseUser;
+import com.ycf.qianzhihe.app.domain.EaseUser;
 import com.hyphenate.easeui.model.EaseEvent;
 
 import java.util.ArrayList;
@@ -83,7 +83,7 @@ public class ChatRoomMemberAuthorityActivity extends GroupMemberAuthorityActivit
             parseResource(response, new OnResourceParseCallback<List<String>>() {
                 @Override
                 public void onSuccess(List<String> data) {
-                    List<EaseUser> parse = EmUserEntity.parse(data);
+                    List<EaseUser> parse = EmUserEntity.parses(data);
                     sortUserData(parse);
                     adapter.setData(parse);
                 }
@@ -102,7 +102,7 @@ public class ChatRoomMemberAuthorityActivity extends GroupMemberAuthorityActivit
                 public void onSuccess(List<String> data) {
                     blackMembers = data;
                     if(flag == TYPE_BLACK) {
-                        List<EaseUser> parse = EmUserEntity.parse(data);
+                        List<EaseUser> parse = EmUserEntity.parses(data);
                         sortUserData(parse);
                         adapter.setData(parse);
                     }
@@ -126,7 +126,7 @@ public class ChatRoomMemberAuthorityActivity extends GroupMemberAuthorityActivit
                 public void onSuccess(Map<String, Long> data) {
                     muteMembers = new ArrayList<>(data.keySet());
                     if(flag == TYPE_MUTE) {
-                        List<EaseUser> parse = EmUserEntity.parse(muteMembers);
+                        List<EaseUser> parse = EmUserEntity.parses(muteMembers);
                         sortUserData(parse);
                         adapter.setData(parse);
                     }

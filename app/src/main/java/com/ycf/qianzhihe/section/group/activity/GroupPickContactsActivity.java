@@ -19,7 +19,7 @@ import com.ycf.qianzhihe.section.group.adapter.GroupPickContactsAdapter;
 import com.hyphenate.easeui.manager.SidebarPresenter;
 
 import com.ycf.qianzhihe.section.group.viewmodels.GroupPickContactsViewModel;
-import com.hyphenate.easeui.domain.EaseUser;
+import com.ycf.qianzhihe.app.domain.EaseUser;
 import com.hyphenate.easeui.widget.EaseSidebar;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;

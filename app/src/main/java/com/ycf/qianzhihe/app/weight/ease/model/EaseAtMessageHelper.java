@@ -8,11 +8,11 @@ import com.hyphenate.chat.EMMessage.ChatType;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.EaseConstant;
 import com.ycf.qianzhihe.app.weight.ease.EaseUI;
+import com.ycf.qianzhihe.common.utils.EaseUserUtils;
 import com.ycf.qianzhihe.common.utils.PreferenceManager;
 import com.zds.base.json.FastJsonUtil;
 
-import com.hyphenate.easeui.domain.EaseUser;
-import com.hyphenate.easeui.utils.EaseUserUtils;
+import com.ycf.qianzhihe.app.domain.EaseUser;
 
 import org.json.JSONArray;
 

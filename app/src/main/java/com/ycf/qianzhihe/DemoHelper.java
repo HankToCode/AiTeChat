@@ -31,6 +31,7 @@ import com.ycf.qianzhihe.app.api.old_data.GroupDetailInfo;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
 import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
+import com.ycf.qianzhihe.app.operate.UserOperateManager;
 import com.ycf.qianzhihe.common.constant.DemoConstant;
 import com.ycf.qianzhihe.common.db.DemoDbHelper;
 import com.ycf.qianzhihe.common.livedatas.LiveDataBus;
@@ -59,7 +60,7 @@ import com.hyphenate.easeui.delegate.EaseVoiceAdapterDelegate;
 import com.hyphenate.easeui.domain.EaseAvatarOptions;
 import com.hyphenate.easeui.domain.EaseEmojicon;
 import com.hyphenate.easeui.domain.EaseEmojiconGroupEntity;
-import com.hyphenate.easeui.domain.EaseUser;
+import com.ycf.qianzhihe.app.domain.EaseUser;
 import com.hyphenate.easeui.manager.EaseMessageTypeSetManager;
 import com.hyphenate.easeui.model.EaseEvent;
 import com.hyphenate.easeui.model.EaseNotifier;
@@ -642,6 +643,7 @@ public class DemoHelper {
      */
     public Map<String, EaseUser> getContactList() {
         if (isLoggedIn() && contactList == null) {
+            UserOperateManager.getInstance().getContactList();
             contactList = demoModel.getContactList();
         }
 

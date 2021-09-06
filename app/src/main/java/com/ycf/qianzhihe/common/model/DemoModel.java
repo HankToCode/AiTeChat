@@ -7,6 +7,7 @@ import android.text.TextUtils;
 import com.hyphenate.chat.EMChatRoom;
 import com.hyphenate.chat.EMClient;
 import com.ycf.qianzhihe.DemoApplication;
+import com.ycf.qianzhihe.app.domain.EaseUser;
 import com.ycf.qianzhihe.common.db.DemoDbHelper;
 import com.ycf.qianzhihe.common.db.dao.AppKeyDao;
 import com.ycf.qianzhihe.common.db.dao.EmUserDao;
@@ -16,7 +17,6 @@ import com.ycf.qianzhihe.common.db.entity.InviteMessage;
 import com.ycf.qianzhihe.common.db.entity.MsgTypeManageEntity;
 import com.ycf.qianzhihe.common.manager.OptionsHelper;
 import com.ycf.qianzhihe.common.utils.PreferenceManager;
-import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.easeui.manager.EasePreferenceManager;
 
 import java.util.ArrayList;

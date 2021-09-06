@@ -15,6 +15,7 @@ import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.EaseConstant;
 import com.ycf.qianzhihe.app.api.Global;
 import com.ycf.qianzhihe.app.operate.GroupOperateManager;
+import com.ycf.qianzhihe.common.utils.EaseUserUtils;
 import com.ycf.qianzhihe.section.common.ContactGroupingActivity;
 import com.ycf.qianzhihe.section.common.MyGroupDetailActivity;
 import com.zds.base.ImageLoad.GlideUtils;
@@ -24,8 +25,7 @@ import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.ycf.qianzhihe.section.account.activity.UserInfoDetailActivity;
 import com.ycf.qianzhihe.section.common.ContactActivity;
 import com.ycf.qianzhihe.section.common.GroupUserDelActivity;
-import com.hyphenate.easeui.domain.EaseUser;
-import com.hyphenate.easeui.utils.EaseUserUtils;
+import com.ycf.qianzhihe.app.domain.EaseUser;
 
 import java.util.List;
 
@@ -107,7 +107,7 @@ public class MyRoomDeatilAdapter extends BaseQuickAdapter<GroupDetailInfo.GroupU
             });
 
         } else {
-            EaseUser userInfo = EaseUserUtils.getUserInfo(item.getUserNickName());
+            EaseUser userInfo = EaseUserUtils.getUserInfo(item.getNickName());
 
             if (mode == 1) {
                 helper.setGone(R.id.badge_delete, true);

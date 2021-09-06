@@ -6,8 +6,8 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+import com.ycf.qianzhihe.app.domain.EaseUser;
 import com.ycf.qianzhihe.common.db.entity.EmUserEntity;
-import com.hyphenate.easeui.domain.EaseUser;
 
 import java.util.List;
 

@@ -1,11 +1,14 @@
 package com.ycf.qianzhihe.app.domain;
 
+import androidx.room.Ignore;
+
 public class EaseUser extends com.hyphenate.easeui.domain.EaseUser {
 
     public EaseUser() {
 
     }
 
+    @Ignore
     public EaseUser(String username) {
         super(username);
     }
@@ -20,7 +23,6 @@ public class EaseUser extends com.hyphenate.easeui.domain.EaseUser {
 
     private String friendNickName;
 
-    private String nickName;
     private String userCode;
     private String account;
     private String password;
@@ -110,14 +112,5 @@ public class EaseUser extends com.hyphenate.easeui.domain.EaseUser {
     public void setType(String type) {
         this.type = type;
     }
-
-    public String getNickName() {
-        return nickName;
-    }
-
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
-    }
-
 
 }

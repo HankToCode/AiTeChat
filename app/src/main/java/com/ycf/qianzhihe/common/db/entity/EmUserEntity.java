@@ -1,11 +1,13 @@
 package com.ycf.qianzhihe.common.db.entity;
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.Index;
 
-import com.hyphenate.easeui.domain.EaseUser;
+
+import com.ycf.qianzhihe.app.domain.EaseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +24,23 @@ public class EmUserEntity extends EaseUser {
         super(username);
     }
 
+    public static List<EaseUser> parses(List<String> ids) {
+        List<EaseUser> users = new ArrayList<>();
+        if (ids == null || ids.isEmpty()) {
+            return users;
+        }
+        EaseUser user;
+        for (String id : ids) {
+            user = new EaseUser(id);
+            users.add(user);
+        }
+        return users;
+    }
+
     @Ignore
     public static List<EmUserEntity> parseList(List<EaseUser> users) {
         List<EmUserEntity> entities = new ArrayList<>();
-        if(users == null || users.isEmpty()) {
+        if (users == null || users.isEmpty()) {
             return entities;
         }
         EmUserEntity entity;

@@ -9,12 +9,12 @@ import androidx.lifecycle.MutableLiveData;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMValueCallBack;
 import com.ycf.qianzhihe.DemoHelper;
+import com.ycf.qianzhihe.app.domain.EaseUser;
 import com.ycf.qianzhihe.common.db.entity.EmUserEntity;
 import com.ycf.qianzhihe.common.interfaceOrImplement.ResultCallBack;
 import com.ycf.qianzhihe.common.net.ErrorCode;
 import com.ycf.qianzhihe.common.net.Resource;
 import com.hyphenate.easeui.manager.EaseThreadManager;
-import com.hyphenate.easeui.domain.EaseUser;
 import com.hyphenate.exceptions.HyphenateException;
 
 import java.util.ArrayList;
@@ -95,7 +95,7 @@ public class EMContactManagerRepository extends BaseEMRepository{
                         if(ids != null && !ids.isEmpty()) {
                             usernames.addAll(ids);
                         }
-                        List<EaseUser> easeUsers = EmUserEntity.parse(usernames);
+                        List<EaseUser> easeUsers = EmUserEntity.parses(usernames);
                         if(easeUsers != null && !easeUsers.isEmpty()) {
                             List<String> blackListFromServer = getContactManager().getBlackListFromServer();
                             for (EaseUser user : easeUsers) {
@@ -146,7 +146,7 @@ public class EMContactManagerRepository extends BaseEMRepository{
                 if(ids != null && !ids.isEmpty()) {
                     usernames.addAll(ids);
                 }
-                List<EaseUser> easeUsers = EmUserEntity.parse(usernames);
+                List<EaseUser> easeUsers = EmUserEntity.parses(usernames);
                 if(usernames != null && !usernames.isEmpty()) {
                     List<String> blackListFromServer = getContactManager().getBlackListFromServer();
                     for (EaseUser user : easeUsers) {
@@ -218,7 +218,7 @@ public class EMContactManagerRepository extends BaseEMRepository{
                 getContactManager().aysncGetBlackListFromServer(new EMValueCallBack<List<String>>() {
                     @Override
                     public void onSuccess(List<String> value) {
-                        List<EaseUser> users = EmUserEntity.parse(value);
+                        List<EaseUser> users = EmUserEntity.parses(value);
                         if(users != null && !users.isEmpty()) {
                             for (EaseUser user : users) {
                                 user.setContact(1);
@@ -257,7 +257,7 @@ public class EMContactManagerRepository extends BaseEMRepository{
         getContactManager().aysncGetBlackListFromServer(new EMValueCallBack<List<String>>() {
             @Override
             public void onSuccess(List<String> value) {
-                List<EaseUser> users = EmUserEntity.parse(value);
+                List<EaseUser> users = EmUserEntity.parses(value);
                 if(users != null && !users.isEmpty()) {
                     for (EaseUser user : users) {
                         user.setContact(1);

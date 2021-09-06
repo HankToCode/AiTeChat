@@ -72,6 +72,9 @@ import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+/**
+ * 作为个人信息的控制类
+ */
 public class MyHelper {
 
 

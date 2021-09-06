@@ -28,7 +28,7 @@ import com.ycf.qianzhihe.section.contact.viewmodels.AddContactViewModel;
 import com.ycf.qianzhihe.section.contact.viewmodels.ContactBlackViewModel;
 import com.ycf.qianzhihe.section.contact.viewmodels.ContactDetailViewModel;
 import com.hyphenate.easeui.constants.EaseConstant;
-import com.hyphenate.easeui.domain.EaseUser;
+import com.ycf.qianzhihe.app.domain.EaseUser;
 import com.hyphenate.easeui.model.EaseEvent;
 import com.hyphenate.easeui.widget.EaseImageView;
 import com.hyphenate.easeui.widget.EaseTitleBar;
