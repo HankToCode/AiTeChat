@@ -77,6 +77,7 @@ import com.ycf.qianzhihe.app.weight.my_message.ChatRedPacketTPresenter;
 import com.ycf.qianzhihe.app.weight.my_message.ChatRedPacketUpRoomNamePresenter;
 import com.ycf.qianzhihe.app.weight.my_message.ChatRedPacketWelfarePresenter;
 import com.ycf.qianzhihe.app.weight.my_message.ChatRedPacketturnPresenter;
+import com.ycf.qianzhihe.app.weight.my_message.ChatSureTurnPresenter;
 import com.ycf.qianzhihe.app.weight.my_message.ChatWithdrawPresenter;
 import com.ycf.qianzhihe.app.weight.my_message.ChatidCardPresenter;
 import com.ycf.qianzhihe.app.weight.my_message.GroupNoticePresenter;
@@ -1498,8 +1499,8 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                     //红包回执消息
                 } else if (message.getStringAttribute(Constant.MSGTYPE, "").equals(Constant.RAB)
                         || Constant.RAB_SELF.equals(message.getStringAttribute(Constant.MSGTYPE, ""))
-                        || Constant.TURN.equals(message.getStringAttribute(Constant.MSGTYPE, ""))
-                        || Constant.SURE_TURN.equals(message.getStringAttribute(Constant.MSGTYPE, ""))) {
+                       /* || Constant.TURN.equals(message.getStringAttribute(Constant.MSGTYPE, ""))
+                        || Constant.SURE_TURN.equals(message.getStringAttribute(Constant.MSGTYPE, ""))*/) {
 
                     EaseChatRowPresenter presenter =
                             new ChatRedPacketAckPresenter();
@@ -1536,6 +1537,11 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                 } else if (message.getBooleanAttribute(Constant.TURN, false)) {
                     EaseChatRowPresenter presenter =
                             new ChatRedPacketturnPresenter();
+                    return presenter;
+                    //确认转账
+                } else if (message.getStringAttribute(Constant.MSGTYPE, "").equals(Constant.SURE_TURN)||message.getStringAttribute(Constant.MSGTYPE, "").equals(Constant.TURN)) {//
+                    EaseChatRowPresenter presenter =
+                            new ChatSureTurnPresenter();
                     return presenter;
                     //加入房间
                 } else if (message.getStringAttribute(Constant.MSGTYPE, "").equals(Constant.ADDUSER)) {

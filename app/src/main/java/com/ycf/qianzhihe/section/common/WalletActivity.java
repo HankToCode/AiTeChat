@@ -19,6 +19,7 @@ import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.ycf.qianzhihe.app.api.old_http.CommonApi;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
+import com.ycf.qianzhihe.app.utils.XClickUtil;
 import com.ycf.qianzhihe.app.weight.CommonDialog;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.zds.base.util.StringUtil;
@@ -39,7 +40,6 @@ public class WalletActivity extends BaseInitActivity {
     @BindView(R.id.tv_amount)
     TextView mTvAmount;
 
-    private String url;
 
 
     public static void actionStart(Context context) {
@@ -65,10 +65,10 @@ public class WalletActivity extends BaseInitActivity {
         switch (view.getId()) {
             case R.id.tv_recharge:
                 //充值
-//                if (UserComm.getUserInfo().getOpenAccountFlag() == 0) {
-//                    showAuthDialog();
-//                    return;
-//                }
+                if (UserComm.getUserInfo().getOpenAccountFlag() == 0) {
+                    showAuthDialog();
+                    return;
+                }
                 //startActivity(RechargeActivity.class);
                 //判断是否开通钱包账户
                 //TODO
@@ -81,21 +81,18 @@ public class WalletActivity extends BaseInitActivity {
                 break;
             case R.id.tv_withdraw:
                 //提现  //判断如果未实名，提示进行实名认证
-//                if (UserComm.getUserInfo().getOpenAccountFlag() == 0) {
-//                    showAuthDialog();
-//                    return;
-//                }
+                if (UserComm.getUserInfo().getOpenAccountFlag() == 0) {
+                    showAuthDialog();
+                    return;
+                }
                 WithdrawActivity.actionStart(WalletActivity.this);
                 break;
             case R.id.tv_pay_manage://银行卡
                 //判断如果未实名，提示进行实名认证
-//                if (UserComm.getUserInfo().getOpenAccountFlag() == 0) {
-//                    showAuthDialog();
-//                    return;
-//                }
-//                if (url==null){
-//                    return;
-//                }
+                if (UserComm.getUserInfo().getOpenAccountFlag() == 0) {
+                    showAuthDialog();
+                    return;
+                }
 //                startActivity(new Intent(WalletActivity.this,WebViewActivity.class).putExtra("url",url).putExtra("title","银行卡"));
                 BankActivity.actionStart(this);
                 break;
@@ -163,6 +160,8 @@ public class WalletActivity extends BaseInitActivity {
                     ToastUtil.toast("请填写手机号");
                     return;
                 }
+                /*if (!XClickUtil.isFastDoubleClick(view, 2000))
+                    save();*/
                 openAccount(etName.getText().toString().trim(), etCard.getText().toString().trim(), etPhone.getText().toString().trim());
 
             }

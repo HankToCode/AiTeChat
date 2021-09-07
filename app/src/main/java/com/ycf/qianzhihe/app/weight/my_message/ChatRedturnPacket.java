@@ -1,12 +1,14 @@
 package com.ycf.qianzhihe.app.weight.my_message;
 
 import android.content.Context;
+import android.text.TextUtils;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.hyphenate.chat.EMMessage;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
+import com.ycf.qianzhihe.app.operate.UserOperateManager;
 import com.ycf.qianzhihe.app.weight.ease.chatrow.EaseChatRow;
 
 /**
@@ -53,6 +55,18 @@ public class ChatRedturnPacket extends EaseChatRow {
         //有BUG 第二条无备注的会自动显示上一条转账备注信息
         /*if (remark != null && remark.length() > 0) {
             tv_messageRemark.setText(remark);
+        }*/
+
+        /*String localRobNikeName = "";
+        if (message.getStringAttribute(Constant.MSGTYPE, "").equals(Constant.TURN)) {
+            localRobNikeName = UserOperateManager.getInstance().getUserName(message.getFrom());
+        } else {
+            localRobNikeName = UserOperateManager.getInstance().getUserName(message.getTo());
+        }
+        if (!TextUtils.isEmpty(remark)) {
+            tv_messageRemark.setText(remark);
+        } else {
+            tv_messageRemark.setText(localRobNikeName+"的转账");
         }*/
         tv_messageRemark.setText(remark);
         tv_message.setText(message.getStringAttribute("money", "") + getResources().getString(R.string.glod));

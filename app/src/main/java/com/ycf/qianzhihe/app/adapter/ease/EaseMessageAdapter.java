@@ -39,6 +39,7 @@ import com.ycf.qianzhihe.app.weight.ease.presenter.EaseChatTextPresenter;
 import com.ycf.qianzhihe.app.weight.ease.presenter.EaseChatVideoPresenter;
 import com.ycf.qianzhihe.app.weight.ease.presenter.EaseChatVoicePresenter;
 import com.ycf.qianzhihe.app.weight.my_message.ChatRedPacketturnPresenter;
+import com.ycf.qianzhihe.app.weight.my_message.ChatSureTurnPresenter;
 import com.ycf.qianzhihe.app.weight.my_message.ChatidCardPresenter;
 import com.hyphenate.easeui.constants.EaseConstant;
 import com.hyphenate.easeui.model.styles.EaseMessageListItemStyle;
@@ -275,7 +276,9 @@ public class EaseMessageAdapter extends BaseAdapter {
                     presenter = new ChatidCardPresenter();
                 } else if (message.getBooleanAttribute(Constant.TURN, false)) {
                     presenter = new ChatRedPacketturnPresenter();
-                } else {
+                }/* else if (message.getStringAttribute(Constant.MSGTYPE, "").equals(Constant.SURE_TURN)) {
+                    presenter = new ChatSureTurnPresenter();
+                }*/ else {
                     presenter = new EaseChatTextPresenter();
                 }
                 break;
