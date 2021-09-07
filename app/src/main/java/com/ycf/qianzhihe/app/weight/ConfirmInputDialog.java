@@ -49,6 +49,9 @@ public class ConfirmInputDialog extends BaseDialog {
     public void setTitle(String title) {
         tv_title.setText(title);
     }
+    public void setContentHint(String title) {
+        et_content.setHint(title);
+    }
 
     public void setContent(String content) {
         et_content.setText(content);

@@ -44,7 +44,7 @@
 -keep public class * extends android.app.backup.BackupAgentHelper
 -keep public class * extends android.preference.Preference
 -keep public class * extends android.view.View
--keep public class com.android.vending.licensing.ILicensingService
+#-keep public class com.android.vending.licensing.ILicensingService
 -keep class android.support.** {*;}
 
 -keepclasseswithmembernames class * {
@@ -87,16 +87,16 @@
 }
 
 #3.webview
--keepclassmembers class fqcn.of.javascript.interface.for.webview {
-   public *;
-}
--keepclassmembers class * extends android.webkit.webViewClient {
-    public void *(android.webkit.WebView, java.lang.String, android.graphics.Bitmap);
-    public boolean *(android.webkit.WebView, java.lang.String);
-}
--keepclassmembers class * extends android.webkit.webViewClient {
-    public void *(android.webkit.webView, jav.lang.String);
-}
+#-keepclassmembers class fqcn.of.javascript.interface.for.webview {
+#   public *;
+#}
+#-keepclassmembers class * extends android.webkit.webViewClient {
+#    public void *(android.webkit.WebView, java.lang.String, android.graphics.Bitmap);
+#    public boolean *(android.webkit.WebView, java.lang.String);
+#}
+#-keepclassmembers class * extends android.webkit.webViewClient {
+#    public void *(android.webkit.webView, jav.lang.String);
+#}
 
 #assume no side effects:删除android.util.Log输出的日志
 -assumenosideeffects class android.util.Log {
@@ -233,3 +233,8 @@
 -keepclasseswithmembernames class * {
     @butterknife.* <methods>;
 }
+ #阿里人脸
+-keepclasseswithmembers class com.ymt.liveness.utils.UIConfig { <fields>; <methods>; }
+-keep class com.ymt.liveness.utils.VersionUtil { *; }
+-keep class com.detect.live.** { *; }
+-keep class com.detect.facedetect.** { *; }

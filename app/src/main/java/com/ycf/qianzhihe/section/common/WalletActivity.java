@@ -66,12 +66,12 @@ public class WalletActivity extends BaseInitActivity {
             case R.id.tv_recharge:
                 //充值
                 if (UserComm.getUserInfo().getOpenAccountFlag() == 0) {
-                    showAuthDialog();
+//                    showAuthDialog();
+                    RealAuthActivity.actionStart(mContext);
                     return;
                 }
                 //startActivity(RechargeActivity.class);
                 //判断是否开通钱包账户
-                //TODO
                 /*if (TextUtils.isEmpty(UserComm.getUserInfo().ncountUserId)) {
                     OpenWalletActivity.start(WalletActivity.this);
                 } else {
@@ -82,7 +82,8 @@ public class WalletActivity extends BaseInitActivity {
             case R.id.tv_withdraw:
                 //提现  //判断如果未实名，提示进行实名认证
                 if (UserComm.getUserInfo().getOpenAccountFlag() == 0) {
-                    showAuthDialog();
+//                    showAuthDialog();
+                    RealAuthActivity.actionStart(mContext);
                     return;
                 }
                 WithdrawActivity.actionStart(WalletActivity.this);
@@ -90,7 +91,8 @@ public class WalletActivity extends BaseInitActivity {
             case R.id.tv_pay_manage://银行卡
                 //判断如果未实名，提示进行实名认证
                 if (UserComm.getUserInfo().getOpenAccountFlag() == 0) {
-                    showAuthDialog();
+//                    showAuthDialog();
+                    RealAuthActivity.actionStart(mContext);
                     return;
                 }
 //                startActivity(new Intent(WalletActivity.this,WebViewActivity.class).putExtra("url",url).putExtra("title","银行卡"));

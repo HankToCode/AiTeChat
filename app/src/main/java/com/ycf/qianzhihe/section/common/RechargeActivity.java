@@ -12,8 +12,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.ehking.sdk.wepay.interfaces.WalletPay;
-import com.ehking.sdk.wepay.net.bean.AuthType;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.UserComm;
@@ -162,7 +160,7 @@ public class RechargeActivity extends BaseInitActivity {
                 if (json != null && json.length() > 0) {
                     WalletRechargeBean walletRechargeBean = FastJsonUtil.getObject(json, WalletRechargeBean.class);
 
-                    WalletPay walletPay = WalletPay.Companion.getInstance();
+                   /* WalletPay walletPay = WalletPay.Companion.getInstance();
                     walletPay.init(RechargeActivity.this);
                     walletPay.walletPayCallback = new WalletPay.WalletPayCallback() {
                         @Override
@@ -175,14 +173,14 @@ public class RechargeActivity extends BaseInitActivity {
                                 ToastUtil.toast("充值失败");
                             }
                         }
-                    };
+                    };*/
                     //支付SDK
                     /*ArrayList<String> list = new ArrayList<>();
                     list.add(AuthType.APP_PAY.name());
                     walletPay.setOnlySupportBalance(true,list);*/
                     //商户编号  钱包id  后台返回的支付token和requestId
-                    walletPay.evoke(Constant.MERCHANT_ID, UserComm.getUserInfo().ncountUserId,
-                            walletRechargeBean.token, AuthType.APP_PAY.name());
+//                    walletPay.evoke(Constant.MERCHANT_ID, UserComm.getUserInfo().ncountUserId,
+//                            walletRechargeBean.token, AuthType.APP_PAY.name());
 
 
                 } else {
@@ -216,7 +214,7 @@ public class RechargeActivity extends BaseInitActivity {
                         if (json != null && json.length() > 0) {
                             WalletRechargeBean walletRechargeBean = FastJsonUtil.getObject(json, WalletRechargeBean.class);
 
-                            WalletPay walletPay = WalletPay.Companion.getInstance();
+                            /*WalletPay walletPay = WalletPay.Companion.getInstance();
                             walletPay.init(RechargeActivity.this);
                             walletPay.walletPayCallback = new WalletPay.WalletPayCallback() {
                                 @Override
@@ -228,7 +226,7 @@ public class RechargeActivity extends BaseInitActivity {
                             };
                             //调起SDK的充值
                             walletPay.evoke(Constant.MERCHANT_ID, UserComm.getUserInfo().ncountUserId,
-                                    walletRechargeBean.token, AuthType.RECHARGE.name());
+                                    walletRechargeBean.token, AuthType.RECHARGE.name());*/
 
                         } else {
                             ToastUtil.toast("服务器开小差，请稍后重试");

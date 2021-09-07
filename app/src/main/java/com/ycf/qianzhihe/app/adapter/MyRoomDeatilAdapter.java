@@ -107,7 +107,7 @@ public class MyRoomDeatilAdapter extends BaseQuickAdapter<GroupDetailInfo.GroupU
             });
 
         } else {
-            EaseUser userInfo = EaseUserUtils.getUserInfo(item.getNickName());
+//            EaseUser userInfo = EaseUserUtils.getUserInfo(item.getNickName());//这里有bug产生，IOS群 安卓获取昵称异常
 
             if (mode == 1) {
                 helper.setGone(R.id.badge_delete, true);
@@ -119,22 +119,23 @@ public class MyRoomDeatilAdapter extends BaseQuickAdapter<GroupDetailInfo.GroupU
 //                helper.setText(R.id.tv_name, userInfo.getNickname());
 //            }
 
-            if (!TextUtils.isEmpty(item.getUserNickName())) {
+            if (!TextUtils.isEmpty(item.getFriendNickName())) {
+                helper.setText(R.id.tv_name, item.getFriendNickName());
+            } else if (!TextUtils.isEmpty(item.getUserNickName())) {
                 helper.setText(R.id.tv_name, item.getUserNickName());
-            } else if (userInfo != null && !TextUtils.isEmpty(userInfo.getNickname())) {
+            }/* else if (userInfo != null && !TextUtils.isEmpty(userInfo.getNickname())) {
                 helper.setText(R.id.tv_name, userInfo.getNickname());
-            }
+            } */
 
             //是否为会员vipLevel
             if (!TextUtils.isEmpty(item.getVipLevel())) {
                 helper.setTextColor(R.id.tv_name, Color.parseColor("#ffff0000"));
             } else {
-                helper.setTextColor(R.id.tv_name,Color.parseColor("#000000"));
+                helper.setTextColor(R.id.tv_name, Color.parseColor("#000000"));
             }
 
 //            GlideUtils.GlideLoadCircleErrorImageUtils(mContext, AppConfig.checkimg(item.getUserHead()), (EaseImageView) helper.getView(R.id.iv_avatar), R.mipmap.img_default_avatar);
-            GlideUtils.loadImageViewLoding(mContext, AppConfig.checkimg(item.getUserHead()), (EaseImageView)helper.getView(R.id.iv_avatar), R.mipmap.img_default_avatar, R.mipmap.img_default_avatar);
-
+            GlideUtils.loadImageViewLoding(mContext, AppConfig.checkimg(item.getUserHead()), (EaseImageView) helper.getView(R.id.iv_avatar), R.mipmap.img_default_avatar, R.mipmap.img_default_avatar);
 
 
             helper.setOnClickListener(R.id.badge_delete,

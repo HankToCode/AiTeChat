@@ -63,7 +63,7 @@
                         android:gravity="center"
                         android:layout_marginLeft="16dp"
                         android:text="充值金额"
-                        android:textColor="@color/lesserText"
+                        android:textColor="@color/grey_2"
                         android:textSize="14sp" />
 
                     <TextView

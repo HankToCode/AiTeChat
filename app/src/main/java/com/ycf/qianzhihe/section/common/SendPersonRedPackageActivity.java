@@ -13,8 +13,6 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-import com.ehking.sdk.wepay.interfaces.WalletPay;
-import com.ehking.sdk.wepay.net.bean.AuthType;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
@@ -248,7 +246,7 @@ public class SendPersonRedPackageActivity extends BaseInitActivity {
                         if (json != null && json.length() > 0) {
                             WalletTransferBean walletTransferBean = FastJsonUtil.getObject(json, WalletTransferBean.class);
 
-                            WalletPay walletPay = WalletPay.Companion.getInstance();
+                            /*WalletPay walletPay = WalletPay.Companion.getInstance();
                             walletPay.init(SendPersonRedPackageActivity.this);
                             walletPay.walletPayCallback = new WalletPay.WalletPayCallback() {
                                 @Override
@@ -263,7 +261,7 @@ public class SendPersonRedPackageActivity extends BaseInitActivity {
                             };
                             //调起SDK的转账
                             walletPay.evoke(Constant.MERCHANT_ID, UserComm.getUserInfo().ncountUserId,
-                                    walletTransferBean.token, AuthType./*TRANSFER*/APP_PAY.name());
+                                    walletTransferBean.token, AuthType.*//*TRANSFER*//*APP_PAY.name());*/
 
                         } else {
                             ToastUtil.toast("服务器开小差，请稍后重试");

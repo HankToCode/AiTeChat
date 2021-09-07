@@ -89,6 +89,7 @@ import com.ycf.qianzhihe.section.chat.activity.ChatActivity;
 import com.ycf.qianzhihe.section.chat.activity.SelContactActivity;
 import com.ycf.qianzhihe.section.common.ChatCollectActivity;
 import com.ycf.qianzhihe.section.common.MyCollectActivity;
+import com.ycf.qianzhihe.section.common.RealAuthActivity;
 import com.ycf.qianzhihe.section.common.RedPacketDetailActivity;
 import com.ycf.qianzhihe.section.common.SendGroupRedPackageActivity;
 import com.ycf.qianzhihe.section.common.SendPersonRedPackageActivity;
@@ -854,7 +855,8 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
             case ITEM_MY_tixian:
                 //提现
                 if (UserComm.getUserInfo().getOpenAccountFlag() == 0) {
-                    showAuthDialog();
+//                    showAuthDialog();
+                    RealAuthActivity.actionStart(mContext);
                 } else {
                     startActivity(new Intent(requireActivity(),
                             WithdrawActivity.class/*WithdrawNewActivity.class*/));

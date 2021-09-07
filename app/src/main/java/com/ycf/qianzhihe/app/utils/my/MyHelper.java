@@ -1056,7 +1056,7 @@ public class MyHelper {
         // You'd better cache it if you get it from your server
         EaseUser user = new EaseUser(emUserId);
 
-        if (emUserId.equals(EMClient.getInstance().getCurrentUser())) {// TODO:  //IOS群，安卓点群详情闪退
+        if (emUserId.equals(EMClient.getInstance().getCurrentUser())) {
             user.setNickname(UserComm.getUserInfo().getNickName());
             user.setAvatar(UserComm.getUserInfo().getUserHead());
         }

@@ -97,7 +97,8 @@ public class SetIndexActivity extends BaseInitActivity implements EaseTitleBar.O
                         pd.dismiss();
                         // show login screen
                         finishOtherActivities();
-                        startActivity(new Intent(mContext, LoginActivity.class));
+//                        startActivity(new Intent(mContext, LoginActivity.class));
+                        LoginActivity.actionStart(mContext, "");
                         finish();
                     }
                 });

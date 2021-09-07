@@ -1053,6 +1053,13 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
+        <activity
+            android:name="com.ycf.qianzhihe.section.common.RealAuthActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
 
         <!--        高德地图··千纸鹤key:cfcdb949df63a30737552965fcf2ec9d-->
         <meta-data

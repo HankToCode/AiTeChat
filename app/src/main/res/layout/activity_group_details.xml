@@ -23,7 +23,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/windowBackground"
+            android:background="@color/windows_bg"
             android:orientation="vertical">
 
             <com.hyphenate.easecallkit.widget.EaseImageView

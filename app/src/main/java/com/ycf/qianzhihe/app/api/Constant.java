@@ -519,7 +519,10 @@ public class Constant extends EaseConstant {
      */
     public static final String DUR = "dur";
 
-
+    //阿里活体检测
+    public static final String URL_CERTIFY_ID = "http://lcomparev2.market.alicloudapi.com/certifyid";
+    public static final String URL = "https://lcomparev2.market.alicloudapi.com/comparev2";
+    public static final String APP_CODE = "e2c9b94c8b114a7782d0d82ea56728ba";
 
 
 }

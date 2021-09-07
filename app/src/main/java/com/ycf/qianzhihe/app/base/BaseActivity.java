@@ -125,7 +125,8 @@ public class BaseActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess() {
                         finishOtherActivities();
-                        startActivity(new Intent(mContext, LoginActivity.class));
+//                        startActivity(new Intent(mContext, LoginActivity.class));
+                        LoginActivity.actionStart(mContext, "");
                         finish();
                     }
 
@@ -160,7 +161,8 @@ public class BaseActivity extends AppCompatActivity {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         finishOtherActivities();
-                        startActivity(new Intent(mContext, LoginActivity.class));
+//                        startActivity(new Intent(mContext, LoginActivity.class));
+                        LoginActivity.actionStart(mContext, "");
                         finish();
                     }
                 })

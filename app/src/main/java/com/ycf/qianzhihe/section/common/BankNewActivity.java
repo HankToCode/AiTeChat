@@ -24,6 +24,9 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
+import com.ycf.qianzhihe.app.weight.ConfirmInputDialog;
+import com.ycf.qianzhihe.common.utils.ToastUtils;
 import com.zds.base.Toast.ToastUtil;
 
 /**
@@ -92,7 +95,20 @@ public class BankNewActivity extends BaseInitActivity {
 //                Bundle b = new Bundle();
 //                b.putSerializable("bean",dto);
 //                startActivity(CheakBankActivity.class,b);
-                sureBankCard(dto);
+
+                ConfirmInputDialog dialog = new ConfirmInputDialog(mContext);
+                dialog.setOnConfirmClickListener(new ConfirmInputDialog.OnConfirmClickListener() {
+                    @Override
+                    public void onConfirmClick(String content) {
+                        sureBankCard(dto,content);
+                    }
+                });
+                dialog.show();
+
+                dialog.setCancelable(false);
+                dialog.setCanceledOnTouchOutside(false);
+                dialog.setTitle("输入验证码");
+                dialog.setContentHint("输入验证码");
             }
 
             @Override
@@ -106,17 +122,21 @@ public class BankNewActivity extends BaseInitActivity {
      * 确认绑定银行卡
      *
      * @param dto
+     * @param content
      */
-    private void sureBankCard(BankDto dto) {
+    private void sureBankCard(BankDto dto, String content) {
         Map<String, Object> map = new HashMap<>();
         map.put("realName", dto.getRealName());
         map.put("idCard", dto.getIdCard());
         map.put("bankCard", dto.getBankCard());
         map.put("bankName", dto.getBankName());
         map.put("bankPhone", dto.getBankPhone());
+        map.put("tokenId", dto.getTokenId());
+        map.put("verifyCode", content);
         ApiClient.requestNetHandle(this, AppConfig.check_bank, "请稍后...", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
+                ToastUtils.showToast("绑定成功");
                 finish();
             }
 

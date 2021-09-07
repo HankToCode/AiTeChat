@@ -78,7 +78,7 @@ public class AppConfig {
     /**
      * 认证
      */
-    public static final String openAccount = mainUrl + "app_user/openAccount/";
+    public static final String openAccount = mainUrl + "app_user/openAccount";
 
 
     /**

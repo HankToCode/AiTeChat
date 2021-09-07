@@ -234,9 +234,11 @@ dependencies {
     implementation 'com.gyf.immersionbar:immersionbar-components:3.0.0'
 
     //三方支付
-    implementation(name: "webox_1.1.2", ext: "aar")
-    implementation(name: "services_1.0.4", ext: "aar")
-    implementation(name: "liveness-silent-offline-cn-release", ext: "aar")
+//    implementation(name: "webox_1.1.2", ext: "aar")
+//    implementation(name: "services_1.0.4", ext: "aar")
+//    implementation(name: "liveness-silent-offline-cn-release", ext: "aar")
+    //新生支付平台
+    implementation(name: "liveness", ext: "aar")
 
     implementation "com.yanzhenjie:permission:2.0.0-rc1"
     implementation "android.arch.lifecycle:extensions:1.1.1"
