@@ -10,11 +10,13 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.UserComm;
+import com.ycf.qianzhihe.app.api.old_data.LoginInfo;
 import com.ycf.qianzhihe.app.api.old_data.WalletRechargeBean;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
 import com.ycf.qianzhihe.app.api.old_http.AppConfig;
@@ -23,6 +25,13 @@ import com.ycf.qianzhihe.app.base.BaseInitActivity;
 import com.ycf.qianzhihe.app.utils.XClickUtil;
 import com.ycf.qianzhihe.app.weight.ChooseMoneyLayout;
 import com.hyphenate.easeui.widget.EaseTitleBar;
+import com.ycf.qianzhihe.app.weight.CommonDialog;
+import com.ycf.qianzhihe.app.weight.ConfirmInputDialog;
+import com.ycf.qianzhihe.app.weight.PasswordEditText;
+import com.ycf.qianzhihe.app.weight.passwoed_keyboard.OnNumberKeyboardListener;
+import com.ycf.qianzhihe.app.weight.passwoed_keyboard.XNumberKeyboardView;
+import com.ycf.qianzhihe.common.utils.ToastUtils;
+import com.ycf.qianzhihe.section.account.activity.BuyMemberActivity;
 import com.zds.base.json.FastJsonUtil;
 import com.zds.base.util.StringUtil;
 
@@ -33,6 +42,7 @@ import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+
 import com.zds.base.Toast.ToastUtil;
 
 //充值页面
@@ -50,6 +60,10 @@ public class RechargeActivity extends BaseInitActivity {
     TextView tv_money;//当前余额
     @BindView(R.id.cml_money)
     ChooseMoneyLayout cml_money;
+    @BindView(R.id.ll_select_bank)
+    LinearLayout ll_select_bank;
+    @BindView(R.id.tv_bank)
+    TextView tv_bank;
     private int rechargeMoney = 0;
 
 
@@ -91,27 +105,28 @@ public class RechargeActivity extends BaseInitActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 String afterStr = editable.toString().trim();
-
                 if (TextUtils.isEmpty(afterStr)) {
                     return;
                 }
-
+                cml_money.setDefaultPositon(-1);
                 if (!reviseEditTextInput(et_amount, 2)) {
                     return;
                 }
+
             }
         });
 
         //初始化金额选择
-        cml_money.setMoneyData(new int[]{30, 50, 100, 200, 500,3000});
-        cml_money.setDefaultPositon(0);
+        cml_money.setMoneyData(new int[]{30, 50, 100, 200, 500, 3000});
+        cml_money.setDefaultPositon(-1);
         cml_money.setOnChoseMoneyListener(new ChooseMoneyLayout.onChoseMoneyListener() {
             @Override
             public void chooseMoney(int position, boolean isCheck, int moneyNum) {
                 //选择金额回调
-                if(isCheck){
+                if (isCheck) {
+                    et_amount.setText("");
                     rechargeMoney = moneyNum;
-                }else{
+                } else {
                     rechargeMoney = 0;
                 }
             }
@@ -123,68 +138,127 @@ public class RechargeActivity extends BaseInitActivity {
     }
 
 
-    @OnClick({R.id.tv_recharge})
+    @OnClick({R.id.tv_recharge, R.id.ll_select_bank})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_recharge:
+
                 if (!XClickUtil.isFastDoubleClick(view, 1000)) {
-                    doRechargeClick();
+                    if (!TextUtils.isEmpty(et_amount.getText().toString().trim())) {
+                        rechargeMoney = Integer.parseInt(et_amount.getText().toString().trim());
+                    }
+                    if (rechargeMoney <= 0) {
+                        ToastUtils.showToast("请选择充值金额");
+                        return;
+                    }
+                    if (TextUtils.isEmpty(bankId)) {
+                        ToastUtils.showToast("请选择银行卡");
+                        return;
+                    }
+                    payPassword();
+
+                } else {
+                    ToastUtils.showToast("请勿连续提交");
                 }
+                break;
+            case R.id.ll_select_bank:
+                startActivityForResult(new Intent(this, BankActivity.class), 66);
                 break;
 
         }
     }
 
-    private void doRechargeClick() {
-        maxCount = 5;
-        rechargeMoney = Integer.parseInt(et_amount.getText().toString().trim());
-        if (rechargeMoney <= 0) {
-            ToastUtil.toast("请选择充值金额");
+    private String bankId = "";
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 66 && resultCode == 1111) {
+            bankId = data.getStringExtra("id");
+            tv_bank.setText(data.getStringExtra("bankName"));
+//            tv_bank_card.setText(data.getStringExtra("bankCard"));
+        }
+    }
+
+
+    private void payPassword() {
+        LoginInfo userInfo = UserComm.getUserInfo();
+        if (userInfo.getPayPwdFlag() == 0) {
+            startActivity(new Intent(mContext, InputPasswordActivity.class));
             return;
         }
-       /* if (TextUtils.isEmpty(rechargeMoney)) {
-            toast("请输入充值金额");
-            return;
-        }*/
+        final CommonDialog.Builder builder = new CommonDialog.Builder(this).fullWidth().fromBottom()
+                .setView(R.layout.dialog_customer_keyboard);
+        builder.setOnClickListener(R.id.delete_dialog,
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        builder.dismiss();
+                    }
+                });
+        builder.create().show();
 
+        builder.getView(R.id.tv_forget).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ResetPayPwdActivity.actionStart(mContext);
+            }
+        });
+
+        final XNumberKeyboardView mCustomerKeyboard = builder.getView(R.id.kb_board);
+        final PasswordEditText mPasswordEditText = builder.getView(R.id.password_edit_text);
+        mCustomerKeyboard.setOnNumberKeyboardListener(new OnNumberKeyboardListener() {
+            @Override
+            public void onNumberKey(int keyCode, String insert) {
+                // 右下角按键的点击事件，删除一位输入的文字
+                if (keyCode == XNumberKeyboardView.KEYCODE_BOTTOM_RIGHT) {
+                    mPasswordEditText.deleteLastPassword();
+                }
+                // 左下角按键和数字按键的点击事件，输入文字
+                else {
+                    mPasswordEditText.addPassword(insert);
+                }
+
+            }
+        });
+
+        mPasswordEditText.setOnPasswordFullListener(new PasswordEditText.PasswordFullListener() {
+            @Override
+            public void passwordFull(String password) {
+                doRechargeClick(password);
+                builder.dismiss();
+            }
+        });
+
+    }
+
+    private void doRechargeClick(String password) {
         Map<String, Object> map = new HashMap<>();
         map.put("rechargeMoney", Double.parseDouble(String.valueOf(rechargeMoney)));
-        map.put("cardId", "xxx");
-        //map.put("payPassword", psw);
+        map.put("cardId", bankId);
+        map.put("payPassword", password);
         map.put("payType", 1);
         ApiClient.requestNetHandle(this, AppConfig.rechargeUrl, "充值中...", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
 //                startActivity(new Intent(RechargeActivity.this, WebViewActivity.class).putExtra("url", json).putExtra("title", "充值"));
-                Log.d("####", json.toString());
                 if (json != null && json.length() > 0) {
                     WalletRechargeBean walletRechargeBean = FastJsonUtil.getObject(json, WalletRechargeBean.class);
 
-                   /* WalletPay walletPay = WalletPay.Companion.getInstance();
-                    walletPay.init(RechargeActivity.this);
-                    walletPay.walletPayCallback = new WalletPay.WalletPayCallback() {
+                    ConfirmInputDialog dialog = new ConfirmInputDialog(mContext);
+                    dialog.setOnConfirmClickListener(new ConfirmInputDialog.OnConfirmClickListener() {
                         @Override
-                        public void callback(@Nullable String source, @Nullable String status, @Nullable String errorMessage) {
-                            if (status == "SUCCESS" || status == "PROCESS") {
-                                //queryResult(walletRechargeBean.requestId);
-                                ToastUtil.toast("充值成功");
-                                finish();
-                            } else {//后加的
-                                ToastUtil.toast("充值失败");
-                            }
+                        public void onConfirmClick(String content) {
+                            doNewRechargeClick(walletRechargeBean.getOrderId(), content);
                         }
-                    };*/
-                    //支付SDK
-                    /*ArrayList<String> list = new ArrayList<>();
-                    list.add(AuthType.APP_PAY.name());
-                    walletPay.setOnlySupportBalance(true,list);*/
-                    //商户编号  钱包id  后台返回的支付token和requestId
-//                    walletPay.evoke(Constant.MERCHANT_ID, UserComm.getUserInfo().ncountUserId,
-//                            walletRechargeBean.token, AuthType.APP_PAY.name());
-
-
+                    });
+                    dialog.show();
+                    dialog.setCancelable(false);
+                    dialog.setCanceledOnTouchOutside(false);
+                    dialog.setTitle("输入验证码");
+                    dialog.setContentHint("输入验证码");
                 } else {
-                    ToastUtil.toast("服务器开小差，请稍后重试");
+                    ToastUtils.showToast("服务器开小差，请稍后重试");
                 }
             }
 
@@ -197,23 +271,19 @@ public class RechargeActivity extends BaseInitActivity {
 
     }
 
-    private void doNewRechargeClick() {
+    private void doNewRechargeClick(String orderId, String code) {
         maxCount = 5;
-        String inputAmount = et_amount.getText().toString().trim();
-        if (TextUtils.isEmpty(inputAmount)) {
-            ToastUtil.toast("请输入充值金额");
-            return;
-        }
-
         Map<String, Object> map = new HashMap<>();
-        map.put("rechargeMoney", Double.parseDouble(inputAmount));
-        ApiClient.requestNetHandle(this, AppConfig.walletRecharge, "请稍等...",
+        map.put("orderId", orderId);
+        map.put("verifyCode", code);
+        ApiClient.requestNetHandle(this, AppConfig.rechargeSure, "请稍等...",
                 map, new ResultListener() {
                     @Override
                     public void onSuccess(String json, String msg) {
                         if (json != null && json.length() > 0) {
                             WalletRechargeBean walletRechargeBean = FastJsonUtil.getObject(json, WalletRechargeBean.class);
-
+                            ToastUtils.showToast("充值成功");
+                            finish();
                             /*WalletPay walletPay = WalletPay.Companion.getInstance();
                             walletPay.init(RechargeActivity.this);
                             walletPay.walletPayCallback = new WalletPay.WalletPayCallback() {
@@ -285,7 +355,6 @@ public class RechargeActivity extends BaseInitActivity {
                     }
                 });
     }
-
 
 
     private void getWithdrawExplain() {

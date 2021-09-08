@@ -33,8 +33,8 @@ public class RechargeRecordActivity extends BaseInitActivity {
 
     @BindView(R.id.title_bar)
     EaseTitleBar mTitleBar;
-    @BindView(R.id.rv_red_record)
-    RecyclerView mRvRedRecord;
+    @BindView(R.id.recyclerView)
+    RecyclerView recyclerView;
     private List<RechargeRecordInfo.DataBean> mRecordInfoList = new ArrayList<>();
     private RechargeRecordAdapter mRechargeAdapter;
     private int page = 1;
@@ -56,7 +56,7 @@ public class RechargeRecordActivity extends BaseInitActivity {
         mTitleBar.setTitle("充值记录");
         mTitleBar.setOnBackPressListener(view -> finish());
         mRechargeAdapter = new RechargeRecordAdapter(mRecordInfoList);
-        RclViewHelp.initRcLmVertical(this, mRvRedRecord, mRechargeAdapter);
+        RclViewHelp.initRcLmVertical(this, recyclerView, mRechargeAdapter);
         mRechargeAdapter.openLoadAnimation();
         mRechargeAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
@@ -64,7 +64,7 @@ public class RechargeRecordActivity extends BaseInitActivity {
                 page++;
                 queryRechargeRecord();
             }
-        },mRvRedRecord);
+        },recyclerView);
         queryRechargeRecord();
     }
 

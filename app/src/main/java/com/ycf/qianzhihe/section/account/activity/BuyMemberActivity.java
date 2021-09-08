@@ -110,7 +110,6 @@ public class BuyMemberActivity extends BaseInitActivity implements View.OnClickL
             @Override
             public void onSuccess(String json, String msg) {
                 if (json != null) {
-                    System.out.println("###会员返回=" + json.toString());
                     List<VipBean> vipBeanList = new ArrayList<>(FastJsonUtil.getList(json, VipBean.class));
                     showVipView(vipBeanList);
                 }
@@ -281,7 +280,6 @@ public class BuyMemberActivity extends BaseInitActivity implements View.OnClickL
             public void onSuccess(String json, String msg) {
                 if (json != null) {
 //                    payDialog.setSucc();
-                    System.out.println("###会员返回=" + json.toString());
                     ToastUtils.showToast("购买成功");
                     CommonApi.upUserInfo(mContext);//刷新用户数据
                     finish();
