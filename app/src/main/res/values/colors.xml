@@ -183,4 +183,10 @@
     <color name="selector_white_pressed">#EEEEEE</color>
     <color name="line_gray">#ffededed</color>
 
+
+    <color name="user_type_1">#E8101B</color>
+    <color name="user_type_2">#75D617</color>
+    <color name="user_type_3">#9810E6</color>
+    <color name="user_type_4">#EDC421</color>
+
 </resources>

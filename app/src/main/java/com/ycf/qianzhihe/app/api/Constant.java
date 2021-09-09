@@ -307,6 +307,11 @@ public class Constant extends EaseConstant {
 
 
     /**
+     * 用户会员等级
+     */
+    public static final String USERVIPLEVEL = "userVipLevel";
+
+    /**
      * 头像
      */
     public static final String AVATARURL = "headImg";

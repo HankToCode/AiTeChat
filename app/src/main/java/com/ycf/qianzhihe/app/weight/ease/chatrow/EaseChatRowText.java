@@ -7,15 +7,20 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
+import androidx.core.content.ContextCompat;
+
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.app.api.Constant;
+import com.ycf.qianzhihe.app.api.old_http.CommonApi;
 import com.ycf.qianzhihe.app.utils.ease.EaseSmileUtils;
 
 public class EaseChatRowText extends EaseChatRow {
 
     private TextView contentView;
     private LinearLayout ll_message;
+    private int[] vipTextColor = {R.color.black, R.color.user_type_1, R.color.user_type_2, R.color.user_type_3, R.color.user_type_4};
 
     public EaseChatRowText(Context context, EMMessage message, int position, BaseAdapter adapter) {
         super(context, message, position, adapter);
@@ -39,6 +44,15 @@ public class EaseChatRowText extends EaseChatRow {
         Spannable span = EaseSmileUtils.getSmiledText(context, txtBody.getMessage());
         // 设置内容
         contentView.setText(span, BufferType.SPANNABLE);
+        int vipLevel = message.getIntAttribute(Constant.USERVIPLEVEL, 0);
+
+        if (vipLevel != 0 && vipLevel <= vipTextColor.length) {
+            contentView.setTextColor(ContextCompat.getColor(context, vipTextColor[vipLevel]));
+        } else {
+            int textColor = message.direct() == EMMessage.Direct.SEND ? ContextCompat.getColor(context, R.color.white) : ContextCompat.getColor(context, R.color.black);
+            contentView.setTextColor(textColor);
+        }
+
         if ("系统管理员".equals(message.getFrom())) {
             ll_message.setVisibility(GONE);
         } else {

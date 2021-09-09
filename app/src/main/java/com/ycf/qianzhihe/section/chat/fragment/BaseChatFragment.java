@@ -95,6 +95,7 @@ import com.hyphenate.util.PathUtil;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.json.FastJsonUtil;
 import com.zds.base.util.DensityUtils;
+import com.zds.base.util.NumberUtils;
 import com.zds.base.util.Preference;
 import com.zds.base.util.UriUtil;
 
@@ -1402,6 +1403,8 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
                 UserComm.getUserInfo().getUserHead());
         message.setAttribute(Constant.NICKNAME,
                 UserComm.getUserInfo().getNickName());
+        message.setAttribute(Constant.USERVIPLEVEL,
+                NumberUtils.parseInt(UserComm.getUserInfo().getVipLevel()));
 
         if (groupDetailInfo != null && !TextUtils.isEmpty(groupDetailInfo.getGroupUserNickName())) {
             message.setAttribute(Constant.NICKNAME, groupDetailInfo.getGroupUserNickName());
