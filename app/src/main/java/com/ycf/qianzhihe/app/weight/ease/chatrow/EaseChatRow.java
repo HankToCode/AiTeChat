@@ -177,6 +177,12 @@ public abstract class EaseChatRow extends LinearLayout {
                 userAvatarView.setImageResource(R.mipmap.icon_kefu_avatar);
             } else if (message.conversationId().contains("0d777a9c8f9311eb844f00163e0654c2")) {
                 userAvatarView.setImageResource(R.mipmap.icon_exception_handle_kefu_avatar);
+            } else if (message.getStringAttribute(Constant.MSGTYPE, "").equals(Constant.TURN)) {
+                //当本人确认收账时，显示自己头像姓名
+                if (!TextUtils.isEmpty(UserComm.getUserInfo().getUserHead()))
+                    GlideUtils.loadImageViewLoding(AppConfig.checkimg(UserComm.getUserInfo().getUserHead()), userAvatarView, R.mipmap.img_default_avatar);
+                if (usernickView != null)
+                    usernickView.setText(UserComm.getUserInfo().getNickName());
             } else if (!TextUtils.isEmpty(message.getStringAttribute(Constant.AVATARURL)))
                 GlideUtils.loadImageViewLodingByCircle(AppConfig.checkimg(message.getStringAttribute(Constant.AVATARURL)), userAvatarView, R.mipmap.img_default_avatar);
 
