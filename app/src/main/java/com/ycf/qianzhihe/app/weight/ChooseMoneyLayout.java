@@ -16,7 +16,7 @@ public class ChooseMoneyLayout extends GridView {
     private int[] moneyList = {}; //数据源
     private LayoutInflater mInflater;
     private MyAdapter adapter; //适配器
-    int defaultChoose = 0; //默认选中项
+    int defaultChoose = -2; //默认选中项
 
     public ChooseMoneyLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -97,6 +97,8 @@ public class ChooseMoneyLayout extends GridView {
                 defaultChoose = -1;
                 holder.cb_money.setChecked(true);
                 checkBox = holder.cb_money;
+            } else {
+                holder.cb_money.setChecked(false);
             }
             return convertView;
         }

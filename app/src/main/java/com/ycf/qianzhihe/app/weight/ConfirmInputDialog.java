@@ -1,6 +1,7 @@
 package com.ycf.qianzhihe.app.weight;
 
 import android.app.Activity;
+import android.text.InputType;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
@@ -51,6 +52,9 @@ public class ConfirmInputDialog extends BaseDialog {
     }
     public void setContentHint(String title) {
         et_content.setHint(title);
+        if (title.contains("验证码")) {
+            et_content.setInputType(InputType.TYPE_CLASS_NUMBER);
+        }
     }
 
     public void setContent(String content) {

@@ -54,7 +54,7 @@
                 android:lineSpacingExtra="@dimen/dp_1"
                 android:maxWidth="225.0dip"
                 android:textColor="#ff000000"
-                android:textSize="@dimen/sp_18"
+                android:textSize="@dimen/sp_16"
                 tools:text="你也哈有会将爱欧阳锋的身份" />
         </RelativeLayout>
 

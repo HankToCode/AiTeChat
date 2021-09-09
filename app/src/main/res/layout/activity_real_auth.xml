@@ -137,7 +137,7 @@
             android:layout_height="match_parent"
             android:background="?attr/selectableItemBackground"
             android:gravity="center"
-            android:text="开始检测"
+            android:text="提交认证"
             android:textColor="@color/white"
             android:textSize="@dimen/sp_16" />
     </FrameLayout>

@@ -103,6 +103,8 @@ public class AppConfig {
      * 充值
      */
     public static final String rechargeUrl = mainUrl + "app_user_wallet/recharge";
+    //充值确认
+    public static final String rechargeSure = mainUrl + "app_user_wallet/rechargeSure";
     /**
      * 银行卡
      */

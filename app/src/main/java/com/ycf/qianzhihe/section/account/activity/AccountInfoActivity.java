@@ -173,7 +173,6 @@ public class AccountInfoActivity extends BaseInitActivity {
             @Override
             public void onSuccess(String json, String msg) {
                 if (json != null) {
-                    System.out.println("###会员返回=" + json.toString());
                     List<VipBean> vipBeanList = new ArrayList<>();
                     vipBeanList.addAll(FastJsonUtil.getList(json, VipBean.class));
 

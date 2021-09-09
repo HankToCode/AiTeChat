@@ -113,11 +113,11 @@ public class RealAuthActivity extends BaseInitActivity {
         ApiClient.requestNetHandle(this, AppConfig.openAccount, "认证中...", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
-                System.out.println("###实名结果="+json);
                 LoginInfo loginInfo = UserComm.getUserInfo();
                 loginInfo.setOpenAccountFlag(1);
                 UserComm.saveUsersInfo(loginInfo);
-                ToastUtil.toast(msg);
+                ToastUtil.toast("认证成功");
+                finish();
             }
 
             @Override
@@ -201,16 +201,18 @@ public class RealAuthActivity extends BaseInitActivity {
                         String code = result.getString("code");
                         // 活体错误信息
                         String msg = result.getString("msg");
-                        if (code.equals("0")) {
-                            // 人像比对通过, data.errcode="P0000"时返回图片保存路径，完整图像
-                            String passImgPath = result.getString("passImgPath");
-                            // 人像比对通过, data.errcode="P0000"时返脸部 base64，剪裁后的脸部图像
-                            String passFace = result.getString("passFace");
-                            // 人像比对结果
-                            String jsonData = result.getString("data");
+                        // 人像比对通过, data.errcode="P0000"时返回图片保存路径，完整图像
+                        String passImgPath = result.getString("passImgPath");
+                        System.out.println("###认证返回图片=" + passImgPath);
+                        // 人像比对通过, data.errcode="P0000"时返脸部 base64，剪裁后的脸部图像
+                        String passFace = result.getString("passFace");
+                        // 人像比对结果
+                        String jsonData = result.getString("data");
+                       /* if (code.equals("0")) {
+
                         } else {
                             ToastUtils.showToast(msg);
-                        }
+                        }*/
 
 
                     }

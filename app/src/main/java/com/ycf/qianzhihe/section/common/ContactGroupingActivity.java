@@ -171,7 +171,6 @@ public class ContactGroupingActivity extends BaseInitActivity {
             if (sb.length() > 0) {
                 sb.deleteCharAt(0);
             }
-            System.out.println("###sb=" + sb.toString());
 
             if (sb.length() <= 0) {
                 ToastUtils.showToast("请选择邀请人员");
@@ -238,7 +237,6 @@ public class ContactGroupingActivity extends BaseInitActivity {
                     userId += Constant.ID_REDPROJECT;
                 }
                 ChatActivity.actionStart(mContext, userId, EaseConstant.CHATTYPE_SINGLE);*/
-                System.out.println("###userId=" + userId);
                 return true;
             }
         });
@@ -338,7 +336,6 @@ public class ContactGroupingActivity extends BaseInitActivity {
             /*FriendGroupingBean bean = new FriendGroupingBean();
             bean.setName("默认分组");
             categoryDatas.add(bean);*/
-
             ArrayList<ContactListInfo.DataBean> defaultitem = new ArrayList<>();
             for (int i = 0; i < categoryDatas.size(); i++) {
                 mGroupingNameList.add(categoryDatas.get(i).getName());
@@ -353,6 +350,15 @@ public class ContactGroupingActivity extends BaseInitActivity {
                     }
                 }
                 mItemSet.add(item);
+            }
+            mItemSet.add(defaultitem);
+            mGroupingNameList.add(new String("默认分组"));
+        } else {
+            ArrayList<ContactListInfo.DataBean> defaultitem = new ArrayList<>();
+            for (int k = 0; k < mContactList.size(); k++) {
+                if (!defaultitem.contains(mContactList.get(k))) {
+                    defaultitem.add(mContactList.get(k));
+                }
             }
             mItemSet.add(defaultitem);
             mGroupingNameList.add(new String("默认分组"));

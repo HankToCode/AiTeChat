@@ -78,8 +78,6 @@ public class LoginAccountAdapter extends RecyclerView.Adapter<LoginAccountAdapte
     @Override
     public void onBindViewHolder(@NonNull final LoginAccountAdapter.MyViewHolder holder, int position) {
 
-        System.out.println("###列表数据app="+dataBean.get(position).getNickname());//com.ycf.qianzhihe.app.domain  取这个
-//        System.out.println("###列表数据ui="+dataBean.get(position).getNickname());//com.hyphenate.easeui.domain
         holder.tv_name.setText( dataBean.get(position).getNickname());
         holder.tv_id.setText( dataBean.get(position).getUserCode());
         String url = dataBean.get(position).getAvatar();
