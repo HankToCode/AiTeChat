@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -61,7 +60,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import com.zds.base.Toast.ToastUtil;
@@ -528,7 +526,7 @@ public class SelAddrMapActivity extends BaseInitActivity implements LocationSour
      * @param filePath
      */
     private void saveHead(String filePath) {
-        ApiClient.requestNetHandleFile(SelAddrMapActivity.this, AppConfig.groupUpHead, "", new File(filePath), new ResultListener() {
+        ApiClient.requestNetHandleFile(SelAddrMapActivity.this, AppConfig.uploadImg, "", new File(filePath), new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 dismissLoading();

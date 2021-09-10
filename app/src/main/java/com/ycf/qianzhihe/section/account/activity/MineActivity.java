@@ -36,6 +36,7 @@ import com.ycf.qianzhihe.common.utils.DeviceIdUtil;
 import com.ycf.qianzhihe.section.chat.activity.CustomListActivity;
 import com.ycf.qianzhihe.section.common.MultiAccountActivity;
 import com.ycf.qianzhihe.section.common.MyQrActivity;
+import com.ycf.qianzhihe.section.common.RealAuthActivity;
 import com.ycf.qianzhihe.section.common.SetActivity;
 import com.ycf.qianzhihe.section.common.WalletActivity;
 import com.ycf.qianzhihe.section.common.MyCollectActivity;
@@ -239,6 +240,11 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
                 MyQrActivity.actionStart(mContext, "1");
                 break;
             case R.id.tv_package:
+                //判断如果未实名，提示进行实名认证
+                if (UserComm.getUserInfo().getOpenAccountFlag() == 0) {
+                    RealAuthActivity.actionStart(mContext);
+                    return;
+                }
                 //我的钱包支付
                 WalletActivity.actionStart(mContext);
                 break;
@@ -457,7 +463,7 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
      * 上传头像地址到服务器
      */
     private void saveHead(File file) {
-        ApiClient.requestNetHandleFile(MineActivity.this, AppConfig.groupUpHead, "正在上传...", file, new ResultListener() {
+        ApiClient.requestNetHandleFile(MineActivity.this, AppConfig.uploadImg, "正在上传...", file, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 modifyHead(json);
@@ -468,7 +474,6 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
                 ToastUtil.toast(msg);
             }
         });
-
     }
 
 

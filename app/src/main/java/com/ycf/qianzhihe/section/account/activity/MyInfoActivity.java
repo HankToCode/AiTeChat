@@ -30,12 +30,10 @@ import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
 import com.ycf.qianzhihe.app.utils.my.MyHelper;
 import com.ycf.qianzhihe.app.weight.CommonDialog;
-import com.ycf.qianzhihe.app.weight.ease.EaseAlertDialog;
 import com.ycf.qianzhihe.common.utils.DeviceIdUtil;
 import com.ycf.qianzhihe.section.common.EditInfoActivity;
 import com.ycf.qianzhihe.section.common.MyQrActivity;
 import com.zds.base.ImageLoad.GlideUtils;
-import com.zds.base.Toast.ToastUtil;
 import com.zds.base.widget.SwitchButton;
 
 import org.greenrobot.eventbus.EventBus;
@@ -187,7 +185,7 @@ public class MyInfoActivity extends BaseInitActivity {
      *
      */
     private void saveHead(File file) {
-        ApiClient.requestNetHandleFile(MyInfoActivity.this, AppConfig.groupUpHead, "正在上传...", file, new ResultListener() {
+        ApiClient.requestNetHandleFile(MyInfoActivity.this, AppConfig.uploadImg, "正在上传...", file, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 modifyHead(json);

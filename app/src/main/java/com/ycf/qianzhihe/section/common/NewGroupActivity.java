@@ -197,7 +197,7 @@ public class NewGroupActivity extends BaseInitActivity {
      */
     private void saveHead(File file) {
 
-        ApiClient.requestNetHandleFile(NewGroupActivity.this, AppConfig.groupUpHead, "正在上传...", file, new ResultListener() {
+        ApiClient.requestNetHandleFile(NewGroupActivity.this, AppConfig.uploadImg, "正在上传...", file, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 mTvGroupHint.setVisibility(View.GONE);

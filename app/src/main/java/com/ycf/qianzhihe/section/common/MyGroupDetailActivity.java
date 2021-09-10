@@ -7,13 +7,9 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,7 +31,6 @@ import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
 import com.ycf.qianzhihe.app.operate.GroupOperateManager;
-import com.ycf.qianzhihe.app.operate.UserOperateManager;
 import com.ycf.qianzhihe.app.utils.hxSetMessageFree.EaseSharedUtils;
 import com.ycf.qianzhihe.app.utils.my.MyHelper;
 import com.ycf.qianzhihe.app.weight.CommonDialog;
@@ -475,7 +470,7 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
     private void saveHead(String filePath) {
 
         ApiClient.requestNetHandleFile(MyGroupDetailActivity.this,
-                AppConfig.groupUpHead, "正在上传...", new File(filePath),
+                AppConfig.uploadImg, "正在上传...", new File(filePath),
                 new ResultListener() {
                     @Override
                     public void onSuccess(String json, String msg) {

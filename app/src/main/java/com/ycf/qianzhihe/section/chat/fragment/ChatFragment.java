@@ -1036,7 +1036,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
      */
     private void savePic(String filePath) {
 
-        ApiClient.requestNetHandleFile(requireContext(), AppConfig.groupUpHead,
+        ApiClient.requestNetHandleFile(requireContext(), AppConfig.uploadImg,
                 "", new File(filePath), new ResultListener() {
                     @Override
                     public void onSuccess(String json, String msg) {

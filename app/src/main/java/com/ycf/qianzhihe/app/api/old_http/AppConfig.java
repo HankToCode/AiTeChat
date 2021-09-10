@@ -700,9 +700,9 @@ public class AppConfig {
 
 
     /**
-     * 更新群头像
+     * 上传图片
      */
-    public static String groupUpHead = mainUrl + "common/uploadImg";
+    public static String uploadImg = mainUrl + "common/uploadImg";
 
     /**
      * 退出群组

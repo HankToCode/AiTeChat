@@ -34,12 +34,14 @@ import com.ycf.qianzhihe.app.base.BaseInitActivity;
 import com.ycf.qianzhihe.app.utils.XClickUtil;
 import com.ycf.qianzhihe.app.weight.ChooseMoneyLayout;
 import com.ycf.qianzhihe.common.utils.ToastUtils;
+import com.ycf.qianzhihe.section.account.activity.MineActivity;
 import com.ymt.liveness.LivenessMainActivity;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.json.FastJsonUtil;
 import com.zds.base.log.XLog;
 import com.zds.base.util.StringUtil;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -97,43 +99,11 @@ public class RealAuthActivity extends BaseInitActivity {
                 }
                 if (!XClickUtil.isFastDoubleClick(view, 1000)) {
                     //获取人脸认证流水号
-//                    getCertifyId();
-                    //提交实名认证
-                    openAccount(et_name.getText().toString().trim(), et_phone.getText().toString().trim(), et_idcard.getText().toString().trim());
+                    getCertifyId();
                 }
                 break;
         }
     }
-
-    private void openAccount(String name, String mobile, String idCardNo) {
-        Map<String, Object> map = new HashMap<>();
-        map.put("name", name);
-        map.put("idCardNo", idCardNo);
-        map.put("mobile", mobile);
-        ApiClient.requestNetHandle(this, AppConfig.openAccount, "认证中...", map, new ResultListener() {
-            @Override
-            public void onSuccess(String json, String msg) {
-                LoginInfo loginInfo = UserComm.getUserInfo();
-                loginInfo.setOpenAccountFlag(1);
-                UserComm.saveUsersInfo(loginInfo);
-                ToastUtil.toast("认证成功");
-                finish();
-            }
-
-            @Override
-            public void onFinsh() {
-                super.onFinsh();
-
-            }
-
-            @Override
-            public void onFailure(String msg) {
-                ToastUtil.toast(msg);
-
-            }
-        });
-    }
-
 
     private void getCertifyId() {
         OkGo.<String>post(Constant.URL_CERTIFY_ID)
@@ -158,12 +128,11 @@ public class RealAuthActivity extends BaseInitActivity {
                              @Override
                              public void onFinish() {
                                  super.onFinish();
-
                              }
 
                              @Override
                              public void onError(Response<String> response) {
-                                 ToastUtils.showToast("获取认证失败");
+                                 ToastUtils.showToast("获取认证服务失败");
                              }
                          }
 
@@ -201,25 +170,84 @@ public class RealAuthActivity extends BaseInitActivity {
                         String code = result.getString("code");
                         // 活体错误信息
                         String msg = result.getString("msg");
-                        // 人像比对通过, data.errcode="P0000"时返回图片保存路径，完整图像
-                        String passImgPath = result.getString("passImgPath");
-                        System.out.println("###认证返回图片=" + passImgPath);
-                        // 人像比对通过, data.errcode="P0000"时返脸部 base64，剪裁后的脸部图像
-                        String passFace = result.getString("passFace");
-                        // 人像比对结果
-                        String jsonData = result.getString("data");
-                       /* if (code.equals("0")) {
-
+                        if (code.equals("0")) {
+                            // 人像比对通过, data.errcode="P0000"时返回图片保存路径，完整图像
+                            String passImgPath = result.getString("passImgPath");
+                            // 人像比对通过, data.errcode="P0000"时返脸部 base64，剪裁后的脸部图像
+                            String passFace = result.getString("passFace");
+                            // 人像比对结果
+                            String jsonData = result.getString("data");
+                            //{"encresult":"","errcode":"P0000","errmsg":"系统判定为同一人","jobid":"ZT20210910221036818370532","responsetime":"20210910221037613","
+                            // result":{"address":"河南省周口地区沈丘县","birthday":"19880916","score":"93","sex":"男"}}
+                            String errorCode = FastJsonUtil.getString(jsonData, "errcode");
+                            String errmsg = FastJsonUtil.getString(jsonData, "errmsg");
+                            if (errorCode.equals("P0000")) {
+                                uplpadImg(passImgPath,passFace,jsonData);
+                            } else {
+                                ToastUtils.showToast(errmsg);
+                            }
                         } else {
                             ToastUtils.showToast(msg);
-                        }*/
-
-
+                        }
                     }
                     break;
             }
         }
     }
+
+    /**
+     * 上传头像地址到服务器
+     */
+    private void uplpadImg(String passImgPath, String passFace, String jsonData) {
+        ApiClient.requestNetHandleFile(mContext, AppConfig.uploadImg, "", new File(passImgPath), new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                System.out.println("####认证后上传人脸地址=" + json);
+                //提交实名认证
+                openAccount(et_name.getText().toString().trim(), et_phone.getText().toString().trim(), et_idcard.getText().toString().trim(),passImgPath,passFace,jsonData);
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                ToastUtil.toast(msg);
+            }
+        });
+    }
+
+
+    private void openAccount(String name, String mobile, String idCardNo, String passImgPath,  String passFace, String jsonData) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("name", name);
+        map.put("idCardNo", idCardNo);
+        map.put("mobile", mobile);
+        map.put("passFace", passFace);//passFace":"",//比对成功后，图像Base64数据
+        map.put("passImgPath", passImgPath);//passImgPath":"",//比对成功后，图像保存路径
+        map.put("data", jsonData);//data":""//json
+        ApiClient.requestNetHandle(this, AppConfig.openAccount, "认证中...", map, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                LoginInfo loginInfo = UserComm.getUserInfo();
+                loginInfo.setOpenAccountFlag(1);
+                UserComm.saveUsersInfo(loginInfo);
+                ToastUtil.toast("认证成功");
+                finish();
+            }
+
+            @Override
+            public void onFinsh() {
+                super.onFinsh();
+
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                ToastUtil.toast(msg);
+
+            }
+        });
+    }
+
+
 
 
     private void doRechargeClick() {
