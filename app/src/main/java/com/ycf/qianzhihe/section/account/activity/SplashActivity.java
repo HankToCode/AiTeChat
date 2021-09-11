@@ -78,8 +78,6 @@ public class SplashActivity extends BaseInitActivity {
     }
 
     private void alphaSplash() {
-
-        ToastUtils.showLong("开始了");
         Animation alphaAnimation = AnimationUtils.loadAnimation(this,
                 R.anim.splash_alpha_in);
         alphaAnimation.setFillEnabled(true);//启动Fill保持
