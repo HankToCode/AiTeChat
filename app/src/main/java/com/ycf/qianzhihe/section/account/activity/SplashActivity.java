@@ -1,13 +1,18 @@
 package com.ycf.qianzhihe.section.account.activity;
 
 import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.lifecycle.ViewModelProvider;
 
+import com.airbnb.lottie.LottieAnimationView;
+import com.blankj.utilcode.util.ToastUtils;
 import com.ycf.qianzhihe.MainActivity;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
@@ -16,6 +21,7 @@ import com.ycf.qianzhihe.common.interfaceOrImplement.OnResourceParseCallback;
 import com.ycf.qianzhihe.section.account.viewmodels.SplashViewModel;
 import com.hyphenate.util.EMLog;
 import com.ycf.qianzhihe.section.dialog.UserProtocolDialog;
+import com.zds.base.Toast.ToastUtil;
 import com.zds.base.global.BaseConstant;
 import com.zds.base.util.Preference;
 
@@ -25,6 +31,9 @@ public class SplashActivity extends BaseInitActivity {
     private SplashViewModel model;
     private UserProtocolDialog mUserProtocolDialog;
     private CommonConfirmDialog mCommonConfirmDialog;
+
+    private LottieAnimationView mAnim;
+
 
     @Override
     protected int getLayoutId() {
@@ -42,6 +51,7 @@ public class SplashActivity extends BaseInitActivity {
         super.initView(savedInstanceState);
         ivSplash = findViewById(R.id.iv_splash);
         tvProduct = findViewById(R.id.tv_product);
+        mAnim = findViewById(R.id.anim);
     }
 
     @Override
@@ -49,37 +59,53 @@ public class SplashActivity extends BaseInitActivity {
         super.initData();
         model = new ViewModelProvider(this).get(SplashViewModel.class);
 
-        ivSplash.animate()
-                .alpha(1)
-                .setDuration(500)
-                .setListener(new Animator.AnimatorListener() {
-                    @Override
-                    public void onAnimationStart(Animator animation) {
+        mAnim.setVisibility(View.VISIBLE);
+        mAnim.setImageAssetsFolder("/lp/");
+        mAnim.setAnimation("data.json");
+        mAnim.addAnimatorListener(new AnimatorListenerAdapter() {
 
-                    }
+            @Override
+            public void onAnimationEnd(Animator animation) {
+                mAnim.removeAnimatorListener(this);
+                mAnim.setVisibility(View.GONE);
+                alphaSplash();
 
-                    @Override
-                    public void onAnimationEnd(Animator animation) {
-                        userProtocolDialog();
-                    }
+            }
+        });
+        mAnim.playAnimation();
 
-                    @Override
-                    public void onAnimationCancel(Animator animation) {
 
-                    }
+    }
 
-                    @Override
-                    public void onAnimationRepeat(Animator animation) {
+    private void alphaSplash() {
 
-                    }
-                })
-                .start();
+        ToastUtils.showLong("开始了");
+        Animation alphaAnimation = AnimationUtils.loadAnimation(this,
+                R.anim.splash_alpha_in);
+        alphaAnimation.setFillEnabled(true);//启动Fill保持
+        alphaAnimation.setFillAfter(true);//设置动画的最后一帧是保留在view上的
+        alphaAnimation.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                ivSplash.setVisibility(View.VISIBLE);
+                tvProduct.setVisibility(View.VISIBLE);
+            }
 
-        tvProduct.animate()
-                .alpha(1)
-                .setDuration(500)
-                .start();
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                userProtocolDialog();
+            }
 
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        ivSplash.setAnimation(alphaAnimation);
+        tvProduct.setAnimation(alphaAnimation);
+
+        alphaAnimation.start();
     }
 
     private void userProtocolDialog() {
@@ -160,7 +186,7 @@ public class SplashActivity extends BaseInitActivity {
                 public void onError(int code, String message) {
                     super.onError(code, message);
                     EMLog.i("TAG", "error message = " + response.getMessage());
-                    LoginActivity.actionStart(mContext,"");
+                    LoginActivity.actionStart(mContext, "");
                     finish();
                 }
             });
