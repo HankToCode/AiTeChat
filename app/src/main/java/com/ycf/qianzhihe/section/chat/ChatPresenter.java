@@ -157,13 +157,13 @@ public class ChatPresenter extends EaseChatPresenter {
             if(disabledIds != null && disabledIds.contains(message.conversationId())) {
                 return;
             }
-            // in background, do not refresh UI, notify it in notification bar
-            if(!DemoApplication.getInstance().getLifecycleCallbacks().isFront()){
-                getNotifier().notify(message);
-            }
             //拦截免打扰的消息
             if (EaseCommonUtils.isSilentMessage(message)) {
                 return;
+            }
+            // in background, do not refresh UI, notify it in notification bar
+            if(!DemoApplication.getInstance().getLifecycleCallbacks().isFront()){
+                getNotifier().notify(message);
             }
             //notify new message
             getNotifier().vibrateAndPlayTone(message);
