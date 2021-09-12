@@ -1002,6 +1002,7 @@ public class AppConfig {
 
     public static String register_agree = mainUrl + "xieyi/web/user_agree.html";//隐私政策
     public static String user_agree = mainUrl + "xieyi/web/register_agree.html";//用户协议
+    public static String appurl =  "http://app.hnyunliao.com/index.html";//官网
 
     /**
      * 设置好友昵称
@@ -1109,6 +1110,8 @@ public class AppConfig {
     public static String getUserCodeMallList = mainUrl + "app_user_code_mall/getUserCodeMallList";
     //靓号购买
     public static String saveUserCodeMall = mainUrl + "app_user_code_mall/saveUserCodeMall";
+    //设置星标
+    public static String modifyFriendStarTarget = mainUrl + "/app_user_friend/modifyFriendStarTarget";
 
 
 

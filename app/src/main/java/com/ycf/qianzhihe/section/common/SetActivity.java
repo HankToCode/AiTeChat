@@ -9,6 +9,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.hyphenate.EMCallBack;
+import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.global.UserComm;
@@ -18,21 +19,20 @@ import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
 import com.ycf.qianzhihe.app.base.WebViewActivity;
-import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.app.utils.my.MyHelper;
 import com.ycf.qianzhihe.common.widget.LogoffDialog;
+import com.zds.base.Toast.ToastUtil;
 import com.zds.base.util.DataCleanManager;
 import com.zds.base.util.StringUtil;
 import com.zds.base.util.SystemUtil;
-
-import butterknife.BindView;
-import butterknife.OnClick;
-import com.zds.base.Toast.ToastUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.Map;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 public class SetActivity extends BaseInitActivity {
 
@@ -54,6 +54,9 @@ public class SetActivity extends BaseInitActivity {
     TextView tv_user_agreement;
     @BindView(R.id.tv_register_agreement)
     TextView tv_register_agreement;
+    @BindView(R.id.tv_app)
+    TextView tv_app;
+
 
 
     public static void actionStart(Context context) {
@@ -81,7 +84,8 @@ public class SetActivity extends BaseInitActivity {
         }
     }
 
-    @OnClick({R.id.tv_save, R.id.tv_privacy, R.id.ll_clean, R.id.ll_banben, R.id.tv_user_agreement, R.id.tv_register_agreement, R.id.tv_logoff})
+    @OnClick({R.id.tv_save, R.id.tv_privacy, R.id.ll_clean, R.id.ll_banben, R.id.tv_user_agreement,
+            R.id.tv_register_agreement, R.id.tv_logoff, R.id.tv_app})
     public void click(View v) {
         switch (v.getId()) {
             case R.id.tv_save:
@@ -100,10 +104,16 @@ public class SetActivity extends BaseInitActivity {
 //                    AppConfig.checkVersion(SetActivity.this, false);
                 break;
             case R.id.tv_user_agreement:
-                startActivity(new Intent(this, WebViewActivity.class).putExtra("title", "lan").putExtra("url", AppConfig.user_agree));
+//                startActivity(new Intent(this, WebViewActivity.class).putExtra("title", "lan").putExtra("url", AppConfig.user_agree));
+                WebViewActivity.actionStart(mContext,AppConfig.user_agree,true);
                 break;
             case R.id.tv_register_agreement:
-                startActivity(new Intent(this, WebViewActivity.class).putExtra("title", "lan").putExtra("url", AppConfig.register_agree));
+//                startActivity(new Intent(this, WebViewActivity.class).putExtra("title", "lan").putExtra("url", AppConfig.register_agree));
+                WebViewActivity.actionStart(mContext,AppConfig.register_agree,true);
+                break;
+            case R.id.tv_app:
+                WebViewActivity.actionStart(mContext,AppConfig.appurl,true);
+//                startActivity(new Intent(this, WebViewActivity.class).putExtra("title", "官网").putExtra("url", AppConfig.appurl));
                 break;
             case R.id.tv_logoff:
                 //注销账号

@@ -120,6 +120,23 @@
 
     </LinearLayout>
     <TextView
+        android:id="@+id/tv_app"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_45"
+        android:layout_marginTop="@dimen/dp_5"
+        android:layout_marginLeft="@dimen/dp_15"
+        android:layout_marginRight="@dimen/dp_15"
+        android:background="@drawable/item_select_bg"
+        android:drawableRight="@drawable/jingru"
+        android:drawablePadding="@dimen/dp_10"
+        android:gravity="center_vertical"
+        android:paddingLeft="@dimen/dp_20"
+        android:paddingRight="@dimen/dp_20"
+        android:text="官网"
+        android:textColor="@color/black_text"
+        android:textSize="@dimen/sp_15"
+        android:visibility="gone" />
+    <TextView
         android:id="@+id/tv_logoff"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50"

@@ -99,6 +99,8 @@ public class UserInfoDetailActivity extends BaseInitActivity {
     View kickOut;
     @BindView(R.id.switch_top_conversation)
     CheckBox mSwitchTopConversation;
+    @BindView(R.id.switch_start)
+    CheckBox switch_start;
     @BindView(R.id.fl_send_msg)
     FrameLayout flSendButton;
     private String userId, userName;
@@ -251,6 +253,15 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                         emConversation.setExtField("false");
                     }
                 }
+            }
+        });
+
+        //switch_start  0:未加星标，1：星标
+        switch_start.setOnCheckedChangeListener((buttonView, isChecked) -> {
+            if (isChecked) {
+                switchStart("1");
+            } else {
+                switchStart("0");
             }
         });
     }
@@ -440,14 +451,18 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                             //好友标识 0 不是好友 1 是好友
                             if (info.getFriendFlag().equals("1")) {
                                 //是不是星标 starTarget	0:未加星标，1：星标
+
                                 if (!TextUtils.isEmpty(info.getStarTarget())) {
-                                    if (info.getStarTarget().equals("1")) {
+                                    if (Double.parseDouble(info.getStarTarget()) == 1) {
                                         iv_start.setVisibility(View.VISIBLE);
+                                        switch_start.setChecked(true);
                                     } else {
                                         iv_start.setVisibility(View.GONE);
+                                        switch_start.setChecked(false);
                                     }
                                 } else {
                                     iv_start.setVisibility(View.GONE);
+                                    switch_start.setChecked(false);
                                 }
                                 ll_grouping.setVisibility(View.VISIBLE);
                                 tv_grouping.setText(info.getCategoryName());
@@ -792,6 +807,26 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                 });
     }
 
+
+    public void switchStart(String status) {
+        Map<String, Object> map = new HashMap<>(2);
+        map.put("friendUserId", userId.split("-")[0]);
+        //0:未加星标，1：星标
+        map.put("starTarget", status);
+        ApiClient.requestNetHandle(this, AppConfig.modifyFriendStarTarget, "正在设置...", map,
+                new ResultListener() {
+                    @Override
+                    public void onSuccess(String json, String msg) {
+                        ToastUtil.toast("设置成功");
+                        EventBus.getDefault().post(new EventCenter<>(EventUtil.REFRESH_CONTACT));
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+                        ToastUtil.toast(msg);
+                    }
+                });
+    }
 
     /**
      * delete contact

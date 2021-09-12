@@ -50,7 +50,8 @@
                 android:layout_marginRight="16dp"
                 android:background="@color/white"
                 android:orientation="vertical"
-                app:cardCornerRadius="4dp">
+                app:cardCornerRadius="4dp"
+                android:visibility="gone">
 
                 <RelativeLayout
                     android:layout_width="match_parent"

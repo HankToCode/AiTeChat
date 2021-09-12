@@ -2,6 +2,11 @@ package com.ycf.qianzhihe.section.account.activity;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
+import android.content.Context;
+import android.content.res.AssetFileDescriptor;
+import android.content.res.AssetManager;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
@@ -12,18 +17,20 @@ import android.widget.TextView;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.blankj.utilcode.util.ToastUtils;
+import com.hyphenate.util.EMLog;
 import com.ycf.qianzhihe.MainActivity;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
 import com.ycf.qianzhihe.app.weight.CommonConfirmDialog;
 import com.ycf.qianzhihe.common.interfaceOrImplement.OnResourceParseCallback;
 import com.ycf.qianzhihe.section.account.viewmodels.SplashViewModel;
-import com.hyphenate.util.EMLog;
 import com.ycf.qianzhihe.section.dialog.UserProtocolDialog;
-import com.zds.base.Toast.ToastUtil;
 import com.zds.base.global.BaseConstant;
 import com.zds.base.util.Preference;
+
+import java.io.FileDescriptor;
+import java.io.IOException;
+
 
 public class SplashActivity extends BaseInitActivity {
     private ImageView ivSplash;
@@ -33,7 +40,6 @@ public class SplashActivity extends BaseInitActivity {
     private CommonConfirmDialog mCommonConfirmDialog;
 
     private LottieAnimationView mAnim;
-
 
     @Override
     protected int getLayoutId() {
@@ -52,6 +58,7 @@ public class SplashActivity extends BaseInitActivity {
         ivSplash = findViewById(R.id.iv_splash);
         tvProduct = findViewById(R.id.tv_product);
         mAnim = findViewById(R.id.anim);
+        initMedia();
     }
 
     @Override
@@ -61,9 +68,8 @@ public class SplashActivity extends BaseInitActivity {
 
         mAnim.setVisibility(View.VISIBLE);
         mAnim.setImageAssetsFolder("/lp/");
-        mAnim.setAnimation("data.json");
+        mAnim.setAnimation("logo.json");
         mAnim.addAnimatorListener(new AnimatorListenerAdapter() {
-
             @Override
             public void onAnimationEnd(Animator animation) {
                 mAnim.removeAnimatorListener(this);
@@ -75,6 +81,13 @@ public class SplashActivity extends BaseInitActivity {
         mAnim.playAnimation();
 
 
+    }
+
+    private void initMedia() {
+        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.qzh);
+        //用prepare方法，会报错误java.lang.IllegalStateExceptio
+        //mediaPlayer.prepare();
+        mediaPlayer.start();
     }
 
     private void alphaSplash() {
@@ -104,6 +117,7 @@ public class SplashActivity extends BaseInitActivity {
         tvProduct.setAnimation(alphaAnimation);
 
         alphaAnimation.start();
+
     }
 
     private void userProtocolDialog() {

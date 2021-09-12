@@ -169,8 +169,8 @@ public class DemoHelper {
 //        String headImage = EaseFileUtils.getModelFilePath(context,"test.png");
 //        callKitConfig.setDefaultHeadImage(headImage);
 //        //设置振铃文件
-        String ringFile = EaseFileUtils.getModelFilePath(context, "call.mp3");
-        callKitConfig.setRingFile(ringFile);
+//        String ringFile = EaseFileUtils.getModelFilePath(context, "call.mp3");
+//        callKitConfig.setRingFile(ringFile);
         //设置呼叫超时时间
         callKitConfig.setCallTimeOut(30 * 1000);
         //设置声网AgoraAppId

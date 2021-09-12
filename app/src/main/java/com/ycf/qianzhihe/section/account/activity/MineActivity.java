@@ -82,6 +82,7 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
     private TextView mTvHelpline;
     private TextView mTvGroups;
     private TextView tv_mall;
+    private TextView tv_appweb;
 
 
     public static void actionStart(Context context) {
@@ -118,6 +119,7 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
         mTvSettings = (TextView) findViewById(R.id.tv_settings);
         mTvHelpline = (TextView) findViewById(R.id.tv_helpline);
         mTvGroups = (TextView) findViewById(R.id.tv_groups);
+        tv_appweb = (TextView) findViewById(R.id.tv_appweb);
     }
 
     @Override
@@ -140,6 +142,7 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
         mTvLogout.setOnClickListener(this);
         mLlMyInfo.setOnClickListener(this);
         tv_mall.setOnClickListener(this);
+        tv_appweb.setOnClickListener(this);
 
     }
 
@@ -289,6 +292,9 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
                         }
                     }
                 }, true).show();
+                break;
+            case R.id.tv_appweb://APP 官网
+                WebViewActivity.actionStart(mContext,AppConfig.appurl,true);
                 break;
             default:
                 break;

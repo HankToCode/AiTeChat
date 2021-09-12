@@ -237,7 +237,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                 if (contactId.contains("6a1bec8f64fe11eba89700163e0654c2")) {
                     holder.iv_aite_guanfang.setVisibility(View.VISIBLE);//客服显示官方
                     holder.avatar.setImageResource(R.mipmap.icon_kefu_avatar);
-                } else if (contactId.contains("fbce17090a6611ecab930c42a1a8807a")) {
+                } else if (contactId.contains("d816636e130411ecab930c42a1a8807a")) {//fbce17090a6611ecab930c42a1a8807a
                     holder.iv_aite_guanfang.setVisibility(View.VISIBLE);//客服显示官方
                     holder.avatar.setImageResource(R.mipmap.icon_exception_handle_kefu_avatar);
                 } else {
@@ -250,7 +250,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                     username = tempNickname;
                 }
 
-                if (contactId.contains("fbce17090a6611ecab930c42a1a8807a")) {
+                if (contactId.contains("d816636e130411ecab930c42a1a8807a")) {//fbce17090a6611ecab930c42a1a8807a
                     holder.name.setText("客服");
                 } else if (contactId.contains("0d777a9c8f9311eb844f00163e0654c2")) {
                     holder.name.setText("异常处理客服");
