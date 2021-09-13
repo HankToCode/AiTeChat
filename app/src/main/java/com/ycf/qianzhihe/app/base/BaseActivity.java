@@ -38,6 +38,7 @@ import com.ycf.qianzhihe.DemoApplication;
 import com.ycf.qianzhihe.DemoHelper;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
+import com.ycf.qianzhihe.app.utils.sound.SoundMediaPlayer;
 import com.ycf.qianzhihe.common.constant.DemoConstant;
 import com.ycf.qianzhihe.common.enums.Status;
 import com.ycf.qianzhihe.common.interfaceOrImplement.OnResourceParseCallback;
@@ -280,6 +281,7 @@ public class BaseActivity extends AppCompatActivity {
         ActivityStackManager.getInstance().removeActivity(new WeakReference<Activity>(this));
         OkGo.getInstance().cancelTag(this);
         dismissLoading();
+        SoundMediaPlayer.getInstance().destroy();
         super.onDestroy();
 
     }

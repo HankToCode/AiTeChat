@@ -21,6 +21,7 @@ import com.hyphenate.util.EMLog;
 import com.ycf.qianzhihe.MainActivity;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
+import com.ycf.qianzhihe.app.utils.sound.SoundMediaPlayer;
 import com.ycf.qianzhihe.app.weight.CommonConfirmDialog;
 import com.ycf.qianzhihe.common.interfaceOrImplement.OnResourceParseCallback;
 import com.ycf.qianzhihe.section.account.viewmodels.SplashViewModel;
@@ -58,7 +59,6 @@ public class SplashActivity extends BaseInitActivity {
         ivSplash = findViewById(R.id.iv_splash);
         tvProduct = findViewById(R.id.tv_product);
         mAnim = findViewById(R.id.anim);
-        initMedia();
     }
 
     @Override
@@ -80,14 +80,13 @@ public class SplashActivity extends BaseInitActivity {
         });
         mAnim.playAnimation();
 
+        initMedia();
+
 
     }
 
     private void initMedia() {
-        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.qzh);
-        //用prepare方法，会报错误java.lang.IllegalStateExceptio
-        //mediaPlayer.prepare();
-        mediaPlayer.start();
+        SoundMediaPlayer.getInstance().loadPlaySoundEffects(R.raw.qzh);
     }
 
     private void alphaSplash() {
