@@ -1112,6 +1112,8 @@ public class AppConfig {
     public static String saveUserCodeMall = mainUrl + "app_user_code_mall/saveUserCodeMall";
     //设置星标
     public static String modifyFriendStarTarget = mainUrl + "/app_user_friend/modifyFriendStarTarget";
+    //同步成长值
+    public static String saveUserGrowthValue = mainUrl + "/app_user/saveUserGrowthValue";
 
 
 

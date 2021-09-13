@@ -79,11 +79,20 @@ import com.hyphenate.easeui.model.EaseEvent;
 import com.hyphenate.easeui.ui.base.EaseBaseFragment;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 
+import org.greenrobot.eventbus.EventBus;
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 
 public class MainActivity extends BaseInitActivity implements BottomNavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
@@ -163,6 +172,45 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
     protected void initListener() {
         super.initListener();
         navView.setOnNavigationItemSelectedListener(this);
+
+        int period = 5;
+        Map<String, Object> map = new HashMap<>();
+        map.put("growthValue", period);
+        Observable.interval(period, TimeUnit.MINUTES)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(autoDispose())
+                .subscribe(new Observer<Long>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onNext(@NonNull Long aLong) {
+                        ApiClient.requestNetHandle(MainActivity.this, AppConfig.saveUserGrowthValue, "", map,
+                                new ResultListener() {
+                                    @Override
+                                    public void onSuccess(String json, String msg) {
+                                    }
+
+                                    @Override
+                                    public void onFailure(String msg) {
+                                        ToastUtil.toast(msg);
+                                    }
+                                });
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
     }
 
     @Override
