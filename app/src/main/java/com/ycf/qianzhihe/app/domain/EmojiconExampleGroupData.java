@@ -1,7 +1,10 @@
 package com.ycf.qianzhihe.app.domain;
 
 
+import com.ycf.qianzhihe.DemoApplication;
 import com.ycf.qianzhihe.R;
+
+import java.util.Arrays;
 
 public class EmojiconExampleGroupData {
 
@@ -53,12 +56,12 @@ public class EmojiconExampleGroupData {
             datas[i] = new EaseEmojicon(icons[i], null, EaseEmojicon.Type.BIG_EXPRESSION);
             datas[i].setBigIcon(bigIcons[i]);
             //you can replace this to any you want
-//            datas[i].setName(MyApplication.getInstance().getApplicationContext().getString(R.string.emojicon_test_name) + (i + 1));
+            datas[i].setName(DemoApplication.getInstance().getApplicationContext().getString(R.string.emojicon_test_name) + (i + 1));
             datas[i].setIdentityCode("em" + (1000 + i + 1));
         }
-//        emojiconGroupEntity.setEmojiconList(Arrays.asList(datas));
-//        emojiconGroupEntity.setIcon(R.drawable.icon_007_cover);
-//        emojiconGroupEntity.setType(EaseEmojicon.Type.BIG_EXPRESSION);
+        emojiconGroupEntity.setEmojiconList(Arrays.asList(datas));
+        emojiconGroupEntity.setIcon(R.drawable.icon_007_cover);
+        emojiconGroupEntity.setType(EaseEmojicon.Type.BIG_EXPRESSION);
         return emojiconGroupEntity;
     }
 

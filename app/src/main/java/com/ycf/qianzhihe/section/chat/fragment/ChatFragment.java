@@ -46,6 +46,7 @@ import com.ycf.qianzhihe.app.api.old_http.ApiClient;
 import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.base.WebViewActivity;
+import com.ycf.qianzhihe.app.domain.EmojiconExampleGroupData;
 import com.ycf.qianzhihe.app.operate.UserOperateManager;
 import com.ycf.qianzhihe.app.utils.BitmapUtil;
 import com.ycf.qianzhihe.app.utils.DonwloadSaveImg;
@@ -58,6 +59,7 @@ import com.ycf.qianzhihe.app.weight.CommonDialog;
 import com.ycf.qianzhihe.app.weight.ease.EaseChatRecallPresenter;
 import com.ycf.qianzhihe.app.weight.ease.EaseChatVoiceCallPresenter;
 import com.ycf.qianzhihe.app.weight.ease.chatrow.EaseCustomChatRowProvider;
+import com.ycf.qianzhihe.app.weight.ease.emojicon.EaseEmojiconMenu;
 import com.ycf.qianzhihe.app.weight.ease.presenter.EaseChatLocationPresenter;
 import com.ycf.qianzhihe.app.weight.ease.presenter.EaseChatRowPresenter;
 import com.ycf.qianzhihe.app.weight.my_message.ChatApplyFreindNoticePresenter;
@@ -99,6 +101,7 @@ import com.ycf.qianzhihe.section.common.WithdrawActivity;
 import com.zds.base.ImageLoad.GlideUtils;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.json.FastJsonUtil;
+import com.zds.base.util.NumberUtils;
 import com.zds.base.util.StringUtil;
 import com.zxy.tiny.Tiny;
 import com.zxy.tiny.callback.BitmapCallback;
@@ -248,6 +251,15 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
         });
     }
 
+    @Override
+    protected void initData() {
+        super.initData();
+
+        //增加兔斯基表情
+        if (NumberUtils.parseDouble(UserComm.getUserInfo().getVipLevel()) != 0) {
+            ((EaseEmojiconMenu) mInputMenu.getEmojiconMenu()).addEmojiconGroup(EmojiconExampleGroupData.getData());
+        }
+    }
 
     private boolean isregister;
 
@@ -1541,7 +1553,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                             new ChatRedPacketturnPresenter();
                     return presenter;
                     //确认转账
-                } else if (message.getStringAttribute(Constant.MSGTYPE, "").equals(Constant.SURE_TURN)||message.getStringAttribute(Constant.MSGTYPE, "").equals(Constant.TURN)) {//
+                } else if (message.getStringAttribute(Constant.MSGTYPE, "").equals(Constant.SURE_TURN) || message.getStringAttribute(Constant.MSGTYPE, "").equals(Constant.TURN)) {//
                     EaseChatRowPresenter presenter =
                             new ChatSureTurnPresenter();
                     return presenter;
