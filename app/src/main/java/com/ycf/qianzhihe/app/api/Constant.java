@@ -1,5 +1,7 @@
 package com.ycf.qianzhihe.app.api;
 
+import com.ycf.qianzhihe.BuildConfig;
+
 public class Constant extends EaseConstant {
 
     public static final int CAMERA_PREMISSION = 10001;
@@ -100,7 +102,7 @@ public class Constant extends EaseConstant {
     /**
      * 环信使用别名
      */
-    public static final String ID_REDPROJECT = "-qianzhihe";
+    public static final String ID_REDPROJECT = BuildConfig.ID_REDPROJECT;
 
     public static String getTitleInv(int Invite) {
         String title = "";

@@ -73,34 +73,37 @@ android {
         //开发环境
         develop {
             buildConfigField "String", "BASEURL", URLDEVELOP
-            resValue "string", "app_name", "千纸鹤"
+            buildConfigField "String", "ID_REDPROJECT", URLDEVELOP_ID_REDPROJECT
+            resValue "string", "app_name", "千纸鹤-开发"
             //是否加密
             buildConfigField "Boolean", "ISENCRYPTION", "true"
             manifestPlaceholders = [
-                    app_name      : "千纸鹤",
-                    EASEMOB_APPKEY: "1106210814094104#qianzhihe",
+                    app_name      : "千纸鹤-开发",
+                    EASEMOB_APPKEY: URLDEVELOP_EASEMOB_APPKEY,
             ]
         }
         //测试环境
         check {
             buildConfigField "String", "BASEURL", UELCHECK
-            resValue "string", "app_name", "千纸鹤"
+            buildConfigField "String", "ID_REDPROJECT", UELCHECK_ID_REDPROJECT
+            resValue "string", "app_name", "千纸鹤-测试"
             //是否加密
             buildConfigField "Boolean", "ISENCRYPTION", "false"
             manifestPlaceholders = [
-                    app_name      : "千纸鹤",
-                    EASEMOB_APPKEY: "1106210814094104#qianzhihe",
+                    app_name      : "千纸鹤-测试",
+                    EASEMOB_APPKEY: UELCHECK_EASEMOB_APPKEY,
             ]
         }
         //生产环境
         product {
             buildConfigField "String", "BASEURL", URLPRODUCTIP
+            buildConfigField "String", "ID_REDPROJECT", URLPRODUCTIP_ID_REDPROJECT
             resValue "string", "app_name", "千纸鹤"
             //是否加密
             buildConfigField "Boolean", "ISENCRYPTION", "false"
             manifestPlaceholders = [
                     app_name      : "千纸鹤",
-                    EASEMOB_APPKEY: "1106210814094104#qianzhihe",
+                    EASEMOB_APPKEY: URLPRODUCTIP_EASEMOB_APPKEY,
             ]
         }
     }
