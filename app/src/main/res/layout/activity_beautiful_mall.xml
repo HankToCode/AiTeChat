@@ -126,7 +126,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="精选叠号"
+                android:text="精选连号"
                 android:textColor="#ffacacbc"
                 android:textSize="13sp" />
 
