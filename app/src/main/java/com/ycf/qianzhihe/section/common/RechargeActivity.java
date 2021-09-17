@@ -119,7 +119,7 @@ public class RechargeActivity extends BaseInitActivity {
         });
 
         //初始化金额选择
-        cml_money.setMoneyData(new int[]{30, 50, 100, 200, 500, 3000});
+        cml_money.setMoneyData(new int[]{30, 50, 100, 200, 500, 2000});
         cml_money.setDefaultPositon(-1);
         cml_money.setOnChoseMoneyListener(new ChooseMoneyLayout.onChoseMoneyListener() {
             @Override
