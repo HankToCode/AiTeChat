@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 
+import com.alibaba.fastjson.JSON;
 import com.ycf.qianzhihe.DemoApplication;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
@@ -30,6 +31,8 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.zds.base.Toast.ToastUtil;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * 钱包
@@ -114,93 +117,24 @@ public class WalletActivity extends BaseInitActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        CommonApi.upUserInfo(DemoApplication.getInstance().getApplicationContext());
-    }
-
-
-    private CommonDialog.Builder builder;
-    private EditText etName, etCard, etPhone;
-
-    /**
-     * 实名认证弹窗
-     */
-    private void showAuthDialog() {
-        if (builder != null) {
-            builder.dismiss();
-        }
-        builder = new CommonDialog.Builder(this).fullWidth().center()
-                .setView(R.layout.dialog_custinfo);
-
-        builder.setOnClickListener(R.id.tv_sure, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //确定
-                if (etName.getText().toString().trim().length() <= 0) {
-                    ToastUtil.toast("请填写姓名");
-                    return;
-                } else if (etCard.getText().toString().trim().length() <= 0) {
-                    ToastUtil.toast("请填写身份证号码");
-                    return;
-                } else if (etPhone.getText().toString().trim().length() <= 0) {
-                    ToastUtil.toast("请填写手机号");
-                    return;
-                }
-                /*if (!XClickUtil.isFastDoubleClick(view, 2000))
-                    save();*/
-                openAccount(etName.getText().toString().trim(), etCard.getText().toString().trim(), etPhone.getText().toString().trim());
-
-            }
-        });
-        builder.setOnClickListener(R.id.img_close, new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                builder.dismiss();
-            }
-        });
-        CommonDialog dialog = builder.create();
-        etName = (EditText) dialog.getView(R.id.et_name);
-        etCard = (EditText) dialog.getView(R.id.et_card);
-        etPhone = (EditText) dialog.getView(R.id.et_phone);
-        dialog.show();
-    }
-
-    private boolean isrenzheng;
-
-    /**
-     * 认证
-     */
-    private void openAccount(String name, String certificateNo, String mobile) {
+//        CommonApi.upUserInfo(DemoApplication.getInstance().getApplicationContext());
         Map<String, Object> map = new HashMap<>();
-        map.put("name", name);
-        map.put("certificateNo", certificateNo);
-        map.put("mobile", mobile);
-        if (isrenzheng == true) {
-            ToastUtil.toast("认证中，请勿重复提交");
-            return;
-        }
-        isrenzheng = true;
-        ApiClient.requestNetHandle(this, AppConfig.openAccount, "认证中", map, new ResultListener() {
+        ApiClient.requestNetHandle(mContext, AppConfig.USER_INFO, "", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
-                LoginInfo loginInfo = UserComm.getUserInfo();
-                loginInfo.setOpenAccountFlag(1);
-                UserComm.saveUsersInfo(loginInfo);
-                ToastUtil.toast(msg);
-                if (builder != null) {
-                    builder.dismiss();
+                if (json != null) {
+                    LoginInfo loginInfo = JSON.parseObject(json, LoginInfo.class);
+                    if (loginInfo != null) {
+                        loginInfo.setPassword(UserComm.getUserInfo().getPassword());
+                        UserComm.saveUsersInfo(loginInfo);
+                        EventBus.getDefault().post(new EventCenter(EventUtil.FLUSHUSERINFO));
+                        mTvAmount.setText(StringUtil.getFormatValue2(loginInfo.getMoney()));
+                    }
                 }
-            }
-
-            @Override
-            public void onFinsh() {
-                super.onFinsh();
-                isrenzheng = false;
             }
 
             @Override
             public void onFailure(String msg) {
-                ToastUtil.toast(msg);
-
             }
         });
     }

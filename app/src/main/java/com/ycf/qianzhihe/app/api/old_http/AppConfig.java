@@ -1108,6 +1108,7 @@ public class AppConfig {
     public static String modifyFriendCategory = mainUrl + "app_user_friend/modifyFriendCategory";
     //靓号商城首页
     public static String getUserCodeMallList = mainUrl + "app_user_code_mall/getUserCodeMallList";
+    public static String getUserCodeMallPage = mainUrl + "app_user_code_mall/getUserCodeMallPage";
     //靓号购买
     public static String saveUserCodeMall = mainUrl + "app_user_code_mall/saveUserCodeMall";
     //设置星标

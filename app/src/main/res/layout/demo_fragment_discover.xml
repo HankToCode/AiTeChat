@@ -93,7 +93,7 @@
         <TextView
             android:id="@+id/iv_dc5"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@mipmap/icon_dc5"
             android:gravity="bottom|center_horizontal"

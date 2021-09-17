@@ -277,7 +277,7 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
                 break;
             case R.id.tv_groups:
                 //靓号商城
-                BeautifulMallActivity.actionStart(this);
+                UserCodeActivity.actionStart(this);
                 break;
             case R.id.tv_switch_account:
 //                startActivity(new Intent(this, MultiDeviceActivity.class));

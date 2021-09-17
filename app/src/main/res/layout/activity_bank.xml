@@ -25,20 +25,31 @@
             android:focusableInTouchMode="true"
             android:orientation="vertical">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_recycler"
+
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/dp_10"
-                android:layout_marginTop="@dimen/dp_11"
-                android:layout_marginRight="@dimen/dp_10" />
+                android:layout_marginTop="@dimen/dp_10">
 
-            <ImageView
-                android:background="@drawable/wode_l"
-                android:id="@+id/iv_not_bank_card_logo"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/dp_250"
-                android:visibility="gone" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_recycler"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="@dimen/dp_10"
+                    android:layout_marginTop="@dimen/dp_11"
+                    android:layout_marginRight="@dimen/dp_10" />
+
+                <TextView
+                    android:id="@+id/tv_no_data"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:drawableTop="@drawable/no_data"
+                    android:drawablePadding="@dimen/dp_10"
+                    android:visibility="gone"
+                    android:text="暂无相关内容" />
+            </RelativeLayout>
+
 
             <TextView
                 android:id="@+id/tv_add_bank_card"

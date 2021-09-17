@@ -630,7 +630,7 @@ public class ChatPresenter extends EaseChatPresenter {
             messageChangeLiveData.with(DemoConstant.CONTACT_CHANGE).postValue(event);
 
             if(deleteUsername || num == 0) {
-                showToast(context.getString(R.string.demo_contact_listener_onContactDeleted, username));
+//                showToast(context.getString(R.string.demo_contact_listener_onContactDeleted, username));
                 EMLog.i(TAG, context.getString(R.string.demo_contact_listener_onContactDeleted, username));
             }else {
                 //showToast(context.getString(R.string.demo_contact_listener_onContactDeleted_by_other, username));
@@ -662,7 +662,7 @@ public class ChatPresenter extends EaseChatPresenter {
             EaseEvent event = EaseEvent.create(DemoConstant.CONTACT_CHANGE, EaseEvent.TYPE.CONTACT);
             messageChangeLiveData.with(DemoConstant.CONTACT_CHANGE).postValue(event);
 
-            showToast(context.getString(InviteMessageStatus.BEINVITEED.getMsgContent(), username));
+//            showToast(context.getString(InviteMessageStatus.BEINVITEED.getMsgContent(), username));
             EMLog.i(TAG, context.getString(InviteMessageStatus.BEINVITEED.getMsgContent(), username));
         }
 

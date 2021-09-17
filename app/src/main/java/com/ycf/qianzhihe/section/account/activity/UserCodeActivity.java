@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
@@ -16,6 +17,7 @@ import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
 import com.ycf.qianzhihe.common.utils.ToastUtils;
+import com.ycf.qianzhihe.section.common.UserCodeMoreActivity;
 import com.zds.base.json.FastJsonUtil;
 
 import java.util.ArrayList;
@@ -24,8 +26,9 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
-public class BeautifulMallActivity extends BaseInitActivity {
+public class UserCodeActivity extends BaseInitActivity {
 
     @BindView(R.id.title_bar)
     EaseTitleBar title_bar;
@@ -35,6 +38,12 @@ public class BeautifulMallActivity extends BaseInitActivity {
     GridView gv_gridview2;
     @BindView(R.id.gv_gridview3)
     GridView gv_gridview3;
+    @BindView(R.id.tv_more)
+    TextView tv_more;
+    @BindView(R.id.tv_more3)
+    TextView tv_more3;
+    @BindView(R.id.tv_more2)
+    TextView tv_more2;
     private List<UserCodeMallListBean.SpecialOffer> tjDatas = new ArrayList<>();
     private List<UserCodeMallListBean.SpecialOffer> jxDatas = new ArrayList<>();
     private List<UserCodeMallListBean.SpecialOffer> dhDatas = new ArrayList<>();
@@ -43,7 +52,7 @@ public class BeautifulMallActivity extends BaseInitActivity {
     private SpecialOfferAdapter dhAdapter;
 
     public static void actionStart(Context context) {
-        Intent intent = new Intent(context, BeautifulMallActivity.class);
+        Intent intent = new Intent(context, UserCodeActivity.class);
         context.startActivity(intent);
     }
 
@@ -84,6 +93,23 @@ public class BeautifulMallActivity extends BaseInitActivity {
         });
     }
 
+    @OnClick({R.id.tv_more, R.id.tv_more2, R.id.tv_more3})
+    public void click(View v) {
+        switch (v.getId()) {
+            case R.id.tv_more:
+                //category":0//0：特价靓号，1：精选靓号，2：精选叠号 (必传）
+                UserCodeMoreActivity.actionStart(mContext,"0");
+                break;
+            case R.id.tv_more2:
+                UserCodeMoreActivity.actionStart(mContext,"1");
+                break;
+            case R.id.tv_more3:
+                UserCodeMoreActivity.actionStart(mContext,"2");
+                break;
+        }
+
+    }
+
     @Override
     protected void initData() {
         super.initData();
@@ -99,17 +125,17 @@ public class BeautifulMallActivity extends BaseInitActivity {
                     UserCodeMallListBean info = FastJsonUtil.getObject(json, UserCodeMallListBean.class);
                     if (info.getSpecialOffer() != null && info.getSpecialOffer().size() > 0) {
                         tjDatas.addAll(info.getSpecialOffer());
-                        tjAdapter.setData(tjDatas,mContext);
+                        tjAdapter.setData(tjDatas, mContext);
                         tjAdapter.notifyDataSetChanged();
                     }
                     if (info.getChoiceness() != null && info.getChoiceness().size() > 0) {
                         jxDatas.addAll(info.getChoiceness());
-                        jxAdapter.setData(jxDatas,mContext);
+                        jxAdapter.setData(jxDatas, mContext);
                         jxAdapter.notifyDataSetChanged();
                     }
                     if (info.getDoublingNo() != null && info.getDoublingNo().size() > 0) {
                         dhDatas.addAll(info.getDoublingNo());
-                        dhAdapter.setData(dhDatas,mContext);
+                        dhAdapter.setData(dhDatas, mContext);
                         dhAdapter.notifyDataSetChanged();
                     }
                 }

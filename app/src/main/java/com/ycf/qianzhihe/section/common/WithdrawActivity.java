@@ -149,6 +149,15 @@ public class WithdrawActivity extends BaseInitActivity {
                     showToast("请选择提现银行卡");
                     return;
                 }
+                double moey = NumberUtils.parseDouble(mWithdrawMoney.getText().toString());
+                if (moey <= 0) {
+                    ToastUtil.toast("请输入金额");
+                    return;
+                }
+                if (moey < 50) {
+                    ToastUtil.toast("提现金额单次最低50元");
+                    return;
+                }
                 PayPassword(bankId);
                 break;
             default:

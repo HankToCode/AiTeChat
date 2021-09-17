@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.ycf.qianzhihe.DemoApplication;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.UserComm;
@@ -20,6 +21,7 @@ import com.ycf.qianzhihe.app.api.old_data.LoginInfo;
 import com.ycf.qianzhihe.app.api.old_data.WalletRechargeBean;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
 import com.ycf.qianzhihe.app.api.old_http.AppConfig;
+import com.ycf.qianzhihe.app.api.old_http.CommonApi;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
 import com.ycf.qianzhihe.app.utils.XClickUtil;
@@ -276,14 +278,13 @@ public class RechargeActivity extends BaseInitActivity {
         Map<String, Object> map = new HashMap<>();
         map.put("orderId", orderId);
         map.put("verifyCode", code);
-        ApiClient.requestNetHandle(this, AppConfig.rechargeSure, "请稍等...",
+        ApiClient.requestNetHandle(this, AppConfig.rechargeSure, "充值中...",
                 map, new ResultListener() {
                     @Override
                     public void onSuccess(String json, String msg) {
                         if (json != null && json.length() > 0) {
                             WalletRechargeBean walletRechargeBean = FastJsonUtil.getObject(json, WalletRechargeBean.class);
-                            ToastUtils.showToast("充值成功");
-                            finish();
+                            waiting();
                             /*WalletPay walletPay = WalletPay.Companion.getInstance();
                             walletPay.init(RechargeActivity.this);
                             walletPay.walletPayCallback = new WalletPay.WalletPayCallback() {
@@ -308,6 +309,21 @@ public class RechargeActivity extends BaseInitActivity {
                         ToastUtil.toast(msg);
                     }
                 });
+    }
+    Handler waitHandler = new Handler();
+    private void waiting() {
+        showLoading("充值确认中");
+        waitHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //要执行的操作
+                ToastUtils.showToast("充值成功");
+                CommonApi.upUserInfo(DemoApplication.getInstance().getApplicationContext());
+                dismissLoading();
+                finish();
+            }
+
+        }, 3000);//3秒后执行Runnable中的run方法
     }
 
     private void queryResult(String requestId) {

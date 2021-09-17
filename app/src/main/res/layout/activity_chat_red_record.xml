@@ -15,7 +15,15 @@
             android:id="@+id/rv_red_record"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
-
+        <TextView
+            android:id="@+id/tv_no_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawableTop="@drawable/no_data"
+            android:drawablePadding="@dimen/dp_10"
+            android:visibility="gone"
+            android:text="暂无相关内容" />
     </RelativeLayout>
 
 

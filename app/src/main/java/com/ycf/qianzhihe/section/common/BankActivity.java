@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -39,10 +40,11 @@ public class BankActivity extends BaseInitActivity {
     private List<JsonBankCardList.DataBean> dataBean;
     @BindView(R.id.rv_recycler)
     RecyclerView mRecyclerCard;
-    @BindView(R.id.iv_not_bank_card_logo)
-    ImageView mNotBankCard;
+
     @BindView(R.id.title_bar)
     EaseTitleBar mTitleBar;
+    @BindView(R.id.tv_no_data)
+    TextView tv_no_data;
     private boolean isedit = false;
     private BankCardAdapter mBankCardAdapter;
 
@@ -101,13 +103,11 @@ public class BankActivity extends BaseInitActivity {
                     if (dataBean.size() > 0) {
                         showBankCard(dataBean);
                         mRecyclerCard.setVisibility(View.VISIBLE);
-                        mNotBankCard.setVisibility(View.GONE);
+                        tv_no_data.setVisibility(View.GONE);
                     } else {
                         mRecyclerCard.setVisibility(View.GONE);
-                        mNotBankCard.setVisibility(View.GONE);
+                        tv_no_data.setVisibility(View.VISIBLE);
                     }
-                }
-                if (json != null) {
                 }
             }
 
@@ -131,7 +131,7 @@ public class BankActivity extends BaseInitActivity {
             @Override
             public void onItemClick(View view, int position) {
                 if (view.getId() == R.id.iv_delete) {
-                    refresh();
+                    initUserInfo();
                 } else {
                     setResult(1111, new Intent()
                             .putExtra("id", dataBean.get(position).getCardId())
@@ -165,13 +165,11 @@ public class BankActivity extends BaseInitActivity {
                     if (dataBean.size() > 0) {
                         refreshBankCard(dataBean);
                         mRecyclerCard.setVisibility(View.VISIBLE);
-                        mNotBankCard.setVisibility(View.GONE);
+                        tv_no_data.setVisibility(View.GONE);
                     } else {
                         mRecyclerCard.setVisibility(View.GONE);
-                        mNotBankCard.setVisibility(View.GONE);
+                        tv_no_data.setVisibility(View.VISIBLE);
                     }
-                }
-                if (json != null) {
                 }
             }
 

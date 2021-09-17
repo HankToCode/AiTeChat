@@ -3,6 +3,8 @@ package com.ycf.qianzhihe.section.common;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,6 +37,8 @@ public class RechargeRecordActivity extends BaseInitActivity {
     EaseTitleBar mTitleBar;
     @BindView(R.id.recyclerView)
     RecyclerView recyclerView;
+    @BindView(R.id.tv_no_data)
+    TextView tv_no_data;
     private List<RechargeRecordInfo.DataBean> mRecordInfoList = new ArrayList<>();
     private RechargeRecordAdapter mRechargeAdapter;
     private int page = 1;
@@ -80,7 +84,7 @@ public class RechargeRecordActivity extends BaseInitActivity {
         map.put("pageNum", page);
         map.put("pageSize", 15);
 
-        ApiClient.requestNetHandle(this, AppConfig.GET_RECHARGE_RECORD, "", map, new ResultListener() {
+        ApiClient.requestNetHandle(this, AppConfig.GET_RECHARGE_RECORD, "请稍等", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 RechargeRecordInfo info = FastJsonUtil.getObject(json, RechargeRecordInfo.class);
@@ -88,8 +92,9 @@ public class RechargeRecordActivity extends BaseInitActivity {
                     mRecordInfoList.addAll(info.getData());
                     mRechargeAdapter.notifyDataSetChanged();
                     mRechargeAdapter.loadMoreComplete();
+                    tv_no_data.setVisibility(View.GONE);
                 } else {
-                    mRechargeAdapter.loadMoreEnd(true);
+                    tv_no_data.setVisibility(View.VISIBLE);
                 }
             }
 

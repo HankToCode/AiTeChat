@@ -251,7 +251,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                 }
 
                 if (contactId.contains("d816636e130411ecab930c42a1a8807a")) {//fbce17090a6611ecab930c42a1a8807a
-                    holder.name.setText("客服");
+                    holder.name.setText("千纸鹤客服");
                 } else if (contactId.contains("0d777a9c8f9311eb844f00163e0654c2")) {
                     holder.name.setText("异常处理客服");
                 } else {

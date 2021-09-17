@@ -7,6 +7,7 @@
     >
 
     <RelativeLayout
+        android:id="@+id/ll_item"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
 
@@ -22,7 +23,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="@dimen/dp_10"
+            android:layout_marginLeft="@dimen/dp_5"
             android:layout_toRightOf="@id/tv_lh"
             android:gravity="center_vertical"
             android:orientation="vertical">
@@ -32,8 +33,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="7777777"
-
-
                 android:textColor="#ff000000"
                 android:textSize="14sp" />
 

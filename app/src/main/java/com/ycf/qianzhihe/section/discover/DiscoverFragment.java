@@ -87,6 +87,7 @@ public class DiscoverFragment extends BaseInitFragment implements OnBannerListen
         String url = "";
         switch (v.getId()) {
             case R.id.iv_dc1:
+//                url = "http://meishi.meituan.com/i/?ci=268&stid_b=1&cevent=imt%2Fhomepage%2Fcategory1%2F1";
                 url = "https://www.meituan.com/";
                 break;
             case R.id.iv_dc2:

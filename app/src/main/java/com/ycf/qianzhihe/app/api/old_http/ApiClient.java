@@ -12,6 +12,7 @@ import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.common.aes.AESCipher;
 import com.ycf.qianzhihe.common.utils.NetworkUtil;
+import com.ycf.qianzhihe.common.utils.log.LogUtils;
 import com.ycf.qianzhihe.common.widget.Loading_view;
 import com.zds.base.json.FastJsonUtil;
 import com.zds.base.log.XLog;
@@ -304,6 +305,9 @@ public class ApiClient {
             //没网络
             listener.onFailure("网络连接异常,请检查您的网络设置");
             return;
+        }
+        if (mapP != null) {
+            Log.d("TAG", "请求参数：" + mapP.toString());
         }
         try {
             showDialog(log, context);
@@ -673,7 +677,7 @@ public class ApiClient {
             if (BuildConfig.BUILD_TYPE.equals("debug")) {
                 Log.d("response: ", response.body().toString());
             }
-
+            Log.d("请求返回: ", json.toString());
             ServerData serverData = FastJsonUtil.getObject(json, ServerData.class);
             if (null != serverData) {
                 switch (serverData.getCode()) {

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/bg_color_my_gold"
+    android:orientation="vertical">
+
+    <com.hyphenate.easeui.widget.EaseTitleBar
+        android:id="@+id/title_bar"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/em_common_title_bar_height"
+        android:background="@color/white"
+        app:titleBarDisplayHomeAsUpEnabled="true"
+        app:titleBarLeftImage="@drawable/ic_back"/>
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/dp_10">
+
+        <GridView
+            android:id="@+id/gv_gridview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:paddingLeft="@dimen/dp_8"
+            android:numColumns="3"
+            android:verticalSpacing="@dimen/dp_10" />
+
+        <TextView
+            android:id="@+id/tv_no_data"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:drawableTop="@drawable/no_data"
+            android:drawablePadding="@dimen/dp_10"
+            android:visibility="gone"
+            android:text="暂无相关内容" />
+    </RelativeLayout>
+
+
+</LinearLayout>

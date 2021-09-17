@@ -153,6 +153,7 @@ public class EditInfoActivity extends BaseInitActivity {
             title_bar.setTitle("个性签名");
             mEtNickName.setHint("输入个性签名");
             mEtNickName.setText(UserComm.getUserInfo().getSign());
+            mEtNickName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(30)});//限制输入6位
         } else if (from.equals("4")) {
             title_bar.setTitle("修改群名称");
             mEtNickName.setHint("输入群名称");

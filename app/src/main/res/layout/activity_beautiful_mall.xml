@@ -39,7 +39,7 @@
                 android:textSize="13sp" />
 
             <TextView
-                android:id="@+id/tv_save"
+                android:id="@+id/tv_more"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableRight="@drawable/jingru"
@@ -56,7 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbars="none"
-            android:paddingLeft="@dimen/dp_10"
+            android:paddingLeft="@dimen/dp_8"
             android:numColumns="3"
             android:verticalSpacing="@dimen/dp_10"
             android:layout_below="@id/ll_top" />
@@ -85,6 +85,7 @@
                 android:textSize="13sp" />
 
             <TextView
+                android:id="@+id/tv_more2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableRight="@drawable/jingru"
@@ -125,11 +126,12 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="叠号"
+                android:text="精选叠号"
                 android:textColor="#ffacacbc"
                 android:textSize="13sp" />
 
             <TextView
+                android:id="@+id/tv_more3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableRight="@drawable/jingru"

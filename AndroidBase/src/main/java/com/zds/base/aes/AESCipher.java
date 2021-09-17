@@ -19,6 +19,8 @@ public class AESCipher {
     private static final String CIPHERMODE = "AES/ECB/PKCS5Padding";
     private static final String IV = "8ebf1bf4349212ba";
     private static final String PASSWORD = "2226a23e1390894b5qwe";
+//    private static final String IV = "y23AZCNiojo32Fzx";
+//    private static final String PASSWORD = "yje56ewr(_823jno";
 
     private static SecretKeySpec createKey(String key) {
         byte[] data = null;

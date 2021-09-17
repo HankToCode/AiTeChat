@@ -88,7 +88,7 @@ android {
             buildConfigField "String", "ID_REDPROJECT", UELCHECK_ID_REDPROJECT
             resValue "string", "app_name", "千纸鹤-测试"
             //是否加密
-            buildConfigField "Boolean", "ISENCRYPTION", "false"
+            buildConfigField "Boolean", "ISENCRYPTION", "true"
             manifestPlaceholders = [
                     app_name      : "千纸鹤-测试",
                     EASEMOB_APPKEY: UELCHECK_EASEMOB_APPKEY,
@@ -100,7 +100,7 @@ android {
             buildConfigField "String", "ID_REDPROJECT", URLPRODUCTIP_ID_REDPROJECT
             resValue "string", "app_name", "千纸鹤"
             //是否加密
-            buildConfigField "Boolean", "ISENCRYPTION", "false"
+            buildConfigField "Boolean", "ISENCRYPTION", "true"
             manifestPlaceholders = [
                     app_name      : "千纸鹤",
                     EASEMOB_APPKEY: URLPRODUCTIP_EASEMOB_APPKEY,
