@@ -68,7 +68,12 @@ public class ChatRedturnPacket extends EaseChatRow {
         } else {
             tv_messageRemark.setText(localRobNikeName+"的转账");
         }*/
-        tv_messageRemark.setText(remark);
+        if (message.direct() == EMMessage.Direct.RECEIVE) {
+            tv_messageRemark.setText("收到转账");
+        } else {
+            String  localRobNikeName = UserOperateManager.getInstance().getUserName(message.getTo());
+            tv_messageRemark.setText("转账给" + localRobNikeName);
+        }
         tv_message.setText(message.getStringAttribute("money", "") + getResources().getString(R.string.glod));
     }
 
