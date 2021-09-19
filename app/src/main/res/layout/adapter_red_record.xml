@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:textColor="#1D1D1D"
             android:textSize="@dimen/sp_15"
-            tools:text="抢红包收益" />
+            tools:text="收到红包" />
 
         <TextView
             android:id="@+id/tv_time"

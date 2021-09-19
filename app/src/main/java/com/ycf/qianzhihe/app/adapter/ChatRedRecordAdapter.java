@@ -36,7 +36,7 @@ public class ChatRedRecordAdapter extends BaseQuickAdapter<MyRedInfo.DataBean
             case 101:
                 helper.setText(R.id.tv_money,
                         "+" + StringUtil.getFormatValue2(item.getMoney()));
-                helper.setText(R.id.tv_red, "抢红包收益");
+                helper.setText(R.id.tv_red, "收到红包");
                 helper.setTextColor(R.id.tv_money,
                         ContextCompat.getColor(mContext, R.color.blue5));
                 break;
