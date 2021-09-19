@@ -78,11 +78,9 @@ public class ChatBasicRedPacket extends EaseChatRow {
 
         if (isClick) {
             if (message.direct() == EMMessage.Direct.RECEIVE) {
-//                bubble.setBackgroundResource(R.mipmap.hb1);
-                bubble.setBackgroundResource(R.mipmap.hb2);
+                bubble.setBackgroundResource(R.mipmap.hb1);
             } else {
-//                bubble.setBackgroundResource(R.mipmap.hb4);
-                bubble.setBackgroundResource(R.mipmap.hb3);
+                bubble.setBackgroundResource(R.mipmap.hb4);
             }
 
         } else {
