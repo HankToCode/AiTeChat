@@ -148,6 +148,12 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                         .putExtra("isFriend", info.getFriendFlag().equals("1"))
                         .putExtra("from", "1")));*/
 
+        if (chatType == Constant.CHATTYPE_GROUP) {
+            tv_del_friend.setText("踢出群组");
+        } else {
+            tv_del_friend.setText("删除好友");
+        }
+
         if (userId.contains(UserComm.getUserId())) {
             //自己
             LoginInfo loginInfo =
