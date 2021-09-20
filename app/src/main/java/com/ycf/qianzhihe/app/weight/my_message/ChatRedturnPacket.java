@@ -10,6 +10,7 @@ import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.operate.UserOperateManager;
 import com.ycf.qianzhihe.app.weight.ease.chatrow.EaseChatRow;
+import com.zds.base.util.StringUtil;
 
 /**
  * 作   者：赵大帅
@@ -18,7 +19,7 @@ import com.ycf.qianzhihe.app.weight.ease.chatrow.EaseChatRow;
  * 更新日期: 2017/11/27
  */
 public class ChatRedturnPacket extends EaseChatRow {
-    private TextView tv_message,tv_messageRemark;
+    private TextView tv_message,tv_messageRemark, tv_time;
 
     public ChatRedturnPacket(Context context, EMMessage message, int position, BaseAdapter adapter) {
         super(context, message, position, adapter);
@@ -36,6 +37,7 @@ public class ChatRedturnPacket extends EaseChatRow {
     protected void onFindViewById() {
         tv_message = findViewById(R.id.tv_transfer_received);
         tv_messageRemark = findViewById(R.id.tv_money_greeting);
+        tv_time = findViewById(R.id.tv_time);
 
     }
 
@@ -68,6 +70,8 @@ public class ChatRedturnPacket extends EaseChatRow {
         } else {
             tv_messageRemark.setText(localRobNikeName+"的转账");
         }*/
+
+        tv_time.setText(StringUtil.formatDateMinute(message.getMsgTime()));
         if (message.direct() == EMMessage.Direct.RECEIVE) {
             tv_messageRemark.setText("收到转账");
         } else {
