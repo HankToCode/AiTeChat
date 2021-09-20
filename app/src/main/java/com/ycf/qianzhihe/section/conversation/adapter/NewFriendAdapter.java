@@ -15,9 +15,12 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.hyphenate.easeui.widget.EaseImageView;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.old_data.ApplyFriendData;
 import com.ycf.qianzhihe.app.api.old_http.AppConfig;
+import com.ycf.qianzhihe.app.operate.UserOperateManager;
+import com.ycf.qianzhihe.app.utils.ImageUtil;
 import com.ycf.qianzhihe.section.account.activity.UserInfoDetailActivity;
 import com.ycf.qianzhihe.section.conversation.AuditUserActivity;
 import com.zds.base.ImageLoad.GlideUtils;
@@ -76,7 +79,10 @@ public class NewFriendAdapter extends RecyclerView.Adapter<NewFriendAdapter.View
         holder.mTvDescription.setText(StringUtil.isEmpty(info.getTopName()) ? "很高兴认识你" : info.getTopName());
 
         holder.mTvTop.setText(info.getTopName());
-        GlideUtils.GlideLoadCircleErrorImageUtils(mContext, AppConfig.checkimg(info.getUserHead()), holder.imgHead, R.mipmap.img_default_avatar);
+//        GlideUtils.GlideLoadCircleErrorImageUtils(mContext, AppConfig.checkimg(info.getUserHead()), holder.imgHead, R.mipmap.img_default_avatar);
+
+        ImageUtil.setAvatar((EaseImageView) holder.imgHead);
+        GlideUtils.loadImageViewLoding(AppConfig.checkimg(info.getUserHead()), holder.imgHead, R.mipmap.img_default_avatar);
 
         if (info.getApplyStatus().equals("0")) {
             holder.mTvAgree.setBackgroundResource(R.drawable.agree_friend_bg_selector);
@@ -253,7 +259,7 @@ public class NewFriendAdapter extends RecyclerView.Adapter<NewFriendAdapter.View
         private TextView mTvName;
         private TextView mTvDescription;
         private TextView mTvTop;
-        private ImageView imgHead;
+        private EaseImageView imgHead;
         private TextView mTvAgree;
         private TextView mTvDel;
 //        private TextView mTvRefuse;
@@ -265,7 +271,7 @@ public class NewFriendAdapter extends RecyclerView.Adapter<NewFriendAdapter.View
             mTvName = (TextView) itemView.findViewById(R.id.tv_name);
             mTvDescription = (TextView) itemView.findViewById(R.id.tv_description);
             mTvTop = (TextView) itemView.findViewById(R.id.tv_top);
-            imgHead = (ImageView) itemView.findViewById(R.id.img_head);
+            imgHead = (EaseImageView) itemView.findViewById(R.id.img_head);
             mTvAgree = (TextView) itemView.findViewById(R.id.tv_agree);
             mTvDel = (TextView) itemView.findViewById(R.id.tv_del);
 //            mTvRefuse = (TextView) itemView.findViewById(R.id.tv_refuse);
