@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
+import com.ycf.qianzhihe.app.api.EaseConstant;
 import com.ycf.qianzhihe.app.api.old_data.GroupDetailInfo;
 import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.ycf.qianzhihe.section.account.activity.UserInfoDetailActivity;
@@ -152,8 +153,9 @@ public class GroupMemberAdapter extends RecyclerView.Adapter<GroupMemberAdapter.
                         UserInfoDetailActivity.class)
                         .putExtra("friendUserId", info.getUserId())
                         .putExtra("entryUserId", info.getEntryUserId())
-                        .putExtra("from", "1");
-
+                        .putExtra("chatType", EaseConstant.CHATTYPE_GROUP)
+                        .putExtra("from", "1")
+                        .putExtra("currentUserRank",groupUserRank);
                 if (groupUserRank == 2 || (groupUserRank == 1 && info.getUserRank().equals("0"))) {
                     intent.putExtra(Constant.PARAM_GROUP_ID, info.getGroupId())
                             .putExtra(Constant.PARAM_EM_GROUP_ID, emGroupId);
