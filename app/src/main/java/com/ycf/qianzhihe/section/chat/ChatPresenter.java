@@ -616,7 +616,7 @@ public class ChatPresenter extends EaseChatPresenter {
             EaseEvent event = EaseEvent.create(DemoConstant.CONTACT_CHANGE, EaseEvent.TYPE.CONTACT);
             messageChangeLiveData.with(DemoConstant.CONTACT_CHANGE).postValue(event);
 
-            showToast(context.getString(R.string.demo_contact_listener_onContactAdded, username));
+//            showToast(context.getString(R.string.demo_contact_listener_onContactAdded, username));
             EMLog.i(TAG, context.getString(R.string.demo_contact_listener_onContactAdded, username));
         }
 
