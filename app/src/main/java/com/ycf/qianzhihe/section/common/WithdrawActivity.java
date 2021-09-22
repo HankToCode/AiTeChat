@@ -124,7 +124,7 @@ public class WithdrawActivity extends BaseInitActivity {
                 if (json != null) {
                     //{"withdrawExplain":"银行卡\r\n费率:0.6%+1元/笔银行付款费\r\n单日最多提现3次单笔最高10000元,单日最高30000元。每个账户只能同时进行一笔提现\r\n个别订单有可能被银行风控系统拦截,会延迟到账,我们会与相关机构沟通,在1-2个工作日内处理\r\n如您使用的银行卡多次出现打款失败,通常为卡片兼容问题,请更换银行卡后再试。\r\n注意:部分银行小额打款时不会发送短信通知,到账情况请以银行流水为准。"}
                     tv_tixian.setText(FastJsonUtil.getString(json, "withdrawExplain"));
-                    mTvMoneyHintMin.setText("，最低" + FastJsonUtil.getInt(json, "minWithdrawAmount") + "元起提");
+                    mTvMoneyHintMin.setText("，最低" + FastJsonUtil.getString(json, "minWithdrawAmount") + "元起提");
                 }
             }
 
