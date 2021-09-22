@@ -73,7 +73,7 @@ public class UserCodeMoreActivity extends BaseInitActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        mTitleBar.setTitle("靓号");
+        mTitleBar.setTitle("更多靓号");
         mTitleBar.setOnBackPressListener(view -> finish());
         moreAdapter = new UserCodeMoreAdapter();
         gv_gridview.setAdapter(moreAdapter);
@@ -91,6 +91,7 @@ public class UserCodeMoreActivity extends BaseInitActivity {
     private void transferRecord() {
         Map<String, Object> map = new HashMap<>(1);
         map.put("category", category);
+        map.put("pageSize", "100");
         ApiClient.requestNetHandle(this, AppConfig.getUserCodeMallPage, "加载中...", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
