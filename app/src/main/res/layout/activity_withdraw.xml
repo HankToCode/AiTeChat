@@ -101,8 +101,7 @@
                     android:layout_toRightOf="@+id/tv_l"
                     android:background="@null"
                     android:inputType="numberDecimal"
-                    android:lines="1"
-                    android:maxLength="4"
+                    android:digits="0123456789."
                     tools:text="0.00000"
                     android:textColor="#3B3A3A"
                     android:textSize="@dimen/sp_32" />
