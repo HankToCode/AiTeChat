@@ -418,7 +418,7 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
                 buttonMore.setEnabled(false);
                 buttonSend.setEnabled(false);
                 buttonSetModeVoice.setEnabled(false);
-                iscansend = false;
+                setIscansend(false);
                 editText.setFocusable(false);
                 editText.setFocusableInTouchMode(false);
 
@@ -432,7 +432,7 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
         editText.requestFocus();
         editText.setFocusable(true);
         editText.setHint("");
-        iscansend = false;
+        setIscansend(false);
         editText.setFocusableInTouchMode(true);
         editText.setLongClickable(true);
         editText.setVisibility(VISIBLE);

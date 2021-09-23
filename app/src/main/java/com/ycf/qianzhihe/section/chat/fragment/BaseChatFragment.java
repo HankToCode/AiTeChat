@@ -671,9 +671,11 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
         //全员禁言
         if (groupDetailInfo.getGroupSayFlag().equals("1") && groupDetailInfo.getGroupUserRank() == 0) {
             mInputMenu.getPrimaryMenu().executeMute();
+            mInputMenu.getChatExtendSmallMenu().setIscansend(false);
         }
         if ("1".equals(groupDetailInfo.getSayStatus())) {
             mInputMenu.getPrimaryMenu().executeMute();
+            mInputMenu.getChatExtendSmallMenu().setIscansend(false);
         }
 
         mMessageList.refresh();
@@ -1825,6 +1827,7 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
                 if (mutes.get(i).equals(UserComm.getUserInfo().getUserId() + Constant.ID_REDPROJECT)
                         && groupId.equals(emChatId)) {
                     mInputMenu.getPrimaryMenu().executeMute();
+                    mInputMenu.getChatExtendSmallMenu().setIscansend(false);
                 }
             }
         }
@@ -1838,6 +1841,7 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
                         @Override
                         public void run() {
                             mInputMenu.getPrimaryMenu().relieveMute();
+                            mInputMenu.getChatExtendSmallMenu().setIscansend(false);
                         }
                     });
                 }

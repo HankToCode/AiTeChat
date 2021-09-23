@@ -137,6 +137,10 @@ public class EaseChatInputMenu extends LinearLayout {
         return chatPrimaryMenu;
     }
 
+    public EaseChatExtendSmallMenu getChatExtendSmallMenu() {
+        return chatExtendSmallMenu;
+    }
+
     public EaseChatExtendMenu getExtendMenu() {
         return chatExtendMenu;
     }

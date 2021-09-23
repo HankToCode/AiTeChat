@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 
 import com.hyphenate.util.DensityUtil;
 import com.ycf.qianzhihe.R;
+import com.zds.base.Toast.ToastUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +26,12 @@ public class EaseChatExtendSmallMenu extends GridView {
 
     protected Context context;
     private List<ChatMenuItemSmallModel> itemModels = new ArrayList<ChatMenuItemSmallModel>();
+
+    public boolean iscansend = true;
+
+    public void setIscansend(boolean iscansend) {
+        this.iscansend = iscansend;
+    }
 
     public EaseChatExtendSmallMenu(Context context, AttributeSet attrs, int defStyle) {
         this(context, attrs);
@@ -75,7 +82,6 @@ public class EaseChatExtendSmallMenu extends GridView {
     }
 
 
-
     private class ItemAdapter extends ArrayAdapter<ChatMenuItemSmallModel> {
 
         private Context context;
@@ -97,13 +103,13 @@ public class EaseChatExtendSmallMenu extends GridView {
             } else {
                 menuItem.setImage(getItem(position).image);
             }
-            menuItem.setOnClickListener(new OnClickListener() {
-
-                @Override
-                public void onClick(View v) {
-                    if (getItem(position).clickListener != null) {
-                        getItem(position).clickListener.onClick(getItem(position).id, v);
-                    }
+            menuItem.setOnClickListener(v -> {
+                if (!iscansend) {
+                    ToastUtil.toast("已禁言");
+                    return;
+                }
+                if (getItem(position).clickListener != null) {
+                    getItem(position).clickListener.onClick(getItem(position).id, v);
                 }
             });
             return convertView;
@@ -111,7 +117,6 @@ public class EaseChatExtendSmallMenu extends GridView {
 
 
     }
-
 
 
     class ChatMenuItemSmallModel {
