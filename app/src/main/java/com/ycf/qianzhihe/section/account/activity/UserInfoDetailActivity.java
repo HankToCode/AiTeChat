@@ -124,6 +124,7 @@ public class UserInfoDetailActivity extends BaseInitActivity {
     TextView tv_grouping;
     @BindView(R.id.tv_del_friend)
     TextView tv_del_friend;
+    private int currentUserRank;
 
 
     @Override
@@ -149,7 +150,9 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                         .putExtra("from", "1")));*/
 
         if (chatType == Constant.CHATTYPE_GROUP) {
-            tv_del_friend.setText("踢出群组");
+            if (currentUserRank == 2 || currentUserRank == 1) {//2群主  1管理员
+                tv_del_friend.setText("踢出群组");
+            }
         } else {
             tv_del_friend.setText("删除好友");
         }
@@ -326,6 +329,7 @@ public class UserInfoDetailActivity extends BaseInitActivity {
         chatType = intent.getIntExtra("chatType", 0);
         from = intent.getStringExtra("from");
         inviterUserId = intent.getStringExtra("entryUserId");
+        currentUserRank = intent.getIntExtra("currentUserRank",0);
     }
 
     private void getGroupMuteList() {

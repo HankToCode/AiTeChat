@@ -85,7 +85,7 @@
                         android:layout_marginLeft="16dp"
                         android:layout_toRightOf="@+id/tv_symbol"
                         android:background="@null"
-                        android:digits="0123456789"
+                        android:digits="0123456789."
                         android:inputType="numberDecimal"
                         android:textColor="@color/black_text"
                         android:textSize="36sp" />

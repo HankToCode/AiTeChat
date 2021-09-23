@@ -3,7 +3,9 @@ package com.ycf.qianzhihe.section.common;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -92,7 +94,29 @@ public class WithdrawActivity extends BaseInitActivity {
         mTitleBar.setRightTitle("提现记录");
         mTitleBar.setOnRightClickListener(view -> TxRecordActivity.actionStart(mContext));
 
+        mWithdrawMoney.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                String afterStr = editable.toString().trim();
+                if (TextUtils.isEmpty(afterStr)) {
+                    return;
+                }
+                if (!reviseEditTextInput(mWithdrawMoney, 2)) {
+                    return;
+                }
+
+            }
+        });
         initUI();
         CommonApi.upUserInfo(DemoApplication.getInstance().getApplicationContext());
     }
@@ -124,7 +148,7 @@ public class WithdrawActivity extends BaseInitActivity {
                 if (json != null) {
                     //{"withdrawExplain":"银行卡\r\n费率:0.6%+1元/笔银行付款费\r\n单日最多提现3次单笔最高10000元,单日最高30000元。每个账户只能同时进行一笔提现\r\n个别订单有可能被银行风控系统拦截,会延迟到账,我们会与相关机构沟通,在1-2个工作日内处理\r\n如您使用的银行卡多次出现打款失败,通常为卡片兼容问题,请更换银行卡后再试。\r\n注意:部分银行小额打款时不会发送短信通知,到账情况请以银行流水为准。"}
                     tv_tixian.setText(FastJsonUtil.getString(json, "withdrawExplain"));
-                    mTvMoneyHintMin.setText("，最低" + FastJsonUtil.getInt(json, "minWithdrawAmount") + "元起提");
+                    mTvMoneyHintMin.setText("，最低" + FastJsonUtil.getString(json, "minWithdrawAmount") + "元起提");
                 }
             }
 
@@ -314,4 +338,43 @@ public class WithdrawActivity extends BaseInitActivity {
 
     }
 
+
+    /**
+     * 修正输入框输入内容
+     *
+     * @param editText
+     * @param bitCount 小数点位数
+     * @return 返回false表示不能继续输入
+     */
+    private boolean reviseEditTextInput(EditText editText, int bitCount) {
+        boolean canContinueInput = true;
+
+        String text = editText.getText().toString().trim();
+        //删除“.”后面超过2位后的数据
+        if (text.contains(".")) {
+            if (text.length() - 1 - text.indexOf(".") > bitCount) {
+                text = text.substring(0, text.indexOf(".") + bitCount + 1);
+                editText.setText(text);
+                editText.setSelection(text.length()); //光标移到最后
+            }
+        }
+        //如果"."在起始位置,则起始位置自动补0，同时return false拦截后续的操作，
+        // 否则Double.parseDouble(afterStr)会报数字格式异常
+        if (text.substring(0, 1).equals(".")) {
+            text = "0" + text;
+            editText.setText(text);
+            editText.setSelection(2);
+            return false;//
+        }
+        //如果起始位置为0,且第二位跟的不是".",则无法后续输入
+        if (text.startsWith("0") && text.length() > 1) {
+            if (!text.substring(1, 2).equals(".")) {
+                editText.setText(text.substring(0, 1));
+                editText.setSelection(1);
+                return false;
+            }
+        }
+
+        return canContinueInput;
+    }
 }

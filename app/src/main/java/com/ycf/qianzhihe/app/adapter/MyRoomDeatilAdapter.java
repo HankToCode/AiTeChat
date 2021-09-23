@@ -178,7 +178,8 @@ public class MyRoomDeatilAdapter extends BaseQuickAdapter<GroupDetailInfo.GroupU
                             .putExtra("friendUserId", item.getUserId())
                             .putExtra("entryUserId", item.getEntryUserId())
                             .putExtra("chatType", EaseConstant.CHATTYPE_GROUP)
-                            .putExtra("userName", item.getFriendNickName() == null ? item.getNickName() : item.getFriendNickName());
+                            .putExtra("userName", item.getFriendNickName() == null ? item.getNickName() : item.getFriendNickName())
+                            .putExtra("currentUserRank",currentUserRank);
 
                     if (currentUserRank == 2 || (currentUserRank == 1 && item.getUserRank().equals("0"))) {
                         intent.putExtra(Constant.PARAM_GROUP_ID, item.getGroupId())
