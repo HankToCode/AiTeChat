@@ -110,7 +110,7 @@ public class NewsFragment extends BaseInitFragment implements OnBannerListener {
                 /*if (page == 1) {
                     dataBean.clear();
                 }*/
-
+                dataBean.clear();
                 dataBean.addAll(FastJsonUtil.getList(json, NewsBean.class));
                 srl_refresh.setEnableLoadMore(false);
 
