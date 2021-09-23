@@ -42,7 +42,9 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/dp_12"
+                android:drawablePadding="@dimen/dp_3"
                 android:text="群名"
+                android:drawableRight="@mipmap/icon_motify_group_name"
                 android:textColor="#ff000000"
                 android:textSize="17sp" />
 
