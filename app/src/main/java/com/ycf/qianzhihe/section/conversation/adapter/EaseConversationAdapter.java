@@ -13,6 +13,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TextView.BufferType;
 
+import androidx.core.content.ContextCompat;
+
 import com.chauthai.swipereveallayout.SwipeRevealLayout;
 import com.coorchice.library.SuperTextView;
 import com.hyphenate.chat.EMClient;
@@ -33,6 +35,7 @@ import com.ycf.qianzhihe.app.utils.ImageUtil;
 import com.ycf.qianzhihe.app.utils.ProjectUtil;
 import com.ycf.qianzhihe.app.utils.ease.EaseSmileUtils;
 import com.ycf.qianzhihe.app.utils.hxSetMessageFree.EaseSharedUtils;
+import com.ycf.qianzhihe.app.utils.my.MyHelper;
 import com.ycf.qianzhihe.app.weight.ease.EaseCommonUtils;
 import com.ycf.qianzhihe.app.weight.ease.EaseConversationList;
 import com.ycf.qianzhihe.app.weight.ease.model.EaseAtMessageHelper;
@@ -117,6 +120,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             holder.chaUnreadPoint = (ImageView) convertView.findViewById(R.id.img_chat_unread_point);
             holder.msgState = convertView.findViewById(R.id.msg_state);
             holder.list_itease_layout = (RelativeLayout) convertView.findViewById(R.id.list_itease_layout);
+            holder.bg_view = convertView.findViewById(R.id.bg_view);
             holder.motioned = (TextView) convertView.findViewById(R.id.mentioned);
             holder.deleteLayout = convertView.findViewById(R.id.delete_layout);
             holder.swipeRevealLayout = convertView.findViewById(R.id.swipe_layout);
@@ -152,6 +156,13 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
         EMConversation conversation = getItem(position);
         // get username or group id
         String conversationId = conversation.conversationId();
+
+        if (conversation.getExtField().equals("toTop")) {
+            holder.bg_view.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.gray_gb));
+        } else {
+            holder.bg_view.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.white));
+        }
+
 
         String username = "";
 
@@ -522,6 +533,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
          * layout
          */
         RelativeLayout list_itease_layout;
+        View bg_view;
         TextView motioned;
         /**
          * 右滑删除
