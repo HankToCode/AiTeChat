@@ -106,6 +106,9 @@ public class EaseChatMessageList extends RelativeLayout {
     public void refreshSelectLast() {
         if (messageAdapter != null) {
             messageAdapter.refreshSelectLast();
+            if (listView != null) {
+                listView.setSelection(listView.getBottom());
+            }
         }
     }
 

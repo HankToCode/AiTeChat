@@ -374,19 +374,4 @@ public class EaseMessageAdapter extends BaseAdapter {
         return otherBuddleBg;
     }
 
-    @Override
-    public void notifyDataSetChanged() {
-        super.notifyDataSetChanged();
-        if (listView != null) {
-            listView.setSelection(listView.getBottom());
-        }
-    }
-
-    @Override
-    public void notifyDataSetInvalidated() {
-        super.notifyDataSetInvalidated();
-        if (listView != null) {
-            listView.setSelection(listView.getBottom());
-        }
-    }
 }
