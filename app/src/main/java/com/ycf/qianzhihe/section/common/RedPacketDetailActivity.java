@@ -164,8 +164,11 @@ public class RedPacketDetailActivity extends BaseInitActivity {
                         return;
                     }
 
-                    String time =
-                            StringUtil.isEmpty(redPacketInfo.getRobFinishTime()) ? "" : "，" + redPacketInfo.getRobFinishTime() + "被抢光";
+                    String time = StringUtil.isEmpty(redPacketInfo.getRobFinishTime()) ? "" : "，" + redPacketInfo.getRobFinishTime() + "被抢光";
+                    if (StringUtil.isEmpty(time)) {
+                        time = "等待对方领取";
+                        tv_tips.setVisibility(View.GONE);
+                    }
                     tv_message_hb.setText("红包个数" + (redPacketInfo.getPacketAmount() == 0 ? "1" : redPacketInfo.getPacketAmount()) + "个，" + "共计" + StringUtil
                             .getFormatValue2(redPacketInfo.getMoney()) + "元" + time);
 
@@ -217,18 +220,20 @@ public class RedPacketDetailActivity extends BaseInitActivity {
 //                            tv_message_hb.setText("已存入零钱");
 //                            ll_user_money.setVisibility(View.VISIBLE);
                             tv_message_hb.setText("已领取" + ylSize + "/" + allSize + "，" + "已领完/共" + StringUtil.getFormatValue2(redPacketInfo.getMoney()) + "元" + time);
+                            tv_tips.setVisibility(View.VISIBLE);
                         } else if (allSize - ylSize > 0) {
 //                            ll_user_money.setVisibility(View.GONE);
 //                            tv_message_hb.setText("红包" + StringUtil.getFormatValue2(redPacketInfo.getMoney() - allMoney) + "金额等待对方领取");
-                            tv_message_hb.setText("已领取"+ylSize+"/"+allSize+"，剩余"+StringUtil.getFormatValue2(redPacketInfo.getMoney() - allMoney)+"待领取/"+"共"+StringUtil
-                                        .getFormatValue2(redPacketInfo.getMoney())+"元"+time);
+                            tv_message_hb.setText("已领取" + ylSize + "/" + allSize + "，剩余" + StringUtil.getFormatValue2(redPacketInfo.getMoney() - allMoney) + "待领取/" + "共" + StringUtil
+                                    .getFormatValue2(redPacketInfo.getMoney()) + "元" + time);
+                            tv_tips.setVisibility(View.GONE);
                         }
                         if (type.equals("1")) {
                             tv_message_hb.setVisibility(View.GONE);
-                            tv_tips.setVisibility(View.GONE);
+
                         } else {
                             tv_message_hb.setVisibility(View.VISIBLE);
-                            tv_tips.setVisibility(View.VISIBLE);
+
                         }
                         if (ylSize == allSize) {
                             mAdapter.setIsfirsh(true);
@@ -236,6 +241,8 @@ public class RedPacketDetailActivity extends BaseInitActivity {
                             mAdapter.setIsfirsh(false);
                         }
                         mAdapter.notifyDataSetChanged();
+                    } else {
+
                     }
                 }
             }
