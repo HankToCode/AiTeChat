@@ -850,6 +850,12 @@ public class UserInfoDetailActivity extends BaseInitActivity {
 
                 try {
                     EMClient.getInstance().contactManager().deleteContact(userId + Constant.ID_REDPROJECT);
+
+                    //删除和某个user会话，如果需要保留聊天记录，传false
+                    EMClient.getInstance().chatManager().deleteConversation(userId + Constant.ID_REDPROJECT, true);
+                    EventBus.getDefault().post(new EventCenter<>(EventUtil.DELETE_CONTACT));
+
+
                     ToastUtil.toast(" 删除成功");
                     finish();
                 } catch (HyphenateException e) {

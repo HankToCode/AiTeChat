@@ -13,6 +13,7 @@ import com.ycf.qianzhihe.MainActivity;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.EaseConstant;
+import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
@@ -83,6 +84,10 @@ public class ChatActivity extends BaseInitActivity {
                 if (chatFragment != null) {
                     chatFragment.sendMessage(message1);
                 }
+                break;
+            case EventUtil.OPERATE_BLACK :
+            case EventUtil.DELETE_CONTACT:
+                finish();
                 break;
         }
     }
