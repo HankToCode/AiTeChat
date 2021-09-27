@@ -45,13 +45,19 @@ public class FriendApplyFragment extends BaseInitFragment implements NewFriendAd
         mNewFriendAdapter = new NewFriendAdapter(mStringList, mContext, lettes);
         RclViewHelp.initRcLmVertical(mContext, mRvNewFriend, mNewFriendAdapter);
         mNewFriendAdapter.setOnAgreeListener(this);
-        queryUserStatus();
+
         mNewFriendAdapter.setOnDelClickListener(new NewFriendAdapter.OnDelClickListener() {
             @Override
             public void delUser(int pos) {
                 delApplyUserData(pos);
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        queryUserStatus();
     }
 
     /**

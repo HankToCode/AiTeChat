@@ -182,7 +182,8 @@ public class RealAuthActivity extends BaseInitActivity {
                             String errorCode = FastJsonUtil.getString(jsonData, "errcode");
                             String errmsg = FastJsonUtil.getString(jsonData, "errmsg");
                             if (errorCode.equals("P0000")) {
-                                uplpadImg(passImgPath,passFace,jsonData);
+//                                uplpadImg(passImgPath,passFace,jsonData);
+                                ToastUtils.showToast("实名认证成功");
                             } else {
                                 ToastUtils.showToast(errmsg);
                             }

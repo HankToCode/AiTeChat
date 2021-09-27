@@ -89,7 +89,7 @@ public class AuditUserActivity extends BaseInitActivity {
                 break;
             case R.id.reject:
                 if (!XClickUtil.isFastDoubleClick(view, 1000)) {
-                    agreeApply(applyFriendData.getApplyId(), 0);
+                    agreeApply(applyFriendData.getApplyId(), 2);
                 }
 
                 break;
