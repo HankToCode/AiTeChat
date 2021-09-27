@@ -61,7 +61,7 @@ public class WalletPacket extends EaseChatRow {
     protected void onInflateView() {
         json = FastJsonUtil.toJSONString(message.ext());
         type = FastJsonUtil.getString(json, "type");
-        createTime = FastJsonUtil.getString(json, "createTime");
+        createTime = FastJsonUtil.getString(json, "updateTime");
 
         switch (type) {
             case "1":
