@@ -329,7 +329,7 @@ public class UserInfoDetailActivity extends BaseInitActivity {
         chatType = intent.getIntExtra("chatType", 0);
         from = intent.getStringExtra("from");
         inviterUserId = intent.getStringExtra("entryUserId");
-        currentUserRank = intent.getIntExtra("currentUserRank",0);
+        currentUserRank = intent.getIntExtra("currentUserRank", 0);
     }
 
     private void getGroupMuteList() {
@@ -605,7 +605,7 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                 break;
             case R.id.tv_chat_bg:
                 //聊天背景
-                ChatBgActivity.actionStart(this, "1", info.getNickName());
+                ChatBgActivity.actionStart(this, "1", info.getUserId() + Constant.ID_REDPROJECT);
                 break;
             case R.id.tv_clear_history:
                 //清空聊天记录

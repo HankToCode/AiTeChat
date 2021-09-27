@@ -4,66 +4,31 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
-import android.view.View;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.Nullable;
-
-import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMCmdMessageBody;
-import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
-import com.hyphenate.easeui.constants.EaseConstant;
-import com.hyphenate.easeui.widget.EaseAlertDialog;
 import com.hyphenate.easeui.widget.EaseImageView;
 import com.hyphenate.easeui.widget.EaseTitleBar;
-import com.hyphenate.exceptions.HyphenateException;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
-import com.ycf.qianzhihe.app.api.Global;
-import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.global.UserComm;
-import com.ycf.qianzhihe.app.api.old_data.EventCenter;
-import com.ycf.qianzhihe.app.api.old_data.FriendInfo;
 import com.ycf.qianzhihe.app.api.old_data.LoginInfo;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
 import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
-import com.ycf.qianzhihe.app.operate.UserOperateManager;
-import com.ycf.qianzhihe.app.utils.ProjectUtil;
-import com.ycf.qianzhihe.app.utils.hxSetMessageFree.EaseSharedUtils;
-import com.ycf.qianzhihe.app.utils.my.MyHelper;
-import com.ycf.qianzhihe.app.weight.MyDialog;
 import com.ycf.qianzhihe.common.utils.ToastUtils;
-import com.ycf.qianzhihe.section.chat.activity.ChatActivity;
-import com.ycf.qianzhihe.section.contact.activity.AddUserActivity;
-import com.ycf.qianzhihe.section.conversation.ChatBgActivity;
-import com.ycf.qianzhihe.section.conversation.ChatRecordActivity;
-import com.ycf.qianzhihe.section.conversation.ModifyFriendRemarkActivity;
-import com.ycf.qianzhihe.section.conversation.ReportActivity;
 import com.zds.base.ImageLoad.GlideUtils;
 import com.zds.base.Toast.ToastUtil;
-import com.zds.base.json.FastJsonUtil;
-import com.zds.base.log.XLog;
 import com.zds.base.util.StringUtil;
-import com.zds.base.util.Utils;
-
-import org.greenrobot.eventbus.EventBus;
 
 import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
-import butterknife.OnClick;
 
 /**
  * @author lhb

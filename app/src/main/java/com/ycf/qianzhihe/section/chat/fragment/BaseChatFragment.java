@@ -3,6 +3,8 @@ package com.ycf.qianzhihe.section.chat.fragment;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static android.view.View.VISIBLE;
 
+import static com.ycf.qianzhihe.section.conversation.ChatBgActivity.BG_NONE;
+
 import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.ContentUris;
@@ -33,6 +35,7 @@ import android.widget.AbsListView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -185,6 +188,8 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
     TextView tvUnread;
     @BindView(R.id.title_bar)
     EaseTitleBar titleBar;
+    @BindView(R.id.rl_root)
+    RelativeLayout rlRoot;
 
     //带入金额
 //    protected double baseMoney = 0;
@@ -481,7 +486,7 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
             String path =
                     MyHelper.getInstance().getModel().getChatBg(emChatId);
             if (path != null && path.length() > 0) {
-                if (path.equals("none")) {
+                if (path.equals(BG_NONE)) {
                     mRlTop.setImageResource(Storage.getChatBgLocal(emChatId));
                 } else {
                     mRlTop.setImageDrawable(Drawable.createFromPath(path));
@@ -516,14 +521,14 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
                 MyHelper.getInstance().getModel().getChatBg(emChatId);
 
         if (path != null && path.length() > 0) {
-            if (path.equals("none")) {
+            if (path.equals(BG_NONE)) {
                 mRlTop.setImageResource(Storage.getChatBgLocal(emChatId));
             } else {
                 mRlTop.setImageDrawable(Drawable.createFromPath(path));
             }
         } else {
             if (Storage.getGlobleChatBg() != null && Storage.getGlobleChatBg().length() > 0) {
-                if (Storage.getGlobleChatBg().equals("none")) {
+                if (Storage.getGlobleChatBg().equals(BG_NONE)) {
                     mRlTop.setImageResource(Storage.getGlobleChatBgLocal());
                 } else {
                     mRlTop.setImageDrawable(Drawable.createFromPath(Storage.getGlobleChatBg()));

@@ -42,9 +42,11 @@ public class ChatBgActivity extends BaseInitActivity implements ChatBgAdapter.Se
     public static void actionStart(Context context, String from, String emChatId) {
         Intent starter = new Intent(context, ChatBgActivity.class);
         starter.putExtra("from", from);
-        starter.putExtra("username", emChatId);
+        starter.putExtra("emChatId", emChatId);
         context.startActivity(starter);
     }
+
+    public static final String BG_NONE = "none";
 
 
     @BindView(R.id.title_bar)
@@ -52,7 +54,7 @@ public class ChatBgActivity extends BaseInitActivity implements ChatBgAdapter.Se
     @BindView(R.id.rv_chat_bg)
     RecyclerView mRvChatBg;
     private String from = "";
-    private String toChatUsername;
+    private String emChatId;
     private List<ChatBgInfo> mInfoList = new ArrayList<>();
     private ChatBgAdapter mChatBgAdapter;
 
@@ -88,7 +90,7 @@ public class ChatBgActivity extends BaseInitActivity implements ChatBgAdapter.Se
     protected void initIntent(Intent intent) {
         super.initIntent(intent);
         Bundle extras = getIntent().getExtras();
-        toChatUsername = extras.getString("username");
+        emChatId = extras.getString("emChatId");
         from = extras.getString("from");
     }
 
@@ -131,13 +133,13 @@ public class ChatBgActivity extends BaseInitActivity implements ChatBgAdapter.Se
                 if (selectList.size() > 0) {
                     if (selectList.get(0).isCut()) {
                         if (from.equals("1")) {
-                            MyHelper.getInstance().getModel().saveChatBg(toChatUsername, selectList.get(0).getCutPath(), null, null);
+                            MyHelper.getInstance().getModel().saveChatBg(emChatId, selectList.get(0).getCutPath(), null, null);
                         } else {
                             Storage.saveGlobalChatBg(selectList.get(0).getCutPath());
                         }
                     } else {
                         if (from.equals("1")) {
-                            MyHelper.getInstance().getModel().saveChatBg(toChatUsername, selectList.get(0).getPath(), null, null);
+                            MyHelper.getInstance().getModel().saveChatBg(emChatId, selectList.get(0).getPath(), null, null);
                         } else {
                             Storage.saveGlobalChatBg(selectList.get(0).getPath());
                         }
@@ -167,12 +169,12 @@ public class ChatBgActivity extends BaseInitActivity implements ChatBgAdapter.Se
 
         //聊天过来设置
         if (from.equals("1")) {
-            MyHelper.getInstance().getModel().saveChatBg(toChatUsername, "none", null, null);
-            Storage.saveChatBgLocal(toChatUsername, bg);
+            MyHelper.getInstance().getModel().saveChatBg(emChatId, BG_NONE, null, null);
+            Storage.saveChatBgLocal(emChatId, bg);
             EventBus.getDefault().post(new EventCenter<>(EventUtil.SET_CHAT_BG));
         } else {
             //全局设置
-            Storage.saveGlobalChatBg("none");
+            Storage.saveGlobalChatBg(BG_NONE);
             Storage.saveGlobalChatBgLocal(bg);
 
         }
