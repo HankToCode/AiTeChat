@@ -35,6 +35,7 @@ import com.ycf.qianzhihe.app.utils.hxSetMessageFree.EaseSharedUtils;
 import com.ycf.qianzhihe.app.utils.my.MyHelper;
 import com.ycf.qianzhihe.app.weight.CommonDialog;
 import com.ycf.qianzhihe.app.weight.ease.EaseAlertDialog;
+import com.ycf.qianzhihe.section.conversation.ChatBgActivity;
 import com.ycf.qianzhihe.section.conversation.ChatRecordActivity;
 import com.ycf.qianzhihe.section.conversation.SetGroupManageActivity;
 import com.hyphenate.exceptions.HyphenateException;
@@ -283,7 +284,7 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
         // .img_default_avatar, 12);
         /*GlideUtils.GlideLoadCircleErrorImageUtils(MyGroupDetailActivity.this, AppConfig.checkimg(info.getGroupHead())
                 , iv_group_head, R.mipmap.img_default_avatar);*/
-        GlideUtils.loadImageViewLoding(MyGroupDetailActivity.this,AppConfig.checkimg(info.getGroupHead()), iv_group_head, R.mipmap.img_default_avatar, R.mipmap.img_default_avatar);
+        GlideUtils.loadImageViewLoding(MyGroupDetailActivity.this, AppConfig.checkimg(info.getGroupHead()), iv_group_head, R.mipmap.img_default_avatar, R.mipmap.img_default_avatar);
 
         tv_group_name.setText(info.getGroupName());
         tv_group_remark.setText(info.groupNickName);
@@ -656,9 +657,13 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
             R.id.tv_group_zx, R.id.tv_group_name, R.id.rl_container_group_remark,
             R.id.tv_group_notice, R.id.tv_msg_record,
             R.id.tv_group_manager, R.id.rl_container_group_single_member_jinyan,
-            R.id.tv_clear_msg, R.id.tv_exit, R.id.tv_transfer_group, R.id.iv_group_head})
+            R.id.tv_clear_msg, R.id.tv_exit, R.id.tv_transfer_group, R.id.iv_group_head, R.id.tv_chat_bg})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.tv_chat_bg:
+                //聊天背景
+                ChatBgActivity.actionStart(this, "1", info.getHuanxinGroupId());
+                break;
             case R.id.tv_group_name:
                 //群昵称
                 if (info.getGroupUserRank() != 0) {
