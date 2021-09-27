@@ -105,7 +105,7 @@ public class ContactGroupingAdapter extends BaseExpandableListAdapter {
         CheckBox ck_contact = (CheckBox)convertView.findViewById(R.id.ck_contact);
         TextView tv_sign = convertView.findViewById(R.id.tv_sign);
         ck_contact.setChecked(false);
-        tv_name.setText(child.getNickName());
+        tv_name.setText(child.getFriendNickName());
         ImageUtil.setAvatar((EaseImageView) avatar);
         GlideUtils.loadImageViewLoding(child.getFriendUserHead(), avatar,R.mipmap.img_default_avatar);
         if (!TextUtils.isEmpty(child.getUserSign())) {

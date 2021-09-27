@@ -166,7 +166,9 @@ public class RedPacketDetailActivity extends BaseInitActivity {
 
                     String time = StringUtil.isEmpty(redPacketInfo.getRobFinishTime()) ? "" : "，" + redPacketInfo.getRobFinishTime() + "被抢光";
                     if (StringUtil.isEmpty(time)) {
-                        time = "等待对方领取";
+                        if (type.equals("1")) {//单聊
+                            time = "等待对方领取";
+                        }
                         tv_tips.setVisibility(View.GONE);
                     }
                     tv_message_hb.setText("红包个数" + (redPacketInfo.getPacketAmount() == 0 ? "1" : redPacketInfo.getPacketAmount()) + "个，" + "共计" + StringUtil
