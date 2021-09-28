@@ -66,14 +66,11 @@ public class WalletActivity extends BaseInitActivity {
     @OnClick({ R.id.tv_wallet_lock, R.id.tv_recharge, R.id.tv_withdraw, R.id.tv_pay_manage, R.id.tv_my_redpack_record, R.id.tv_my_transfer})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.tv_recharge:
-                //充值
-                //判断是否开通钱包账户
-                /*if (TextUtils.isEmpty(UserComm.getUserInfo().ncountUserId)) {
-                    OpenWalletActivity.start(WalletActivity.this);
-                } else {
-                    RechargeNewActivity.start(WalletActivity.this);
-                }*/
+            case R.id.tv_recharge://充值
+                if (UserComm.getUserInfo().getOpenAccountFlag() == 0) {
+                    RealAuthActivity.actionStart(mContext);
+                    return;
+                }
                 RechargeActivity.actionStart(WalletActivity.this);//充值页面
                 break;
             case R.id.tv_withdraw:
