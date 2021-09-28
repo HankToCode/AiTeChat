@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ycf.qianzhihe.R;
@@ -42,7 +43,8 @@ public class RechargeRecordActivity extends BaseInitActivity {
     private List<RechargeRecordInfo.DataBean> mRecordInfoList = new ArrayList<>();
     private RechargeRecordAdapter mRechargeAdapter;
     private int page = 1;
-
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     public static void actionStart(Context context) {
         Intent intent = new Intent(context, RechargeRecordActivity.class);
@@ -69,7 +71,19 @@ public class RechargeRecordActivity extends BaseInitActivity {
                 queryRechargeRecord();
             }
         },recyclerView);
+        swipeRefreshLayout.setColorSchemeResources(R.color.holo_blue_bright,
+                R.color.holo_green_light,
+                R.color.holo_orange_light, R.color.holo_red_light);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                page = 1;
+                queryRechargeRecord();
+            }
+        });
+
         queryRechargeRecord();
+        swipeRefreshLayout.setRefreshing(true);
     }
 
 
@@ -88,13 +102,20 @@ public class RechargeRecordActivity extends BaseInitActivity {
             @Override
             public void onSuccess(String json, String msg) {
                 RechargeRecordInfo info = FastJsonUtil.getObject(json, RechargeRecordInfo.class);
+                if (page == 1) {
+                    mRecordInfoList.clear();
+                }
+                swipeRefreshLayout.setRefreshing(false);
                 if (info.getData() != null && info.getData().size() > 0) {
                     mRecordInfoList.addAll(info.getData());
                     mRechargeAdapter.notifyDataSetChanged();
                     mRechargeAdapter.loadMoreComplete();
                     tv_no_data.setVisibility(View.GONE);
                 } else {
-                    tv_no_data.setVisibility(View.VISIBLE);
+                    if (page == 1) {
+                        tv_no_data.setVisibility(View.VISIBLE);
+                    }
+                    mRechargeAdapter.loadMoreEnd(false);
                 }
             }
 

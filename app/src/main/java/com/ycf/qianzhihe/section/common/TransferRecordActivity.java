@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.adapter.TransferAdapter;
 import com.ycf.qianzhihe.app.api.old_data.TransferRecordInfo;
@@ -38,11 +40,11 @@ public class TransferRecordActivity extends BaseInitActivity {
     RecyclerView mRecyclerView;
     @BindView(R.id.tv_no_data)
     TextView mTvNoData;
-
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
     private TransferAdapter mTransferAdapter;
     private List<TransferRecordInfo> mRecordInfoList = new ArrayList<>();
-
-
+    private int page = 1;
 
     public static void actionStart(Context context) {
         Intent intent = new Intent(context, TransferRecordActivity.class);
@@ -59,8 +61,27 @@ public class TransferRecordActivity extends BaseInitActivity {
         super.initView(savedInstanceState);
         mTitleBar.setTitle("转账记录");
         mTitleBar.setOnBackPressListener(view -> finish());
-        mTransferAdapter = new TransferAdapter(mContext,mRecordInfoList);
+        mTransferAdapter = new TransferAdapter(mRecordInfoList);
         RclViewHelp.initRcLmVertical(this, mRecyclerView, mTransferAdapter);
+        mTransferAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
+            @Override
+            public void onLoadMoreRequested() {
+                page++;
+                transferRecord();
+            }
+        });
+        swipeRefreshLayout.setColorSchemeResources(R.color.holo_blue_bright,
+                R.color.holo_green_light,
+                R.color.holo_orange_light, R.color.holo_red_light);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                page = 1;
+                transferRecord();
+            }
+        });
+
+        swipeRefreshLayout.setRefreshing(true);
         transferRecord();
     }
 
@@ -72,19 +93,31 @@ public class TransferRecordActivity extends BaseInitActivity {
      */
     private void transferRecord() {
         Map<String, Object> map = new HashMap<>(1);
+        map.put("pageNum", page);
+        map.put("pageSize", 10);
         ApiClient.requestNetHandle(this, AppConfig.TRANSFER_RECORD, "", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
+                if (page == 1) {
+                    mRecordInfoList.clear();
+                }
+                swipeRefreshLayout.setRefreshing(false);
                 if (FastJsonUtil.getList(json, TransferRecordInfo.class) != null && FastJsonUtil.getList(json, TransferRecordInfo.class).size() > 0) {
                     mRecordInfoList.addAll(FastJsonUtil.getList(json, TransferRecordInfo.class));
                     mTransferAdapter.notifyDataSetChanged();
+                    mTransferAdapter.loadMoreComplete();
                     mTvNoData.setVisibility(View.GONE);
                 } else {
-                    mTvNoData.setVisibility(View.VISIBLE);
+                    if (page == 1) {
+                        mTvNoData.setVisibility(View.VISIBLE);
+                    }
+                    mTransferAdapter.loadMoreEnd(false);
+
                 }
             }
             @Override
             public void onFailure(String msg) {
+                mTransferAdapter.loadMoreFail();
                 ToastUtil.toast(msg);
             }
         });

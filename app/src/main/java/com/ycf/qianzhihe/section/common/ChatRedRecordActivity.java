@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ycf.qianzhihe.R;
@@ -41,7 +42,8 @@ public class ChatRedRecordActivity extends BaseInitActivity {
     LinearLayout ll_back;
     @BindView(R.id.tv_no_data)
     TextView tv_no_data;
-
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
     private ChatRedRecordAdapter mRedRecordAdapter;
     private List<MyRedInfo.DataBean> mPacketInfoList = new ArrayList<>();
     private int page = 1;
@@ -62,7 +64,7 @@ public class ChatRedRecordActivity extends BaseInitActivity {
         mToolbarTitle.setText("红包记录");
         mRedRecordAdapter = new ChatRedRecordAdapter(mPacketInfoList);
         RclViewHelp.initRcLmVertical(this, mRvRedRecord, mRedRecordAdapter);
-
+        ll_back.setOnClickListener(view -> finish());
         mRedRecordAdapter.setOnLoadMoreListener(new BaseQuickAdapter.RequestLoadMoreListener() {
             @Override
             public void onLoadMoreRequested() {
@@ -71,9 +73,18 @@ public class ChatRedRecordActivity extends BaseInitActivity {
             }
         });
 
-        ll_back.setOnClickListener(view -> finish());
-
+        swipeRefreshLayout.setColorSchemeResources(R.color.holo_blue_bright,
+                R.color.holo_green_light,
+                R.color.holo_orange_light, R.color.holo_red_light);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                page = 1;
+                queryRed();
+            }
+        });
         queryRed();
+        swipeRefreshLayout.setRefreshing(true);
     }
 
     @Override
@@ -89,20 +100,26 @@ public class ChatRedRecordActivity extends BaseInitActivity {
         Map<String, Object> map = new HashMap<>(3);
         map.put("type", "");
         map.put("pageNum", page);
-        map.put("pageSize", 15);
+        map.put("pageSize", 10);
 
         ApiClient.requestNetHandle(this, AppConfig.RED_PACK_RECORD, "", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 MyRedInfo info = FastJsonUtil.getObject(json, MyRedInfo.class);
+                if (page == 1) {
+                    mPacketInfoList.clear();
+                }
+                swipeRefreshLayout.setRefreshing(false);
                 if (info.getData() != null && info.getData().size() > 0) {
                     mPacketInfoList.addAll(info.getData());
                     mRedRecordAdapter.notifyDataSetChanged();
                     mRedRecordAdapter.loadMoreComplete();
                     tv_no_data.setVisibility(View.GONE);
                 } else {
-                    tv_no_data.setVisibility(View.VISIBLE);
-                    mRedRecordAdapter.loadMoreEnd(true);
+                    if (page == 1) {
+                        tv_no_data.setVisibility(View.VISIBLE);
+                    }
+                    mRedRecordAdapter.loadMoreEnd(false);
                 }
             }
 

@@ -3,10 +3,15 @@ package com.ycf.qianzhihe.section.common;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
+import com.hyphenate.easeui.widget.EaseTitleBar;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.adapter.RechargeAdapter;
 import com.ycf.qianzhihe.app.api.old_data.RechargeRecordInfo;
@@ -15,16 +20,15 @@ import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
 import com.ycf.qianzhihe.app.help.RclViewHelp;
-import com.hyphenate.easeui.widget.EaseTitleBar;
+import com.zds.base.Toast.ToastUtil;
 import com.zds.base.json.FastJsonUtil;
-
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
-import com.zds.base.Toast.ToastUtil;
 
 /**
  * 提现记录
@@ -32,9 +36,12 @@ import com.zds.base.Toast.ToastUtil;
 public class TxRecordActivity extends BaseInitActivity {
     @BindView(R.id.title_bar)
     EaseTitleBar mTitleBar;
-
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.recyclerView)
     RecyclerView mRvRedRecord;
+    @BindView(R.id.tv_no_data)
+    TextView tv_no_data;
     private List<RechargeRecordInfo.DataBean> mRecordInfoList = new ArrayList<>();
     private RechargeAdapter mRechargeAdapter;
     private int page = 1;
@@ -64,44 +71,21 @@ public class TxRecordActivity extends BaseInitActivity {
                 queryTxRecord();
             }
         });
-
-        queryTxRecord();
-    }
-
-
-
-    private boolean isRequest;
-    /**
-     * 提现
-     */
-    private void withdraw(String id){
-        if (isRequest){
-            ToastUtil.toast("加载中，请勿重复提交");
-            return;
-        }
-        isRequest=true;
-        Map<String,Object> map =new HashMap<>();
-        map.put("walletWithdrawId",id);
-        ApiClient.requestNetHandle(this, AppConfig.afterWithdraw, "请求中...", map, new ResultListener() {
+        swipeRefreshLayout.setColorSchemeResources(R.color.holo_blue_bright,
+                R.color.holo_green_light,
+                R.color.holo_orange_light, R.color.holo_red_light);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
-            public void onSuccess(String json, String msg) {
-//                startActivity(new Intent(TxRecordActivity.this,WebViewActivity.class).putExtra("url",json).putExtra("title","提现"));
-            }
-
-            @Override
-            public void onFinsh() {
-                super.onFinsh();
-                isRequest=false;
-            }
-
-            @Override
-            public void onFailure(String msg) {
-                ToastUtil.toast(msg);
+            public void onRefresh() {
+                page = 1;
+                queryTxRecord();
             }
         });
+
+        queryTxRecord();
+        swipeRefreshLayout.setRefreshing(true);
+
     }
-
-
 
     /**
      * 查询提现记录
@@ -109,22 +93,32 @@ public class TxRecordActivity extends BaseInitActivity {
     private void queryTxRecord() {
         Map<String, Object> map = new HashMap<>(2);
         map.put("pageNum", page);
-        map.put("pageSize", 15);
+        map.put("pageSize", 10);
         ApiClient.requestNetHandle(this, AppConfig.GET_WITHDRAAW_RECORD, "", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 RechargeRecordInfo info = FastJsonUtil.getObject(json, RechargeRecordInfo.class);
+                if (page == 1) {
+                    mRecordInfoList.clear();
+                }
+                swipeRefreshLayout.setRefreshing(false);
                 if (info.getData() != null && info.getData().size() > 0) {
                     mRecordInfoList.addAll(info.getData());
                     mRechargeAdapter.notifyDataSetChanged();
                     mRechargeAdapter.loadMoreComplete();
+                    tv_no_data.setVisibility(View.GONE);
                 } else {
-                    mRechargeAdapter.loadMoreEnd(true);
+                    if (page == 1) {
+                        tv_no_data.setVisibility(View.VISIBLE);
+                    }
+                    mRechargeAdapter.loadMoreEnd(false);
                 }
+
             }
             @Override
             public void onFailure(String msg) {
                 mRechargeAdapter.loadMoreFail();
+                ToastUtil.toast(msg);
             }
         });
 
