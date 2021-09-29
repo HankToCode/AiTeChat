@@ -307,7 +307,9 @@ public class ApiClient {
             return;
         }
         if (mapP != null) {
-            Log.d("TAG", "请求参数：" + mapP.toString());
+            if (BuildConfig.BUILD_TYPE.equals("debug")) {
+                Log.d("TAG", "请求参数：" + mapP.toString());
+            }
         }
         try {
             showDialog(log, context);
@@ -675,9 +677,8 @@ public class ApiClient {
             }
 
             if (BuildConfig.BUILD_TYPE.equals("debug")) {
-                Log.d("response: ", response.body().toString());
+                Log.d("###response: ", response.body().toString());
             }
-            Log.d("请求返回: ", json.toString());
             ServerData serverData = FastJsonUtil.getObject(json, ServerData.class);
             if (null != serverData) {
                 switch (serverData.getCode()) {
