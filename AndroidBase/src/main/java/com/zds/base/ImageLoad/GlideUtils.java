@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -13,17 +14,23 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
+import com.zds.base.util.StringUtil;
 import com.zds.base.util.Utils;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.LinkedHashMap;
 import java.util.concurrent.ExecutionException;
 
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 /**
  * 作   者：赵大帅
@@ -45,6 +52,8 @@ public class GlideUtils {
      * 这里默认支持Context，Glide支持Context,Activity,Fragment，FragmentActivity
      */
 
+    public static final LinkedHashMap<String, Drawable> cacheImage = new LinkedHashMap<>();
+
 
     //默认加载
     public static void loadImageView(int path, ImageView mImageView) {
@@ -63,12 +72,28 @@ public class GlideUtils {
 
     //设置加载中以及加载失败图片
     public static void loadImageViewLoding(String path, ImageView mImageView, int errorImageView) {
-        Glide.with(Utils.getContext()).load(path).apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(errorImageView).error(errorImageView)).into(mImageView);
+        Glide.with(Utils.getContext()).load(path).apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(errorImageView).error(errorImageView)).into(new SimpleTarget<Drawable>() {
+            @Override
+            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+
+                putCacheImage(path, resource);
+                mImageView.setImageDrawable(resource);
+            }
+
+            @Override
+            public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                if (!isSetCacheImageSuccess(path, mImageView)) {
+                    super.onLoadFailed(errorDrawable);
+                }
+            }
+        });
     }
+
     //设置加载中以及加载失败图片
     public static void loadImageViewLoding(String path, ImageView mImageView) {
         Glide.with(Utils.getContext()).load(path).apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL)).into(mImageView);
     }
+
     /**
      * 加载圆角图片
      */
@@ -83,6 +108,7 @@ public class GlideUtils {
         Glide.with(Utils.getContext()).load(url).apply(options).into(imageView);
 
     }
+
     //设置加载中以及加载失败图片
     public static void loadImageViewLoding2(String path, ImageView mImageView, int errorImageView) {
         Glide.with(Utils.getContext()).load(path).apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(errorImageView).error(errorImageView)).into(mImageView);
@@ -208,7 +234,6 @@ public class GlideUtils {
     }
 
 
-
     //设置缓存策略
     public static InputStream getDiskCache(String path) {
         try {
@@ -231,8 +256,31 @@ public class GlideUtils {
     }
 
 
-    public static Bitmap load(Context context,String url) throws ExecutionException, InterruptedException {
+    public static Bitmap load(Context context, String url) throws ExecutionException, InterruptedException {
         return Glide.with(context).asBitmap().load(url).submit().get();
     }
+
+
+    private static final int CACHE_MAX_SIZE = 500;
+
+    private static void putCacheImage(String path, Drawable resource) {
+        if (!StringUtil.isEmpty(path) && !cacheImage.containsKey(path)) {
+            if (cacheImage.size() > CACHE_MAX_SIZE) {
+                cacheImage.clear();
+            }
+            Log.d("aaaaaa","保存缓存图片");
+            cacheImage.put(path, resource);
+        }
+    }
+
+    private static boolean isSetCacheImageSuccess(String path, ImageView mImageView) {
+        if (!StringUtil.isEmpty(path) && cacheImage.containsKey(path)) {
+            Log.d("aaaaaa","设置缓存图片");
+            mImageView.setImageDrawable(cacheImage.get(path));
+            return true;
+        }
+        return false;
+    }
+
 
 }
