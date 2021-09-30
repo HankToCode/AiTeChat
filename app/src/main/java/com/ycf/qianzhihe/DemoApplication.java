@@ -10,8 +10,8 @@ import androidx.multidex.MultiDex;
 
 import com.baidu.mapapi.cloud.VersionInfo;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.common.utils.CretinAutoUpdateUtils;
 import com.zds.base.SelfAppContext;
-import com.zds.base.upDated.utils.CretinAutoUpdateUtils;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.old_http.AppConfig;

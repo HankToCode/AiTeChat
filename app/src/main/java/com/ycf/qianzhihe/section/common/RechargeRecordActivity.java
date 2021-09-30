@@ -98,7 +98,7 @@ public class RechargeRecordActivity extends BaseInitActivity {
         map.put("pageNum", page);
         map.put("pageSize", 15);
 
-        ApiClient.requestNetHandle(this, AppConfig.GET_RECHARGE_RECORD, "请稍等", map, new ResultListener() {
+        ApiClient.requestNetHandle(this, AppConfig.GET_RECHARGE_RECORD, "", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 RechargeRecordInfo info = FastJsonUtil.getObject(json, RechargeRecordInfo.class);
