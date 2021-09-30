@@ -17,6 +17,8 @@ import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMMessage;
 import com.ycf.qianzhihe.DemoHelper;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.app.api.Constant;
+import com.ycf.qianzhihe.app.operate.UserOperateManager;
 import com.ycf.qianzhihe.common.db.entity.InviteMessage;
 import com.ycf.qianzhihe.common.db.entity.InviteMessageStatus;
 import com.ycf.qianzhihe.common.db.entity.MsgTypeManageEntity;
@@ -28,6 +30,7 @@ import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.easeui.utils.EaseDateUtils;
 import com.hyphenate.easeui.utils.EaseSmileUtils;
 import com.hyphenate.easeui.widget.EaseImageView;
+import com.zds.base.ImageLoad.GlideUtils;
 
 import java.util.Date;
 
@@ -92,8 +95,17 @@ public class HomeAdapter extends EaseBaseRecyclerViewAdapter<Object> {
                     EMChatRoom chatRoom = DemoHelper.getInstance().getChatroomManager().getChatRoom(username);
                     name.setText(chatRoom != null && !TextUtils.isEmpty(chatRoom.getName()) ? chatRoom.getName() : username);
                 }else {
-                    avatar.setImageResource(R.drawable.ease_default_avatar);
-                    name.setText(username);
+
+                    if(username != null && username.contains(Constant.ID_REDPROJECT)){
+                        String nickName = UserOperateManager.getInstance().getUserName(username);
+                        String avatarUrl = UserOperateManager.getInstance().getUserAvatar(username);
+
+                        GlideUtils.loadImageViewLoding(avatarUrl, avatar, R.drawable.ic_conversation_app);
+                        name.setText(nickName);
+                    }else{
+                        avatar.setImageResource(R.drawable.ease_default_avatar);
+                        name.setText(username);
+                    }
                 }
 
                 if(item.getUnreadMsgCount() > 0) {

@@ -201,7 +201,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
 
             String imgUrl = ImageUtil.checkimg(groupHead);
 //            Log.e("LEOLEO", "头像地址："+imgUrl);
-            GlideUtils.loadImageViewLoding(imgUrl, holder.avatar, R.mipmap.ic_group_default);
+            GlideUtils.loadImageViewLoding(imgUrl, holder.avatar, R.drawable.ic_conversation_app);
             holder.name.setText(group != null ? group.getGroupName() : group1.getGroupName());
 
         } else {

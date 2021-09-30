@@ -12,6 +12,8 @@ import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMGroup;
 import com.ycf.qianzhihe.DemoHelper;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.app.api.Constant;
+import com.ycf.qianzhihe.app.operate.UserOperateManager;
 import com.ycf.qianzhihe.common.interfaceOrImplement.OnResourceParseCallback;
 import com.ycf.qianzhihe.common.db.entity.MsgTypeManageEntity;
 
@@ -68,54 +70,57 @@ public class SearchConversationActivity extends SearchActivity {
     }
 
     private void searchResult(String search) {
-        if(mData == null || mData.isEmpty()) {
+        if (mData == null || mData.isEmpty()) {
             return;
         }
-        EaseThreadManager.getInstance().runOnIOThread(()-> {
+        EaseThreadManager.getInstance().runOnIOThread(() -> {
             result.clear();
             for (Object obj : mData) {
-                if(obj instanceof EMConversation) {
+                if (obj instanceof EMConversation) {
                     EMConversation item = (EMConversation) obj;
                     String username = item.conversationId();
-                    if(item.getType() == EMConversation.EMConversationType.GroupChat) {
+                    if (item.getType() == EMConversation.EMConversationType.GroupChat) {
                         EMGroup group = DemoHelper.getInstance().getGroupManager().getGroup(username);
-                        if(group != null) {
-                            if(group.getGroupName().contains(search)) {
+                        if (group != null) {
+                            if (group.getGroupName() != null && group.getGroupName().contains(search)) {
                                 result.add(obj);
                             }
-                        }else {
-                            if(username.contains(search)) {
+                        } else {
+                            if (username != null && username.contains(search)) {
                                 result.add(obj);
                             }
                         }
-                    }else if(item.getType() == EMConversation.EMConversationType.ChatRoom) {
+                    } else if (item.getType() == EMConversation.EMConversationType.ChatRoom) {
                         EMChatRoom chatRoom = DemoHelper.getInstance().getChatroomManager().getChatRoom(username);
-                        if(chatRoom != null) {
-                            if(chatRoom.getName().contains(search)) {
+                        if (chatRoom != null) {
+                            if (chatRoom.getName() != null && chatRoom.getName().contains(search)) {
                                 result.add(obj);
                             }
-                        }else {
-                            if(username.contains(search)) {
+                        } else {
+                            if (username != null && username.contains(search)) {
                                 result.add(obj);
                             }
                         }
-                    }else {
-                        if(username.contains(search)) {
+                    } else {
+                        if (username != null && username.contains(Constant.ID_REDPROJECT)) {
+                            username = UserOperateManager.getInstance().getUserName(username);
+                        }
+                        if (username != null && username.contains(search)) {
                             result.add(obj);
                         }
                     }
                 }
             }
-            runOnUiThread(()-> adapter.setData(result));
+            runOnUiThread(() -> adapter.setData(result));
         });
     }
 
     @Override
     protected void onChildItemClick(View view, int position) {
         Object item = adapter.getItem(position);
-        if(item instanceof EMConversation) {
-            ChatActivity.actionStart(mContext, ((EMConversation)item).conversationId(), EaseCommonUtils.getChatType((EMConversation) item));
-        }else if(item instanceof MsgTypeManageEntity) {
+        if (item instanceof EMConversation) {
+            ChatActivity.actionStart(mContext, ((EMConversation) item).conversationId(), EaseCommonUtils.getChatType((EMConversation) item));
+        } else if (item instanceof MsgTypeManageEntity) {
             SystemMsgsActivity.actionStart(mContext);
         }
     }
