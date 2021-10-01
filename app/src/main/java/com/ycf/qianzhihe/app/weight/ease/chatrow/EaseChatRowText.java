@@ -2,6 +2,7 @@ package com.ycf.qianzhihe.app.weight.ease.chatrow;
 
 import android.content.Context;
 import android.text.Spannable;
+import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -58,6 +59,13 @@ public class EaseChatRowText extends EaseChatRow {
         } else {
             ll_message.setVisibility(VISIBLE);
         }
+
+        contentView.setOnLongClickListener(view -> {
+            if (itemClickListener != null) {
+                itemClickListener.onBubbleLongClick(message);
+            }
+            return true;
+        });
     }
 
     @Override
