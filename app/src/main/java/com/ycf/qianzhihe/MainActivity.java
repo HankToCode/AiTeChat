@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -37,6 +38,7 @@ import com.ycf.qianzhihe.app.api.old_http.ApiClient;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.operate.GroupOperateManager;
 import com.ycf.qianzhihe.common.model.DemoModel;
+import com.ycf.qianzhihe.common.utils.ToastUtils;
 import com.ycf.qianzhihe.section.contact.activity.AddUserActivity;
 import com.ycf.qianzhihe.section.discover.NewsFragment;
 import com.zds.base.ImageLoad.GlideUtils;
@@ -105,6 +107,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
     private int[] msgIds = {R.id.tv_main_about_me_msg, R.id.tv_main_home_msg, R.id.tv_main_friends_msg, R.id.tv_main_discover_msg};
     private MainViewModel viewModel;
     private boolean showMenu = true;//是否显示菜单项
+    private long exitTime;
 
     public static void actionStart(Context context) {
         Intent starter = new Intent(context, MainActivity.class);
@@ -196,7 +199,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
 
                                     @Override
                                     public void onFailure(String msg) {
-                                        ToastUtil.toast(msg);
+//                                        ToastUtil.toast(msg);
                                     }
                                 });
                     }
@@ -211,6 +214,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
 
                     }
                 });
+        AppConfig.checkVersion(mContext, true);
     }
 
     @Override
@@ -716,5 +720,19 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
                 });
     }
 
+
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (event.getAction() == KeyEvent.ACTION_DOWN && keyCode == KeyEvent.KEYCODE_BACK) {
+            if ((System.currentTimeMillis() - exitTime) > 2000) {
+                ToastUtils.showToast(R.string.exit_text);
+                exitTime = System.currentTimeMillis();
+            } else {
+                finish();
+                ActivityStackManager.getInstance().killAllActivity();
+            }
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
 }

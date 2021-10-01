@@ -1,6 +1,21 @@
 package com.ycf.qianzhihe.app.api.old_http;
 
+import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
+
 import com.ycf.qianzhihe.BuildConfig;
+import com.ycf.qianzhihe.app.api.old_data.VersionInfo;
+import com.ycf.qianzhihe.common.utils.CretinAutoUpdateUtils;
+import com.zds.base.Toast.ToastUtil;
+import com.zds.base.json.FastJsonUtil;
+import com.zds.base.upDated.interfaces.ForceExitCallBack;
+import com.zds.base.upDated.model.UpdateEntity;
+import com.zds.base.util.SystemUtil;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 全局配置
@@ -1112,16 +1127,16 @@ public class AppConfig {
     //靓号购买
     public static String saveUserCodeMall = mainUrl + "app_user_code_mall/saveUserCodeMall";
     //设置星标
-    public static String modifyFriendStarTarget = mainUrl + "/app_user_friend/modifyFriendStarTarget";
+    public static String modifyFriendStarTarget = mainUrl + "app_user_friend/modifyFriendStarTarget";
     //同步成长值
-    public static String saveUserGrowthValue = mainUrl + "/app_user/saveUserGrowthValue";
+    public static String saveUserGrowthValue = mainUrl + "app_user/saveUserGrowthValue";
 
 
 
     /**
      * 检查版本
      */
-    /*public static void checkVersion(final Context context, boolean isinge) {
+    public static void checkVersion(final Context context, boolean isinge) {
         if (isinge) {
             CretinAutoUpdateUtils.getInstance(context).check(new ForceExitCallBack() {
                 @Override
@@ -1186,6 +1201,6 @@ public class AppConfig {
                 }
             });
         }
-    }*/
+    }
 
 }
