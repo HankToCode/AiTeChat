@@ -31,6 +31,7 @@ import com.scwang.smartrefresh.layout.footer.ClassicsFooter;
 import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.zds.base.util.HttpUtils;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
@@ -51,6 +52,8 @@ public class DemoApplication extends SelfAppContext implements Thread.UncaughtEx
         initHx();
         registerActivityLifecycleCallbacks();
         closeAndroidPDialog();
+
+        HttpUtils.handleSSLHandshake();
     }
 
     private void initApp() {
