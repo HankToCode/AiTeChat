@@ -8,9 +8,11 @@ import com.hyphenate.chat.EMMessage;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.weight.ease.chatrow.EaseChatRow;
+import com.zds.base.util.StringUtil;
 
 public class ChatSureTurnPacket extends EaseChatRow {
     private TextView tv_message,tv_messageRemark;
+    private TextView tv_time;
 
     public ChatSureTurnPacket(Context context, EMMessage message, int position, BaseAdapter adapter) {
         super(context, message, position, adapter);
@@ -30,6 +32,7 @@ public class ChatSureTurnPacket extends EaseChatRow {
     protected void onFindViewById() {
         tv_message = findViewById(R.id.tv_transfer_received);
         tv_messageRemark = findViewById(R.id.tv_money_greeting);
+        tv_time = findViewById(R.id.tv_time);
 
     }
 
@@ -47,6 +50,7 @@ public class ChatSureTurnPacket extends EaseChatRow {
     protected void onSetUpView() {
         tv_messageRemark.setText("已收款");
         tv_message.setText(message.getStringAttribute("money", "") + getResources().getString(R.string.glod));
+        tv_time.setText(StringUtil.formatDateMinute(message.getMsgTime()));
     }
 
 
