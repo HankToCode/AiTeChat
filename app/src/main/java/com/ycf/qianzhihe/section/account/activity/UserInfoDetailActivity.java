@@ -426,7 +426,7 @@ public class UserInfoDetailActivity extends BaseInitActivity {
         }
         map.put("friendUserId", userId);
 
-        ApiClient.requestNetHandle(this, AppConfig.FRIEND_INFO, "", map,
+        ApiClient.requestNetHandle(this, AppConfig.FRIEND_INFO, "加载中...", map,
                 new ResultListener() {
                     @Override
                     public void onSuccess(String json, String msg) {
@@ -509,12 +509,16 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                                 ll_grouping.setVisibility(View.GONE);
                                 tv_del_friend.setVisibility(View.GONE);//删除好友
                             }
+                        } else {
+                            ToastUtil.toast("数据异常");
+                            finish();
                         }
                     }
 
                     @Override
                     public void onFailure(String msg) {
                         ToastUtil.toast(msg);
+                        finish();
                     }
                 });
     }
