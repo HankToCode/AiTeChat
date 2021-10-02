@@ -275,14 +275,16 @@ public class Storage {
      * @param local_globle_bg
      */
     public static void saveChatBgLocal(String id, int local_globle_bg) {
-        Preference.saveIntPreferences(Utils.getContext(), id, local_globle_bg);
+//        Preference.saveIntPreferences(Utils.getContext(), id, local_globle_bg);
+        Preference.saveStringPreferences(Utils.getContext(),id,local_globle_bg+"");
     }
 
     /**
      * 获取聊天进入设置背景（本地mipmap）
      */
-    public static int getChatBgLocal(String id) {
-        return Preference.getIntPreferences(Utils.getContext(), id, 0);
+    public static String getChatBgLocal(String id) {
+//        return Preference.getIntPreferences(Utils.getContext(), id, 0);
+        return Preference.getStringPreferences(Utils.getContext(), id, "0");
     }
 
 
