@@ -238,3 +238,18 @@
 -keep class com.ymt.liveness.utils.VersionUtil { *; }
 -keep class com.detect.live.** { *; }
 -keep class com.detect.facedetect.** { *; }
+
+#千纸鹤源码混淆问题
+-keep class com.ycf.qianzhihe.common.fcm.EMFCMTokenRefreshService {*;}
+-keep class com.google.firebase.iid.** {*;}
+
+#event bus混淆问题
+-keepattributes *Annotation*
+-keepclassmembers class * {
+    @org.greenrobot.eventbus.Subscribe <methods>;
+}
+-keep enum org.greenrobot.eventbus.ThreadMode { *; }
+# Only required if you use AsyncExecutor
+-keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
+    <init>(java.lang.Throwable);
+}
