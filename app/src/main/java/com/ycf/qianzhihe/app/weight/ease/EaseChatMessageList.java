@@ -106,9 +106,10 @@ public class EaseChatMessageList extends RelativeLayout {
     public void refreshSelectLast() {
         if (messageAdapter != null) {
             messageAdapter.refreshSelectLast();
-            if (listView != null) {
+            //注释掉，修复会话窗口新消息到达时，会话列表在底部无法自动加载新消息问题
+            /*if (listView != null) {
                 listView.setSelection(listView.getBottom());
-            }
+            }*/
         }
     }
 
