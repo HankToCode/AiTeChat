@@ -52,8 +52,6 @@ public class GlideUtils {
      * 这里默认支持Context，Glide支持Context,Activity,Fragment，FragmentActivity
      */
 
-    public static final LinkedHashMap<String, Drawable> cacheImage = new LinkedHashMap<>();
-
 
     //默认加载
     public static void loadImageView(int path, ImageView mImageView) {
@@ -72,21 +70,7 @@ public class GlideUtils {
 
     //设置加载中以及加载失败图片
     public static void loadImageViewLoding(String path, ImageView mImageView, int errorImageView) {
-        Glide.with(Utils.getContext()).load(path).apply(new RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(errorImageView).error(errorImageView)).into(new SimpleTarget<Drawable>() {
-            @Override
-            public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
-
-                putCacheImage(path, resource);
-                mImageView.setImageDrawable(resource);
-            }
-
-            @Override
-            public void onLoadFailed(@Nullable Drawable errorDrawable) {
-                if (!isSetCacheImageSuccess(path, mImageView)) {
-                    super.onLoadFailed(errorDrawable);
-                }
-            }
-        });
+        Glide.with(Utils.getContext()).load(path).apply(GlideRGB565DecodeUtil.getARGBRequestOption().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(errorImageView).error(errorImageView)).into(mImageView);
     }
 
     //设置加载中以及加载失败图片
@@ -259,28 +243,5 @@ public class GlideUtils {
     public static Bitmap load(Context context, String url) throws ExecutionException, InterruptedException {
         return Glide.with(context).asBitmap().load(url).submit().get();
     }
-
-
-    private static final int CACHE_MAX_SIZE = 500;
-
-    private static void putCacheImage(String path, Drawable resource) {
-        if (!StringUtil.isEmpty(path) && !cacheImage.containsKey(path)) {
-            if (cacheImage.size() > CACHE_MAX_SIZE) {
-                cacheImage.clear();
-            }
-            Log.d("aaaaaa","保存缓存图片");
-            cacheImage.put(path, resource);
-        }
-    }
-
-    private static boolean isSetCacheImageSuccess(String path, ImageView mImageView) {
-        if (!StringUtil.isEmpty(path) && cacheImage.containsKey(path)) {
-            Log.d("aaaaaa","设置缓存图片");
-            mImageView.setImageDrawable(cacheImage.get(path));
-            return true;
-        }
-        return false;
-    }
-
 
 }
