@@ -801,7 +801,7 @@ public class DemoHelper {
             public void onReceivedCall(EaseCallType callType, String fromUserId, JSONObject ext) {
                 //收到接听电话
                 EMLog.d(TAG, "onRecivedCall" + callType.name() + " fromUserId:" + fromUserId);
-
+                setEaseCallKitUserInfo(fromUserId);
             }
 
             @Override
