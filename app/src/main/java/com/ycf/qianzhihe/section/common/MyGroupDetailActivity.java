@@ -288,9 +288,9 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
         GlideUtils.loadImageViewLoding(MyGroupDetailActivity.this, AppConfig.checkimg(info.getGroupHead()), iv_group_head, R.mipmap.img_default_avatar, R.mipmap.img_default_avatar);
 
         if (info.getGroupUserRank() != 0) {
-            tv_group_name.setCompoundDrawablesWithIntrinsicBounds(null, null,getResources().getDrawable(R.mipmap.icon_motify_group_name),null);
+            tv_group_name.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.mipmap.icon_motify_group_name), null);
         } else {
-            tv_group_name.setCompoundDrawablesWithIntrinsicBounds(null, null,null,null);
+            tv_group_name.setCompoundDrawablesWithIntrinsicBounds(null, null, null, null);
         }
         tv_group_name.setCompoundDrawablePadding(3);
         tv_group_name.setText(info.getGroupName());
@@ -762,6 +762,9 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
                             } else {
                                 exitGroup();
                             }
+
+                            EMClient.getInstance().chatManager().deleteConversation(emChatId, true);
+                            EventBus.getDefault().post(new EventCenter<>(EventUtil.REFRESH_CONVERSION));
                         }
                     }
                 }, true).show();
