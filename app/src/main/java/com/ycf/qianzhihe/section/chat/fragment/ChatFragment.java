@@ -812,12 +812,12 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                 break;
             case ITEM_VOICE_CALL:
                 DemoHelper.getInstance().setEaseCallKitUserInfo(emChatId);
-                startVoiceCall(emChatId);
+                startVoiceCall(emChatId, UserComm.getUserInfo().getUserHead());
 //                startVideoCall();
                 break;
             case ITEM_VIDEO_CALL:
                 DemoHelper.getInstance().setEaseCallKitUserInfo(emChatId);
-                startVideoCall(emChatId);
+                startVideoCall(emChatId, UserComm.getUserInfo().getUserHead());
                 break;
             case ITEM_CONTACT_GROUP_OWER:
 
@@ -1322,16 +1322,14 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
      *
      * @param emChatId
      */
-    protected void startVideoCall(String emChatId) {
+    protected void startVideoCall(String emChatId, String avatarUrl) {
         if (!EMClient.getInstance().isConnected()) {
             Toast.makeText(requireActivity(), R.string.not_connect_to_server,
                     Toast.LENGTH_SHORT).show();
         } else {
-            //TODO
-//            startActivity(new Intent(requireActivity(), VideoCallActivity.class).putExtra("username", emChatId)
-//                    .putExtra("isComingCall", false));
-//             videoCallBtn.setEnabled(false);
-            EaseCallKit.getInstance().startSingleCall(EaseCallType.SINGLE_VIDEO_CALL, emChatId, null);
+            Map<String, Object> ext = new HashMap<>();
+            ext.put(Constant.AVATARURL, avatarUrl);
+            EaseCallKit.getInstance().startSingleCall(EaseCallType.SINGLE_VIDEO_CALL, emChatId, ext);
             mInputMenu.hideExtendMenuContainer();
         }
     }

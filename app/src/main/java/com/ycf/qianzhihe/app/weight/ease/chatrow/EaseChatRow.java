@@ -183,7 +183,7 @@ public abstract class EaseChatRow extends LinearLayout {
                     GlideUtils.loadImageViewLoding(AppConfig.checkimg(UserComm.getUserInfo().getUserHead()), userAvatarView, R.mipmap.img_default_avatar);
                 if (usernickView != null)
                     usernickView.setText(UserComm.getUserInfo().getNickName());
-            } else if (!TextUtils.isEmpty(message.getStringAttribute(Constant.AVATARURL)))
+            } else if (!TextUtils.isEmpty(message.getStringAttribute(Constant.AVATARURL,"")))
                 GlideUtils.loadImageViewLodingByCircle(AppConfig.checkimg(message.getStringAttribute(Constant.AVATARURL)), userAvatarView, R.mipmap.img_default_avatar);
 
             if (message.getChatType() == EMMessage.ChatType.Chat) {

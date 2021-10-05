@@ -435,16 +435,14 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
     /**
      * make a voice call
      */
-    protected void startVoiceCall(String toChatUsername) {
+    protected void startVoiceCall(String toChatUsername, String avatarUrl) {
         if (!EMClient.getInstance().isConnected()) {
             Toast.makeText(getActivity(), R.string.not_connect_to_server,
                     Toast.LENGTH_SHORT).show();
         } else {
-            //TODO
-//            startActivity(new Intent(getActivity(), VoiceCallActivity.class).putExtra("username", toChatUsername)
-//                    .putExtra("isComingCall", false));
-            // voiceCallBtn.setEnabled(false);
-            EaseCallKit.getInstance().startSingleCall(EaseCallType.SINGLE_VOICE_CALL, toChatUsername, null);
+            Map<String, Object> ext = new HashMap<>();
+            ext.put(Constant.AVATARURL, avatarUrl);
+            EaseCallKit.getInstance().startSingleCall(EaseCallType.SINGLE_VOICE_CALL, toChatUsername, ext);
         }
     }
 
