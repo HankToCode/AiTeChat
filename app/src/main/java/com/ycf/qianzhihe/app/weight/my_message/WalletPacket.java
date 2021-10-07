@@ -128,7 +128,7 @@ public class WalletPacket extends EaseChatRow {
                 break;
             case "2":
                 money = FastJsonUtil.getString(json, "money");
-                updateTime= FastJsonUtil.getString(json, "updateTime");
+                updateTime = FastJsonUtil.getString(json, "updateTime");
                 bankInfo = FastJsonUtil.getString(json, "bankInfo");
                 status = FastJsonUtil.getString(json, "status");
                 tvContent.setText(money);
@@ -138,9 +138,9 @@ public class WalletPacket extends EaseChatRow {
                 if (status.equals("0")) {
                     tvTips.setText("发起提现");
                     tvOverTime.setText("预计2小时内到账");
-                }else if (status.equals("1")) {
+                } else if (status.equals("1")) {
                     tvTips.setText("提现到账");
-                }else if (status.equals("-1")) {
+                } else if (status.equals("-1")) {
                     tvTips.setText("提现失败");
                     lyReason.setVisibility(View.VISIBLE);
                     lyOver.setVisibility(View.GONE);
@@ -159,7 +159,8 @@ public class WalletPacket extends EaseChatRow {
                                         .putExtra("rid", linkId)
                                         .putExtra("fromRecord", true)
                                         .putExtra("head", UserComm.getUserInfo().getUserHead())
-                                        .putExtra("nickname", UserComm.getUserInfo().getNickName()));
+                                        .putExtra("nickname", UserComm.getUserInfo().getNickName())
+                                        .putExtra("type", "2"));
 
                     }
                 });
