@@ -22,6 +22,7 @@ import com.ycf.qianzhihe.app.weight.ease.model.EaseAtMessageHelper;
 import com.ycf.qianzhihe.common.constant.DemoConstant;
 import com.ycf.qianzhihe.common.livedatas.LiveDataBus;
 import com.ycf.qianzhihe.common.utils.PreferenceManager;
+import com.ycf.qianzhihe.section.common.ContactSearchActivity;
 import com.ycf.qianzhihe.section.search.SearchConversationActivity;
 import com.zds.base.json.FastJsonUtil;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
@@ -200,7 +201,8 @@ public class ConversationListFragment extends BaseConversationListFragment imple
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.tv_search) {
-            SearchConversationActivity.actionStart(mContext);
+//            SearchConversationActivity.actionStart(mContext);
+            ContactSearchActivity.actionStart(mContext);
         }
     }
 

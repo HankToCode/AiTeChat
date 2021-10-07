@@ -14,6 +14,7 @@ import com.ycf.qianzhihe.common.utils.AdapterHelper;
 
 import com.hyphenate.easeui.ui.base.EaseBaseFragment;
 import com.scwang.smartrefresh.layout.util.DensityUtil;
+import com.ycf.qianzhihe.section.common.ContactSearchActivity;
 import com.ycf.qianzhihe.section.search.SearchConversationActivity;
 
 import net.lucode.hackware.magicindicator.MagicIndicator;
@@ -34,7 +35,6 @@ import butterknife.OnClick;
 public class ContactHomeFragment extends BaseInitFragment {
     private MagicIndicator indicator;
     private ViewPager viewPager;
-    @BindView(R.id.tv_search)
     TextView tv_search;
 
     private List<String> titles = Arrays.asList("我的好友", "我的群组", "我的分组");
@@ -51,24 +51,21 @@ public class ContactHomeFragment extends BaseInitFragment {
         indicator = findViewById(R.id.indicator);
         viewPager = findViewById(R.id.view_pager);
         tv_search = findViewById(R.id.tv_search);
+        tv_search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //SearchConversationActivity.actionStart(mContext);
+                ContactSearchActivity.actionStart(mContext);
+            }
+        });
 
         initIndicator(titles);
-
-
     }
 
     @Override
     protected void initListener() {
         super.initListener();
     }
-
-    @OnClick({R.id.tv_search})
-    public void click(View v) {
-        if (v.getId()==R.id.tv_search) {
-            SearchConversationActivity.actionStart(mContext);
-        }
-    }
-
 
     private void initIndicator(List<String> titles) {
 

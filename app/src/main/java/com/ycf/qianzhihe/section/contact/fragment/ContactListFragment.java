@@ -59,7 +59,6 @@ public class ContactListFragment extends EaseContactListFragment {
                 EaseUser user = (EaseUser) listView.getItemAtPosition(position);
                 if (user != null) {
                     ChatActivity.actionStart(mContext, user.getUsername(), EaseConstant.CHATTYPE_SINGLE);
-
                 }
             }
         });
