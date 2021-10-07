@@ -3,6 +3,7 @@ package com.ycf.qianzhihe.section.account.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -170,16 +171,11 @@ public class UserInfoDetailActivity extends BaseInitActivity {
             rlMute.setVisibility(View.GONE);
             kickOut.setVisibility(View.GONE);
             mTvAddFriend.setVisibility(View.GONE);
+            layoutInviter.setVisibility(View.GONE);
         } else {
             if ("3".equals(from)) {
                 mTvAddFriend.setText("移出黑名单");
             }
-
-
-            if (!TextUtils.isEmpty(inviterUserId)) {
-                queryInviter();
-            }
-
             if (!TextUtils.isEmpty(emGroupId)) {
                 getGroupMuteList();
                 rlMute.setVisibility(View.VISIBLE);
@@ -509,6 +505,9 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                                 ll_grouping.setVisibility(View.GONE);
                                 tv_del_friend.setVisibility(View.GONE);//删除好友
                             }
+                            if (!TextUtils.isEmpty(inviterUserId)) {
+                                queryInviter();
+                            }
                         } else {
                             ToastUtil.toast("数据异常");
                             finish();
@@ -525,14 +524,15 @@ public class UserInfoDetailActivity extends BaseInitActivity {
 
     private void queryInviter() {
         Map<String, Object> map = new HashMap<>(1);
+        Log.d("####查询邀请者=", inviterUserId);
         map.put("friendUserId", inviterUserId);
-        ApiClient.requestNetHandle(this, AppConfig.FRIEND_INFO, "", map,
+        ApiClient.requestNetHandle(this, AppConfig.FRIEND_INFO, "加载中", map,
                 new ResultListener() {
                     @Override
                     public void onSuccess(String json, String msg) {
                         FriendInfo inviterInfo = FastJsonUtil.getObject(json,
                                 FriendInfo.class);
-
+                        Log.d("####查询邀请者", inviterInfo.getNickName());
                         layoutInviter.setVisibility(View.VISIBLE);
                         tvInviter.setText(inviterInfo.getNickName());
                     }

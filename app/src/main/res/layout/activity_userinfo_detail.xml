@@ -135,7 +135,7 @@
                     android:ellipsize="end"
                     android:maxLength="18"
                     android:singleLine="true"
-                    android:text="***"
+                    android:text=""
                     android:textColor="#999999"
                     android:textSize="@dimen/sp_15" />
 

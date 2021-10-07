@@ -191,12 +191,14 @@ public class RedPacketDetailActivity extends BaseInitActivity {
                     if (tv_money != null) {
                         tv_money.setText(StringUtil.getFormatValue2(redPacketInfo.getMoney()));
 //                        tv_money.setText("￥" + redPacketInfo.getMoney());
-                        if (redPacketInfo.getPacketAmount() > 0) {
+                        if (!TextUtils.isEmpty(redPacketInfo.getPacketAmount()+"")) {
+                            if (redPacketInfo.getPacketAmount() > 0) {
 //                            List<RedPacketInfo.RedPacketDetailListBean> list = redPacketInfo.getRedPacketDetailList();
-                            for (int i = 0; i < redPacketInfo.getRedPacketDetailList().size(); i++) {
-                                if (redPacketInfo.getRedPacketDetailList().get(i).getUserId().equals(UserComm.getUserInfo().getUserId())) {
-                                    tv_money.setText(StringUtil.getFormatValue2(redPacketInfo.getRedPacketDetailList().get(i).getMoney()));
-                                    break;
+                                for (int i = 0; i < redPacketInfo.getRedPacketDetailList().size(); i++) {
+                                    if (redPacketInfo.getRedPacketDetailList().get(i).getUserId().equals(UserComm.getUserInfo().getUserId())) {
+                                        tv_money.setText(StringUtil.getFormatValue2(redPacketInfo.getRedPacketDetailList().get(i).getMoney()));
+                                        break;
+                                    }
                                 }
                             }
                         }
