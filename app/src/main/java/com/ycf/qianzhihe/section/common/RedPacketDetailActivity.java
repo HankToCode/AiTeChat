@@ -154,7 +154,7 @@ public class RedPacketDetailActivity extends BaseInitActivity {
             @Override
             public void onSuccess(String json, String msg) {
                 if (json != null) {
-                    if (type.equals("1")) {
+                    if ("1".equals(type)) {
                         tv_message_hb.setVisibility(View.VISIBLE);
                     }
                     RedPacketInfo redPacketInfo = FastJsonUtil.getObject(json, RedPacketInfo.class);
@@ -166,7 +166,7 @@ public class RedPacketDetailActivity extends BaseInitActivity {
 
                     String time = StringUtil.isEmpty(redPacketInfo.getRobFinishTime()) ? "" : "，" + redPacketInfo.getRobFinishTime() + "被抢光";
                     if (StringUtil.isEmpty(time)) {
-                        if (type.equals("1")) {//单聊
+                        if ("1".equals(type)) {//单聊
                             time = "等待对方领取";
                         }
                         tv_tips.setVisibility(View.GONE);
@@ -232,7 +232,7 @@ public class RedPacketDetailActivity extends BaseInitActivity {
                                     .getFormatValue2(redPacketInfo.getMoney()) + "元" + time);
                             tv_tips.setVisibility(View.GONE);
                         }
-                        if (type.equals("1")) {
+                        if ("1".equals(type)) {
                             tv_message_hb.setVisibility(View.GONE);
 
                         } else {

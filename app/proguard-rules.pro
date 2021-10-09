@@ -253,3 +253,37 @@
 -keepclassmembers class * extends org.greenrobot.eventbus.util.ThrowableFailureEvent {
     <init>(java.lang.Throwable);
 }
+
+
+#androidx混淆
+-keep class com.google.android.material.** {*;}
+-keep class androidx.** {*;}
+-keep public class * extends androidx.**
+-keep interface androidx.** {*;}
+-dontwarn com.google.android.material.**
+-dontnote com.google.android.material.**
+-dontwarn androidx.**
+
+-keep class androidx.multidex.**{*;}
+
+
+# 保护Android architecture components: Lifecycle
+-keepclassmembers class * implements android.arch.lifecycle.LifecycleObserver {
+    <init>(...);
+}
+
+#--liveData
+-keep class androidx.lifecycle.** { *; }
+-keep class androidx.arch.core.** { *; }
+
+# 保护 ViewModel
+-keepclassmembers class * extends android.arch.lifecycle.ViewModel {
+    <init>(...);
+}
+# 保护 Lifecycle 状态值和类
+-keepclassmembers class android.arch.lifecycle.Lifecycle$State { *; }
+-keepclassmembers class android.arch.lifecycle.Lifecycle$Event { *; }
+# 保护 Lifecycle 事件类和注解
+-keepclassmembers class * {
+    @android.arch.lifecycle.OnLifecycleEvent *;
+}
