@@ -24,6 +24,7 @@ import com.ycf.qianzhihe.app.api.old_http.ApiClient;
 import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.common.utils.PreferenceManager;
+import com.zds.base.util.StringUtil;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -150,6 +151,9 @@ public class UserOperateManager {
 
 
     public boolean hasUserName(String userId) {
+        if (StringUtil.isEmpty(userId)) {
+            return false;
+        }
 
         if (userId.contains(Constant.ID_REDPROJECT)) {
             return userKVHash.containsKey(userId.split("-")[0]);
