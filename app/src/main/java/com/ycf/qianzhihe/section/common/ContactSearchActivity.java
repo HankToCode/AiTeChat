@@ -116,7 +116,8 @@ public class ContactSearchActivity extends BaseInitActivity {
                 if (user != null) {
                     ChatActivity.actionStart(mContext, user.getUsername(), EaseConstant.CHATTYPE_SINGLE);
                 }*/
-                String userId = mContactList.get(position).getFriendUserId();
+
+                String userId = mContactAdapter.getData().get(position).getFriendUserId();
                 if (!userId.contains(Constant.ID_REDPROJECT)) {//friendUserId
                     userId += Constant.ID_REDPROJECT;
                 }
