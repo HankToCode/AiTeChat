@@ -215,6 +215,8 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
                     }
                 });
         AppConfig.checkVersion(mContext, true);
+        AppConfig.checkNesStatus(mContext);
+
     }
 
     @Override

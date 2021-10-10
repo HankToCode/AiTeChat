@@ -355,6 +355,61 @@ public class ApiClient {
         }
 
     }
+    public static void requestNetHandleForAes(final Context context, String url, String log, final Map<String, Object> mapP, final ResultListener listener) {
+        if (!NetworkUtil.isNetworkAvailable(DemoApplication.getInstance().getApplicationContext())) {
+            //没网络
+            listener.onFailure("网络连接异常,请检查您的网络设置");
+            return;
+        }
+        if (mapP != null) {
+            if (BuildConfig.BUILD_TYPE.equals("debug")) {
+                Log.d("TAG", "请求参数：" + mapP.toString());
+            }
+        }
+        try {
+            showDialog(log, context);
+            OkGo.<String>post(url)
+                    .tag(context)
+                    .upJson(jsonParams(mapP))
+                    .headers("token", UserComm.getToken())
+                    .execute(new StringCallback() {
+                                 /**
+                                  * 对返回数据进行操作的回调， UI线程
+                                  *
+                                  * @param response
+                                  */
+                                 @Override
+                                 public void onSuccess(Response<String> response) {
+                                     if (listener != null)
+                                         fomartData(response, listener);//密匙状态不走加解密
+                                 }
+
+                                 @Override
+                                 public void onFinish() {
+                                     super.onFinish();
+                                     if (listener != null)
+                                         listener.onFinsh();
+                                     dismiss();
+                                 }
+
+                                 @Override
+                                 public void onError(Response<String> response) {
+                                     try {
+                                         listener.onFailure(response.getException().getMessage());
+                                     } catch (Exception e) {
+                                         XLog.error(e);
+                                     }
+
+                                 }
+                             }
+
+                    );
+
+        } catch (Exception e) {
+            listener.onFailure(e.getMessage());
+        }
+
+    }
 
     public static void requestNetHandleNoParam(final Context context, String url, String log, final ResultListener listener) {
         if (!NetworkUtil.isNetworkAvailable(DemoApplication.getInstance().getApplicationContext())) {
@@ -760,9 +815,11 @@ public class ApiClient {
         } else {
             return FastJsonUtil.toJSONString(map);
         }
-
     }
-
+    //密匙状态不走加解密
+    private static String jsonParams(Map<String, Object> map) {
+        return FastJsonUtil.toJSONString(map);
+    }
 
     /**
      * 请求网络数据接口

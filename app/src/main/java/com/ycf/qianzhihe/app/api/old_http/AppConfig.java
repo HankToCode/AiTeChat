@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 
 import com.ycf.qianzhihe.BuildConfig;
+import com.ycf.qianzhihe.app.api.old_data.AesInfo;
 import com.ycf.qianzhihe.app.api.old_data.VersionInfo;
 import com.ycf.qianzhihe.common.utils.CretinAutoUpdateUtils;
 import com.zds.base.Toast.ToastUtil;
@@ -995,6 +996,7 @@ public class AppConfig {
      * 检查版本号
      */
     public static String checkVersion = mainUrl + "common/versionUpdate";
+    public static String checkAes = mainUrl + "common/sysEncryptionStatus";
 
 
     /**
@@ -1201,6 +1203,27 @@ public class AppConfig {
                 }
             });
         }
+    }
+
+    public static void checkNesStatus(final Context context) {
+        Map<String, Object> map = new HashMap<>();
+//        map.put("type", "Android");
+        ApiClient.requestNetHandleForAes(context, checkAes, "", map, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                final AesInfo info = FastJsonUtil.getObject(json, AesInfo.class);
+                if (info != null) {
+                    System.out.println("###密匙="+info.getStatus());
+                } else {
+                    ToastUtil.toast("请求数据失败");
+                }
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                ToastUtil.toast(msg);
+            }
+        });
     }
 
 }
