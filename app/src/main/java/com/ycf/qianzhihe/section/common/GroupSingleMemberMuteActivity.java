@@ -219,7 +219,7 @@ public class GroupSingleMemberMuteActivity extends BaseInitActivity {
         map.put("userIds", jsonArray);
 
         ApiClient.requestNetHandle(this,
-                AppConfig.MODIFY_GROUP_ALL_USER_SAY_STATUS, "", map,
+                AppConfig.MODIFY_GROUP_USER_SAY_STATUS, "", map,
                 new ResultListener() {
                     @Override
                     public void onSuccess(String json, String msg) {
