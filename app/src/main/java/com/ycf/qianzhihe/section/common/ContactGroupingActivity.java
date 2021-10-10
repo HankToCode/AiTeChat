@@ -157,9 +157,9 @@ public class ContactGroupingActivity extends BaseInitActivity {
             StringBuilder sb = new StringBuilder();
 
             for (int i = 0; i < mContactAdapter.getIdList().size(); i++) {
-                if (!sb.toString().contains(mContactAdapter.getItem(i).getFriendUserId())) {
+                if (!sb.toString().contains(mContactAdapter.getIdList().get(i).getFriendUserId())) {
                     sb.append(",");
-                    sb.append(mContactAdapter.getItem(i).getFriendUserId());
+                    sb.append(mContactAdapter.getIdList().get(i).getFriendUserId());
                 }
             }
             for (int i = 0; i < mGroupingAdapter.getIdList().size(); i++) {

@@ -116,6 +116,7 @@ public class GroupUserDelActivity extends BaseInitActivity {
                 }
                 EventBus.getDefault().post(new EventCenter<>(EventUtil.DEL_GROUP_MEMBER, mGroupUserListAdapter.getIdList()));
                 ToastUtil.toast("踢出成功");
+                finish();
             }
         });
 
