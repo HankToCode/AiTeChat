@@ -142,6 +142,7 @@ public final class EaseUI {
         options.setRequireAck(true);
         // set if need delivery ack
         options.setRequireDeliveryAck(false);
+        options.setSortMessageByServerTime(true);
         return options;
     }
 

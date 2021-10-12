@@ -138,6 +138,7 @@ public class MyHelper {
         options.setAutoTransferMessageAttachments(true);
         // 是否自动下载附件类消息的缩略图等，默认为 true 这里和上边这个参数相关联
         options.setAutoDownloadThumbnail(true);
+        options.setSortMessageByServerTime(true);
 //        options.setRestServer("118.193.28.212:31080");
 //        options.setIMServer("118.193.28.212");
 //        options.setImPort(31097);

@@ -427,8 +427,8 @@ public class DemoHelper {
         options.setRequireAck(true);
         // 设置是否需要接受方送达确认,默认false
         options.setRequireDeliveryAck(false);
-
-
+        options.setSortMessageByServerTime(true);
+        demoModel.setSortMessageByServerTime(true);
         // 设置是否使用 fcm，有些华为设备本身带有 google 服务，
         options.setUseFCM(demoModel.isUseFCM());
 
