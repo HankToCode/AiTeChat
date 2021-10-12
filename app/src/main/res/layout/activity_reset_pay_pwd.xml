@@ -44,13 +44,26 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_marginTop="@dimen/dp_5"
-            android:layout_marginRight="@dimen/dp_30"
             android:layout_marginBottom="@dimen/dp_5"
             android:gravity="center_vertical|center_horizontal"
             android:paddingLeft="@dimen/dp_10"
             android:paddingTop="@dimen/dp_6"
             android:paddingRight="@dimen/dp_10"
             android:paddingBottom="@dimen/dp_6" />
+        <TextView
+            android:id="@+id/tv_refresh"
+            android:layout_width="@dimen/dp_40"
+            android:layout_height="wrap_content"
+            android:minHeight="@dimen/dp_26"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:gravity="center"
+            android:layout_marginRight="@dimen/dp_30"
+            android:background="@drawable/shap_blue_refresh"
+            android:text="刷新"
+            android:textColor="@color/white"
+            android:textSize="12dp"
+            app:stv_corner="30dp"
+            app:stv_solid="#ff53b0f7" />
     </LinearLayout>
 
     <LinearLayout

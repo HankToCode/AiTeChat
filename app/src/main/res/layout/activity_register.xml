@@ -75,7 +75,6 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/ll_user_code"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
@@ -93,30 +92,59 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
-                <EditText
-                    android:id="@+id/et_user_code"
-                    style="@style/em_login_et_input"
-                    android:layout_marginTop="10dp"
-                    android:hint="请输入图形验证码"
+                <LinearLayout
+                    android:id="@+id/ll_user_code"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintRight_toRightOf="parent"
-                    app:layout_constraintTop_toBottomOf="@id/tv_user_code" />
+                    app:layout_constraintTop_toBottomOf="@id/tv_user_code">
+                    <EditText
+                        android:id="@+id/et_user_code"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:layout_width="0dp"
+                        android:textSize="@dimen/em_login_text_size"
+                        android:minLines="1"
+                        android:background="@null"
+                        android:inputType="text"
+                        android:layout_height="@dimen/dp_52"
+                        android:hint="请输入图形验证码"
+                        />
 
-                <ImageView
-                    android:id="@+id/img_code"
-                    android:layout_width="wrap_content"
-                    android:layout_height="25dp"
-                    android:layout_gravity="center_vertical"
-                    android:gravity="center_vertical"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    <ImageView
+                        android:id="@+id/img_code"
+                        android:layout_width="wrap_content"
+                        android:layout_height="25dp"
+                        android:minWidth="@dimen/dp_50"
+                        android:layout_gravity="center_vertical"
+                        android:gravity="center_vertical"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                    <TextView
+                        android:id="@+id/tv_refresh"
+                        android:layout_width="@dimen/dp_40"
+                        android:layout_height="wrap_content"
+                        android:minHeight="@dimen/dp_26"
+                         android:layout_marginLeft="@dimen/dp_5"
+                        android:gravity="center"
+                        android:background="@drawable/shap_blue_refresh"
+                        android:text="刷新"
+                        android:textColor="@color/white"
+                        android:textSize="12dp"
+                        app:stv_corner="30dp"
+                        app:stv_solid="#ff53b0f7" />
+                </LinearLayout>
+
 
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="0.5dp"
                     android:background="@color/color_F5F5F5"
-                    app:layout_constraintBottom_toBottomOf="@id/et_user_code" />
+                    app:layout_constraintBottom_toBottomOf="@id/ll_user_code" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <androidx.constraintlayout.widget.ConstraintLayout

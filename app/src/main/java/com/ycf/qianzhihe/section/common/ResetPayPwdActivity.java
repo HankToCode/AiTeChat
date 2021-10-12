@@ -22,9 +22,11 @@ import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.ycf.qianzhihe.app.api.old_http.CommonApi;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
+import com.ycf.qianzhihe.app.utils.XClickUtil;
 import com.ycf.qianzhihe.app.weight.OnPasswordInputFinish;
 import com.ycf.qianzhihe.app.weight.PasswordView;
 import com.hyphenate.easeui.widget.EaseTitleBar;
+import com.ycf.qianzhihe.common.utils.ToastUtils;
 import com.zds.base.ImageLoad.GlideUtils;
 import com.zds.base.util.StringUtil;
 
@@ -60,6 +62,8 @@ public class ResetPayPwdActivity extends BaseInitActivity {
     EditText et_pwd2;
     @BindView(R.id.et_pwd)
     EditText et_pwd;
+    @BindView(R.id.tv_refresh)
+    TextView tv_refresh;
 
     private CountDownTimer timer;
     private int flag;
@@ -151,11 +155,15 @@ public class ResetPayPwdActivity extends BaseInitActivity {
         });
     }
 
-    @OnClick({R.id.tv_code, R.id.iv_code, R.id.tv_step})
+    @OnClick({R.id.tv_code, R.id.tv_step, R.id.tv_refresh})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.iv_code:
-                flushTy();
+            case R.id.tv_refresh:
+                if (!XClickUtil.isFastDoubleClick(view, 1500)) {
+                    flushTy();
+                } else {
+                    ToastUtils.showToast("请勿连续点击");
+                }
                 break;
             case R.id.tv_code:
                 getCode();
@@ -217,16 +225,13 @@ public class ResetPayPwdActivity extends BaseInitActivity {
      * 刷新图形验证码
      */
     private void flushTy() {
-        getRandom();
-        GlideUtils.loadImageViewLoding(AppConfig.tuxingCode + "?random=" + flag, iv_code);
-    }
-
-    private void getRandom() {
         flag = new Random().nextInt(99999);
         if (flag < 10000) {
             flag += 10000;
         }
+        GlideUtils.loadImageViewLoding(AppConfig.tuxingCode + "?random=" + flag, iv_code);
     }
+
 
     private void countDown() {
         timer = new CountDownTimer(60 * 1000, 1000) {

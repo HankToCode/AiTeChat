@@ -22,6 +22,8 @@ import com.ycf.qianzhihe.app.api.old_http.ApiClient;
 import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
+import com.ycf.qianzhihe.app.utils.XClickUtil;
+import com.ycf.qianzhihe.common.utils.ToastUtils;
 import com.zds.base.ImageLoad.GlideUtils;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.util.StringUtil;
@@ -51,7 +53,6 @@ public class UpDataPasswordActivity extends BaseInitActivity implements View.OnC
     private ConstraintLayout mLlUserName;
     private TextView mTvUserName;
     private EditText mEtPhone;
-    private ConstraintLayout mLlUserCode;
     private TextView mTvUserCode;
     private EditText mEtUserCode;
     private ImageView mImgCode;
@@ -66,6 +67,7 @@ public class UpDataPasswordActivity extends BaseInitActivity implements View.OnC
     private TextView mTvUserPasswordConfirm;
     private EditText mEtUserPasswordConfirm;
     private Button mBtnSubmit;
+    private TextView tv_refresh;
 
 
     private CountDownTimer timer;
@@ -90,7 +92,7 @@ public class UpDataPasswordActivity extends BaseInitActivity implements View.OnC
         mLlUserName = (ConstraintLayout) findViewById(R.id.ll_phone);
         mTvUserName = (TextView) findViewById(R.id.tv_phone);
         mEtPhone = (EditText) findViewById(R.id.et_phone);
-        mLlUserCode = (ConstraintLayout) findViewById(R.id.ll_user_code);
+        tv_refresh = (TextView) findViewById(R.id.tv_refresh);
         mTvUserCode = (TextView) findViewById(R.id.tv_user_code);
         mEtUserCode = (EditText) findViewById(R.id.et_user_code);
         mImgCode = (ImageView) findViewById(R.id.img_code);
@@ -125,7 +127,7 @@ public class UpDataPasswordActivity extends BaseInitActivity implements View.OnC
     protected void initListener() {
         super.initListener();
 
-        mImgCode.setOnClickListener(this);
+        tv_refresh.setOnClickListener(this);
         mTvSmsSend.setOnClickListener(this);
         mBtnSubmit.setOnClickListener(this);
 
@@ -146,19 +148,14 @@ public class UpDataPasswordActivity extends BaseInitActivity implements View.OnC
      * 刷新图形验证码
      */
     private void flushTy() {
-        getRandom();
-        GlideUtils.loadImageViewLoding(AppConfig.tuxingCode + "?random=" + flag, mImgCode);
-    }
-
-    /**
-     *
-     */
-    private void getRandom() {
         flag = new Random().nextInt(99999);
         if (flag < 10000) {
             flag += 10000;
         }
+        GlideUtils.loadImageViewLoding(AppConfig.tuxingCode + "?random=" + flag, mImgCode);
     }
+
+
 
     private void countDown() {
         timer = new CountDownTimer(60 * 1000, 1000) {
@@ -272,8 +269,12 @@ public class UpDataPasswordActivity extends BaseInitActivity implements View.OnC
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.img_code:
-                flushTy();
+            case R.id.tv_refresh:
+                if (!XClickUtil.isFastDoubleClick(view, 1500)) {
+                    flushTy();
+                } else {
+                    ToastUtils.showToast("请勿连续点击");
+                }
                 break;
             case R.id.tv_sms_send:
                 getSms();

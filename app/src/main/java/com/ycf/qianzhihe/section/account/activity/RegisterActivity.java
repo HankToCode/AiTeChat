@@ -23,6 +23,8 @@ import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
 import com.ycf.qianzhihe.app.base.WebViewActivity;
+import com.ycf.qianzhihe.app.utils.XClickUtil;
+import com.ycf.qianzhihe.common.utils.ToastUtils;
 import com.zds.base.ImageLoad.GlideUtils;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.util.StringUtil;
@@ -44,7 +46,6 @@ public class RegisterActivity extends BaseInitActivity implements View.OnClickLi
     private ConstraintLayout mLlPhone;
     private TextView mTvPhone;
     private EditText mEtPhone;
-    private ConstraintLayout mLlUserCode;
     private TextView mTvUserCode;
     private EditText mEtUserCode;
     private ImageView mImgCode;
@@ -61,6 +62,7 @@ public class RegisterActivity extends BaseInitActivity implements View.OnClickLi
     private Button mBtnSubmit;
     private TextView mTvRegisterAgreement;
     private TextView mTvSelfAgreement;
+    private TextView tv_refresh;
 
 
     private CountDownTimer timer;
@@ -79,10 +81,10 @@ public class RegisterActivity extends BaseInitActivity implements View.OnClickLi
         mLlPhone = (ConstraintLayout) findViewById(R.id.ll_phone);
         mTvPhone = (TextView) findViewById(R.id.tv_phone);
         mEtPhone = (EditText) findViewById(R.id.et_phone);
-        mLlUserCode = (ConstraintLayout) findViewById(R.id.ll_user_code);
         mTvUserCode = (TextView) findViewById(R.id.tv_user_code);
         mEtUserCode = (EditText) findViewById(R.id.et_user_code);
         mImgCode = (ImageView) findViewById(R.id.img_code);
+        tv_refresh = (TextView) findViewById(R.id.tv_refresh);
         mLlUserSms = (ConstraintLayout) findViewById(R.id.ll_user_sms);
         mTvUserSms = (TextView) findViewById(R.id.tv_user_sms);
         mEtUserSms = (EditText) findViewById(R.id.et_user_sms);
@@ -102,7 +104,7 @@ public class RegisterActivity extends BaseInitActivity implements View.OnClickLi
     @Override
     protected void initListener() {
         super.initListener();
-        mImgCode.setOnClickListener(this);
+        tv_refresh.setOnClickListener(this);
         mTvSmsSend.setOnClickListener(this);
         mBtnSubmit.setOnClickListener(this);
         mTvRegisterAgreement.setOnClickListener(this);
@@ -138,18 +140,11 @@ public class RegisterActivity extends BaseInitActivity implements View.OnClickLi
      * 刷新图形验证码
      */
     private void flushTy() {
-        getRandom();
-        GlideUtils.loadImageViewLoding(AppConfig.tuxingCode + "?random=" + flag, mImgCode);
-    }
-
-    /**
-     *
-     */
-    private void getRandom() {
         flag = new Random().nextInt(99999);
         if (flag < 10000) {
             flag += 10000;
         }
+        GlideUtils.loadImageViewLoding(AppConfig.tuxingCode + "?random=" + flag, mImgCode);
     }
 
 
@@ -272,14 +267,20 @@ public class RegisterActivity extends BaseInitActivity implements View.OnClickLi
                 //注册协议
                 WebViewActivity.actionStart(mContext,AppConfig.register_agree);
                 break;
-            case R.id.img_code:
-                flushTy();
+            case R.id.tv_refresh:
+                if (!XClickUtil.isFastDoubleClick(view, 1500)) {
+                    flushTy();
+                } else {
+                    ToastUtils.showToast("请勿连续点击");
+                }
                 break;
             case R.id.tv_sms_send:
                 getTXCode();
                 break;
             case R.id.btn_submit:
-                register();
+                if (!XClickUtil.isFastDoubleClick(view, 1000)) {
+                    register();
+                }
                 break;
             default:
         }
