@@ -144,7 +144,6 @@ public class SplashActivity extends BaseInitActivity {
 
                     }*/
                 }
-                userProtocolDialog();
             }
 
             @Override

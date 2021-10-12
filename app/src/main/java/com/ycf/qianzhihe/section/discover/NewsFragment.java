@@ -48,8 +48,8 @@ public class NewsFragment extends BaseInitFragment implements OnBannerListener {
     Banner banner;
     @BindView(R.id.rv_recyclerview)
     RecyclerView rv_recyclerview;
-    @BindView(R.id.srl_refresh)
-    SmartRefreshLayout srl_refresh;
+    @BindView(R.id.swipeRefreshLayout)
+    SwipeRefreshLayout swipeRefreshLayout;
     private ArrayList<Integer> list_path;
     private ArrayList<String> list_title;
     //    private int page = 1;
@@ -82,10 +82,10 @@ public class NewsFragment extends BaseInitFragment implements OnBannerListener {
         banner.setIndicatorGravity(BannerConfig.CENTER).setOnBannerListener(this).start();
 
         //设置添加删除动画
-        rv_recyclerview.setItemAnimator(new DefaultItemAnimator());
+//        rv_recyclerview.setItemAnimator(new DefaultItemAnimator());
         mNewsAdapter = new NewsAdapter(dataBean);
         RclViewHelp.initRcLmVertical(mContext, rv_recyclerview, mNewsAdapter);
-        srl_refresh.setOnRefreshListener(new OnRefreshListener() {
+        /*srl_refresh.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
 //                page = 1;
@@ -97,13 +97,26 @@ public class NewsFragment extends BaseInitFragment implements OnBannerListener {
 //            page++;
             queryNews();
         });
-        srl_refresh.autoRefresh();
+        srl_refresh.autoRefresh();*/
+        swipeRefreshLayout.setColorSchemeResources(R.color.holo_blue_bright,
+                R.color.holo_green_light,
+                R.color.holo_orange_light, R.color.holo_red_light);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+//                page = 1;
+                queryNews();
+            }
+        });
+
+        swipeRefreshLayout.setRefreshing(true);
+        queryNews();
     }
 
     private void queryNews() {
         Map<String, Object> map = new HashMap<>();
-//        map.put("pageNum", page);
-//        map.put("pageSize", "20");
+//        map.put("pageNum", "1");
+//        map.put("pageSize", "200");
         ApiClient.requestNetHandle(mContext, AppConfig.findAllInformation, "", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
@@ -112,21 +125,22 @@ public class NewsFragment extends BaseInitFragment implements OnBannerListener {
                 }*/
                 dataBean.clear();
                 dataBean.addAll(FastJsonUtil.getList(json, NewsBean.class));
-                srl_refresh.setEnableLoadMore(false);
-
+                /*srl_refresh.setEnableLoadMore(false);
                 srl_refresh.finishLoadMore();
                 mNewsAdapter.notifyDataSetChanged();
                 if (srl_refresh != null && srl_refresh.isRefreshing()) {
                     srl_refresh.finishRefresh();
-                }
+                }*/
+                mNewsAdapter.notifyDataSetChanged();
+                swipeRefreshLayout.setRefreshing(false);
             }
 
             @Override
             public void onFailure(String msg) {
                 ToastUtil.toast(msg);
-                if (srl_refresh != null && srl_refresh.isRefreshing()) {
+                /*if (srl_refresh != null && srl_refresh.isRefreshing()) {
                     srl_refresh.finishRefresh();
-                }
+                }*/
             }
         });
     }

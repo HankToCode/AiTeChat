@@ -73,12 +73,19 @@ public class WalletActivity extends BaseInitActivity {
                 }
                 RechargeActivity.actionStart(WalletActivity.this);//充值页面
                 break;
-            case R.id.tv_withdraw:
-
+            case R.id.tv_withdraw://提现
+                if (UserComm.getUserInfo().getOpenAccountFlag() == 0) {
+                    RealAuthActivity.actionStart(mContext);
+                    return;
+                }
                 WithdrawActivity.actionStart(WalletActivity.this);
                 break;
             case R.id.tv_pay_manage://银行卡
 //                startActivity(new Intent(WalletActivity.this,WebViewActivity.class).putExtra("url",url).putExtra("title","银行卡"));
+                if (UserComm.getUserInfo().getOpenAccountFlag() == 0) {
+                    RealAuthActivity.actionStart(mContext);
+                    return;
+                }
                 BankActivity.actionStart(this);
                 break;
             case R.id.tv_my_redpack_record:
