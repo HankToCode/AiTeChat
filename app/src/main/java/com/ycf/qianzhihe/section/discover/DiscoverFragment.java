@@ -97,13 +97,13 @@ public class DiscoverFragment extends BaseInitFragment implements OnBannerListen
                 url = "https://www.jd.com/brand/13196fb3651ed8a45efe.html";
                 break;
             case R.id.iv_dc4:
-                url = "https://main.m.taobao.com/index.html";
+                url = "https://s.taobao.com/";
                 break;
             case R.id.iv_dc5:
-                url = "https://cn.bing.com/";
+                url = "https://news.qq.com/";
                 break;
             case R.id.iv_dc6:
-                url = "https://www.baidu.com/";
+                url = "https://new.qq.com/ch/cul/";
                 break;
         }
         startActivity(new Intent(mContext, WebViewActivity.class).putExtra("title", "lan").putExtra("url", url));

@@ -98,7 +98,7 @@
             android:background="@mipmap/icon_dc5"
             android:gravity="bottom|center_horizontal"
             android:paddingBottom="@dimen/dp_4"
-            android:text="全球搜索先导者"
+            android:text="腾讯新闻"
             android:textColor="@color/white"
             android:textStyle="bold" />
 
@@ -111,7 +111,7 @@
             android:background="@mipmap/icon_dc6"
             android:gravity="bottom|center_horizontal"
             android:paddingBottom="@dimen/dp_4"
-            android:text="百度一下，你就知道"
+            android:text="腾讯文化资讯"
             android:textColor="@color/white"
             android:textStyle="bold" />
     </LinearLayout>
