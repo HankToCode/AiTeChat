@@ -1,5 +1,7 @@
 package com.ycf.qianzhihe.section.account.activity;
 
+import static com.ycf.qianzhihe.app.api.old_http.AppConfig.checkAes;
+
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
@@ -8,6 +10,7 @@ import android.content.res.AssetManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -18,19 +21,27 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.hyphenate.util.EMLog;
+import com.ycf.qianzhihe.DemoApplication;
 import com.ycf.qianzhihe.MainActivity;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.app.api.old_data.AesInfo;
+import com.ycf.qianzhihe.app.api.old_http.ApiClient;
+import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
 import com.ycf.qianzhihe.app.utils.sound.SoundMediaPlayer;
 import com.ycf.qianzhihe.app.weight.CommonConfirmDialog;
 import com.ycf.qianzhihe.common.interfaceOrImplement.OnResourceParseCallback;
 import com.ycf.qianzhihe.section.account.viewmodels.SplashViewModel;
 import com.ycf.qianzhihe.section.dialog.UserProtocolDialog;
+import com.zds.base.Toast.ToastUtil;
 import com.zds.base.global.BaseConstant;
+import com.zds.base.json.FastJsonUtil;
 import com.zds.base.util.Preference;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 
 public class SplashActivity extends BaseInitActivity {
@@ -65,7 +76,7 @@ public class SplashActivity extends BaseInitActivity {
     protected void initData() {
         super.initData();
         model = new ViewModelProvider(this).get(SplashViewModel.class);
-
+        checkNesStatus();
         mAnim.setVisibility(View.VISIBLE);
         mAnim.setImageAssetsFolder("/lp/");
         mAnim.setAnimation("logo.json");
@@ -117,6 +128,30 @@ public class SplashActivity extends BaseInitActivity {
 
         alphaAnimation.start();
 
+    }
+
+    //检测密匙状态
+    public  void checkNesStatus() {
+        Map<String, Object> map = new HashMap<>();
+        ApiClient.requestNetHandleForAes(mContext, checkAes, "", map, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                final AesInfo info = FastJsonUtil.getObject(json, AesInfo.class);
+                if (info != null) {
+                    DemoApplication.getInstance().aesStatus = info.getStatus();
+                    Log.d("###密匙状态=", DemoApplication.getInstance().aesStatus);
+                    /*if (info.getStatus().equals("new")) {//启用新密匙
+
+                    }*/
+                }
+                userProtocolDialog();
+            }
+
+            @Override
+            public void onFailure(String msg) {
+//                ToastUtil.toast(msg);
+            }
+        });
     }
 
     private void userProtocolDialog() {

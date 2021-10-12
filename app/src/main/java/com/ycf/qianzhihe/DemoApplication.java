@@ -40,7 +40,7 @@ import java.lang.reflect.Method;
 public class DemoApplication extends SelfAppContext implements Thread.UncaughtExceptionHandler {
     private static DemoApplication instance;
     private UserActivityLifecycleCallbacks mLifecycleCallbacks = new UserActivityLifecycleCallbacks();
-
+    public String aesStatus = "";
     @Override
     public void onCreate() {
         super.onCreate();
@@ -80,6 +80,7 @@ public class DemoApplication extends SelfAppContext implements Thread.UncaughtEx
         CretinAutoUpdateUtils.init(builder);
 
         UserComm.init();
+
     }
 
     private void initThrowableHandler() {

@@ -1,6 +1,11 @@
 package com.ycf.qianzhihe.common.aes;
 
 
+import android.text.TextUtils;
+import android.util.Log;
+
+import com.ycf.qianzhihe.DemoApplication;
+
 import java.io.UnsupportedEncodingException;
 
 import javax.crypto.Cipher;
@@ -70,7 +75,16 @@ public class AESCipher {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        data = encrypt(data, PASSWORD);
+        if (!TextUtils.isEmpty(DemoApplication.getInstance().aesStatus)) {
+            if (DemoApplication.getInstance().aesStatus.equals("old")) {
+                data = encrypt(data, PASSWORD);
+            } else {
+                data = encrypt(data, DDPASSWORD);
+                Log.d("###密匙状态加密=", DemoApplication.getInstance().aesStatus+"###密匙="+DDPASSWORD);
+            }
+        } else {
+            data = encrypt(data, PASSWORD);
+        }
         String result = HexUtil.byte2Base64StringFun(data);
         return result;
     }
@@ -79,7 +93,18 @@ public class AESCipher {
      * 解密
      **/
     public static String decrypt(String content) {
-        String result = decrypt(content, PASSWORD, IV);
+        String result = "";
+        if (!TextUtils.isEmpty(DemoApplication.getInstance().aesStatus)) {
+            if (DemoApplication.getInstance().aesStatus.equals("old")) {
+                result = decrypt(content, PASSWORD, IV);
+            } else {
+                result = decrypt(content, DDPASSWORD, IV);
+
+            }
+        } else {
+            result = decrypt(content, PASSWORD, IV);
+        }
+
         return result;
     }
 

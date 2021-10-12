@@ -7,9 +7,7 @@ import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
 
 /**
- * @author Administrator
- * 日期 2018/3/21
- * 描述
+ *未使用
  */
 
 public class AESCipher {

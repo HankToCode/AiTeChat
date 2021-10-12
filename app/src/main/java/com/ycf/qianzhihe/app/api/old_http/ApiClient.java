@@ -731,7 +731,7 @@ public class ApiClient {
                 json = AESCipher.decrypt(response.body());
             }
             if (BuildConfig.BUILD_TYPE.equals("debug")) {
-                Log.d("###response: ", json);
+                Log.d("###response是否加密: ", BuildConfig.ISENCRYPTION+"###json="+json);
             }
             ServerData serverData = FastJsonUtil.getObject(json, ServerData.class);
             if (null != serverData) {
