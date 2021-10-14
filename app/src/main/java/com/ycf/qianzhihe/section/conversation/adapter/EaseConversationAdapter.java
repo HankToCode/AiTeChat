@@ -48,6 +48,7 @@ import com.ycf.qianzhihe.app.domain.EaseUser;
 import com.hyphenate.util.DateUtils;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -74,8 +75,8 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
     public EaseConversationAdapter(Context context, int resource,
                                    List<EMConversation> objects) {
         super(context, resource, objects);
-        conversationList = objects;
-        copyConversationList = new ArrayList<EMConversation>();
+        conversationList = Collections.synchronizedList(objects);
+        copyConversationList = Collections.synchronizedList(new ArrayList<EMConversation>());
         copyConversationList.addAll(objects);
         isDrag = false;
     }

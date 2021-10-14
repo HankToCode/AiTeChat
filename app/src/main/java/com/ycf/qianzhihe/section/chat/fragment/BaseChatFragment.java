@@ -326,7 +326,7 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
                 groupListener = new GroupListener();
                 EMClient.getInstance().groupManager().addGroupChangeListener(groupListener);
                 try {
-                    group = EMClient.getInstance().groupManager().getGroupFromServer(emChatId);
+                    group = EMClient.getInstance().groupManager().getGroup(emChatId);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }

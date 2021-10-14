@@ -322,12 +322,7 @@ public class EaseMessageAdapter extends BaseAdapter {
 
         if (message.getChatType() == EMMessage.ChatType.GroupChat) {
 
-            String userName = "";
-            try {
-                userName = message.getStringAttribute(Constant.NICKNAME);
-            } catch (HyphenateException e) {
-                e.printStackTrace();
-            }
+            String userName = message.getStringAttribute(Constant.NICKNAME, "");
             if (UserOperateManager.getInstance().hasUserName(message.getFrom())) {
                 userName = UserOperateManager.getInstance().getUserName(message.getFrom());
             }
