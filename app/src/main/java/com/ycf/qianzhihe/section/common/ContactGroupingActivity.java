@@ -86,14 +86,6 @@ public class ContactGroupingActivity extends BaseInitActivity {
     private ArrayList<ArrayList<ContactListInfo.DataBean>> mItemSet;
     private ContactGroupingAdapter mGroupingAdapter;
 
-
-    /**
-     * 1: 新建群跳转
-     * 2：已有群跳转过来
-     * 3: 设置群管理员
-     * 4: 发送专享红包
-     */
-    private String from = "2";
     private String groupId;
     private List<String> mIdList;
 
@@ -105,25 +97,11 @@ public class ContactGroupingActivity extends BaseInitActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        if (from.equals("3")) {
-            mToolbarTitle.setText("添加群管理员");
-            mToolSubTitle.setText("确定");
-            mImgLeftBack.setVisibility(View.GONE);
-            mTvBack.setText("取消");
-            mTvBack.setOnClickListener(v -> finish());
-        } else if (from.equals("4")) {
-            mToolbarTitle.setText("群成员");
-            mToolSubTitle.setText("确定");
-            mToolSubTitle.setVisibility(View.VISIBLE);
-            mImgLeftBack.setVisibility(View.VISIBLE);
-            mImgLeftBack.setOnClickListener(v -> finish());
-        } else {
-            mToolbarTitle.setText("联系人");
-            mToolSubTitle.setText("邀请");
-            mToolSubTitle.setVisibility(View.VISIBLE);
-            mImgLeftBack.setVisibility(View.VISIBLE);
-            mImgLeftBack.setOnClickListener(v -> finish());
-        }
+        mToolbarTitle.setText("联系人");
+        mToolSubTitle.setText("邀请");
+        mToolSubTitle.setVisibility(View.VISIBLE);
+        mImgLeftBack.setVisibility(View.VISIBLE);
+        mImgLeftBack.setOnClickListener(v -> finish());
 
         mQuery.addTextChangedListener(new TextWatcher() {
             @Override
@@ -176,17 +154,8 @@ public class ContactGroupingActivity extends BaseInitActivity {
                 ToastUtils.showToast("请选择邀请人员");
                 return;
             }
-            if (from.equals("1")) {
-                //新建群组邀请成员
-                startActivity(new Intent(ContactGroupingActivity.this, NewGroupActivity.class).putExtra("contact", (Serializable) mContactAdapter.getIdList()));
-                finish();
-            } else if (from.equals("2")) {
-                //已有群组邀请成员 （从群聊过来）
-                inviteContact(sb.toString());
-            } else if (from.equals("4")) {
-                EventBus.getDefault().post(new EventCenter<>(EventUtil.SEND_PERSON_RED_PKG_PRIVATE, mContactAdapter.getIdList().get(0)));
-                finish();
-            }
+            //已有群组邀请成员 （从群聊过来）
+            inviteContact(sb.toString());
         });
         mContactList = new ArrayList<>();
 
@@ -202,9 +171,6 @@ public class ContactGroupingActivity extends BaseInitActivity {
         RclViewHelp.initRcLmVertical(this, mRvGroup, mContactAdapter);
         groupingList();//拿分组数据
 
-        if (from.equals("2") || from.equals("4")) {
-            queryGroupFriendUserList();
-        }
     }
 
     private List<FriendGroupingBean> categoryDatas = new ArrayList<>();
@@ -229,17 +195,17 @@ public class ContactGroupingActivity extends BaseInitActivity {
     @Override
     protected void initListener() {
         super.initListener();
-        elv_expand.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-            @Override
-            public boolean onChildClick(ExpandableListView expandableListView, View view, int groupPosition, int childPosition, long id) {
-                String userId = mItemSet.get(groupPosition).get(childPosition).getFriendUserId();
-                /*if (!userId.contains(Constant.ID_REDPROJECT)) {//friendUserId
-                    userId += Constant.ID_REDPROJECT;
-                }
-                ChatActivity.actionStart(mContext, userId, EaseConstant.CHATTYPE_SINGLE);*/
-                return true;
-            }
-        });
+//        elv_expand.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+//            @Override
+//            public boolean onChildClick(ExpandableListView expandableListView, View view, int groupPosition, int childPosition, long id) {
+//                String userId = mItemSet.get(groupPosition).get(childPosition).getFriendUserId();
+//                /*if (!userId.contains(Constant.ID_REDPROJECT)) {//friendUserId
+//                    userId += Constant.ID_REDPROJECT;
+//                }
+//                ChatActivity.actionStart(mContext, userId, EaseConstant.CHATTYPE_SINGLE);*/
+//                return true;
+//            }
+//        });
         elv_expand.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int position) {
@@ -266,7 +232,6 @@ public class ContactGroupingActivity extends BaseInitActivity {
     @Override
     protected void initIntent(Intent intent) {
         super.initIntent(intent);
-        from = intent.getStringExtra("from");
         groupId = intent.getStringExtra("groupId");
     }
 
@@ -281,11 +246,9 @@ public class ContactGroupingActivity extends BaseInitActivity {
         map.put("pageNum", 1);
         map.put("pageSize", 10000);
         String url = AppConfig.USER_FRIEND_LIST;
-        if (from.equals("2")) {
-            map.put("groupId", groupId);
-        }
+        map.put("groupId", groupId);
 
-        ApiClient.requestNetHandle(this, url, "请稍后...", map, new ResultListener() {
+        ApiClient.requestNetHandle(this, url, "请稍等...", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 ContactListInfo info = FastJsonUtil.getObject(json, ContactListInfo.class);
@@ -294,7 +257,7 @@ public class ContactGroupingActivity extends BaseInitActivity {
 
                 if (mContactList.size() > 0) {
                     UserOperateManager.getInstance().saveContactListToLocal(info, json);
-                    setContactData();
+                    queryGroupFriendUserList();
                 }
             }
 
@@ -306,15 +269,12 @@ public class ContactGroupingActivity extends BaseInitActivity {
     }
 
     protected void setContactData() {
-        if (from.equals("2") && !TextUtils.isEmpty(inGroupFriendUserId)) {
-            for (int i = mContactList.size() - 1; i >= 0; i--) {
-                ContactListInfo.DataBean dataBean = mContactList.get(i);
-                if (inGroupFriendUserId.contains(dataBean.getFriendUserId())) {
-                    mContactList.remove(dataBean);
-                }
+        for (int i = mContactList.size() - 1; i >= 0; i--) {
+//            ContactListInfo.DataBean dataBean = mContactList.get(i);
+            if (inGroupFriendUserId.contains(mContactList.get(i).getFriendUserId())) {
+                mContactList.remove(mContactList.get(i));
             }
         }
-
         mGroupingNameList.clear();//分组名
         mItemSet.clear();//分组成员
         //读取本地缓存好友数据
@@ -373,7 +333,7 @@ public class ContactGroupingActivity extends BaseInitActivity {
         Map<String, Object> map = new HashMap<>(1);
         map.put("groupId", groupId);
 
-        ApiClient.requestNetHandle(this, AppConfig.GET_USER_IN_GROUP, "", map, new ResultListener() {
+        ApiClient.requestNetHandle(this, AppConfig.GET_USER_IN_GROUP, "请稍等...", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 inGroupFriendUserId = json;

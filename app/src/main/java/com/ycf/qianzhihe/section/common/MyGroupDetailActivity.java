@@ -854,7 +854,7 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
     }
 
     private void modifyGroupUserSayStatus(String sayStatus) {
-        List<String> muteMembers = new ArrayList<>();
+        /*List<String> muteMembers = new ArrayList<>();
         //获取禁言列表
         if (info.getGroupUserDetailVoList().size() > 0) {
             for (GroupDetailInfo.GroupUserDetailVoListBean bean : info.getGroupUserDetailVoList()) {
@@ -863,7 +863,7 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
                     muteMembers.add(bean.getUserId() + Constant.ID_REDPROJECT);
                 }
             }
-        }
+        }*/
 
 
         Map<String, Object> map = new HashMap<>(1);
