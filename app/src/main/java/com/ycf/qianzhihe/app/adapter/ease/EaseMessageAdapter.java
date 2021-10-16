@@ -47,6 +47,9 @@ import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.exceptions.HyphenateException;
 import com.zds.base.util.NumberUtils;
 
+import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -108,12 +111,37 @@ public class EaseMessageAdapter extends BaseAdapter {
         this.conversation = EMClient.getInstance().chatManager().getConversation(username, EaseCommonUtils.getConversationType(chatType), true);
     }
 
+    //将List按照时间倒序排列
+    @SuppressLint("SimpleDateFormat")
+    private EMMessage[] invertOrderList(EMMessage[] messages) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date d1;
+        Date d2;
+        EMMessage temp_r = null;
+        //做一个冒泡排序，大的在数组的前列
+        for (int i = 0; i < messages.length - 1; i++) {
+            for (int j = i + 1; j < messages.length; j++) {
+                ParsePosition pos1 = new ParsePosition(0);
+                ParsePosition pos2 = new ParsePosition(0);
+                d1 = sdf.parse("" + messages[i].localTime(), pos1);
+                d2 = sdf.parse("" + messages[j].localTime(), pos2);
+                if (d1 != null && d1.before(d2)) {//如果队前日期靠前，调换顺序
+                    temp_r = messages[i];
+                    messages[i] = messages[j];
+                    messages[j] = temp_r;
+                }
+            }
+        }
+        return messages;
+    }
+
     Handler handler = new Handler() {
         private void refreshList(int position) {
             // you should not call getAllMessages() in UI thread
             // otherwise there is problem when refreshing UI and there is new message arrive
             List<EMMessage> var = conversation.getAllMessages();
             messages = var.toArray(new EMMessage[var.size()]);
+            messages = invertOrderList(messages);
             conversation.markAllMessagesAsRead();
             notifyDataSetChanged();
             if (position >= 0) {
