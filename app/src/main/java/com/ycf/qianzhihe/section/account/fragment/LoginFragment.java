@@ -1,5 +1,6 @@
 package com.ycf.qianzhihe.section.account.fragment;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -22,9 +23,16 @@ import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.alibaba.fastjson.JSON;
+import com.blankj.utilcode.util.ActivityUtils;
+import com.blankj.utilcode.util.Utils;
 import com.coorchice.library.SuperTextView;
+import com.google.gson.Gson;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMError;
+import com.tencent.mm.opensdk.modelbase.BaseResp;
+import com.tencent.mm.opensdk.modelmsg.SendAuth;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 import com.ycf.qianzhihe.DemoApplication;
 import com.ycf.qianzhihe.DemoHelper;
 import com.ycf.qianzhihe.MainActivity;
@@ -53,6 +61,10 @@ import com.ycf.qianzhihe.common.utils.ToastUtils;
 import com.ycf.qianzhihe.section.account.activity.AccountManagerActivity;
 import com.ycf.qianzhihe.section.account.activity.RegisterActivity;
 import com.ycf.qianzhihe.section.account.activity.UpDataPasswordActivity;
+import com.ycf.qianzhihe.wxapi.DeviceIdUtils;
+import com.ycf.qianzhihe.wxapi.PortraitActivity;
+import com.ycf.qianzhihe.wxapi.WXLoginBean;
+import com.ycf.qianzhihe.wxapi.WeChatManagerUtils;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.json.FastJsonUtil;
 import com.zds.base.util.StringUtil;
@@ -263,6 +275,17 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
                 break;
             case R.id.iv_chat_login:
                 hideKeyboard();
+                if (WeChatManagerUtils.isWeChatAppInstalledAndSupported(requireActivity())) {
+                    ActivityUtils.startActivity(new Intent(requireActivity(), PortraitActivity.class));
+                    /*IWXAPI iwxapi = WXAPIFactory.createWXAPI(requireActivity(), Constant.WXAPPID, true);
+                    iwxapi.registerApp(Constant.WXAPPID);
+                    SendAuth.Req req = new SendAuth.Req();
+                    req.scope = "snsapi_userinfo";
+                    req.state = "wechat_sdk_" + DeviceIdUtils.getDeviceId();
+                    iwxapi.sendReq(req);*/
+                } else {
+                    ToastUtil.toast("微信未安装");
+                }
                 break;
             case R.id.tv_frozen:
                 hideKeyboard();
@@ -298,6 +321,7 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
     }
 
     private String fromType = "";
+
     @Override
     protected void initArgument() {
         super.initArgument();
@@ -504,6 +528,20 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
     }
 
     @Override
+    protected void onEventComing(EventCenter center) {
+        super.onEventComing(center);
+
+        if (center.getEventCode() == EventUtil.WECHAT_LOGIN_KEY && !StringUtil.isEmpty((String) center.getData())) {
+            WXLoginBean wxLoginBean = new Gson().fromJson((String) center.getData(), WXLoginBean.class);
+            Utils.runOnUiThreadDelayed(() -> {
+                if (wxLoginBean != null) {
+                    wxLoginBean.getCode();
+                }
+            }, 1000);
+        }
+    }
+
+    @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
         if (actionId == EditorInfo.IME_ACTION_DONE) {
             if (!TextUtils.isEmpty(mUserName) && !TextUtils.isEmpty(mPwd)) {
@@ -539,7 +577,9 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
             }
 
             @Override
-            public void onProgress(int progress, String status) { }
+            public void onProgress(int progress, String status) {
+            }
+
             @Override
             public void onError(int code, String message) {
                 runOnUiThread(new Runnable() {
@@ -576,7 +616,9 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
                     }
 
                     @Override
-                    public void onProgress(int progress, String status) { }
+                    public void onProgress(int progress, String status) {
+                    }
+
                     @Override
                     public void onError(int code, String message) {
                         runOnUiThread(new Runnable() {
@@ -588,13 +630,12 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
                     }
                 });
             }
+
             @Override
-            public void onFailure(String msg) { }
+            public void onFailure(String msg) {
+            }
         });
     }
-
-
-
 
 
     @Override

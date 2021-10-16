@@ -402,11 +402,11 @@ public class Constant extends EaseConstant {
     /**
      * 微信appId
      */
-    public static final String WXAPPID = "xxx";
+    public static final String WXAPPID = "wx2de6f91b6569b49e\n";
     /**
      * 微信AppSecret
      */
-    public static final String WXAPPSECRET = "64020361b8ec4c99936c0e3999a9f249";
+    public static final String WXAPPSECRET = "ea40e6e0d031039b01659ac5f85295c5";
 
     /**
      * 审核状态

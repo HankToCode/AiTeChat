@@ -208,4 +208,9 @@ public class EventUtil {
      */
     public static final int SEND_PERSON_RED_PKG_PRIVATE = 120;
 
+    /**
+     * 微信登录授权
+     */
+    public static final int WECHAT_LOGIN_KEY = 121;
+
 }
