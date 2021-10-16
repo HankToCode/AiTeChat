@@ -114,18 +114,11 @@ public class EaseMessageAdapter extends BaseAdapter {
     //将List按照时间倒序排列
     @SuppressLint("SimpleDateFormat")
     private EMMessage[] invertOrderList(EMMessage[] messages) {
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date d1;
-        Date d2;
         EMMessage temp_r = null;
         //做一个冒泡排序，大的在数组的前列
         for (int i = 0; i < messages.length - 1; i++) {
             for (int j = i + 1; j < messages.length; j++) {
-                ParsePosition pos1 = new ParsePosition(0);
-                ParsePosition pos2 = new ParsePosition(0);
-                d1 = sdf.parse("" + messages[i].localTime(), pos1);
-                d2 = sdf.parse("" + messages[j].localTime(), pos2);
-                if (d1 != null && d1.before(d2)) {//如果队前日期靠前，调换顺序
+                if (messages[i].localTime() > messages[j].localTime()) {//如果队前日期靠前，调换顺序
                     temp_r = messages[i];
                     messages[i] = messages[j];
                     messages[j] = temp_r;
