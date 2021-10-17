@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ExpandableListView;
@@ -78,7 +79,7 @@ public class ContactGroupingActivity extends BaseInitActivity {
     private String inGroupFriendUserId;
     private List<ContactListInfo.DataBean> mContactList;
     private ContactAdapter mContactAdapter;
-
+    private List<ContactListInfo.DataBean> selectItem = new ArrayList<>();//
     @BindView(R.id.elv_expand)
     ExpandableListView elv_expand;
     private ArrayList<String> mGroupingNameList;//分组数据
@@ -130,21 +131,17 @@ public class ContactGroupingActivity extends BaseInitActivity {
         });
 
         mSearchClear.setOnClickListener(v -> mQuery.getText().clear());
-
         mToolSubTitle.setOnClickListener(v -> {
             StringBuilder sb = new StringBuilder();
-
             for (int i = 0; i < mContactAdapter.getIdList().size(); i++) {
                 if (!sb.toString().contains(mContactAdapter.getIdList().get(i).getFriendUserId())) {
                     sb.append(",");
                     sb.append(mContactAdapter.getIdList().get(i).getFriendUserId());
                 }
             }
-            for (int i = 0; i < mGroupingAdapter.getIdList().size(); i++) {
-                if (!sb.toString().contains(mGroupingAdapter.getIdList().get(i).getFriendUserId())) {
-                    sb.append(",");
-                    sb.append(mGroupingAdapter.getIdList().get(i).getFriendUserId());
-                }
+            for (int i = 0; i < selectItem.size(); i++) {
+                sb.append(",");
+                sb.append(selectItem.get(i).getFriendUserId());
             }
             if (sb.length() > 0) {
                 sb.deleteCharAt(0);
@@ -195,17 +192,21 @@ public class ContactGroupingActivity extends BaseInitActivity {
     @Override
     protected void initListener() {
         super.initListener();
-//        elv_expand.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
-//            @Override
-//            public boolean onChildClick(ExpandableListView expandableListView, View view, int groupPosition, int childPosition, long id) {
-//                String userId = mItemSet.get(groupPosition).get(childPosition).getFriendUserId();
-//                /*if (!userId.contains(Constant.ID_REDPROJECT)) {//friendUserId
-//                    userId += Constant.ID_REDPROJECT;
-//                }
-//                ChatActivity.actionStart(mContext, userId, EaseConstant.CHATTYPE_SINGLE);*/
-//                return true;
-//            }
-//        });
+        elv_expand.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+            @Override
+            public boolean onChildClick(ExpandableListView expandableListView, View view, int groupPosition, int childPosition, long id) {
+                String userId = mItemSet.get(groupPosition).get(childPosition).getFriendUserId();
+                boolean checked = mItemSet.get(groupPosition).get(childPosition).isChecked();
+                mItemSet.get(groupPosition).get(childPosition).setChecked(!checked);
+                mGroupingAdapter.notifyDataSetChanged();
+                if (mItemSet.get(groupPosition).get(childPosition).isChecked()) {
+                    selectItem.add(mItemSet.get(groupPosition).get(childPosition));
+                } else {
+                    selectItem.remove(mItemSet.get(groupPosition).get(childPosition));
+                }
+                return false;
+            }
+        });
         elv_expand.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int position) {
@@ -245,10 +246,8 @@ public class ContactGroupingActivity extends BaseInitActivity {
         Map<String, Object> map = new HashMap<>(2);
         map.put("pageNum", 1);
         map.put("pageSize", 10000);
-        String url = AppConfig.USER_FRIEND_LIST;
         map.put("groupId", groupId);
-
-        ApiClient.requestNetHandle(this, url, "请稍等...", map, new ResultListener() {
+        ApiClient.requestNetHandle(this, AppConfig.USER_FRIEND_LIST, "请稍等...", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 ContactListInfo info = FastJsonUtil.getObject(json, ContactListInfo.class);
@@ -257,7 +256,7 @@ public class ContactGroupingActivity extends BaseInitActivity {
 
                 if (mContactList.size() > 0) {
                     UserOperateManager.getInstance().saveContactListToLocal(info, json);
-                    queryGroupFriendUserList();
+                    queryGroupFriendUserList();//查询群里有哪些好友
                 }
             }
 
@@ -303,9 +302,11 @@ public class ContactGroupingActivity extends BaseInitActivity {
                 for (int k = 0; k < mContactList.size(); k++) {
                     if (TextUtils.isEmpty(mContactList.get(k).getCategoryId())) {
                         if (!defaultitem.contains(mContactList.get(k))) {
+                            mContactList.get(k).setChecked(false);
                             defaultitem.add(mContactList.get(k));
                         }
                     } else if (categoryDatas.get(i).getCategoryId().equals(mContactList.get(k).getCategoryId())) {
+                        mContactList.get(k).setChecked(false);
                         item.add(mContactList.get(k));//成员
                     }
                 }
@@ -317,6 +318,7 @@ public class ContactGroupingActivity extends BaseInitActivity {
             ArrayList<ContactListInfo.DataBean> defaultitem = new ArrayList<>();
             for (int k = 0; k < mContactList.size(); k++) {
                 if (!defaultitem.contains(mContactList.get(k))) {
+                    mContactList.get(k).setChecked(false);
                     defaultitem.add(mContactList.get(k));
                 }
             }
@@ -329,6 +331,7 @@ public class ContactGroupingActivity extends BaseInitActivity {
         mContactAdapter.notifyDataSetChanged();
     }
 
+    //查询群里有哪些好友
     public void queryGroupFriendUserList() {
         Map<String, Object> map = new HashMap<>(1);
         map.put("groupId", groupId);

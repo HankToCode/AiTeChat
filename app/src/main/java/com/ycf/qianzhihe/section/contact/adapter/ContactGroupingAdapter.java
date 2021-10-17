@@ -3,6 +3,7 @@ package com.ycf.qianzhihe.section.contact.adapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -129,20 +130,17 @@ public class ContactGroupingAdapter extends BaseExpandableListAdapter {
         } else {
             tv_name.setTextColor(Color.parseColor("#000000"));
         }
-        //是否在线
-        /*if (!TextUtils.isEmpty(child.getLine())) {
-            if (child.getLine().equals("online")) {
-                iv_online_status.setBackgroundResource(R.drawable.dot_green);
-            } else {
-                iv_online_status.setBackgroundResource(R.drawable.dot_gray);
-            }
+        if (child.isChecked()) {
+            ck_contact.setChecked(true);
         } else {
-            iv_online_status.setBackgroundResource(R.drawable.dot_gray);
-        }*/
-//        rl_item.setOnClickListener(view -> ck_contact.setChecked(!ck_contact.isChecked()));
-        rl_item.setOnClickListener(new View.OnClickListener() {
+            ck_contact.setChecked(false);
+        }
+
+        /*rl_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Log.d("@@@点击位置=", childPosition + "选中的人="+child.getFriendUserId());
+
                 ck_contact.setChecked(!ck_contact.isChecked());
                 if (ck_contact.isChecked()) {
                     if (!mIdList.contains(child)) {
@@ -154,37 +152,10 @@ public class ContactGroupingAdapter extends BaseExpandableListAdapter {
                     }
                 }
             }
-        });
-        ck_contact.setClickable(false);
-        ck_contact.setEnabled(false);
-        ck_contact.setOnCheckedChangeListener(null);
-
-        //会产生复用无效bug
-        /*ck_contact.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (isChecked) {
-                    if (!mIdList.contains(child)) {
-                        mIdList.add(child);
-                    }
-                } else {
-                    if (mIdList.contains(child)) {
-                        mIdList.remove(child);
-                    }
-                }
-            }
         });*/
-
-        /*tv_name.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                ToastUtils.showToast(child.getNickName());
-//                EaseUser user = (EaseUser) listView.getItemAtPosition(position);
-                ChatActivity.actionStart(mContext, child.getNickName(), EaseConstant.CHATTYPE_SINGLE);
-
-            }
-        });*/
-
+//        ck_contact.setClickable(false);
+//        ck_contact.setEnabled(false);
+//        ck_contact.setOnCheckedChangeListener(null);
         return convertView;
     }
 

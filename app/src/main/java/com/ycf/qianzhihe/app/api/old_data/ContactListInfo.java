@@ -43,6 +43,15 @@ public class ContactListInfo implements Serializable {
         private String categoryName;//":"哈哈"
         private String vipLevel;
         private String userSign;
+        private boolean isChecked;
+
+        public boolean isChecked() {
+            return isChecked;
+        }
+
+        public void setChecked(boolean checked) {
+            isChecked = checked;
+        }
 
         public String getVipLevel() {
             return vipLevel;
