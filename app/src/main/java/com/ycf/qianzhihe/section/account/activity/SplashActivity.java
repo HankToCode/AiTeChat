@@ -76,7 +76,7 @@ public class SplashActivity extends BaseInitActivity {
     protected void initData() {
         super.initData();
         model = new ViewModelProvider(this).get(SplashViewModel.class);
-        checkNesStatus();
+//        checkNesStatus();
         mAnim.setVisibility(View.VISIBLE);
         mAnim.setImageAssetsFolder("/lp/");
         mAnim.setAnimation("logo.json");
