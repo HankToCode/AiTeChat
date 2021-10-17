@@ -22,11 +22,15 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
+import androidx.annotation.NonNull;
+
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
+import com.uber.autodispose.AutoDispose;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.old_data.GroupDetailInfo;
+import com.ycf.qianzhihe.app.base.BaseFragment;
 import com.ycf.qianzhihe.app.operate.UserOperateManager;
 import com.ycf.qianzhihe.app.weight.ease.EaseChatMessageList;
 import com.ycf.qianzhihe.app.weight.ease.chatrow.EaseCustomChatRowProvider;
@@ -51,6 +55,12 @@ import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author lhb
@@ -114,7 +124,7 @@ public class EaseMessageAdapter extends BaseAdapter {
     //将List按照时间倒序排列
     @SuppressLint("SimpleDateFormat")
     private EMMessage[] invertOrderList(EMMessage[] messages) {
-        EMMessage temp_r = null;
+        EMMessage temp_r;
         //做一个冒泡排序，大的在数组的前列
         for (int i = 0; i < messages.length - 1; i++) {
             for (int j = i + 1; j < messages.length; j++) {
@@ -133,13 +143,23 @@ public class EaseMessageAdapter extends BaseAdapter {
             // you should not call getAllMessages() in UI thread
             // otherwise there is problem when refreshing UI and there is new message arrive
             List<EMMessage> var = conversation.getAllMessages();
-            messages = var.toArray(new EMMessage[var.size()]);
-            messages = invertOrderList(messages);
             conversation.markAllMessagesAsRead();
-            notifyDataSetChanged();
-            if (position >= 0) {
-                listView.setSelection(position);
-            }
+            messages = var.toArray(new EMMessage[var.size()]);
+
+            Observable.just(messages).map(new Function<EMMessage[], EMMessage[]>() {
+                @Override
+                public EMMessage[] apply(@NonNull EMMessage[] messages) throws Exception {
+                    return invertOrderList(messages);
+                }
+            }).subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(m -> {
+                        messages = m;
+                        notifyDataSetChanged();
+                        if (position >= 0) {
+                            listView.setSelection(position);
+                        }
+                    });
         }
 
         @Override
