@@ -144,14 +144,8 @@ public class EaseMessageAdapter extends BaseAdapter {
             // otherwise there is problem when refreshing UI and there is new message arrive
             List<EMMessage> var = conversation.getAllMessages();
             conversation.markAllMessagesAsRead();
-            messages = var.toArray(new EMMessage[var.size()]);
 
-            notifyDataSetChanged();
-            if (position >= 0) {
-                listView.setSelection(position);
-            }
-
-            Observable.just(messages).map(new Function<EMMessage[], EMMessage[]>() {
+            Observable.just(var.toArray(new EMMessage[var.size()])).map(new Function<EMMessage[], EMMessage[]>() {
                 @Override
                 public EMMessage[] apply(@NonNull EMMessage[] messages) throws Exception {
                     return invertOrderList(messages);
