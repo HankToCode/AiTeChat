@@ -146,6 +146,11 @@ public class EaseMessageAdapter extends BaseAdapter {
             conversation.markAllMessagesAsRead();
             messages = var.toArray(new EMMessage[var.size()]);
 
+            notifyDataSetChanged();
+            if (position >= 0) {
+                listView.setSelection(position);
+            }
+
             Observable.just(messages).map(new Function<EMMessage[], EMMessage[]>() {
                 @Override
                 public EMMessage[] apply(@NonNull EMMessage[] messages) throws Exception {
