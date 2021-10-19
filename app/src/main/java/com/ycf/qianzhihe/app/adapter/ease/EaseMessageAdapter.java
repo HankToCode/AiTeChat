@@ -27,6 +27,7 @@ import androidx.annotation.NonNull;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
+import com.hyphenate.chat.EMOptions;
 import com.uber.autodispose.AutoDispose;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.old_data.GroupDetailInfo;
@@ -49,6 +50,7 @@ import com.hyphenate.easeui.constants.EaseConstant;
 import com.hyphenate.easeui.model.styles.EaseMessageListItemStyle;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.exceptions.HyphenateException;
+import com.ycf.qianzhihe.common.manager.OptionsHelper;
 import com.zds.base.util.NumberUtils;
 
 import java.text.ParsePosition;
@@ -118,7 +120,11 @@ public class EaseMessageAdapter extends BaseAdapter {
         this.context = context;
         this.listView = listView;
         toChatUsername = username;
+        EMOptions options = EMClient.getInstance().getOptions();
+        options.setSortMessageByServerTime(false);
         this.conversation = EMClient.getInstance().chatManager().getConversation(username, EaseCommonUtils.getConversationType(chatType), true);
+        OptionsHelper.getInstance().setSortMessageByServerTime(true);
+
     }
 
     //将List按照时间倒序排列
@@ -151,7 +157,7 @@ public class EaseMessageAdapter extends BaseAdapter {
                 listView.setSelection(position);
             }
 
-            Observable.just(messages).map(new Function<EMMessage[], EMMessage[]>() {
+            /*Observable.just(messages).map(new Function<EMMessage[], EMMessage[]>() {
                 @Override
                 public EMMessage[] apply(@NonNull EMMessage[] messages) throws Exception {
                     return invertOrderList(messages);
@@ -164,7 +170,7 @@ public class EaseMessageAdapter extends BaseAdapter {
                         if (position >= 0) {
                             listView.setSelection(position);
                         }
-                    });
+                    });*/
         }
 
         @Override
