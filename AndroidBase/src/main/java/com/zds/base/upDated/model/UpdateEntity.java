@@ -21,7 +21,27 @@ public class UpdateEntity implements LibraryUpdateEntity {
     //受影响的版本号 如果开启强制更新 那么这个字段包含的所有版本都会被强制更新 格式 2|3|4
     public String hasAffectCodes = "";
 
+
+    //{"downloadUrl":"https://d.hnyunliao.com/app/qianzhihe.apk","isForceUpdate":1.0,"isGrade":1.0,"newVersion":"1.1.7"}
     public int isGrade;
+    public String downloadUrl = "";
+    public String newVersion = "";
+
+    public String getDownloadUrl() {
+        return downloadUrl;
+    }
+
+    public void setDownloadUrl(String downloadUrl) {
+        this.downloadUrl = downloadUrl;
+    }
+
+    public String getNewVersion() {
+        return newVersion;
+    }
+
+    public void setNewVersion(String newVersion) {
+        this.newVersion = newVersion;
+    }
 
     public int getVersionCode() {
         return versionCode;
