@@ -188,14 +188,14 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             EMGroup group1 = EMClient.getInstance().groupManager().getGroup(groupId);
             GroupInfo group = GroupOperateManager.getInstance().getGroupInfo(groupId);
             String groupHead = "";
-            if (conversation.getLastMessage() != null) {
+            /*if (conversation.getLastMessage() != null) {
                 EMMessage emMessage = conversation.getLastMessage();
                 try {
                     groupHead = emMessage.getStringAttribute("groupHead");
                 } catch (HyphenateException e) {
                     e.printStackTrace();
                 }
-            }
+            }*/
             if (TextUtils.isEmpty(groupHead)) {
                 groupHead = GroupOperateManager.getInstance().getGroupAvatar(groupId);
             }
