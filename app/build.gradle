@@ -48,6 +48,10 @@ android {
                 BAIDU_LOCATION_APPKEY: properties.getProperty("BAIDU_LOCATION_APPKEY", "******")
         ]
 
+        ndk {
+            abiFilters 'armeabi-v7a', 'x86'
+        }
+
         buildConfigField "boolean", "PROJECT_DEBUG", "$PROJECT_DEBUG"
     }
     buildTypes {
