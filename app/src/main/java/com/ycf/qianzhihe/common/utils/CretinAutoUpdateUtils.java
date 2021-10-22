@@ -195,7 +195,7 @@ public class CretinAutoUpdateUtils {
             @Override
             public void onSuccess(String json, String msg) {
                 Log.d("版本更新", json);
-                if (cls != null) {
+                /*if (cls != null) {
                     if (cls instanceof LibraryUpdateEntity) {
                         LibraryUpdateEntity o = (LibraryUpdateEntity)
                                 FastJsonUtil.getObject(json, cls.getClass());//反序列化
@@ -211,8 +211,9 @@ public class CretinAutoUpdateUtils {
                         updateEntity.setIsGrade(o.isGrade());
                         up(updateEntity);
                     }
-                }
-
+                }*/
+                UpdateEntity updateEntity =FastJsonUtil.getObject(json, UpdateEntity.class);
+                up(updateEntity);
             }
 
             @Override
@@ -234,7 +235,7 @@ public class CretinAutoUpdateUtils {
                 if (forceCallBack != null) {
                     forceCallBack.isHaveVersion(true);
                 }
-                if (data.isForceUpdate == 2) {
+                if (data.isForceUpdate == 1) {
                     //所有旧版本强制更新
                     showUpdateDialog(data, true, false);
                 } else {
@@ -290,8 +291,8 @@ public class CretinAutoUpdateUtils {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
 //                    startUpdate(data);
-                    openBrowser(mContext, data.downurl);
-//                    mContext.startActivity(new Intent(mContext, WebViewActivity.class).putExtra("title", "lan").putExtra("url",  data.downurl));
+                    openBrowser(mContext, data.downloadUrl);
+//                    mContext.startActivity(new Intent(mContext, WebViewActivity.class).putExtra("title", "lan").putExtra("url",  data.downloadUrl));
                 }
             });
             if (canIgnoreThisVersion && showIgnore) {
@@ -366,9 +367,13 @@ public class CretinAutoUpdateUtils {
 //                        showAndDownIvClose.setVisibility(View.GONE);
 //                        startUpdate(data);
 
-                        openBrowser(mContext, data.downurl);
-//                        mContext.startActivity(new Intent(mContext, WebViewActivity.class).putExtra("title", "lan").putExtra("url", data.downurl));
+                        openBrowser(mContext, data.downloadUrl);
+//                        mContext.startActivity(new Intent(mContext, WebViewActivity.class).putExtra("title", "lan").putExtra("url", data.downloadUrl));
                         showAndDownDialog.dismiss();
+                        if (isForceUpdate) {
+                            if (forceCallBack != null)
+                                forceCallBack.exit();
+                        }
                     } else {
                         if (forceCallBack != null) {
                             forceCallBack.cancel();
@@ -449,9 +454,9 @@ public class CretinAutoUpdateUtils {
                 public void onClick(View v) {
                     //点更新
 //                    startUpdate(data);
-                    openBrowser(mContext, data.downurl);
+                    openBrowser(mContext, data.downloadUrl);
 
-//                    mContext.startActivity(new Intent(mContext, WebViewActivity.class).putExtra("title", "lan").putExtra("url",  data.downurl));
+//                    mContext.startActivity(new Intent(mContext, WebViewActivity.class).putExtra("title", "lan").putExtra("url",  data.downloadUrl));
                     showAndBackDownDialog.dismiss();
                 }
             });
@@ -500,7 +505,7 @@ public class CretinAutoUpdateUtils {
             }
         } else {
             if (data != null) {
-                if (!TextUtils.isEmpty(data.downurl)) {
+                if (!TextUtils.isEmpty(data.downloadUrl)) {
                     if (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED)) {
                         try {
                             String filePath = Environment.getExternalStorageDirectory().getAbsolutePath();
@@ -508,7 +513,7 @@ public class CretinAutoUpdateUtils {
                             final File file = new File(fileName);
                             //如果不存在
                             if (!file.exists()) {
-                                createFileAndDownload(file, data.downurl);
+                                createFileAndDownload(file, data.downloadUrl);
                             } else {
                                 if (file.length() == Long.parseLong(data.size)) {
                                     installApkFile(mContext, file);
@@ -516,7 +521,7 @@ public class CretinAutoUpdateUtils {
                                     return;
                                 } else {
                                     file.delete();
-                                    createFileAndDownload(file, data.downurl);
+                                    createFileAndDownload(file, data.downloadUrl);
                                 }
                             }
                         } catch (Exception e) {
@@ -585,17 +590,19 @@ public class CretinAutoUpdateUtils {
             return;
         }
         final Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);
+//        intent.setAction(Intent.ACTION_VIEW);
+        intent.setAction("android.intent.action.VIEW");
         intent.setData(Uri.parse(url));
+        context.startActivity(intent);
         // 注意此处的判断intent.resolveActivity()可以返回显示该Intent的Activity对应的组件名
         // 官方解释 : Name of the component implementing an activity that can display the intent
-        if (intent.resolveActivity(context.getPackageManager()) != null) {
+        /*if (intent.resolveActivity(context.getPackageManager()) != null) {
             final ComponentName componentName = intent.resolveActivity(context.getPackageManager());
             // 打印Log   ComponentName到底是什么
             context.startActivity(Intent.createChooser(intent, "请选择浏览器"));
         } else {
             Toast.makeText(context.getApplicationContext(), "请下载浏览器", Toast.LENGTH_SHORT).show();
-        }
+        }*/
     }
 
 
@@ -603,8 +610,8 @@ public class CretinAutoUpdateUtils {
      * 开始更新操作
      */
     public void startUpdate(UpdateEntity data) {
-        openBrowser(mContext, data.downurl);
-//        mContext.startActivity(new Intent(mContext, WebViewActivity.class).putExtra("title", "lan").putExtra("url",  data.downurl));
+        openBrowser(mContext, data.downloadUrl);
+//        mContext.startActivity(new Intent(mContext, WebViewActivity.class).putExtra("title", "lan").putExtra("url",  data.downloadUrl));
 
 //        requestPermission(data);
     }

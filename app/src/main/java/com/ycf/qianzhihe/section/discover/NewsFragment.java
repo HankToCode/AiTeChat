@@ -137,6 +137,7 @@ public class NewsFragment extends BaseInitFragment implements OnBannerListener {
 
             @Override
             public void onFailure(String msg) {
+                swipeRefreshLayout.setRefreshing(false);
                 ToastUtil.toast(msg);
                 /*if (srl_refresh != null && srl_refresh.isRefreshing()) {
                     srl_refresh.finishRefresh();
