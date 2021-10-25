@@ -80,6 +80,8 @@ public class EMClientRepository extends BaseEMRepository {
     private void loadAllConversationsAndGroups() {
         // 初始化数据库
         initDb();
+        getChatManager().loadAllConversations();
+        getGroupManager().loadAllGroups();
         dbDis = Observable.just("").map(s -> {
             /*Map<String, EMConversation> conversationMap = getChatManager().getAllConversations();
             if (conversationMap != null && conversationMap.size() > 0) {
@@ -95,8 +97,7 @@ public class EMClientRepository extends BaseEMRepository {
             }*/
 
             // 从本地数据库加载所有的对话及群组
-            getChatManager().loadAllConversations();
-            getGroupManager().loadAllGroups();
+
             return "";
         }).subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
