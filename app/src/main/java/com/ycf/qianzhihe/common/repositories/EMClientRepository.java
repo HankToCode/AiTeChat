@@ -6,7 +6,9 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMGroup;
+import com.hyphenate.chat.EMMessage;
 import com.ycf.qianzhihe.DemoApplication;
 import com.ycf.qianzhihe.DemoHelper;
 import com.ycf.qianzhihe.app.domain.EaseUser;
@@ -22,8 +24,18 @@ import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.hyphenate.easeui.model.EaseEvent;
 import com.hyphenate.exceptions.HyphenateException;
 import com.hyphenate.util.EMLog;
+import com.zds.base.util.DateUtils;
 
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
+
+import io.reactivex.Observable;
+import io.reactivex.Scheduler;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * 作为EMClient的repository,处理EMClient相关的逻辑
@@ -60,16 +72,40 @@ public class EMClientRepository extends BaseEMRepository {
         }.asLiveData();
     }
 
+    private Disposable dbDis = null;
+
     /**
      * 从本地数据库加载所有的对话及群组
      */
     private void loadAllConversationsAndGroups() {
         // 初始化数据库
         initDb();
-        // 从本地数据库加载所有的对话及群组
-        getChatManager().loadAllConversations();
-        getGroupManager().loadAllGroups();
+        dbDis = Observable.just("").map(s -> {
+            /*Map<String, EMConversation> conversationMap = getChatManager().getAllConversations();
+            if (conversationMap != null && conversationMap.size() > 0) {
+                for (EMConversation emConversation : conversationMap.values()) {
+                    emConversation.clearAllMessages();
+                }
+            }*/
+            /*List<EMGroup> groups = getGroupManager().getAllGroups();
+            if (groups != null && groups.size() > 0) {
+                for (EMGroup group : groups) {
+                    group.();
+                }
+            }*/
+
+            // 从本地数据库加载所有的对话及群组
+            getChatManager().loadAllConversations();
+            getGroupManager().loadAllGroups();
+            return "";
+        }).subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(m -> {
+                }, e -> {
+                });
+
     }
+
 
     /**
      * 注册
@@ -208,6 +244,9 @@ public class EMClientRepository extends BaseEMRepository {
     }
 
     private void closeDb() {
+        if (dbDis != null) {
+            dbDis.dispose();
+        }
         DemoDbHelper.getInstance(DemoApplication.getInstance()).closeDb();
     }
 }
