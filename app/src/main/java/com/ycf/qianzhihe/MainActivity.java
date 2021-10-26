@@ -288,7 +288,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
         if (event == null) {
             return;
         }
-        viewModel.checkUnreadMsg();
+        viewModel.checkUnreadMsg(this);
     }
 
     /**
@@ -506,7 +506,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
     }
 
     private void checkUnreadMsg() {
-        viewModel.checkUnreadMsg();
+        viewModel.checkUnreadMsg(this);
     }
 
     @Override

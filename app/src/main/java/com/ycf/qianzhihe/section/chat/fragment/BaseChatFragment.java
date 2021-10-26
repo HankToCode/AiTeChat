@@ -1102,7 +1102,7 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
     }
 
     //获取其他会话未读消息数
-    public int getOtherUnreadMsgCountTotal() {
+    /*public int getOtherUnreadMsgCountTotal() {
 //        return 0;
         if (conversation == null) {
             return 0;
@@ -1111,7 +1111,7 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
         int allUnread = UnReadMsgCount.getUnreadMessageCount();
         int unReadNum = allUnread - ((conversation != null && conversationUnread > 0) ? conversationUnread : 0);
         return unReadNum;
-    }
+    }*/
 
     public void putToMessageList(List<EMMessage> messages) {
         for (EMMessage message : messages) {
