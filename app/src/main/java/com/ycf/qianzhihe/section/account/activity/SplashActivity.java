@@ -173,7 +173,7 @@ public class SplashActivity extends BaseInitActivity {
         if (Preference.getBoolPreferences(SplashActivity.this, BaseConstant.SP.KEY_IS_AGREE_USER_PROTOCOL, false)) {
 
             long asLoginTime = Preference.getLongPreferences(SplashActivity.this, BaseConstant.SP.KEY_IS_AS_LOGIN_TIME, 0);
-            if (!DateUtils.isToday(new Date(asLoginTime)) || asLoginTime == 0L) {
+            if (DateUtils.isToday(new Date(asLoginTime)) || asLoginTime == 0L) {
                 Preference.saveLongPreferences(SplashActivity.this, BaseConstant.SP.KEY_IS_AS_LOGIN_TIME, System.currentTimeMillis());
                 final AlertDialog.Builder builder = new AlertDialog.Builder(this);
                 builder.setMessage("如果您出现过闪退现象可以尝试下清空聊天记录功能。");
@@ -208,7 +208,30 @@ public class SplashActivity extends BaseInitActivity {
 
                                     }
                                 }));
-                builder.setNegativeButton("取消并进入", (dialog, which) -> loginSDK());
+                builder.setNegativeButton("取消并进入", (dialog, which) -> {
+                    Observable.just("").map(str -> EMClient.getInstance().chatManager().getAllConversations().values()).subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .as(autoDispose())
+                            .subscribe(new Observer<Collection<EMConversation>>() {
+                                @Override
+                                public void onSubscribe(@NonNull Disposable d) {
+
+                                }
+
+                                @Override
+                                public void onNext(@NonNull Collection<EMConversation> o) {
+                                }
+
+                                @Override
+                                public void onError(@NonNull Throwable e) {
+                                }
+
+                                @Override
+                                public void onComplete() {
+                                    loginSDK();
+                                }
+                            });
+                });
                 final AlertDialog dialog = builder.create();
                 dialog.show();
             } else {
