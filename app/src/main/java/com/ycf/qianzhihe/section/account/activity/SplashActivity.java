@@ -171,8 +171,8 @@ public class SplashActivity extends BaseInitActivity {
     private void userProtocolDialog() {
         //1.用户协议弹窗
         if (Preference.getBoolPreferences(SplashActivity.this, BaseConstant.SP.KEY_IS_AGREE_USER_PROTOCOL, false)) {
-
-            long asLoginTime = Preference.getLongPreferences(SplashActivity.this, BaseConstant.SP.KEY_IS_AS_LOGIN_TIME, 0);
+            loginSDK();
+            /*long asLoginTime = Preference.getLongPreferences(SplashActivity.this, BaseConstant.SP.KEY_IS_AS_LOGIN_TIME, 0);
             if (!DateUtils.isToday(new Date(asLoginTime)) || asLoginTime == 0L) {
                 Preference.saveLongPreferences(SplashActivity.this, BaseConstant.SP.KEY_IS_AS_LOGIN_TIME, System.currentTimeMillis());
                 final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -213,7 +213,7 @@ public class SplashActivity extends BaseInitActivity {
                 dialog.show();
             } else {
                 loginSDK();
-            }
+            }*/
         } else {
             //未同意
             showUserProtocolDialog();
@@ -228,7 +228,6 @@ public class SplashActivity extends BaseInitActivity {
                 @Override
                 public void onAgreeClick() {
                     Preference.saveBoolPreferences(SplashActivity.this, BaseConstant.SP.KEY_IS_AGREE_USER_PROTOCOL, true);
-//                    toApp();
                     loginSDK();
                 }
             });
