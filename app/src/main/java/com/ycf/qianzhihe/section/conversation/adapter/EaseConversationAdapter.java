@@ -58,8 +58,6 @@ import java.util.List;
 public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
     private static final String TAG = "ChatAllHistoryAdapter";
     private List<EMConversation> conversationList;
-    private List<EMConversation> copyConversationList;
-    private ConversationFilter conversationFilter;
     private boolean notiyfyByFilter;
 
     protected int primaryColor;
@@ -75,9 +73,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
     public EaseConversationAdapter(Context context, int resource,
                                    List<EMConversation> objects) {
         super(context, resource, objects);
-        conversationList = Collections.synchronizedList(objects);
-        copyConversationList = Collections.synchronizedList(new ArrayList<EMConversation>());
-        copyConversationList.addAll(objects);
+        conversationList = objects;
         isDrag = false;
     }
 
@@ -374,21 +370,12 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
     @Override
     public void notifyDataSetChanged() {
         super.notifyDataSetChanged();
-        if (!notiyfyByFilter) {
+        /*if (!notiyfyByFilter) {
             copyConversationList.clear();
             copyConversationList.addAll(conversationList);
             notiyfyByFilter = false;
-        }
+        }*/
     }
-
-    @Override
-    public Filter getFilter() {
-        if (conversationFilter == null) {
-            conversationFilter = new ConversationFilter(conversationList);
-        }
-        return conversationFilter;
-    }
-
 
     public void setPrimaryColor(int primaryColor) {
         this.primaryColor = primaryColor;
@@ -411,83 +398,6 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
         this.timeSize = timeSize;
     }
 
-
-    private class ConversationFilter extends Filter {
-        List<EMConversation> mOriginalValues = null;
-
-        public ConversationFilter(List<EMConversation> mList) {
-            mOriginalValues = mList;
-        }
-
-        @Override
-        protected FilterResults performFiltering(CharSequence prefix) {
-            FilterResults results = new FilterResults();
-
-            if (mOriginalValues == null) {
-                mOriginalValues = new ArrayList<EMConversation>();
-            }
-            if (prefix == null || prefix.length() == 0) {
-                results.values = copyConversationList;
-                results.count = copyConversationList.size();
-            } else {
-                if (copyConversationList.size() > mOriginalValues.size()) {
-                    mOriginalValues = copyConversationList;
-                }
-                String prefixString = prefix.toString();
-                final int count = mOriginalValues.size();
-                final ArrayList<EMConversation> newValues = new ArrayList<EMConversation>();
-
-                for (int i = 0; i < count; i++) {
-                    final EMConversation value = mOriginalValues.get(i);
-                    String username = value.conversationId();
-
-                    EMGroup group = EMClient.getInstance().groupManager().getGroup(username);
-                    if (group != null) {
-                        username = group.getGroupName();
-                    } else {
-                        EaseUser user = EaseUserUtils.getUserInfo(username);
-                        // TODO: not support Nick anymore
-//                        if(user != null && user.getNick() != null)
-//                            username = user.getNick();
-                    }
-
-                    // First match against the whole ,non-splitted value
-                    if (username.startsWith(prefixString)) {
-                        newValues.add(value);
-                    } else {
-                        final String[] words = username.split(" ");
-                        final int wordCount = words.length;
-
-                        // Start at index 0, in case valueText starts with space(s)
-                        for (String word : words) {
-                            if (word.startsWith(prefixString)) {
-                                newValues.add(value);
-                                break;
-                            }
-                        }
-                    }
-                }
-
-                results.values = newValues;
-                results.count = newValues.size();
-            }
-            return results;
-        }
-
-        @Override
-        protected void publishResults(CharSequence constraint, FilterResults results) {
-            conversationList.clear();
-            if (results.values != null) {
-                conversationList.addAll((List<EMConversation>) results.values);
-            }
-            if (results.count > 0) {
-                notiyfyByFilter = true;
-                notifyDataSetChanged();
-            } else {
-                notifyDataSetInvalidated();
-            }
-        }
-    }
 
     private EaseConversationList.EaseConversationListHelper cvsListHelper;
 
