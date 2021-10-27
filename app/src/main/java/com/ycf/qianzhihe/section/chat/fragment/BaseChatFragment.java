@@ -520,7 +520,7 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
 
         if (path != null && path.length() > 0) {
             if (path.equals(BG_NONE)) {
-                mRlTop.setImageResource(Integer.parseInt(Storage.getChatBgLocal(emChatId)));
+//                mRlTop.setImageResource(Integer.parseInt(Storage.getChatBgLocal(emChatId)));//
             } else {
                 mRlTop.setImageDrawable(Drawable.createFromPath(path));
             }
