@@ -13,7 +13,9 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -176,10 +178,10 @@ public class SplashActivity extends BaseInitActivity {
         //1.用户协议弹窗
         if (Preference.getBoolPreferences(SplashActivity.this, BaseConstant.SP.KEY_IS_AGREE_USER_PROTOCOL, false)) {
             long asLoginTime = Preference.getLongPreferences(SplashActivity.this, BaseConstant.SP.KEY_IS_AS_LOGIN_TIME, 0);
-            if (true/*!DateUtils.isToday(new Date(asLoginTime)) || asLoginTime == 0L*/) {
+            if (!DateUtils.isToday(new Date(asLoginTime)) || asLoginTime == 0L) {
                 Preference.saveLongPreferences(SplashActivity.this, BaseConstant.SP.KEY_IS_AS_LOGIN_TIME, System.currentTimeMillis());
                 final AlertDialog.Builder builder = new AlertDialog.Builder(this);
-                builder.setMessage("如果您出现过闪退现象可以尝试下清空聊天记录功能。");
+                builder.setMessage("如果您进app缓慢或卡顿及闪退需清理缓存。");
                 builder.setCancelable(false);
                 builder.setPositiveButton("确认清理", (dialog, which) -> {
                     showLoading("清理超过三天的数据中，请稍后~");
@@ -234,6 +236,13 @@ public class SplashActivity extends BaseInitActivity {
                 builder.setNegativeButton("取消并进入", (dialog, which) -> loginSDK());
                 final AlertDialog dialog = builder.create();
                 dialog.show();
+
+                //设置底部显示
+                WindowManager.LayoutParams params =
+                        dialog.getWindow().getAttributes();
+                params.gravity = Gravity.BOTTOM;
+                dialog.getWindow().setAttributes(params);
+
             } else {
                 loginSDK();
             }
