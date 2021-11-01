@@ -33,6 +33,7 @@ import com.ycf.qianzhihe.app.base.BaseInitFragment;
 import com.ycf.qianzhihe.app.domain.EaseUser;
 import com.ycf.qianzhihe.app.operate.UserOperateManager;
 import com.ycf.qianzhihe.common.model.DemoModel;
+import com.ycf.qianzhihe.common.rx.NextObserver;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.json.FastJsonUtil;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
@@ -107,7 +108,19 @@ public class EaseContactListFragment extends BaseInitFragment {
         tv_number = (TextView) getView().findViewById(R.id.tv_number);
 
 
-        EMClient.getInstance().addConnectionListener(connectionListener);
+        Observable.just("")
+                .map(str -> {
+                    EMClient.getInstance().addConnectionListener(connectionListener);
+                    return str;
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(autoDispose())
+                .subscribe(new NextObserver<String>() {
+                    @Override
+                    public void onNext(@NonNull String o) {
+                    }
+                });
 
         contactList = new ArrayList<EaseUser>();
         checkSeviceContactData();
