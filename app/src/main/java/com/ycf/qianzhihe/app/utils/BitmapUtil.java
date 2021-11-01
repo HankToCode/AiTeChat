@@ -12,6 +12,10 @@ import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Base64;
 
+import androidx.annotation.NonNull;
+
+import com.hyphenate.chat.EMClient;
+import com.ycf.qianzhihe.common.rx.NextObserver;
 import com.zds.base.util.DensityUtils;
 import com.zds.base.util.UriUtil;
 
@@ -22,6 +26,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
 import java.net.URLConnection;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author Administrator
@@ -167,8 +175,21 @@ public class BitmapUtil {
                 bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fos);
                 fos.flush();
                 fos.close();
-                //把文件插入到系统图库
-                MediaStore.Images.Media.insertImage(context.getContentResolver(), file.getAbsolutePath(), fileName, null);
+
+                Observable.just("")
+                        .map(str -> {
+                            //把文件插入到系统图库
+                            MediaStore.Images.Media.insertImage(context.getContentResolver(), file.getAbsolutePath(), fileName, null);
+                            return str;
+                        })
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .subscribe(new NextObserver<String>() {
+                            @Override
+                            public void onNext(@NonNull String o) {
+                            }
+                        });
+
                 //保存图片后发送广播通知更新数据库
                 Uri uri2 = UriUtil.getUri(context, file);
                 context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, uri2));
