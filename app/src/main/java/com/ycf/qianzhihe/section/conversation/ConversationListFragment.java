@@ -88,6 +88,7 @@ public class ConversationListFragment extends BaseConversationListFragment imple
             String emUserId = conversation.conversationId();
 
             if (id == Integer.MAX_VALUE) {
+
                 //删除和某个user会话，如果需要保留聊天记录，传false
                 EMClient.getInstance().chatManager().deleteConversation(emUserId, true);
                 refresh();

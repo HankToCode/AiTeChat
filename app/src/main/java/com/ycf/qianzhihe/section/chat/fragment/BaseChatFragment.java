@@ -39,6 +39,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.hyphenate.EMMessageListener;
@@ -86,6 +87,7 @@ import com.ycf.qianzhihe.app.weight.ease.EaseUI;
 import com.ycf.qianzhihe.app.weight.ease.EaseVoiceRecorderView;
 import com.ycf.qianzhihe.app.weight.ease.chatrow.EaseCustomChatRowProvider;
 import com.ycf.qianzhihe.app.weight.ease.model.EaseAtMessageHelper;
+import com.ycf.qianzhihe.common.rx.NextObserver;
 import com.ycf.qianzhihe.section.account.activity.BuyMemberActivity;
 import com.ycf.qianzhihe.section.account.activity.UserInfoDetailActivity;
 import com.ycf.qianzhihe.section.common.GroupMemberActivity;
@@ -695,56 +697,70 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
 
 
     protected void onConversationInit() {
-        conversation =
-                EMClient.getInstance().chatManager().getConversation(emChatId, EaseCommonUtils.getConversationType(chatType), true);
-        conversation.markAllMessagesAsRead();
-        // the number of messages loaded into conversation is getChatOptions
-        // ().getNumberOfMessagesLoaded
-        // you can change this number
-        Log.d("interval", "onNext====================================0");
 
-        if (!isRoaming()) {
-            final List<EMMessage> msgs = conversation.getAllMessages();
-            int msgCount = msgs != null ? msgs.size() : 0;
-            if (msgCount < conversation.getAllMsgCount() && msgCount < pagesize) {
-                String msgId = null;
-                if (msgs != null && msgs.size() > 0) {
-                    msgId = msgs.get(0).getMsgId();
-                }
-                conversation.loadMoreMsgFromDB(msgId, pagesize - msgCount);
-                Log.d("interval", "onNext====================================1");
-            }
-            Log.d("interval", "onNext====================================11");
-        } else {
-            fetchQueue.execute(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        EMClient.getInstance().chatManager().fetchHistoryMessages(
-                                emChatId,
-                                EaseCommonUtils.getConversationType(chatType)
-                                , pagesize, "");
-                        final List<EMMessage> msgs =
-                                conversation.getAllMessages();
+        Observable.just("")
+                .map(str -> {
+                    conversation =
+                            EMClient.getInstance().chatManager().getConversation(emChatId, EaseCommonUtils.getConversationType(chatType), true);
+                    conversation.markAllMessagesAsRead();
+                    // the number of messages loaded into conversation is getChatOptions
+                    // ().getNumberOfMessagesLoaded
+                    // you can change this number
+                    Log.d("interval", "onNext====================================0");
+
+                    if (!isRoaming()) {
+                        final List<EMMessage> msgs = conversation.getAllMessages();
                         int msgCount = msgs != null ? msgs.size() : 0;
                         if (msgCount < conversation.getAllMsgCount() && msgCount < pagesize) {
                             String msgId = null;
                             if (msgs != null && msgs.size() > 0) {
                                 msgId = msgs.get(0).getMsgId();
                             }
-                            conversation.loadMoreMsgFromDB(msgId,
-                                    pagesize - msgCount);
-                            Log.d("interval", "onNext====================================2");
+                            conversation.loadMoreMsgFromDB(msgId, pagesize - msgCount);
+                            Log.d("interval", "onNext====================================1");
                         }
-                        mMessageList.refreshSelectLast();
-                        Log.d("interval", "onNext====================================3");
-                    } catch (HyphenateException e) {
-                        e.printStackTrace();
-                        Log.d("interval", "onNext====================================4");
+                        Log.d("interval", "onNext====================================11");
+                    } else {
+                        fetchQueue.execute(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    EMClient.getInstance().chatManager().fetchHistoryMessages(
+                                            emChatId,
+                                            EaseCommonUtils.getConversationType(chatType)
+                                            , pagesize, "");
+                                    final List<EMMessage> msgs =
+                                            conversation.getAllMessages();
+                                    int msgCount = msgs != null ? msgs.size() : 0;
+                                    if (msgCount < conversation.getAllMsgCount() && msgCount < pagesize) {
+                                        String msgId = null;
+                                        if (msgs != null && msgs.size() > 0) {
+                                            msgId = msgs.get(0).getMsgId();
+                                        }
+                                        conversation.loadMoreMsgFromDB(msgId,
+                                                pagesize - msgCount);
+                                        Log.d("interval", "onNext====================================2");
+                                    }
+                                    mMessageList.refreshSelectLast();
+                                    Log.d("interval", "onNext====================================3");
+                                } catch (HyphenateException e) {
+                                    e.printStackTrace();
+                                    Log.d("interval", "onNext====================================4");
+                                }
+                            }
+                        });
                     }
-                }
-            });
-        }
+
+                    return str;
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .as(autoDispose())
+                .subscribe(new NextObserver<String>() {
+                    @Override
+                    public void onNext(@NonNull String o) {
+                    }
+                });
     }
 
     protected void onMessageListInit() {
