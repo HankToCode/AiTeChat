@@ -213,7 +213,7 @@ public class SplashActivity extends BaseInitActivity {
                                 @Override
                                 public void onNext(@NonNull String o) {
                                     dismissLoading();
-                                    EMClient.getInstance().chatManager().loadAllConversations();
+//                                    EMClient.getInstance().chatManager().loadAllConversations();
                                     ToastUtil.toast("清理成功");
                                     loginSDK();
 
