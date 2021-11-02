@@ -20,13 +20,9 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
-
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;
-import com.hyphenate.chat.EMConversation;
-import com.hyphenate.chat.EMMessage;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.base.BaseInitFragment;
@@ -46,18 +42,11 @@ import com.ycf.qianzhihe.app.weight.ease.EaseCommonUtils;
 import com.ycf.qianzhihe.app.weight.ease.EaseContactList;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import io.reactivex.Observable;
-import io.reactivex.Observer;
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.disposables.Disposable;
-import io.reactivex.schedulers.Schedulers;
 
 
 /**
@@ -261,58 +250,48 @@ public class EaseContactListFragment extends BaseInitFragment {
 
 
     protected void setContactData(List<ContactListInfo.DataBean> mContactList) {
-        showLoading("加载数据中，请稍后~");
-        Observable.just(mContactList)
-                .map(list -> {
+        contactList.clear();
 
-                    contactList.clear();
-                    contactList.addAll(UserOperateManager.getInstance().toContactList(list));
+        contactList.addAll(UserOperateManager.getInstance().toContactList(mContactList));
+        /*//todo 需要优化
+        Map<String, EaseUser> userlist = new HashMap<String,
+                EaseUser>(5);
+        for (ContactListInfo.DataBean bean : mContactList) {
+            EaseUser user = new EaseUser(bean.getFriendUserId() + Constant.ID_REDPROJECT);
+            user.setNickname(bean.getFriendNickName());
+            user.setAvatar(bean.getFriendUserHead());
+            user.setLine(bean.getLine());//在线状态
+            user.setUserSign(bean.getUserSign());
+            user.setVipLevel(bean.getVipLevel());
+            EaseCommonUtils.setUserInitialLetter(user);
+            if (bean.getBlackStatus().equals("0")) {
+                contactList.add(user);
+            }
+//            EaseUser userLocal = new EaseUser(bean.getFriendUserId() + Constant.ID_REDPROJECT);
+//            userLocal.setAvatar(bean.getFriendUserHead());
+//            userLocal.setNickname(bean.getFriendNickName());
+//            userLocal.setLine(bean.getLine());
+//            EaseCommonUtils.setUserInitialLetter(user);
+            userlist.put(bean.getFriendUserId() + Constant.ID_REDPROJECT, user);
 
-                    Collections.sort(contactList, (lhs, rhs) -> {
-                        if (lhs.getInitialLetter().equals(rhs.getInitialLetter())) {
-                            return lhs.getNickname().compareTo(rhs.getNickname());
-                        } else {
-                            if ("#".equals(lhs.getInitialLetter())) {
-                                return 1;
-                            } else if ("#".equals(rhs.getInitialLetter())) {
-                                return -1;
-                            }
-                            return lhs.getInitialLetter().compareTo(rhs
-                                    .getInitialLetter());
-                        }
-                    });
-
-                    return list;
-                })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .as(autoDispose())
-                .subscribe(new Observer<List<ContactListInfo.DataBean>>() {
-                    @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(@NonNull List<ContactListInfo.DataBean> o) {
-                        dismissLoading();
-                        contactListLayout.refresh();
-
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        dismissLoading();
-                        contactListLayout.refresh();
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
+        }*/
 
 
+        Collections.sort(contactList, (lhs, rhs) -> {
+            if (lhs.getInitialLetter().equals(rhs.getInitialLetter())) {
+                return lhs.getNickname().compareTo(rhs.getNickname());
+            } else {
+                if ("#".equals(lhs.getInitialLetter())) {
+                    return 1;
+                } else if ("#".equals(rhs.getInitialLetter())) {
+                    return -1;
+                }
+                return lhs.getInitialLetter().compareTo(rhs
+                        .getInitialLetter());
+            }
+        });
+
+        contactListLayout.refresh();
     }
 
     protected EMConnectionListener connectionListener =
