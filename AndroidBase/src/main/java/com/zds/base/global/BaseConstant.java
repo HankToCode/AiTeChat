@@ -9,5 +9,9 @@ public final class BaseConstant {
         String KEY_TOKEN = "token";
         String KEY_IS_FIRST_ENTER = "is_first_enter";
         String KEY_IS_AGREE_USER_PROTOCOL = "is_agree_user_protocol";
+        /**
+         * 用户今日是否操作过清除数据逻辑。
+         */
+        String KEY_IS_AS_LOGIN_TIME = "as_login_time";
     }
 }

@@ -8,7 +8,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import com.hyphenate.EMCallBack;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMConversation;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
@@ -28,11 +32,19 @@ import com.zds.base.util.SystemUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public class SetActivity extends BaseInitActivity {
 
@@ -44,6 +56,8 @@ public class SetActivity extends BaseInitActivity {
     TextView tv_privacy;
     @BindView(R.id.ll_clean)
     LinearLayout ll_clean;
+    @BindView(R.id.ll_clean_message)
+    LinearLayout ll_clean_message;
     @BindView(R.id.tv_m)
     TextView tv_m;
     @BindView(R.id.ll_banben)
@@ -56,7 +70,6 @@ public class SetActivity extends BaseInitActivity {
     TextView tv_register_agreement;
     @BindView(R.id.tv_app)
     TextView tv_app;
-
 
 
     public static void actionStart(Context context) {
@@ -84,7 +97,7 @@ public class SetActivity extends BaseInitActivity {
         }
     }
 
-    @OnClick({R.id.tv_save, R.id.tv_privacy, R.id.ll_clean, R.id.ll_banben, R.id.tv_user_agreement,
+    @OnClick({R.id.tv_save, R.id.tv_privacy, R.id.ll_clean, R.id.ll_clean_message, R.id.ll_banben, R.id.tv_user_agreement,
             R.id.tv_register_agreement, R.id.tv_logoff, R.id.tv_app})
     public void click(View v) {
         switch (v.getId()) {
@@ -96,8 +109,48 @@ public class SetActivity extends BaseInitActivity {
                 break;
             case R.id.ll_clean:
                 DataCleanManager.clearAllCache(this);
+
                 ToastUtil.toast("清理完成");
                 tv_m.setText("");
+
+                break;
+
+            case R.id.ll_clean_message:
+
+                /*for (EMConversation emConversation : EMClient.getInstance().chatManager().getAllConversations().values()) {
+                    emConversation.clearAllMessages();
+                }
+                EMClient.getInstance().chatManager().loadAllConversations();
+                ToastUtil.toast("清理成功");*/
+
+                Observable.just("").map(str -> EMClient.getInstance().chatManager().getAllConversations().values()).subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .as(autoDispose())
+                        .subscribe(new Observer<Collection<EMConversation>>() {
+                            @Override
+                            public void onSubscribe(@NonNull Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(@NonNull Collection<EMConversation> o) {
+                                for (EMConversation emConversation : o) {
+                                    emConversation.clearAllMessages();
+                                }
+                                EMClient.getInstance().chatManager().loadAllConversations();
+                                ToastUtil.toast("清理成功");
+                            }
+
+                            @Override
+                            public void onError(@NonNull Throwable e) {
+                                ToastUtil.toast("清理失败");
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        });
 
                 break;
             case R.id.ll_banben:
@@ -105,14 +158,14 @@ public class SetActivity extends BaseInitActivity {
                 break;
             case R.id.tv_user_agreement:
 //                startActivity(new Intent(this, WebViewActivity.class).putExtra("title", "lan").putExtra("url", AppConfig.user_agree));
-                WebViewActivity.actionStart(mContext,AppConfig.user_agree,true);
+                WebViewActivity.actionStart(mContext, AppConfig.user_agree, true);
                 break;
             case R.id.tv_register_agreement:
 //                startActivity(new Intent(this, WebViewActivity.class).putExtra("title", "lan").putExtra("url", AppConfig.register_agree));
-                WebViewActivity.actionStart(mContext,AppConfig.register_agree,true);
+                WebViewActivity.actionStart(mContext, AppConfig.register_agree, true);
                 break;
             case R.id.tv_app:
-                WebViewActivity.actionStart(mContext,AppConfig.appurl,true);
+                WebViewActivity.actionStart(mContext, AppConfig.appurl, true);
 //                startActivity(new Intent(this, WebViewActivity.class).putExtra("title", "官网").putExtra("url", AppConfig.appurl));
                 break;
             case R.id.tv_logoff:
@@ -131,8 +184,9 @@ public class SetActivity extends BaseInitActivity {
     }
 
     private LogoffDialog mLogoffDialog;
-    private void showLogoffDialog(){
-        if(mLogoffDialog == null){
+
+    private void showLogoffDialog() {
+        if (mLogoffDialog == null) {
             mLogoffDialog = new LogoffDialog(this);
             mLogoffDialog.setOnConfirmClickListener(new LogoffDialog.OnConfirmClickListener() {
                 @Override
@@ -145,7 +199,7 @@ public class SetActivity extends BaseInitActivity {
     }
 
     private void logoff() {
-        Map<String,Object> map =new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         map.put("userId", UserComm.getUserInfo().getUserId());
         ApiClient.requestNetHandle(SetActivity.this, AppConfig.toLogoff, "请稍候...", map, new ResultListener() {
             @Override
@@ -186,6 +240,7 @@ public class SetActivity extends BaseInitActivity {
                 });
 
             }
+
             @Override
             public void onFailure(String msg) {
                 ToastUtil.toast(msg);

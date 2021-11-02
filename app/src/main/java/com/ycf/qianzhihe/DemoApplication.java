@@ -91,10 +91,11 @@ public class DemoApplication extends SelfAppContext implements Thread.UncaughtEx
         // 初始化PreferenceManager
         PreferenceManager.init(this);
         // init hx sdk
-        if(DemoHelper.getInstance().getAutoLogin()) {
+        /*if(DemoHelper.getInstance().getAutoLogin()) {
             EMLog.i("DemoApplication", "application initHx");
             DemoHelper.getInstance().init(this);
-        }
+        }*/
+        DemoHelper.getInstance().init(this);
 
     }
     private IWXAPI mIWXAPI;

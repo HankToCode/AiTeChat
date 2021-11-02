@@ -12,6 +12,7 @@ import com.hyphenate.chat.EMConversation;
 import com.ycf.qianzhihe.DemoHelper;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.SP;
+import com.ycf.qianzhihe.app.base.BaseActivity;
 import com.ycf.qianzhihe.app.utils.hxSetMessageFree.UnReadMsgCount;
 import com.ycf.qianzhihe.common.db.DemoDbHelper;
 import com.ycf.qianzhihe.common.db.dao.InviteMessageDao;
@@ -52,20 +53,24 @@ public class MainViewModel extends AndroidViewModel {
         return LiveDataBus.get();
     }
 
-    public void checkUnreadMsg() {
-        int unreadCount = 0;
-        if (inviteMessageDao != null) {
-            unreadCount = inviteMessageDao.queryUnreadCount();
-        }
+    public void checkUnreadMsg(BaseActivity activity) {
 
         EMConversation conversation = EMClient.getInstance().chatManager().getConversation(Constant.ADMIN);
-        int unreadMessageCount = UnReadMsgCount.getUnreadMessageCount() - ((conversation != null && conversation.getUnreadMsgCount() > 0) ? conversation.getUnreadMsgCount() : 0);
+        UnReadMsgCount.getUnreadMessageCount().as(activity.autoDispose()).subscribe(unreadMessageCount1 -> {
+            int unreadCount = 0;
+            if (inviteMessageDao != null) {
+                unreadCount = inviteMessageDao.queryUnreadCount();
+            }
 
-        int applyJoinGroupcount = (int) PreferenceManager.getInstance().getParam(SP.APPLY_JOIN_GROUP_NUM, 0);
-        int addUserCount = (int) PreferenceManager.getInstance().getParam(SP.APPLY_ADD_USER_NUM, 0);
+            int unreadMessageCount = unreadMessageCount1 - ((conversation != null && conversation.getUnreadMsgCount() > 0) ? conversation.getUnreadMsgCount() : 0);
+            int applyJoinGroupcount = (int) PreferenceManager.getInstance().getParam(SP.APPLY_JOIN_GROUP_NUM, 0);
+            int addUserCount = (int) PreferenceManager.getInstance().getParam(SP.APPLY_ADD_USER_NUM, 0);
 
-        String count = getUnreadCount(applyJoinGroupcount + addUserCount + unreadCount + unreadMessageCount);
-        homeUnReadObservable.postValue(count);
+            String count = getUnreadCount(applyJoinGroupcount + addUserCount + unreadCount + unreadMessageCount);
+            homeUnReadObservable.postValue(count);
+        });
+
+
     }
 
     /**

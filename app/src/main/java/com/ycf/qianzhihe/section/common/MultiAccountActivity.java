@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -56,6 +57,11 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 public class MultiAccountActivity extends BaseInitActivity implements LoginAccountAdapter.OnItemClickListener {
 
@@ -73,7 +79,6 @@ public class MultiAccountActivity extends BaseInitActivity implements LoginAccou
     private MyModel myModel;
 
 
-
     public static void actionStart(Context context) {
         Intent intent = new Intent(context, MultiAccountActivity.class);
         context.startActivity(intent);
@@ -89,7 +94,7 @@ public class MultiAccountActivity extends BaseInitActivity implements LoginAccou
         super.initView(savedInstanceState);
         mTitleBar.setTitle("切换账号");
         mTitleBar.setOnBackPressListener(view -> finish());
-        adapter = new LoginAccountAdapter(mContext,loginInfos);
+        adapter = new LoginAccountAdapter(mContext, loginInfos);
         RclViewHelp.initRcLmVertical(this, recyclerView, adapter);
 
         myModel = MyHelper.getInstance().getModel();
@@ -103,7 +108,7 @@ public class MultiAccountActivity extends BaseInitActivity implements LoginAccou
         ll_add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LoginActivity.actionStart(mContext,"1");
+                LoginActivity.actionStart(mContext, "1");
                 finish();
             }
         });
@@ -115,6 +120,7 @@ public class MultiAccountActivity extends BaseInitActivity implements LoginAccou
         this.position = position;
         logout();//先退出之前登录的账号
     }
+
     @Override
     public void onItemLongClick(View view, int position) {
     }
@@ -156,7 +162,9 @@ public class MultiAccountActivity extends BaseInitActivity implements LoginAccou
                     }
 
                     @Override
-                    public void onProgress(int progress, String status) { }
+                    public void onProgress(int progress, String status) {
+                    }
+
                     @Override
                     public void onError(int code, String message) {
                         runOnUiThread(new Runnable() {
@@ -168,8 +176,10 @@ public class MultiAccountActivity extends BaseInitActivity implements LoginAccou
                     }
                 });
             }
+
             @Override
-            public void onFailure(String msg) { }
+            public void onFailure(String msg) {
+            }
         });
     }
 
@@ -218,6 +228,7 @@ public class MultiAccountActivity extends BaseInitActivity implements LoginAccou
         EMClient.getInstance().login(loginInfo.getIdh(), "123456", new DemoEmCallBack() {
             @Override
             public void onSuccess() {
+                // 从本地数据库加载所有的对话及群组
                 EMClient.getInstance().groupManager().loadAllGroups();
                 EMClient.getInstance().chatManager().loadAllConversations();
                 // update current user's display name for APNs
@@ -227,7 +238,15 @@ public class MultiAccountActivity extends BaseInitActivity implements LoginAccou
                     e.printStackTrace();
                 }
                 finish();
-                // get user's info (this should be get from App's server or 3rd party service)
+
+                /*Observable.create(emitter -> {
+                }).subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .as(autoDispose())
+                        .subscribe(m -> {
+                            // get user's info (this should be get from App's server or 3rd party service)
+                        }, e -> {
+                        });*/
             }
 
             @Override
@@ -239,7 +258,7 @@ public class MultiAccountActivity extends BaseInitActivity implements LoginAccou
                             EMClient.getInstance().logout(false);
                         }
                         dismissLoading();
-                        ToastUtils.showToast("登录失败 code=" + code + " " );
+                        ToastUtils.showToast("登录失败 code=" + code + " ");
                     }
                 });
             }

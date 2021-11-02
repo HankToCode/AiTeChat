@@ -72,27 +72,25 @@ public class EMClientRepository extends BaseEMRepository {
         }.asLiveData();
     }
 
-    private Disposable dbDis = null;
-
     /**
      * 从本地数据库加载所有的对话及群组
      */
     private void loadAllConversationsAndGroups() {
         // 初始化数据库
         initDb();
-        dbDis = Observable.just("").map(s -> {
-            /*Map<String, EMConversation> conversationMap = getChatManager().getAllConversations();
+        /*dbDis = Observable.just("").map(s -> {
+            *//*Map<String, EMConversation> conversationMap = getChatManager().getAllConversations();
             if (conversationMap != null && conversationMap.size() > 0) {
                 for (EMConversation emConversation : conversationMap.values()) {
                     emConversation.clearAllMessages();
                 }
-            }*/
-            /*List<EMGroup> groups = getGroupManager().getAllGroups();
+            }*//*
+            *//*List<EMGroup> groups = getGroupManager().getAllGroups();
             if (groups != null && groups.size() > 0) {
                 for (EMGroup group : groups) {
                     group.();
                 }
-            }*/
+            }*//*
 
             // 从本地数据库加载所有的对话及群组
             getChatManager().loadAllConversations();
@@ -102,7 +100,7 @@ public class EMClientRepository extends BaseEMRepository {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(m -> {
                 }, e -> {
-                });
+                });*/
 
     }
 
@@ -244,9 +242,6 @@ public class EMClientRepository extends BaseEMRepository {
     }
 
     private void closeDb() {
-        if (dbDis != null) {
-            dbDis.dispose();
-        }
         DemoDbHelper.getInstance(DemoApplication.getInstance()).closeDb();
     }
 }

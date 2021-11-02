@@ -5,21 +5,30 @@ import static com.ycf.qianzhihe.app.api.old_http.AppConfig.checkAes;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.AssetFileDescriptor;
 import android.content.res.AssetManager;
 import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMConversation;
+import com.hyphenate.chat.EMMessage;
 import com.hyphenate.util.EMLog;
 import com.ycf.qianzhihe.DemoApplication;
 import com.ycf.qianzhihe.MainActivity;
@@ -36,12 +45,24 @@ import com.ycf.qianzhihe.section.dialog.UserProtocolDialog;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.global.BaseConstant;
 import com.zds.base.json.FastJsonUtil;
+import com.zds.base.util.DateUtils;
 import com.zds.base.util.Preference;
 
 import java.io.FileDescriptor;
 import java.io.IOException;
+import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+
+import io.reactivex.Observable;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 
 public class SplashActivity extends BaseInitActivity {
@@ -131,7 +152,7 @@ public class SplashActivity extends BaseInitActivity {
     }
 
     //检测密匙状态
-    public  void checkNesStatus() {
+    public void checkNesStatus() {
         Map<String, Object> map = new HashMap<>();
         ApiClient.requestNetHandleForAes(mContext, checkAes, "", map, new ResultListener() {
             @Override
@@ -156,9 +177,75 @@ public class SplashActivity extends BaseInitActivity {
     private void userProtocolDialog() {
         //1.用户协议弹窗
         if (Preference.getBoolPreferences(SplashActivity.this, BaseConstant.SP.KEY_IS_AGREE_USER_PROTOCOL, false)) {
-            //已同意
-//            toApp();
-            loginSDK();
+            long asLoginTime = Preference.getLongPreferences(SplashActivity.this, BaseConstant.SP.KEY_IS_AS_LOGIN_TIME, 0);
+            if (!DateUtils.isToday(new Date(asLoginTime)) || asLoginTime == 0L) {
+                Preference.saveLongPreferences(SplashActivity.this, BaseConstant.SP.KEY_IS_AS_LOGIN_TIME, System.currentTimeMillis());
+                final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setMessage("如果您进app缓慢或卡顿及闪退需清理缓存。");
+                builder.setCancelable(false);
+                builder.setPositiveButton("确认清理", (dialog, which) -> {
+                    showLoading("清理超过三天的数据中，请稍后~");
+                    Observable.just("")
+                            .map(str -> {
+                                long dayOut3Time = System.currentTimeMillis() - 86400000L;
+
+                                Collection<EMConversation> o = EMClient.getInstance().chatManager().getAllConversations().values();
+                                for (EMConversation emConversation : o) {
+                                    List<EMMessage> messages = emConversation.getAllMessages();
+                                    for (EMMessage message : messages) {
+                                        if (dayOut3Time > message.localTime()) {
+                                            emConversation.removeMessage(message.getMsgId());
+                                        }
+                                    }
+                                }
+
+                                return "";
+                            })
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .as(autoDispose())
+                            .subscribe(new Observer<String>() {
+                                @Override
+                                public void onSubscribe(@NonNull Disposable d) {
+
+                                }
+
+                                @Override
+                                public void onNext(@NonNull String o) {
+                                    dismissLoading();
+//                                    EMClient.getInstance().chatManager().loadAllConversations();
+                                    ToastUtil.toast("清理成功");
+                                    loginSDK();
+
+                                }
+
+                                @Override
+                                public void onError(@NonNull Throwable e) {
+                                    dismissLoading();
+                                    ToastUtil.toast("清理失败");
+                                    loginSDK();
+                                }
+
+                                @Override
+                                public void onComplete() {
+
+                                }
+                            });
+
+                });
+                builder.setNegativeButton("取消并进入", (dialog, which) -> loginSDK());
+                final AlertDialog dialog = builder.create();
+                dialog.show();
+
+                //设置底部显示
+                WindowManager.LayoutParams params =
+                        dialog.getWindow().getAttributes();
+                params.gravity = Gravity.BOTTOM;
+                dialog.getWindow().setAttributes(params);
+
+            } else {
+                loginSDK();
+            }
         } else {
             //未同意
             showUserProtocolDialog();
@@ -173,7 +260,6 @@ public class SplashActivity extends BaseInitActivity {
                 @Override
                 public void onAgreeClick() {
                     Preference.saveBoolPreferences(SplashActivity.this, BaseConstant.SP.KEY_IS_AGREE_USER_PROTOCOL, true);
-//                    toApp();
                     loginSDK();
                 }
             });

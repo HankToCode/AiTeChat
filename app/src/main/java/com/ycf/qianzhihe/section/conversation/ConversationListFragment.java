@@ -10,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.hyphenate.chat.EMClient;
@@ -21,6 +22,7 @@ import com.ycf.qianzhihe.app.weight.ConversationItemView;
 import com.ycf.qianzhihe.app.weight.ease.model.EaseAtMessageHelper;
 import com.ycf.qianzhihe.common.constant.DemoConstant;
 import com.ycf.qianzhihe.common.livedatas.LiveDataBus;
+import com.ycf.qianzhihe.common.rx.NextObserver;
 import com.ycf.qianzhihe.common.utils.PreferenceManager;
 import com.ycf.qianzhihe.section.common.ContactSearchActivity;
 import com.ycf.qianzhihe.section.search.SearchConversationActivity;
@@ -31,6 +33,10 @@ import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.section.chat.activity.ChatActivity;
 import com.ycf.qianzhihe.section.chat.viewmodel.MessageViewModel;
 import com.hyphenate.easeui.model.EaseEvent;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 
 public class ConversationListFragment extends BaseConversationListFragment implements View.OnClickListener {
@@ -88,9 +94,21 @@ public class ConversationListFragment extends BaseConversationListFragment imple
             String emUserId = conversation.conversationId();
 
             if (id == Integer.MAX_VALUE) {
-                //删除和某个user会话，如果需要保留聊天记录，传false
-                EMClient.getInstance().chatManager().deleteConversation(emUserId, true);
-                refresh();
+                Observable.just(emUserId)
+                        .map(str -> {
+                            //删除和某个user会话，如果需要保留聊天记录，传false
+                            EMClient.getInstance().chatManager().deleteConversation(str, true);
+                            return str;
+                        })
+                        .subscribeOn(Schedulers.io())
+                        .observeOn(AndroidSchedulers.mainThread())
+                        .as(autoDispose())
+                        .subscribe(new NextObserver<String>() {
+                            @Override
+                            public void onNext(@NonNull String o) {
+                                refresh();
+                            }
+                        });
                 return;
             }
 

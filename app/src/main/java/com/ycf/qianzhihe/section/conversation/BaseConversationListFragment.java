@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.FrameLayout;
 
+import androidx.annotation.NonNull;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.hyphenate.EMConnectionListener;
@@ -22,6 +23,7 @@ import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.app.base.BaseInitFragment;
+import com.ycf.qianzhihe.common.rx.NextObserver;
 import com.zds.base.json.FastJsonUtil;
 import com.ycf.qianzhihe.app.weight.ease.EaseConversationList;
 
@@ -33,6 +35,10 @@ import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * conversation list fragment
@@ -76,8 +82,15 @@ public class BaseConversationListFragment extends BaseInitFragment {
             @Override
             public void run() {
                 conversationList.clear();
-                conversationList.addAll(loadConversationList());
-                conversationListView.init(conversationList);
+
+                loadConversationList().as(autoDispose()).subscribe(new NextObserver<List<EMConversation>>() {
+                    @Override
+                    public void onNext(@NonNull List<EMConversation> emConversations) {
+                        conversationList.addAll(emConversations);
+                        conversationListView.init(conversationList);
+
+                    }
+                });
             }
         }, 1000);
 
@@ -136,9 +149,15 @@ public class BaseConversationListFragment extends BaseInitFragment {
                         @Override
                         public void run() {
                             conversationList.clear();
-                            conversationList.addAll(loadConversationList());
-                            conversationListView.refresh();
-                            EventBus.getDefault().post(new EventCenter<>(EventUtil.UNREADCOUNT));
+
+                            loadConversationList().as(autoDispose()).subscribe(new NextObserver<List<EMConversation>>() {
+                                @Override
+                                public void onNext(@NonNull List<EMConversation> emConversations) {
+                                    conversationList.addAll(emConversations);
+                                    conversationListView.refresh();
+                                    EventBus.getDefault().post(new EventCenter<>(EventUtil.UNREADCOUNT));
+                                }
+                            });
                         }
                     }, 1000);
 
@@ -185,62 +204,70 @@ public class BaseConversationListFragment extends BaseInitFragment {
      *
      * @return +
      */
-    protected List<EMConversation> loadConversationList() {
-        // get all conversations
-        Map<String, EMConversation> conversations = EMClient.getInstance().chatManager().getAllConversations();
+    protected Observable<List<EMConversation>> loadConversationList() {
 
-        //添加置顶消息
-        List<Pair<Long, EMConversation>> topList = new ArrayList<Pair<Long, EMConversation>>();
-        synchronized (conversations) {
-            for (EMConversation conversation : conversations.values()) {
-                if (conversation.getAllMessages().size() != 0 && conversation.getExtField().equals("toTop")) {
-                    topList.add(new Pair<Long, EMConversation>(conversation.getLastMessage().getMsgTime(), conversation));
-                }
-            }
-        }
+        return Observable.just("")
+                .flatMap(str -> {
+                    // get all conversations
+                    Map<String, EMConversation> conversations = EMClient.getInstance().chatManager().getAllConversations();
 
-
-        List<Pair<Long, EMConversation>> sortList = new ArrayList<Pair<Long, EMConversation>>();
-        /**
-         * lastMsgTime will change if there is new message during sorting
-         * so use synchronized to make sure timestamp of last message won't change.
-         */
-        synchronized (conversations) {
-            for (EMConversation conversation : conversations.values()) {
-                if (conversation.getAllMessages().size() != 0 && !conversation.conversationId().equals(Constant.ADMIN) && !conversation.getExtField().equals("toTop")) {
-                    if (!"系统管理员".equals(conversation.getLastMessage().getFrom()) && !"em_system".equals(conversation.getLastMessage().getFrom())) {
-                        sortList.add(new Pair<Long, EMConversation>(conversation.getLastMessage().getMsgTime(), conversation));
+                    //添加置顶消息
+                    List<Pair<Long, EMConversation>> topList = new ArrayList<Pair<Long, EMConversation>>();
+                    synchronized (conversations) {
+                        for (EMConversation conversation : conversations.values()) {
+                            if (conversation.getAllMessages().size() != 0 && conversation.getExtField().equals("toTop")) {
+                                topList.add(new Pair<Long, EMConversation>(conversation.getLastMessage().getMsgTime(), conversation));
+                            }
+                        }
                     }
-                }
-            }
-        }
-        try {
-            // Internal is TimSort algorithm, has bug
-            sortConversationByLastChatTime(sortList);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        List<EMConversation> list = new ArrayList<EMConversation>();
 
-        //添加置顶消息
-        for (Pair<Long, EMConversation> topItem : topList) {
-            list.add(topItem.second);
-        }
 
-        for (Pair<Long, EMConversation> sortItem : sortList) {
-            list.add(sortItem.second);
-        }
+                    List<Pair<Long, EMConversation>> sortList = new ArrayList<Pair<Long, EMConversation>>();
+                    /**
+                     * lastMsgTime will change if there is new message during sorting
+                     * so use synchronized to make sure timestamp of last message won't change.
+                     */
+                    synchronized (conversations) {
+                        for (EMConversation conversation : conversations.values()) {
+                            if (conversation.getAllMessages().size() != 0 && !conversation.conversationId().equals(Constant.ADMIN) && !conversation.getExtField().equals("toTop")) {
+                                if (!"系统管理员".equals(conversation.getLastMessage().getFrom()) && !"em_system".equals(conversation.getLastMessage().getFrom())) {
+                                    sortList.add(new Pair<Long, EMConversation>(conversation.getLastMessage().getMsgTime(), conversation));
+                                }
+                            }
+                        }
+                    }
+                    try {
+                        // Internal is TimSort algorithm, has bug
+                        sortConversationByLastChatTime(sortList);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    List<EMConversation> list = new ArrayList<EMConversation>();
 
-        Iterator it = list.iterator();
-        while (it.hasNext()) {
-            EMConversation c = (EMConversation) it.next();
-            String json = FastJsonUtil.toJSONString(c.getLastMessage().ext());
+                    //添加置顶消息
+                    for (Pair<Long, EMConversation> topItem : topList) {
+                        list.add(topItem.second);
+                    }
 
-            if (json.contains("msgType") && "deleteuser".equals(FastJsonUtil.getString(json, "msgType"))) {
-                it.remove();
-            }
-        }
-        return list;
+                    for (Pair<Long, EMConversation> sortItem : sortList) {
+                        list.add(sortItem.second);
+                    }
+
+                    Iterator it = list.iterator();
+                    while (it.hasNext()) {
+                        EMConversation c = (EMConversation) it.next();
+                        String json = FastJsonUtil.toJSONString(c.getLastMessage().ext());
+
+                        if (json.contains("msgType") && "deleteuser".equals(FastJsonUtil.getString(json, "msgType"))) {
+                            it.remove();
+                        }
+                    }
+                    return Observable.just(list);
+
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
+
     }
 
     /**
