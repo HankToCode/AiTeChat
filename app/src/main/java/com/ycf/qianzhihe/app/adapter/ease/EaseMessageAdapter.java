@@ -121,7 +121,7 @@ public class EaseMessageAdapter extends BaseAdapter {
         this.listView = listView;
         toChatUsername = username;
         EMOptions options = EMClient.getInstance().getOptions();
-        options.setSortMessageByServerTime(false);
+        options.setSortMessageByServerTime(true);
         this.conversation = EMClient.getInstance().chatManager().getConversation(username, EaseCommonUtils.getConversationType(chatType), true);
         OptionsHelper.getInstance().setSortMessageByServerTime(true);
 

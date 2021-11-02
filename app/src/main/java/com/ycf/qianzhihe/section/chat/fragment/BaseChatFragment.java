@@ -153,7 +153,7 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
 
     protected boolean isloading;
     protected boolean haveMoreData = true;
-    protected int pagesize = 40;
+    protected int pagesize = 100;
     protected GroupListener groupListener;
     protected EMMessage contextMenuMessage;
     protected EMGroup group;
