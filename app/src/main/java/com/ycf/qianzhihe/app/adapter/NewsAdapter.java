@@ -6,6 +6,7 @@ import androidx.annotation.Nullable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.hyphenate.easeui.widget.EaseImageView;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.old_data.NewsBean;
 import com.ycf.qianzhihe.section.discover.NewsDetailActivity;
@@ -26,11 +27,11 @@ public class NewsAdapter extends BaseQuickAdapter<NewsBean, BaseViewHolder> {
 
         helper.setText(R.id.tv_time, StringUtil.formatDateMinute(item.getCreateTime(), ""));
 
-        GlideUtils.loadImageViewLoding(item.getCoverImg(), helper.getView(R.id.iv_img), R.mipmap.em_logo_uidemo);
+        GlideUtils.loadRoundCircleImage(item.getCoverImg(), (EaseImageView) helper.getView(R.id.iv_img), R.mipmap.em_logo_uidemo, 30);
         helper.setOnClickListener(R.id.ll_item, new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                NewsDetailActivity.actionStart(mContext,item.getTitle(),item.getCoverImg(),item.getContent(),item.getCreateTime());
+                NewsDetailActivity.actionStart(mContext, item.getTitle(), item.getCoverImg(), item.getContent(), item.getCreateTime());
             }
         });
     }

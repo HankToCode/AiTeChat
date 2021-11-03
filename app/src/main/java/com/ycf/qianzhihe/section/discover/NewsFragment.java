@@ -74,7 +74,7 @@ public class NewsFragment extends BaseInitFragment implements OnBannerListener {
         list_title.add("不搞对象");
         banner.setImages(list_path);
         banner.setBannerTitles(list_title);
-        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
+        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         banner.setImageLoader(new BannerImageLoader());
         banner.setBannerAnimation(Transformer.DepthPage);
         banner.setDelayTime(3000);
