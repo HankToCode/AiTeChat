@@ -41,6 +41,7 @@ import com.ycf.qianzhihe.common.model.DemoModel;
 import com.ycf.qianzhihe.common.utils.ToastUtils;
 import com.ycf.qianzhihe.section.contact.activity.AddUserActivity;
 import com.ycf.qianzhihe.section.discover.NewsFragment;
+import com.ycf.qianzhihe.section.search.SearchGroupActivity;
 import com.zds.base.ImageLoad.GlideUtils;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.code.activity.CaptureActivity;
@@ -147,10 +148,10 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        initImmersionBar(false);
+        initImmersionBar(true);
         navView = findViewById(R.id.nav_view);
         mTitleBar = findViewById(R.id.title_bar_main);
-        mTitleBar.setRightLayoutClickListener(new View.OnClickListener() {
+        /*mTitleBar.setRightLayoutClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (mTitleBar.getTitle().getText().equals("联系人")) {
@@ -161,7 +162,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
                 }
 
             }
-        });
+        });*/
         navView.setItemIconTintList(null);
         // 可以动态显示隐藏相应tab
         //navView.getMenu().findItem(R.id.em_main_nav_me).setVisible(false);
@@ -421,82 +422,80 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
      * @param tag
      */
     private void replaceBarButtonLayout(String tag) {
-//        mTitleBar.getRightLayout().removeAllViews();
-//        mTitleBar.getRightLayout().setClickable(false);
         mTitleBar.getLeftLayout().removeAllViews();
         mTitleBar.getLeftLayout().setClickable(false);
-        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
+
+        mTitleBar.getRightLayout().removeAllViews();
+        mTitleBar.getRightLayout().setClickable(false);
+
         View leftView = View.inflate(this, R.layout.layout_toolbar_contacts_left, null);
-        mIvAvatar = leftView.findViewById(R.id.iv_avatar);
-        mIvAvatar.setOnClickListener(this);
+        TextView tvTitle = leftView.findViewById(R.id.tv_title);
+        tvTitle.setOnClickListener(this);
+        mTitleBar.getLeftLayout().addView(leftView);
+
+
+        View rightView = View.inflate(this, R.layout.layout_toolbar_contacts_right, null);
+        mIvAvatar = rightView.findViewById(R.id.iv_avatar);
+        mIvAvatar.setOnClickListener(view -> {
+            CommonApi.upUserInfo(this);
+            MineActivity.actionStart(mContext);
+        });
         LoginInfo loginInfo = UserComm.getUserInfo();
         GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(loginInfo.getUserHead()), mIvAvatar, R.mipmap.img_default_avatar);
-        mTitleBar.getLeftLayout().addView(leftView, layoutParams);
+        mTitleBar.getRightLayout().addView(rightView);
+
         if ("news".equals(tag)) {
-            mTitleBar.setRightImageResource(0);
-        }
-        if ("contacts".equals(tag)) {
-            /*RelativeLayout.LayoutParams layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            layoutParams1.addRule(RelativeLayout.CENTER_IN_PARENT);
-            View rightView = View.inflate(this, R.layout.layout_toolbar_contacts_right, null);
-            rightView.findViewById(R.id.iv_add).setOnClickListener(this);
-            rightView.findViewById(R.id.iv_search).setOnClickListener(this);
-            mTitleBar.getRightLayout().addView(rightView, layoutParams);*/
-            mTitleBar.setRightImageResource(R.drawable.ic_add_friends);
-        } else if ("message".equals(tag)) {
-            /*RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT);
-            RelativeLayout.LayoutParams layoutParams1 = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-            layoutParams1.addRule(RelativeLayout.CENTER_IN_PARENT);
+            tvTitle.setText(getResources().getString(R.string.em_main_title_news));
 
-            View rightView = View.inflate(this, R.layout.layout_toolbar_contacts_right, null);
-            rightView.findViewById(R.id.iv_search).setOnClickListener(this);
-            ImageView ivAdd = rightView.findViewById(R.id.iv_add);
-            ivAdd.setImageDrawable(ContextCompat.getDrawable(mContext, R.mipmap.ic_main_add));
-            ivAdd.setOnClickListener(view -> {
-                showPopWinShare(ivAdd);
+        } else if ("contacts".equals(tag)) {
+            tvTitle.setText(getResources().getString(R.string.em_main_title_contacts));
+            rightView.findViewById(R.id.ivIcon1).setVisibility(View.VISIBLE);
+            rightView.findViewById(R.id.ivIcon1).setOnClickListener(view -> {
+                SearchGroupActivity.actionStart(mContext);
             });
-            mTitleBar.getRightLayout().addView(rightView, layoutParams);*/
-
-//            View leftView = View.inflate(this, R.layout.layout_toolbar_contacts_left, null);
-//            mIvAvatar = leftView.findViewById(R.id.iv_avatar);
-//            mIvAvatar.setOnClickListener(this);
-//            LoginInfo loginInfo = UserComm.getUserInfo();
-//            GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(loginInfo.getUserHead()), mIvAvatar, R.mipmap.img_default_avatar);
-
-//            mTitleBar.getLeftLayout().addView(leftView, layoutParams1);
-            mTitleBar.setRightImageResource(R.mipmap.ic_main_add);
+            rightView.findViewById(R.id.ivIcon2).setVisibility(View.VISIBLE);
+            rightView.findViewById(R.id.ivIcon2).setOnClickListener(view -> {
+                AddUserActivity.actionStart(mContext);
+            });
+            rightView.findViewById(R.id.ivIcon3).setVisibility(View.VISIBLE);
+            rightView.findViewById(R.id.ivIcon3).setOnClickListener(view -> {
+                showPopWinShare(rightView.findViewById(R.id.ivIcon3));
+            });
+        } else if ("message".equals(tag)) {
+            tvTitle.setText(getResources().getString(R.string.em_main_title_message));
+            rightView.findViewById(R.id.ivIcon4).setVisibility(View.VISIBLE);
+            rightView.findViewById(R.id.ivIcon4).setOnClickListener(view -> {
+                AddUserActivity.actionStart(mContext);
+            });
         } else if ("discover".equals(tag)) {
-            mTitleBar.setRightImageResource(0);
+            rightView.findViewById(R.id.ivIcon4).setVisibility(View.VISIBLE);
+            rightView.findViewById(R.id.ivIcon4).setOnClickListener(view -> {
+                AddUserActivity.actionStart(mContext);
+            });
+            tvTitle.setText(getResources().getString(R.string.em_main_title_discover));
         }
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
-        mTitleBar.setVisibility(View.VISIBLE);
         showMenu = true;
         boolean showNavigation = false;
         switch (menuItem.getItemId()) {
             case R.id.em_main_nav_contacts:
                 switchToHome();
-                mTitleBar.setTitle(getResources().getString(R.string.em_main_title_contacts));
                 showNavigation = true;
                 break;
             case R.id.em_main_nav_message:
                 switchToFriends();
-                mTitleBar.setTitle(getResources().getString(R.string.em_main_title_message));
                 showNavigation = true;
                 invalidateOptionsMenu();
                 break;
             case R.id.em_main_nav_discover:
                 switchToDiscover();
-                mTitleBar.setTitle(getResources().getString(R.string.em_main_title_discover));
                 showNavigation = true;
                 break;
             case R.id.em_main_nav_find:
                 switchToNews();//资讯
-                mTitleBar.setTitle(getResources().getString(R.string.em_main_title_news));
                 showMenu = false;
                 showNavigation = true;
                 break;
@@ -525,24 +524,6 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.iv_add:
-//                AddContactActivity.actionStart(mContext, SearchType.CHAT);//搜索>添加好友
-                AddUserActivity.actionStart(mContext);
-                break;
-            case R.id.iv_search:
-                SearchConversationActivity.actionStart(mContext);
-                break;
-
-            case R.id.iv_avatar:
-
-                CommonApi.upUserInfo(this);
-                MineActivity.actionStart(mContext);
-
-                break;
-            default:
-                break;
-        }
     }
 
     /**

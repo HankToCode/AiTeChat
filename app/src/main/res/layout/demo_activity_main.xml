@@ -3,9 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/container"
     android:layout_width="match_parent"
-    android:background="@drawable/bg_topbar_bg"
-    android:layout_height="match_parent">
-
+    android:layout_height="match_parent"
+    android:background="@color/white">
 
     <com.hyphenate.easeui.widget.EaseTitleBar
         android:id="@+id/title_bar_main"
@@ -17,16 +16,16 @@
         app:layout_constraintTop_toTopOf="parent"
         app:titleBarDisplayHomeAsUpEnabled="false"
         app:titleBarRightVisible="true"
-        app:titleBarTitleTextColor="@color/white"
-        app:titleBarTitle="资讯" />
+        app:titleBarTitle="资讯"
+        app:titleBarTitleTextColor="@color/white" />
 
     <FrameLayout
         android:id="@+id/fl_main_fragment"
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:background="?android:attr/windowBackground"
         app:layout_constraintBottom_toTopOf="@id/nav_view"
         app:layout_constraintLeft_toLeftOf="parent"
-        android:background="?android:attr/windowBackground"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title_bar_main" />
 

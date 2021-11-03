@@ -6,11 +6,6 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        app:cardElevation="10dp" />
-
     <FrameLayout
         android:id="@+id/fl_error_item"
         android:layout_width="match_parent"
@@ -20,6 +15,7 @@
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
         android:background="@color/white"
         android:cacheColorHint="#00000000"
         android:divider="@null" />
