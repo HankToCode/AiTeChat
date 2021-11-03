@@ -8,6 +8,7 @@ import android.widget.Filterable;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
+import com.hyphenate.easeui.widget.EaseImageView;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.EaseConstant;
@@ -37,7 +38,8 @@ public class MyGroupAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHolder> 
     @Override
     protected void convert(BaseViewHolder helper, GroupInfo item) {
         helper.setText(R.id.tv_group_name, item.getGroupName());
-        GlideUtils.GlideLoadCircleErrorImageUtils(mContext, AppConfig.checkimg(item.getGroupHead()), helper.getView(R.id.img_group), R.mipmap.ic_group_default);
+
+        GlideUtils.loadRoundCircleImage(AppConfig.checkimg(item.getGroupHead()), (EaseImageView) helper.getView(R.id.img_group), R.mipmap.ic_group_default, 30);
 
         helper.setOnClickListener(R.id.ll_item, v -> mContext.startActivity(new Intent(mContext, ChatActivity.class).putExtra(EaseConstant.EXTRA_CHAT_TYPE, EaseConstant.CHATTYPE_GROUP)
                 .putExtra(EaseConstant.EXTRA_USER_ID, item.getHuanxinGroupId())
