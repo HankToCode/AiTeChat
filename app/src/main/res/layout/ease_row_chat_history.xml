@@ -34,14 +34,14 @@
             android:id="@+id/bg_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white"/>
+            android:background="@color/white" />
 
         <com.hyphenate.easeui.widget.EaseImageView
             android:id="@+id/avatar"
-            android:layout_width="@dimen/dp_50"
-            android:layout_height="@dimen/dp_50"
+            android:layout_width="@dimen/dp_52"
+            android:layout_height="@dimen/dp_52"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="24dp"
+            android:layout_marginLeft="20dp"
             android:src="@mipmap/xit" />
 
 
@@ -58,11 +58,11 @@
             android:id="@+id/ll_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/dp_20"
-            android:layout_marginRight="@dimen/dp_20"
-            android:layout_toLeftOf="@+id/time"
-            android:layout_marginTop="@dimen/dp_6"
             android:layout_alignTop="@id/avatar"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:layout_marginTop="@dimen/dp_4"
+            android:layout_marginRight="@dimen/dp_16"
+            android:layout_toLeftOf="@+id/time"
             android:layout_toRightOf="@id/avatar"
             android:gravity="center_vertical"
             android:orientation="horizontal">
@@ -74,6 +74,7 @@
                 android:maxLines="1"
                 android:singleLine="true"
                 android:textColor="@color/color_171C20"
+                android:textSize="15dp"
                 tools:text="慕枫" />
 
 
@@ -82,10 +83,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
+                android:background="@color/btn_blue_normal"
                 android:paddingStart="3dp"
                 android:paddingTop="1dp"
                 android:paddingEnd="3dp"
-                android:background="@color/btn_blue_normal"
                 android:paddingBottom="1dp"
                 android:text="官方"
                 android:textColor="@color/white"
@@ -103,8 +104,9 @@
             android:layout_height="wrap_content"
             android:layout_alignTop="@id/avatar"
             android:layout_alignParentRight="true"
+            android:layout_marginTop="4dp"
             android:layout_marginRight="@dimen/dp_20"
-            android:textColor="@color/color_ACACBC"
+            android:textColor="@color/color_747A86"
             android:textSize="12dp"
             tools:text="上午  11:31" />
 
@@ -112,9 +114,9 @@
             android:id="@+id/msg_state"
             android:layout_width="@dimen/dp_20"
             android:layout_height="@dimen/dp_20"
+            android:layout_below="@id/ll_name"
             android:layout_marginLeft="@dimen/dp_7"
             android:layout_marginBottom="@dimen/dp_5"
-            android:layout_below="@id/ll_name"
             android:layout_toRightOf="@id/avatar"
             android:src="@drawable/ease_msg_state_fail_resend"
             android:visibility="gone" />
@@ -124,6 +126,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/ll_name"
+            android:layout_marginTop="6dp"
             android:layout_toRightOf="@id/msg_state"
             android:paddingLeft="@dimen/dp_7"
             android:text="@string/were_mentioned"
@@ -136,15 +139,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@id/ll_name"
+            android:layout_marginTop="6dp"
             android:layout_toLeftOf="@id/time"
             android:layout_toRightOf="@id/mentioned"
             android:ellipsize="end"
             android:gravity="center_vertical"
-            android:paddingLeft="@dimen/dp_20"
-            android:paddingRight="@dimen/dp_20"
+            android:paddingLeft="@dimen/dp_16"
+            android:paddingRight="@dimen/dp_16"
             android:singleLine="true"
             android:text="大家熬好"
-            android:textColor="@color/color_ACACBC"
+            android:textColor="@color/color_747A86"
             android:textSize="@dimen/sp_12" />
 
         <TextView
@@ -153,6 +157,7 @@
             android:layout_height="@dimen/dp_15"
             android:layout_alignParentRight="true"
             android:layout_alignParentBottom="true"
+            android:layout_marginTop="4dp"
             android:layout_marginRight="@dimen/dp_20"
             android:layout_marginBottom="@dimen/dp_13"
             android:background="@drawable/shape_unread_bg"
@@ -169,6 +174,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/ll_name"
             android:layout_alignParentRight="true"
+            android:layout_marginTop="6dp"
             android:layout_marginRight="@dimen/dp_20"
             android:layout_marginBottom="@dimen/dp_5"
             android:src="@mipmap/msg_free"
@@ -177,8 +183,9 @@
         <View
             android:layout_width="match_parent"
             android:layout_height="@dimen/dp_1"
+            android:layout_marginStart="96dp"
             android:layout_alignParentBottom="true"
-            android:background="@color/gray"/>
+            android:background="@color/gray" />
     </RelativeLayout>
 
 

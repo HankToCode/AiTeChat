@@ -1,41 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/tv_search"
+        style="@style/demo_search_et_style"
         android:layout_width="match_parent"
         android:layout_height="@dimen/em_common_search_height"
-        android:hint="输入好友昵称搜索"
-        android:focusable="true"
-        android:gravity="center"
         android:layout_margin="@dimen/dp_10"
+        android:focusable="true"
         android:focusableInTouchMode="true"
-        style="@style/demo_search_et_style" />
+        android:gravity="center"
+        android:hint="输入好友昵称搜索" />
+
     <com.ycf.qianzhihe.app.weight.ConversationItemView
         android:id="@+id/friend_notice"
         android:layout_width="match_parent"
         android:layout_height="@dimen/main_message_item_height"
         app:conversationItemImage="@drawable/ic_new_friends"
-        app:conversationItemName="@string/new_friends"/>
+        app:conversationItemName="@string/new_friends" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
         android:layout_alignParentBottom="true"
-        android:background="@color/gray"/>
+        android:layout_marginStart="96dp"
+        android:background="@color/gray" />
+
     <com.ycf.qianzhihe.app.weight.ConversationItemView
         android:id="@+id/group_notice"
         android:layout_width="match_parent"
         android:layout_height="@dimen/main_message_item_height"
         app:conversationItemImage="@drawable/ic_group_notice"
-        app:conversationItemName="@string/groups_notice"/>
+        app:conversationItemName="@string/groups_notice" />
+
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_1"
         android:layout_alignParentBottom="true"
-        android:background="@color/gray"/>
+        android:layout_marginStart="96dp"
+        android:background="@color/gray" />
 
 </LinearLayout>
