@@ -10,6 +10,7 @@ import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.baidu.mapapi.common.SysOSUtil;
@@ -33,18 +34,18 @@ import butterknife.OnClick;
 
 public class DiscoverFragment extends BaseInitFragment implements OnBannerListener {
 
-    @BindView(R.id.iv_dc1)
-    TextView iv_dc1;
-    @BindView(R.id.iv_dc2)
-    TextView iv_dc2;
-    @BindView(R.id.iv_dc3)
-    TextView iv_dc3;
-    @BindView(R.id.iv_dc4)
-    TextView iv_dc4;
-    @BindView(R.id.iv_dc5)
-    TextView iv_dc5;
-    @BindView(R.id.iv_dc6)
-    TextView iv_dc6;
+    @BindView(R.id.ll_dc1)
+    LinearLayout iv_dc1;
+    @BindView(R.id.ll_dc2)
+    LinearLayout iv_dc2;
+    @BindView(R.id.ll_dc3)
+    LinearLayout iv_dc3;
+    @BindView(R.id.ll_dc4)
+    LinearLayout iv_dc4;
+    @BindView(R.id.ll_dc5)
+    LinearLayout iv_dc5;
+    @BindView(R.id.ll_dc6)
+    LinearLayout iv_dc6;
     @BindView(R.id.banner)
     Banner banner;
     private ArrayList<Integer> list_path;
@@ -82,27 +83,27 @@ public class DiscoverFragment extends BaseInitFragment implements OnBannerListen
 
     }
 
-    @OnClick({R.id.iv_dc1, R.id.iv_dc2, R.id.iv_dc3, R.id.iv_dc4, R.id.iv_dc5, R.id.iv_dc6})
+    @OnClick({R.id.ll_dc1, R.id.ll_dc2, R.id.ll_dc3, R.id.ll_dc4, R.id.ll_dc5, R.id.ll_dc6})
     public void click(View v) {
         String url = "";
         switch (v.getId()) {
-            case R.id.iv_dc1:
+            case R.id.ll_dc1:
 //                url = "http://meishi.meituan.com/i/?ci=268&stid_b=1&cevent=imt%2Fhomepage%2Fcategory1%2F1";
                 url = "https://www.meituan.com/";
                 break;
-            case R.id.iv_dc2:
+            case R.id.ll_dc2:
                 url = "https://h5.ele.me/";
                 break;
-            case R.id.iv_dc3:
+            case R.id.ll_dc3:
                 url = "https://www.jd.com/brand/13196fb3651ed8a45efe.html";
                 break;
-            case R.id.iv_dc4:
+            case R.id.ll_dc4:
                 url = "https://s.taobao.com/";
                 break;
-            case R.id.iv_dc5:
+            case R.id.ll_dc5:
                 url = "https://news.qq.com/";
                 break;
-            case R.id.iv_dc6:
+            case R.id.ll_dc6:
                 url = "https://new.qq.com/ch/cul/";
                 break;
         }
