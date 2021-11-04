@@ -298,15 +298,14 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
 
         } else if (chatType == Constant.CHATTYPE_GROUP) {
             //图片
-            mInputMenu.registerExtendSmallMenuItem(R.mipmap.zhaop_small,
+            mInputMenu.registerExtendSmallMenuItem(R.mipmap.icon_zp,
                     ITEM_PICTURE, extendMenuItemClickListener);
             //相机
-            mInputMenu.registerExtendSmallMenuItem(R.mipmap.xj_11_small,
+            mInputMenu.registerExtendSmallMenuItem(R.mipmap.icon_xj,
                     ITEM_INVITE_GROUP_CAMERA, extendMenuItemClickListener);
             //位置
-            mInputMenu.registerExtendSmallMenuItem(R.mipmap.icon_location_small,
+            mInputMenu.registerExtendSmallMenuItem(R.mipmap.icon_wz,
                     ITEM_LOCATION, extendMenuItemClickListener);
-
             //语音电话
           /*  mInputMenu.registerExtendSmallMenuItem(R.mipmap.yuyt_small,
                     ITEM_VOICE_CALL, extendMenuItemClickListener);*/
@@ -314,16 +313,16 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
             /*mInputMenu.registerExtendSmallMenuItem(R.mipmap.ship_small,
                     ITEM_VIDEO_CALL, extendMenuItemClickListener);*/
             //收藏
-            mInputMenu.registerExtendSmallMenuItem(R.mipmap.sc_ll_small,
-                    ITEM_MY_COLLECT, extendMenuItemClickListener);
+//            mInputMenu.registerExtendSmallMenuItem(R.mipmap.sc_ll_small,
+//                    ITEM_MY_COLLECT, extendMenuItemClickListener);
             //红包
-            mInputMenu.registerExtendSmallMenuItem(R.mipmap.hongbao_small,
+            mInputMenu.registerExtendSmallMenuItem(R.mipmap.icon_hb,
                     ITEM_MY_RED_PACKET, extendMenuItemClickListener);
             //转账
             /*mInputMenu.registerExtendSmallMenuItem(R.mipmap.zhuanz_small,
                     ITEM_TRANSFER, extendMenuItemClickListener);*/
             //名片
-            mInputMenu.registerExtendSmallMenuItem(R.mipmap.minp_ll_small,
+            mInputMenu.registerExtendSmallMenuItem(R.mipmap.icon_mp,
                     ITEM_SEND_CARD, extendMenuItemClickListener);
         }
         mInputMenu.setChatType(chatType);
