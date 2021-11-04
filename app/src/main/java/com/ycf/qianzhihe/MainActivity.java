@@ -449,6 +449,12 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
 
         } else if ("contacts".equals(tag)) {
             tvTitle.setText(getResources().getString(R.string.em_main_title_contacts));
+            rightView.findViewById(R.id.ivIcon4).setVisibility(View.VISIBLE);
+            rightView.findViewById(R.id.ivIcon4).setOnClickListener(view -> {
+                AddUserActivity.actionStart(mContext);
+            });
+        } else if ("message".equals(tag)) {
+            tvTitle.setText(getResources().getString(R.string.em_main_title_message));
             rightView.findViewById(R.id.ivIcon1).setVisibility(View.VISIBLE);
             rightView.findViewById(R.id.ivIcon1).setOnClickListener(view -> {
                 SearchGroupActivity.actionStart(mContext);
@@ -460,12 +466,6 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
             rightView.findViewById(R.id.ivIcon3).setVisibility(View.VISIBLE);
             rightView.findViewById(R.id.ivIcon3).setOnClickListener(view -> {
                 showPopWinShare(rightView.findViewById(R.id.ivIcon3));
-            });
-        } else if ("message".equals(tag)) {
-            tvTitle.setText(getResources().getString(R.string.em_main_title_message));
-            rightView.findViewById(R.id.ivIcon4).setVisibility(View.VISIBLE);
-            rightView.findViewById(R.id.ivIcon4).setOnClickListener(view -> {
-                AddUserActivity.actionStart(mContext);
             });
         } else if ("discover".equals(tag)) {
             rightView.findViewById(R.id.ivIcon4).setVisibility(View.VISIBLE);
