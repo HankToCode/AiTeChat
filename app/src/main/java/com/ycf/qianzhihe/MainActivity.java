@@ -40,6 +40,8 @@ import com.ycf.qianzhihe.app.operate.GroupOperateManager;
 import com.ycf.qianzhihe.common.model.DemoModel;
 import com.ycf.qianzhihe.common.utils.ToastUtils;
 import com.ycf.qianzhihe.section.contact.activity.AddUserActivity;
+import com.ycf.qianzhihe.section.conversation.ApplyJoinGroupActivity;
+import com.ycf.qianzhihe.section.conversation.AuditMsgActivity;
 import com.ycf.qianzhihe.section.discover.NewsFragment;
 import com.ycf.qianzhihe.section.search.SearchGroupActivity;
 import com.zds.base.ImageLoad.GlideUtils;
@@ -457,11 +459,11 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
             tvTitle.setText(getResources().getString(R.string.em_main_title_message));
             rightView.findViewById(R.id.ivIcon1).setVisibility(View.VISIBLE);
             rightView.findViewById(R.id.ivIcon1).setOnClickListener(view -> {
-                SearchGroupActivity.actionStart(mContext);
+                ApplyJoinGroupActivity.actionStart(mContext);//群通知
             });
             rightView.findViewById(R.id.ivIcon2).setVisibility(View.VISIBLE);
             rightView.findViewById(R.id.ivIcon2).setOnClickListener(view -> {
-                AddUserActivity.actionStart(mContext);
+                AuditMsgActivity.actionStart(mContext);//好友申请列表
             });
             rightView.findViewById(R.id.ivIcon3).setVisibility(View.VISIBLE);
             rightView.findViewById(R.id.ivIcon3).setOnClickListener(view -> {
