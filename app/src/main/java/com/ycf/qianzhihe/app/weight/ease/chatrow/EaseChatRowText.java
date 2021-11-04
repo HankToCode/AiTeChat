@@ -50,7 +50,7 @@ public class EaseChatRowText extends EaseChatRow {
         if (vipLevel != 0 && vipLevel <= vipTextColor.length) {
             contentView.setTextColor(ContextCompat.getColor(context, vipTextColor[vipLevel]));
         } else {
-            int textColor = message.direct() == EMMessage.Direct.SEND ? ContextCompat.getColor(context, R.color.white) : ContextCompat.getColor(context, R.color.black);
+            int textColor = message.direct() == EMMessage.Direct.SEND ? ContextCompat.getColor(context, R.color.color_425563) : ContextCompat.getColor(context, R.color.color_425563);
             contentView.setTextColor(textColor);
         }
 

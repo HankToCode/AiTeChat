@@ -15,16 +15,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center" />
 
-    <TextView
-        android:id="@+id/tv_userid"
-        style="@style/chat_text_name_style"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="50dp"
-        android:textColor="@color/black"
-        android:textSize="13dp"
-        android:visibility="visible" />
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,9 +29,24 @@
             android:layout_marginLeft="@dimen/dp_5"
             android:src="@mipmap/img_default_avatar" />
 
+        <TextView
+            android:id="@+id/tv_userid"
+            style="@style/chat_text_name_style"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@id/iv_userhead"
+            android:textColor="@color/black"
+            android:textSize="13dp"
+            android:visibility="visible"
+            tools:text="名称" />
+
         <RelativeLayout
             android:id="@+id/bubble"
             style="@style/chat_content_received_style"
+            android:layout_below="@+id/tv_userid"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
             android:layout_toEndOf="@id/iv_userhead">
 
             <TextView
@@ -53,7 +58,7 @@
                 android:gravity="center|left"
                 android:lineSpacingExtra="@dimen/dp_1"
                 android:maxWidth="225.0dip"
-                android:textColor="#ff000000"
+                android:textColor="@color/color_425563"
                 android:textSize="@dimen/sp_15"
                 tools:text="你也哈有会将爱欧阳锋的身份" />
         </RelativeLayout>

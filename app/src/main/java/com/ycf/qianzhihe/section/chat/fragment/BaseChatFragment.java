@@ -226,7 +226,6 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
 
-        titleBar.setRightImageResource(R.mipmap.gengd);
         titleBar.setRightLayoutVisibility(VISIBLE);
 
         LinearLayout.LayoutParams layoutParams =
@@ -318,11 +317,11 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
                 }
                 mInputMenu.setVisibility(VISIBLE);
             }
-            titleBar.setRightImageResource(R.mipmap.fill_1);
+            titleBar.setRightImageResource(R.mipmap.ic_icon3);
             onConversationInit();
             onMessageListInit();
         } else {
-            titleBar.setRightImageResource(R.mipmap.qunzu);
+            titleBar.setRightImageResource(R.mipmap.ic_icon3);
             if (chatType == EaseConstant.CHATTYPE_GROUP) {
                 EMGroup group = EMClient.getInstance().groupManager().getGroup(emChatId);
                 groupListener = new GroupListener();
