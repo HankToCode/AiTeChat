@@ -168,25 +168,30 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
                 @Override
                 public void onSuccess(EaseUser data) {
                     dismissLoading();
-                    DemoHelper.getInstance().setAutoLogin(true);
-                    LoginInfo currentUser = UserComm.getUserInfo();
-                    EaseUser user = new EaseUser();
-                    user.setNickname(currentUser.getNickName());
-                    user.setAvatar(currentUser.getUserHead());
-                    user.setUserCode(currentUser.getUserCode());
-                    user.setAccount(currentUser.getPhone());
-                    user.setPassword(currentUser.getPassword());
-                    //去重
-                    if (localFriendList.size() > 0) {
-                        for (int i = 0; i < localFriendList.size(); i++) {
-                            if (!user.getAccount().equals(localFriendList.get(i).getAccount())) {
-                                localFriendList.add(user);
+                    try {
+                        DemoHelper.getInstance().setAutoLogin(true);
+                        LoginInfo currentUser = UserComm.getUserInfo();
+                        EaseUser user = new EaseUser();
+                        user.setNickname(currentUser.getNickName());
+                        user.setAvatar(currentUser.getUserHead());
+                        user.setUserCode(currentUser.getUserCode());
+                        user.setAccount(currentUser.getPhone());
+                        user.setPassword(currentUser.getPassword());
+                        //去重
+                        if (localFriendList.size() > 0) {
+                            for (int i = 0; i < localFriendList.size(); i++) {
+                                if (!user.getAccount().equals(localFriendList.get(i).getAccount())) {
+                                    localFriendList.add(user);
+                                }
                             }
+                        } else {
+                            localFriendList.add(user);
                         }
-                    } else {
-                        localFriendList.add(user);
+                        UserOperateManager.getInstance().saveLoginAccountToLocal(FastJsonUtil.toJSONString(localFriendList));
+                    } catch (Exception ignored) {
+
                     }
-                    UserOperateManager.getInstance().saveLoginAccountToLocal(FastJsonUtil.toJSONString(localFriendList));
+
 //                    mFragmentViewModel.getMyModel().saveLoginAccount(user);
                     //跳转到主页
                     MainActivity.actionStart(mContext);
@@ -298,6 +303,7 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
     }
 
     private String fromType = "";
+
     @Override
     protected void initArgument() {
         super.initArgument();
@@ -539,7 +545,9 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
             }
 
             @Override
-            public void onProgress(int progress, String status) { }
+            public void onProgress(int progress, String status) {
+            }
+
             @Override
             public void onError(int code, String message) {
                 runOnUiThread(new Runnable() {
@@ -576,7 +584,9 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
                     }
 
                     @Override
-                    public void onProgress(int progress, String status) { }
+                    public void onProgress(int progress, String status) {
+                    }
+
                     @Override
                     public void onError(int code, String message) {
                         runOnUiThread(new Runnable() {
@@ -588,13 +598,12 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
                     }
                 });
             }
+
             @Override
-            public void onFailure(String msg) { }
+            public void onFailure(String msg) {
+            }
         });
     }
-
-
-
 
 
     @Override
