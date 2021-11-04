@@ -48,6 +48,7 @@ import com.zds.base.json.FastJsonUtil;
 import com.zds.base.util.DateUtils;
 import com.zds.base.util.Preference;
 
+import java.io.File;
 import java.io.FileDescriptor;
 import java.io.IOException;
 import java.util.Calendar;
@@ -187,7 +188,7 @@ public class SplashActivity extends BaseInitActivity {
                     showLoading("清理超过三天的数据中，请稍后~");
                     Observable.just("")
                             .map(str -> {
-                                long dayOut3Time = System.currentTimeMillis() - 86400000L;
+                                /*long dayOut3Time = System.currentTimeMillis() - 86400000L;
 
                                 Collection<EMConversation> o = EMClient.getInstance().chatManager().getAllConversations().values();
                                 for (EMConversation emConversation : o) {
@@ -197,8 +198,17 @@ public class SplashActivity extends BaseInitActivity {
                                             emConversation.removeMessage(message.getMsgId());
                                         }
                                     }
-                                }
+                                }*/
 
+                                File filePath = new File("/data/data/com.ycf.qianzhihe/files/easemobDB");
+                                if (filePath.exists() && filePath.isDirectory()) {
+                                    File[] files = filePath.listFiles();
+                                    if (files != null) {
+                                        for (File file : files) {
+                                            file.delete();
+                                        }
+                                    }
+                                }
                                 return "";
                             })
                             .subscribeOn(Schedulers.io())
