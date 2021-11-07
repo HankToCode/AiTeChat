@@ -31,6 +31,7 @@ import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.app.api.old_data.FriendInfo;
 import com.ycf.qianzhihe.app.api.old_data.LoginInfo;
+import com.ycf.qianzhihe.app.api.old_data.ToTopMap;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
 import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
@@ -42,6 +43,7 @@ import com.ycf.qianzhihe.app.utils.hxSetMessageFree.EaseSharedUtils;
 import com.ycf.qianzhihe.app.utils.my.MyHelper;
 import com.ycf.qianzhihe.app.weight.MyDialog;
 import com.ycf.qianzhihe.section.chat.activity.ChatActivity;
+import com.ycf.qianzhihe.section.common.MyGroupDetailActivity;
 import com.ycf.qianzhihe.section.conversation.ChatBgActivity;
 import com.ycf.qianzhihe.section.conversation.ChatMoreSetlActivity;
 import com.ycf.qianzhihe.section.conversation.ChatRecordActivity;
@@ -254,6 +256,7 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                 if (emConversation.conversationId().contains(userId)) {
                     if (isChecked) {
                         emConversation.setExtField("toTop");
+                        ToTopMap.save(UserInfoDetailActivity.this, emConversation.conversationId());
                     } else {
                         emConversation.setExtField("false");
                     }
