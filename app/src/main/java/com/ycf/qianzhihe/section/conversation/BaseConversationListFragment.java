@@ -13,6 +13,7 @@ import android.widget.FrameLayout;
 
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.blankj.utilcode.util.GsonUtils;
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;
@@ -21,9 +22,13 @@ import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
+import com.ycf.qianzhihe.app.api.old_data.ToTopMap;
 import com.ycf.qianzhihe.app.base.BaseInitFragment;
+import com.zds.base.global.BaseConstant;
 import com.zds.base.json.FastJsonUtil;
 import com.ycf.qianzhihe.app.weight.ease.EaseConversationList;
+import com.zds.base.util.Preference;
+import com.zds.base.util.StringUtil;
 
 import org.greenrobot.eventbus.EventBus;
 
@@ -192,11 +197,29 @@ public class BaseConversationListFragment extends BaseInitFragment {
         //添加置顶消息
         List<Pair<Long, EMConversation>> topList = new ArrayList<Pair<Long, EMConversation>>();
         synchronized (conversations) {
+            List<Pair<Long, EMConversation>> duTopList = new ArrayList<Pair<Long, EMConversation>>();
+
             for (EMConversation conversation : conversations.values()) {
                 if (conversation.getAllMessages().size() != 0 && conversation.getExtField().equals("toTop")) {
-                    topList.add(new Pair<Long, EMConversation>(conversation.getLastMessage().getMsgTime(), conversation));
+                    duTopList.add(new Pair<Long, EMConversation>(conversation.getLastMessage().getMsgTime(), conversation));
                 }
             }
+
+            ToTopMap topMap = ToTopMap.give(getContext());
+            if (topMap != null) {
+                for (String key : topMap.getList()) {
+                    for (Pair<Long, EMConversation> pair : duTopList) {
+                        if (key.equals(pair.second.conversationId())) {
+                            topList.add(pair);
+                            break;
+                        }
+                    }
+                }
+            } else {
+                topList.addAll(duTopList);
+            }
+
+
         }
 
 

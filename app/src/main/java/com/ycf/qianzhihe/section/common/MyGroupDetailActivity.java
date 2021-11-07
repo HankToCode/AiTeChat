@@ -3,6 +3,7 @@ package com.ycf.qianzhihe.section.common;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.ArrayMap;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.blankj.utilcode.util.GsonUtils;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.easecallkit.widget.EaseImageView;
@@ -26,6 +28,7 @@ import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.app.api.old_data.GroupDetailInfo;
 import com.ycf.qianzhihe.app.api.old_data.GroupInfo;
+import com.ycf.qianzhihe.app.api.old_data.ToTopMap;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
 import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
@@ -35,6 +38,7 @@ import com.ycf.qianzhihe.app.utils.hxSetMessageFree.EaseSharedUtils;
 import com.ycf.qianzhihe.app.utils.my.MyHelper;
 import com.ycf.qianzhihe.app.weight.CommonDialog;
 import com.ycf.qianzhihe.app.weight.ease.EaseAlertDialog;
+import com.ycf.qianzhihe.section.account.activity.SplashActivity;
 import com.ycf.qianzhihe.section.conversation.ChatBgActivity;
 import com.ycf.qianzhihe.section.conversation.ChatRecordActivity;
 import com.ycf.qianzhihe.section.conversation.SetGroupManageActivity;
@@ -44,7 +48,9 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.zds.base.ImageLoad.GlideUtils;
+import com.zds.base.global.BaseConstant;
 import com.zds.base.json.FastJsonUtil;
+import com.zds.base.util.Preference;
 import com.zds.base.util.StringUtil;
 import com.zds.base.util.Utils;
 
@@ -192,6 +198,7 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
                 if (emConversation.conversationId().equals(emChatId)) {
                     if (isChecked) {
                         emConversation.setExtField("toTop");
+                        ToTopMap.save(MyGroupDetailActivity.this, emConversation.conversationId());
                     } else {
                         emConversation.setExtField("false");
                     }
