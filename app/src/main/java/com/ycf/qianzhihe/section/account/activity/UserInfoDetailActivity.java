@@ -252,13 +252,14 @@ public class UserInfoDetailActivity extends BaseInitActivity {
         mSwitchTopConversation.setOnCheckedChangeListener((buttonView,
                                                            isChecked) -> {
 
-            if (!emConversation.conversationId().equals(Constant.ADMIN)) {
+            if (emConversation != null && !emConversation.conversationId().equals(Constant.ADMIN)) {
                 if (emConversation.conversationId().contains(userId)) {
                     if (isChecked) {
                         emConversation.setExtField("toTop");
                         ToTopMap.save(UserInfoDetailActivity.this, emConversation.conversationId());
                     } else {
                         emConversation.setExtField("false");
+                        ToTopMap.delete(UserInfoDetailActivity.this, emConversation.conversationId());
                     }
                 }
             }

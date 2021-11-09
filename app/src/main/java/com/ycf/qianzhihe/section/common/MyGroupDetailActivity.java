@@ -39,6 +39,7 @@ import com.ycf.qianzhihe.app.utils.my.MyHelper;
 import com.ycf.qianzhihe.app.weight.CommonDialog;
 import com.ycf.qianzhihe.app.weight.ease.EaseAlertDialog;
 import com.ycf.qianzhihe.section.account.activity.SplashActivity;
+import com.ycf.qianzhihe.section.account.activity.UserInfoDetailActivity;
 import com.ycf.qianzhihe.section.conversation.ChatBgActivity;
 import com.ycf.qianzhihe.section.conversation.ChatRecordActivity;
 import com.ycf.qianzhihe.section.conversation.SetGroupManageActivity;
@@ -201,6 +202,7 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
                         ToTopMap.save(MyGroupDetailActivity.this, emConversation.conversationId());
                     } else {
                         emConversation.setExtField("false");
+                        ToTopMap.delete(MyGroupDetailActivity.this, emConversation.conversationId());
                     }
                 }
             }

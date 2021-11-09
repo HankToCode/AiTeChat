@@ -33,7 +33,22 @@ public class ToTopMap {
         } else {
             topMap = new ToTopMap();
         }
-        topMap.getList().add(0, emChatId);
+        if(!topMap.getList().contains(emChatId)){
+            topMap.getList().add(0, emChatId);
+            Preference.saveStringPreferences(context, BaseConstant.SP.KEY_TO_TOP_MAP, GsonUtils.toJson(topMap));
+        }
+    }
+
+    public static void delete(Context context, String emChatId) {
+        String toTopMap = Preference.getStringPreferences(context, BaseConstant.SP.KEY_TO_TOP_MAP, "");
+
+        ToTopMap topMap;
+        if (!StringUtil.isEmpty(toTopMap)) {
+            topMap = GsonUtils.fromJson(toTopMap, ToTopMap.class);
+        } else {
+            topMap = new ToTopMap();
+        }
+        topMap.getList().remove(emChatId);
 
         Preference.saveStringPreferences(context, BaseConstant.SP.KEY_TO_TOP_MAP, GsonUtils.toJson(topMap));
     }
