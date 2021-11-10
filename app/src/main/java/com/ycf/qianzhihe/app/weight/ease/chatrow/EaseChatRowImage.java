@@ -154,7 +154,7 @@ public class EaseChatRowImage extends EaseChatRowFile {
                 setImageViewLayoutParamsWithDrawable(imageView,drawable);
                 return false;
             }
-        }).apply(new RequestOptions().skipMemoryCache(true)).into(imageView);
+        }).apply(new RequestOptions().skipMemoryCache(false)).into(imageView);
 //        GlideUtils.loadImageViewCache(imageView.getContext(),imgBody.getRemoteUrl(),imageView);
         if (true) return;
 
