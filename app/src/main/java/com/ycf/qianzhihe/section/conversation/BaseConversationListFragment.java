@@ -24,6 +24,7 @@ import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.app.api.old_data.ToTopMap;
 import com.ycf.qianzhihe.app.base.BaseInitFragment;
+import com.ycf.qianzhihe.common.db.DemoDbHelper;
 import com.zds.base.global.BaseConstant;
 import com.zds.base.json.FastJsonUtil;
 import com.ycf.qianzhihe.app.weight.ease.EaseConversationList;
@@ -229,10 +230,14 @@ public class BaseConversationListFragment extends BaseInitFragment {
          * so use synchronized to make sure timestamp of last message won't change.
          */
         synchronized (conversations) {
+
+            List<String> localUsers = getLocalUsers();
             for (EMConversation conversation : conversations.values()) {
                 if (conversation.getAllMessages().size() != 0 && !conversation.conversationId().equals(Constant.ADMIN) && !conversation.getExtField().equals("toTop")) {
                     if (!"系统管理员".equals(conversation.getLastMessage().getFrom()) && !"em_system".equals(conversation.getLastMessage().getFrom())) {
-                        sortList.add(new Pair<Long, EMConversation>(conversation.getLastMessage().getMsgTime(), conversation));
+                        if (conversation.isGroup() || (localUsers != null && localUsers.contains(conversation.conversationId()))) {
+                            sortList.add(new Pair<Long, EMConversation>(conversation.getLastMessage().getMsgTime(), conversation));
+                        }
                     }
                 }
             }
@@ -265,6 +270,17 @@ public class BaseConversationListFragment extends BaseInitFragment {
         }
         return list;
     }
+
+    List<String> localUsers = null;
+
+    private List<String> getLocalUsers() {
+        //获取本地的好友列表
+        if (localUsers == null && DemoDbHelper.getInstance(mContext).getUserDao() != null) {
+            localUsers = DemoDbHelper.getInstance(mContext).getUserDao().loadAllUsers();
+        }
+        return localUsers;
+    }
+
 
     /**
      * sort conversations according time stamp of last message
