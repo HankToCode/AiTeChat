@@ -100,7 +100,7 @@ public class MyInfoActivity extends BaseInitActivity {
         title_bar.setOnBackPressListener(view -> finish());
         info = UserComm.getUserInfo();
         //手机号
-        mTvPhone.setText(info.getPhone());
+        mTvPhone.setText(info.getAccount());
         //昵称
         mTvName.setText(info.getNickName());
         //头像

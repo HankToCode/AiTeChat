@@ -200,7 +200,7 @@ public class ResetPayPwdActivity extends BaseInitActivity {
             et_img.requestFocus();
             return;
         }
-        final String phone = UserComm.getUserInfo().getPhone();
+        final String phone = UserComm.getUserInfo().getAccount();
         Map<String, Object> map = new HashMap<>();
         map.put("phone", phone);
         map.put("random", flag + "");

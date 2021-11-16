@@ -6,6 +6,9 @@ import com.ycf.qianzhihe.common.aes.AESCipher;
 import com.ycf.qianzhihe.common.utils.PreferenceManager;
 import com.ycf.qianzhihe.app.api.old_data.LoginInfo;
 import com.zds.base.json.FastJsonUtil;
+import com.zds.base.util.StringUtil;
+
+import io.agora.rtc.models.UserInfo;
 
 
 public class UserComm {
@@ -24,23 +27,29 @@ public class UserComm {
         if (IsOnLine()) {
             return userInfo.getTokenId();
         } else {
-            return  "";
+            return "";
         }
     }
 
-    public static String getUserId(){
+    public static String getUserId() {
         if (IsOnLine()) {
             return userInfo.getUserId();
         } else {
-            return  "";
+            return "";
         }
     }
 
     public static void saveUsersInfo(LoginInfo info) {
+        if (StringUtil.isEmpty(info.getAccount())) {
+            info.setAccount(UserComm.getUserInfo().getAccount());
+        }
+        if (StringUtil.isEmpty(info.getPassword())) {
+            info.setPassword(UserComm.getUserInfo().getPassword());
+        }
         userInfo = info;
         String data = FastJsonUtil.toJSONString(userInfo);
         data = AESCipher.encrypt(data);
-        PreferenceManager.getInstance().saveUserData(SP.TAG_USER_INFO,data);
+        PreferenceManager.getInstance().saveUserData(SP.TAG_USER_INFO, data);
     }
 
     public static LoginInfo getUserInfo() {
@@ -51,12 +60,13 @@ public class UserComm {
 
         return userInfo;
     }
+
     /**
      * 清除本地缓存的用户登录信息
      */
     public static void clearUserInfo() {
         userInfo = null;
-        PreferenceManager.getInstance().setParam(SP.TAG_USER_INFO,"");
+        PreferenceManager.getInstance().setParam(SP.TAG_USER_INFO, "");
     }
 
     /**
@@ -67,7 +77,7 @@ public class UserComm {
         String data = (String) PreferenceManager.getInstance().getUserData(SP.TAG_USER_INFO);
         if (!TextUtils.isEmpty(data)) {
             data = AESCipher.decrypt(data);
-            userInfo = FastJsonUtil.getObject(data,LoginInfo.class);
+            userInfo = FastJsonUtil.getObject(data, LoginInfo.class);
             result = true;
         }
         return result;

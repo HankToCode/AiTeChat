@@ -199,10 +199,9 @@ public class MultiAccountActivity extends BaseInitActivity implements LoginAccou
                 dismissLoading();
                 if (json != null) {
                     LoginInfo loginInfo = JSON.parseObject(json, LoginInfo.class);
-                    loginInfo.setPassword(loginInfos.get(position).getPassword());
-                    PreferenceManager.getInstance().setParam(SP.SP_LANDED_ON_LOGIN, loginInfos.get(position).getAccount());
-
                     if (loginInfo != null) {
+                        loginInfo.setPassword(loginInfos.get(position).getPassword());
+                        PreferenceManager.getInstance().setParam(SP.SP_LANDED_ON_LOGIN, loginInfos.get(position).getAccount());
                         UserComm.saveUsersInfo(loginInfo);
                         DemoDbHelper.getInstance(mContext).initDb(loginInfos.get(position).getAccount());
                         CommonApi.upUserInfo(mContext);

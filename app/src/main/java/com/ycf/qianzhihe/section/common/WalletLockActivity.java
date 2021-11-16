@@ -52,7 +52,7 @@ public class WalletLockActivity extends BaseInitActivity {
                 .setView(verifyCodeView)
                 .loadAniamtion()
                 .create();
-        verifyCodeView.setPhone(UserComm.getUserInfo().getPhone().replaceAll("(\\d{3})\\d{4}(\\d{4})","$1****$2"));
+        verifyCodeView.setPhone(UserComm.getUserInfo().getAccount().replaceAll("(\\d{3})\\d{4}(\\d{4})","$1****$2"));
         verifyCodeView.setVerifyCodeListener(new VerifyCodeView.OnVerifyCodeListener() {
             @Override
             public void inputComplete(String code) {

@@ -64,6 +64,7 @@ import org.greenrobot.eventbus.EventBus;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -175,18 +176,20 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
                         user.setNickname(currentUser.getNickName());
                         user.setAvatar(currentUser.getUserHead());
                         user.setUserCode(currentUser.getUserCode());
-                        user.setAccount(currentUser.getPhone());
+                        user.setAccount(currentUser.getAccount());
                         user.setPassword(currentUser.getPassword());
                         //去重
                         if (localFriendList.size() > 0) {
-                            for (int i = 0; i < localFriendList.size(); i++) {
-                                if (!user.getAccount().equals(localFriendList.get(i).getAccount())) {
-                                    localFriendList.add(user);
+                            Iterator<EaseUser> it = localFriendList.iterator();
+                            while (it.hasNext()) {
+                                EaseUser easeUser = it.next();
+                                if (user.getAccount().equals(easeUser.getAccount()) || StringUtil.isEmpty(easeUser.getAccount())) {
+                                    it.remove();
                                 }
                             }
-                        } else {
-                            localFriendList.add(user);
                         }
+                        localFriendList.add(user);
+
                         UserOperateManager.getInstance().saveLoginAccountToLocal(FastJsonUtil.toJSONString(localFriendList));
                     } catch (Exception ignored) {
 
@@ -362,10 +365,10 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
             public void onSuccess(String json, String msg) {
                 if (json != null) {
                     LoginInfo loginInfo = JSON.parseObject(json, LoginInfo.class);
-                    loginInfo.setPassword(mPwd);
-                    PreferenceManager.getInstance().setParam(SP.SP_LANDED_ON_LOGIN, mUserName);
-
                     if (loginInfo != null) {
+                        loginInfo.setPassword(mPwd);
+                        loginInfo.setAccount(loginInfo.getPhone());
+                        PreferenceManager.getInstance().setParam(SP.SP_LANDED_ON_LOGIN, mUserName);
                         UserComm.saveUsersInfo(loginInfo);
                         DemoDbHelper.getInstance(mContext).initDb(mUserName);
                         CommonApi.upUserInfo(mContext);
@@ -408,10 +411,10 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
             public void onSuccess(String json, String msg) {
                 if (json != null) {
                     LoginInfo loginInfo = JSON.parseObject(json, LoginInfo.class);
-
-                    PreferenceManager.getInstance().setParam(SP.SP_LANDED_ON_LOGIN, mUserName);
-
                     if (loginInfo != null) {
+                        loginInfo.setAccount(loginInfo.getPhone());
+                        PreferenceManager.getInstance().setParam(SP.SP_LANDED_ON_LOGIN, mUserName);
+
                         UserComm.saveUsersInfo(loginInfo);
                         DemoDbHelper.getInstance(mContext).initDb(mUserName);
                     }

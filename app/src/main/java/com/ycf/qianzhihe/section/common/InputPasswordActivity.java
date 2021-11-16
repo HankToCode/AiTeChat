@@ -142,7 +142,7 @@ public class InputPasswordActivity extends BaseInitActivity {
         Map<String, Object> map = new HashMap<>();
         map.put("newPayPwd", password);
         map.put("authCode", code);
-        map.put("phone", UserComm.getUserInfo().getPhone());
+        map.put("phone", UserComm.getUserInfo().getAccount());
         ApiClient.requestNetHandle(this, AppConfig.forgetPassword, "正在提交...", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {

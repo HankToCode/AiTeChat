@@ -35,6 +35,7 @@ public class LoginInfo implements Serializable {
     private String userHead;
     private String userCode;
     private String phone;
+    private String account = "";
     private String password;
     private String passwordSalt;
     private String sign;
@@ -217,6 +218,11 @@ public class LoginInfo implements Serializable {
         this.userCode = userCode;
     }
 
+    /**
+     *
+     * @return 用到这个字段使用account代替
+     */
+    @Deprecated
     public String getPhone() {
         return phone;
     }
@@ -287,5 +293,13 @@ public class LoginInfo implements Serializable {
 
     public void setHandRate(String handRate) {
         this.handRate = handRate;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
     }
 }

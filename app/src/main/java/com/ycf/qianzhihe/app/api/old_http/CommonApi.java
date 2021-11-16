@@ -39,7 +39,6 @@ public class CommonApi {
                 if (json != null) {
                     LoginInfo loginInfo = JSON.parseObject(json, LoginInfo.class);
                     if (loginInfo != null) {
-                        loginInfo.setPassword(UserComm.getUserInfo().getPassword());
                         UserComm.saveUsersInfo(loginInfo);
                         EventBus.getDefault().post(new EventCenter(EventUtil.FLUSHUSERINFO));
                     }
