@@ -22,10 +22,17 @@ import com.hyphenate.chat.EMConversation;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
+import com.ycf.qianzhihe.app.api.old_data.ContactListInfo;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.app.api.old_data.ToTopMap;
+import com.ycf.qianzhihe.app.api.old_http.ApiClient;
+import com.ycf.qianzhihe.app.api.old_http.AppConfig;
+import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.base.BaseInitFragment;
+import com.ycf.qianzhihe.app.domain.EaseUser;
+import com.ycf.qianzhihe.app.operate.UserOperateManager;
 import com.ycf.qianzhihe.common.db.DemoDbHelper;
+import com.zds.base.Toast.ToastUtil;
 import com.zds.base.global.BaseConstant;
 import com.zds.base.json.FastJsonUtil;
 import com.ycf.qianzhihe.app.weight.ease.EaseConversationList;
@@ -37,6 +44,7 @@ import org.greenrobot.eventbus.EventBus;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -253,6 +261,11 @@ public class BaseConversationListFragment extends BaseInitFragment {
                     }
                 }
             }
+
+            if (localUsers == null) {
+                getContactList();
+            }
+
         }
         try {
             // Internal is TimSort algorithm, has bug
@@ -287,12 +300,57 @@ public class BaseConversationListFragment extends BaseInitFragment {
 
     private List<String> getLocalUsers() {
         //获取本地的好友列表
-        if (localUsers == null && DemoDbHelper.getInstance(mContext).getUserDao() != null) {
+        if (DemoDbHelper.getInstance(mContext).getUserDao() != null) {
             localUsers = DemoDbHelper.getInstance(mContext).getUserDao().loadAllUsers();
         }
+
+
         return localUsers;
     }
 
+
+    /**
+     * query contact
+     *
+     * @param
+     */
+    public void getContactList() {
+        Map<String, Object> map = new HashMap<>(2);
+        map.put("pageNum", 1);
+        map.put("pageSize", 10000);
+
+        //未同步通讯录到本地
+        ApiClient.requestNetHandle(getActivity(), AppConfig.USER_FRIEND_LIST,
+                "", map, new ResultListener() {
+                    @Override
+                    public void onSuccess(String json, String msg) {
+                        ContactListInfo info = FastJsonUtil.getObject(json,
+                                ContactListInfo.class);
+                        if (info != null && info.getData() != null && info.getData().size() > 0) {
+                            UserOperateManager.getInstance().saveContactListToLocal(info, json);
+
+                            localUsers = new ArrayList<>();
+                            for (ContactListInfo.DataBean dataBean : info.getData()) {
+                                localUsers.add(dataBean.getFriendUserId() + Constant.ID_REDPROJECT);
+                            }
+
+                            conversationList.clear();
+                            conversationList.addAll(loadConversationList());
+                            conversationListView.init(conversationList);
+                            conversationListView.refresh();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+                        ToastUtil.toast(msg);
+                    }
+                });
+
+
+        //// sorting
+
+    }
 
     /**
      * sort conversations according time stamp of last message
