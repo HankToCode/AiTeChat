@@ -197,7 +197,7 @@ dependencies {
     implementation 'io.agora.rtc:full-sdk:3.5.0'
 
     //--- 旧Lib ---
-    implementation project(':AndroidBase')
+    implementation project(':Module_Lib:AndroidBase')
 
     implementation rootProject.ext.dependencies["multidex"]
     implementation rootProject.ext.dependencies["butterknife"]
