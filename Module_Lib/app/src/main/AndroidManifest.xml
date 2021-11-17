@@ -285,7 +285,7 @@
             android:value="${BAIDU_LOCATION_APPKEY}" />
         <!--主页-->
         <activity
-            android:name="com.ycf.qianzhihe.MainActivity"
+            android:name="MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
