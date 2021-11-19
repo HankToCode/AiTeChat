@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.hyphenate.easeui.widget.EaseImageView;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.app.api.old_data.GroupDetailInfo;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
@@ -44,18 +45,18 @@ import com.zds.base.Toast.ToastUtil;
  */
 public class NoticeActivity extends BaseInitActivity {
 
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar title_bar;
 
-    @BindView(R.id.img_head)
+    @BindView(R2.id.img_head)
     EaseImageView mImgHead;
-    @BindView(R.id.tv_name)//群主
+    @BindView(R2.id.tv_name)//群主
     TextView mTvName;
-    @BindView(R.id.tv_time)//发布时间
+    @BindView(R2.id.tv_time)//发布时间
     TextView mTvTime;
-    @BindView(R.id.tv_notice)
+    @BindView(R2.id.tv_notice)
     TextView mNotice;
-    @BindView(R.id.et_notice)
+    @BindView(R2.id.et_notice)
     TextView mEtNotice;
     private String groupId;
     private String toChatUsername;

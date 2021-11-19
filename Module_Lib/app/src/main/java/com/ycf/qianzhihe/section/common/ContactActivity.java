@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.blankj.utilcode.util.GsonUtils;
 import com.google.gson.JsonObject;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.adapter.ContactAdapter;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.old_data.ContactListInfo;
@@ -56,19 +57,19 @@ public class ContactActivity extends BaseInitActivity {
         context.startActivity(intent);
     }
 
-    @BindView(R.id.toolbar_title)
+    @BindView(R2.id.toolbar_title)
     TextView mToolbarTitle;
-    @BindView(R.id.toolbar_subtitle)
+    @BindView(R2.id.toolbar_subtitle)
     TextView mToolSubTitle;
-    @BindView(R.id.rv_group)
+    @BindView(R2.id.rv_group)
     RecyclerView mRvGroup;
-    @BindView(R.id.query)
+    @BindView(R2.id.query)
     EditText mQuery;
-    @BindView(R.id.search_clear)
+    @BindView(R2.id.search_clear)
     ImageButton mSearchClear;
-    @BindView(R.id.img_left_back)
+    @BindView(R2.id.img_left_back)
     ImageView mImgLeftBack;
-    @BindView(R.id.tv_back)
+    @BindView(R2.id.tv_back)
     TextView mTvBack;
     private String inGroupFriendUserId;
     private List<ContactListInfo.DataBean> mContactList;

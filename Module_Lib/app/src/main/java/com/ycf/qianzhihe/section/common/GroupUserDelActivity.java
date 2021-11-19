@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.adapter.GroupUserMultiSelectListAdapter;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
@@ -44,19 +45,19 @@ import com.zds.base.Toast.ToastUtil;
  * 设置群管理员-群用户列表，选择管理员
  */
 public class GroupUserDelActivity extends BaseInitActivity {
-    @BindView(R.id.toolbar_title)
+    @BindView(R2.id.toolbar_title)
     TextView mToolbarTitle;
-    @BindView(R.id.toolbar_subtitle)
+    @BindView(R2.id.toolbar_subtitle)
     TextView mToolSubTitle;
-    @BindView(R.id.rv_group)
+    @BindView(R2.id.rv_group)
     RecyclerView mRvGroup;
-    @BindView(R.id.query)
+    @BindView(R2.id.query)
     EditText mQuery;
-    @BindView(R.id.search_clear)
+    @BindView(R2.id.search_clear)
     ImageButton mSearchClear;
-    @BindView(R.id.img_left_back)
+    @BindView(R2.id.img_left_back)
     ImageView mImgLeftBack;
-    @BindView(R.id.tv_back)
+    @BindView(R2.id.tv_back)
     TextView mTvBack;
     private GroupDetailInfo groupDetailInfo;
     private List<GroupDetailInfo.GroupUserDetailVoListBean> mGroupUserList = new ArrayList<>();

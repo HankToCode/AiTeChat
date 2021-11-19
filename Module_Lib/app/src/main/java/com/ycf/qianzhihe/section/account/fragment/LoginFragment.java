@@ -253,39 +253,29 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tv_login_register:
-                RegisterActivity.actionStart(requireContext());
-                break;
-            case R.id.btn_login:
-                hideKeyboard();
-                loginToServer();
-                break;
-            case R.id.tv_forget_password:
-                hideKeyboard();
-                UpDataPasswordActivity.actionStart(requireContext());
-                break;
-            case R.id.tv_switch_login:
-                hideKeyboard();
-                switchLoginMethod();
-                break;
-            case R.id.iv_chat_login:
-                hideKeyboard();
-                break;
-            case R.id.tv_frozen:
-                hideKeyboard();
-                AccountManagerActivity.actionStart(requireContext(), Constant.ACCOUNT_FREEZE);
-                break;
-            case R.id.tv_unfrozen:
-                hideKeyboard();
-                AccountManagerActivity.actionStart(requireContext(), Constant.ACCOUNT_THAW);
-                break;
-            case R.id.tv_sms_send:
-                initLoginCountTimer();
-                getLoginSMSCode();
-                break;
-            default:
-                break;
+        int id = v.getId();
+        if (id == R.id.tv_login_register) {
+            RegisterActivity.actionStart(requireContext());
+        } else if (id == R.id.btn_login) {
+            hideKeyboard();
+            loginToServer();
+        } else if (id == R.id.tv_forget_password) {
+            hideKeyboard();
+            UpDataPasswordActivity.actionStart(requireContext());
+        } else if (id == R.id.tv_switch_login) {
+            hideKeyboard();
+            switchLoginMethod();
+        } else if (id == R.id.iv_chat_login) {
+            hideKeyboard();
+        } else if (id == R.id.tv_frozen) {
+            hideKeyboard();
+            AccountManagerActivity.actionStart(requireContext(), Constant.ACCOUNT_FREEZE);
+        } else if (id == R.id.tv_unfrozen) {
+            hideKeyboard();
+            AccountManagerActivity.actionStart(requireContext(), Constant.ACCOUNT_THAW);
+        } else if (id == R.id.tv_sms_send) {
+            initLoginCountTimer();
+            getLoginSMSCode();
         }
     }
 

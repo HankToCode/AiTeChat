@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.baidu.mapapi.common.SysOSUtil;
 import com.bumptech.glide.Glide;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.new_data.ImageListBean;
 import com.ycf.qianzhihe.app.base.BaseInitFragment;
 import com.ycf.qianzhihe.app.base.WebViewActivity;
@@ -34,19 +35,19 @@ import butterknife.OnClick;
 
 public class DiscoverFragment extends BaseInitFragment implements OnBannerListener {
 
-    @BindView(R.id.ll_dc1)
+    @BindView(R2.id.ll_dc1)
     LinearLayout iv_dc1;
-    @BindView(R.id.ll_dc2)
+    @BindView(R2.id.ll_dc2)
     LinearLayout iv_dc2;
-    @BindView(R.id.ll_dc3)
+    @BindView(R2.id.ll_dc3)
     LinearLayout iv_dc3;
-    @BindView(R.id.ll_dc4)
+    @BindView(R2.id.ll_dc4)
     LinearLayout iv_dc4;
-    @BindView(R.id.ll_dc5)
+    @BindView(R2.id.ll_dc5)
     LinearLayout iv_dc5;
-    @BindView(R.id.ll_dc6)
+    @BindView(R2.id.ll_dc6)
     LinearLayout iv_dc6;
-    @BindView(R.id.banner)
+    @BindView(R2.id.banner)
     Banner banner;
     private ArrayList<Integer> list_path;
     private ArrayList<String> list_title;
@@ -83,29 +84,22 @@ public class DiscoverFragment extends BaseInitFragment implements OnBannerListen
 
     }
 
-    @OnClick({R.id.ll_dc1, R.id.ll_dc2, R.id.ll_dc3, R.id.ll_dc4, R.id.ll_dc5, R.id.ll_dc6})
+    @OnClick({R2.id.ll_dc1, R2.id.ll_dc2, R2.id.ll_dc3, R2.id.ll_dc4, R2.id.ll_dc5, R2.id.ll_dc6})
     public void click(View v) {
         String url = "";
-        switch (v.getId()) {
-            case R.id.ll_dc1:
-//                url = "http://meishi.meituan.com/i/?ci=268&stid_b=1&cevent=imt%2Fhomepage%2Fcategory1%2F1";
-                url = "https://www.meituan.com/";
-                break;
-            case R.id.ll_dc2:
-                url = "https://h5.ele.me/";
-                break;
-            case R.id.ll_dc3:
-                url = "https://www.jd.com/brand/13196fb3651ed8a45efe.html";
-                break;
-            case R.id.ll_dc4:
-                url = "https://s.taobao.com/";
-                break;
-            case R.id.ll_dc5:
-                url = "https://news.qq.com/";
-                break;
-            case R.id.ll_dc6:
-                url = "https://new.qq.com/ch/cul/";
-                break;
+        int id = v.getId();
+        if (id == R.id.ll_dc1) {//                url = "http://meishi.meituan.com/i/?ci=268&stid_b=1&cevent=imt%2Fhomepage%2Fcategory1%2F1";
+            url = "https://www.meituan.com/";
+        } else if (id == R.id.ll_dc2) {
+            url = "https://h5.ele.me/";
+        } else if (id == R.id.ll_dc3) {
+            url = "https://www.jd.com/brand/13196fb3651ed8a45efe.html";
+        } else if (id == R.id.ll_dc4) {
+            url = "https://s.taobao.com/";
+        } else if (id == R.id.ll_dc5) {
+            url = "https://news.qq.com/";
+        } else if (id == R.id.ll_dc6) {
+            url = "https://new.qq.com/ch/cul/";
         }
         startActivity(new Intent(mContext, WebViewActivity.class).putExtra("title", "lan").putExtra("url", url));
     }

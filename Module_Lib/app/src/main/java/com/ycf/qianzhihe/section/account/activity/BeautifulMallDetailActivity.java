@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.adapter.SpecialOfferAdapter;
 import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.new_data.UserCodeMallListBean;
@@ -37,13 +38,13 @@ import butterknife.OnClick;
 
 public class BeautifulMallDetailActivity extends BaseInitActivity {
 
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar title_bar;
-    @BindView(R.id.tv_pay)
+    @BindView(R2.id.tv_pay)
     TextView tv_pay;
-    @BindView(R.id.tv_money)
+    @BindView(R2.id.tv_money)
     TextView tv_money;
-    @BindView(R.id.tv_user_code)
+    @BindView(R2.id.tv_user_code)
     TextView tv_user_code;
     private String money,userCode,id;
 
@@ -77,7 +78,7 @@ public class BeautifulMallDetailActivity extends BaseInitActivity {
         id = intent.getStringExtra("id");
     }
 
-    @OnClick(R.id.tv_pay)
+    @OnClick(R2.id.tv_pay)
     public void click(View v) {
         if (v.getId() == R.id.tv_pay) {
             payPassword();

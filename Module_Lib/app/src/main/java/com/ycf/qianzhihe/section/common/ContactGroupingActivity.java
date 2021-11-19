@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hyphenate.easeui.constants.EaseConstant;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.adapter.ContactAdapter;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
@@ -62,25 +63,25 @@ public class ContactGroupingActivity extends BaseInitActivity {
         context.startActivity(intent);
     }
 
-    @BindView(R.id.toolbar_title)
+    @BindView(R2.id.toolbar_title)
     TextView mToolbarTitle;
-    @BindView(R.id.toolbar_subtitle)
+    @BindView(R2.id.toolbar_subtitle)
     TextView mToolSubTitle;
-    @BindView(R.id.rv_group)
+    @BindView(R2.id.rv_group)
     RecyclerView mRvGroup;
-    @BindView(R.id.query)
+    @BindView(R2.id.query)
     EditText mQuery;
-    @BindView(R.id.search_clear)
+    @BindView(R2.id.search_clear)
     ImageButton mSearchClear;
-    @BindView(R.id.img_left_back)
+    @BindView(R2.id.img_left_back)
     ImageView mImgLeftBack;
-    @BindView(R.id.tv_back)
+    @BindView(R2.id.tv_back)
     TextView mTvBack;
     private String inGroupFriendUserId;
     private List<ContactListInfo.DataBean> mContactList;
     private ContactAdapter mContactAdapter;
     private List<ContactListInfo.DataBean> selectItem = new ArrayList<>();//
-    @BindView(R.id.elv_expand)
+    @BindView(R2.id.elv_expand)
     ExpandableListView elv_expand;
     private ArrayList<String> mGroupingNameList;//分组数据
     //item成员数据

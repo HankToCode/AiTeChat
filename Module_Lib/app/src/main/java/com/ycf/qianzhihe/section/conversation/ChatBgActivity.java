@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.old_data.ChatBgInfo;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
@@ -49,9 +50,9 @@ public class ChatBgActivity extends BaseInitActivity implements ChatBgAdapter.Se
     public static final String BG_NONE = "none";
 
 
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar mTitleBar;
-    @BindView(R.id.rv_chat_bg)
+    @BindView(R2.id.rv_chat_bg)
     RecyclerView mRvChatBg;
     private String from = "";
     private String emChatId;
@@ -95,14 +96,10 @@ public class ChatBgActivity extends BaseInitActivity implements ChatBgAdapter.Se
     }
 
 
-    @OnClick({R.id.tv_sel_pic})
+    @OnClick({R2.id.tv_sel_pic})
     public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.tv_sel_pic:
-                toSelectPic();
-                break;
-            default:
-                break;
+        if (view.getId() == R.id.tv_sel_pic) {
+            toSelectPic();
         }
     }
 

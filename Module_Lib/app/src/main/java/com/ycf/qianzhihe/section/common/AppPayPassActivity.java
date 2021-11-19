@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.widget.TextView;
 
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
@@ -18,9 +19,9 @@ import butterknife.BindView;
  * 支付密码
  */
 public class AppPayPassActivity extends BaseInitActivity {
-    @BindView(R.id.toolbar_title)
+    @BindView(R2.id.toolbar_title)
     TextView mToolbarTitle;
-    @BindView(R.id.pwd_view)
+    @BindView(R2.id.pwd_view)
     PasswordView mPwdView;
     private String mFrom;
     private String authCode;

@@ -10,6 +10,7 @@ import com.ycf.qianzhihe.BuildConfig;
 import com.ycf.qianzhihe.DemoApplication;
 import com.ycf.qianzhihe.app.api.old_data.AesInfo;
 import com.ycf.qianzhihe.app.api.old_data.VersionInfo;
+import com.ycf.qianzhihe.app.platform.PlatformFactory;
 import com.ycf.qianzhihe.common.utils.CretinAutoUpdateUtils;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.json.FastJsonUtil;
@@ -40,7 +41,7 @@ public class AppConfig {
     /**
      * 服务器
      */
-    public static final String baseService = BuildConfig.BASEURL;
+    public static final String baseService = PlatformFactory.getPlatform().getBaseUrl();
     /**
      * 主地址
      */
@@ -49,7 +50,7 @@ public class AppConfig {
     /**
      * 图片地址
      */
-    public static String ImageMainUrl = BuildConfig.BASEURL + "aiteApi/profile/";//aiteApi/ xgp add 图像不显示问题
+    public static String ImageMainUrl = PlatformFactory.getPlatform().getBaseUrl() + "aiteApi/profile/";//aiteApi/ xgp add 图像不显示问题
 
     /**
      * 商城地址
@@ -174,11 +175,11 @@ public class AppConfig {
     /**
      * 好友列表
      */
-    public static String USER_FRIEND_LIST           = mainUrl + "app_user_friend/findUserFriendVosByPageCache";
+    public static String USER_FRIEND_LIST = mainUrl + "app_user_friend/findUserFriendVosByPageCache";
 
-    public static String GET_INVITE_USER_LIST       = mainUrl + "app_user_friend/findUserFriendVosByPage";
+    public static String GET_INVITE_USER_LIST = mainUrl + "app_user_friend/findUserFriendVosByPage";
 
-    public static String CHECK_FRIEND_DATA_VERSION  = mainUrl + "app_user_friend/getUserFriendCacheVersion";
+    public static String CHECK_FRIEND_DATA_VERSION = mainUrl + "app_user_friend/getUserFriendCacheVersion";
 
     /**
      * 拉黑好友
@@ -467,15 +468,15 @@ public class AppConfig {
     /**
      * 登录
      */
-    public static String toLoginUrl             = mainUrl + "app_user/login";
-    public static String multiLogin             = mainUrl + "app_device/multiDeviceLogin";
-    public static String getDeviceList          = mainUrl + "app_device/getDevList";
-    public static String isSingleDevice          = mainUrl + "app_device/isSingleDevice";
-    public static String sendMultiDeviceCode    = mainUrl + "app_device/sendMultiDeviceCode";
-    public static String openMultiDevice        = mainUrl + "app_device/openMultiDevice";
-    public static String stopMultiDevice        = mainUrl + "app_device/stopMultiDevice";
-    public static String isOpenMultiDevice      = mainUrl + "app_device/isOpenMultiDevice";
-    public static String multiDeviceLogout      = mainUrl + "app_device/multiDeviceLogout";
+    public static String toLoginUrl = mainUrl + "app_user/login";
+    public static String multiLogin = mainUrl + "app_device/multiDeviceLogin";
+    public static String getDeviceList = mainUrl + "app_device/getDevList";
+    public static String isSingleDevice = mainUrl + "app_device/isSingleDevice";
+    public static String sendMultiDeviceCode = mainUrl + "app_device/sendMultiDeviceCode";
+    public static String openMultiDevice = mainUrl + "app_device/openMultiDevice";
+    public static String stopMultiDevice = mainUrl + "app_device/stopMultiDevice";
+    public static String isOpenMultiDevice = mainUrl + "app_device/isOpenMultiDevice";
+    public static String multiDeviceLogout = mainUrl + "app_device/multiDeviceLogout";
     /**
      * 验证码登录
      */
@@ -796,9 +797,7 @@ public class AppConfig {
     public static final String FRIEND_LIST = mainUrl + "userFriend/listFriend";
 
     /**
-
-
-    /**
+     * /**
      * 签到
      */
     public static String signIn = mainUrl + "api/frontBase/userSign/create";
@@ -1022,7 +1021,7 @@ public class AppConfig {
 
     public static String register_agree = mainUrl + "xieyi/web/user_agree.html";//隐私政策
     public static String user_agree = mainUrl + "xieyi/web/register_agree.html";//用户协议
-    public static String appurl =  "http://app.hnyunliao.com/index.html";//官网
+    public static String appurl = "http://app.hnyunliao.com/index.html";//官网
 
     /**
      * 设置好友昵称
@@ -1096,12 +1095,12 @@ public class AppConfig {
     /**
      * 转账
      */
-    public static String walletTransfer= mainUrl + "app_user_transfer/transferCreate";
+    public static String walletTransfer = mainUrl + "app_user_transfer/transferCreate";
 
     /**
      * 转账查询
      */
-    public static String walletTransferQuery= mainUrl + "app_user_transfer/transferQuery";
+    public static String walletTransferQuery = mainUrl + "app_user_transfer/transferQuery";
 
     /**
      * 转账确认收款
@@ -1135,7 +1134,6 @@ public class AppConfig {
     public static String modifyFriendStarTarget = mainUrl + "app_user_friend/modifyFriendStarTarget";
     //同步成长值
     public static String saveUserGrowthValue = mainUrl + "app_user/saveUserGrowthValue";
-
 
 
     /**
@@ -1207,7 +1205,6 @@ public class AppConfig {
             });
         }
     }
-
 
 
 }

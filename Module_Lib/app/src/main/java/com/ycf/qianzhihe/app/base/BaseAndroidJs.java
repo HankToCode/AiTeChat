@@ -304,20 +304,15 @@ public class BaseAndroidJs extends Object {
         DemoApplication.getInstance().shareDialog(mActivity, new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                switch (view.getId()) {
-                    /**
-                     * 微信好友
-                     */
-                    case R.id.wx_chat:
-                        ShareUtil.shareUrl(mActivity, shareInfo.getUrl(), shareInfo.getTitle(), shareInfo.getPrice(), shareInfo.getThumb(), SendMessageToWX.Req.WXSceneSession);
-                        break;
+                int id = view.getId(); /**
+                 * 微信好友
+                 */if (id == R.id.wx_chat) {
+                    ShareUtil.shareUrl(mActivity, shareInfo.getUrl(), shareInfo.getTitle(), shareInfo.getPrice(), shareInfo.getThumb(), SendMessageToWX.Req.WXSceneSession);
                     /**
                      * 微信朋友圈
                      */
-                    case R.id.wx_qun:
-                        ShareUtil.shareUrl(mActivity, shareInfo.getUrl(), shareInfo.getTitle(), shareInfo.getPrice(), shareInfo.getThumb(), SendMessageToWX.Req.WXSceneTimeline);
-                        break;
-                    default:
+                } else if (id == R.id.wx_qun) {
+                    ShareUtil.shareUrl(mActivity, shareInfo.getUrl(), shareInfo.getTitle(), shareInfo.getPrice(), shareInfo.getThumb(), SendMessageToWX.Req.WXSceneTimeline);
                 }
             }
         });

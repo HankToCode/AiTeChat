@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.adapter.SpecialOfferAdapter;
 import com.ycf.qianzhihe.app.adapter.UserCodeMoreAdapter;
 import com.ycf.qianzhihe.app.api.old_data.TransferRecordInfo;
@@ -37,11 +38,11 @@ import butterknife.BindView;
  * 靓号更多
  */
 public class UserCodeMoreActivity extends BaseInitActivity {
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar mTitleBar;
-    @BindView(R.id.gv_gridview)
+    @BindView(R2.id.gv_gridview)
     GridView gv_gridview;
-    @BindView(R.id.tv_no_data)
+    @BindView(R2.id.tv_no_data)
     TextView mTvNoData;
     private String category;
     private UserCodeMoreAdapter moreAdapter;

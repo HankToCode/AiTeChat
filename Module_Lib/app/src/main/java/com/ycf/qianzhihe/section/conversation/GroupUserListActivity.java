@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.global.UserComm;
@@ -51,13 +52,13 @@ public class GroupUserListActivity extends BaseInitActivity {
         context.startActivity(starter);
     }
 
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar mTitleBar;
-    @BindView(R.id.rv_group)
+    @BindView(R2.id.rv_group)
     RecyclerView mRvGroup;
-    @BindView(R.id.query)
+    @BindView(R2.id.query)
     EditText mQuery;
-    @BindView(R.id.search_clear)
+    @BindView(R2.id.search_clear)
     ImageButton mSearchClear;
     private List<GroupDetailInfo.GroupUserDetailVoListBean> mGroupUserList = new ArrayList<>();
     private GroupUserListAdapter mGroupUserListAdapter;

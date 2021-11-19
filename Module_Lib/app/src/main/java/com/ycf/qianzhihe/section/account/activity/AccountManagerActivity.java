@@ -204,16 +204,11 @@ public class AccountManagerActivity extends BaseInitActivity implements View.OnC
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.tv_sms_send:
-                getCode();
-                break;
-            case R.id.btn_submit:
-                operateAccount();
-                break;
-
-            default:
-                break;
+        int id = view.getId();
+        if (id == R.id.tv_sms_send) {
+            getCode();
+        } else if (id == R.id.btn_submit) {
+            operateAccount();
         }
     }
 }

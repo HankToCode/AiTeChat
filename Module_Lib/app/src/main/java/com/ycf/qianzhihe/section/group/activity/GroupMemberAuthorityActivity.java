@@ -156,26 +156,22 @@ public class GroupMemberAuthorityActivity extends BaseInitActivity implements Ea
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_group_member :
-                flag = TYPE_MEMBER;
-                refreshData();
-                invalidateOptionsMenu();
-                break;
-            case R.id.action_group_black :
-                flag = TYPE_BLACK;
-                refreshData();
-                invalidateOptionsMenu();
-                break;
-            case R.id.action_group_mute :
-                flag = TYPE_MUTE;
-                refreshData();
-                invalidateOptionsMenu();
-                break;
-            case R.id.action_group_add :
-                GroupPickContactsActivity.actionStartForResult(mContext,
-                        groupId, false, REQUEST_CODE_ADD_USER);
-                break;
+        int itemId = item.getItemId();
+        if (itemId == R.id.action_group_member) {
+            flag = TYPE_MEMBER;
+            refreshData();
+            invalidateOptionsMenu();
+        } else if (itemId == R.id.action_group_black) {
+            flag = TYPE_BLACK;
+            refreshData();
+            invalidateOptionsMenu();
+        } else if (itemId == R.id.action_group_mute) {
+            flag = TYPE_MUTE;
+            refreshData();
+            invalidateOptionsMenu();
+        } else if (itemId == R.id.action_group_add) {
+            GroupPickContactsActivity.actionStartForResult(mContext,
+                    groupId, false, REQUEST_CODE_ADD_USER);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -368,41 +364,32 @@ public class GroupMemberAuthorityActivity extends BaseInitActivity implements Ea
         menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.action_group_add_admin ://设为管理员
-                        addToAdmins(username);
-                        break;
-                    case R.id.action_group_remove_admin ://移除管理员
-                        removeFromAdmins(username);
-                        break;
-                    case R.id.action_group_transfer_owner ://移交群主
-                        transferOwner(username);
-                        break;
-                    case R.id.action_group_remove_member ://踢出群
-                        new SimpleDialogFragment.Builder(mContext)
-                                .setTitle(R.string.em_authority_remove_group)
-                                .setOnConfirmClickListener(new DemoDialogFragment.OnConfirmClickListener() {
-                                    @Override
-                                    public void onConfirmClick(View view) {
-                                        removeFromGroup(username);
-                                    }
-                                })
-                                .showCancelButton(true)
-                                .show();
-
-                        break;
-                    case R.id.action_group_add_black ://加入黑名单
-                        addToBlack(username);
-                        break;
-                    case R.id.action_group_remove_black ://移出黑名单
-                        removeFromBlacks(username);
-                        break;
-                    case R.id.action_group_mute ://禁言
-                        AddToMuteMembers(username);
-                        break;
-                    case R.id.action_group_unmute ://解除禁言
-                        removeFromMuteMembers(username);
-                        break;
+                int itemId = item.getItemId();
+                if (itemId == R.id.action_group_add_admin) {//设为管理员
+                    addToAdmins(username);
+                } else if (itemId == R.id.action_group_remove_admin) {//移除管理员
+                    removeFromAdmins(username);
+                } else if (itemId == R.id.action_group_transfer_owner) {//移交群主
+                    transferOwner(username);
+                } else if (itemId == R.id.action_group_remove_member) {//踢出群
+                    new SimpleDialogFragment.Builder(mContext)
+                            .setTitle(R.string.em_authority_remove_group)
+                            .setOnConfirmClickListener(new DemoDialogFragment.OnConfirmClickListener() {
+                                @Override
+                                public void onConfirmClick(View view) {
+                                    removeFromGroup(username);
+                                }
+                            })
+                            .showCancelButton(true)
+                            .show();
+                } else if (itemId == R.id.action_group_add_black) {//加入黑名单
+                    addToBlack(username);
+                } else if (itemId == R.id.action_group_remove_black) {//移出黑名单
+                    removeFromBlacks(username);
+                } else if (itemId == R.id.action_group_mute) {//禁言
+                    AddToMuteMembers(username);
+                } else if (itemId == R.id.action_group_unmute) {//解除禁言
+                    removeFromMuteMembers(username);
                 }
                 return false;
             }

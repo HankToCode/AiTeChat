@@ -41,6 +41,7 @@ import com.amap.api.services.poisearch.PoiResult;
 import com.amap.api.services.poisearch.PoiSearch;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.adapter.AddressAdapter;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
@@ -74,12 +75,12 @@ import com.zds.base.Toast.ToastUtil;
 public class SelAddrMapActivity extends BaseInitActivity implements LocationSource, AMapLocationListener,
         AMap.OnCameraChangeListener, GeocodeSearch.OnGeocodeSearchListener, PoiSearch.OnPoiSearchListener {
 
-    @BindView(R.id.map)
+    @BindView(R2.id.map)
     MapView mapView;
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar title_bar;
 
-    @BindView(R.id.rv_recycler)
+    @BindView(R2.id.rv_recycler)
     RecyclerView mRecyclerCard;
     private AMap aMap;
 
@@ -280,13 +281,9 @@ public class SelAddrMapActivity extends BaseInitActivity implements LocationSour
     }
 
 
-    @OnClick({R.id.map})
+    @OnClick({R2.id.map})
     public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.map:
-                break;
-            default:
-                break;
+        if (view.getId() == R.id.map) {
         }
     }
 

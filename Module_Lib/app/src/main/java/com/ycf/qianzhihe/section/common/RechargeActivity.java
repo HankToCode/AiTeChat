@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.ycf.qianzhihe.DemoApplication;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.old_data.LoginInfo;
@@ -50,21 +51,21 @@ import com.zds.base.Toast.ToastUtil;
 //充值页面
 public class RechargeActivity extends BaseInitActivity {
 
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar mTitleBar;
-    @BindView(R.id.et_amount)
+    @BindView(R2.id.et_amount)
     EditText et_amount;
-    @BindView(R.id.tv_recharge)
+    @BindView(R2.id.tv_recharge)
     TextView tv_recharge;
-    @BindView(R.id.tv_chongzhi)
+    @BindView(R2.id.tv_chongzhi)
     TextView tv_chongzhi;//充值说明
-    @BindView(R.id.tv_money)
+    @BindView(R2.id.tv_money)
     TextView tv_money;//当前余额
-    @BindView(R.id.cml_money)
+    @BindView(R2.id.cml_money)
     ChooseMoneyLayout cml_money;
-    @BindView(R.id.ll_select_bank)
+    @BindView(R2.id.ll_select_bank)
     LinearLayout ll_select_bank;
-    @BindView(R.id.tv_bank)
+    @BindView(R2.id.tv_bank)
     TextView tv_bank;
     private int rechargeMoney = 0;
 
@@ -140,33 +141,29 @@ public class RechargeActivity extends BaseInitActivity {
     }
 
 
-    @OnClick({R.id.tv_recharge, R.id.ll_select_bank})
+    @OnClick({R2.id.tv_recharge, R2.id.ll_select_bank})
     public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.tv_recharge:
-
-                if (!XClickUtil.isFastDoubleClick(view, 1000)) {
-                    if (!TextUtils.isEmpty(et_amount.getText().toString().trim())) {
-                        rechargeMoney = Integer.parseInt(et_amount.getText().toString().trim());
-                    }
-                    if (rechargeMoney <= 0) {
-                        ToastUtils.showToast("请选择充值金额");
-                        return;
-                    }
-                    if (TextUtils.isEmpty(bankId)) {
-                        ToastUtils.showToast("请选择银行卡");
-                        return;
-                    }
-                    payPassword();
-
-                } else {
-                    ToastUtils.showToast("请勿连续提交");
+        int id = view.getId();
+        if (id == R.id.tv_recharge) {
+            if (!XClickUtil.isFastDoubleClick(view, 1000)) {
+                if (!TextUtils.isEmpty(et_amount.getText().toString().trim())) {
+                    rechargeMoney = Integer.parseInt(et_amount.getText().toString().trim());
                 }
-                break;
-            case R.id.ll_select_bank:
-                startActivityForResult(new Intent(this, BankActivity.class), 66);
-                break;
+                if (rechargeMoney <= 0) {
+                    ToastUtils.showToast("请选择充值金额");
+                    return;
+                }
+                if (TextUtils.isEmpty(bankId)) {
+                    ToastUtils.showToast("请选择银行卡");
+                    return;
+                }
+                payPassword();
 
+            } else {
+                ToastUtils.showToast("请勿连续提交");
+            }
+        } else if (id == R.id.ll_select_bank) {
+            startActivityForResult(new Intent(this, BankActivity.class), 66);
         }
     }
 

@@ -46,10 +46,8 @@ public class AccountSecurityActivity extends BaseInitActivity implements EaseTit
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.item_equipments ://多端多设备管理
-                MultiDeviceActivity.actionStart(mContext);
-                break;
+        if (v.getId() == R.id.item_equipments) {//多端多设备管理
+            MultiDeviceActivity.actionStart(mContext);
         }
     }
 }

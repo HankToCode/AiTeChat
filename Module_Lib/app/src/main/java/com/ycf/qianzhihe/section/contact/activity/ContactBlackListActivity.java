@@ -76,10 +76,8 @@ public class ContactBlackListActivity extends BaseInitActivity implements OnRefr
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         int position = ((EaseRecyclerView.RecyclerViewContextMenuInfo)item.getMenuInfo()).position;
         EaseUser user = adapter.getItem(position);
-        switch (item.getItemId()) {
-            case R.id.action_friend_unblock :
-                unBlock(user);
-                break;
+        if (item.getItemId() == R.id.action_friend_unblock) {
+            unBlock(user);
         }
         return super.onContextItemSelected(item);
     }
@@ -155,10 +153,8 @@ public class ContactBlackListActivity extends BaseInitActivity implements OnRefr
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.search_black :
-                SearchBlackActivity.actionStart(mContext);
-                break;
+        if (v.getId() == R.id.search_black) {
+            SearchBlackActivity.actionStart(mContext);
         }
     }
 

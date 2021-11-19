@@ -167,31 +167,26 @@ public class ChatRoomDetailActivity extends BaseInitActivity implements EaseTitl
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.item_chat_room_name :
-                showChatRoomNameDialog();
-                break;
-            case R.id.item_chat_room_description :
-                showDescriptionDialog();
-                break;
-            case R.id.item_chat_room_members :
-                ChatRoomMemberAuthorityActivity.actionStart(mContext, roomId);
-                break;
-            case R.id.item_chat_room_admins :
-                ChatRoomAdminAuthorityActivity.actionStart(mContext, roomId);
-                break;
-            case R.id.tv_chat_room_refund :
-                new SimpleDialogFragment.Builder(mContext)
-                        .setTitle(R.string.em_chat_room_detail_destroy_info)
-                        .setOnConfirmClickListener(new DemoDialogFragment.OnConfirmClickListener() {
-                            @Override
-                            public void onConfirmClick(View view) {
-                                viewModel.destroyGroup(roomId);
-                            }
-                        })
-                        .showCancelButton(true)
-                        .show();
-                break;
+        int id = v.getId();
+        if (id == R.id.item_chat_room_name) {
+            showChatRoomNameDialog();
+        } else if (id == R.id.item_chat_room_description) {
+            showDescriptionDialog();
+        } else if (id == R.id.item_chat_room_members) {
+            ChatRoomMemberAuthorityActivity.actionStart(mContext, roomId);
+        } else if (id == R.id.item_chat_room_admins) {
+            ChatRoomAdminAuthorityActivity.actionStart(mContext, roomId);
+        } else if (id == R.id.tv_chat_room_refund) {
+            new SimpleDialogFragment.Builder(mContext)
+                    .setTitle(R.string.em_chat_room_detail_destroy_info)
+                    .setOnConfirmClickListener(new DemoDialogFragment.OnConfirmClickListener() {
+                        @Override
+                        public void onConfirmClick(View view) {
+                            viewModel.destroyGroup(roomId);
+                        }
+                    })
+                    .showCancelButton(true)
+                    .show();
         }
     }
 

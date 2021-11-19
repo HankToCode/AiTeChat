@@ -52,10 +52,8 @@ public class ChatRoomContactManageActivity extends BaseInitActivity implements E
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.search_chat_room :
-                SearchChatRoomActivity.actionStart(mContext);
-                break;
+        if (v.getId() == R.id.search_chat_room) {
+            SearchChatRoomActivity.actionStart(mContext);
         }
     }
 }

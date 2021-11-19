@@ -3,6 +3,7 @@ package com.ycf.qianzhihe.section.common;
 import static com.zds.base.Toast.ToastUtil.toast;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -11,6 +12,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.RequiresApi;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.luck.picture.lib.PictureSelector;
@@ -18,6 +20,7 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.adapter.ContactAdapter;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.old_data.ContactListInfo;
@@ -50,19 +53,19 @@ import top.zibin.luban.OnCompressListener;
  * 新的群组
  */
 public class NewGroupActivity extends BaseInitActivity {
-    @BindView(R.id.toolbar_subtitle)
+    @BindView(R2.id.toolbar_subtitle)
     TextView mToolbarSubtitle;
-    @BindView(R.id.toolbar_title)
+    @BindView(R2.id.toolbar_title)
     TextView mToolbarTitle;
-    @BindView(R.id.img_group)
+    @BindView(R2.id.img_group)
     ImageView mImgGroup;
-    @BindView(R.id.rv_contact)
+    @BindView(R2.id.rv_contact)
     RecyclerView mRvContact;
-    @BindView(R.id.tv_group_num)
+    @BindView(R2.id.tv_group_num)
     TextView mTvGroupNum;
-    @BindView(R.id.et_group)
+    @BindView(R2.id.et_group)
     EditText mEtGroup;
-    @BindView(R.id.tv_group_hint)
+    @BindView(R2.id.tv_group_hint)
     TextView mTvGroupHint;
     private List<ContactListInfo.DataBean> mContactList = new ArrayList<>();
     private ContactAdapter mContactAdapter;
@@ -187,7 +190,7 @@ public class NewGroupActivity extends BaseInitActivity {
     }
 
 
-    @OnClick(R.id.fl_img)
+    @OnClick(R2.id.fl_img)
     public void onViewClicked() {
         toSelectPic();
     }
@@ -281,6 +284,7 @@ public class NewGroupActivity extends BaseInitActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.FROYO)
     public void compressImg(String path) {
 
         Luban.with(this)

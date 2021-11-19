@@ -237,37 +237,27 @@ public class GroupDetailActivity extends BaseInitActivity implements EaseTitleBa
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tv_group_member_title :// 群成员
-                GroupMemberTypeActivity.actionStart(mContext, groupId, isOwner());
-                break;
-            case R.id.tv_group_invite ://邀请群成员
-                GroupPickContactsActivity.actionStartForResult(mContext, groupId, isOwner(), REQUEST_CODE_ADD_USER);
-                break;
-            case R.id.item_group_name ://群名称
-                showGroupNameDialog();
-                break;
-            case R.id.item_group_share_file ://共享文件
-                GroupSharedFilesActivity.actionStart(mContext, groupId);
-                break;
-            case R.id.item_group_notice ://群公告
-                showAnnouncementDialog();
-                break;
-            case R.id.item_group_introduction ://群介绍
-                showIntroductionDialog();
-                break;
-            case R.id.item_group_history ://查找聊天记录
-                SearchGroupChatActivity.actionStart(mContext, groupId);
-                break;
-            case R.id.item_group_clear_history://清空聊天记录
-                showClearConfirmDialog();
-                break;
-            case R.id.tv_group_refund ://退出群组
-                showConfirmDialog();
-                break;
-            case R.id.item_group_member_manage://群组管理
-                GroupManageIndexActivity.actionStart(mContext, groupId);
-                break;
+        int id = v.getId();
+        if (id == R.id.tv_group_member_title) {// 群成员
+            GroupMemberTypeActivity.actionStart(mContext, groupId, isOwner());
+        } else if (id == R.id.tv_group_invite) {//邀请群成员
+            GroupPickContactsActivity.actionStartForResult(mContext, groupId, isOwner(), REQUEST_CODE_ADD_USER);
+        } else if (id == R.id.item_group_name) {//群名称
+            showGroupNameDialog();
+        } else if (id == R.id.item_group_share_file) {//共享文件
+            GroupSharedFilesActivity.actionStart(mContext, groupId);
+        } else if (id == R.id.item_group_notice) {//群公告
+            showAnnouncementDialog();
+        } else if (id == R.id.item_group_introduction) {//群介绍
+            showIntroductionDialog();
+        } else if (id == R.id.item_group_history) {//查找聊天记录
+            SearchGroupChatActivity.actionStart(mContext, groupId);
+        } else if (id == R.id.item_group_clear_history) {//清空聊天记录
+            showClearConfirmDialog();
+        } else if (id == R.id.tv_group_refund) {//退出群组
+            showConfirmDialog();
+        } else if (id == R.id.item_group_member_manage) {//群组管理
+            GroupManageIndexActivity.actionStart(mContext, groupId);
         }
     }
 
@@ -303,26 +293,23 @@ public class GroupDetailActivity extends BaseInitActivity implements EaseTitleBa
 
     @Override
     public void onCheckedChanged(SwitchItemView buttonView, boolean isChecked) {
-        switch (buttonView.getId()) {
-            case R.id.item_group_not_disturb ://消息免打扰
-                viewModel.updatePushServiceForGroup(groupId, isChecked);
+        int id = buttonView.getId();
+        if (id == R.id.item_group_not_disturb) {//消息免打扰
+            viewModel.updatePushServiceForGroup(groupId, isChecked);
                 /*if(isChecked) {
                     viewModel.blockGroupMessage(groupId);
                 }else {
                     viewModel.unblockGroupMessage(groupId);
                 }*/
-                break;
-            case R.id.item_group_off_push://屏蔽离线消息推送
-                viewModel.updatePushServiceForGroup(groupId, isChecked);
-                break;
-            case R.id.item_group_top ://消息置顶
-                if(isChecked) {
-                    conversation.setExtField(System.currentTimeMillis()+"");
-                }else {
-                    conversation.setExtField("");
-                }
-                LiveDataBus.get().with(DemoConstant.GROUP_CHANGE).postValue(EaseEvent.create(DemoConstant.GROUP_CHANGE, EaseEvent.TYPE.GROUP));
-                break;
+        } else if (id == R.id.item_group_off_push) {//屏蔽离线消息推送
+            viewModel.updatePushServiceForGroup(groupId, isChecked);
+        } else if (id == R.id.item_group_top) {//消息置顶
+            if (isChecked) {
+                conversation.setExtField(System.currentTimeMillis() + "");
+            } else {
+                conversation.setExtField("");
+            }
+            LiveDataBus.get().with(DemoConstant.GROUP_CHANGE).postValue(EaseEvent.create(DemoConstant.GROUP_CHANGE, EaseEvent.TYPE.GROUP));
         }
     }
 

@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
@@ -34,11 +35,11 @@ public class ModifyFriendRemarkActivity extends BaseInitActivity {
     private static final String KEY_INTENT_FRIEND_USER_ID = "friend_user_id";
     private static final String KEY_INTENT_FRIEND_REMARK = "friend_remark";
 
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar mToolbarTitle;
-    @BindView(R.id.et_remark)
+    @BindView(R2.id.et_remark)
     EditText mEtRemark;
-    @BindView(R.id.tv_confirm)
+    @BindView(R2.id.tv_confirm)
     TextView mTvConfirm;
 
 
@@ -102,14 +103,10 @@ public class ModifyFriendRemarkActivity extends BaseInitActivity {
 
     }
 
-    @OnClick({R.id.tv_confirm})
+    @OnClick({R2.id.tv_confirm})
     public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.tv_confirm:
-                addRemark();
-                break;
-            default:
-                break;
+        if (view.getId() == R.id.tv_confirm) {
+            addRemark();
         }
     }
 

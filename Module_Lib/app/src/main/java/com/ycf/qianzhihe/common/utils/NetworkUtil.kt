@@ -142,7 +142,7 @@ class NetworkUtil{
             val mgrTel = context
                     .getSystemService(Context.TELEPHONY_SERVICE) as TelephonyManager
             return mgrConn.activeNetworkInfo != null && mgrConn
-                    .activeNetworkInfo.state == NetworkInfo.State.CONNECTED || mgrTel
+                    .activeNetworkInfo!!.state == NetworkInfo.State.CONNECTED || mgrTel
                     .networkType == TelephonyManager.NETWORK_TYPE_UMTS
         }
 

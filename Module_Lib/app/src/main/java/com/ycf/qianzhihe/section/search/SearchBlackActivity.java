@@ -47,10 +47,8 @@ public class SearchBlackActivity extends SearchFriendsActivity {
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         int position = ((EaseRecyclerView.RecyclerViewContextMenuInfo)item.getMenuInfo()).position;
         EaseUser user = (EaseUser) adapter.getItem(position);
-        switch (item.getItemId()) {
-            case R.id.action_friend_unblock :
-                unBlock(user);
-                break;
+        if (item.getItemId() == R.id.action_friend_unblock) {
+            unBlock(user);
         }
         return super.onContextItemSelected(item);
     }

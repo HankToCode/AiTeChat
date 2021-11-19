@@ -1,4 +1,3 @@
-include ':Module_Lib:AndroidBase',':Module_Lib:app'
 //include ':ease-im-kit'
 //project(':ease-im-kit').projectDir = new File('../easeui/ease-im-kit')
 //project(':player').projectDir = new File('../easeui/player')
@@ -10,4 +9,12 @@ include ':Module_Lib:AndroidBase',':Module_Lib:app'
 //easecalluikit 内部使用，emo直接依赖aar，不需要依赖下面的module, release时需要把下面的include相关的
 //include ':ease-call-kit'
 //project(':ease-call-kit').projectDir = new File('../easecallkitui-android/ease-call-kit')
+include ':Module_Lib:AndroidBase', ':Module_Lib:app'
 include ':Module_App:qianzhihe'
+
+
+//include ':Module_Lib'
+//include ':Module_App'
+//include ':Module_Lib:AndroidBase'
+//include ':Module_Lib:app'
+//include ':Module_App:qianzhihe'

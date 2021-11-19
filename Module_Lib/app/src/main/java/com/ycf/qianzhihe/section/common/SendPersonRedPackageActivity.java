@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.global.UserComm;
@@ -49,18 +50,18 @@ import com.zds.base.Toast.ToastUtil;
  * 发送个人红包
  */
 public class SendPersonRedPackageActivity extends BaseInitActivity {
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar title_bar;
 
-    @BindView(R.id.et_red_amount)
+    @BindView(R2.id.et_red_amount)
     EditText mEtRedAmount;
-    @BindView(R.id.et_remark)
+    @BindView(R2.id.et_remark)
     EditText mEtRemark;
-    @BindView(R.id.tv_red_amount)
+    @BindView(R2.id.tv_red_amount)
     TextView mTvRedAmount;
-    @BindView(R.id.tv_send_red)
+    @BindView(R2.id.tv_send_red)
     TextView mTvSendRed;
-    @BindView(R.id.tv_member)
+    @BindView(R2.id.tv_member)
     TextView tv_member;
 
     private String toChatUsername;

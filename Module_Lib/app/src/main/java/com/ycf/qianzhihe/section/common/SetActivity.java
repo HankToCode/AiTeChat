@@ -15,6 +15,7 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
@@ -48,27 +49,27 @@ import io.reactivex.schedulers.Schedulers;
 
 public class SetActivity extends BaseInitActivity {
 
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar mTitleBar;
-    @BindView(R.id.tv_save)
+    @BindView(R2.id.tv_save)
     TextView tv_save;
-    @BindView(R.id.tv_privacy)
+    @BindView(R2.id.tv_privacy)
     TextView tv_privacy;
-    @BindView(R.id.ll_clean)
+    @BindView(R2.id.ll_clean)
     LinearLayout ll_clean;
-    @BindView(R.id.ll_clean_message)
+    @BindView(R2.id.ll_clean_message)
     LinearLayout ll_clean_message;
-    @BindView(R.id.tv_m)
+    @BindView(R2.id.tv_m)
     TextView tv_m;
-    @BindView(R.id.ll_banben)
+    @BindView(R2.id.ll_banben)
     LinearLayout ll_banben;
-    @BindView(R.id.tv_version)
+    @BindView(R2.id.tv_version)
     TextView tv_version;
-    @BindView(R.id.tv_user_agreement)
+    @BindView(R2.id.tv_user_agreement)
     TextView tv_user_agreement;
-    @BindView(R.id.tv_register_agreement)
+    @BindView(R2.id.tv_register_agreement)
     TextView tv_register_agreement;
-    @BindView(R.id.tv_app)
+    @BindView(R2.id.tv_app)
     TextView tv_app;
 
 
@@ -97,79 +98,62 @@ public class SetActivity extends BaseInitActivity {
         }
     }
 
-    @OnClick({R.id.tv_save, R.id.tv_privacy, R.id.ll_clean, R.id.ll_clean_message, R.id.ll_banben, R.id.tv_user_agreement,
-            R.id.tv_register_agreement, R.id.tv_logoff, R.id.tv_app})
+    @OnClick({R2.id.tv_save, R2.id.tv_privacy, R2.id.ll_clean, R2.id.ll_clean_message, R2.id.ll_banben, R2.id.tv_user_agreement,
+            R2.id.tv_register_agreement, R2.id.tv_logoff, R2.id.tv_app})
     public void click(View v) {
-        switch (v.getId()) {
-            case R.id.tv_save:
-                AccountSafeActivity.actionStart(this);
-                break;
-            case R.id.tv_privacy:
-                PrivacyActivity.actionStart(this);
-                break;
-            case R.id.ll_clean:
-                DataCleanManager.clearAllCache(this);
+        int id = v.getId();
+        if (id == R.id.tv_save) {
+            AccountSafeActivity.actionStart(this);
+        } else if (id == R.id.tv_privacy) {
+            PrivacyActivity.actionStart(this);
+        } else if (id == R.id.ll_clean) {
+            DataCleanManager.clearAllCache(this);
 
-                ToastUtil.toast("清理完成");
-                tv_m.setText("");
-
-                break;
-
-            case R.id.ll_clean_message:
-
-                /*for (EMConversation emConversation : EMClient.getInstance().chatManager().getAllConversations().values()) {
+            ToastUtil.toast("清理完成");
+            tv_m.setText("");
+        } else if (id == R.id.ll_clean_message) {/*for (EMConversation emConversation : EMClient.getInstance().chatManager().getAllConversations().values()) {
                     emConversation.clearAllMessages();
                 }
                 EMClient.getInstance().chatManager().loadAllConversations();
                 ToastUtil.toast("清理成功");*/
 
-                Observable.just("").map(str -> EMClient.getInstance().chatManager().getAllConversations().values()).subscribeOn(Schedulers.io())
-                        .observeOn(AndroidSchedulers.mainThread())
-                        .as(autoDispose())
-                        .subscribe(new Observer<Collection<EMConversation>>() {
-                            @Override
-                            public void onSubscribe(@NonNull Disposable d) {
+            Observable.just("").map(str -> EMClient.getInstance().chatManager().getAllConversations().values()).subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .as(autoDispose())
+                    .subscribe(new Observer<Collection<EMConversation>>() {
+                        @Override
+                        public void onSubscribe(@NonNull Disposable d) {
 
+                        }
+
+                        @Override
+                        public void onNext(@NonNull Collection<EMConversation> o) {
+                            for (EMConversation emConversation : o) {
+                                emConversation.clearAllMessages();
                             }
+                            EMClient.getInstance().chatManager().loadAllConversations();
+                            ToastUtil.toast("清理成功");
+                        }
 
-                            @Override
-                            public void onNext(@NonNull Collection<EMConversation> o) {
-                                for (EMConversation emConversation : o) {
-                                    emConversation.clearAllMessages();
-                                }
-                                EMClient.getInstance().chatManager().loadAllConversations();
-                                ToastUtil.toast("清理成功");
-                            }
+                        @Override
+                        public void onError(@NonNull Throwable e) {
+                            ToastUtil.toast("清理失败");
+                        }
 
-                            @Override
-                            public void onError(@NonNull Throwable e) {
-                                ToastUtil.toast("清理失败");
-                            }
+                        @Override
+                        public void onComplete() {
 
-                            @Override
-                            public void onComplete() {
-
-                            }
-                        });
-
-                break;
-            case R.id.ll_banben:
-//                    AppConfig.checkVersion(SetActivity.this, false);
-                break;
-            case R.id.tv_user_agreement:
-//                startActivity(new Intent(this, WebViewActivity.class).putExtra("title", "lan").putExtra("url", AppConfig.user_agree));
-                WebViewActivity.actionStart(mContext, AppConfig.user_agree, true);
-                break;
-            case R.id.tv_register_agreement:
-//                startActivity(new Intent(this, WebViewActivity.class).putExtra("title", "lan").putExtra("url", AppConfig.register_agree));
-                WebViewActivity.actionStart(mContext, AppConfig.register_agree, true);
-                break;
-            case R.id.tv_app:
-                WebViewActivity.actionStart(mContext, AppConfig.appurl, true);
+                        }
+                    });
+        } else if (id == R.id.ll_banben) {//                    AppConfig.checkVersion(SetActivity.this, false);
+        } else if (id == R.id.tv_user_agreement) {//                startActivity(new Intent(this, WebViewActivity.class).putExtra("title", "lan").putExtra("url", AppConfig.user_agree));
+            WebViewActivity.actionStart(mContext, AppConfig.user_agree, true);
+        } else if (id == R.id.tv_register_agreement) {//                startActivity(new Intent(this, WebViewActivity.class).putExtra("title", "lan").putExtra("url", AppConfig.register_agree));
+            WebViewActivity.actionStart(mContext, AppConfig.register_agree, true);
+        } else if (id == R.id.tv_app) {
+            WebViewActivity.actionStart(mContext, AppConfig.appurl, true);
 //                startActivity(new Intent(this, WebViewActivity.class).putExtra("title", "官网").putExtra("url", AppConfig.appurl));
-                break;
-            case R.id.tv_logoff:
-                //注销账号
+        } else if (id == R.id.tv_logoff) {//注销账号
                 /*new EaseAlertDialog(this, "确定注销帐号？", null, null, new EaseAlertDialog.AlertDialogUser() {
                     @Override
                     public void onResult(boolean confirmed, Bundle bundle) {
@@ -178,8 +162,7 @@ public class SetActivity extends BaseInitActivity {
                         }
                     }
                 }).show();*/
-                showLogoffDialog();
-                break;
+            showLogoffDialog();
         }
     }
 

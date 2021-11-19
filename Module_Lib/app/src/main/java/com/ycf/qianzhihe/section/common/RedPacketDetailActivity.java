@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.gyf.immersionbar.ImmersionBar;
 import com.hyphenate.easeui.widget.EaseImageView;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.adapter.RedPacketAdapter;
 import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
@@ -51,7 +52,7 @@ import butterknife.OnClick;
  */
 public class RedPacketDetailActivity extends BaseInitActivity {
 
-    @BindView(R.id.recycle_view)
+    @BindView(R2.id.recycle_view)
     RecyclerView mRecycleView;
 
 

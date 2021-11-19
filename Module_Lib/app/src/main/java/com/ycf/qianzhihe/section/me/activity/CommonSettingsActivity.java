@@ -92,50 +92,40 @@ public class CommonSettingsActivity extends BaseInitActivity implements View.OnC
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.item_notification :
-                OfflinePushSettingsActivity.actionStart(mContext);
-                break;
-            case R.id.item_call_option :
-                CallOptionActivity.actionStart(mContext);
-                break;
+        int id = v.getId();
+        if (id == R.id.item_notification) {
+            OfflinePushSettingsActivity.actionStart(mContext);
+        } else if (id == R.id.item_call_option) {
+            CallOptionActivity.actionStart(mContext);
         }
 
     }
 
     @Override
     public void onCheckedChanged(SwitchItemView buttonView, boolean isChecked) {
-        switch (buttonView.getId()) {
-            case R.id.item_switch_typing :
-                settingsModel.showMsgTyping(isChecked);
-                break;
-            case R.id.item_switch_speaker :
-                settingsModel.setSettingMsgSpeaker(isChecked);
-                break;
-            case R.id.item_switch_chatroom :
-                settingsModel.allowChatroomOwnerLeave(isChecked);
-                chatOptions.allowChatroomOwnerLeave(isChecked);
-                break;
-            case R.id.item_switch_delete_msg :
-                settingsModel.setDeleteMessagesAsExitGroup(isChecked);
-                chatOptions.setDeleteMessagesAsExitGroup(isChecked);
-                break;
-            case R.id.item_switch_auto_file :
-                settingsModel.setTransfeFileByUser(isChecked);
-                chatOptions.setAutoTransferMessageAttachments(isChecked);
-                break;
-            case R.id.item_switch_auto_download :
-                settingsModel.setAutodownloadThumbnail(isChecked);
-                chatOptions.setAutoDownloadThumbnail(isChecked);
-                break;
-            case R.id.item_switch_auto_accept_group :
-                settingsModel.setAutoAcceptGroupInvitation(isChecked);
-                chatOptions.setAutoAcceptGroupInvitation(isChecked);
-                break;
-            case R.id.item_switch_chatroom_delete_msg:
-                settingsModel.setDeleteMessagesAsExitChatRoom(isChecked);
-                chatOptions.setDeleteMessagesAsExitChatRoom(isChecked);
-                break;
+        int id = buttonView.getId();
+        if (id == R.id.item_switch_typing) {
+            settingsModel.showMsgTyping(isChecked);
+        } else if (id == R.id.item_switch_speaker) {
+            settingsModel.setSettingMsgSpeaker(isChecked);
+        } else if (id == R.id.item_switch_chatroom) {
+            settingsModel.allowChatroomOwnerLeave(isChecked);
+            chatOptions.allowChatroomOwnerLeave(isChecked);
+        } else if (id == R.id.item_switch_delete_msg) {
+            settingsModel.setDeleteMessagesAsExitGroup(isChecked);
+            chatOptions.setDeleteMessagesAsExitGroup(isChecked);
+        } else if (id == R.id.item_switch_auto_file) {
+            settingsModel.setTransfeFileByUser(isChecked);
+            chatOptions.setAutoTransferMessageAttachments(isChecked);
+        } else if (id == R.id.item_switch_auto_download) {
+            settingsModel.setAutodownloadThumbnail(isChecked);
+            chatOptions.setAutoDownloadThumbnail(isChecked);
+        } else if (id == R.id.item_switch_auto_accept_group) {
+            settingsModel.setAutoAcceptGroupInvitation(isChecked);
+            chatOptions.setAutoAcceptGroupInvitation(isChecked);
+        } else if (id == R.id.item_switch_chatroom_delete_msg) {
+            settingsModel.setDeleteMessagesAsExitChatRoom(isChecked);
+            chatOptions.setDeleteMessagesAsExitChatRoom(isChecked);
         }
     }
 

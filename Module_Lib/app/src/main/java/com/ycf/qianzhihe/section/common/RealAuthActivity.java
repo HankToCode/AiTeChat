@@ -21,6 +21,7 @@ import com.lzy.okgo.OkGo;
 import com.lzy.okgo.callback.StringCallback;
 import com.lzy.okgo.model.Response;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.new_data.CertifyBean;
@@ -54,15 +55,15 @@ import static com.ycf.qianzhihe.app.api.Constant.URL;
 //实名认证
 public class RealAuthActivity extends BaseInitActivity {
 
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar mTitleBar;
-    @BindView(R.id.et_name)
+    @BindView(R2.id.et_name)
     EditText et_name;
-    @BindView(R.id.et_idcard)
+    @BindView(R2.id.et_idcard)
     EditText et_idcard;
-    @BindView(R.id.et_phone)
+    @BindView(R2.id.et_phone)
     EditText et_phone;
-    @BindView(R.id.tv_submit)
+    @BindView(R2.id.tv_submit)
     TextView tv_submit;
 
 
@@ -85,23 +86,21 @@ public class RealAuthActivity extends BaseInitActivity {
     }
 
 
-    @OnClick({R.id.tv_submit})
+    @OnClick({R2.id.tv_submit})
     public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.tv_submit:
-                if (TextUtils.isEmpty(et_name.getText().toString().trim())) {
-                    ToastUtils.showToast("请输入真实姓名");
-                    return;
-                }
-                if (TextUtils.isEmpty(et_idcard.getText().toString().trim())) {
-                    ToastUtils.showToast("请输入身份证号码");
-                    return;
-                }
-                if (!XClickUtil.isFastDoubleClick(view, 1000)) {
-                    //获取人脸认证流水号
-                    getCertifyId();
-                }
-                break;
+        if (view.getId() == R.id.tv_submit) {
+            if (TextUtils.isEmpty(et_name.getText().toString().trim())) {
+                ToastUtils.showToast("请输入真实姓名");
+                return;
+            }
+            if (TextUtils.isEmpty(et_idcard.getText().toString().trim())) {
+                ToastUtils.showToast("请输入身份证号码");
+                return;
+            }
+            if (!XClickUtil.isFastDoubleClick(view, 1000)) {
+                //获取人脸认证流水号
+                getCertifyId();
+            }
         }
     }
 

@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.adapter.SpecialOfferAdapter;
 import com.ycf.qianzhihe.app.api.new_data.UserCodeMallListBean;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
@@ -30,19 +31,19 @@ import butterknife.OnClick;
 
 public class UserCodeActivity extends BaseInitActivity {
 
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar title_bar;
-    @BindView(R.id.gv_gridview)
+    @BindView(R2.id.gv_gridview)
     GridView gv_gridview;
-    @BindView(R.id.gv_gridview2)
+    @BindView(R2.id.gv_gridview2)
     GridView gv_gridview2;
-    @BindView(R.id.gv_gridview3)
+    @BindView(R2.id.gv_gridview3)
     GridView gv_gridview3;
-    @BindView(R.id.tv_more)
+    @BindView(R2.id.tv_more)
     TextView tv_more;
-    @BindView(R.id.tv_more3)
+    @BindView(R2.id.tv_more3)
     TextView tv_more3;
-    @BindView(R.id.tv_more2)
+    @BindView(R2.id.tv_more2)
     TextView tv_more2;
     private List<UserCodeMallListBean.SpecialOffer> tjDatas = new ArrayList<>();
     private List<UserCodeMallListBean.SpecialOffer> jxDatas = new ArrayList<>();
@@ -93,19 +94,15 @@ public class UserCodeActivity extends BaseInitActivity {
         });
     }
 
-    @OnClick({R.id.tv_more, R.id.tv_more2, R.id.tv_more3})
+    @OnClick({R2.id.tv_more, R2.id.tv_more2, R2.id.tv_more3})
     public void click(View v) {
-        switch (v.getId()) {
-            case R.id.tv_more:
-                //category":0//0：特价靓号，1：精选靓号，2：精选叠号 (必传）
-                UserCodeMoreActivity.actionStart(mContext,"0");
-                break;
-            case R.id.tv_more2:
-                UserCodeMoreActivity.actionStart(mContext,"1");
-                break;
-            case R.id.tv_more3:
-                UserCodeMoreActivity.actionStart(mContext,"2");
-                break;
+        int id = v.getId();
+        if (id == R.id.tv_more) {//category":0//0：特价靓号，1：精选靓号，2：精选叠号 (必传）
+            UserCodeMoreActivity.actionStart(mContext, "0");
+        } else if (id == R.id.tv_more2) {
+            UserCodeMoreActivity.actionStart(mContext, "1");
+        } else if (id == R.id.tv_more3) {
+            UserCodeMoreActivity.actionStart(mContext, "2");
         }
 
     }

@@ -15,6 +15,7 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.widget.EaseImageView;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
@@ -46,21 +47,21 @@ import com.zds.base.Toast.ToastUtil;
  * 转账
  */
 public class TransferActivity extends BaseInitActivity {
-    @BindView(R.id.img_head)
+    @BindView(R2.id.img_head)
     EaseImageView mImgHead;
-    @BindView(R.id.nickName)
+    @BindView(R2.id.nickName)
     TextView mNickName;
-    @BindView(R.id.et_money)
+    @BindView(R2.id.et_money)
     EditText mEtMoney;
-    @BindView(R.id.et_remark)
+    @BindView(R2.id.et_remark)
     EditText mEtRemark;
-    @BindView(R.id.toolbar_title)
+    @BindView(R2.id.toolbar_title)
     TextView mToolbarTitle;
-    @BindView(R.id.tv_transfer)
+    @BindView(R2.id.tv_transfer)
     TextView mTvTransfer;
     private String emChatId;
 
-    @BindView(R.id.ll_back)
+    @BindView(R2.id.ll_back)
     LinearLayout ll_back;
 
     @Override
@@ -167,16 +168,12 @@ public class TransferActivity extends BaseInitActivity {
         EMClient.getInstance().chatManager().sendMessage(message);
     }
 
-    @OnClick({R.id.tv_transfer})
+    @OnClick({R2.id.tv_transfer})
     public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.tv_transfer:
-                hideKeyboard();
-                //转账
-                PayPassword();
-                break;
-            default:
-                break;
+        if (view.getId() == R.id.tv_transfer) {
+            hideKeyboard();
+            //转账
+            PayPassword();
         }
     }
 

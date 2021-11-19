@@ -121,13 +121,11 @@ public class GroupMemberTypeActivity extends BaseInitActivity implements EaseTit
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.item_admin ://管理员
-                GroupAdminAuthorityActivity.actionStart(mContext, groupId);
-                break;
-            case R.id.item_member ://成员
-                GroupMemberAuthorityActivity.actionStart(mContext, groupId);
-                break;
+        int id = v.getId();
+        if (id == R.id.item_admin) {//管理员
+            GroupAdminAuthorityActivity.actionStart(mContext, groupId);
+        } else if (id == R.id.item_member) {//成员
+            GroupMemberAuthorityActivity.actionStart(mContext, groupId);
         }
     }
 }

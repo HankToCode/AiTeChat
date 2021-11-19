@@ -7,6 +7,7 @@ import android.widget.Switch;
 
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
 import com.ycf.qianzhihe.app.api.old_http.AppConfig;
@@ -23,9 +24,9 @@ import butterknife.BindView;
 
 //零钱锁
 public class WalletLockActivity extends BaseInitActivity {
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar title_bar;
-    @BindView(R.id.switch_lock)
+    @BindView(R2.id.switch_lock)
     Switch switchLock;
     private VerifyCodeView verifyCodeView;
     private CommonDialog verifyDialog;

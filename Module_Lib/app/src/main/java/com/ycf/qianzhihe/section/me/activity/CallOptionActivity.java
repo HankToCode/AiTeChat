@@ -53,11 +53,7 @@ public class CallOptionActivity extends BaseInitActivity implements SwitchItemVi
 
     @Override
     public void onCheckedChanged(SwitchItemView buttonView, boolean isChecked) {
-        switch (buttonView.getId()) {
-            case R.id.rl_switch_offline_call_push:
-                break;
-            default:
-                break;
+        if (buttonView.getId() == R.id.rl_switch_offline_call_push) {
         }
     }
 

@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.ycf.qianzhihe.BuildConfig;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
+import com.ycf.qianzhihe.app.platform.PlatformFactory;
 import com.ycf.qianzhihe.common.widget.ArrowItemView;
 
 import com.hyphenate.easeui.widget.EaseTitleBar;
@@ -42,7 +43,7 @@ public class AboutHxActivity extends BaseInitActivity implements View.OnClickLis
     @Override
     protected void initData() {
         super.initData();
-        tv_version.setText(getString(R.string.em_about_hx_version, BuildConfig.VERSION_NAME));
+        tv_version.setText(getString(R.string.em_about_hx_version, PlatformFactory.getPlatform().getVersionName()));
     }
 
     @Override
@@ -55,13 +56,11 @@ public class AboutHxActivity extends BaseInitActivity implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.item_product :
-                jumpToIMIntroduction();
-                break;
-            case R.id.item_company :
-                jumpToCompanyIntroduction();
-                break;
+        int id = v.getId();
+        if (id == R.id.item_product) {
+            jumpToIMIntroduction();
+        } else if (id == R.id.item_company) {
+            jumpToCompanyIntroduction();
         }
     }
 

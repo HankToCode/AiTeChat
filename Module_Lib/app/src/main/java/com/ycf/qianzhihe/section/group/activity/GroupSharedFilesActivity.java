@@ -92,10 +92,8 @@ public class GroupSharedFilesActivity extends BaseInitActivity implements OnRefr
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         EaseRecyclerView.RecyclerViewContextMenuInfo info = (EaseRecyclerView.RecyclerViewContextMenuInfo) item.getMenuInfo();
         int position = info.position;
-        switch (item.getItemId()) {
-            case R.id.action_shared_delete :
-                deleteFile(adapter.getItem(position));
-                break;
+        if (item.getItemId() == R.id.action_shared_delete) {
+            deleteFile(adapter.getItem(position));
         }
         return super.onContextItemSelected(item);
     }

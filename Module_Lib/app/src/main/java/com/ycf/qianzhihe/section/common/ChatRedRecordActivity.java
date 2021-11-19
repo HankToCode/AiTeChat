@@ -12,6 +12,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.adapter.ChatRedRecordAdapter;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.app.api.old_data.MyRedInfo;
@@ -34,15 +35,15 @@ import butterknife.BindView;
  * 聊天红包记录
  */
 public class ChatRedRecordActivity extends BaseInitActivity {
-    @BindView(R.id.toolbar_title)
+    @BindView(R2.id.toolbar_title)
     TextView mToolbarTitle;
-    @BindView(R.id.rv_red_record)
+    @BindView(R2.id.rv_red_record)
     RecyclerView mRvRedRecord;
-    @BindView(R.id.ll_back)
+    @BindView(R2.id.ll_back)
     LinearLayout ll_back;
-    @BindView(R.id.tv_no_data)
+    @BindView(R2.id.tv_no_data)
     TextView tv_no_data;
-    @BindView(R.id.swipeRefreshLayout)
+    @BindView(R2.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
     private ChatRedRecordAdapter mRedRecordAdapter;
     private List<MyRedInfo.DataBean> mPacketInfoList = new ArrayList<>();

@@ -70,16 +70,13 @@ public class GroupManageIndexActivity extends BaseInitActivity implements View.O
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.item_black_manager ://黑名单
-                GroupMemberAuthorityActivity.actionStart(mContext, groupId, GroupMemberAuthorityActivity.TYPE_BLACK);
-                break;
-            case R.id.item_mute_manage ://禁言列表
-                GroupMemberAuthorityActivity.actionStart(mContext, groupId, GroupMemberAuthorityActivity.TYPE_MUTE);
-                break;
-            case R.id.btn_transfer ://移交
-                GroupTransferActivity.actionStart(mContext, groupId);
-                break;
+        int id = v.getId();
+        if (id == R.id.item_black_manager) {//黑名单
+            GroupMemberAuthorityActivity.actionStart(mContext, groupId, GroupMemberAuthorityActivity.TYPE_BLACK);
+        } else if (id == R.id.item_mute_manage) {//禁言列表
+            GroupMemberAuthorityActivity.actionStart(mContext, groupId, GroupMemberAuthorityActivity.TYPE_MUTE);
+        } else if (id == R.id.btn_transfer) {//移交
+            GroupTransferActivity.actionStart(mContext, groupId);
         }
     }
 

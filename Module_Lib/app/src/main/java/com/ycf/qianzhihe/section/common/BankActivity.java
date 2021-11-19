@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.adapter.BankCardAdapter;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
@@ -38,12 +39,12 @@ public class BankActivity extends BaseInitActivity {
 
     private JsonBankCardList jsonBankCardList;
     private List<JsonBankCardList.DataBean> dataBean;
-    @BindView(R.id.rv_recycler)
+    @BindView(R2.id.rv_recycler)
     RecyclerView mRecyclerCard;
 
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar mTitleBar;
-    @BindView(R.id.tv_no_data)
+    @BindView(R2.id.tv_no_data)
     TextView tv_no_data;
     private boolean isedit = false;
     private BankCardAdapter mBankCardAdapter;
@@ -225,13 +226,10 @@ public class BankActivity extends BaseInitActivity {
     }
 
 
-    @OnClick({R.id.tv_add_bank_card})
+    @OnClick({R2.id.tv_add_bank_card})
     public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.tv_add_bank_card:
-                BankNewActivity.actionStart(this);
-                break;
-            default:
+        if (view.getId() == R.id.tv_add_bank_card) {
+            BankNewActivity.actionStart(this);
         }
     }
 }

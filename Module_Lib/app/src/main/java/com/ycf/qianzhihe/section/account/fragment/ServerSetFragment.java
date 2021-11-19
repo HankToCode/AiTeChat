@@ -132,23 +132,21 @@ public class ServerSetFragment extends BaseInitFragment implements EaseTitleBar.
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        switch (buttonView.getId()) {
-            case R.id.switch_server :
-                mCustomSetEnable = isChecked;
-                DemoHelper.getInstance().getModel().enableCustomSet(isChecked);
-                DemoHelper.getInstance().getModel().enableCustomAppkey(!TextUtils.isEmpty(mEtAppkey.getText().toString().trim()) && isChecked);
-                mGroupServerSet.setVisibility(isChecked ? View.VISIBLE : View.GONE);
-                setResetButtonVisible(isChecked, DemoHelper.getInstance().isSDKInit());
-                break;
-            case R.id.switch_specify_server :
-                DemoHelper.getInstance().getModel().enableCustomServer(isChecked);
-                mCustomServerEnable = isChecked;
-                mEtServerAddress.setEnabled(isChecked);
-                mEtServerPort.setEnabled(isChecked);
-                mEtServerRest.setEnabled(isChecked);
-                mSwitchHttpsSet.setEnabled(isChecked);
-                checkButtonEnable();
-                break;
+        int id = buttonView.getId();
+        if (id == R.id.switch_server) {
+            mCustomSetEnable = isChecked;
+            DemoHelper.getInstance().getModel().enableCustomSet(isChecked);
+            DemoHelper.getInstance().getModel().enableCustomAppkey(!TextUtils.isEmpty(mEtAppkey.getText().toString().trim()) && isChecked);
+            mGroupServerSet.setVisibility(isChecked ? View.VISIBLE : View.GONE);
+            setResetButtonVisible(isChecked, DemoHelper.getInstance().isSDKInit());
+        } else if (id == R.id.switch_specify_server) {
+            DemoHelper.getInstance().getModel().enableCustomServer(isChecked);
+            mCustomServerEnable = isChecked;
+            mEtServerAddress.setEnabled(isChecked);
+            mEtServerPort.setEnabled(isChecked);
+            mEtServerRest.setEnabled(isChecked);
+            mSwitchHttpsSet.setEnabled(isChecked);
+            checkButtonEnable();
         }
 
     }

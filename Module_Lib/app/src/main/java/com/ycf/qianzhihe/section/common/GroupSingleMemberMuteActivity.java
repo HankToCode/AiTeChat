@@ -14,6 +14,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.google.gson.JsonArray;
 import com.hyphenate.chat.EMClient;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.adapter.GroupSingleMemberMuteAdapter;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.app.api.old_data.GroupDetailInfo;
@@ -35,11 +36,11 @@ import butterknife.BindView;
 import com.zds.base.Toast.ToastUtil;
 
 public class GroupSingleMemberMuteActivity extends BaseInitActivity {
-    @BindView(R.id.toolbar_title)
+    @BindView(R2.id.toolbar_title)
     TextView toolbar_title;
-    @BindView(R.id.searchBar)
+    @BindView(R2.id.searchBar)
     SearchBar searchBar;
-    @BindView(R.id.recyclerView)
+    @BindView(R2.id.recyclerView)
     RecyclerView recyclerView;
 
     private String emChatId = "";
@@ -117,10 +118,8 @@ public class GroupSingleMemberMuteActivity extends BaseInitActivity {
         mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
             @Override
             public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                switch (view.getId()) {
-                    case R.id.iv_switch_mute:
-                        modifyGroupSingleMemberSayStatus(position);
-                        break;
+                if (view.getId() == R.id.iv_switch_mute) {
+                    modifyGroupSingleMemberSayStatus(position);
                 }
 
             }

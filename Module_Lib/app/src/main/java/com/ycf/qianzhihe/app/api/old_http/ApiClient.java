@@ -10,6 +10,7 @@ import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
+import com.ycf.qianzhihe.app.platform.PlatformFactory;
 import com.ycf.qianzhihe.common.aes.AESCipher;
 import com.ycf.qianzhihe.common.utils.NetworkUtil;
 import com.ycf.qianzhihe.common.utils.log.LogUtils;
@@ -355,6 +356,7 @@ public class ApiClient {
         }
 
     }
+
     public static void requestNetHandleForAes(final Context context, String url, String log, final Map<String, Object> mapP, final ResultListener listener) {
         if (!NetworkUtil.isNetworkAvailable(DemoApplication.getInstance().getApplicationContext())) {
             //没网络
@@ -727,11 +729,11 @@ public class ApiClient {
     private static void fomartDataAES(Response<String> response, ResultListener listener) {
         try {
             String json = response.body();
-            if (BuildConfig.ISENCRYPTION) {
+            if (PlatformFactory.getPlatform().getIsEncryption()) {
                 json = AESCipher.decrypt(response.body());
             }
             if (BuildConfig.BUILD_TYPE.equals("debug")) {
-                Log.d("###response是否加密: ", BuildConfig.ISENCRYPTION+"###json="+json);
+                Log.d("###response是否加密: ", PlatformFactory.getPlatform().getIsEncryption() + "###json=" + json);
             }
             ServerData serverData = FastJsonUtil.getObject(json, ServerData.class);
             if (null != serverData) {
@@ -810,12 +812,13 @@ public class ApiClient {
      * 传参加密
      */
     private static String aesParams(Map<String, Object> map) {
-        if (BuildConfig.ISENCRYPTION) {
+        if (PlatformFactory.getPlatform().getIsEncryption()) {
             return AESCipher.encrypt(FastJsonUtil.toJSONString(map));
         } else {
             return FastJsonUtil.toJSONString(map);
         }
     }
+
     //密匙状态不走加解密
     private static String jsonParams(Map<String, Object> map) {
         return FastJsonUtil.toJSONString(map);

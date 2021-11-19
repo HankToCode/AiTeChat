@@ -15,6 +15,7 @@ import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hyphenate.easeui.ui.base.EaseBaseFragment;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.adapter.ServiceAdapter;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.EaseConstant;
@@ -44,11 +45,11 @@ import butterknife.Unbinder;
  */
 public class CustomServiceFragment extends EaseBaseFragment {
 
-    @BindView(R.id.recycle_view)
+    @BindView(R2.id.recycle_view)
     RecyclerView mRecycleView;
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar title_bar;
-    @BindView(R.id.custom1)
+    @BindView(R2.id.custom1)
     RelativeLayout mCuston1;
 
     Unbinder unbinder;
@@ -141,16 +142,11 @@ public class CustomServiceFragment extends EaseBaseFragment {
     }
 
 
-    @OnClick({R.id.tv_help})
+    @OnClick({R2.id.tv_help})
     public void onViewClicked(View view) {
-        switch (view.getId()) {
-
-            case R.id.tv_help:
-                Intent intent = new Intent(getActivity(), Custom1Activity.class);
-                getActivity().startActivity(intent);
-                break;
-            default:
-                break;
+        if (view.getId() == R.id.tv_help) {
+            Intent intent = new Intent(getActivity(), Custom1Activity.class);
+            getActivity().startActivity(intent);
         }
     }
 }

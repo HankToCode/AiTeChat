@@ -6,18 +6,19 @@ import android.widget.TextView;
 
 
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class MyDialog extends Dialog {
-    @BindView(R.id.tv_message)
+    @BindView(R2.id.tv_message)
     TextView mTvMessage;
-    @BindView(R.id.tv_negativeButton)
+    @BindView(R2.id.tv_negativeButton)
     TextView mTvNegativeButton;
-    @BindView(R.id.tv_positiveButton)
+    @BindView(R2.id.tv_positiveButton)
     TextView mTvPositiveButton;
-    @BindView(R.id.tv_title)
+    @BindView(R2.id.tv_title)
     TextView mTvTitle;
 
     private Context mContext;

@@ -221,84 +221,55 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
     @Override
     public void onClick(View view) {
 
-        switch (view.getId()) {
-            case R.id.iv_back:
-                finish();
-                break;
-            case R.id.iv_avatar:
-                toSelectPic();
-                break;
-            case R.id.tv_user_level://等级
-            case R.id.iv_user_level_tag://会员图标
-                AccountInfoActivity.actionStart(mContext);//账号等级权益
-                break;
-            case R.id.iv_scan:
-                Global.addUserOriginType = Constant.ADD_USER_ORIGIN_TYPE_QRCODE;
-                Intent intent = new Intent(this, CaptureActivity.class);
-                startActivityForResult(intent, REQUEST_CODE);
-                break;
-            case R.id.iv_qr:
-                //分享
+        int id = view.getId();//等级
+        if (id == R.id.iv_back) {
+            finish();
+        } else if (id == R.id.iv_avatar) {
+            toSelectPic();
+        } else if (id == R.id.tv_user_level || id == R.id.iv_user_level_tag) {//会员图标
+            AccountInfoActivity.actionStart(mContext);//账号等级权益
+        } else if (id == R.id.iv_scan) {
+            Global.addUserOriginType = Constant.ADD_USER_ORIGIN_TYPE_QRCODE;
+            Intent intent = new Intent(this, CaptureActivity.class);
+            startActivityForResult(intent, REQUEST_CODE);
+        } else if (id == R.id.iv_qr) {//分享
 //                ShareQrActivity.actionStart(this);
-                MyQrActivity.actionStart(mContext, "1");
-                break;
-            case R.id.tv_package:
-                //判断如果未实名，提示进行实名认证
-                if (UserComm.getUserInfo().getOpenAccountFlag() == 0) {
-                    RealAuthActivity.actionStart(mContext);
-                    return;
-                }
-                //我的钱包支付
-                WalletActivity.actionStart(mContext);
-                break;
-            case R.id.ll_my_info:
-                //个人信息
-                MyInfoActivity.actionStart(this);
-
-                break;
-            case R.id.tv_member://开通会员
-                BuyMemberActivity.actionStart(this);
-                break;
-            case R.id.tv_mall://商城
+            MyQrActivity.actionStart(mContext, "1");
+        } else if (id == R.id.tv_package) {//判断如果未实名，提示进行实名认证
+            if (UserComm.getUserInfo().getOpenAccountFlag() == 0) {
+                RealAuthActivity.actionStart(mContext);
+                return;
+            }
+            //我的钱包支付
+            WalletActivity.actionStart(mContext);
+        } else if (id == R.id.ll_my_info) {//个人信息
+            MyInfoActivity.actionStart(this);
+        } else if (id == R.id.tv_member) {//开通会员
+            BuyMemberActivity.actionStart(this);
+        } else if (id == R.id.tv_mall) {//商城
 //                startActivity(new Intent(mContext, WebViewActivity.class).putExtra("title","千纸鹤商城").putExtra("url",AppConfig.shopUrl));
-                WebViewActivity.actionStart(mContext,AppConfig.shopUrl,true);
-                break;
-            case R.id.tv_collection:
-                //我的收藏
-                MyCollectActivity.actionStart(this);
-                break;
-            case R.id.tv_settings:
-                //设置
-                SetActivity.actionStart(this);
-                break;
-            case R.id.tv_helpline:
-                //客服
-                CustomListActivity.actionStart(this);
-                break;
-            case R.id.tv_groups:
-                //靓号商城
-                UserCodeActivity.actionStart(this);
-                break;
-            case R.id.tv_switch_account:
-//                startActivity(new Intent(this, MultiDeviceActivity.class));
-                MultiAccountActivity.actionStart(this);
-                break;
-            case R.id.tv_logout:
-                new EaseAlertDialog(this, "确定退出帐号？", null, null, new EaseAlertDialog.AlertDialogUser() {
-                    @Override
-                    public void onResult(boolean confirmed, Bundle bundle) {
-                        if (confirmed) {
-                            logout();
-                        }
+            WebViewActivity.actionStart(mContext, AppConfig.shopUrl, true);
+        } else if (id == R.id.tv_collection) {//我的收藏
+            MyCollectActivity.actionStart(this);
+        } else if (id == R.id.tv_settings) {//设置
+            SetActivity.actionStart(this);
+        } else if (id == R.id.tv_helpline) {//客服
+            CustomListActivity.actionStart(this);
+        } else if (id == R.id.tv_groups) {//靓号商城
+            UserCodeActivity.actionStart(this);
+        } else if (id == R.id.tv_switch_account) {//                startActivity(new Intent(this, MultiDeviceActivity.class));
+            MultiAccountActivity.actionStart(this);
+        } else if (id == R.id.tv_logout) {
+            new EaseAlertDialog(this, "确定退出帐号？", null, null, new EaseAlertDialog.AlertDialogUser() {
+                @Override
+                public void onResult(boolean confirmed, Bundle bundle) {
+                    if (confirmed) {
+                        logout();
                     }
-                }, true).show();
-                break;
-            case R.id.tv_appweb://APP 官网
-                WebViewActivity.actionStart(mContext,AppConfig.appurl,true);
-                break;
-            default:
-                break;
-
+                }
+            }, true).show();
+        } else if (id == R.id.tv_appweb) {//APP 官网
+            WebViewActivity.actionStart(mContext, AppConfig.appurl, true);
         }
 
     }

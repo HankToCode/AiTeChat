@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.adapter.Custom1Adapter;
 import com.ycf.qianzhihe.app.api.old_data.Custom1BaseInfo;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
@@ -37,7 +38,7 @@ public class Custom1Activity extends BaseInitActivity {
     private Custom1Adapter mAdapter;
     private RecyclerView mCustoms;
 
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar title_bar;
 
     @Override

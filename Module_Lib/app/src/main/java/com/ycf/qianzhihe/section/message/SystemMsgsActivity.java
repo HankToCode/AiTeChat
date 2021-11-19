@@ -96,16 +96,13 @@ public class SystemMsgsActivity extends BaseInitActivity implements OnRefreshLoa
     public boolean onContextItemSelected(@NonNull MenuItem item) {
         int position = ((EaseRecyclerView.RecyclerViewContextMenuInfo) item.getMenuInfo()).position;
         EMMessage message = adapter.getItem(position);
-        switch (item.getItemId()) {
-            case R.id.action_invite_agree :
-                viewModel.agreeInvite(message);
-                break;
-            case R.id.action_invite_refuse :
-                viewModel.refuseInvite(message);
-                break;
-            case R.id.action_invite_delete :
-                viewModel.deleteMsg(message);
-                break;
+        int itemId = item.getItemId();
+        if (itemId == R.id.action_invite_agree) {
+            viewModel.agreeInvite(message);
+        } else if (itemId == R.id.action_invite_refuse) {
+            viewModel.refuseInvite(message);
+        } else if (itemId == R.id.action_invite_delete) {
+            viewModel.deleteMsg(message);
         }
         return super.onContextItemSelected(item);
     }

@@ -9,6 +9,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.old_data.BankDetailInfo;
 import com.ycf.qianzhihe.app.api.old_data.BankDto;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
@@ -39,20 +40,20 @@ public class BankNewActivity extends BaseInitActivity {
         context.startActivity(intent);
     }
 
-    @BindView(R.id.et_bank_card_number)
+    @BindView(R2.id.et_bank_card_number)
     EditText mBankCardNum;
-    @BindView(R.id.et_bank_location)
+    @BindView(R2.id.et_bank_location)
     EditText mBankLocation;
-    @BindView(R.id.et_bank_phone)
+    @BindView(R2.id.et_bank_phone)
     EditText mBankPhone;
-    @BindView(R.id.et_identity_card_number)
+    @BindView(R2.id.et_identity_card_number)
     EditText mIdentityCardNum;
-    @BindView(R.id.et_bank_card_name)
+    @BindView(R2.id.et_bank_card_name)
     EditText mBankCardName;
-    @BindView(R.id.tv_new_bank_card_submit)
+    @BindView(R2.id.tv_new_bank_card_submit)
     TextView mNewBankCardSubmit;
 
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar mTitleBar;
     BankDetailInfo bankDetailInfo;
 
@@ -149,7 +150,7 @@ public class BankNewActivity extends BaseInitActivity {
     }
 
 
-    @OnClick(R.id.tv_new_bank_card_submit)
+    @OnClick(R2.id.tv_new_bank_card_submit)
     public void onViewClicked() {
         if (checkForm()) {
             addBankCard();

@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.adapter.BlackAdapter;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.old_data.BlackListInfo;
@@ -33,10 +34,10 @@ import butterknife.BindView;
  */
 public class BlackListActivity extends BaseInitActivity {
 
-    @BindView(R.id.rv_black)
+    @BindView(R2.id.rv_black)
     RecyclerView mRvBlack;
 
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar mTitleBar;
     private BlackAdapter mBlackAdapter;
     private List<BlackListInfo.ContactInfo> mBeanList;

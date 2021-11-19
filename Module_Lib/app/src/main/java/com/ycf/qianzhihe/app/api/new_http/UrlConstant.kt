@@ -2,7 +2,7 @@ package com.ycf.qianzhihe.app.api.new_http
 
 import com.blankj.utilcode.util.SPUtils
 import com.ycf.qianzhihe.BuildConfig
-import com.ycf.qianzhihe.common.utils.toJsonString
+import com.ycf.qianzhihe.common.utils.json.toJsonString
 import java.io.Serializable
 
 /**

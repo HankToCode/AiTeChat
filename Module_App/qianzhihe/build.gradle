@@ -1,19 +1,28 @@
-plugins {
+/*plugins {
     id 'com.android.application'
-    id 'kotlin-android'
-}
+    id rootProject.file('package_plugin.gradle')
+}*/
+apply plugin: 'com.android.application'
+//apply from: rootProject.file('package_plugin.gradle')
+// 依赖本地的插件脚本
+apply from: rootProject.file('plugins.gradle')
+
 
 android {
-    compileSdkVersion 30
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
 
     defaultConfig {
         applicationId "com.ycf.qianzhihe"
-        minSdkVersion 28
-        targetSdkVersion 30
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.ext.android.minSdkVersion
+        targetSdkVersion rootProject.ext.android.targetSdkVersion
+        versionCode rootProject.ext.android.versionCode
+        versionName rootProject.ext.android.versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        multiDexEnabled true
+
     }
 
     buildTypes {
@@ -21,23 +30,77 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+
+        debug {
+            //applicationIdSuffix ".debug"
+        }
+    }
+
+    flavorDimensions "min"
+
+    productFlavors {
+        //开发环境
+        develop {
+            buildConfigField "String", "BASEURL", URLDEVELOP
+            buildConfigField "String", "ID_REDPROJECT", URLDEVELOP_ID_REDPROJECT
+            resValue "string", "app_name", "千纸鹤-开发"
+            //是否加密
+            buildConfigField "Boolean", "ISENCRYPTION", "true"
+            manifestPlaceholders = [
+                    app_name      : "千纸鹤-开发",
+                    EASEMOB_APPKEY: URLDEVELOP_EASEMOB_APPKEY,
+            ]
+        }
+        //测试环境
+        check {
+            buildConfigField "String", "BASEURL", UELCHECK
+            buildConfigField "String", "ID_REDPROJECT", UELCHECK_ID_REDPROJECT
+            resValue "string", "app_name", "千纸鹤-测试"
+            //是否加密
+            buildConfigField "Boolean", "ISENCRYPTION", "true"
+            manifestPlaceholders = [
+                    app_name      : "千纸鹤-测试",
+                    EASEMOB_APPKEY: UELCHECK_EASEMOB_APPKEY,
+            ]
+        }
+        //生产环境
+        product {
+            buildConfigField "String", "BASEURL", URLPRODUCTIP
+            buildConfigField "String", "ID_REDPROJECT", URLPRODUCTIP_ID_REDPROJECT
+            resValue "string", "app_name", "千纸鹤"
+            //是否加密
+            buildConfigField "Boolean", "ISENCRYPTION", "true"
+            manifestPlaceholders = [
+                    app_name      : "千纸鹤",
+                    EASEMOB_APPKEY: URLPRODUCTIP_EASEMOB_APPKEY,
+            ]
+        }
+    }
+
+    kotlinOptions {
+        jvmTarget = '1.8'
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
-    kotlinOptions {
-        jvmTarget = '1.8'
+}
+
+repositories {
+    flatDir {
+        dirs 'libs', project(':Module_Lib:app').file('libs')
     }
 }
 
 dependencies {
 
-    implementation 'androidx.core:core-ktx:1.7.0'
+    implementation 'androidx.core:core-ktx:1.6.0'
     implementation 'androidx.appcompat:appcompat:1.3.1'
     implementation 'com.google.android.material:material:1.4.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.1'
     testImplementation 'junit:junit:4.+'
     androidTestImplementation 'androidx.test.ext:junit:1.1.3'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
+
+    implementation project(':Module_Lib:app')
 }

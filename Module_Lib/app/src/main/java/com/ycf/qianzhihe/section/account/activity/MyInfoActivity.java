@@ -2,6 +2,7 @@ package com.ycf.qianzhihe.section.account.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
@@ -50,34 +52,36 @@ import top.zibin.luban.OnCompressListener;
 
 import static com.zds.base.Toast.ToastUtil.toast;
 
+import androidx.annotation.RequiresApi;
+
 /**
  * @author lhb
  * 个人资料
  */
 public class MyInfoActivity extends BaseInitActivity {
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar title_bar;
-    @BindView(R.id.img_head)
+    @BindView(R2.id.img_head)
     ImageView mImgHead;
-    @BindView(R.id.tv_name)
+    @BindView(R2.id.tv_name)
     TextView mTvName;
-    @BindView(R.id.tv_account)
+    @BindView(R2.id.tv_account)
     TextView mTvAccount;
-    @BindView(R.id.tv_sign)
+    @BindView(R2.id.tv_sign)
     TextView tv_sign;
-    @BindView(R.id.tv_phone)
+    @BindView(R2.id.tv_phone)
     TextView mTvPhone;
     private LoginInfo info;
 
-    @BindView(R.id.sb_verify)
+    @BindView(R2.id.sb_verify)
     SwitchButton sb_verify;
-    @BindView(R.id.rg_sex)
+    @BindView(R2.id.rg_sex)
     RadioGroup rg_sex;
-    @BindView(R.id.rb_male)
+    @BindView(R2.id.rb_male)
     RadioButton rb_male;
-    @BindView(R.id.rb_female)
+    @BindView(R2.id.rb_female)
     RadioButton rb_female;
-    @BindView(R.id.ll_sign)
+    @BindView(R2.id.ll_sign)
     LinearLayout ll_sign;
 
     @Override
@@ -275,23 +279,19 @@ public class MyInfoActivity extends BaseInitActivity {
     }
 
 
-    @OnClick({R.id.rl_my_share, R.id.img_head, R.id.tv_name, R.id.ll_sign, R.id.tv_account,
-            R.id.rl_my_qr,R.id.tv_logoff})
+    @OnClick({R2.id.rl_my_share, R2.id.img_head, R2.id.tv_name, R2.id.ll_sign, R2.id.tv_account,
+            R2.id.rl_my_qr,R2.id.tv_logoff})
     public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.img_head:
-                toSelectPic();
-                break;
-            case R.id.rl_my_qr:
-                MyQrActivity.actionStart(mContext, "1");
-                break;
-            case R.id.tv_name://修改昵称
-                startActivity(new Intent(this, EditInfoActivity.class).putExtra("from", "1"));
-                break;
-            case R.id.ll_sign://修改个性签名
-                startActivity(new Intent(this, EditInfoActivity.class).putExtra("from", "3"));
-                break;
-            /*case R.id.tv_account:
+        int id = view.getId();
+        if (id == R.id.img_head) {
+            toSelectPic();
+        } else if (id == R.id.rl_my_qr) {
+            MyQrActivity.actionStart(mContext, "1");
+        } else if (id == R.id.tv_name) {//修改昵称
+            startActivity(new Intent(this, EditInfoActivity.class).putExtra("from", "1"));
+        } else if (id == R.id.ll_sign) {//修改个性签名
+            startActivity(new Intent(this, EditInfoActivity.class).putExtra("from", "3"));
+                /*case R.id.tv_account:
                 Bundle bundle3 = new Bundle();
                 bundle3.putString("from", "2");
                 startActivity(EditInfoActivity.class, bundle3);
@@ -306,17 +306,15 @@ public class MyInfoActivity extends BaseInitActivity {
                     }
                 }).show();
                 break;*/
-            case R.id.rl_my_share:
-                Bundle bundle2 = new Bundle();
-                bundle2.putString("nickName", info.getNickName());
-                bundle2.putString("userCode", info.getUserCode());
-                bundle2.putString("avatar", info.getUserHead());
-                bundle2.putString("friendUserId", info.getUserId());
+        } else if (id == R.id.rl_my_share) {
+            Bundle bundle2 = new Bundle();
+            bundle2.putString("nickName", info.getNickName());
+            bundle2.putString("userCode", info.getUserCode());
+            bundle2.putString("avatar", info.getUserHead());
+            bundle2.putString("friendUserId", info.getUserId());
 
 //                startActivity(ShareCardIdActivity.class, bundle2);
-                break;
-            case R.id.tv_logoff:
-                //注销账号
+        } else if (id == R.id.tv_logoff) {//注销账号
                 /*new EaseAlertDialog(this, "确定注销帐号？", null, null, new EaseAlertDialog.AlertDialogUser() {
                     @Override
                     public void onResult(boolean confirmed, Bundle bundle) {
@@ -326,9 +324,6 @@ public class MyInfoActivity extends BaseInitActivity {
                     }
                 }).show();*/
 //                showLogoffDialog();
-                break;
-            default:
-                break;
         }
     }
 
@@ -352,6 +347,7 @@ public class MyInfoActivity extends BaseInitActivity {
         }
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.FROYO)
     public void compressImg(String path) {
         Luban.with(this)
                 .load(path)                                     // 传人要压缩的图片列表

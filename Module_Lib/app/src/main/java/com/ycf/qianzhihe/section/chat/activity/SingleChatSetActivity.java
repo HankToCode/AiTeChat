@@ -107,18 +107,15 @@ public class SingleChatSetActivity extends BaseInitActivity implements EaseTitle
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.item_user_info :
-                EaseUser user = new EaseUser();
-                user.setUsername(toChatUsername);
-                ContactDetailActivity.actionStart(mContext, user);
-                break;
-            case R.id.item_search_history :
-                SearchSingleChatActivity.actionStart(mContext, toChatUsername);
-                break;
-            case R.id.item_clear_history :
-                clearHistory();
-                break;
+        int id = v.getId();
+        if (id == R.id.item_user_info) {
+            EaseUser user = new EaseUser();
+            user.setUsername(toChatUsername);
+            ContactDetailActivity.actionStart(mContext, user);
+        } else if (id == R.id.item_search_history) {
+            SearchSingleChatActivity.actionStart(mContext, toChatUsername);
+        } else if (id == R.id.item_clear_history) {
+            clearHistory();
         }
     }
 
@@ -138,11 +135,9 @@ public class SingleChatSetActivity extends BaseInitActivity implements EaseTitle
 
     @Override
     public void onCheckedChanged(SwitchItemView buttonView, boolean isChecked) {
-        switch (buttonView.getId()) {
-            case R.id.item_switch_top :
-                conversation.setExtField(isChecked ? (System.currentTimeMillis()+"") : "");
-                LiveDataBus.get().with(DemoConstant.MESSAGE_CHANGE_CHANGE).postValue(new EaseEvent(DemoConstant.MESSAGE_CHANGE_CHANGE, EaseEvent.TYPE.MESSAGE));
-                break;
+        if (buttonView.getId() == R.id.item_switch_top) {
+            conversation.setExtField(isChecked ? (System.currentTimeMillis() + "") : "");
+            LiveDataBus.get().with(DemoConstant.MESSAGE_CHANGE_CHANGE).postValue(new EaseEvent(DemoConstant.MESSAGE_CHANGE_CHANGE, EaseEvent.TYPE.MESSAGE));
         }
     }
 }

@@ -70,16 +70,13 @@ public class FeedbackActivity extends BaseInitActivity implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.item_question_type ://反馈问题类型
-                showPopuWindowDialog();
-                break;
-            case R.id.item_email ://邮箱
-                showAddEmailDialog();
-                break;
-            case R.id.item_qq ://qq
-                showAddQQDialog();
-                break;
+        int id = v.getId();
+        if (id == R.id.item_question_type) {//反馈问题类型
+            showPopuWindowDialog();
+        } else if (id == R.id.item_email) {//邮箱
+            showAddEmailDialog();
+        } else if (id == R.id.item_qq) {//qq
+            showAddQQDialog();
         }
     }
 

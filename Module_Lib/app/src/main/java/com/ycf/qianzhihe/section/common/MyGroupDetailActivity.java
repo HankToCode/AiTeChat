@@ -20,6 +20,7 @@ import com.hyphenate.chat.EMConversation;
 import com.hyphenate.easecallkit.widget.EaseImageView;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.adapter.MyRoomDeatilAdapter;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.Global;
@@ -74,59 +75,59 @@ import com.zds.base.Toast.ToastUtil;
  * 群组详情
  */
 public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDeatilAdapter.OnDelClickListener {
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar title_bar;
 
-    @BindView(R.id.recycle_view)
+    @BindView(R2.id.recycle_view)
     RecyclerView mRecycleView;
-    @BindView(R.id.iv_group_head)
+    @BindView(R2.id.iv_group_head)
     EaseImageView iv_group_head;
 
-    @BindView(R.id.tv_group_name)
+    @BindView(R2.id.tv_group_name)
     TextView tv_group_name;
 
-    @BindView(R.id.tv_group_zx)
+    @BindView(R2.id.tv_group_zx)
     TextView mTvGroupZx;
-    @BindView(R.id.tv_group_id)
+    @BindView(R2.id.tv_group_id)
     TextView mTvGroupId;
-    @BindView(R.id.tv_msg_record)
+    @BindView(R2.id.tv_msg_record)
     TextView mTvMsgRecord;
-    @BindView(R.id.tv_msg_disturb)
+    @BindView(R2.id.tv_msg_disturb)
     TextView mTvMsgDisturb;
-    @BindView(R.id.switch_msg)
+    @BindView(R2.id.switch_msg)
     CheckBox mSwitchMsg;
-    @BindView(R.id.tv_clear_msg)
+    @BindView(R2.id.tv_clear_msg)
     TextView mTvClearMsg;
-    @BindView(R.id.tv_exit)
+    @BindView(R2.id.tv_exit)
     TextView mTvExit;
-    @BindView(R.id.tv_my_group_nick_name)
+    @BindView(R2.id.tv_my_group_nick_name)
     TextView mTvMyGroupNickName;
 
-    //    @BindView(R.id.tv_group_announcement)
+    //    @BindView(R2.id.tv_group_announcement)
 //    TextView mTvGroupAnnouncement;
-    @BindView(R.id.tv_user_red_detail)
+    @BindView(R2.id.tv_user_red_detail)
     TextView tvUserRedDetail;
-    @BindView(R.id.switch_user_red_detail)
+    @BindView(R2.id.switch_user_red_detail)
     CheckBox switchUserRedDetail;
-    @BindView(R.id.fl_user_read_detail)
+    @BindView(R2.id.fl_user_read_detail)
     FrameLayout flUserReadDetail;
-    @BindView(R.id.tv_group_manager)
+    @BindView(R2.id.tv_group_manager)
     TextView tvGroupManager;
-    @BindView(R.id.fl_group_jinyan)
+    @BindView(R2.id.fl_group_jinyan)
     FrameLayout mFlGroupJinyan;
-    @BindView(R.id.switch_shut_up)
+    @BindView(R2.id.switch_shut_up)
     CheckBox mSwitchShutUp;
 
-    @BindView(R.id.switch_top_conversation)
+    @BindView(R2.id.switch_top_conversation)
     CheckBox mSwitchTopConversation;
 
-    @BindView(R.id.tv_transfer_group)
+    @BindView(R2.id.tv_transfer_group)
     TextView tv_transfer_group;
 
-    @BindView(R.id.tv_group_remark)
+    @BindView(R2.id.tv_group_remark)
     TextView tv_group_remark;
 
-    @BindView(R.id.rl_container_group_single_member_jinyan)
+    @BindView(R2.id.rl_container_group_single_member_jinyan)
     TextView rl_container_group_single_member_jinyan;
 
 
@@ -669,144 +670,115 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
 
     private String headUrl = "";
 
-    @OnClick({R.id.fl_group_member, R.id.tv_my_group_nick_name_s,
-            R.id.tv_group_zx, R.id.tv_group_name, R.id.rl_container_group_remark,
-            R.id.tv_group_notice, R.id.tv_msg_record,
-            R.id.tv_group_manager, R.id.rl_container_group_single_member_jinyan,
-            R.id.tv_clear_msg, R.id.tv_exit, R.id.tv_transfer_group, R.id.iv_group_head, R.id.tv_chat_bg})
+    @OnClick({R2.id.fl_group_member, R2.id.tv_my_group_nick_name_s,
+            R2.id.tv_group_zx, R2.id.tv_group_name, R2.id.rl_container_group_remark,
+            R2.id.tv_group_notice, R2.id.tv_msg_record,
+            R2.id.tv_group_manager, R2.id.rl_container_group_single_member_jinyan,
+            R2.id.tv_clear_msg, R2.id.tv_exit, R2.id.tv_transfer_group, R2.id.iv_group_head, R2.id.tv_chat_bg})
     public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.tv_chat_bg:
-                //聊天背景
-                ChatBgActivity.actionStart(this, "1", info.getHuanxinGroupId());
-                break;
-            case R.id.tv_group_name:
-                //群昵称
-                if (info.getGroupUserRank() != 0) {
-                    startActivity(new Intent(this, EditInfoActivity.class)
-                            .putExtra("from", "4")
-                            .putExtra("groupName",
-                                    tv_group_name.getText().toString().trim())
-                            .putExtra("groupId", groupId));
-                }
-
-                break;
-            case R.id.rl_container_group_remark:
+        int id = view.getId();
+        if (id == R.id.tv_chat_bg) {//聊天背景
+            ChatBgActivity.actionStart(this, "1", info.getHuanxinGroupId());
+        } else if (id == R.id.tv_group_name) {//群昵称
+            if (info.getGroupUserRank() != 0) {
                 startActivity(new Intent(this, EditInfoActivity.class)
-                        .putExtra("from", EditInfoActivity.FUNC_TYPE_MODIFY_GROUP_REMARK)
-                        .putExtra("key_intent_group_remark",
-                                tv_group_remark.getText().toString().trim())
+                        .putExtra("from", "4")
+                        .putExtra("groupName",
+                                tv_group_name.getText().toString().trim())
                         .putExtra("groupId", groupId));
-                break;
-            case R.id.tv_my_group_nick_name_s:
-                //昵称
-                startActivity(new Intent(this, EditInfoActivity.class)
-                        .putExtra("from", "5")
-                        .putExtra("myGroupName",
-                                mTvMyGroupNickName.getText().toString().trim())
-                        .putExtra("groupId", groupId));
-                break;
-            case R.id.iv_group_head:
-                //群头像
-                if (info.getGroupUserRank() == 2) {
-                    toSelectPic();
-                }
-                break;
+            }
+        } else if (id == R.id.rl_container_group_remark) {
+            startActivity(new Intent(this, EditInfoActivity.class)
+                    .putExtra("from", EditInfoActivity.FUNC_TYPE_MODIFY_GROUP_REMARK)
+                    .putExtra("key_intent_group_remark",
+                            tv_group_remark.getText().toString().trim())
+                    .putExtra("groupId", groupId));
+        } else if (id == R.id.tv_my_group_nick_name_s) {//昵称
+            startActivity(new Intent(this, EditInfoActivity.class)
+                    .putExtra("from", "5")
+                    .putExtra("myGroupName",
+                            mTvMyGroupNickName.getText().toString().trim())
+                    .putExtra("groupId", groupId));
+        } else if (id == R.id.iv_group_head) {//群头像
+            if (info.getGroupUserRank() == 2) {
+                toSelectPic();
+            }
+        } else if (id == R.id.tv_group_notice) {//群公告
+            startActivity(new Intent(this, NoticeActivity.class)
+                    .putExtra("time", info.getUpdateGroupNoticeTime())
+                    .putExtra("img_head",
+                            mDetailVoListBeanList.get(0).getUserHead())
+                    .putExtra("tv_head",
+                            mDetailVoListBeanList.get(0).getUserNickName())
+                    .putExtra("groupId", groupId)
+                    .putExtra("user_rank", info.getGroupUserRank())
+                    .putExtra("notice", info.getGroupNotice())
+                    .putExtra("username", emChatId));
+            finish();
+        } else if (id == R.id.tv_msg_record) {
+            startActivity(new Intent(this, ChatRecordActivity.class).putExtra("chatId", emChatId));
+        } else if (id == R.id.tv_group_manager) {//设置群管理员
+            SetGroupManageActivity.actionStart(this, groupId, emChatId);
+        } else if (id == R.id.tv_clear_msg) {//清空聊天记录
+            String st9 =
+                    getResources().getString(R.string.sure_to_empty_this);
+            new EaseAlertDialog(MyGroupDetailActivity.this, null, st9,
+                    null, new EaseAlertDialog.AlertDialogUser() {
 
-            case R.id.tv_group_notice:
-                //群公告
-                startActivity(new Intent(this, NoticeActivity.class)
-                        .putExtra("time", info.getUpdateGroupNoticeTime())
-                        .putExtra("img_head",
-                                mDetailVoListBeanList.get(0).getUserHead())
-                        .putExtra("tv_head",
-                                mDetailVoListBeanList.get(0).getUserNickName())
-                        .putExtra("groupId", groupId)
-                        .putExtra("user_rank", info.getGroupUserRank())
-                        .putExtra("notice", info.getGroupNotice())
-                        .putExtra("username", emChatId));
-                finish();
-
-                break;
-            case R.id.tv_msg_record:
-                startActivity(new Intent(this, ChatRecordActivity.class).putExtra("chatId", emChatId));
-                break;
-
-            case R.id.tv_group_manager:
-                //设置群管理员
-                SetGroupManageActivity.actionStart(this, groupId, emChatId);
-                break;
-            case R.id.tv_clear_msg:
-                //清空聊天记录
-                String st9 =
-                        getResources().getString(R.string.sure_to_empty_this);
-                new EaseAlertDialog(MyGroupDetailActivity.this, null, st9,
-                        null, new EaseAlertDialog.AlertDialogUser() {
-
-                    @Override
-                    public void onResult(boolean confirmed, Bundle bundle) {
-                        if (confirmed) {
-                            clearGroupHistory();
-                        }
+                @Override
+                public void onResult(boolean confirmed, Bundle bundle) {
+                    if (confirmed) {
+                        clearGroupHistory();
                     }
-                }, true).show();
-                break;
-            case R.id.tv_exit:
-                //退出 1:解散群组 （群主）
-                //2 :退出群组 （普通成员，管理员）
-                String str = "";
-                if (info.getGroupUserRank() == 2) {
-                    str = getResources().getString(R.string.dissolution_group_hint);
-                } else {
-                    str = getResources().getString(R.string.exit_group_hint);
                 }
-                new EaseAlertDialog(MyGroupDetailActivity.this, null, str,
-                        null, new EaseAlertDialog.AlertDialogUser() {
-                    @Override
-                    public void onResult(boolean confirmed, Bundle bundle) {
-                        if (confirmed) {
-                            // 0-普通用户 1-管理员 2-群主
-                            if (info.getGroupUserRank() == 2) {
-                                delGroup();
-                            } else {
-                                exitGroup();
-                            }
-
-                            EMClient.getInstance().chatManager().deleteConversation(emChatId, true);
-                            EventBus.getDefault().post(new EventCenter<>(EventUtil.REFRESH_CONVERSION));
+            }, true).show();
+        } else if (id == R.id.tv_exit) {//退出 1:解散群组 （群主）
+            //2 :退出群组 （普通成员，管理员）
+            String str = "";
+            if (info.getGroupUserRank() == 2) {
+                str = getResources().getString(R.string.dissolution_group_hint);
+            } else {
+                str = getResources().getString(R.string.exit_group_hint);
+            }
+            new EaseAlertDialog(MyGroupDetailActivity.this, null, str,
+                    null, new EaseAlertDialog.AlertDialogUser() {
+                @Override
+                public void onResult(boolean confirmed, Bundle bundle) {
+                    if (confirmed) {
+                        // 0-普通用户 1-管理员 2-群主
+                        if (info.getGroupUserRank() == 2) {
+                            delGroup();
+                        } else {
+                            exitGroup();
                         }
-                    }
-                }, true).show();
 
-                break;
-            case R.id.tv_group_zx:
-                Intent intent = new Intent(this, MyQrActivity.class);
-                Bundle bundle2 = new Bundle();
-                bundle2.putString("from", "2");
-                bundle2.putString("id", groupId);
-                bundle2.putString("head", info.getGroupHead());
-                bundle2.putString("name", info.getGroupName());
-                intent.putExtras(bundle2);
-                startActivity(intent);
-                break;
-            case R.id.fl_group_member:
-                Global.addUserOriginType = Constant.ADD_USER_ORIGIN_TYPE_GROUPCHAT;
-                Global.addUserOriginName = info.getGroupName();
-                Intent memberIntent = new Intent(this, GroupMemberActivity.class);
-                Bundle memberBundle = new Bundle();
-                memberBundle.putString(Constant.PARAM_GROUP_ID, groupId);
-                memberBundle.putString(Constant.PARAM_EM_GROUP_ID, emChatId);
-                memberIntent.putExtras(memberBundle);
-                startActivity(memberIntent);
-                break;
-            case R.id.tv_transfer_group:
-                TransferGroupActivity.start(this, emChatId, groupId);
-                break;
-            case R.id.rl_container_group_single_member_jinyan:
-                GroupSingleMemberMuteActivity.start(this, emChatId, groupId);
-                break;
-            default:
-                break;
+                        EMClient.getInstance().chatManager().deleteConversation(emChatId, true);
+                        EventBus.getDefault().post(new EventCenter<>(EventUtil.REFRESH_CONVERSION));
+                    }
+                }
+            }, true).show();
+        } else if (id == R.id.tv_group_zx) {
+            Intent intent = new Intent(this, MyQrActivity.class);
+            Bundle bundle2 = new Bundle();
+            bundle2.putString("from", "2");
+            bundle2.putString("id", groupId);
+            bundle2.putString("head", info.getGroupHead());
+            bundle2.putString("name", info.getGroupName());
+            intent.putExtras(bundle2);
+            startActivity(intent);
+        } else if (id == R.id.fl_group_member) {
+            Global.addUserOriginType = Constant.ADD_USER_ORIGIN_TYPE_GROUPCHAT;
+            Global.addUserOriginName = info.getGroupName();
+            Intent memberIntent = new Intent(this, GroupMemberActivity.class);
+            Bundle memberBundle = new Bundle();
+            memberBundle.putString(Constant.PARAM_GROUP_ID, groupId);
+            memberBundle.putString(Constant.PARAM_EM_GROUP_ID, emChatId);
+            memberIntent.putExtras(memberBundle);
+            startActivity(memberIntent);
+        } else if (id == R.id.tv_transfer_group) {
+            TransferGroupActivity.start(this, emChatId, groupId);
+        } else if (id == R.id.rl_container_group_single_member_jinyan) {
+            GroupSingleMemberMuteActivity.start(this, emChatId, groupId);
         }
     }
 

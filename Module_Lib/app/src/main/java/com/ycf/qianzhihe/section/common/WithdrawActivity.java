@@ -16,6 +16,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.ycf.qianzhihe.DemoApplication;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.app.api.old_data.LoginInfo;
@@ -48,27 +49,27 @@ import com.zds.base.util.NumberUtils;
 
 public class WithdrawActivity extends BaseInitActivity {
 
-    @BindView(R.id.tv_new_bank_card_submit)
+    @BindView(R2.id.tv_new_bank_card_submit)
     TextView mNewBankCard;
-    @BindView(R.id.et_withdraw_money)
+    @BindView(R2.id.et_withdraw_money)
     EditText mWithdrawMoney;
-    @BindView(R.id.tv_hand_rate)
+    @BindView(R2.id.tv_hand_rate)
     TextView mTvHand_rate;
-    @BindView(R.id.tv_my_money_hint)
+    @BindView(R2.id.tv_my_money_hint)
     TextView mTvMoneyHint;
-    @BindView(R.id.tv_my_money_hint_min)
+    @BindView(R2.id.tv_my_money_hint_min)
     TextView mTvMoneyHintMin;
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar mTitleBar;
 
-    @BindView(R.id.tv_tixian)
+    @BindView(R2.id.tv_tixian)
     TextView tv_tixian;
 
-    @BindView(R.id.rl_black)
+    @BindView(R2.id.rl_black)
     RelativeLayout rl_black;
-    @BindView(R.id.tv_bank)
+    @BindView(R2.id.tv_bank)
     TextView tv_bank;
-    @BindView(R.id.tv_bank_card)
+    @BindView(R2.id.tv_bank_card)
     TextView tv_bank_card;
 
     private boolean isSelectBalance = false;
@@ -162,30 +163,26 @@ public class WithdrawActivity extends BaseInitActivity {
 
     private String bankId = "";
 
-    @OnClick({R.id.tv_new_bank_card_submit, R.id.rl_black})
+    @OnClick({R2.id.tv_new_bank_card_submit, R2.id.rl_black})
     public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.rl_black://选择提现银行卡
-                startActivityForResult(new Intent(this, BankActivity.class), 66);
-                break;
-            case R.id.tv_new_bank_card_submit://提现
-                if (TextUtils.isEmpty(bankId)) {
-                    showToast("请选择提现银行卡");
-                    return;
-                }
-                double moey = NumberUtils.parseDouble(mWithdrawMoney.getText().toString());
-                if (moey <= 0) {
-                    ToastUtil.toast("请输入金额");
-                    return;
-                }
-                if (moey < 50) {
-                    ToastUtil.toast("提现金额单次最低50元");
-                    return;
-                }
-                PayPassword(bankId);
-                break;
-            default:
-                break;
+        int id = view.getId();
+        if (id == R.id.rl_black) {//选择提现银行卡
+            startActivityForResult(new Intent(this, BankActivity.class), 66);
+        } else if (id == R.id.tv_new_bank_card_submit) {//提现
+            if (TextUtils.isEmpty(bankId)) {
+                showToast("请选择提现银行卡");
+                return;
+            }
+            double moey = NumberUtils.parseDouble(mWithdrawMoney.getText().toString());
+            if (moey <= 0) {
+                ToastUtil.toast("请输入金额");
+                return;
+            }
+            if (moey < 50) {
+                ToastUtil.toast("提现金额单次最低50元");
+                return;
+            }
+            PayPassword(bankId);
         }
     }
 

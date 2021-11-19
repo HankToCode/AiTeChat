@@ -137,16 +137,13 @@ public class GroupTransferActivity extends GroupMemberAuthorityActivity {
         menu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
             @Override
             public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.action_group_add_admin ://设为管理员
-                        addToAdmins(username);
-                        break;
-                    case R.id.action_group_remove_admin ://移除管理员
-                        removeFromAdmins(username);
-                        break;
-                    case R.id.action_group_transfer_owner ://移交群主
-                        transferOwner(username);
-                        break;
+                int itemId = item.getItemId();
+                if (itemId == R.id.action_group_add_admin) {//设为管理员
+                    addToAdmins(username);
+                } else if (itemId == R.id.action_group_remove_admin) {//移除管理员
+                    removeFromAdmins(username);
+                } else if (itemId == R.id.action_group_transfer_owner) {//移交群主
+                    transferOwner(username);
                 }
                 return false;
             }

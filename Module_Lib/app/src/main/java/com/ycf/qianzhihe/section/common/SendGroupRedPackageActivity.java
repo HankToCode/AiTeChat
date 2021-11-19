@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.global.UserComm;
@@ -51,41 +52,41 @@ import butterknife.BindView;
  * 发送个人红包
  */
 public class SendGroupRedPackageActivity extends BaseInitActivity {
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar title_bar;
 
-    @BindView(R.id.ll_send_to)
+    @BindView(R2.id.ll_send_to)
     LinearLayout llSendTo;
-    @BindView(R.id.tv_send_to)
+    @BindView(R2.id.tv_send_to)
     TextView tvSendTo;
 
-    @BindView(R.id.ll_num)
+    @BindView(R2.id.ll_num)
     LinearLayout llNum;
-    @BindView(R.id.et_red_num)
+    @BindView(R2.id.et_red_num)
     EditText etRedNum;
 
-    @BindView(R.id.ll_total_amount)
+    @BindView(R2.id.ll_total_amount)
     LinearLayout llTotalAmount;
-    @BindView(R.id.et_red_amount)
+    @BindView(R2.id.et_red_amount)
     EditText etRedAmount;
-    @BindView(R.id.tv_total_title)
+    @BindView(R2.id.tv_total_title)
     TextView tvTotalTitle;
 
-    @BindView(R.id.ll_remark)
+    @BindView(R2.id.ll_remark)
     LinearLayout llRemark;
-    @BindView(R.id.et_remark)
+    @BindView(R2.id.et_remark)
     EditText etRemark;
 
-    @BindView(R.id.tv_red_amount)
+    @BindView(R2.id.tv_red_amount)
     TextView tvRedAmount;
-    @BindView(R.id.tv_send_red)
+    @BindView(R2.id.tv_send_red)
     TextView mTvSendRed;
 
-    @BindView(R.id.tv_select)
+    @BindView(R2.id.tv_select)
     TextView tvSelect;
-    @BindView(R.id.root)
+    @BindView(R2.id.root)
     LinearLayout root;
-    @BindView(R.id.tv_member)
+    @BindView(R2.id.tv_member)
     TextView tv_member;
 
     private int isSelectBalance = 0;

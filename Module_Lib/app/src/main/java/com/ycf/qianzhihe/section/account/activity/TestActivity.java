@@ -61,44 +61,35 @@ public class TestActivity extends BaseInitActivity implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_success_1 :
-                ToastUtils.showSuccessToast("发送成功", "上了飞机数量急死了都放假数量的房间数量肯定放假");
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case R.id.btn_success_2 :
-                //复现7.1.x版本toast crash的情况
-                Toast.makeText(TestActivity.this, "上了飞机数量急死了都放假数量的房间数量肯定放假", Toast.LENGTH_SHORT).show();
-                try {
-                    Thread.sleep(3000);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case R.id.btn_fail_1 :
-                ToastUtils.showFailToast("请求失败", "上了飞机数量急死了都放假数量的房间数量肯定放假");
-                break;
-            case R.id.btn_fail_2 :
-                ToastUtils.showFailToast("上了飞机数量急死了都放假数量的房间数量肯定放假");
-                break;
-            case R.id.btn_default :
+        int id = v.getId();
+        if (id == R.id.btn_success_1) {
+            ToastUtils.showSuccessToast("发送成功", "上了飞机数量急死了都放假数量的房间数量肯定放假");
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } else if (id == R.id.btn_success_2) {//复现7.1.x版本toast crash的情况
+            Toast.makeText(TestActivity.this, "上了飞机数量急死了都放假数量的房间数量肯定放假", Toast.LENGTH_SHORT).show();
+            try {
+                Thread.sleep(3000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        } else if (id == R.id.btn_fail_1) {
+            ToastUtils.showFailToast("请求失败", "上了飞机数量急死了都放假数量的房间数量肯定放假");
+        } else if (id == R.id.btn_fail_2) {
+            ToastUtils.showFailToast("上了飞机数量急死了都放假数量的房间数量肯定放假");
+        } else if (id == R.id.btn_default) {
+            ToastUtils.showToast("上了飞机数量急死了都放假数量的房间数量肯定放假");
+        } else if (id == R.id.btn_default_thread) {
+            EaseThreadManager.getInstance().runOnIOThread(() -> {
                 ToastUtils.showToast("上了飞机数量急死了都放假数量的房间数量肯定放假");
-                break;
-            case R.id.btn_default_thread:
-                EaseThreadManager.getInstance().runOnIOThread(()->{
-                    ToastUtils.showToast("上了飞机数量急死了都放假数量的房间数量肯定放假");
-                });
-                break;
-            case R.id.btn_success_3:
-                ToastUtils.showSuccessToast(R.string.em_login_btn, R.string.em_error_network_error);
-                break;
-            case R.id.btn_success_4:
-                ToastUtils.showSuccessToast(R.string.em_error_network_error);
-                break;
+            });
+        } else if (id == R.id.btn_success_3) {
+            ToastUtils.showSuccessToast(R.string.em_login_btn, R.string.em_error_network_error);
+        } else if (id == R.id.btn_success_4) {
+            ToastUtils.showSuccessToast(R.string.em_error_network_error);
         }
     }
 

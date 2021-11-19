@@ -8,6 +8,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
 import com.ycf.qianzhihe.app.api.old_http.AppConfig;
@@ -27,11 +28,11 @@ import com.zds.base.Toast.ToastUtil;
  * 举报
  */
 public class ReportActivity extends BaseInitActivity {
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar mTitleBar;
-    @BindView(R.id.et_report)
+    @BindView(R2.id.et_report)
     EditText mEtReport;
-    @BindView(R.id.tv_report)
+    @BindView(R2.id.tv_report)
     TextView mTvReport;
 
     /**
@@ -116,16 +117,12 @@ public class ReportActivity extends BaseInitActivity {
     }
 
 
-    @OnClick({R.id.et_report, R.id.tv_report})
+    @OnClick({R2.id.et_report, R2.id.tv_report})
     public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.et_report:
-                break;
-            case R.id.tv_report:
-                report();
-                break;
-            default:
-                break;
+        int id = view.getId();
+        if (id == R.id.et_report) {
+        } else if (id == R.id.tv_report) {
+            report();
         }
     }
 

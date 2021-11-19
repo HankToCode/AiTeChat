@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hyphenate.easeui.constants.EaseConstant;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.adapter.ContactAdapter;
 import com.ycf.qianzhihe.app.adapter.ContactSearchAdapter;
 import com.ycf.qianzhihe.app.api.Constant;
@@ -50,17 +51,17 @@ import butterknife.BindView;
  * 联系人
  */
 public class ContactSearchActivity extends BaseInitActivity {
-    @BindView(R.id.toolbar_title)
+    @BindView(R2.id.toolbar_title)
     TextView mToolbarTitle;
-    @BindView(R.id.rv_group)
+    @BindView(R2.id.rv_group)
     RecyclerView mRecyclerView;
-    @BindView(R.id.query)
+    @BindView(R2.id.query)
     EditText mQuery;
-    @BindView(R.id.search_clear)
+    @BindView(R2.id.search_clear)
     ImageButton mSearchClear;
-    @BindView(R.id.img_left_back)
+    @BindView(R2.id.img_left_back)
     ImageView mImgLeftBack;
-    @BindView(R.id.tv_back)
+    @BindView(R2.id.tv_back)
     TextView mTvBack;
     private List<ContactListInfo.DataBean> mContactList;
     private ContactSearchAdapter mContactAdapter;

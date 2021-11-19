@@ -297,6 +297,7 @@
         <activity
             android:name="com.ycf.qianzhihe.section.account.activity.SplashActivity"
             android:screenOrientation="portrait"
+            android:exported="false"
             android:theme="@style/NoActionBar.SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

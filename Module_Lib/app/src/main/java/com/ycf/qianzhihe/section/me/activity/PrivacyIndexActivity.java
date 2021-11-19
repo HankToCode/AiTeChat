@@ -44,13 +44,10 @@ public class PrivacyIndexActivity extends BaseInitActivity implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.item_black_manager :
-                ContactBlackListActivity.actionStart(mContext);
-                break;
-            case R.id.item_equipment_manager :
-
-                break;
+        int id = v.getId();
+        if (id == R.id.item_black_manager) {
+            ContactBlackListActivity.actionStart(mContext);
+        } else if (id == R.id.item_equipment_manager) {
         }
     }
 

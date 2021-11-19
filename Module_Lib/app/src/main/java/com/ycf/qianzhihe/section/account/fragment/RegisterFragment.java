@@ -152,10 +152,8 @@ public class RegisterFragment extends BaseInitFragment implements TextWatcher, V
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_login :
-                registerToHx();
-                break;
+        if (v.getId() == R.id.btn_login) {
+            registerToHx();
         }
     }
 
@@ -188,10 +186,8 @@ public class RegisterFragment extends BaseInitFragment implements TextWatcher, V
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        switch (buttonView.getId()) {
-            case R.id.cb_select :
-                setButtonEnable(!TextUtils.isEmpty(mUserName) && !TextUtils.isEmpty(mPwd) && !TextUtils.isEmpty(mPwdConfirm) && isChecked);
-                break;
+        if (buttonView.getId() == R.id.cb_select) {
+            setButtonEnable(!TextUtils.isEmpty(mUserName) && !TextUtils.isEmpty(mPwd) && !TextUtils.isEmpty(mPwdConfirm) && isChecked);
         }
     }
 

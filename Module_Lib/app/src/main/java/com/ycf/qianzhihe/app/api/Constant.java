@@ -1,6 +1,7 @@
 package com.ycf.qianzhihe.app.api;
 
 import com.ycf.qianzhihe.BuildConfig;
+import com.ycf.qianzhihe.app.platform.PlatformFactory;
 
 public class Constant extends EaseConstant {
 
@@ -102,78 +103,78 @@ public class Constant extends EaseConstant {
     /**
      * 环信使用别名
      */
-    public static final String ID_REDPROJECT = BuildConfig.ID_REDPROJECT;
+    public static final String ID_REDPROJECT = PlatformFactory.getPlatform().getIdRedProject();
 
-    public static String getTitleInv(int Invite) {
-        String title = "";
-        switch (Invite) {
-            case 0:
-                title = "一级推荐";
-                break;
-            case 1:
-                title = "二级推荐";
-                break;
-            case 2:
-                title = "三级推荐";
-                break;
-            case 3:
-                title = "四级推荐";
-                break;
-            case 4:
-                title = "五级推荐";
-                break;
-            case 5:
-                title = "六级推荐";
-                break;
-            case 6:
-                title = "七级推荐";
-                break;
-            case 7:
-                title = "八级推荐";
-                break;
-            case 8:
-                title = "九级推荐";
-                break;
-            case 9:
-                title = "十级推荐";
-                break;
-            case 10:
-                title = "十一级推荐";
-                break;
-            case 11:
-                title = "十二级推荐";
-                break;
-            case 12:
-                title = "十三级推荐";
-                break;
-            case 13:
-                title = "十四级推荐";
-                break;
-            case 14:
-                title = "十五级推荐";
-                break;
-            case 15:
-                title = "十六级推荐";
-                break;
-            case 16:
-                title = "十七级推荐";
-                break;
-            case 17:
-                title = "十八级推荐";
-                break;
-            case 18:
-                title = "十九级推荐";
-                break;
-            case 19:
-                title = "二十级推荐";
-                break;
-            case 20:
-                title = "二十一级推荐";
-                break;
-            default:
-        }
-        return title;
-    }
+//    public static String getTitleInv(int Invite) {
+//        String title = "";
+//        switch (Invite) {
+//            case 0:
+//                title = "一级推荐";
+//                break;
+//            case 1:
+//                title = "二级推荐";
+//                break;
+//            case 2:
+//                title = "三级推荐";
+//                break;
+//            case 3:
+//                title = "四级推荐";
+//                break;
+//            case 4:
+//                title = "五级推荐";
+//                break;
+//            case 5:
+//                title = "六级推荐";
+//                break;
+//            case 6:
+//                title = "七级推荐";
+//                break;
+//            case 7:
+//                title = "八级推荐";
+//                break;
+//            case 8:
+//                title = "九级推荐";
+//                break;
+//            case 9:
+//                title = "十级推荐";
+//                break;
+//            case 10:
+//                title = "十一级推荐";
+//                break;
+//            case 11:
+//                title = "十二级推荐";
+//                break;
+//            case 12:
+//                title = "十三级推荐";
+//                break;
+//            case 13:
+//                title = "十四级推荐";
+//                break;
+//            case 14:
+//                title = "十五级推荐";
+//                break;
+//            case 15:
+//                title = "十六级推荐";
+//                break;
+//            case 16:
+//                title = "十七级推荐";
+//                break;
+//            case 17:
+//                title = "十八级推荐";
+//                break;
+//            case 18:
+//                title = "十九级推荐";
+//                break;
+//            case 19:
+//                title = "二十级推荐";
+//                break;
+//            case 20:
+//                title = "二十一级推荐";
+//                break;
+//            default:
+//        }
+//        return title;
+//    }
     // http code
     /**
      * 成功

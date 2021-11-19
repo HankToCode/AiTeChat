@@ -228,18 +228,13 @@ public class ConversationListFragment extends BaseConversationListFragment imple
 
         @Override
         public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.friend_notice:
-                    // 好友申请列表
-                    friendNoticeItem.setUnreadCount(0);
-                    AuditMsgActivity.actionStart(requireContext());
-                    break;
-                case R.id.group_notice:
-                    groupdNoticeItem.setUnreadCount(0);
-                    ApplyJoinGroupActivity.actionStart(requireContext());
-                    break;
-                default:
-                    break;
+            int id = v.getId();
+            if (id == R.id.friend_notice) {// 好友申请列表
+                friendNoticeItem.setUnreadCount(0);
+                AuditMsgActivity.actionStart(requireContext());
+            } else if (id == R.id.group_notice) {
+                groupdNoticeItem.setUnreadCount(0);
+                ApplyJoinGroupActivity.actionStart(requireContext());
             }
         }
 

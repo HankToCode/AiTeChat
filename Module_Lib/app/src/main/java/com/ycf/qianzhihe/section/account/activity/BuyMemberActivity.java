@@ -16,6 +16,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.coorchice.library.SuperTextView;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.new_data.VipBean;
 import com.ycf.qianzhihe.app.api.old_data.LoginInfo;
@@ -49,23 +50,23 @@ import butterknife.BindView;
 //会员信息
 public class BuyMemberActivity extends BaseInitActivity implements View.OnClickListener {
 
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar mTitleBar;
-    @BindView(R.id.ll_my_info)
+    @BindView(R2.id.ll_my_info)
     ConstraintLayout mLlMyInfo;
-    @BindView(R.id.iv_avatar)
+    @BindView(R2.id.iv_avatar)
     EaseImageView mIvAvatar;
-    @BindView(R.id.tv_nick_name)
+    @BindView(R2.id.tv_nick_name)
     TextView mTvNickName;
-    @BindView(R.id.tv_user_id)
+    @BindView(R2.id.tv_user_id)
     TextView mTvUserId;
-    @BindView(R.id.tv_user_level)
+    @BindView(R2.id.tv_user_level)
     SuperTextView tv_user_level;
-    @BindView(R.id.iv_user_level_tag)
+    @BindView(R2.id.iv_user_level_tag)
     ImageView iv_user_level_tag;
-    @BindView(R.id.tv_pay)
+    @BindView(R2.id.tv_pay)
     SuperTextView tv_pay;
-    @BindView(R.id.cml_member)
+    @BindView(R2.id.cml_member)
     ChooseMemberLayout cml_member;
     private String vipId = "";
     private int vipLevel = 0;
@@ -203,18 +204,14 @@ public class BuyMemberActivity extends BaseInitActivity implements View.OnClickL
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.tv_pay:
-                if (!TextUtils.isEmpty(UserComm.getUserInfo().getVipLevel())) {
-                    if (vipLevel <= NumberUtils.parseDouble(UserComm.getUserInfo().getVipLevel())) {
-                        ToastUtil.toast("请选择更高会员等级");
-                        return;
-                    }
+        if (view.getId() == R.id.tv_pay) {
+            if (!TextUtils.isEmpty(UserComm.getUserInfo().getVipLevel())) {
+                if (vipLevel <= NumberUtils.parseDouble(UserComm.getUserInfo().getVipLevel())) {
+                    ToastUtil.toast("请选择更高会员等级");
+                    return;
                 }
-                payPassword();
-                break;
-            default:
-                break;
+            }
+            payPassword();
         }
     }
 

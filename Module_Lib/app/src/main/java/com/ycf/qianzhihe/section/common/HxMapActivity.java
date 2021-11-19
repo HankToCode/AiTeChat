@@ -12,6 +12,7 @@ import com.amap.api.maps2d.model.BitmapDescriptorFactory;
 import com.amap.api.maps2d.model.LatLng;
 import com.amap.api.maps2d.model.MarkerOptions;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
@@ -26,9 +27,9 @@ import butterknife.OnClick;
  * @author lhb
  */
 public class HxMapActivity extends BaseInitActivity {
-    @BindView(R.id.map)
+    @BindView(R2.id.map)
     MapView mMapView;
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar mToolbarTitle;
     private AMap aMap;
     private LatLng mLatLng;
@@ -127,7 +128,7 @@ public class HxMapActivity extends BaseInitActivity {
         return R.layout.activity_hx_map;
     }
 
-    @OnClick(R.id.img_start)
+    @OnClick(R2.id.img_start)
     public void onViewClicked() {
         location();
     }

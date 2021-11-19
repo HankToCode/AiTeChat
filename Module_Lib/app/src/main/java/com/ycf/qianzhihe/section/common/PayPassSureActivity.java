@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.ycf.qianzhihe.DemoApplication;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
@@ -30,9 +31,9 @@ import com.zds.base.Toast.ToastUtil;
  * 支付密码
  */
 public class PayPassSureActivity extends BaseInitActivity {
-    @BindView(R.id.toolbar_title)
+    @BindView(R2.id.toolbar_title)
     TextView mToolbarTitle;
-    @BindView(R.id.pwd_view)
+    @BindView(R2.id.pwd_view)
     PasswordViewSure mPwdView;
     private String mFrom;
     private String oldPass;

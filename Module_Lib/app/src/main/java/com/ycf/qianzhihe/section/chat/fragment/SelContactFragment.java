@@ -35,6 +35,7 @@ import android.widget.ListView;
 
 import com.hyphenate.easeui.ui.base.EaseBaseFragment;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.old_data.ContactListInfo;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
@@ -80,9 +81,9 @@ public class SelContactFragment extends BaseInitFragment {
     protected boolean isConflict;
     protected FrameLayout contentContainer;
     Unbinder unbinder;
-    @BindView(R.id.img_show)
+    @BindView(R2.id.img_show)
     ImageView mImgShow;
-    @BindView(R.id.img_back)
+    @BindView(R2.id.img_back)
     ImageView mImgBack;
     private String userId;
 

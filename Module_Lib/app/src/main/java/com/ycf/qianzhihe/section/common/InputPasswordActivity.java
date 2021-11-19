@@ -12,6 +12,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.ycf.qianzhihe.DemoApplication;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
@@ -40,19 +41,19 @@ import butterknife.BindView;
 public class InputPasswordActivity extends BaseInitActivity {
 
 
-    @BindView(R.id.bar)
+    @BindView(R2.id.bar)
     View mBar;
-    @BindView(R.id.ll_back)
+    @BindView(R2.id.ll_back)
     LinearLayout mLlBack;
-    @BindView(R.id.toolbar_subtitle)
+    @BindView(R2.id.toolbar_subtitle)
     TextView mToolbarSubtitle;
-    @BindView(R.id.img_right)
+    @BindView(R2.id.img_right)
     ImageView mImgRight;
-    @BindView(R.id.toolbar_title)
+    @BindView(R2.id.toolbar_title)
     TextView mToolbarTitle;
-    @BindView(R.id.toolbar)
+    @BindView(R2.id.toolbar)
     Toolbar mToolbar;
-    @BindView(R.id.edittext)
+    @BindView(R2.id.edittext)
     PasswordInputEdt mEdittext;
 
 

@@ -13,6 +13,7 @@ import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.adapter.RechargeAdapter;
 import com.ycf.qianzhihe.app.api.old_data.RechargeRecordInfo;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
@@ -34,13 +35,13 @@ import butterknife.BindView;
  * 提现记录
  */
 public class TxRecordActivity extends BaseInitActivity {
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar mTitleBar;
-    @BindView(R.id.swipeRefreshLayout)
+    @BindView(R2.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
-    @BindView(R.id.recyclerView)
+    @BindView(R2.id.recyclerView)
     RecyclerView mRvRedRecord;
-    @BindView(R.id.tv_no_data)
+    @BindView(R2.id.tv_no_data)
     TextView tv_no_data;
     private List<RechargeRecordInfo.DataBean> mRecordInfoList = new ArrayList<>();
     private RechargeAdapter mRechargeAdapter;

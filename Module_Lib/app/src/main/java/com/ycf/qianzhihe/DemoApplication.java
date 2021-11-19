@@ -67,7 +67,7 @@ public class DemoApplication extends SelfAppContext implements Thread.UncaughtEx
                 //设置下载显示形式 对话框或者通知栏显示 二选一
                 .setShowType(CretinAutoUpdateUtils.Builder.TYPE_DIALOG_WITH_PROGRESS)
                 //设置下载时展示的图标
-                .setIconRes(R.mipmap.ic_launcher)
+                .setIconRes(R.mipmap.em_logo_uidemo)
                 //设置是否打印log日志
                 .showLog(true)
                 //设置请求方式
@@ -107,7 +107,9 @@ public class DemoApplication extends SelfAppContext implements Thread.UncaughtEx
     }
 
     private void registerActivityLifecycleCallbacks() {
-        this.registerActivityLifecycleCallbacks(mLifecycleCallbacks);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
+            this.registerActivityLifecycleCallbacks(mLifecycleCallbacks);
+        }
     }
 
     public static DemoApplication getInstance() {

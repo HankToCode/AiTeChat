@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.hyphenate.chat.EMClient;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
@@ -43,21 +44,21 @@ import com.zds.base.Toast.ToastUtil;
  */
 public class ChatMoreSetlActivity extends BaseInitActivity {
 
-    @BindView(R.id.rl_black)
+    @BindView(R2.id.rl_black)
     RelativeLayout mRlBlack;
-    @BindView(R.id.tv_report)
+    @BindView(R2.id.tv_report)
     TextView mTvReport;
-    @BindView(R.id.switch_shut_up)
+    @BindView(R2.id.switch_shut_up)
     CheckBox mSwitchShutUp;
-    @BindView(R.id.fl_group_jinyan)
+    @BindView(R2.id.fl_group_jinyan)
     FrameLayout mFlGroupJinyan;
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar mTitleBar;
-    @BindView(R.id.tv_del_friend)
+    @BindView(R2.id.tv_del_friend)
     TextView tvDel;
-    @BindView(R.id.switch_black)
+    @BindView(R2.id.switch_black)
     CheckBox mSwitchBlack;
-    @BindView(R.id.tv_group_manager)
+    @BindView(R2.id.tv_group_manager)
     TextView mTvGroupManager;
     /**
      * groupId 群id
@@ -158,50 +159,36 @@ public class ChatMoreSetlActivity extends BaseInitActivity {
     }
 
 
-    @OnClick({R.id.tv_chat_bg, R.id.tv_del_friend, R.id.tv_report, R.id.tv_clear_history,
-            R.id.tv_group_manager})
+    @OnClick({R2.id.tv_chat_bg, R2.id.tv_del_friend, R2.id.tv_report, R2.id.tv_clear_history,
+            R2.id.tv_group_manager})
     public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.tv_chat_bg:
-                //聊天背景
-                ChatBgActivity.actionStart(this, "1", emChatId);
-                break;
-            case R.id.tv_report:
-                //举报
-                startActivity(new Intent(this, ReportActivity.class).putExtra("from", "2").putExtra("userGroupId", groupId));
-
-                break;
-            case R.id.tv_del_friend:
-                new MyDialog(this)
-                        .setTitle("删除联系人")
-                        .setMessage("将联系人 " + nickName + " 删除，将同时删除与该联系人的聊天记录")
-                        .setPositiveButton("删除", new MyDialog.OnMyDialogButtonClickListener() {
-                            @Override
-                            public void onClick() {
-                                deleteContact();
-                            }
-                        })
-                        .setNegativeButton("取消", null)
-                        .show();
-
-                break;
-            case R.id.tv_clear_history:
-                //清空聊天记录
-                new EaseAlertDialog(ChatMoreSetlActivity.this, null,
-                        "确定清空聊天记录吗？", null, (confirmed, bundle) -> {
-                    if (confirmed) {
-                        clearSingleChatHistory();
-                    }
-                }, true).show();
-                break;
-            case R.id.tv_group_manager:
-                //设置管理员
-                //设置群管理员
-                SetGroupManageActivity.actionStart(this, groupId, emChatId);
-                break;
-
-            default:
-                break;
+        int id = view.getId();
+        if (id == R.id.tv_chat_bg) {//聊天背景
+            ChatBgActivity.actionStart(this, "1", emChatId);
+        } else if (id == R.id.tv_report) {//举报
+            startActivity(new Intent(this, ReportActivity.class).putExtra("from", "2").putExtra("userGroupId", groupId));
+        } else if (id == R.id.tv_del_friend) {
+            new MyDialog(this)
+                    .setTitle("删除联系人")
+                    .setMessage("将联系人 " + nickName + " 删除，将同时删除与该联系人的聊天记录")
+                    .setPositiveButton("删除", new MyDialog.OnMyDialogButtonClickListener() {
+                        @Override
+                        public void onClick() {
+                            deleteContact();
+                        }
+                    })
+                    .setNegativeButton("取消", null)
+                    .show();
+        } else if (id == R.id.tv_clear_history) {//清空聊天记录
+            new EaseAlertDialog(ChatMoreSetlActivity.this, null,
+                    "确定清空聊天记录吗？", null, (confirmed, bundle) -> {
+                if (confirmed) {
+                    clearSingleChatHistory();
+                }
+            }, true).show();
+        } else if (id == R.id.tv_group_manager) {//设置管理员
+            //设置群管理员
+            SetGroupManageActivity.actionStart(this, groupId, emChatId);
         }
     }
 

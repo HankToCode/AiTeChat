@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.hyphenate.chat.EMClient;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.old_data.ApplyFriendData;
@@ -30,15 +31,15 @@ import butterknife.OnClick;
 import com.zds.base.Toast.ToastUtil;
 
 public class AuditUserActivity extends BaseInitActivity {
-    @BindView(R.id.img_head)
+    @BindView(R2.id.img_head)
     ImageView imgHead;
-    @BindView(R.id.tv_nick_name)
+    @BindView(R2.id.tv_nick_name)
     TextView nickName;
-    @BindView(R.id.line_status)
+    @BindView(R2.id.line_status)
     TextView lineStatus;
-    @BindView(R.id.tv_account)
+    @BindView(R2.id.tv_account)
     TextView tvAccount;
-    @BindView(R.id.origin)
+    @BindView(R2.id.origin)
     TextView origin;
 
     ApplyFriendData applyFriendData;
@@ -81,27 +82,21 @@ public class AuditUserActivity extends BaseInitActivity {
     }
 
 
-    @OnClick({R.id.black, R.id.reject, R.id.agree, R.id.tv_report})
+    @OnClick({R2.id.black, R2.id.reject, R2.id.agree, R2.id.tv_report})
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.black:
-                blackContact("1");
-                break;
-            case R.id.reject:
-                if (!XClickUtil.isFastDoubleClick(view, 1000)) {
-                    agreeApply(applyFriendData.getApplyId(), 2);
-                }
-
-                break;
-            case R.id.agree:
-                if (!XClickUtil.isFastDoubleClick(view, 1000)) {
-                    agreeApply(applyFriendData.getApplyId(), 1);
-                }
-                break;
-            case R.id.tv_report:
-                //举报
-                startActivity(new Intent(this, ReportActivity.class).putExtra("from", "1").putExtra("userGroupId", applyFriendData.getUserId()));
-                break;
+        int id = view.getId();
+        if (id == R.id.black) {
+            blackContact("1");
+        } else if (id == R.id.reject) {
+            if (!XClickUtil.isFastDoubleClick(view, 1000)) {
+                agreeApply(applyFriendData.getApplyId(), 2);
+            }
+        } else if (id == R.id.agree) {
+            if (!XClickUtil.isFastDoubleClick(view, 1000)) {
+                agreeApply(applyFriendData.getApplyId(), 1);
+            }
+        } else if (id == R.id.tv_report) {//举报
+            startActivity(new Intent(this, ReportActivity.class).putExtra("from", "1").putExtra("userGroupId", applyFriendData.getUserId()));
         }
     }
 

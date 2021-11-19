@@ -198,19 +198,15 @@ public class NewGroupActivity extends BaseInitActivity implements EaseTitleBar.O
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.item_group_name :
-                showGroupNameDialog();
-                break;
-            case R.id.item_group_profile :
-                showProfileDialog();
-                break;
-            case R.id.item_group_max_users :
-                setGroupMaxUsersDialog();
-                break;
-            case R.id.item_group_members :
-                GroupPickContactsActivity.actionStartForResult(mContext, newmembers, ADD_NEW_CONTACTS);
-                break;
+        int id = v.getId();
+        if (id == R.id.item_group_name) {
+            showGroupNameDialog();
+        } else if (id == R.id.item_group_profile) {
+            showProfileDialog();
+        } else if (id == R.id.item_group_max_users) {
+            setGroupMaxUsersDialog();
+        } else if (id == R.id.item_group_members) {
+            GroupPickContactsActivity.actionStartForResult(mContext, newmembers, ADD_NEW_CONTACTS);
         }
     }
 
@@ -269,32 +265,28 @@ public class NewGroupActivity extends BaseInitActivity implements EaseTitleBar.O
 
     @Override
     public void onCheckedChanged(SwitchItemView buttonView, boolean isChecked) {
-        switch (buttonView.getId()) {
-            case R.id.item_switch_public :
-                //操作则将switch_invite按钮还原
-                itemSwitchInvite.getSwitch().setChecked(false);
-                if(isChecked){
-                    itemSwitchPublic.getTvHint().setText(R.string.em_group_new_if_public_check_hint);
-                    itemSwitchInvite.getTvTitle().setText(R.string.em_group_new_need_owner_approval_public);
-                    itemSwitchInvite.getTvHint().setText(R.string.em_group_new_need_owner_approval_uncheck_hint);
-                }else{
-                    itemSwitchPublic.getTvHint().setText(R.string.em_group_new_if_public_uncheck_hint);
-                    itemSwitchInvite.getTvTitle().setText(R.string.em_group_new_open_invite);
-                    itemSwitchInvite.getTvHint().setText(R.string.em_group_new_open_invite_uncheck_hint);
-                }
-                break;
-            case R.id.item_switch_invite:
-                if(itemSwitchPublic.getSwitch().isChecked()) {
-                    itemSwitchInvite.getTvHint().setText(isChecked
-                            ? R.string.em_group_new_need_owner_approval_check_hint
-                            : R.string.em_group_new_need_owner_approval_uncheck_hint);
-                }else {
-                    itemSwitchInvite.getTvHint().setText(isChecked
-                            ? R.string.em_group_new_open_invite_check_hint
-                            : R.string.em_group_new_open_invite_uncheck_hint);
-                }
-
-                break;
+        int id = buttonView.getId();
+        if (id == R.id.item_switch_public) {//操作则将switch_invite按钮还原
+            itemSwitchInvite.getSwitch().setChecked(false);
+            if (isChecked) {
+                itemSwitchPublic.getTvHint().setText(R.string.em_group_new_if_public_check_hint);
+                itemSwitchInvite.getTvTitle().setText(R.string.em_group_new_need_owner_approval_public);
+                itemSwitchInvite.getTvHint().setText(R.string.em_group_new_need_owner_approval_uncheck_hint);
+            } else {
+                itemSwitchPublic.getTvHint().setText(R.string.em_group_new_if_public_uncheck_hint);
+                itemSwitchInvite.getTvTitle().setText(R.string.em_group_new_open_invite);
+                itemSwitchInvite.getTvHint().setText(R.string.em_group_new_open_invite_uncheck_hint);
+            }
+        } else if (id == R.id.item_switch_invite) {
+            if (itemSwitchPublic.getSwitch().isChecked()) {
+                itemSwitchInvite.getTvHint().setText(isChecked
+                        ? R.string.em_group_new_need_owner_approval_check_hint
+                        : R.string.em_group_new_need_owner_approval_uncheck_hint);
+            } else {
+                itemSwitchInvite.getTvHint().setText(isChecked
+                        ? R.string.em_group_new_open_invite_check_hint
+                        : R.string.em_group_new_open_invite_uncheck_hint);
+            }
         }
     }
 }

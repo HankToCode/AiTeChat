@@ -9,6 +9,7 @@ import android.view.View;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
@@ -50,9 +51,9 @@ public class SetGroupManageActivity extends BaseInitActivity implements SetGroup
     }
 
 
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar mTitleBar;
-    @BindView(R.id.rv_group_manage)
+    @BindView(R2.id.rv_group_manage)
     RecyclerView mRvGroupManage;
     private SetGroupManageAdapter mSetGroupManageAdapter;
     private List<GroupManageListInfo> mManageListInfoList;
@@ -184,16 +185,12 @@ public class SetGroupManageActivity extends BaseInitActivity implements SetGroup
         return R.layout.activity_set_group_manage;
     }
 
-    @OnClick({R.id.rv_group_manage, R.id.ll_footerView})
+    @OnClick({R2.id.rv_group_manage, R2.id.ll_footerView})
     public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.rv_group_manage:
-                break;
-            case R.id.ll_footerView:
-                GroupUserListActivity.actionStart(this, groupId, emChatId);
-                break;
-            default:
-                break;
+        int id = view.getId();
+        if (id == R.id.rv_group_manage) {
+        } else if (id == R.id.ll_footerView) {
+            GroupUserListActivity.actionStart(this, groupId, emChatId);
         }
     }
 }

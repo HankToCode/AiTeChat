@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.adapter.FriendGroupingAdapter;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.new_data.FriendGroupingBean;
@@ -37,11 +38,11 @@ import butterknife.OnClick;
 
 //好友分组
 public class FriendGroupingActvity extends BaseInitActivity {
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar title_bar;
-    @BindView(R.id.recyclerView)
+    @BindView(R2.id.recyclerView)
     RecyclerView recyclerView;
-    @BindView(R.id.tv_chat_record)
+    @BindView(R2.id.tv_chat_record)
     TextView tv_chat_record;
 
     private List<FriendGroupingBean> groupingDatas = new ArrayList<>();
@@ -111,23 +112,21 @@ public class FriendGroupingActvity extends BaseInitActivity {
         });
     }
 
-    @OnClick({R.id.tv_chat_record})
+    @OnClick({R2.id.tv_chat_record})
     public void click(View v) {
-        switch (v.getId()) {
-            case R.id.tv_chat_record:
-                ConfirmInputDialog dialog = new ConfirmInputDialog(mContext);
-                dialog.setOnConfirmClickListener(new ConfirmInputDialog.OnConfirmClickListener() {
-                    @Override
-                    public void onConfirmClick(String content) {
-                        saveGrouping(content);
-                    }
-                });
-                dialog.show();
+        if (v.getId() == R.id.tv_chat_record) {
+            ConfirmInputDialog dialog = new ConfirmInputDialog(mContext);
+            dialog.setOnConfirmClickListener(new ConfirmInputDialog.OnConfirmClickListener() {
+                @Override
+                public void onConfirmClick(String content) {
+                    saveGrouping(content);
+                }
+            });
+            dialog.show();
 
-                dialog.setCancelable(false);
-                dialog.setCanceledOnTouchOutside(false);
-                dialog.setTitle("添加新分组");
-                break;
+            dialog.setCancelable(false);
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.setTitle("添加新分组");
         }
     }
 

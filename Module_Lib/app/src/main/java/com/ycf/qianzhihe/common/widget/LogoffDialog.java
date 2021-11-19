@@ -71,19 +71,17 @@ public class LogoffDialog extends BaseDialog {
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.tv_cancel:
-                dismiss();
-                if (mOnCancelClickListener != null) {
-                    mOnCancelClickListener.onCancelClick(tv_cancel);
-                }
-                break;
-            case R.id.tv_confirm:
-                dismiss();
-                if (mOnConfirmClickListener != null) {
-                    mOnConfirmClickListener.onConfirmClick(tv_confirm);
-                }
-                break;
+        int id = view.getId();
+        if (id == R.id.tv_cancel) {
+            dismiss();
+            if (mOnCancelClickListener != null) {
+                mOnCancelClickListener.onCancelClick(tv_cancel);
+            }
+        } else if (id == R.id.tv_confirm) {
+            dismiss();
+            if (mOnConfirmClickListener != null) {
+                mOnConfirmClickListener.onConfirmClick(tv_confirm);
+            }
         }
     }
 

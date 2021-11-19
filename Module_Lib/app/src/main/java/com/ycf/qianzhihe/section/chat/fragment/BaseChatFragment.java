@@ -60,6 +60,7 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.EaseConstant;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
@@ -174,23 +175,23 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
     //是否客服
     boolean isService = false;
 
-    @BindView(R.id.message_list)
+    @BindView(R2.id.message_list)
     EaseChatMessageList mMessageList;
-    @BindView(R.id.voice_recorder)
+    @BindView(R2.id.voice_recorder)
     EaseVoiceRecorderView mVoiceRecorder;
-    @BindView(R.id.input_menu)
+    @BindView(R2.id.input_menu)
     EaseChatInputMenu mInputMenu;
-    @BindView(R.id.tv_yue)
+    @BindView(R2.id.tv_yue)
     TextView mTvYue;
-    @BindView(R.id.ll_money_show)
+    @BindView(R2.id.ll_money_show)
     LinearLayout mLlMoneyShow;
-    @BindView(R.id.bg_img)
+    @BindView(R2.id.bg_img)
     ImageView mRlTop;
-    @BindView(R.id.tv_unread)
+    @BindView(R2.id.tv_unread)
     TextView tvUnread;
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar titleBar;
-    @BindView(R.id.rl_root)
+    @BindView(R2.id.rl_root)
     RelativeLayout rlRoot;
 
     //带入金额

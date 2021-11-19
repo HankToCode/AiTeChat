@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.EaseConstant;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
 import com.ycf.qianzhihe.section.account.activity.MineActivity;
@@ -19,15 +20,15 @@ import butterknife.BindView;
 
 public class NewsDetailActivity extends BaseInitActivity {
 
-    @BindView(R.id.tv_content)
+    @BindView(R2.id.tv_content)
     TextView tv_content;
-    @BindView(R.id.tv_time)
+    @BindView(R2.id.tv_time)
     TextView tv_time;
-    @BindView(R.id.tv_title)
+    @BindView(R2.id.tv_title)
     TextView tv_title;
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar title_bar;
-    @BindView(R.id.iv_img)
+    @BindView(R2.id.iv_img)
     ImageView iv_img;
     @Override
     protected int getLayoutId() {

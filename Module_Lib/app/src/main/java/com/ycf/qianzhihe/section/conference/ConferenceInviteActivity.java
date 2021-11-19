@@ -172,20 +172,18 @@ public class ConferenceInviteActivity extends BaseInitActivity implements View.O
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_start :
-                String[] members = getSelectMembers();
-                if(members.length == 0) {
-                    showToast(R.string.tips_select_contacts_first);
-                    return;
-                }
-                //用户自定义扩展字段
-                Map<String, Object> params = new HashMap<>();
-                params.put("groupId", groupId);
-                //开始邀请人员
-                EaseCallKit.getInstance().startInviteMultipleCall(members,params);
-                finish();
-                break;
+        if (v.getId() == R.id.btn_start) {
+            String[] members = getSelectMembers();
+            if (members.length == 0) {
+                showToast(R.string.tips_select_contacts_first);
+                return;
+            }
+            //用户自定义扩展字段
+            Map<String, Object> params = new HashMap<>();
+            params.put("groupId", groupId);
+            //开始邀请人员
+            EaseCallKit.getInstance().startInviteMultipleCall(members, params);
+            finish();
         }
     }
 

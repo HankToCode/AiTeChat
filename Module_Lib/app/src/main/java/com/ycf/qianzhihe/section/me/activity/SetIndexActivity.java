@@ -63,22 +63,17 @@ public class SetIndexActivity extends BaseInitActivity implements EaseTitleBar.O
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.item_security ://账号与安全
-                AccountSecurityActivity.actionStart(mContext);
-                break;
-            case R.id.item_notification ://消息设置
-                MessageReceiveSetActivity.actionStart(mContext);
-                break;
-            case R.id.item_common_set ://通用
-                CommonSettingsActivity.actionStart(mContext);
-                break;
-            case R.id.item_privacy ://隐私
-                PrivacyIndexActivity.actionStart(mContext);
-                break;
-            case R.id.btn_logout:
-                logout();
-                break;
+        int id = v.getId();
+        if (id == R.id.item_security) {//账号与安全
+            AccountSecurityActivity.actionStart(mContext);
+        } else if (id == R.id.item_notification) {//消息设置
+            MessageReceiveSetActivity.actionStart(mContext);
+        } else if (id == R.id.item_common_set) {//通用
+            CommonSettingsActivity.actionStart(mContext);
+        } else if (id == R.id.item_privacy) {//隐私
+            PrivacyIndexActivity.actionStart(mContext);
+        } else if (id == R.id.btn_logout) {
+            logout();
         }
     }
 

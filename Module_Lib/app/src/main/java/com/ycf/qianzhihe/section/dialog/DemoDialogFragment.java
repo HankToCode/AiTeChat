@@ -178,13 +178,11 @@ public class DemoDialogFragment extends BaseDialogFragment implements View.OnCli
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_dialog_cancel :
-                onCancelClick(v);
-                break;
-            case R.id.btn_dialog_confirm:
-                onConfirmClick(v);
-                break;
+        int id = v.getId();
+        if (id == R.id.btn_dialog_cancel) {
+            onCancelClick(v);
+        } else if (id == R.id.btn_dialog_confirm) {
+            onConfirmClick(v);
         }
     }
 

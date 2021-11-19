@@ -13,6 +13,7 @@ import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.widget.EaseImageView;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.old_data.LoginInfo;
@@ -35,21 +36,21 @@ import butterknife.BindView;
  * 用户详情
  */
 public class AddUserDetailActivity extends BaseInitActivity {
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar mTitleBar;
-    @BindView(R.id.img_head)
+    @BindView(R2.id.img_head)
     EaseImageView img_head;
-    @BindView(R.id.tv_nick_name)
+    @BindView(R2.id.tv_nick_name)
     TextView tv_nick_name;
-    @BindView(R.id.tv_account)
+    @BindView(R2.id.tv_account)
     TextView tv_account;
-    @BindView(R.id.iv_online_status)
+    @BindView(R2.id.iv_online_status)
     ImageView iv_online_status;
-    @BindView(R.id.et_remark)
+    @BindView(R2.id.et_remark)
     TextView et_remark;
-    @BindView(R.id.tv_sign)
+    @BindView(R2.id.tv_sign)
     TextView tv_sign;
-    @BindView(R.id.tv_add_friend)
+    @BindView(R2.id.tv_add_friend)
     TextView tv_add_friend;
     LoginInfo infoBean;
 

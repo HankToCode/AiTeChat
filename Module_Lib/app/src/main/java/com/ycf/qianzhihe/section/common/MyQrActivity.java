@@ -2,6 +2,7 @@ package com.ycf.qianzhihe.section.common;
 
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -24,6 +25,7 @@ import com.google.zxing.WriterException;
 import com.hyphenate.easeui.widget.EaseImageView;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.app.api.old_http.AppConfig;
@@ -52,22 +54,22 @@ import butterknife.OnClick;
 
 public class MyQrActivity extends BaseInitActivity {
 
-    @BindView(R.id.tv_qr_name)
+    @BindView(R2.id.tv_qr_name)
     TextView mTvQrName;
-    @BindView(R.id.iv_qr_code)
+    @BindView(R2.id.iv_qr_code)
     ImageView mIvQrCode;
-    @BindView(R.id.img_head)
+    @BindView(R2.id.img_head)
     ImageView mImgHead;
-    @BindView(R.id.img_qr_head)
+    @BindView(R2.id.img_qr_head)
     EaseImageView mImgQRHead;
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar title_bar;
 
-    @BindView(R.id.rl_qrcode_view)
+    @BindView(R2.id.rl_qrcode_view)
     RelativeLayout rlQrCodeView;
-    @BindView(R.id.tv_card_tips)
+    @BindView(R2.id.tv_card_tips)
     TextView tvCardTips;
-    @BindView(R.id.tv_chat_number)
+    @BindView(R2.id.tv_chat_number)
     TextView tvChatNumber;
     private Bitmap qrCodeBitmap;
 
@@ -216,15 +218,12 @@ public class MyQrActivity extends BaseInitActivity {
         return bitmap;
     }
 
-    @OnClick({R.id.tv_save_qr})
+    @SuppressLint("InvalidR2Usage")
+    @OnClick({R2.id.tv_save_qr})
     public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.tv_save_qr:
-                if (!XClickUtil.isFastDoubleClick(view, 2000))
-                    save();
-                break;
-            default:
-                break;
+        if (view.getId() == R2.id.tv_save_qr) {
+            if (!XClickUtil.isFastDoubleClick(view, 2000))
+                save();
         }
     }
 

@@ -258,31 +258,23 @@ public class RegisterActivity extends BaseInitActivity implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.tv_register_agreement:
-                //注册协议
-                WebViewActivity.actionStart(mContext,AppConfig.user_agree);
-                break;
-            case R.id.tv_self_agreement:
-                //注册协议
-                WebViewActivity.actionStart(mContext,AppConfig.register_agree);
-                break;
-            case R.id.tv_refresh:
-                if (!XClickUtil.isFastDoubleClick(view, 1500)) {
-                    flushTy();
-                } else {
-                    ToastUtils.showToast("请勿连续点击");
-                }
-                break;
-            case R.id.tv_sms_send:
-                getTXCode();
-                break;
-            case R.id.btn_submit:
-                if (!XClickUtil.isFastDoubleClick(view, 1000)) {
-                    register();
-                }
-                break;
-            default:
+        int id = view.getId();
+        if (id == R.id.tv_register_agreement) {//注册协议
+            WebViewActivity.actionStart(mContext, AppConfig.user_agree);
+        } else if (id == R.id.tv_self_agreement) {//注册协议
+            WebViewActivity.actionStart(mContext, AppConfig.register_agree);
+        } else if (id == R.id.tv_refresh) {
+            if (!XClickUtil.isFastDoubleClick(view, 1500)) {
+                flushTy();
+            } else {
+                ToastUtils.showToast("请勿连续点击");
+            }
+        } else if (id == R.id.tv_sms_send) {
+            getTXCode();
+        } else if (id == R.id.btn_submit) {
+            if (!XClickUtil.isFastDoubleClick(view, 1000)) {
+                register();
+            }
         }
     }
 

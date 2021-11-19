@@ -268,22 +268,17 @@ public class UpDataPasswordActivity extends BaseInitActivity implements View.OnC
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.tv_refresh:
-                if (!XClickUtil.isFastDoubleClick(view, 1500)) {
-                    flushTy();
-                } else {
-                    ToastUtils.showToast("请勿连续点击");
-                }
-                break;
-            case R.id.tv_sms_send:
-                getSms();
-                break;
-            case R.id.btn_submit:
-                register();
-                break;
-            default:
-                break;
+        int id = view.getId();
+        if (id == R.id.tv_refresh) {
+            if (!XClickUtil.isFastDoubleClick(view, 1500)) {
+                flushTy();
+            } else {
+                ToastUtils.showToast("请勿连续点击");
+            }
+        } else if (id == R.id.tv_sms_send) {
+            getSms();
+        } else if (id == R.id.btn_submit) {
+            register();
         }
     }
 

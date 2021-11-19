@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.ycf.qianzhihe.DemoApplication;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
@@ -42,27 +43,27 @@ import com.zds.base.Toast.ToastUtil;
 
 public class ResetPayPwdActivity extends BaseInitActivity {
 
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar mTitleBar;
-    @BindView(R.id.et_img)
+    @BindView(R2.id.et_img)
     EditText et_img;
-    @BindView(R.id.iv_code)
+    @BindView(R2.id.iv_code)
     ImageView iv_code;
-    @BindView(R.id.et_code)
+    @BindView(R2.id.et_code)
     EditText et_code;
-    @BindView(R.id.tv_code)
+    @BindView(R2.id.tv_code)
     TextView tv_code;
-    @BindView(R.id.tv_step)
+    @BindView(R2.id.tv_step)
     TextView tv_step;
-    @BindView(R.id.pwd_view)
+    @BindView(R2.id.pwd_view)
     PasswordView mPwdView;
-    @BindView(R.id.pwd_true)
+    @BindView(R2.id.pwd_true)
     PasswordView pwd_true;
-    @BindView(R.id.et_pwd2)
+    @BindView(R2.id.et_pwd2)
     EditText et_pwd2;
-    @BindView(R.id.et_pwd)
+    @BindView(R2.id.et_pwd)
     EditText et_pwd;
-    @BindView(R.id.tv_refresh)
+    @BindView(R2.id.tv_refresh)
     TextView tv_refresh;
 
     private CountDownTimer timer;
@@ -155,39 +156,34 @@ public class ResetPayPwdActivity extends BaseInitActivity {
         });
     }
 
-    @OnClick({R.id.tv_code, R.id.tv_step, R.id.tv_refresh})
+    @OnClick({R2.id.tv_code, R2.id.tv_step, R2.id.tv_refresh})
     public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.tv_refresh:
-                if (!XClickUtil.isFastDoubleClick(view, 1500)) {
-                    flushTy();
-                } else {
-                    ToastUtils.showToast("请勿连续点击");
-                }
-                break;
-            case R.id.tv_code:
-                getCode();
-                break;
-            case R.id.tv_step:
-                pwd = et_pwd.getText().toString().trim();
-                pwd2 = et_pwd2.getText().toString().trim();
-                if (StringUtil.isEmpty(et_code.getText().toString())) {
-                    ToastUtil.toast("验证码不能为空");
-                    return;
-                }
-                if (TextUtils.isEmpty(pwd)) {
-                    ToastUtil.toast("密码不能为空");
-                    return;
-                }
+        int id = view.getId();
+        if (id == R.id.tv_refresh) {
+            if (!XClickUtil.isFastDoubleClick(view, 1500)) {
+                flushTy();
+            } else {
+                ToastUtils.showToast("请勿连续点击");
+            }
+        } else if (id == R.id.tv_code) {
+            getCode();
+        } else if (id == R.id.tv_step) {
+            pwd = et_pwd.getText().toString().trim();
+            pwd2 = et_pwd2.getText().toString().trim();
+            if (StringUtil.isEmpty(et_code.getText().toString())) {
+                ToastUtil.toast("验证码不能为空");
+                return;
+            }
+            if (TextUtils.isEmpty(pwd)) {
+                ToastUtil.toast("密码不能为空");
+                return;
+            }
 
-                if (!pwd.equals(pwd2)) {
-                    ToastUtil.toast("两次密码不一致");
-                    return;
-                }
-                forgetPassword(pwd);
-                break;
-            default:
-                break;
+            if (!pwd.equals(pwd2)) {
+                ToastUtil.toast("两次密码不一致");
+                return;
+            }
+            forgetPassword(pwd);
         }
     }
 

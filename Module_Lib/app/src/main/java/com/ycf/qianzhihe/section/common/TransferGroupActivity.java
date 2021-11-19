@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.adapter.TransferGroupAdapter;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
@@ -37,11 +38,11 @@ import com.zds.base.Toast.ToastUtil;
 
 public class TransferGroupActivity extends BaseInitActivity {
 
-    @BindView(R.id.toolbar_title)
+    @BindView(R2.id.toolbar_title)
     TextView toolbar_title;
-    @BindView(R.id.searchBar)
+    @BindView(R2.id.searchBar)
     SearchBar searchBar;
-    @BindView(R.id.recyclerView)
+    @BindView(R2.id.recyclerView)
     RecyclerView recyclerView;
 
     private String emChatId = "";

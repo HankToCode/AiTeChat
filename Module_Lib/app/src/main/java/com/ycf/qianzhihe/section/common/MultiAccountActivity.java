@@ -21,6 +21,7 @@ import com.ycf.qianzhihe.DemoApplication;
 import com.ycf.qianzhihe.DemoHelper;
 import com.ycf.qianzhihe.MainActivity;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.adapter.LoginAccountAdapter;
 import com.ycf.qianzhihe.app.api.Global;
 import com.ycf.qianzhihe.app.api.global.SP;
@@ -65,12 +66,12 @@ import io.reactivex.schedulers.Schedulers;
 
 public class MultiAccountActivity extends BaseInitActivity implements LoginAccountAdapter.OnItemClickListener {
 
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar mTitleBar;
 
-    @BindView(R.id.recyclerView)
+    @BindView(R2.id.recyclerView)
     RecyclerView recyclerView;
-    @BindView(R.id.ll_add)
+    @BindView(R2.id.ll_add)
     LinearLayout ll_add;
 
     private List<EaseUser> loginInfos = new ArrayList<>();

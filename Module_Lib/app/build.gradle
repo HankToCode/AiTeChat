@@ -1,11 +1,17 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'com.huawei.agconnect'
-apply plugin: 'android-aspectjx'
-//apply plugin: 'com.jakewharton.butterknife'
+apply plugin: 'com.android.library'
+
+// 依赖本地的插件脚本
+apply from: rootProject.file('plugins.gradle')
+
 
 android {
+    compileSdkVersion rootProject.ext.android.compileSdkVersion
+    buildToolsVersion rootProject.ext.android.buildToolsVersion
+
+    //关闭Android Studio的PNG合法性检查,避免了打包异常
+    aaptOptions.cruncherEnabled = false
+    aaptOptions.useNewCruncher = false
+
     //加载资源
     Properties properties = new Properties()
     InputStream inputStream = project.rootProject.file('local.properties').newDataInputStream();
@@ -19,14 +25,9 @@ android {
             keyPassword properties.getProperty('DEBUG_KEY_PASSWORD', 'qzh123')
         }
     }
-    compileSdkVersion rootProject.ext.android.compileSdkVersion
-    buildToolsVersion rootProject.ext.android.buildToolsVersion
+
     defaultConfig {
-        applicationId "com.ycf.qianzhihe"
-        minSdkVersion rootProject.ext.android.minSdkVersion
-        targetSdkVersion rootProject.ext.android.targetSdkVersion
-        versionCode rootProject.ext.android.versionCode
-        versionName rootProject.ext.android.versionName
+
         multiDexEnabled true
         //为了兼容5.0以下使用vector图标
         vectorDrawables.useSupportLibrary = true
@@ -67,65 +68,18 @@ android {
         }
     }
 
-    /*packagingOptions {
-        exclude 'assets/*'
-    }*/
-
-    flavorDimensions "min"
-
-    productFlavors {
-        //开发环境
-        develop {
-            buildConfigField "String", "BASEURL", URLDEVELOP
-            buildConfigField "String", "ID_REDPROJECT", URLDEVELOP_ID_REDPROJECT
-            resValue "string", "app_name", "千纸鹤-开发"
-            //是否加密
-            buildConfigField "Boolean", "ISENCRYPTION", "true"
-            manifestPlaceholders = [
-                    app_name      : "千纸鹤-开发",
-                    EASEMOB_APPKEY: URLDEVELOP_EASEMOB_APPKEY,
-            ]
-        }
-        //测试环境
-        check {
-            buildConfigField "String", "BASEURL", UELCHECK
-            buildConfigField "String", "ID_REDPROJECT", UELCHECK_ID_REDPROJECT
-            resValue "string", "app_name", "千纸鹤-测试"
-            //是否加密
-            buildConfigField "Boolean", "ISENCRYPTION", "true"
-            manifestPlaceholders = [
-                    app_name      : "千纸鹤-测试",
-                    EASEMOB_APPKEY: UELCHECK_EASEMOB_APPKEY,
-            ]
-        }
-        //生产环境
-        product {
-            buildConfigField "String", "BASEURL", URLPRODUCTIP
-            buildConfigField "String", "ID_REDPROJECT", URLPRODUCTIP_ID_REDPROJECT
-            resValue "string", "app_name", "千纸鹤"
-            //是否加密
-            buildConfigField "Boolean", "ISENCRYPTION", "true"
-            manifestPlaceholders = [
-                    app_name      : "千纸鹤",
-                    EASEMOB_APPKEY: URLPRODUCTIP_EASEMOB_APPKEY,
-            ]
-        }
-    }
-
-    sourceSets {
-        main {
-            jniLibs.srcDirs = ['libs']
-            jni.srcDirs = []
-        }
-    }
-
-    //use legacy for android 6.0，SDK3.6.8后移除
-    //useLibrary 'org.apache.http.legacy'
-    //自3.6.0开始需要java8的支持
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
+   /* sourceSets {
+        main {
+            jniLibs.srcDirs = ['libs']
+            jni.srcDirs = []
+        }
+    }*/
+
     lintOptions {
         abortOnError false
     }
@@ -240,16 +194,11 @@ dependencies {
     // fragment快速实现（可选）
     implementation 'com.gyf.immersionbar:immersionbar-components:3.0.0'
 
-    //三方支付
-//    implementation(name: "webox_1.1.2", ext: "aar")
-//    implementation(name: "services_1.0.4", ext: "aar")
-//    implementation(name: "liveness-silent-offline-cn-release", ext: "aar")
     //新生支付平台
     implementation(name: "liveness", ext: "aar")
 
     implementation "com.yanzhenjie:permission:2.0.0-rc1"
     implementation "android.arch.lifecycle:extensions:1.1.1"
-//    implementation "com.android.support:exifinterface:27+"
     implementation "com.squareup.okhttp3:logging-interceptor:3.8.1"
 
     implementation "com.zhy:base-rvadapter:3.0.2"

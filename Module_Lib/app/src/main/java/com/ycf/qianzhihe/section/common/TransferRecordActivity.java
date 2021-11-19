@@ -11,6 +11,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.adapter.TransferAdapter;
 import com.ycf.qianzhihe.app.api.old_data.TransferRecordInfo;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
@@ -34,13 +35,13 @@ import com.zds.base.Toast.ToastUtil;
  * 转账记录
  */
 public class TransferRecordActivity extends BaseInitActivity {
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar mTitleBar;
-    @BindView(R.id.recyclerView)
+    @BindView(R2.id.recyclerView)
     RecyclerView mRecyclerView;
-    @BindView(R.id.tv_no_data)
+    @BindView(R2.id.tv_no_data)
     TextView mTvNoData;
-    @BindView(R.id.swipeRefreshLayout)
+    @BindView(R2.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
     private TransferAdapter mTransferAdapter;
     private List<TransferRecordInfo> mRecordInfoList = new ArrayList<>();

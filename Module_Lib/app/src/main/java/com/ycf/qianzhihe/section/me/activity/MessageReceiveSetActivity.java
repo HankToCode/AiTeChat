@@ -92,17 +92,14 @@ public class MessageReceiveSetActivity extends BaseInitActivity implements Switc
 
     @Override
     public void onCheckedChanged(SwitchItemView buttonView, boolean isChecked) {
-        switch (buttonView.getId()) {
-            case R.id.rl_switch_notification ://接收新消息通知
-                setSwitchVisible(isChecked);
-                model.setSettingMsgNotification(isChecked);
-                break;
-            case R.id.rl_switch_sound ://声音
-                model.setSettingMsgSound(isChecked);
-                break;
-            case R.id.rl_switch_vibrate ://震动
-                model.setSettingMsgVibrate(isChecked);
-                break;
+        int id = buttonView.getId();
+        if (id == R.id.rl_switch_notification) {//接收新消息通知
+            setSwitchVisible(isChecked);
+            model.setSettingMsgNotification(isChecked);
+        } else if (id == R.id.rl_switch_sound) {//声音
+            model.setSettingMsgSound(isChecked);
+        } else if (id == R.id.rl_switch_vibrate) {//震动
+            model.setSettingMsgVibrate(isChecked);
         }
     }
 
@@ -127,10 +124,8 @@ public class MessageReceiveSetActivity extends BaseInitActivity implements Switc
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.item_push_message_style :
-                MessagePushStyleActivity.actionStartForResult(mContext, displayStyle.ordinal(), 100);
-                break;
+        if (v.getId() == R.id.item_push_message_style) {
+            MessagePushStyleActivity.actionStartForResult(mContext, displayStyle.ordinal(), 100);
         }
     }
 

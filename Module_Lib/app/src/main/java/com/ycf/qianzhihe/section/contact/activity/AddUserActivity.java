@@ -32,6 +32,7 @@ import com.hyphenate.easeui.widget.EaseImageView;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.hyphenate.exceptions.HyphenateException;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.old_data.LoginInfo;
@@ -60,20 +61,20 @@ import butterknife.OnClick;
  */
 public class AddUserActivity extends BaseInitActivity {
 
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar title_bar;
-    @BindView(R.id.edit_note)
+    @BindView(R2.id.edit_note)
     EditText mEditNote;
-    @BindView(R.id.avatar)
+    @BindView(R2.id.avatar)
     EaseImageView mAvatar;
-    @BindView(R.id.name)
+    @BindView(R2.id.name)
     TextView mName;
 
-    @BindView(R.id.ll_user)
+    @BindView(R2.id.ll_user)
     RelativeLayout ll_user;
     private String username;
     private LoginInfo easeUserInfos;
-    @BindView(R.id.btn_add)
+    @BindView(R2.id.btn_add)
     Button btn_add;
 
     @Override
@@ -256,18 +257,14 @@ public class AddUserActivity extends BaseInitActivity {
     }
 
 
-    @OnClick({R.id.ll_user, R.id.btn_add})
+    @OnClick({R2.id.ll_user, R2.id.btn_add})
     public void onViewClicked(View view) {
         hideSoftKeyboard();
-        switch (view.getId()) {
-            case R.id.ll_user:
-                AddUserDetailActivity.actionStart(mContext,easeUserInfos);
-                break;
-            case R.id.btn_add:
-                addUser();
-                break;
-            default:
-                break;
+        int id = view.getId();
+        if (id == R.id.ll_user) {
+            AddUserDetailActivity.actionStart(mContext, easeUserInfos);
+        } else if (id == R.id.btn_add) {
+            addUser();
         }
     }
 }

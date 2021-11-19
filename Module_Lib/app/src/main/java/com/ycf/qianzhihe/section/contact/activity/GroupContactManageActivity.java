@@ -100,16 +100,14 @@ public class GroupContactManageActivity extends BaseInitActivity implements Ease
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.search_group :
-                if(isShowPublic()) {
-                    //搜索公开群
-                    SearchPublicGroupActivity.actionStart(mContext);
-                }else {
-                    //搜索已加入的群
-                    SearchGroupActivity.actionStart(mContext);
-                }
-                break;
+        if (v.getId() == R.id.search_group) {
+            if (isShowPublic()) {
+                //搜索公开群
+                SearchPublicGroupActivity.actionStart(mContext);
+            } else {
+                //搜索已加入的群
+                SearchGroupActivity.actionStart(mContext);
+            }
         }
     }
 

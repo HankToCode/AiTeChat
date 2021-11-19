@@ -7,6 +7,7 @@ import android.widget.TextView;
 
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
@@ -39,11 +40,11 @@ import com.zds.base.Toast.ToastUtil;
  * 群成员
  */
 public class GroupMemberActivity extends BaseInitActivity implements GroupMemberAdapter.OnDelClickListener {
-    @BindView(R.id.rv_new_friend)
+    @BindView(R2.id.rv_new_friend)
     SlideRecyclerView mRvNewFriend;
-    @BindView(R.id.search_bar)
+    @BindView(R2.id.search_bar)
     SearchBar searchBar;
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar title_bar;
 
     private ArrayList<GroupDetailInfo.GroupUserDetailVoListBean> mStringList = new ArrayList<>();

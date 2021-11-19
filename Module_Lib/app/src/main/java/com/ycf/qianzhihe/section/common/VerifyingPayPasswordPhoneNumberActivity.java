@@ -15,6 +15,7 @@ import android.widget.TextView;
 import androidx.appcompat.widget.Toolbar;
 
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
@@ -44,29 +45,29 @@ import com.zds.base.Toast.ToastUtil;
 public class VerifyingPayPasswordPhoneNumberActivity extends BaseInitActivity {
 
 
-    @BindView(R.id.bar)
+    @BindView(R2.id.bar)
     View mBar;
-    @BindView(R.id.ll_back)
+    @BindView(R2.id.ll_back)
     LinearLayout mLlBack;
-    @BindView(R.id.toolbar_subtitle)
+    @BindView(R2.id.toolbar_subtitle)
     TextView mToolbarSubtitle;
-    @BindView(R.id.img_right)
+    @BindView(R2.id.img_right)
     ImageView mImgRight;
-    @BindView(R.id.toolbar_title)
+    @BindView(R2.id.toolbar_title)
     TextView mToolbarTitle;
-    @BindView(R.id.toolbar)
+    @BindView(R2.id.toolbar)
     Toolbar mToolbar;
-    @BindView(R.id.et_password)
+    @BindView(R2.id.et_password)
     EditText mEtPassword;
-    @BindView(R.id.tv_step)
+    @BindView(R2.id.tv_step)
     TextView mTvStep;
-    @BindView(R.id.tv_code)
+    @BindView(R2.id.tv_code)
     TextView mTvCode;
-    @BindView(R.id.llayout_title_1)
+    @BindView(R2.id.llayout_title_1)
     RelativeLayout llayoutTitle1;
-    @BindView(R.id.et_tuxing)
+    @BindView(R2.id.et_tuxing)
     EditText etTuxing;
-    @BindView(R.id.img_code)
+    @BindView(R2.id.img_code)
     ImageView imgCode;
 
     private CountDownTimer timer;
@@ -192,27 +193,22 @@ public class VerifyingPayPasswordPhoneNumberActivity extends BaseInitActivity {
         }
     }
 
-    @OnClick({R.id.tv_code, R.id.img_code, R.id.tv_step})
+    @OnClick({R2.id.tv_code, R2.id.img_code, R2.id.tv_step})
     public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.img_code:
-                flushTy();
-                break;
-            case R.id.tv_code:
-                getCode();
-                break;
-            case R.id.tv_step:
-                if (StringUtil.isEmpty(mEtPassword.getText().toString())) {
-                    ToastUtil.toast("验证码不能为空");
-                    return;
-                }
-                startActivity(new Intent(VerifyingPayPasswordPhoneNumberActivity.this, AppPayPassActivity.class)
-                        .putExtra("authCode", mEtPassword.getText().toString())
-                        .putExtra("from", "3"));
-                finish();
-                break;
-            default:
-                break;
+        int id = view.getId();
+        if (id == R.id.img_code) {
+            flushTy();
+        } else if (id == R.id.tv_code) {
+            getCode();
+        } else if (id == R.id.tv_step) {
+            if (StringUtil.isEmpty(mEtPassword.getText().toString())) {
+                ToastUtil.toast("验证码不能为空");
+                return;
+            }
+            startActivity(new Intent(VerifyingPayPasswordPhoneNumberActivity.this, AppPayPassActivity.class)
+                    .putExtra("authCode", mEtPassword.getText().toString())
+                    .putExtra("from", "3"));
+            finish();
         }
     }
 }

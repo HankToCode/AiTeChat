@@ -117,19 +117,17 @@ public class UserProtocolDialog extends BaseDialog {
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.tv_not_agree:
-                dismiss();
-                if(mOnNotAgreeClickListener != null){
-                    mOnNotAgreeClickListener.onNotAgreeClick();
-                }
-                break;
-            case R.id.tv_agree:
-                dismiss();
-                if(mOnAgreeClickListener != null){
-                    mOnAgreeClickListener.onAgreeClick();
-                }
-                break;
+        int id = v.getId();
+        if (id == R.id.tv_not_agree) {
+            dismiss();
+            if (mOnNotAgreeClickListener != null) {
+                mOnNotAgreeClickListener.onNotAgreeClick();
+            }
+        } else if (id == R.id.tv_agree) {
+            dismiss();
+            if (mOnAgreeClickListener != null) {
+                mOnAgreeClickListener.onAgreeClick();
+            }
         }
     }
 

@@ -74,23 +74,21 @@ public class ConfirmInputDialog extends BaseDialog {
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.tv_cancel:
-                dismiss();
-                if (mOnCancelClickListener != null) {
-                    mOnCancelClickListener.onCancelClick(tv_cancel);
-                }
-                break;
-            case R.id.tv_confirm:
-                if (TextUtils.isEmpty(et_content.getText().toString().trim())) {
-                    ToastUtil.toast("请输入内容");
-                    return;
-                }
-                if (mOnConfirmClickListener != null) {
-                    mOnConfirmClickListener.onConfirmClick(et_content.getText().toString().trim());
-                }
-                dismiss();
-                break;
+        int id = view.getId();
+        if (id == R.id.tv_cancel) {
+            dismiss();
+            if (mOnCancelClickListener != null) {
+                mOnCancelClickListener.onCancelClick(tv_cancel);
+            }
+        } else if (id == R.id.tv_confirm) {
+            if (TextUtils.isEmpty(et_content.getText().toString().trim())) {
+                ToastUtil.toast("请输入内容");
+                return;
+            }
+            if (mOnConfirmClickListener != null) {
+                mOnConfirmClickListener.onConfirmClick(et_content.getText().toString().trim());
+            }
+            dismiss();
         }
     }
 

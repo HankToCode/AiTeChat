@@ -29,6 +29,7 @@ import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.new_data.VipBean;
 import com.ycf.qianzhihe.app.api.old_data.LoginInfo;
@@ -64,46 +65,46 @@ import top.zibin.luban.OnCompressListener;
 //账号等级权益
 public class AccountInfoActivity extends BaseInitActivity {
 
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar mTitleBar;
-    @BindView(R.id.ll_my_info)
+    @BindView(R2.id.ll_my_info)
     ConstraintLayout mLlMyInfo;
-    @BindView(R.id.iv_avatar)
+    @BindView(R2.id.iv_avatar)
     EaseImageView mIvAvatar;
-    @BindView(R.id.tv_nick_name)
+    @BindView(R2.id.tv_nick_name)
     TextView mTvNickName;
-    @BindView(R.id.tv_user_id)
+    @BindView(R2.id.tv_user_id)
     TextView mTvUserId;
-    @BindView(R.id.tv_user_level)
+    @BindView(R2.id.tv_user_level)
     SuperTextView tv_user_level;
-    @BindView(R.id.iv_user_level_tag)
+    @BindView(R2.id.iv_user_level_tag)
     ImageView iv_user_level_tag;
 
-    @BindView(R.id.cml_member)
+    @BindView(R2.id.cml_member)
     ShowMemberContentLayout cml_member;
-    @BindView(R.id.cml_member2)
+    @BindView(R2.id.cml_member2)
     ShowMemberContentLayout cml_member2;
-    @BindView(R.id.cml_member3)
+    @BindView(R2.id.cml_member3)
     ShowMemberContentLayout cml_member3;
-    @BindView(R.id.cml_member4)
+    @BindView(R2.id.cml_member4)
     ShowMemberContentLayout cml_member4;
-    @BindView(R.id.tv_l1)
+    @BindView(R2.id.tv_l1)
     TextView tv_l1;
-    @BindView(R.id.tv_l2)
+    @BindView(R2.id.tv_l2)
     TextView tv_l2;
-    @BindView(R.id.tv_l3)
+    @BindView(R2.id.tv_l3)
     TextView tv_l3;
-    @BindView(R.id.tv_l4)
+    @BindView(R2.id.tv_l4)
     TextView tv_l4;
-    @BindView(R.id.tv_l1_tip)
+    @BindView(R2.id.tv_l1_tip)
     TextView tv_l1_tip;
-    @BindView(R.id.tv_l2_tip)
+    @BindView(R2.id.tv_l2_tip)
     TextView tv_l2_tip;
-    @BindView(R.id.tv_l3_tip)
+    @BindView(R2.id.tv_l3_tip)
     TextView tv_l3_tip;
-    @BindView(R.id.tv_l4_tip)
+    @BindView(R2.id.tv_l4_tip)
     TextView tv_l4_tip;
-    @BindView(R.id.iv_up)
+    @BindView(R2.id.iv_up)
     ImageView iv_up;
 
 
@@ -142,13 +143,11 @@ public class AccountInfoActivity extends BaseInitActivity {
         tv_l4_tip.setText(Html.fromHtml("LV4全部" + "<font color='#C29525'>" + "8项" + "</font>" + "权益"));
     }
 
-    @OnClick({R.id.iv_up})
+    @OnClick({R2.id.iv_up})
     public void click(View v) {
-        switch (v.getId()) {
-            case R.id.iv_up:
-                BuyMemberActivity.actionStart(this);
-                finish();
-                break;
+        if (v.getId() == R.id.iv_up) {
+            BuyMemberActivity.actionStart(this);
+            finish();
         }
     }
 

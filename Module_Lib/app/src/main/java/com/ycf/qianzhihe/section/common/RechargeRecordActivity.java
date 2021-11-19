@@ -11,6 +11,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.adapter.RechargeRecordAdapter;
 import com.ycf.qianzhihe.app.api.old_data.RechargeRecordInfo;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
@@ -34,16 +35,16 @@ import butterknife.BindView;
 public class RechargeRecordActivity extends BaseInitActivity {
 
 
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar mTitleBar;
-    @BindView(R.id.recyclerView)
+    @BindView(R2.id.recyclerView)
     RecyclerView recyclerView;
-    @BindView(R.id.tv_no_data)
+    @BindView(R2.id.tv_no_data)
     TextView tv_no_data;
     private List<RechargeRecordInfo.DataBean> mRecordInfoList = new ArrayList<>();
     private RechargeRecordAdapter mRechargeAdapter;
     private int page = 1;
-    @BindView(R.id.swipeRefreshLayout)
+    @BindView(R2.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
 
     public static void actionStart(Context context) {

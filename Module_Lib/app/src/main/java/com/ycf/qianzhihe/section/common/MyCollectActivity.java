@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.adapter.MyCollectAdapter;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.old_data.CollectInfo;
@@ -44,13 +45,13 @@ public class MyCollectActivity extends BaseInitActivity {
         context.startActivity(starter);
     }
 
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar mTitleBar;
-    @BindView(R.id.rv_collect)
+    @BindView(R2.id.rv_collect)
     RecyclerView mRvCollect;
-    @BindView(R.id.smart)
+    @BindView(R2.id.smart)
     SmartRefreshLayout mSmart;
-    @BindView(R.id.tv_no_collect)
+    @BindView(R2.id.tv_no_collect)
     TextView mTvNoCollect;
 
     private MyCollectAdapter mCollectAdapter;

@@ -16,6 +16,7 @@ import com.ycf.qianzhihe.BuildConfig;
 import com.ycf.qianzhihe.DemoHelper;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
+import com.ycf.qianzhihe.app.platform.PlatformFactory;
 import com.ycf.qianzhihe.common.manager.OptionsHelper;
 import com.ycf.qianzhihe.common.model.DemoModel;
 import com.ycf.qianzhihe.common.widget.ArrowItemView;
@@ -82,7 +83,7 @@ public class DeveloperSetActivity extends BaseInitActivity implements EaseTitleB
     @Override
     protected void initData() {
         super.initData();
-        itemVersion.getTvContent().setText("V"+ BuildConfig.VERSION_NAME);
+        itemVersion.getTvContent().setText("V"+ PlatformFactory.getPlatform().getVersionName());
 
         settingsModel = DemoHelper.getInstance().getModel();
         options = EMClient.getInstance().getOptions();
@@ -103,19 +104,15 @@ public class DeveloperSetActivity extends BaseInitActivity implements EaseTitleB
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.item_appkey :
-                AppKeyManageActivity.actionStartForResult(mContext, APPKEY_REQUEST_CODE);
-                break;
-            case R.id.item_msg_sort :
-                showSelectDialog();
-                break;
-            case R.id.item_push_nick:
-                OfflinePushNickActivity.actionStart(mContext);
-                break;
-            case R.id.item_msg_service_diagnose :
-                DiagnoseActivity.actionStart(mContext);
-                break;
+        int id = v.getId();
+        if (id == R.id.item_appkey) {
+            AppKeyManageActivity.actionStartForResult(mContext, APPKEY_REQUEST_CODE);
+        } else if (id == R.id.item_msg_sort) {
+            showSelectDialog();
+        } else if (id == R.id.item_push_nick) {
+            OfflinePushNickActivity.actionStart(mContext);
+        } else if (id == R.id.item_msg_service_diagnose) {
+            DiagnoseActivity.actionStart(mContext);
         }
     }
 
@@ -135,21 +132,17 @@ public class DeveloperSetActivity extends BaseInitActivity implements EaseTitleB
 
     @Override
     public void onCheckedChanged(SwitchItemView buttonView, boolean isChecked) {
-        switch (buttonView.getId()) {
-            case R.id.item_switch_token_login :
-                settingsModel.setEnableTokenLogin(isChecked);
-                break;
-            case R.id.item_switch_msg_from_server :
-                settingsModel.setMsgRoaming(isChecked);
-                break;
-            case R.id.item_switch_upload_to_hx :
-                settingsModel.setTransfeFileByUser(isChecked);
-                options.setAutoTransferMessageAttachments(isChecked);
-                break;
-            case R.id.item_switch_auto_download_thumbnail :
-                settingsModel.setAutodownloadThumbnail(isChecked);
-                options.setAutoDownloadThumbnail(isChecked);
-                break;
+        int id = buttonView.getId();
+        if (id == R.id.item_switch_token_login) {
+            settingsModel.setEnableTokenLogin(isChecked);
+        } else if (id == R.id.item_switch_msg_from_server) {
+            settingsModel.setMsgRoaming(isChecked);
+        } else if (id == R.id.item_switch_upload_to_hx) {
+            settingsModel.setTransfeFileByUser(isChecked);
+            options.setAutoTransferMessageAttachments(isChecked);
+        } else if (id == R.id.item_switch_auto_download_thumbnail) {
+            settingsModel.setAutodownloadThumbnail(isChecked);
+            options.setAutoDownloadThumbnail(isChecked);
         }
     }
 

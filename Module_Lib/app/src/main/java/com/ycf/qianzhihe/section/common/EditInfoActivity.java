@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.DemoApplication;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
@@ -41,14 +42,14 @@ public class EditInfoActivity extends BaseInitActivity {
 
     public static final String FUNC_TYPE_MODIFY_GROUP_REMARK = "6";
 
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar title_bar;
 
-    @BindView(R.id.et_nick_name)
+    @BindView(R2.id.et_nick_name)
     EditText mEtNickName;
-    @BindView(R.id.img_del)
+    @BindView(R2.id.img_del)
     ImageView mImgDel;
-    @BindView(R.id.tv_hint_account)
+    @BindView(R2.id.tv_hint_account)
     TextView mTvHintAccount;
 
 
@@ -343,7 +344,7 @@ public class EditInfoActivity extends BaseInitActivity {
     }
 
 
-    @OnClick(R.id.img_del)
+    @OnClick(R2.id.img_del)
     public void onViewClicked() {
         mEtNickName.getText().clear();
     }

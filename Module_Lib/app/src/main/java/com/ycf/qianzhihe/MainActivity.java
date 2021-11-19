@@ -482,25 +482,21 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
     public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
         showMenu = true;
         boolean showNavigation = false;
-        switch (menuItem.getItemId()) {
-            case R.id.em_main_nav_contacts:
-                switchToHome();
-                showNavigation = true;
-                break;
-            case R.id.em_main_nav_message:
-                switchToFriends();
-                showNavigation = true;
-                invalidateOptionsMenu();
-                break;
-            case R.id.em_main_nav_discover:
-                switchToDiscover();
-                showNavigation = true;
-                break;
-            case R.id.em_main_nav_find:
-                switchToNews();//资讯
-                showMenu = false;
-                showNavigation = true;
-                break;
+        int itemId = menuItem.getItemId();
+        if (itemId == R.id.em_main_nav_contacts) {
+            switchToHome();
+            showNavigation = true;
+        } else if (itemId == R.id.em_main_nav_message) {
+            switchToFriends();
+            showNavigation = true;
+            invalidateOptionsMenu();
+        } else if (itemId == R.id.em_main_nav_discover) {
+            switchToDiscover();
+            showNavigation = true;
+        } else if (itemId == R.id.em_main_nav_find) {
+            switchToNews();//资讯
+            showMenu = false;
+            showNavigation = true;
         }
         invalidateOptionsMenu();
         return showNavigation;

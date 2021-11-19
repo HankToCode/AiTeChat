@@ -64,25 +64,19 @@ public class AboutMeFragment extends BaseInitFragment implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btn_logout :
-                logout();
-                break;
-            case R.id.cl_user:
-                UserDetailActivity.actionStart(mContext);
-                break;
-            case R.id.item_common_set:
-                SetIndexActivity.actionStart(mContext);
-                break;
-            case R.id.item_feedback:
-                FeedbackActivity.actionStart(mContext);
-                break;
-            case R.id.item_about_hx:
-                AboutHxActivity.actionStart(mContext);
-                break;
-            case R.id.item_developer_set:
-                DeveloperSetActivity.actionStart(mContext);
-                break;
+        int id = v.getId();
+        if (id == R.id.btn_logout) {
+            logout();
+        } else if (id == R.id.cl_user) {
+            UserDetailActivity.actionStart(mContext);
+        } else if (id == R.id.item_common_set) {
+            SetIndexActivity.actionStart(mContext);
+        } else if (id == R.id.item_feedback) {
+            FeedbackActivity.actionStart(mContext);
+        } else if (id == R.id.item_about_hx) {
+            AboutHxActivity.actionStart(mContext);
+        } else if (id == R.id.item_developer_set) {
+            DeveloperSetActivity.actionStart(mContext);
         }
     }
 

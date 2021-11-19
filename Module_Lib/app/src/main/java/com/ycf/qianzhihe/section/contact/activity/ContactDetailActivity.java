@@ -85,13 +85,11 @@ public class ContactDetailActivity extends BaseInitActivity implements EaseTitle
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.action_detail_delete:
-                showDeleteDialog(mUser);
-                break;
-            case R.id.action_add_black :
-                viewModel.addUserToBlackList(mUser.getUsername(), false);
-                break;
+        int itemId = item.getItemId();
+        if (itemId == R.id.action_detail_delete) {
+            showDeleteDialog(mUser);
+        } else if (itemId == R.id.action_add_black) {
+            viewModel.addUserToBlackList(mUser.getUsername(), false);
         }
         return super.onOptionsItemSelected(item);
     }
@@ -226,25 +224,19 @@ public class ContactDetailActivity extends BaseInitActivity implements EaseTitle
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tv_note :
-                showToast("跳转到备注设置");
-                break;
-            case R.id.btn_chat :
-                ChatActivity.actionStart(mContext, mUser.getUsername(), EaseConstant.CHATTYPE_SINGLE);
-                break;
-            case R.id.btn_voice :
-                EaseCallKit.getInstance().startSingleCall(EaseCallType.SINGLE_VOICE_CALL,mUser.getUsername(),null);
-                break;
-            case R.id.btn_video :
-                EaseCallKit.getInstance().startSingleCall(EaseCallType.SINGLE_VIDEO_CALL,mUser.getUsername(),null);
-                break;
-            case R.id.btn_add_contact :
-                addContactViewModel.addContact(mUser.getUsername(), getResources().getString(R.string.em_add_contact_add_a_friend));
-                break;
-            case R.id.btn_remove_black://从黑名单中移除
-                removeBlack();
-                break;
+        int id = v.getId();
+        if (id == R.id.tv_note) {
+            showToast("跳转到备注设置");
+        } else if (id == R.id.btn_chat) {
+            ChatActivity.actionStart(mContext, mUser.getUsername(), EaseConstant.CHATTYPE_SINGLE);
+        } else if (id == R.id.btn_voice) {
+            EaseCallKit.getInstance().startSingleCall(EaseCallType.SINGLE_VOICE_CALL, mUser.getUsername(), null);
+        } else if (id == R.id.btn_video) {
+            EaseCallKit.getInstance().startSingleCall(EaseCallType.SINGLE_VIDEO_CALL, mUser.getUsername(), null);
+        } else if (id == R.id.btn_add_contact) {
+            addContactViewModel.addContact(mUser.getUsername(), getResources().getString(R.string.em_add_contact_add_a_friend));
+        } else if (id == R.id.btn_remove_black) {//从黑名单中移除
+            removeBlack();
         }
     }
 

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.alibaba.fastjson.JSON;
 import com.ycf.qianzhihe.DemoApplication;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
@@ -38,9 +39,9 @@ import org.greenrobot.eventbus.EventBus;
  * 钱包
  */
 public class WalletActivity extends BaseInitActivity {
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar mTitleBar;
-    @BindView(R.id.tv_amount)
+    @BindView(R2.id.tv_amount)
     TextView mTvAmount;
 
 
@@ -63,46 +64,35 @@ public class WalletActivity extends BaseInitActivity {
     }
 
 
-    @OnClick({ R.id.tv_wallet_lock, R.id.tv_recharge, R.id.tv_withdraw, R.id.tv_pay_manage, R.id.tv_my_redpack_record, R.id.tv_my_transfer})
+    @OnClick({ R2.id.tv_wallet_lock, R2.id.tv_recharge, R2.id.tv_withdraw, R2.id.tv_pay_manage, R2.id.tv_my_redpack_record, R2.id.tv_my_transfer})
     public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.tv_recharge://充值
-                if (UserComm.getUserInfo().getOpenAccountFlag() == 0) {
-                    RealAuthActivity.actionStart(mContext);
-                    return;
-                }
-                RechargeActivity.actionStart(WalletActivity.this);//充值页面
-                break;
-            case R.id.tv_withdraw://提现
-                if (UserComm.getUserInfo().getOpenAccountFlag() == 0) {
-                    RealAuthActivity.actionStart(mContext);
-                    return;
-                }
-                WithdrawActivity.actionStart(WalletActivity.this);
-                break;
-            case R.id.tv_pay_manage://银行卡
+        int id = view.getId();
+        if (id == R.id.tv_recharge) {//充值
+            if (UserComm.getUserInfo().getOpenAccountFlag() == 0) {
+                RealAuthActivity.actionStart(mContext);
+                return;
+            }
+            RechargeActivity.actionStart(WalletActivity.this);//充值页面
+        } else if (id == R.id.tv_withdraw) {//提现
+            if (UserComm.getUserInfo().getOpenAccountFlag() == 0) {
+                RealAuthActivity.actionStart(mContext);
+                return;
+            }
+            WithdrawActivity.actionStart(WalletActivity.this);
+        } else if (id == R.id.tv_pay_manage) {//银行卡
 //                startActivity(new Intent(WalletActivity.this,WebViewActivity.class).putExtra("url",url).putExtra("title","银行卡"));
-                if (UserComm.getUserInfo().getOpenAccountFlag() == 0) {
-                    RealAuthActivity.actionStart(mContext);
-                    return;
-                }
-                BankActivity.actionStart(this);
-                break;
-            case R.id.tv_my_redpack_record:
-                //我的红包记录
+            if (UserComm.getUserInfo().getOpenAccountFlag() == 0) {
+                RealAuthActivity.actionStart(mContext);
+                return;
+            }
+            BankActivity.actionStart(this);
+        } else if (id == R.id.tv_my_redpack_record) {//我的红包记录
 //                startActivity(MyRedRecordActivity.class);
-                ChatRedRecordActivity.actionStart(mContext);
-                break;
-            case R.id.tv_my_transfer:
-                //我的转账记录
-                TransferRecordActivity.actionStart(this);
-                break;
-            case R.id.tv_wallet_lock:
-                //零钱锁
-                WalletLockActivity.actionStart(this);
-                break;
-            default:
-                break;
+            ChatRedRecordActivity.actionStart(mContext);
+        } else if (id == R.id.tv_my_transfer) {//我的转账记录
+            TransferRecordActivity.actionStart(this);
+        } else if (id == R.id.tv_wallet_lock) {//零钱锁
+            WalletLockActivity.actionStart(this);
         }
     }
 

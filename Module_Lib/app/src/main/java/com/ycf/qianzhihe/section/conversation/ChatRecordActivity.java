@@ -16,6 +16,7 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
 import com.ycf.qianzhihe.app.executor.ThreadPoolManager;
@@ -37,15 +38,15 @@ import butterknife.OnClick;
  * 聊天记录
  */
 public class ChatRecordActivity extends BaseInitActivity {
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar mTitleBar;
-    @BindView(R.id.rv_chat_record)
+    @BindView(R2.id.rv_chat_record)
     RecyclerView mRvChatRecord;
-    @BindView(R.id.et_query)
+    @BindView(R2.id.et_query)
     EditText mEtQuery;
-    @BindView(R.id.tv_no_data)
+    @BindView(R2.id.tv_no_data)
     TextView mTvNoData;
-    @BindView(R.id.img_clear)
+    @BindView(R2.id.img_clear)
     ImageView mImgClear;
 
     private List<EMMessage> messageList;
@@ -190,17 +191,12 @@ public class ChatRecordActivity extends BaseInitActivity {
     }
 
 
-    @OnClick({R.id.img_clear, R.id.tv_no_data})
+    @OnClick({R2.id.img_clear, R2.id.tv_no_data})
     public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.img_clear:
-                //删除
-                mEtQuery.setText("");
-                break;
-            case R.id.tv_no_data:
-                break;
-            default:
-                break;
+        int id = view.getId();
+        if (id == R.id.img_clear) {//删除
+            mEtQuery.setText("");
+        } else if (id == R.id.tv_no_data) {
         }
     }
 }

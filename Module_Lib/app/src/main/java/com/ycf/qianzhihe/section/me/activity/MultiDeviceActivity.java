@@ -25,6 +25,7 @@ import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMDeviceInfo;
 import com.ycf.qianzhihe.DemoHelper;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.adapter.MultiDeviceAdapter;
 import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
@@ -53,21 +54,21 @@ import butterknife.BindView;
 
 public class MultiDeviceActivity extends BaseInitActivity {
 
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar title_bar;
-    @BindView(R.id.switch_multi)
+    @BindView(R2.id.switch_multi)
     Switch switchMulti;
-    @BindView(R.id.mobile)
+    @BindView(R2.id.mobile)
     TextView mobile;
-    @BindView(R.id.ip)
+    @BindView(R2.id.ip)
     TextView ip;
-    @BindView(R.id.address)
+    @BindView(R2.id.address)
     TextView address;
-    @BindView(R.id.time)
+    @BindView(R2.id.time)
     TextView time;
-    @BindView(R.id.kick_out)
+    @BindView(R2.id.kick_out)
     TextView kickOut;
-    @BindView(R.id.recycler_view)
+    @BindView(R2.id.recycler_view)
     RecyclerView recyclerView;
     MultiDeviceAdapter adapter;
     private VerifyCodeView verifyCodeView;

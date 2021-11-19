@@ -24,6 +24,7 @@ import com.hyphenate.chat.EMMessage;
 import com.hyphenate.easeui.constants.EaseConstant;
 import com.hyphenate.easeui.widget.EaseAlertDialog;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.Global;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
@@ -70,41 +71,41 @@ import butterknife.OnClick;
  * 用户详情
  */
 public class UserInfoDetailActivity extends BaseInitActivity {
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar mTitleBar;
-    @BindView(R.id.img_head)
+    @BindView(R2.id.img_head)
     ImageView mImgHead;
-    @BindView(R.id.tv_account)
+    @BindView(R2.id.tv_account)
     TextView mTvAccount;
-    @BindView(R.id.tv_nick_name)
+    @BindView(R2.id.tv_nick_name)
     TextView mTvNickName;
-    @BindView(R.id.ll_friend)
+    @BindView(R2.id.ll_friend)
     LinearLayout mLlFriend;
-    @BindView(R.id.tv_add_friend)
+    @BindView(R2.id.tv_add_friend)
     TextView mTvAddFriend;
-    @BindView(R.id.line_status)
+    @BindView(R2.id.line_status)
     TextView mTvLineStatus;
-    @BindView(R.id.switch_msg)
+    @BindView(R2.id.switch_msg)
     CheckBox mSwitchMsg;
-    @BindView(R.id.switch_mute)
+    @BindView(R2.id.switch_mute)
     CheckBox mSwitchMute;
-    @BindView(R.id.rl_mute)
+    @BindView(R2.id.rl_mute)
     View rlMute;
-    @BindView(R.id.tv_inviter)
+    @BindView(R2.id.tv_inviter)
     TextView tvInviter;
-    @BindView(R.id.layout_inviter)
+    @BindView(R2.id.layout_inviter)
     RelativeLayout layoutInviter;
-    @BindView(R.id.tv_remark)
+    @BindView(R2.id.tv_remark)
     TextView tv_remark;
-    @BindView(R.id.llay_remark)
+    @BindView(R2.id.llay_remark)
     RelativeLayout mLlayRemark;
-    @BindView(R.id.kick_out)
+    @BindView(R2.id.kick_out)
     View kickOut;
-    @BindView(R.id.switch_top_conversation)
+    @BindView(R2.id.switch_top_conversation)
     CheckBox mSwitchTopConversation;
-    @BindView(R.id.switch_start)
+    @BindView(R2.id.switch_start)
     CheckBox switch_start;
-    @BindView(R.id.fl_send_msg)
+    @BindView(R2.id.fl_send_msg)
     FrameLayout flSendButton;
     private String userId, userName;
     private String inviterUserId;
@@ -113,19 +114,19 @@ public class UserInfoDetailActivity extends BaseInitActivity {
     private String groupId;
     private String from = "";
     private FriendInfo info;
-    @BindView(R.id.tv_sign)
+    @BindView(R2.id.tv_sign)
     TextView tv_sign;
-    @BindView(R.id.switch_black)
+    @BindView(R2.id.switch_black)
     CheckBox mSwitchBlack;
-    @BindView(R.id.iv_online_status)
+    @BindView(R2.id.iv_online_status)
     ImageView iv_online_status;
-    @BindView(R.id.iv_start)
+    @BindView(R2.id.iv_start)
     ImageView iv_start;
-    @BindView(R.id.ll_grouping)
+    @BindView(R2.id.ll_grouping)
     LinearLayout ll_grouping;
-    @BindView(R.id.tv_grouping)
+    @BindView(R2.id.tv_grouping)
     TextView tv_grouping;
-    @BindView(R.id.tv_del_friend)
+    @BindView(R2.id.tv_del_friend)
     TextView tv_del_friend;
     private int currentUserRank;
 
@@ -581,72 +582,57 @@ public class UserInfoDetailActivity extends BaseInitActivity {
         }
     }
 
-    @OnClick({R.id.tv_chat_record, R.id.fl_send_msg, R.id.tv_add_friend, R.id.kick_out, R.id.llay_remark, R.id.tv_remark
-            , R.id.tv_clear_history, R.id.tv_chat_bg, R.id.tv_report, R.id.tv_del_friend, R.id.ll_grouping})
+    @OnClick({R2.id.tv_chat_record, R2.id.fl_send_msg, R2.id.tv_add_friend, R2.id.kick_out, R2.id.llay_remark, R2.id.tv_remark
+            , R2.id.tv_clear_history, R2.id.tv_chat_bg, R2.id.tv_report, R2.id.tv_del_friend, R2.id.ll_grouping})
     public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.ll_grouping:
-                Intent intent1 = new Intent(mContext, FriendGroupingActvity.class);
-                intent1.putExtra("friendUserId", userId);
-                intent1.putExtra("categoryId", info.getCategoryId());
-                intent1.putExtra("categoryName", info.getCategoryName());
-                startActivityForResult(intent1, 301);
+        int id = view.getId();
+        if (id == R.id.ll_grouping) {
+            Intent intent1 = new Intent(mContext, FriendGroupingActvity.class);
+            intent1.putExtra("friendUserId", userId);
+            intent1.putExtra("categoryId", info.getCategoryId());
+            intent1.putExtra("categoryName", info.getCategoryName());
+            startActivityForResult(intent1, 301);
 //                FriendGroupingActvity.actionStart(mContext,userId,info.getCategoryId(),info.getCategoryName());
-                break;
-            case R.id.tv_del_friend:
-                new MyDialog(this)
-                        .setTitle("删除联系人")
-                        .setMessage("将联系人 " + info.getNickName() + " 删除，将同时删除与该联系人的聊天记录")
-                        .setPositiveButton("删除", new MyDialog.OnMyDialogButtonClickListener() {
-                            @Override
-                            public void onClick() {
-                                deleteContact();
-                            }
-                        })
-                        .setNegativeButton("取消", null)
-                        .show();
-
-                break;
-            case R.id.tv_report:
-                //举报
-                startActivity(new Intent(this, ReportActivity.class).putExtra("from", "2").putExtra("userGroupId", groupId));
-                break;
-            case R.id.tv_chat_bg:
-                //聊天背景
-                ChatBgActivity.actionStart(this, "1", info.getUserId() + Constant.ID_REDPROJECT);
-                break;
-            case R.id.tv_clear_history:
-                //清空聊天记录
-                new EaseAlertDialog(UserInfoDetailActivity.this, null,
-                        "确定清空聊天记录吗？", null, (confirmed, bundle) -> {
-                    if (confirmed) {
-                        clearSingleChatHistory();
-                    }
-                }, true).show();
-                break;
-            case R.id.kick_out:
-                delGroupUser();
-                break;
-
-            case R.id.tv_chat_record:
-                //查找聊天记录
-                startActivity(new Intent(this, ChatRecordActivity.class).putExtra("chatId", userId + Constant.ID_REDPROJECT));
-
-                break;
-            case R.id.fl_send_msg:
-                //好友标识 0 不是好友 1 是好友
-                if (info.getFriendFlag().equals("0")) {
-                    ToastUtil.toast("还不是好友哦，无法发送消息");
-                    return;
+        } else if (id == R.id.tv_del_friend) {
+            new MyDialog(this)
+                    .setTitle("删除联系人")
+                    .setMessage("将联系人 " + info.getNickName() + " 删除，将同时删除与该联系人的聊天记录")
+                    .setPositiveButton("删除", new MyDialog.OnMyDialogButtonClickListener() {
+                        @Override
+                        public void onClick() {
+                            deleteContact();
+                        }
+                    })
+                    .setNegativeButton("取消", null)
+                    .show();
+        } else if (id == R.id.tv_report) {//举报
+            startActivity(new Intent(this, ReportActivity.class).putExtra("from", "2").putExtra("userGroupId", groupId));
+        } else if (id == R.id.tv_chat_bg) {//聊天背景
+            ChatBgActivity.actionStart(this, "1", info.getUserId() + Constant.ID_REDPROJECT);
+        } else if (id == R.id.tv_clear_history) {//清空聊天记录
+            new EaseAlertDialog(UserInfoDetailActivity.this, null,
+                    "确定清空聊天记录吗？", null, (confirmed, bundle) -> {
+                if (confirmed) {
+                    clearSingleChatHistory();
                 }
-                //发消息
-                if (!userId.contains(Constant.ID_REDPROJECT)) {//friendUserId
-                    userId += Constant.ID_REDPROJECT;
-                }
-                //这里有BUG，群名片跳过来的 发消息有偶发机率还是进入群会话，
-                ActivityStackManager.getInstance().killActivity(ChatActivity.class);
-                ChatActivity.actionStart(mContext, userId, EaseConstant.CHATTYPE_SINGLE);
-                finish();
+            }, true).show();
+        } else if (id == R.id.kick_out) {
+            delGroupUser();
+        } else if (id == R.id.tv_chat_record) {//查找聊天记录
+            startActivity(new Intent(this, ChatRecordActivity.class).putExtra("chatId", userId + Constant.ID_REDPROJECT));
+        } else if (id == R.id.fl_send_msg) {//好友标识 0 不是好友 1 是好友
+            if (info.getFriendFlag().equals("0")) {
+                ToastUtil.toast("还不是好友哦，无法发送消息");
+                return;
+            }
+            //发消息
+            if (!userId.contains(Constant.ID_REDPROJECT)) {//friendUserId
+                userId += Constant.ID_REDPROJECT;
+            }
+            //这里有BUG，群名片跳过来的 发消息有偶发机率还是进入群会话，
+            ActivityStackManager.getInstance().killActivity(ChatActivity.class);
+            ChatActivity.actionStart(mContext, userId, EaseConstant.CHATTYPE_SINGLE);
+            finish();
                /* if (chatType == Constant.CHATTYPE_SINGLE) {//如果是单聊则直接返回复用上个聊天页面
                     ChatActivity.actionStart(mContext, userId, EaseConstant.CHATTYPE_SINGLE);
                     finish();
@@ -665,36 +651,29 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                     intent.putExtra(Constant.EXTRA_USER_ID, userId);
                     startActivity(intent);*//*
                 }*/
-                break;
-            case R.id.tv_add_friend:
-                //加好友
-                //好友拉黑状态
-                if (info.getFriendFlag().equals("1")) {
-                    if (info.getBlackStatus() != null && info.getBlackStatus().equals("1")) {
-                        blackContact("0");
-                    }
-                } else {
-                    addUser();
+        } else if (id == R.id.tv_add_friend) {//加好友
+            //好友拉黑状态
+            if (info.getFriendFlag().equals("1")) {
+                if (info.getBlackStatus() != null && info.getBlackStatus().equals("1")) {
+                    blackContact("0");
                 }
+            } else {
+                addUser();
+            }
 
 //                if (from.equals("3")) {
 //                } else {
 //                    addUser();
 //                }
-                break;
-//            case R.id.tv_report:
+            //            case R.id.tv_report:
 //                //举报
 //                startActivity(new Intent(this, ReportActivity.class).putExtra("from", "1").putExtra("userGroupId", userId));
 //                break;
-            case R.id.llay_remark:
-            case R.id.tv_remark:
-                if (info == null) {
-                    return;
-                }
-                ModifyFriendRemarkActivity.actionStart(this, userId, tv_remark.getText().toString());
-                break;
-            default:
-                break;
+        } else if (id == R.id.llay_remark || id == R.id.tv_remark) {
+            if (info == null) {
+                return;
+            }
+            ModifyFriendRemarkActivity.actionStart(this, userId, tv_remark.getText().toString());
         }
     }
 

@@ -13,6 +13,7 @@ import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.adapter.BlackAdapter;
 import com.ycf.qianzhihe.app.adapter.MyCollectAdapter;
 import com.ycf.qianzhihe.app.adapter.NewsAdapter;
@@ -44,11 +45,11 @@ import butterknife.OnClick;
 public class NewsFragment extends BaseInitFragment implements OnBannerListener {
 
 
-    @BindView(R.id.banner)
+    @BindView(R2.id.banner)
     Banner banner;
-    @BindView(R.id.rv_recyclerview)
+    @BindView(R2.id.rv_recyclerview)
     RecyclerView rv_recyclerview;
-    @BindView(R.id.swipeRefreshLayout)
+    @BindView(R2.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
     private ArrayList<Integer> list_path;
     private ArrayList<String> list_title;

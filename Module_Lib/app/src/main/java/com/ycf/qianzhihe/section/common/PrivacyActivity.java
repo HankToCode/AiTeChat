@@ -9,6 +9,7 @@ import android.widget.Switch;
 import android.widget.TextView;
 
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.R2;
 import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.old_data.LoginInfo;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
@@ -29,16 +30,16 @@ import butterknife.OnClick;
 
 public class PrivacyActivity extends BaseInitActivity {
 
-    @BindView(R.id.title_bar)
+    @BindView(R2.id.title_bar)
     EaseTitleBar mTitleBar;
-    @BindView(R.id.switch_btn)
+    @BindView(R2.id.switch_btn)
     Switch switchBtn;
     private MyModel settingsModel;
 
-    @BindView(R.id.sb_verify)
+    @BindView(R2.id.sb_verify)
     Switch sb_verify;
     private LoginInfo info;
-    @BindView(R.id.tv_black)
+    @BindView(R2.id.tv_black)
     TextView tv_black;
 
 
@@ -107,12 +108,10 @@ public class PrivacyActivity extends BaseInitActivity {
 
     }
 
-    @OnClick({R.id.tv_black})
+    @OnClick({R2.id.tv_black})
     public void click(View v) {
-        switch (v.getId()) {
-            case R.id.tv_black:
-                BlackListActivity.actionStart(mContext);
-                break;
+        if (v.getId() == R.id.tv_black) {
+            BlackListActivity.actionStart(mContext);
         }
     }
 

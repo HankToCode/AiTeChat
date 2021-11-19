@@ -145,33 +145,29 @@ public class OfflinePushSettingsActivity extends BaseInitActivity implements Eas
 
     @Override
     public void onCheckedChanged(SwitchItemView buttonView, boolean isChecked) {
-        switch (buttonView.getId()) {
-            case R.id.rl_custom_server :
-                settingsModel.setUseFCM(isChecked);
-                EMClient.getInstance().getOptions().setUseFCM(isChecked);
-                break;
+        if (buttonView.getId() == R.id.rl_custom_server) {
+            settingsModel.setUseFCM(isChecked);
+            EMClient.getInstance().getOptions().setUseFCM(isChecked);
         }
 
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.switch_push_no_disturb :
-                boolean checked = switchPushNoDisturb.getSwitch().isChecked();
-                switchPushNoDisturb.getSwitch().setChecked(!checked);
-                if(switchPushNoDisturb.getSwitch().isChecked()) {
-                    viewModel.getPushConfigs();
-                    shouldUpdateToServer = true;
-                    setOptionsVisible(true);
-                }else {
-                    setOptionsVisible(false);
-                    viewModel.enableOfflinePush();
-                }
-                break;
-            case R.id.item_push_time_range :
-                showTimePicker();
-                break;
+        int id = v.getId();
+        if (id == R.id.switch_push_no_disturb) {
+            boolean checked = switchPushNoDisturb.getSwitch().isChecked();
+            switchPushNoDisturb.getSwitch().setChecked(!checked);
+            if (switchPushNoDisturb.getSwitch().isChecked()) {
+                viewModel.getPushConfigs();
+                shouldUpdateToServer = true;
+                setOptionsVisible(true);
+            } else {
+                setOptionsVisible(false);
+                viewModel.enableOfflinePush();
+            }
+        } else if (id == R.id.item_push_time_range) {
+            showTimePicker();
         }
 
     }
