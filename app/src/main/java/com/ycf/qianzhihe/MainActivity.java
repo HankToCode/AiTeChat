@@ -453,7 +453,12 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
             tvTitle.setText(getResources().getString(R.string.em_main_title_contacts));
             rightView.findViewById(R.id.ivIcon4).setVisibility(View.VISIBLE);
             rightView.findViewById(R.id.ivIcon4).setOnClickListener(view -> {
-                AddUserActivity.actionStart(mContext);
+//                AddUserActivity.actionStart(mContext);//搜索添加好友
+                //扫一扫
+                Global.addUserOriginType = Constant.ADD_USER_ORIGIN_TYPE_QRCODE;
+                Intent intent = new Intent(MainActivity.this,
+                        CaptureActivity.class);
+                startActivityForResult(intent, REQUEST_CODE);
             });
         } else if ("message".equals(tag)) {
             tvTitle.setText(getResources().getString(R.string.em_main_title_message));
@@ -579,7 +584,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
                                 Intent intent = new Intent(MainActivity.this,
                                         CaptureActivity.class);
                                 startActivityForResult(intent, REQUEST_CODE);
-                            }//添加好友
+                            }//添加好友  //搜索添加好友
                             else if (v.getId() == R.id.layout_add_firend) {
 //                                AddContactActivity.actionStart(mContext, SearchType.CHAT);
                                 AddUserActivity.actionStart(mContext);

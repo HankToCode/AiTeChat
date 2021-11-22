@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="15dp"
         android:padding="10dp"
-        android:src="@mipmap/ic_icon4"
+        android:src="@mipmap/main_contacts_sys"
         android:visibility="gone"
         tools:visibility="visible" />
 
