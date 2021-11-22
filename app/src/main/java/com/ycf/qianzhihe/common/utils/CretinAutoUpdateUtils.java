@@ -191,10 +191,11 @@ public class CretinAutoUpdateUtils {
         Map<String, Object> map = new HashMap<>();
         map.put("type", "Android");
         map.put("version", SystemUtil.getAppVersionName());
+        Log.d("版本更新参数=", map.toString());
         ApiClient.requestNetHandle(mContext, checkUrl, "", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
-                Log.d("版本更新", json);
+                Log.d("版本更新==", json);
                 /*if (cls != null) {
                     if (cls instanceof LibraryUpdateEntity) {
                         LibraryUpdateEntity o = (LibraryUpdateEntity)
@@ -226,7 +227,7 @@ public class CretinAutoUpdateUtils {
     private void up(UpdateEntity data) {
         try {
             if (data != null) {
-                if (0 == data.getIsGrade()) {//不升级
+                if (0 == data.getIsGrade()) {//isGrade  0-无新版本 ,1-有新版本
                     if (forceCallBack != null) {
                         forceCallBack.isHaveVersion(false);
                     }
@@ -235,7 +236,7 @@ public class CretinAutoUpdateUtils {
                 if (forceCallBack != null) {
                     forceCallBack.isHaveVersion(true);
                 }
-                if (data.isForceUpdate == 1) {
+                if (data.isForceUpdate == 1) {//isForceUpdate 1-强制更新,2-可选
                     //所有旧版本强制更新
                     showUpdateDialog(data, true, false);
                 } else {

@@ -226,6 +226,7 @@ public class WithdrawActivity extends BaseInitActivity {
             public void onSuccess(String json, String msg) {
                 ToastUtil.toast("已提交审核");
 //                startActivity(new Intent(WithdrawActivity.this,WebViewActivity.class).putExtra("url",json).putExtra("title","提现"));
+                finish();
             }
 
             @Override
