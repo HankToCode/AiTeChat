@@ -245,7 +245,7 @@ public class BaseConversationListFragment extends BaseInitFragment {
                 if (conversation.getAllMessages().size() != 0 && !conversation.conversationId().equals(Constant.ADMIN) && !conversation.getExtField().equals("toTop")) {
                     if (!"系统管理员".equals(conversation.getLastMessage().getFrom()) && !"em_system".equals(conversation.getLastMessage().getFrom())) {
 
-                        String json = FastJsonUtil.toJSONString(conversation.getLastMessage().ext());
+                        /*String json = FastJsonUtil.toJSONString(conversation.getLastMessage().ext());
                         String msgType = FastJsonUtil.getString(json, "msgType");
 
                         if (conversation.isGroup() || (localUsers != null && localUsers.contains(conversation.conversationId()))
@@ -255,16 +255,16 @@ public class BaseConversationListFragment extends BaseInitFragment {
                                 || conversation.conversationId().contains("6a1bec8f64fe11eba89700163e0654c2")
                                 || !TextUtils.isEmpty(msgType) && "systematic".equals(msgType)
                                 || !TextUtils.isEmpty(msgType) && "walletMsg".equals(msgType)
-                        ) {
+                        ) {*/
                             sortList.add(new Pair<Long, EMConversation>(conversation.getLastMessage().getMsgTime(), conversation));
-                        }
+                        /*}*/
                     }
                 }
             }
 
-            if (localUsers == null) {
+            /*if (localUsers == null) {
                 getContactList();
-            }
+            }*/
 
         }
         try {
