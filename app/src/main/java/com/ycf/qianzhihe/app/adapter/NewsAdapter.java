@@ -27,7 +27,7 @@ public class NewsAdapter extends BaseQuickAdapter<NewsBean, BaseViewHolder> {
 
         helper.setText(R.id.tv_time, StringUtil.formatDateMinute(item.getCreateTime(), ""));
 
-        GlideUtils.loadRoundCircleImage(item.getCoverImg(), (EaseImageView) helper.getView(R.id.iv_img), R.mipmap.em_logo_uidemo, 30);
+        GlideUtils.loadRoundCircleImage(item.getCoverImg(), (EaseImageView) helper.getView(R.id.iv_img), R.mipmap.ic_logo, 30);
         helper.setOnClickListener(R.id.ll_item, new View.OnClickListener() {
             @Override
             public void onClick(View v) {

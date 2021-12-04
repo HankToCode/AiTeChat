@@ -59,7 +59,7 @@
             android:layout_centerVertical="true"
             android:layout_gravity="center_vertical"
             android:scaleType="centerCrop"
-            tools:src="@mipmap/em_logo_uidemo" />
+            tools:src="@mipmap/ic_logo" />
     </LinearLayout>
 
 </LinearLayout>

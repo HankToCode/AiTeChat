@@ -8,10 +8,7 @@ import android.widget.TextView;
 
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
-import com.ycf.qianzhihe.app.api.EaseConstant;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
-import com.ycf.qianzhihe.section.account.activity.MineActivity;
-import com.ycf.qianzhihe.section.chat.activity.ChatActivity;
 import com.zds.base.ImageLoad.GlideUtils;
 import com.zds.base.util.StringUtil;
 
@@ -61,7 +58,7 @@ public class NewsDetailActivity extends BaseInitActivity {
         title_bar.setOnBackPressListener(view -> finish());
         tv_title.setText(title);
         tv_time.setText(StringUtil.formatDateMinute(time, ""));
-        GlideUtils.loadImageViewLoding(img, iv_img, R.mipmap.em_logo_uidemo);
+        GlideUtils.loadImageViewLoding(img, iv_img, R.mipmap.ic_logo);
         tv_content.setText(content);
     }
 }

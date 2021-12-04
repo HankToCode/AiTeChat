@@ -4,14 +4,7 @@ import static com.ycf.qianzhihe.app.api.old_http.AppConfig.checkAes;
 
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.res.AssetFileDescriptor;
-import android.content.res.AssetManager;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -27,8 +20,6 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.hyphenate.chat.EMClient;
-import com.hyphenate.chat.EMConversation;
-import com.hyphenate.chat.EMMessage;
 import com.hyphenate.util.EMLog;
 import com.ycf.qianzhihe.DemoApplication;
 import com.ycf.qianzhihe.MainActivity;
@@ -49,14 +40,8 @@ import com.zds.base.util.DateUtils;
 import com.zds.base.util.Preference;
 
 import java.io.File;
-import java.io.FileDescriptor;
-import java.io.IOException;
-import java.util.Calendar;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import io.reactivex.Observable;
@@ -77,7 +62,7 @@ public class SplashActivity extends BaseInitActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.demo_splash_activity;
+        return R.layout.activity_splash;
     }
 
     @Override
@@ -327,7 +312,7 @@ public class SplashActivity extends BaseInitActivity {
                 public void onError(int code, String message) {
                     super.onError(code, message);
                     EMLog.i("TAG", "error message = " + response.getMessage());
-                    LoginActivity.actionStart(mContext, "");
+                    SplashActionActivity.actionStart(mContext);
                     finish();
                 }
             });
