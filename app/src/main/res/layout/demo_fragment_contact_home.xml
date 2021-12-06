@@ -4,21 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-    <TextView
-        android:id="@+id/tv_search"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/em_common_search_height"
-        android:hint="输入好友昵称搜索"
-        android:focusable="true"
-        android:gravity="center"
-        android:layout_margin="@dimen/dp_10"
-        android:focusableInTouchMode="true"
-        style="@style/demo_search_et_style" />
+
+    <include layout="@layout/em_conversation_header" />
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        app:cardElevation="10dp"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        app:cardElevation="10dp">
 
         <net.lucode.hackware.magicindicator.MagicIndicator
             android:id="@+id/indicator"

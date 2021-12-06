@@ -19,34 +19,28 @@ import androidx.lifecycle.ViewModelProvider;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
-import com.ycf.qianzhihe.MainActivity;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.Global;
 import com.ycf.qianzhihe.app.db.InviteMessgeDao;
 import com.ycf.qianzhihe.app.operate.UserOperateManager;
-import com.ycf.qianzhihe.app.weight.ConversationItemView;
 import com.ycf.qianzhihe.app.weight.PopWinShare;
 import com.ycf.qianzhihe.app.weight.ease.model.EaseAtMessageHelper;
 import com.ycf.qianzhihe.common.constant.DemoConstant;
 import com.ycf.qianzhihe.common.livedatas.LiveDataBus;
 import com.ycf.qianzhihe.common.rx.NextObserver;
-import com.ycf.qianzhihe.common.utils.PreferenceManager;
 import com.ycf.qianzhihe.section.account.activity.UserInfoDetailActivity;
 import com.ycf.qianzhihe.section.common.ContactActivity;
 import com.ycf.qianzhihe.section.common.ContactSearchActivity;
 import com.ycf.qianzhihe.section.common.MyQrActivity;
 import com.ycf.qianzhihe.section.contact.activity.AddUserActivity;
-import com.ycf.qianzhihe.section.search.SearchConversationActivity;
 import com.zds.base.code.activity.CaptureActivity;
 import com.zds.base.json.FastJsonUtil;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
-import com.ycf.qianzhihe.app.api.global.SP;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.section.chat.activity.ChatActivity;
 import com.ycf.qianzhihe.section.chat.viewmodel.MessageViewModel;
 import com.hyphenate.easeui.model.EaseEvent;
-import com.zds.base.util.DensityUtils;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -55,7 +49,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ConversationListFragment extends BaseConversationListFragment implements View.OnClickListener {
 
-    private TextView tv_search;
+    private TextView tvSearch;
     private ImageView ivOptions;
 
     @Override
@@ -91,7 +85,7 @@ public class ConversationListFragment extends BaseConversationListFragment imple
     protected void initListener() {
         super.initListener();
         ivOptions.setOnClickListener(this);
-        tv_search.setOnClickListener(this);
+        tvSearch.setOnClickListener(this);
 
         conversationListView.setOnItemClickListener((parent, view, position, id) -> {
             EMConversation conversation =
@@ -187,7 +181,7 @@ public class ConversationListFragment extends BaseConversationListFragment imple
         conversationListView.setDrag(true);
 
         View headerView = LayoutInflater.from(getActivity()).inflate(R.layout.em_conversation_header, null);
-        tv_search = headerView.findViewById(R.id.tv_search);
+        tvSearch = headerView.findViewById(R.id.tvSearch);
         ivOptions = headerView.findViewById(R.id.ivOptions);
         conversationListView.addHeaderView(headerView);
 
@@ -235,7 +229,7 @@ public class ConversationListFragment extends BaseConversationListFragment imple
 
     @Override
     public void onClick(View v) {
-        if (v.getId() == R.id.tv_search) {
+        if (v.getId() == R.id.tvSearch) {
 //            SearchConversationActivity.actionStart(mContext);
             ContactSearchActivity.actionStart(mContext);
         } else if (v.getId() == R.id.ivOptions) {
