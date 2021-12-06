@@ -1,0 +1,269 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/transparent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_F7F7F7"
+        android:scrollbars="none">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scaleType="fitXY"
+                android:src="@mipmap/bg_main_mine"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="20dp"
+                android:paddingTop="60dp"
+                android:paddingEnd="20dp">
+
+                <com.hyphenate.easeui.widget.EaseImageView
+                    android:id="@+id/ivAvatar"
+                    android:layout_width="90dp"
+                    android:layout_height="90dp"
+                    app:ease_shape_type="rectangle"
+                    app:ease_radius="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/ivQR"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:layout_marginEnd="2dp"
+                    android:src="@mipmap/ic_main_mine_qr"
+                    app:layout_constraintEnd_toStartOf="@+id/ivQRC"
+                    app:layout_constraintTop_toTopOf="@id/ivQRC" />
+
+                <ImageView
+                    android:id="@+id/ivQRC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    android:padding="10dp"
+                    android:src="@mipmap/ic_main_mine_qrc"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <TextView
+                    android:id="@+id/tvNickName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/white"
+                    android:textSize="18dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/ivAvatar"
+                    tools:text="BAIYANG 68#" />
+
+                <ImageView
+                    android:id="@+id/ivVipLevel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:src="@mipmap/ic_main_mine_vip"
+                    app:layout_constraintBottom_toBottomOf="@id/tvNickName"
+                    app:layout_constraintStart_toEndOf="@id/tvNickName"
+                    app:layout_constraintTop_toTopOf="@id/tvNickName" />
+
+                <TextView
+                    android:id="@+id/tvID"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:textColor="@color/color_AAFFFFFF"
+                    android:textSize="12dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvNickName"
+                    tools:text="ID:13213216" />
+
+                <TextView
+                    android:id="@+id/tvDesc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:textColor="@color/color_AAFFFFFF"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvID"
+                    tools:text="你好呀~我的名字叫叶良辰，很高兴认识大家~" />
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/clVip"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="24dp"
+                    android:background="@drawable/bg_main_mine_vip"
+                    android:paddingStart="15dp"
+                    android:paddingTop="10dp"
+                    android:paddingEnd="15dp"
+                    android:paddingBottom="10dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvDesc">
+
+                    <ImageView
+                        android:id="@+id/ivVipIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/ic_main_mine_vip_icon"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/tvVipIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:text="已开通VIP会员"
+                        android:textColor="@color/white"
+                        android:textSize="15dp"
+                        app:layout_constraintStart_toEndOf="@id/ivVipIcon"
+                        app:layout_constraintTop_toTopOf="@id/ivVipIcon" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="还有287天到期"
+                        android:textColor="@color/color_AAABAF"
+                        android:textSize="11dp"
+                        app:layout_constraintStart_toStartOf="@id/tvVipIcon"
+                        app:layout_constraintTop_toBottomOf="@id/tvVipIcon" />
+
+
+                    <com.coorchice.library.SuperTextView
+                        android:id="@+id/stReNew"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_marginEnd="16dp"
+                        android:gravity="center"
+                        android:paddingStart="13dp"
+                        android:paddingTop="8dp"
+                        android:paddingEnd="13dp"
+                        android:paddingBottom="8dp"
+                        android:text="立即续费"
+                        android:textColor="@color/black"
+                        android:textSize="11dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:stv_corner="14dp"
+                        app:stv_shaderEnable="true"
+                        app:stv_shaderEndColor="@color/white"
+                        app:stv_shaderStartColor="@color/white" />
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TextView
+                    android:id="@+id/tvService"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="17dp"
+                    android:text="我的服务"
+                    android:textColor="@color/color_333333"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/clVip" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:background="@drawable/bg_main_mine_service"
+                    android:orientation="vertical"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/tvService">
+
+                    <TextView
+                        android:id="@+id/tvPay"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackground"
+                        android:drawableLeft="@mipmap/ic_main_mine_pay"
+                        android:drawableRight="@drawable/ic_point_to"
+                        android:drawablePadding="14dp"
+                        android:gravity="center_vertical"
+                        android:paddingStart="15dp"
+                        android:paddingTop="18dp"
+                        android:paddingEnd="15dp"
+                        android:paddingBottom="18dp"
+                        android:text="钱包"
+                        android:textColor="@color/color_333333" />
+
+                    <TextView
+                        android:id="@+id/tvKF"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackground"
+                        android:drawableLeft="@mipmap/ic_main_mine_kf"
+                        android:drawableRight="@drawable/ic_point_to"
+                        android:drawablePadding="14dp"
+                        android:gravity="center_vertical"
+                        android:paddingStart="15dp"
+                        android:paddingTop="18dp"
+                        android:paddingEnd="15dp"
+                        android:paddingBottom="18dp"
+                        android:text="客服"
+                        android:textColor="@color/color_333333" />
+
+                    <TextView
+                        android:id="@+id/tvSettings"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackground"
+                        android:drawableLeft="@mipmap/ic_main_mine_settings"
+                        android:drawableRight="@drawable/ic_point_to"
+                        android:drawablePadding="14dp"
+                        android:gravity="center_vertical"
+                        android:paddingStart="15dp"
+                        android:paddingTop="18dp"
+                        android:paddingEnd="15dp"
+                        android:paddingBottom="18dp"
+                        android:text="设置"
+                        android:textColor="@color/color_333333" />
+
+                    <TextView
+                        android:id="@+id/tvAboutMe"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackground"
+                        android:drawableLeft="@mipmap/ic_main_mine_about_me"
+                        android:drawableRight="@drawable/ic_point_to"
+                        android:drawablePadding="14dp"
+                        android:gravity="center_vertical"
+                        android:paddingStart="15dp"
+                        android:paddingTop="18dp"
+                        android:paddingEnd="15dp"
+                        android:paddingBottom="18dp"
+                        android:text="关于"
+                        android:textColor="@color/color_333333" />
+
+                </LinearLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+</LinearLayout>

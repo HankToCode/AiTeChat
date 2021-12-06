@@ -22,28 +22,14 @@ import com.ycf.qianzhihe.common.utils.PreferenceManager;
 
 public class MainViewModel extends AndroidViewModel {
     private InviteMessageDao inviteMessageDao;
-    private SingleSourceLiveData<Integer> switchObservable;
     private MutableLiveData<String> homeUnReadObservable;
 
     public MainViewModel(@NonNull Application application) {
         super(application);
-        switchObservable = new SingleSourceLiveData<>();
         inviteMessageDao = DemoDbHelper.getInstance(application).getInviteMessageDao();
         homeUnReadObservable = new MutableLiveData<>();
     }
 
-    public LiveData<Integer> getSwitchObservable() {
-        return switchObservable;
-    }
-
-    /**
-     * 设置可见的fragment
-     *
-     * @param title
-     */
-    public void setVisibleFragment(Integer title) {
-        switchObservable.setValue(title);
-    }
 
     public LiveData<String> homeUnReadObservable() {
         return homeUnReadObservable;

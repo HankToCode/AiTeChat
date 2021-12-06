@@ -16,6 +16,9 @@
         <item name="android:divider">@drawable/demo_default_divider_list</item>
         <!-- remove button default shadow effect -->
         <item name="android:buttonStyle">@style/Button.BorderLess</item>
+
+        <item name="android:windowFullscreen">true</item>
+
     </style>
 
     <style name="NoActionBar.SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">

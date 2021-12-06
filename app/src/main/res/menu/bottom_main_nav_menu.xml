@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
+    <!--<item
         android:id="@+id/em_main_nav_find"
         android:icon="@drawable/demo_main_tab_find_selector"
-        android:title="@string/em_main_title_news" />
+        android:title="@string/em_main_title_news" />-->
 
     <item
         android:id="@+id/em_main_nav_message"
@@ -21,5 +21,9 @@
         android:icon="@drawable/demo_main_tab_discover_selector"
         android:title="@string/em_main_title_discover" />
 
+    <item
+        android:id="@+id/em_main_nav_mine"
+        android:icon="@drawable/demo_main_tab_mine_selector"
+        android:title="@string/em_main_title_mine" />
 
 </menu>
