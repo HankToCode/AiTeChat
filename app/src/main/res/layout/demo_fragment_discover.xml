@@ -3,268 +3,221 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:paddingLeft="@dimen/dp_20"
-    android:paddingRight="@dimen/dp_20">
+    android:background="@color/white"
+    android:orientation="vertical">
 
-
-    <com.youth.banner.Banner
-        android:id="@+id/banner"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_110"
-        android:layout_marginTop="@dimen/dp_8" />
-
-    <LinearLayout
+    <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10"
-        android:orientation="horizontal">
+        android:scaleType="fitXY"
+        android:src="@mipmap/bg_main_discover" />
 
-        <LinearLayout
-            android:id="@+id/ll_dc1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/bg_logo_ic_meituan"
-            android:orientation="vertical"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:src="@mipmap/logo_ic_meituan" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="6dp"
-                android:text="美团"
-                android:textColor="@color/color_23221E"
-                android:textSize="21dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="20dp"
-                android:text="美团外卖，送啥都快"
-                android:textColor="@color/color_23221E"
-                android:textSize="13dp" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_dc2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_logo_ic_eleme"
-            android:orientation="vertical"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:src="@mipmap/logo_ic_eleme" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="6dp"
-                android:text="饿了么"
-                android:textColor="@color/white"
-                android:textSize="21dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="20dp"
-                android:text="饿了就点饿了么"
-                android:textColor="@color/white"
-                android:textSize="13dp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clSYS"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10"
-        android:orientation="horizontal">
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="18dp">
 
-        <LinearLayout
-            android:id="@+id/ll_dc3"
-            android:layout_width="0dp"
+        <ImageView
+            android:id="@+id/ivSYS"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/bg_logo_ic_jingdong"
-            android:orientation="vertical"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp">
+            android:src="@mipmap/ic_main_discover_sys"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:src="@mipmap/logo_ic_jingdong" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="6dp"
-                android:text="京东"
-                android:textColor="@color/white"
-                android:textSize="21dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="20dp"
-                android:text="全品自营，美到离谱"
-                android:textColor="@color/white"
-                android:textSize="13dp" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_dc4"
-            android:layout_width="0dp"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_logo_ic_taobao"
-            android:orientation="vertical"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp">
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:text="搜一搜"
+            android:textColor="@color/color_333333"
+            android:textSize="15dp"
+            app:layout_constraintStart_toEndOf="@id/ivSYS"
+            app:layout_constraintTop_toTopOf="@id/ivSYS" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:src="@mipmap/logo_ic_taobao" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="4dp"
+            android:text="查找好友/群，认识更多有趣的灵魂"
+            android:textColor="@color/color_999999"
+            android:textSize="13dp"
+            app:layout_constraintBottom_toBottomOf="@id/ivSYS"
+            app:layout_constraintStart_toEndOf="@id/ivSYS" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="6dp"
-                android:text="淘宝"
-                android:textColor="@color/white"
-                android:textSize="21dp"
-                android:textStyle="bold" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="20dp"
-                android:text="淘你所淘"
-                android:textColor="@color/white"
-                android:textSize="13dp" />
-
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clKYK"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/dp_10"
-        android:orientation="horizontal">
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="18dp">
 
-        <LinearLayout
-            android:id="@+id/ll_dc5"
-            android:layout_width="0dp"
+        <ImageView
+            android:id="@+id/ivKYK"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@drawable/bg_logo_ic_tengxun"
-            android:orientation="vertical"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp">
+            android:src="@mipmap/ic_main_discover_kyk"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:src="@mipmap/logo_ic_tengxunnew" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="9dp"
-                android:text="腾讯新闻"
-                android:textColor="@color/color_23221E"
-                android:textSize="21dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="20dp"
-                android:text=""
-                android:textColor="@color/white"
-                android:textSize="13dp" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/ll_dc6"
-            android:layout_width="0dp"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
-            android:layout_weight="1"
-            android:background="@drawable/bg_logo_ic_tengxun"
-            android:orientation="vertical"
-            android:paddingTop="20dp"
-            android:paddingBottom="20dp">
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:text="看一看"
+            android:textColor="@color/color_333333"
+            android:textSize="15dp"
+            app:layout_constraintStart_toEndOf="@id/ivKYK"
+            app:layout_constraintTop_toTopOf="@id/ivKYK" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:src="@mipmap/logo_ic_tengxunnew" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="4dp"
+            android:text="浏览更多新奇有趣视频"
+            android:textColor="@color/color_999999"
+            android:textSize="13dp"
+            app:layout_constraintBottom_toBottomOf="@id/ivKYK"
+            app:layout_constraintStart_toEndOf="@id/ivKYK" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="9dp"
-                android:text="腾讯文化资讯"
-                android:textColor="@color/color_23221E"
-                android:textSize="21dp"
-                android:textStyle="bold" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="20dp"
-                android:text=""
-                android:textColor="@color/white"
-                android:textSize="13dp" />
 
-        </LinearLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clYQ"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="18dp">
 
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/ivYQ"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_main_discover_yq"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:text="邀请福利"
+            android:textColor="@color/color_333333"
+            android:textSize="15dp"
+            app:layout_constraintStart_toEndOf="@id/ivYQ"
+            app:layout_constraintTop_toTopOf="@id/ivYQ" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="4dp"
+            android:text="邀请新用户，福利多多"
+            android:textColor="@color/color_999999"
+            android:textSize="13dp"
+            app:layout_constraintBottom_toBottomOf="@id/ivYQ"
+            app:layout_constraintStart_toEndOf="@id/ivYQ" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clQRC"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="18dp">
+
+        <ImageView
+            android:id="@+id/ivQRC"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_main_discover_qrc"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:text="扫一扫"
+            android:textColor="@color/color_333333"
+            android:textSize="15dp"
+            app:layout_constraintStart_toEndOf="@id/ivQRC"
+            app:layout_constraintTop_toTopOf="@id/ivQRC" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="4dp"
+            android:text="扫描二维码添加好友"
+            android:textColor="@color/color_999999"
+            android:textSize="13dp"
+            app:layout_constraintBottom_toBottomOf="@id/ivQRC"
+            app:layout_constraintStart_toEndOf="@id/ivQRC" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+<androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clWYW"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="18dp">
+
+        <ImageView
+            android:id="@+id/ivWYW"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_main_discover_qrc"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="4dp"
+            android:text="玩一玩"
+            android:textColor="@color/color_333333"
+            android:textSize="15dp"
+            app:layout_constraintStart_toEndOf="@id/ivWYW"
+            app:layout_constraintTop_toTopOf="@id/ivWYW" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginBottom="4dp"
+            android:text="趣味游戏等你来发现"
+            android:textColor="@color/color_999999"
+            android:textSize="13dp"
+            app:layout_constraintBottom_toBottomOf="@id/ivWYW"
+            app:layout_constraintStart_toEndOf="@id/ivWYW" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
 </LinearLayout>
