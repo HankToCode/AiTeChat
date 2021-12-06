@@ -30,7 +30,7 @@ public class ChatRecordAdapter extends BaseQuickAdapter<EMMessage, BaseViewHolde
 
         helper.setText(R.id.tv_name, UserOperateManager.getInstance().getUserName(message.getFrom()));
         ImageUtil.setAvatar(helper.getView(R.id.img_head));
-        GlideUtils.loadImageViewLoding(UserOperateManager.getInstance().getUserAvatar(message.getFrom()), helper.getView(R.id.img_head), R.mipmap.img_default_avatar);
+        GlideUtils.loadImageViewLoding(UserOperateManager.getInstance().getUserAvatar(message.getFrom()), helper.getView(R.id.img_head), R.mipmap.ic_ng_avatar);
         helper.setText(R.id.tv_time, DateUtils.getTimestampString(new Date(message.getMsgTime())));
         helper.setText(R.id.tv_chat_content, EaseSmileUtils.getSmiledText(mContext,  ((EMTextMessageBody) message.getBody()).getMessage()) );
     }

@@ -31,7 +31,7 @@
                 android:layout_height="25dp"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="55dp"
-                android:src="@mipmap/img_default_avatar" />
+                android:src="@mipmap/ic_ng_avatar" />
 
             <TextView
                 android:id="@+id/tv_nick"

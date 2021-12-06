@@ -534,6 +534,7 @@ public class BaseActivity extends AppCompatActivity {
                 .keyboardEnable(isKeyboardEnable)
                 //原理：如果当前设备支持状态栏字体变色，会设置状态栏字体为黑色，如果当前设备不支持状态栏字体变色，会使当前状态栏加上透明度，否则不执行透明度
                 .statusBarDarkFont(isStatusBarDartFont, 0.2f)
+                .fullScreen(false)
                 //.navigationBarColor("#E9E9E9")
                 //采用系统默认导航栏颜色
                 .navigationBarEnable(false)

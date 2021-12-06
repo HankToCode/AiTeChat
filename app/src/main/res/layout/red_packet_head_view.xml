@@ -62,7 +62,7 @@
             android:layout_alignParentBottom="true"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/dp_10"
-            android:src="@mipmap/img_default_avatar" />
+            android:src="@mipmap/ic_ng_avatar" />
     </RelativeLayout>
 
     <LinearLayout

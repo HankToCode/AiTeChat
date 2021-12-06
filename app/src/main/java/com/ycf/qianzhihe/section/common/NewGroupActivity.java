@@ -203,7 +203,7 @@ public class NewGroupActivity extends BaseInitActivity {
                 mTvGroupHint.setVisibility(View.GONE);
                 toast("上传成功");
                 headUrl = json;
-                GlideUtils.GlideLoadCircleErrorImageUtils(NewGroupActivity.this, AppConfig.checkimg(headUrl), mImgGroup, R.mipmap.img_default_avatar);
+                GlideUtils.GlideLoadCircleErrorImageUtils(NewGroupActivity.this, AppConfig.checkimg(headUrl), mImgGroup, R.mipmap.ic_ng_avatar);
             }
 
             @Override

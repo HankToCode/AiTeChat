@@ -28,7 +28,7 @@ public class SetGroupManageAdapter extends BaseQuickAdapter<GroupManageListInfo,
     protected void convert(BaseViewHolder helper, GroupManageListInfo item) {
         helper.setText(R.id.tv_group_user, item.getUserNickName());
 //        helper.setText(R.id.iv_avatar, item.getUserHead());
-        GlideUtils.GlideLoadCircleErrorImageUtils(mContext, item.getUserHead(), helper.getView(R.id.iv_avatar), R.mipmap.img_default_avatar);
+        GlideUtils.GlideLoadCircleErrorImageUtils(mContext, item.getUserHead(), helper.getView(R.id.iv_avatar), R.mipmap.ic_ng_avatar);
         TextView mDeleteTv = helper.getView(R.id.tv_del);
 
         if (!mDeleteTv.hasOnClickListeners()) {

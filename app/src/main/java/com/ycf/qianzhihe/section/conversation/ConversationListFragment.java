@@ -41,8 +41,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class ConversationListFragment extends BaseConversationListFragment implements View.OnClickListener {
 
-    private ConversationItemView friendNoticeItem;
-    private ConversationItemView groupdNoticeItem;
     private TextView tv_search;
 
     @Override
@@ -80,13 +78,8 @@ public class ConversationListFragment extends BaseConversationListFragment imple
         conversationListView.setDrag(true);
 
         View headerView = LayoutInflater.from(getActivity()).inflate(R.layout.em_conversation_header, null);
-        HeaderItemClickListener clickListener = new HeaderItemClickListener();
-        friendNoticeItem = headerView.findViewById(R.id.friend_notice);
-        groupdNoticeItem = headerView.findViewById(R.id.group_notice);
         tv_search = headerView.findViewById(R.id.tv_search);
         tv_search.setOnClickListener(this);
-        headerView.findViewById(R.id.friend_notice).setOnClickListener(clickListener);
-        headerView.findViewById(R.id.group_notice).setOnClickListener(clickListener);
         conversationListView.addHeaderView(headerView);
         conversationListView.setOnItemClickListener((parent, view, position, id) -> {
             EMConversation conversation =
@@ -224,7 +217,7 @@ public class ConversationListFragment extends BaseConversationListFragment imple
         }
     }
 
-    protected class HeaderItemClickListener implements View.OnClickListener {
+    /*protected class HeaderItemClickListener implements View.OnClickListener {
 
         @Override
         public void onClick(View v) {
@@ -243,18 +236,7 @@ public class ConversationListFragment extends BaseConversationListFragment imple
             }
         }
 
-    }
-
-    @Override
-    public void refreshApplyLayout() {
-        super.refreshApplyLayout();
-        requireActivity().runOnUiThread(() -> {
-            int applyJoinGroupcount = (int) PreferenceManager.getInstance().getParam(SP.APPLY_JOIN_GROUP_NUM, 0);
-            groupdNoticeItem.setUnreadCount(applyJoinGroupcount);
-            int addUserCount = (int) PreferenceManager.getInstance().getParam(SP.APPLY_ADD_USER_NUM, 0);
-            friendNoticeItem.setUnreadCount(addUserCount);
-        });
-    }
+    }*/
 
 
 }

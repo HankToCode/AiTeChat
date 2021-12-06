@@ -45,7 +45,7 @@ public class GroupUserMultiSelectListAdapter extends BaseQuickAdapter<GroupDetai
     @Override
     protected void convert(BaseViewHolder helper, GroupDetailInfo.GroupUserDetailVoListBean item) {
         helper.setText(R.id.tv_name, item.getUserNickName());
-        GlideUtils.GlideLoadCircleErrorImageUtils(mContext, item.getUserHead(), helper.getView(R.id.img_group), R.mipmap.img_default_avatar);
+        GlideUtils.GlideLoadCircleErrorImageUtils(mContext, item.getUserHead(), helper.getView(R.id.img_group), R.mipmap.ic_ng_avatar);
         CheckBox checkBox = helper.getView(R.id.ck_contact);
         checkBox.setOnCheckedChangeListener(null);
         checkBox.setChecked(false);

@@ -83,16 +83,36 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="4dp"
-                android:background="@color/btn_blue_normal"
-                android:paddingStart="3dp"
-                android:paddingTop="1dp"
-                android:paddingEnd="3dp"
-                android:paddingBottom="1dp"
+                android:paddingStart="8dp"
+                android:paddingTop="2dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="2dp"
                 android:text="官方"
                 android:textColor="@color/white"
                 android:textSize="8dp"
-                app:stv_stroke_color="@color/color_53B0F7"
-                app:stv_stroke_width="0.5dp" />
+                app:stv_corner="10dp"
+                app:stv_shaderEnable="true"
+                app:stv_shaderEndColor="@color/color_55CFF7"
+                app:stv_shaderStartColor="@color/color_55CFF7" />
+
+            <com.coorchice.library.SuperTextView
+                android:id="@+id/iv_to_top"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="4dp"
+                android:paddingStart="8dp"
+                android:paddingTop="2dp"
+                android:paddingEnd="8dp"
+                android:paddingBottom="2dp"
+                android:text="置顶"
+                android:visibility="gone"
+                tools:visibility="visible"
+                android:textColor="@color/white"
+                android:textSize="8dp"
+                app:stv_corner="10dp"
+                app:stv_shaderEnable="true"
+                app:stv_shaderEndColor="@color/color_CCCCCC"
+                app:stv_shaderStartColor="@color/color_CCCCCC" />
 
 
         </LinearLayout>
@@ -180,12 +200,6 @@
             android:src="@mipmap/msg_free"
             android:visibility="visible" />
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_1"
-            android:layout_marginStart="96dp"
-            android:layout_alignParentBottom="true"
-            android:background="@color/gray" />
     </RelativeLayout>
 
 

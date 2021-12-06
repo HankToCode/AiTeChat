@@ -19,7 +19,7 @@
             android:layout_width="@dimen/dp_40"
             android:layout_height="@dimen/dp_40"
             android:scaleType="fitXY"
-            android:src="@mipmap/img_default_avatar"
+            android:src="@mipmap/ic_ng_avatar"
             app:ease_shape_type="rectangle" />
 
         <TextView

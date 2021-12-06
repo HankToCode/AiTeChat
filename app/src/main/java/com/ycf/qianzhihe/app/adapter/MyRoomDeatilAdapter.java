@@ -134,8 +134,8 @@ public class MyRoomDeatilAdapter extends BaseQuickAdapter<GroupDetailInfo.GroupU
                 helper.setTextColor(R.id.tv_name, Color.parseColor("#000000"));
             }
 
-//            GlideUtils.GlideLoadCircleErrorImageUtils(mContext, AppConfig.checkimg(item.getUserHead()), (EaseImageView) helper.getView(R.id.iv_avatar), R.mipmap.img_default_avatar);
-            GlideUtils.loadImageViewLoding(mContext, AppConfig.checkimg(item.getUserHead()), (EaseImageView) helper.getView(R.id.iv_avatar), R.mipmap.img_default_avatar, R.mipmap.img_default_avatar);
+//            GlideUtils.GlideLoadCircleErrorImageUtils(mContext, AppConfig.checkimg(item.getUserHead()), (EaseImageView) helper.getView(R.id.iv_avatar), R.mipmap.ic_ng_avatar);
+            GlideUtils.loadImageViewLoding(mContext, AppConfig.checkimg(item.getUserHead()), (EaseImageView) helper.getView(R.id.iv_avatar), R.mipmap.ic_ng_avatar, R.mipmap.ic_ng_avatar);
 
 
             helper.setOnClickListener(R.id.badge_delete,

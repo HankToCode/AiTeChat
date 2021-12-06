@@ -168,7 +168,7 @@ public class GroupMemberAdapter extends RecyclerView.Adapter<GroupMemberAdapter.
 
         GlideUtils.GlideLoadCircleErrorImageUtils(mContext,
                 AppConfig.checkimg(info.getUserHead()), holder.imgHead,
-                R.mipmap.img_default_avatar);
+                R.mipmap.ic_ng_avatar);
 
 
     }

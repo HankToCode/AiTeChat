@@ -12,7 +12,7 @@
         android:layout_height="@dimen/dp_46"
         android:layout_marginLeft="@dimen/dp_14"
         android:layout_marginTop="@dimen/dp_9"
-        android:src="@mipmap/img_default_avatar" />
+        android:src="@mipmap/ic_ng_avatar" />
 
     <TextView
         android:id="@+id/tv_name"

@@ -38,7 +38,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/dp_11"
                 app:ease_shape_type="rectangle"
-                android:src="@mipmap/img_default_avatar"/>
+                android:src="@mipmap/ic_ng_avatar"/>
 
             <TextView
                 android:id="@+id/tv_nick_name"

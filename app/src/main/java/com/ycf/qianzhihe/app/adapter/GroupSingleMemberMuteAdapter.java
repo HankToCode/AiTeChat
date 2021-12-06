@@ -22,7 +22,7 @@ public class GroupSingleMemberMuteAdapter extends BaseQuickAdapter<GroupDetailIn
         ImageView img_head = helper.getView(R.id.img_head);
         GlideUtils.GlideLoadCircleErrorImageUtils(mContext,
                 AppConfig.checkimg(item.getUserHead()), img_head,
-                R.mipmap.img_default_avatar);
+                R.mipmap.ic_ng_avatar);
         helper.setText(R.id.tv_name,item.getUserNickName());
         TextView tv_manage = helper.getView(R.id.tv_manage);
 

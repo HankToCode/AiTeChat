@@ -61,6 +61,6 @@ public class ChatIdCardpacket extends EaseChatRow {
         }
 
         ImageUtil.setAvatar(img_card_head);
-        GlideUtils.loadImageViewLoding(avatar, img_card_head, R.mipmap.img_default_avatar);
+        GlideUtils.loadImageViewLoding(avatar, img_card_head, R.mipmap.ic_ng_avatar);
     }
 }

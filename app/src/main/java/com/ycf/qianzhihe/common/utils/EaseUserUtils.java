@@ -51,10 +51,10 @@ public class EaseUserUtils {
             try {
 //                int avatarResId = Integer.parseInt(user.getAvatar());
 //                GlideUtils.loadImageView(avatarResId, imageView);
-                GlideUtils.loadImageViewLoding(AppConfig.checkimg(h), imageView, R.mipmap.img_default_avatar);
+                GlideUtils.loadImageViewLoding(AppConfig.checkimg(h), imageView, R.mipmap.ic_ng_avatar);
             } catch (Exception e) {
                 //use default avatar
-                GlideUtils.loadImageViewLoding(AppConfig.checkimg(h), imageView, R.mipmap.img_default_avatar);
+                GlideUtils.loadImageViewLoding(AppConfig.checkimg(h), imageView, R.mipmap.ic_ng_avatar);
             }
             return;
         }
@@ -62,13 +62,13 @@ public class EaseUserUtils {
             try {
 //                int avatarResId = Integer.parseInt(user.getAvatar());
 //                GlideUtils.loadImageView(avatarResId, imageView);
-                GlideUtils.loadImageViewLoding(AppConfig.checkimg(user.getAvatar()), imageView, R.mipmap.img_default_avatar);
+                GlideUtils.loadImageViewLoding(AppConfig.checkimg(user.getAvatar()), imageView, R.mipmap.ic_ng_avatar);
             } catch (Exception e) {
                 //use default avatar
-                GlideUtils.loadImageViewLoding(AppConfig.checkimg(user.getAvatar()), imageView, R.mipmap.img_default_avatar);
+                GlideUtils.loadImageViewLoding(AppConfig.checkimg(user.getAvatar()), imageView, R.mipmap.ic_ng_avatar);
             }
         } else {
-            Glide.with(context).load(R.mipmap.img_default_avatar).into(imageView);
+            Glide.with(context).load(R.mipmap.ic_ng_avatar).into(imageView);
         }
     }
 

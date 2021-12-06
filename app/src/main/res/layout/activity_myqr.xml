@@ -44,7 +44,7 @@
                 android:layout_margin="20dp"
                 android:layout_marginTop="@dimen/dp_19"
                 android:scaleType="fitXY"
-                android:src="@mipmap/img_default_avatar" />
+                android:src="@mipmap/ic_ng_avatar" />
 
         </RelativeLayout>
 
@@ -57,7 +57,7 @@
             android:layout_margin="20dp"
             android:layout_marginTop="@dimen/dp_19"
             android:scaleType="centerCrop"
-            android:src="@mipmap/img_default_avatar" />
+            android:src="@mipmap/ic_ng_avatar" />
 
         <TextView
             android:id="@+id/tv_qr_name"

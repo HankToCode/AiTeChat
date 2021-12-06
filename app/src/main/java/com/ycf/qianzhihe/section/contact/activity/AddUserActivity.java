@@ -114,7 +114,7 @@ public class AddUserActivity extends BaseInitActivity {
                 if (easeUserInfos != null) {
                     username = easeUserInfos.getNickName();
                     mName.setText(easeUserInfos.getNickName());
-                    GlideUtils.GlideLoadCircleErrorImageUtils(AddUserActivity.this,AppConfig.checkimg(easeUserInfos.getUserHead()), mAvatar, R.mipmap.img_default_avatar);
+                    GlideUtils.GlideLoadCircleErrorImageUtils(AddUserActivity.this,AppConfig.checkimg(easeUserInfos.getUserHead()), mAvatar, R.mipmap.ic_ng_avatar);
                     ll_user.setVisibility(View.VISIBLE);
                 } else {
                     ll_user.setVisibility(View.GONE);

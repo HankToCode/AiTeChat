@@ -104,7 +104,7 @@ public class MyInfoActivity extends BaseInitActivity {
         //昵称
         mTvName.setText(info.getNickName());
         //头像
-        GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(info.getUserHead()), mImgHead, R.mipmap.img_default_avatar);
+        GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(info.getUserHead()), mImgHead, R.mipmap.ic_ng_avatar);
 
         if (!TextUtils.isEmpty(info.getUserCode())) {
             //千纸鹤号
@@ -212,7 +212,7 @@ public class MyInfoActivity extends BaseInitActivity {
 
             @Override
             public void onSuccess(String json, String msg) {
-                GlideUtils.GlideLoadCircleErrorImageUtils(MyInfoActivity.this, AppConfig.checkimg(filePath), mImgHead, R.mipmap.img_default_avatar);
+                GlideUtils.GlideLoadCircleErrorImageUtils(MyInfoActivity.this, AppConfig.checkimg(filePath), mImgHead, R.mipmap.ic_ng_avatar);
                 CommonApi.upUserInfo(MyInfoActivity.this);
                 toast("上传成功");
             }

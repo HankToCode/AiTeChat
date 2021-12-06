@@ -170,7 +170,7 @@ public class BuyMemberActivity extends BaseInitActivity implements View.OnClickL
      */
     private void initUserInfo() {
         LoginInfo loginInfo = UserComm.getUserInfo();
-        GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(loginInfo.getUserHead()), mIvAvatar, R.mipmap.img_default_avatar);
+        GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(loginInfo.getUserHead()), mIvAvatar, R.mipmap.ic_ng_avatar);
         mTvNickName.setText(loginInfo.getNickName());
         if (TextUtils.isEmpty(loginInfo.getUserCode())) {
             mTvUserId.setText("ID： 无");

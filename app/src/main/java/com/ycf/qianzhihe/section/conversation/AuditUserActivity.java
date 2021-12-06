@@ -64,7 +64,7 @@ public class AuditUserActivity extends BaseInitActivity {
         nickName.setText(applyFriendData.getUserNickName());
         origin.setText(ProjectUtil.getFriendOrigin(applyFriendData.getOriginType(), applyFriendData.getOriginName()));
         GlideUtils.GlideLoadCircleErrorImageUtils(this, applyFriendData.getUserHead(), imgHead,
-                R.mipmap.img_default_avatar);
+                R.mipmap.ic_ng_avatar);
 
     }
 

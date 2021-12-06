@@ -23,7 +23,7 @@ public class BlackAdapter extends BaseQuickAdapter<BlackListInfo.ContactInfo, Ba
     @Override
     protected void convert(BaseViewHolder helper, BlackListInfo.ContactInfo item) {
         helper.setText(R.id.tv_group_name, item.getFriendNickName());
-        GlideUtils.GlideLoadCircleErrorImageUtils(mContext, AppConfig.checkimg(item.getFriendUserHead()), helper.getView(R.id.img_group), R.mipmap.img_default_avatar);
+        GlideUtils.GlideLoadCircleErrorImageUtils(mContext, AppConfig.checkimg(item.getFriendUserHead()), helper.getView(R.id.img_group), R.mipmap.ic_ng_avatar);
 
         helper.setOnClickListener(R.id.ll_item, new View.OnClickListener() {
             @Override

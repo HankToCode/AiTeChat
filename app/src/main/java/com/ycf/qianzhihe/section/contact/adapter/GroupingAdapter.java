@@ -96,7 +96,7 @@ public class GroupingAdapter extends BaseExpandableListAdapter {
 
         tv_name.setText(child.getFriendNickName());
         ImageUtil.setAvatar((EaseImageView) avatar);
-        GlideUtils.loadImageViewLoding(child.getFriendUserHead(), avatar,R.mipmap.img_default_avatar);
+        GlideUtils.loadImageViewLoding(child.getFriendUserHead(), avatar,R.mipmap.ic_ng_avatar);
         //是否在线
         if (!TextUtils.isEmpty(child.getLine())) {
             if (child.getLine().equals("online")) {

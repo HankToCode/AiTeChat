@@ -87,7 +87,7 @@ public class NoticeActivity extends BaseInitActivity {
         } else {
             mNotice.setText(noticeString);
         }
-        GlideUtils.loadImageViewLoding(AppConfig.checkimg(img_head), mImgHead, R.mipmap.img_default_avatar);
+        GlideUtils.loadImageViewLoding(AppConfig.checkimg(img_head), mImgHead, R.mipmap.ic_ng_avatar);
         mTvName.setText(tv_head);
         mTvTime.setText(StringUtil.formatDateMinute(time, ""));
         ImageUtil.setAvatar(mImgHead);

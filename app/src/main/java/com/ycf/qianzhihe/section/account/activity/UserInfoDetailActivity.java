@@ -165,7 +165,7 @@ public class UserInfoDetailActivity extends BaseInitActivity {
             LoginInfo loginInfo =
                     UserComm.getUserInfo();
             GlideUtils.GlideLoadCircleErrorImageUtils(UserInfoDetailActivity.this, loginInfo.getUserHead(), mImgHead,
-                    R.mipmap.img_default_avatar);
+                    R.mipmap.ic_ng_avatar);
             mTvNickName.setText(loginInfo.getNickName());
             mTvAccount.setText(loginInfo.getUserCode());
             mLlFriend.setVisibility(View.GONE);
@@ -434,7 +434,7 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                             info = FastJsonUtil.getObject(json,
                                     FriendInfo.class);
                             GlideUtils.GlideLoadCircleErrorImageUtils(UserInfoDetailActivity.this, info.getUserHead(), mImgHead,
-                                    R.mipmap.img_default_avatar);
+                                    R.mipmap.ic_ng_avatar);
                             userName = info.getNickName();
                             mTvAccount.setText(getString(R.string.str_chat_account, info.getUserCode()));
                             mTvLineStatus.setText(info.getLine().equals(

@@ -10,7 +10,7 @@
         android:id="@+id/iv_userhead"
         android:layout_width="@dimen/dp_0"
         android:layout_height="@dimen/dp_0"
-        android:src="@mipmap/img_default_avatar"/>
+        android:src="@mipmap/ic_ng_avatar"/>
 
     <TextView
         android:id="@+id/timestamp"

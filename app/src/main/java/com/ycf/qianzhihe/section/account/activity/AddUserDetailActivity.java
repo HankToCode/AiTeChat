@@ -80,7 +80,7 @@ public class AddUserDetailActivity extends BaseInitActivity {
         tv_nick_name.setText(infoBean.getNickName());
         tv_account.setText(infoBean.getNickName());
         GlideUtils.GlideLoadCircleErrorImageUtils(AddUserDetailActivity.this, infoBean.getUserHead(), img_head,
-                R.mipmap.img_default_avatar);
+                R.mipmap.ic_ng_avatar);
 
         //是否在线
         if (!TextUtils.isEmpty(infoBean.getLine())) {

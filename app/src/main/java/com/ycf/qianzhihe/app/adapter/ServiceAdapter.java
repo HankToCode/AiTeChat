@@ -27,7 +27,7 @@ public class ServiceAdapter extends BaseQuickAdapter<ServiceInfo.DataBean, BaseV
         ImageUtil.setAvatar((EaseImageView) helper.getView(R.id.img_head));
         helper.setText(R.id.tv_title, item.getNickName());
         helper.setGone(R.id.tv_number, false);
-//        GlideUtils.loadImageViewLoding(AppConfig.checkimg(item.getUserHead()) , (EaseImageView) helper.getView(R.id.img_head), R.mipmap.img_default_avatar);
+//        GlideUtils.loadImageViewLoding(AppConfig.checkimg(item.getUserHead()) , (EaseImageView) helper.getView(R.id.img_head), R.mipmap.ic_ng_avatar);
         helper.setImageResource(R.id.img_head, R.mipmap.icon_exception_handle_kefu_avatar);
     }
 }

@@ -37,7 +37,7 @@
                 android:layout_height="@dimen/dp_50"
                 android:layout_centerVertical="true"
                 android:scaleType="centerCrop"
-                tools:src="@mipmap/img_default_avatar" />
+                tools:src="@mipmap/ic_ng_avatar" />
 
             <TextView
                 android:id="@+id/tv_nick_name"

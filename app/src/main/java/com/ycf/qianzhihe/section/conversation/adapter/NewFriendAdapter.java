@@ -79,10 +79,10 @@ public class NewFriendAdapter extends RecyclerView.Adapter<NewFriendAdapter.View
         holder.mTvDescription.setText(StringUtil.isEmpty(info.getTopName()) ? "很高兴认识你" : info.getTopName());
 
         holder.mTvTop.setText(info.getTopName());
-//        GlideUtils.GlideLoadCircleErrorImageUtils(mContext, AppConfig.checkimg(info.getUserHead()), holder.imgHead, R.mipmap.img_default_avatar);
+//        GlideUtils.GlideLoadCircleErrorImageUtils(mContext, AppConfig.checkimg(info.getUserHead()), holder.imgHead, R.mipmap.ic_ng_avatar);
 
         ImageUtil.setAvatar((EaseImageView) holder.imgHead);
-        GlideUtils.loadImageViewLoding(AppConfig.checkimg(info.getUserHead()), holder.imgHead, R.mipmap.img_default_avatar);
+        GlideUtils.loadImageViewLoding(AppConfig.checkimg(info.getUserHead()), holder.imgHead, R.mipmap.ic_ng_avatar);
 
         if (info.getApplyStatus().equals("0")) {
             holder.mTvAgree.setBackgroundResource(R.drawable.agree_friend_bg_selector);

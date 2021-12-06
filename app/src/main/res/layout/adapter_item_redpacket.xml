@@ -21,7 +21,7 @@
             android:layout_height="@dimen/dp_42"
             android:layout_gravity="center_vertical"
             android:layout_marginStart="@dimen/dp_10"
-            android:src="@mipmap/img_default_avatar"
+            android:src="@mipmap/ic_ng_avatar"
             app:ease_shape_type="rectangle" />
 
         <LinearLayout

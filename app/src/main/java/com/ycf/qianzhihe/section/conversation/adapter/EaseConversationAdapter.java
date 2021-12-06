@@ -109,6 +109,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             holder = new ViewHolder();
             holder.name = (TextView) convertView.findViewById(R.id.name);
             holder.iv_aite_guanfang = (SuperTextView) convertView.findViewById(R.id.iv_aite_guanfang);
+            holder.iv_to_top = (SuperTextView) convertView.findViewById(R.id.iv_to_top);
             holder.unreadLabel = (TextView) convertView.findViewById(R.id.unread_msg_number);
             holder.message = (TextView) convertView.findViewById(R.id.message);
             holder.time = (TextView) convertView.findViewById(R.id.time);
@@ -232,26 +233,26 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                         .setProportion(0.8f)
                         .setSuperscript()
                         .into(holder.name);*/
-                GlideUtils.loadImageView(R.drawable.ic_conversation_app, holder.avatar);
+                GlideUtils.loadImageView(R.mipmap.ic_logo, holder.avatar);
             } else if (username.equals(Constant.WALLET)) {
                 holder.iv_aite_guanfang.setVisibility(View.VISIBLE);
                 holder.swipeRevealLayout.setLockDrag(true);
-                holder.name.setText("零钱助手");
-                GlideUtils.loadImageView(R.drawable.ic_conversation_package, holder.avatar);
+                holder.name.setText("钱包助手");
+                GlideUtils.loadImageView(R.mipmap.ic_main_message_wallet, holder.avatar);
             } else {//客服走这里
                 String contactId = conversationId;
                 String headImg = AppConfig.checkimg(UserOperateManager.getInstance().getUserAvatar(contactId));
                 // TODO: 2021/3/30 xgp 处理客服图像 写死
                 if (contactId.contains("6a1bec8f64fe11eba89700163e0654c2")) {
                     holder.iv_aite_guanfang.setVisibility(View.VISIBLE);//客服显示官方
-                    holder.avatar.setImageResource(R.mipmap.icon_kefu_avatar);
+                    holder.avatar.setImageResource(R.mipmap.ic_main_message_kf);
                 } else if (contactId.contains("d816636e130411ecab930c42a1a8807a")) {//fbce17090a6611ecab930c42a1a8807a
                     holder.iv_aite_guanfang.setVisibility(View.VISIBLE);//客服显示官方
-                    holder.avatar.setImageResource(R.mipmap.icon_exception_handle_kefu_avatar);
+                    holder.avatar.setImageResource(R.mipmap.ic_main_message_kf);
                 } else {
-                    GlideUtils.loadImageViewLoding(headImg, holder.avatar, R.mipmap.img_default_avatar);
+                    GlideUtils.loadImageViewLoding(headImg, holder.avatar, R.mipmap.ic_ng_avatar);
                 }
-                //GlideUtils.loadImageViewLoding(headImg, holder.avatar, R.mipmap.img_default_avatar);
+                //GlideUtils.loadImageViewLoding(headImg, holder.avatar, R.mipmap.ic_ng_avatar);
                 if (UserOperateManager.getInstance().hasUserName(contactId)) {
                     username = UserOperateManager.getInstance().getUserName(contactId);
                 } else if (!TextUtils.isEmpty(tempNickname)) {
@@ -453,6 +454,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
         View deleteLayout;
 
         SuperTextView iv_aite_guanfang;
+        SuperTextView iv_to_top;
     }
 }
 

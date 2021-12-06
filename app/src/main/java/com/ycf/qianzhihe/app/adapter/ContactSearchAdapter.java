@@ -40,7 +40,7 @@ public class ContactSearchAdapter extends BaseQuickAdapter<ContactListInfo.DataB
     protected void convert(BaseViewHolder helper, ContactListInfo.DataBean item) {
 
         helper.setText(R.id.tv_name, item.getFriendNickName());
-        GlideUtils.GlideLoadCircleErrorImageUtils(mContext, item.getFriendUserHead(), helper.getView(R.id.img_group), R.mipmap.img_default_avatar);
+        GlideUtils.GlideLoadCircleErrorImageUtils(mContext, item.getFriendUserHead(), helper.getView(R.id.img_group), R.mipmap.ic_ng_avatar);
 
         //是否为会员vipLevel
         if (!TextUtils.isEmpty(item.getVipLevel())) {

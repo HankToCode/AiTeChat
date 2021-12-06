@@ -166,7 +166,7 @@ public abstract class EaseChatRow extends LinearLayout {
         }
         if (message.direct() == EMMessage.Direct.SEND) {
             if (!TextUtils.isEmpty(UserComm.getUserInfo().getUserHead()))
-                GlideUtils.loadImageViewLoding(AppConfig.checkimg(UserComm.getUserInfo().getUserHead()), userAvatarView, R.mipmap.img_default_avatar);
+                GlideUtils.loadImageViewLoding(AppConfig.checkimg(UserComm.getUserInfo().getUserHead()), userAvatarView, R.mipmap.ic_ng_avatar);
             if (usernickView != null)
                 usernickView.setText(UserComm.getUserInfo().getNickName());
 
@@ -180,11 +180,11 @@ public abstract class EaseChatRow extends LinearLayout {
             } else if (message.getStringAttribute(Constant.MSGTYPE, "").equals(Constant.TURN)) {
                 //当本人确认收账时，显示自己头像姓名
                 if (!TextUtils.isEmpty(UserComm.getUserInfo().getUserHead()))
-                    GlideUtils.loadImageViewLoding(AppConfig.checkimg(UserComm.getUserInfo().getUserHead()), userAvatarView, R.mipmap.img_default_avatar);
+                    GlideUtils.loadImageViewLoding(AppConfig.checkimg(UserComm.getUserInfo().getUserHead()), userAvatarView, R.mipmap.ic_ng_avatar);
                 if (usernickView != null)
                     usernickView.setText(UserComm.getUserInfo().getNickName());
             } else if (!TextUtils.isEmpty(message.getStringAttribute(Constant.AVATARURL,"")))
-                GlideUtils.loadImageViewLodingByCircle(AppConfig.checkimg(message.getStringAttribute(Constant.AVATARURL)), userAvatarView, R.mipmap.img_default_avatar);
+                GlideUtils.loadImageViewLodingByCircle(AppConfig.checkimg(message.getStringAttribute(Constant.AVATARURL)), userAvatarView, R.mipmap.ic_ng_avatar);
 
             if (message.getChatType() == EMMessage.ChatType.Chat) {
                 EaseUserUtils.setUserNick(message.getFrom(), usernickView);

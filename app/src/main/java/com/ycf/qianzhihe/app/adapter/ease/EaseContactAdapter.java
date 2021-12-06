@@ -121,7 +121,7 @@ public class EaseContactAdapter extends ArrayAdapter<EaseUser> implements Sectio
         }
 
         ImageUtil.setAvatar((EaseImageView) holder.avatar);
-        GlideUtils.loadImageViewLoding(UserOperateManager.getInstance().getUserAvatar(username), holder.avatar, R.mipmap.img_default_avatar);
+        GlideUtils.loadImageViewLoding(UserOperateManager.getInstance().getUserAvatar(username), holder.avatar, R.mipmap.ic_ng_avatar);
 
 
         if (primaryColor != 0) {

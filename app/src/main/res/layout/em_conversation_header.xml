@@ -1,51 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/ivBg"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="fitXY"
+        android:src="@mipmap/bg_main_message"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/tvMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="18dp"
+        android:layout_marginTop="50dp"
+        android:text="消息"
+        android:textColor="@color/white"
+        android:textSize="23dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/ivOptions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="18dp"
+        android:src="@mipmap/ic_main_message_add"
+        app:layout_constraintBottom_toBottomOf="@id/tvMessage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tvMessage" />
 
     <TextView
         android:id="@+id/tv_search"
         style="@style/demo_search_et_style"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="@dimen/em_common_search_height"
-        android:layout_margin="@dimen/dp_10"
+        android:layout_marginStart="0dp"
+        android:layout_marginTop="20dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:gravity="center"
-        android:hint="输入好友昵称搜索" />
-
-    <com.ycf.qianzhihe.app.weight.ConversationItemView
-        android:id="@+id/friend_notice"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/main_message_item_height"
-        android:visibility="gone"
-        app:conversationItemImage="@drawable/ic_new_friends"
-        app:conversationItemName="@string/new_friends" />
+        android:text="输入好友昵称搜索"
+        app:layout_constraintEnd_toEndOf="@id/ivOptions"
+        app:layout_constraintStart_toStartOf="@id/tvMessage"
+        app:layout_constraintTop_toBottomOf="@id/tvMessage" />
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_1"
-        android:visibility="gone"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="96dp"
-        android:background="@color/gray" />
+        android:layout_height="30dp"
+        android:background="@drawable/bg_main_message_border"
+        app:layout_constraintBottom_toBottomOf="@id/ivBg"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <com.ycf.qianzhihe.app.weight.ConversationItemView
-        android:id="@+id/group_notice"
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/main_message_item_height"
-        android:visibility="gone"
-        app:conversationItemImage="@drawable/ic_group_notice"
-        app:conversationItemName="@string/groups_notice" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/dp_1"
-        android:visibility="gone"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="96dp"
-        android:background="@color/gray" />
-
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

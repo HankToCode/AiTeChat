@@ -136,7 +136,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        initImmersionBar(true);
+//        initImmersionBar(true);
         navView = findViewById(R.id.nav_view);
         /*mTitleBar.setRightLayoutClickListener(new View.OnClickListener() {
             @Override
@@ -422,7 +422,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
             MineActivity.actionStart(mContext);
         });
         LoginInfo loginInfo = UserComm.getUserInfo();
-        GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(loginInfo.getUserHead()), mIvAvatar, R.mipmap.img_default_avatar);
+        GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(loginInfo.getUserHead()), mIvAvatar, R.mipmap.ic_ng_avatar);
         mTitleBar.getRightLayout().addView(rightView);
 
         if ("news".equals(tag)) {
@@ -542,7 +542,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
         } else if (center.getEventCode() == EventUtil.FLUSHUSERINFO) {
             LoginInfo loginInfo = UserComm.getUserInfo();
             if (loginInfo != null) {
-                GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(loginInfo.getUserHead()), mIvAvatar, R.mipmap.img_default_avatar);
+                GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(loginInfo.getUserHead()), mIvAvatar, R.mipmap.ic_ng_avatar);
             }
         } else if (center.getEventCode() == EventUtil.REFRESH_CONTACT) {
             getContactList();

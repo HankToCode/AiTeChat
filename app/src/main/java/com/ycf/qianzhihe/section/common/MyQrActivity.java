@@ -111,7 +111,7 @@ public class MyQrActivity extends BaseInitActivity {
                     .submit(110, 110).get();
 
         } catch (Exception e) {
-            logoBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.img_default_avatar, null);
+            logoBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_ng_avatar, null);
         }
 
 
@@ -141,8 +141,8 @@ public class MyQrActivity extends BaseInitActivity {
             title_bar.setTitle("群二维码");
             mTvQrName.setText(intent.getStringExtra("name"));
             if (!TextUtils.isEmpty(intent.getStringExtra("head"))) {
-                GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(intent.getStringExtra("head")), mImgHead, R.mipmap.img_default_avatar);
-                GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(intent.getStringExtra("head")), mImgQRHead, R.mipmap.img_default_avatar);
+                GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(intent.getStringExtra("head")), mImgHead, R.mipmap.ic_ng_avatar);
+                GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(intent.getStringExtra("head")), mImgQRHead, R.mipmap.ic_ng_avatar);
             }
             tvCardTips.setText("扫一扫上面的二维码，加入群聊");
             createImgQr(AppConfig.checkimg(intent.getStringExtra("head")));
@@ -154,8 +154,8 @@ public class MyQrActivity extends BaseInitActivity {
                 tvChatNumber.setText(getString(R.string.str_chat_account, UserComm.getUserInfo().getUserCode()));
             }
             mTvQrName.setText(UserComm.getUserInfo().getNickName());
-            GlideUtils.GlideLoadCircleErrorImageUtils(this, UserComm.getUserInfo().getUserHead(), mImgHead, R.mipmap.img_default_avatar);
-            GlideUtils.GlideLoadCircleErrorImageUtils(this, UserComm.getUserInfo().getUserHead(), mImgQRHead, R.mipmap.img_default_avatar);
+            GlideUtils.GlideLoadCircleErrorImageUtils(this, UserComm.getUserInfo().getUserHead(), mImgHead, R.mipmap.ic_ng_avatar);
+            GlideUtils.GlideLoadCircleErrorImageUtils(this, UserComm.getUserInfo().getUserHead(), mImgQRHead, R.mipmap.ic_ng_avatar);
             tvCardTips.setText("扫一扫上面的二维码，加我千纸鹤好友");
             createImgQr(UserComm.getUserInfo().getUserHead());
         }

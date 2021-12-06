@@ -1233,7 +1233,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                 (EaseImageView) builder.getView(R.id.img_head);
         ImageUtil.setAvatar(imageView);
         GlideUtils.loadImageViewLodingByCircle(AppConfig.checkimg(head),
-                imageView, R.mipmap.img_default_avatar);
+                imageView, R.mipmap.ic_ng_avatar);
         commonDialog.show();
     }
 

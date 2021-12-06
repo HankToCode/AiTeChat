@@ -163,7 +163,7 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
     private void initUserInfo() {
         LoginInfo loginInfo = UserComm.getUserInfo();
         if (loginInfo != null) {
-            GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(loginInfo.getUserHead()), mIvAvatar, R.mipmap.img_default_avatar);
+            GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(loginInfo.getUserHead()), mIvAvatar, R.mipmap.ic_ng_avatar);
             mTvNickName.setText(loginInfo.getNickName());
             if (TextUtils.isEmpty(loginInfo.getUserCode())) {
                 tv_user_id.setText("ID： 无");
@@ -496,7 +496,7 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
 
             @Override
             public void onSuccess(String json, String msg) {
-                GlideUtils.GlideLoadCircleErrorImageUtils(MineActivity.this, AppConfig.checkimg(filePath), mIvAvatar, R.mipmap.img_default_avatar);
+                GlideUtils.GlideLoadCircleErrorImageUtils(MineActivity.this, AppConfig.checkimg(filePath), mIvAvatar, R.mipmap.ic_ng_avatar);
                 CommonApi.upUserInfo(MineActivity.this);
                 ToastUtil.toast("上传成功");
             }

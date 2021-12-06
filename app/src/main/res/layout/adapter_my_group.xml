@@ -20,7 +20,7 @@
             android:layout_width="@dimen/dp_36"
             android:layout_height="@dimen/dp_36"
             android:layout_gravity="center_vertical"
-            tools:src="@mipmap/img_default_avatar" />
+            tools:src="@mipmap/ic_ng_avatar" />
 
         <TextView
             android:id="@+id/tv_group_name"

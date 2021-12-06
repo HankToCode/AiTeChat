@@ -59,7 +59,6 @@ public class BaseConversationListFragment extends BaseInitFragment {
     protected boolean hidden;
     protected List<EMConversation> conversationList = new ArrayList<EMConversation>();
     protected EaseConversationList conversationListView;
-    protected FrameLayout errorItemContainer;
 
     protected boolean isConflict;
 
@@ -84,8 +83,6 @@ public class BaseConversationListFragment extends BaseInitFragment {
 
         inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         conversationListView = (EaseConversationList) getView().findViewById(R.id.list);
-        // button to clear content in search bar
-        errorItemContainer = (FrameLayout) getView().findViewById(R.id.fl_error_item);
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -169,14 +166,13 @@ public class BaseConversationListFragment extends BaseInitFragment {
      * connected to server
      */
     protected void onConnectionConnected() {
-        errorItemContainer.setVisibility(View.GONE);
     }
 
     /**
      * disconnected with server
      */
     protected void onConnectionDisconnected() {
-        errorItemContainer.setVisibility(View.VISIBLE);
+
     }
 
 

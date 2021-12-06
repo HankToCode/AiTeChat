@@ -69,7 +69,7 @@ public class RedPacketAdapter extends BaseQuickAdapter<RedPacketInfo.RedPacketDe
         }
 
         ImageUtil.setAvatar((EaseImageView) helper.getView(R.id.avatar_user));
-        GlideUtils.loadRoundCircleImage(AppConfig.checkimg(item.getRobUserHead()), (EaseImageView) helper.getView(R.id.avatar_user), R.mipmap.img_default_avatar, 10);
+        GlideUtils.loadRoundCircleImage(AppConfig.checkimg(item.getRobUserHead()), (EaseImageView) helper.getView(R.id.avatar_user), R.mipmap.ic_ng_avatar, 10);
     }
 
 

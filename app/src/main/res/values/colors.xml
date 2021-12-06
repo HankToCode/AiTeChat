@@ -143,7 +143,7 @@
     <color name="em_base_color_accent">@color/blue</color>
     <color name="em_base_color_window_bg">@color/white</color>
     <color name="em_base_color_text_hint">#ffcccccc</color>
-    <color name="em_base_color_divider">#fff2f2f2</color>
+    <color name="em_base_color_divider">#33ffffff</color>
 
     <color name="em_toast_color_bg">#99000000</color>
     <color name="em_toast_color_text">@color/white</color>
@@ -197,5 +197,7 @@
     <color name="color_AAFFFFFF">#aaffffff</color>
     <color name="color_AAABAF">#AAABAF</color>
     <color name="color_999999">#999999</color>
+    <color name="color_55CFF7">#55CFF7</color>
+    <color name="color_CCCCCC">#CCCCCC</color>
 
 </resources>

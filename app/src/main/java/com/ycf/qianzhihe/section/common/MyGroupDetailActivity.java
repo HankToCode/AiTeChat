@@ -291,10 +291,10 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
         //GlideUtils.loadRoundCircleImage(AppConfig
         // .checkimg(info
         // .getGroupHead()), (ImageView) mGroupImg, R.mipmap
-        // .img_default_avatar, 12);
+        // .ic_ng_avatar, 12);
         /*GlideUtils.GlideLoadCircleErrorImageUtils(MyGroupDetailActivity.this, AppConfig.checkimg(info.getGroupHead())
-                , iv_group_head, R.mipmap.img_default_avatar);*/
-        GlideUtils.loadImageViewLoding(MyGroupDetailActivity.this, AppConfig.checkimg(info.getGroupHead()), iv_group_head, R.mipmap.img_default_avatar, R.mipmap.img_default_avatar);
+                , iv_group_head, R.mipmap.ic_ng_avatar);*/
+        GlideUtils.loadImageViewLoding(MyGroupDetailActivity.this, AppConfig.checkimg(info.getGroupHead()), iv_group_head, R.mipmap.ic_ng_avatar, R.mipmap.ic_ng_avatar);
 
         if (info.getGroupUserRank() != 0) {
             tv_group_name.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.mipmap.icon_motify_group_name), null);
@@ -527,7 +527,7 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
                         EventBus.getDefault().post(new EventCenter<>(EventUtil.REFRESH_CONVERSION));
                         EventBus.getDefault().post(new EventCenter(EventUtil.FLUSHGROUP));
                         GlideUtils.GlideLoadCircleErrorImageUtils(MyGroupDetailActivity.this, AppConfig.checkimg(headUrl), iv_group_head,
-                                R.mipmap.img_default_avatar);
+                                R.mipmap.ic_ng_avatar);
                         //手动刷新群组缓存，否则首页聊天列表群头像更新不了，有点蛋疼
                         GroupInfo groupInfo = new GroupInfo();
                         groupInfo.setHuanxinGroupId(info.getHuanxinGroupId());

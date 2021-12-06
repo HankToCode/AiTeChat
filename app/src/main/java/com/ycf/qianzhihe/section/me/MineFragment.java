@@ -180,7 +180,7 @@ public class MineFragment extends BaseInitFragment implements View.OnClickListen
     private void initUserInfo() {
         LoginInfo loginInfo = UserComm.getUserInfo();
         if (loginInfo != null) {
-            GlideUtils.loadImageViewLoding(AppConfig.checkimg(loginInfo.getUserHead()), mIvAvatar, R.mipmap.img_default_avatar);
+            GlideUtils.loadImageViewLoding(AppConfig.checkimg(loginInfo.getUserHead()), mIvAvatar, R.mipmap.ic_ng_avatar);
             mTvNickName.setText(loginInfo.getNickName());
             if (TextUtils.isEmpty(loginInfo.getUserCode())) {
                 mTvID.setText("ID： 无");

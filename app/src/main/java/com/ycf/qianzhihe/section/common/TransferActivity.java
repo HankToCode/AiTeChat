@@ -111,7 +111,7 @@ public class TransferActivity extends BaseInitActivity {
         emChatId = intent.getStringExtra("emChatId");
         mNickName.setText(UserOperateManager.getInstance().getUserName(emChatId));
         ImageUtil.setAvatar(mImgHead);
-        GlideUtils.loadImageViewLoding(UserOperateManager.getInstance().getUserAvatar(emChatId), mImgHead, R.mipmap.img_default_avatar);
+        GlideUtils.loadImageViewLoding(UserOperateManager.getInstance().getUserAvatar(emChatId), mImgHead, R.mipmap.ic_ng_avatar);
 
     }
 

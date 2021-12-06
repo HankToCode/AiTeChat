@@ -89,7 +89,7 @@ public class GroupUserApplyAdapter extends RecyclerView.Adapter<GroupUserApplyAd
         }
 
 
-        GlideUtils.GlideLoadCircleErrorImageUtils(mContext, AppConfig.checkimg(info.getUserHead()), holder.imgHead, R.mipmap.img_default_avatar);
+        GlideUtils.GlideLoadCircleErrorImageUtils(mContext, AppConfig.checkimg(info.getUserHead()), holder.imgHead, R.mipmap.ic_ng_avatar);
 
         if (info.getApplyStatus().equals("0")) {
             holder.mTvAgree.setBackgroundResource(R.drawable.agree_friend_bg_selector);

@@ -26,7 +26,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="@dimen/dp_5"
             android:scaleType="centerCrop"
-            android:src="@mipmap/img_default_avatar" />
+            android:src="@mipmap/ic_ng_avatar" />
 
         <RelativeLayout
             android:id="@+id/bubble"

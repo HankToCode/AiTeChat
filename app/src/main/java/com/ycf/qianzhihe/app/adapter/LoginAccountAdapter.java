@@ -81,7 +81,7 @@ public class LoginAccountAdapter extends RecyclerView.Adapter<LoginAccountAdapte
         holder.tv_name.setText( dataBean.get(position).getNickname());
         holder.tv_id.setText( dataBean.get(position).getUserCode());
         String url = dataBean.get(position).getAvatar();
-        GlideUtils.GlideLoadCircleErrorImageUtils(mContext, url, holder.img_head, R.mipmap.img_default_avatar);
+        GlideUtils.GlideLoadCircleErrorImageUtils(mContext, url, holder.img_head, R.mipmap.ic_ng_avatar);
 
         LoginInfo loginInfo = UserComm.getUserInfo();
         if (loginInfo.getUserCode().equals(dataBean.get(position).getUserCode())) {
