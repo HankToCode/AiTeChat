@@ -3,6 +3,7 @@ package com.ycf.qianzhihe.app.weight;
 import android.app.Activity;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
 
@@ -14,13 +15,14 @@ import com.zds.base.util.Utils;
 
 public class PopWinShare extends PopupWindow {
     private View mainView;
-    private LinearLayout layoutGroup, layoutAddFirend, layoutSaoyisao, llMyQr, llTop;
+    private LinearLayout layoutGroup, layoutAddFirend, layoutSaoyisao, llMyQr, llTop, llParent;
 
-    public PopWinShare(Activity paramActivity, View.OnClickListener paramOnClickListener, int paramInt1, int paramInt2) {
+    public PopWinShare(Activity paramActivity, View.OnClickListener paramOnClickListener, int marginTop, int marginEnd) {
         super(paramActivity);
         //窗口布局
         mainView = LayoutInflater.from(paramActivity).inflate(R.layout.popwin_share, null);
         layoutGroup = ((LinearLayout) mainView.findViewById(R.id.layout_group));
+        llParent = ((LinearLayout) mainView.findViewById(R.id.llParent));
         layoutAddFirend = (LinearLayout) mainView.findViewById(R.id.layout_add_firend);
         layoutSaoyisao = (LinearLayout) mainView.findViewById(R.id.layout_saoyisao);
         llMyQr = (LinearLayout) mainView.findViewById(R.id.layout_my_qr);
@@ -36,9 +38,9 @@ public class PopWinShare extends PopupWindow {
         }
         setContentView(mainView);
         //设置宽度
-        setWidth(paramInt1);
+        setWidth(ViewGroup.LayoutParams.MATCH_PARENT);
         //设置高度
-        setHeight(paramInt2);
+        setHeight(ViewGroup.LayoutParams.MATCH_PARENT);
         //设置显示隐藏动画
 //        setAnimationStyle(R.style.AnimTools);
         //设置背景透明
@@ -52,5 +54,8 @@ public class PopWinShare extends PopupWindow {
                 }
             }
         });
+
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) llParent.getLayoutParams();
+        layoutParams.setMargins(0, marginTop, marginEnd, 0);
     }
 }

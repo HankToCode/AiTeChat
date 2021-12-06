@@ -156,11 +156,10 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
         String conversationId = conversation.conversationId();
 
         if (conversation.getExtField().equals("toTop")) {
-            holder.bg_view.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.em_base_color_divider));
+            holder.iv_to_top.setVisibility(View.VISIBLE);
         } else {
-            holder.bg_view.setBackgroundColor(ContextCompat.getColor(getContext(), R.color.white));
+            holder.iv_to_top.setVisibility(View.GONE);
         }
-
 
         String username = "";
 

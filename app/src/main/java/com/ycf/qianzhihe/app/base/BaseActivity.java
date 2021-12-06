@@ -225,22 +225,6 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
-    /**
-     * 设置返回按钮的颜色
-     *
-     * @param mContext
-     * @param colorId
-     */
-    public static void setToolbarCustomColor(AppCompatActivity mContext, int colorId) {
-        Drawable leftArrow = ContextCompat.getDrawable(mContext, R.drawable.abc_ic_ab_back_material);
-        if (leftArrow != null) {
-            leftArrow.setColorFilter(ContextCompat.getColor(mContext, colorId), PorterDuff.Mode.SRC_ATOP);
-            if (mContext.getSupportActionBar() != null) {
-                mContext.getSupportActionBar().setHomeAsUpIndicator(leftArrow);
-            }
-        }
-    }
-
     @Override
     public void onBackPressed() {
         InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);

@@ -1,5 +1,7 @@
 package com.ycf.qianzhihe.section.conversation;
 
+import static com.darsh.multipleimageselect.helpers.Constants.REQUEST_CODE;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
@@ -7,25 +9,36 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.blankj.utilcode.util.ScreenUtils;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
+import com.ycf.qianzhihe.MainActivity;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
+import com.ycf.qianzhihe.app.api.Global;
 import com.ycf.qianzhihe.app.db.InviteMessgeDao;
+import com.ycf.qianzhihe.app.operate.UserOperateManager;
 import com.ycf.qianzhihe.app.weight.ConversationItemView;
+import com.ycf.qianzhihe.app.weight.PopWinShare;
 import com.ycf.qianzhihe.app.weight.ease.model.EaseAtMessageHelper;
 import com.ycf.qianzhihe.common.constant.DemoConstant;
 import com.ycf.qianzhihe.common.livedatas.LiveDataBus;
 import com.ycf.qianzhihe.common.rx.NextObserver;
 import com.ycf.qianzhihe.common.utils.PreferenceManager;
+import com.ycf.qianzhihe.section.account.activity.UserInfoDetailActivity;
+import com.ycf.qianzhihe.section.common.ContactActivity;
 import com.ycf.qianzhihe.section.common.ContactSearchActivity;
+import com.ycf.qianzhihe.section.common.MyQrActivity;
+import com.ycf.qianzhihe.section.contact.activity.AddUserActivity;
 import com.ycf.qianzhihe.section.search.SearchConversationActivity;
+import com.zds.base.code.activity.CaptureActivity;
 import com.zds.base.json.FastJsonUtil;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.global.SP;
@@ -33,6 +46,7 @@ import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.section.chat.activity.ChatActivity;
 import com.ycf.qianzhihe.section.chat.viewmodel.MessageViewModel;
 import com.hyphenate.easeui.model.EaseEvent;
+import com.zds.base.util.DensityUtils;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -42,6 +56,7 @@ import io.reactivex.schedulers.Schedulers;
 public class ConversationListFragment extends BaseConversationListFragment implements View.OnClickListener {
 
     private TextView tv_search;
+    private ImageView ivOptions;
 
     @Override
     protected void onEventComing(EventCenter center) {
@@ -73,14 +88,11 @@ public class ConversationListFragment extends BaseConversationListFragment imple
     }
 
     @Override
-    protected void initView(Bundle savedInstanceState) {
-        super.initView(savedInstanceState);
-        conversationListView.setDrag(true);
-
-        View headerView = LayoutInflater.from(getActivity()).inflate(R.layout.em_conversation_header, null);
-        tv_search = headerView.findViewById(R.id.tv_search);
+    protected void initListener() {
+        super.initListener();
+        ivOptions.setOnClickListener(this);
         tv_search.setOnClickListener(this);
-        conversationListView.addHeaderView(headerView);
+
         conversationListView.setOnItemClickListener((parent, view, position, id) -> {
             EMConversation conversation =
                     conversationListView.getItem(position);
@@ -170,6 +182,18 @@ public class ConversationListFragment extends BaseConversationListFragment imple
     }
 
     @Override
+    protected void initView(Bundle savedInstanceState) {
+        super.initView(savedInstanceState);
+        conversationListView.setDrag(true);
+
+        View headerView = LayoutInflater.from(getActivity()).inflate(R.layout.em_conversation_header, null);
+        tv_search = headerView.findViewById(R.id.tv_search);
+        ivOptions = headerView.findViewById(R.id.ivOptions);
+        conversationListView.addHeaderView(headerView);
+
+    }
+
+    @Override
     protected void onConnectionDisconnected() {
         super.onConnectionDisconnected();
     }
@@ -214,6 +238,8 @@ public class ConversationListFragment extends BaseConversationListFragment imple
         if (v.getId() == R.id.tv_search) {
 //            SearchConversationActivity.actionStart(mContext);
             ContactSearchActivity.actionStart(mContext);
+        } else if (v.getId() == R.id.ivOptions) {
+            showPopWinShare(ivOptions);
         }
     }
 
@@ -237,6 +263,82 @@ public class ConversationListFragment extends BaseConversationListFragment imple
         }
 
     }*/
+
+    private PopWinShare popWinShare;
+
+    /**
+     * 显示浮窗菜单
+     */
+    private void showPopWinShare(View view) {
+        if (popWinShare == null) {
+            View.OnClickListener paramOnClickListener =
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //扫一扫
+                            if (v.getId() == R.id.layout_saoyisao) {
+                                Global.addUserOriginType = Constant.ADD_USER_ORIGIN_TYPE_QRCODE;
+                                Intent intent = new Intent(mContext,
+                                        CaptureActivity.class);
+                                startActivityForResult(intent, REQUEST_CODE);
+                            }//添加好友  //搜索添加好友
+                            else if (v.getId() == R.id.layout_add_firend) {
+//                                AddContactActivity.actionStart(mContext, SearchType.CHAT);
+                                AddUserActivity.actionStart(mContext);
+                            } else if (v.getId() == R.id.layout_group) {
+                                ContactActivity.actionStart(mContext, "1", null, null);
+                            } else if (v.getId() == R.id.layout_my_qr) {
+                                Intent intent = new Intent(mContext, MyQrActivity.class);
+                                intent.putExtra("from", "1");
+                                startActivity(intent);
+                            }
+
+                            popWinShare.dismiss();
+                        }
+
+
+                    };
+
+            popWinShare = new PopWinShare(mContext, paramOnClickListener
+                    , ivOptions.getTop() + ivOptions.getHeight() + 10,
+                    (int) (ScreenUtils.getScreenWidth() - ivOptions.getX() - ivOptions.getWidth()));
+            //监听窗口的焦点事件，点击窗口外面则取消显示
+            popWinShare.getContentView().setOnFocusChangeListener((v, hasFocus) -> {
+                if (!hasFocus) {
+                    popWinShare.dismiss();
+                }
+            });
+        }
+        //设置默认获取焦点
+        popWinShare.setFocusable(true);
+        //以某个控件的x和y的偏移量位置开始显示窗口
+        popWinShare.showAsDropDown(view);
+        //如果窗口存在，则更新
+        popWinShare.update();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == REQUEST_CODE) {
+            //处理扫描结果（在界面上显示）
+            if (null != data) {
+                Bundle bundle = data.getExtras();
+                if (bundle == null) {
+                    return;
+                }
+                String result = bundle.getString(CaptureActivity.INTENT_EXTRA_KEY_QR_SCAN);
+
+                if (result.contains("person")) {
+                    startActivity(new Intent(mContext,
+                            UserInfoDetailActivity.class).putExtra(
+                            "friendUserId", result.split("_")[0]));
+                } else if (result.contains("group")) {
+                    UserOperateManager.getInstance().scanInviteContact(mContext, result);
+                }
+            }
+        }
+    }
 
 
 }
