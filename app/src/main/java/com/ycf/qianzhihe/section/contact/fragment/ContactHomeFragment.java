@@ -92,8 +92,8 @@ public class ContactHomeFragment extends BaseInitFragment implements View.OnClic
             public IPagerTitleView getTitleView(Context context, int index) {
 
                 ColorTransitionPagerTitleView colorTransitionPagerTitleView = new ColorTransitionPagerTitleView(context);
-                colorTransitionPagerTitleView.setNormalColor(Color.parseColor("#ACACBC"));
-                colorTransitionPagerTitleView.setSelectedColor(Color.WHITE);
+                colorTransitionPagerTitleView.setNormalColor(Color.parseColor("#999999"));
+                colorTransitionPagerTitleView.setSelectedColor(Color.BLACK);
                 colorTransitionPagerTitleView.setText(titles.get(index));
                 colorTransitionPagerTitleView.setTextSize(15);
                 colorTransitionPagerTitleView.setOnClickListener(view -> viewPager.setCurrentItem(index));
@@ -105,7 +105,7 @@ public class ContactHomeFragment extends BaseInitFragment implements View.OnClic
             public IPagerIndicator getIndicator(Context context) {
                 //设置头部标签指示器
                 WrapPagerIndicator indicator = new WrapPagerIndicator(context);
-                indicator.setFillColor(Color.parseColor("#53B0F7"));
+                indicator.setFillColor(Color.WHITE);
                 indicator.setHorizontalPadding(DensityUtil.dp2px(10));
                 indicator.setVerticalPadding(DensityUtil.dp2px(5));
                 indicator.setRoundRadius(DensityUtil.dp2px(25));
