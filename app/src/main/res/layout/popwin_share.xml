@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_top"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="right"
-    android:id="@+id/ll_top"
     android:orientation="vertical">
 
     <LinearLayout
@@ -12,11 +12,8 @@
         android:layout_height="wrap_content"
         android:background="@drawable/qp_dialog"
         android:divider="@drawable/shape_qp_line"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:paddingLeft="@dimen/dp_14"
-        android:paddingRight="@dimen/dp_14"
-        android:showDividers="middle">
+        android:gravity="center"
+        android:orientation="vertical">
 
         <LinearLayout
             android:id="@+id/layout_group"
@@ -26,8 +23,8 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_marginLeft="@dimen/dp_7"
                 android:scaleType="fitCenter"
                 android:src="@mipmap/main_contacts_wx" />
@@ -75,8 +72,8 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_marginLeft="@dimen/dp_7"
                 android:scaleType="fitCenter"
                 android:src="@mipmap/main_contacts_sys" />
@@ -99,8 +96,8 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_marginLeft="@dimen/dp_7"
                 android:scaleType="fitCenter"
                 android:src="@mipmap/main_contacts_qr" />
