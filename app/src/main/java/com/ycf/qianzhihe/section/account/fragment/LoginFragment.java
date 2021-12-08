@@ -16,7 +16,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.Nullable;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
@@ -24,17 +23,14 @@ import androidx.lifecycle.ViewModelProvider;
 import com.alibaba.fastjson.JSON;
 import com.coorchice.library.SuperTextView;
 import com.hyphenate.EMCallBack;
-import com.hyphenate.EMError;
-import com.ycf.qianzhihe.DemoApplication;
+import com.hyphenate.easeui.utils.EaseEditTextUtils;
 import com.ycf.qianzhihe.DemoHelper;
 import com.ycf.qianzhihe.MainActivity;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.Global;
-import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.global.SP;
 import com.ycf.qianzhihe.app.api.global.UserComm;
-import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.app.api.old_data.LoginInfo;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
 import com.ycf.qianzhihe.app.api.old_http.AppConfig;
@@ -53,16 +49,12 @@ import com.ycf.qianzhihe.common.utils.ToastUtils;
 import com.ycf.qianzhihe.section.account.activity.AccountManagerActivity;
 import com.ycf.qianzhihe.section.account.activity.RegisterActivity;
 import com.ycf.qianzhihe.section.account.activity.UpDataPasswordActivity;
+import com.ycf.qianzhihe.section.account.viewmodels.LoginFragmentViewModel;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.json.FastJsonUtil;
 import com.zds.base.util.StringUtil;
 import com.zds.base.util.SystemUtil;
-import com.ycf.qianzhihe.section.account.viewmodels.LoginFragmentViewModel;
-import com.hyphenate.easeui.utils.EaseEditTextUtils;
 
-import org.greenrobot.eventbus.EventBus;
-
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -90,7 +82,6 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
     private TextView mTvOtherLogin;
     private ImageView mIvChatLogin;
     private TextView mTvFrozen;
-    private TextView mTvUnbind;
 
     private ConstraintLayout mLlPwd;
     private ConstraintLayout mLlSms;
@@ -99,6 +90,10 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
     private SuperTextView mTvSmsSend;
 
     private CountDownTimer loginTimer;
+    private ImageView mIvLogo;
+    private ImageView mIvAvatar;
+    private TextView mTvUnfrozen;
+    private TextView mTvNickName;
 
     @Override
     protected int getLayoutId() {
@@ -122,13 +117,16 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
         mTvOtherLogin = findViewById(R.id.tv_other_login);
         mIvChatLogin = findViewById(R.id.iv_chat_login);
         mTvFrozen = findViewById(R.id.tv_frozen);
-        mTvUnbind = findViewById(R.id.tv_unfrozen);
         mLlPwd = findViewById(R.id.ll_pwd);
         mLlSms = findViewById(R.id.ll_sms);
         mTvSms = findViewById(R.id.tv_sms);
         mEtLoginSms = findViewById(R.id.et_login_sms);
         mTvSmsSend = findViewById(R.id.tv_sms_send);
 
+        mIvLogo = (ImageView) findViewById(R.id.ivLogo);
+        mIvAvatar = (ImageView) findViewById(R.id.iv_avatar);
+        mTvUnfrozen = (TextView) findViewById(R.id.tv_unfrozen);
+        mTvNickName = (TextView) findViewById(R.id.tv_nick_name);
     }
 
     @Override
@@ -146,7 +144,7 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
         mTvSwitchLogin.setOnClickListener(this);
         mIvChatLogin.setOnClickListener(this);
         mTvFrozen.setOnClickListener(this);
-        mTvUnbind.setOnClickListener(this);
+        mTvUnfrozen.setOnClickListener(this);
         mTvSmsSend.setOnClickListener(this);
 
 
