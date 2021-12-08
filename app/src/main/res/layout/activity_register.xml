@@ -131,7 +131,7 @@
 
                     <com.coorchice.library.SuperTextView
                         android:id="@+id/tv_sms_send"
-                        android:layout_width="90dp"
+                        android:layout_width="110dp"
                         android:layout_height="30dp"
                         android:layout_marginTop="10dp"
                         android:layout_marginEnd="10dp"

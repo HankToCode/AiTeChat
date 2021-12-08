@@ -77,6 +77,10 @@ public class GraphicVerificationDialog extends Dialog implements View.OnClickLis
         return mEtUserCode.getText().toString().trim();
     }
 
+    public int getFlag() {
+        return flag;
+    }
+
 
     private int flag;
 

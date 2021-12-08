@@ -38,7 +38,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Random;
 
-public class RegisterActivity extends BaseInitActivity implements View.OnClickListener, TextWatcher {
+public class RegisterActivity extends BaseInitActivity implements View.OnClickListener {
 
     private ImageView mIvLogo;
     private LinearLayout mLlPoint1;
@@ -123,10 +123,13 @@ public class RegisterActivity extends BaseInitActivity implements View.OnClickLi
         mTvSelfAgreement.setOnClickListener(this);
 
 
-        mEtPhone.addTextChangedListener(this);
-        mEtUserSms.addTextChangedListener(this);
-        mEtUserPassword.addTextChangedListener(this);
-        mEtUserName.addTextChangedListener(this);
+        mEtPhone.addTextChangedListener(nextWatcher);
+        mEtUserName.addTextChangedListener(nextWatcher);
+        mEtUserSms.addTextChangedListener(nextWatcher);
+
+        mEtUserPassword.addTextChangedListener(submitWatcher);
+        mEtUserPassword2.addTextChangedListener(submitWatcher);
+
 
         mBtnNext.setOnClickListener(this);
         mIvBack.setOnClickListener(this);
@@ -278,6 +281,7 @@ public class RegisterActivity extends BaseInitActivity implements View.OnClickLi
 
                 new GraphicVerificationDialog(mContext).setPositiveButton(dialog -> {
                     mImgCode = dialog.getCode();
+                    flag = dialog.getFlag();
                     getTXCode();
                 }).setNegativeButton(dialog -> {
                 }).show();
@@ -304,22 +308,41 @@ public class RegisterActivity extends BaseInitActivity implements View.OnClickLi
         }
     }
 
+    private TextWatcher nextWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
-    @Override
-    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
 
-    }
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-    @Override
-    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
 
-    }
+        @Override
+        public void afterTextChanged(Editable s) {
+            mBtnNext.setEnabled(!StringUtil.isEmpty(mEtPhone)
+                    && !StringUtil.isEmpty(mEtUserSms)
+                    && !StringUtil.isEmpty(mEtUserName));
+        }
+    };
 
-    @Override
-    public void afterTextChanged(Editable editable) {
-        mBtnSubmit.setEnabled(!StringUtil.isEmpty(mEtPhone)
-                && !StringUtil.isEmpty(mEtUserSms)
-                && !StringUtil.isEmpty(mEtUserPassword) && !StringUtil.isEmpty(mEtUserPassword2)
-                && !StringUtil.isEmpty(mEtUserName));
-    }
+    private TextWatcher submitWatcher = new TextWatcher() {
+        @Override
+        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+        }
+
+        @Override
+        public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+        }
+
+        @Override
+        public void afterTextChanged(Editable s) {
+            mBtnSubmit.setEnabled(!StringUtil.isEmpty(mEtUserPassword) && !StringUtil.isEmpty(mEtUserPassword2));
+        }
+    };
+
+
 }
