@@ -256,6 +256,9 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
         switch (v.getId()) {
             case R.id.tv_login_register:
                 RegisterActivity.actionStart(requireContext());
+                if (getActivity() != null) {
+                    getActivity().finish();
+                }
                 break;
             case R.id.btn_login:
                 hideKeyboard();
