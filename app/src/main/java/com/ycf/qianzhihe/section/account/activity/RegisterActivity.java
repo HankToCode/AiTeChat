@@ -1,5 +1,6 @@
 package com.ycf.qianzhihe.section.account.activity;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -24,6 +26,7 @@ import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
 import com.ycf.qianzhihe.app.base.WebViewActivity;
 import com.ycf.qianzhihe.app.utils.XClickUtil;
+import com.ycf.qianzhihe.app.weight.GraphicVerificationDialog;
 import com.ycf.qianzhihe.common.utils.ToastUtils;
 import com.zds.base.ImageLoad.GlideUtils;
 import com.zds.base.Toast.ToastUtil;
@@ -37,36 +40,42 @@ import java.util.Random;
 
 public class RegisterActivity extends BaseInitActivity implements View.OnClickListener, TextWatcher {
 
-    public static void actionStart(Context context) {
-        Intent intent = new Intent(context, RegisterActivity.class);
-        context.startActivity(intent);
-    }
-
-    private EaseTitleBar mTitleBar;
+    private ImageView mIvLogo;
+    private LinearLayout mLlPoint1;
+    private EditText mEtUserName;
     private ConstraintLayout mLlPhone;
     private TextView mTvPhone;
     private EditText mEtPhone;
-    private TextView mTvUserCode;
-    private EditText mEtUserCode;
-    private ImageView mImgCode;
     private ConstraintLayout mLlUserSms;
     private TextView mTvUserSms;
     private EditText mEtUserSms;
     private SuperTextView mTvSmsSend;
+    private ConstraintLayout mLlInvitation;
+    private TextView mTvInvitation;
+    private EditText mEtInvitation;
+    private TextView mTvLogin;
+    private Button mBtnNext;
+    private LinearLayout mLlPoint2;
+    private ImageView mIvBack;
     private ConstraintLayout mLlUserPassword;
     private TextView mTvUserPassword;
     private EditText mEtUserPassword;
-    private ConstraintLayout mLlUserName;
-    private TextView mTvUserName;
-    private EditText mEtUserName;
+    private ConstraintLayout mLlUserPassword2;
+    private TextView mTvUserPassword2;
+    private EditText mEtUserPassword2;
     private Button mBtnSubmit;
     private TextView mTvRegisterAgreement;
     private TextView mTvSelfAgreement;
-    private TextView tv_refresh;
 
 
-    private CountDownTimer timer;
-    private int flag;
+    private CountDownTimer timer;//获取验证码倒计时
+    private int flag;//随机flag
+    private String mImgCode = "";//图形验证码
+
+    public static void actionStart(Context context) {
+        Intent intent = new Intent(context, RegisterActivity.class);
+        context.startActivity(intent);
+    }
 
     @Override
     protected int getLayoutId() {
@@ -77,34 +86,37 @@ public class RegisterActivity extends BaseInitActivity implements View.OnClickLi
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
 
-        mTitleBar = (EaseTitleBar) findViewById(R.id.title_bar);
+        mIvLogo = (ImageView) findViewById(R.id.ivLogo);
+        mLlPoint1 = (LinearLayout) findViewById(R.id.llPoint1);
+        mEtUserName = (EditText) findViewById(R.id.et_user_name);
         mLlPhone = (ConstraintLayout) findViewById(R.id.ll_phone);
         mTvPhone = (TextView) findViewById(R.id.tv_phone);
         mEtPhone = (EditText) findViewById(R.id.et_phone);
-        mTvUserCode = (TextView) findViewById(R.id.tv_user_code);
-        mEtUserCode = (EditText) findViewById(R.id.et_user_code);
-        mImgCode = (ImageView) findViewById(R.id.img_code);
-        tv_refresh = (TextView) findViewById(R.id.tv_refresh);
         mLlUserSms = (ConstraintLayout) findViewById(R.id.ll_user_sms);
         mTvUserSms = (TextView) findViewById(R.id.tv_user_sms);
         mEtUserSms = (EditText) findViewById(R.id.et_user_sms);
         mTvSmsSend = (SuperTextView) findViewById(R.id.tv_sms_send);
+        mLlInvitation = (ConstraintLayout) findViewById(R.id.ll_invitation);
+        mTvInvitation = (TextView) findViewById(R.id.tv_invitation);
+        mEtInvitation = (EditText) findViewById(R.id.et_invitation);
+        mTvLogin = (TextView) findViewById(R.id.tv_login);
+        mBtnNext = (Button) findViewById(R.id.btn_next);
+        mLlPoint2 = (LinearLayout) findViewById(R.id.llPoint2);
+        mIvBack = (ImageView) findViewById(R.id.iv_back);
         mLlUserPassword = (ConstraintLayout) findViewById(R.id.ll_user_password);
         mTvUserPassword = (TextView) findViewById(R.id.tv_user_password);
         mEtUserPassword = (EditText) findViewById(R.id.et_user_password);
-        mLlUserName = (ConstraintLayout) findViewById(R.id.ll_user_name);
-        mTvUserName = (TextView) findViewById(R.id.tv_user_name);
-        mEtUserName = (EditText) findViewById(R.id.et_user_name);
+        mLlUserPassword2 = (ConstraintLayout) findViewById(R.id.ll_user_password2);
+        mTvUserPassword2 = (TextView) findViewById(R.id.tv_user_password2);
+        mEtUserPassword2 = (EditText) findViewById(R.id.et_user_password2);
         mBtnSubmit = (Button) findViewById(R.id.btn_submit);
         mTvRegisterAgreement = (TextView) findViewById(R.id.tv_register_agreement);
         mTvSelfAgreement = (TextView) findViewById(R.id.tv_self_agreement);
-
     }
 
     @Override
     protected void initListener() {
         super.initListener();
-        tv_refresh.setOnClickListener(this);
         mTvSmsSend.setOnClickListener(this);
         mBtnSubmit.setOnClickListener(this);
         mTvRegisterAgreement.setOnClickListener(this);
@@ -112,14 +124,14 @@ public class RegisterActivity extends BaseInitActivity implements View.OnClickLi
 
 
         mEtPhone.addTextChangedListener(this);
-        mEtUserCode.addTextChangedListener(this);
         mEtUserSms.addTextChangedListener(this);
         mEtUserPassword.addTextChangedListener(this);
         mEtUserName.addTextChangedListener(this);
 
-        mTitleBar.setOnBackPressListener(view -> {
-            finish();
-        });
+        mBtnNext.setOnClickListener(this);
+        mIvBack.setOnClickListener(this);
+        mTvLogin.setOnClickListener(this);
+
     }
 
     @Override
@@ -127,24 +139,11 @@ public class RegisterActivity extends BaseInitActivity implements View.OnClickLi
         super.initData();
 
         countDown();
-        flushTy();
     }
 
     @Override
     protected void onEventComing(EventCenter center) {
 
-    }
-
-
-    /**
-     * 刷新图形验证码
-     */
-    private void flushTy() {
-        flag = new Random().nextInt(99999);
-        if (flag < 10000) {
-            flag += 10000;
-        }
-        GlideUtils.loadImageViewLoding(AppConfig.tuxingCode + "?random=" + flag, mImgCode);
     }
 
 
@@ -170,6 +169,7 @@ public class RegisterActivity extends BaseInitActivity implements View.OnClickLi
     public void register() {
         final String phone = mEtPhone.getText().toString();
         final String pwd = mEtUserPassword.getText().toString();
+        final String pwd2 = mEtUserPassword2.getText().toString();
         String sms = mEtUserSms.getText().toString();
 
         if (StringUtil.isEmpty(phone)) {
@@ -187,6 +187,14 @@ public class RegisterActivity extends BaseInitActivity implements View.OnClickLi
         } else if (pwd.length() > 16 || pwd.length() < 6) {
             ToastUtil.toast("请输入6-16位密码");
             mEtUserPassword.requestFocus();
+            return;
+        } else if (pwd2.length() > 16 || pwd2.length() < 6) {
+            ToastUtil.toast("请输入6-16位密码");
+            mEtUserPassword2.requestFocus();
+            return;
+        } else if (!pwd2.equals(pwd)) {
+            ToastUtil.toast("请确认两个密码为一致");
+            mEtUserPassword2.requestFocus();
             return;
         } else if (StringUtil.isEmpty(mEtUserName)) {
             ToastUtil.toast("昵称不能为空");
@@ -223,16 +231,15 @@ public class RegisterActivity extends BaseInitActivity implements View.OnClickLi
             ToastUtil.toast("手机号不能为空");
             mEtPhone.requestFocus();
             return;
-        } else if (StringUtil.isEmpty(mEtUserCode)) {
+        } else if (StringUtil.isEmpty(mImgCode)) {
             ToastUtil.toast("图形验证码不能为空");
-            mEtUserCode.requestFocus();
             return;
         }
         Map<String, Object> map = new HashMap<>();
         map.put("phone", phone);
 //        map.put("type", "register");
         map.put("random", flag + "");
-        map.put("imgCode", mEtUserCode.getText().toString());
+        map.put("imgCode", mImgCode);
         ApiClient.requestNetHandle(this, AppConfig.getPhoneCodeUrl, "获取验证码...", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
@@ -261,21 +268,32 @@ public class RegisterActivity extends BaseInitActivity implements View.OnClickLi
         switch (view.getId()) {
             case R.id.tv_register_agreement:
                 //注册协议
-                WebViewActivity.actionStart(mContext,AppConfig.user_agree);
+                WebViewActivity.actionStart(mContext, AppConfig.user_agree);
                 break;
             case R.id.tv_self_agreement:
                 //注册协议
-                WebViewActivity.actionStart(mContext,AppConfig.register_agree);
-                break;
-            case R.id.tv_refresh:
-                if (!XClickUtil.isFastDoubleClick(view, 1500)) {
-                    flushTy();
-                } else {
-                    ToastUtils.showToast("请勿连续点击");
-                }
+                WebViewActivity.actionStart(mContext, AppConfig.register_agree);
                 break;
             case R.id.tv_sms_send:
-                getTXCode();
+
+                new GraphicVerificationDialog(mContext).setPositiveButton(dialog -> {
+                    mImgCode = dialog.getCode();
+                    getTXCode();
+                }).setNegativeButton(dialog -> {
+                }).show();
+
+                break;
+            case R.id.tv_login:
+                LoginActivity.actionStart(mContext);
+                finish();
+                break;
+            case R.id.btn_next:
+                mLlPoint1.setVisibility(View.GONE);
+                mLlPoint2.setVisibility(View.VISIBLE);
+                break;
+            case R.id.iv_back:
+                mLlPoint1.setVisibility(View.VISIBLE);
+                mLlPoint2.setVisibility(View.GONE);
                 break;
             case R.id.btn_submit:
                 if (!XClickUtil.isFastDoubleClick(view, 1000)) {
@@ -299,8 +317,9 @@ public class RegisterActivity extends BaseInitActivity implements View.OnClickLi
 
     @Override
     public void afterTextChanged(Editable editable) {
-        mBtnSubmit.setEnabled(!StringUtil.isEmpty(mEtPhone) && !StringUtil.isEmpty(mEtUserCode)
-                && !StringUtil.isEmpty(mEtUserSms) && !StringUtil.isEmpty(mEtUserPassword)
+        mBtnSubmit.setEnabled(!StringUtil.isEmpty(mEtPhone)
+                && !StringUtil.isEmpty(mEtUserSms)
+                && !StringUtil.isEmpty(mEtUserPassword) && !StringUtil.isEmpty(mEtUserPassword2)
                 && !StringUtil.isEmpty(mEtUserName));
     }
 }

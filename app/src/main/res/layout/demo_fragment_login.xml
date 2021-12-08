@@ -112,7 +112,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/color_F5F5F5"
+                android:background="@color/color_AAAAAA"
                 app:layout_constraintBottom_toBottomOf="@id/et_login_pwd" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -166,7 +166,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
-                android:background="@color/color_F5F5F5"
+                android:background="@color/color_AAAAAA"
                 app:layout_constraintBottom_toBottomOf="@id/et_login_sms" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -10,6 +10,10 @@ import com.ycf.qianzhihe.section.account.fragment.LoginFragment;
 
 public class LoginActivity extends BaseInitActivity {
 
+    public static void actionStart(Context context) {
+        actionStart(context, "");
+    }
+
     public static void actionStart(Context context,String fromType) {
         Intent intent = new Intent(context, LoginActivity.class);
         intent.putExtra("fromType", fromType);

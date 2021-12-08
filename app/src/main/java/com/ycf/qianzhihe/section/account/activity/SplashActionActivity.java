@@ -53,7 +53,7 @@ public class SplashActionActivity extends BaseInitActivity {
             RegisterActivity.actionStart(mContext);
             finish();
         } else if (view.getId() == R.id.stLogin) {
-            LoginActivity.actionStart(mContext, "");
+            LoginActivity.actionStart(mContext);
             finish();
         }
     }

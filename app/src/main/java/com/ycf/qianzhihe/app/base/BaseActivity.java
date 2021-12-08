@@ -127,7 +127,7 @@ public class BaseActivity extends AppCompatActivity {
                     public void onSuccess() {
                         finishOtherActivities();
 //                        startActivity(new Intent(mContext, LoginActivity.class));
-                        LoginActivity.actionStart(mContext, "");
+                        LoginActivity.actionStart(mContext);
                         finish();
                     }
 
@@ -163,7 +163,7 @@ public class BaseActivity extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int which) {
                         finishOtherActivities();
 //                        startActivity(new Intent(mContext, LoginActivity.class));
-                        LoginActivity.actionStart(mContext, "");
+                        LoginActivity.actionStart(mContext);
                         finish();
                     }
                 })

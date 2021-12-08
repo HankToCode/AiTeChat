@@ -75,7 +75,7 @@ public class CommonApi {
 //            Intent intent = new Intent(context, /*AuthenticationActivity.class*/LoginActivity.class);
 //            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 //            context.startActivity(intent);
-            LoginActivity.actionStart(context, "");
+            LoginActivity.actionStart(context);
             return false;
         } else {
             return true;

@@ -53,9 +53,13 @@ public class GraphicVerificationDialog extends Dialog implements View.OnClickLis
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        flushTy();
-
         mTvRefresh.setOnClickListener(this);
+    }
+
+    @Override
+    public void show() {
+        super.show();
+        flushTy();
     }
 
     @Override
