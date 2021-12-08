@@ -23,6 +23,8 @@ import com.ycf.qianzhihe.common.utils.AdapterHelper;
 
 import com.hyphenate.easeui.ui.base.EaseBaseFragment;
 import com.scwang.smartrefresh.layout.util.DensityUtil;
+import com.ycf.qianzhihe.common.utils.ToastUtils;
+import com.ycf.qianzhihe.common.widget.WrapRadiusIndicator;
 import com.ycf.qianzhihe.section.account.activity.UserInfoDetailActivity;
 import com.ycf.qianzhihe.section.common.ContactActivity;
 import com.ycf.qianzhihe.section.common.ContactSearchActivity;
@@ -97,18 +99,15 @@ public class ContactHomeFragment extends BaseInitFragment implements View.OnClic
                 colorTransitionPagerTitleView.setText(titles.get(index));
                 colorTransitionPagerTitleView.setTextSize(15);
                 colorTransitionPagerTitleView.setOnClickListener(view -> viewPager.setCurrentItem(index));
-
                 return colorTransitionPagerTitleView;
             }
 
             @Override
             public IPagerIndicator getIndicator(Context context) {
                 //设置头部标签指示器
-                WrapPagerIndicator indicator = new WrapPagerIndicator(context);
+                WrapRadiusIndicator indicator = new WrapRadiusIndicator(context);
                 indicator.setFillColor(Color.WHITE);
-                indicator.setHorizontalPadding(DensityUtil.dp2px(10));
-                indicator.setVerticalPadding(DensityUtil.dp2px(5));
-                indicator.setRoundRadius(DensityUtil.dp2px(25));
+
                 return indicator;
             }
         });
