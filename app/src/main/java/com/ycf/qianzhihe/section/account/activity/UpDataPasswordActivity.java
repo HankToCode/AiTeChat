@@ -10,12 +10,12 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.coorchice.library.SuperTextView;
+import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
@@ -23,12 +23,11 @@ import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
 import com.ycf.qianzhihe.app.utils.XClickUtil;
+import com.ycf.qianzhihe.app.weight.GraphicVerificationDialog;
 import com.ycf.qianzhihe.common.utils.ToastUtils;
 import com.zds.base.ImageLoad.GlideUtils;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.util.StringUtil;
-
-import com.hyphenate.easeui.widget.EaseTitleBar;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -44,18 +43,10 @@ import java.util.Random;
  */
 public class UpDataPasswordActivity extends BaseInitActivity implements View.OnClickListener, TextWatcher {
 
-    public static void actionStart(Context context) {
-        Intent intent = new Intent(context, UpDataPasswordActivity.class);
-        context.startActivity(intent);
-    }
-
     private EaseTitleBar mTitleBar;
-    private ConstraintLayout mLlUserName;
-    private TextView mTvUserName;
+    private ConstraintLayout mLlPhone;
+    private TextView mTvPhone;
     private EditText mEtPhone;
-    private TextView mTvUserCode;
-    private EditText mEtUserCode;
-    private ImageView mImgCode;
     private ConstraintLayout mLlUserSms;
     private TextView mTvUserSms;
     private EditText mEtUserSms;
@@ -67,12 +58,17 @@ public class UpDataPasswordActivity extends BaseInitActivity implements View.OnC
     private TextView mTvUserPasswordConfirm;
     private EditText mEtUserPasswordConfirm;
     private Button mBtnSubmit;
-    private TextView tv_refresh;
+
+    public static void actionStart(Context context) {
+        Intent intent = new Intent(context, UpDataPasswordActivity.class);
+        context.startActivity(intent);
+    }
 
 
     private CountDownTimer timer;
 
     private int flag;
+    private String mImgCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,14 +84,11 @@ public class UpDataPasswordActivity extends BaseInitActivity implements View.OnC
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
 
+
         mTitleBar = (EaseTitleBar) findViewById(R.id.title_bar);
-        mLlUserName = (ConstraintLayout) findViewById(R.id.ll_phone);
-        mTvUserName = (TextView) findViewById(R.id.tv_phone);
+        mLlPhone = (ConstraintLayout) findViewById(R.id.ll_phone);
+        mTvPhone = (TextView) findViewById(R.id.tv_phone);
         mEtPhone = (EditText) findViewById(R.id.et_phone);
-        tv_refresh = (TextView) findViewById(R.id.tv_refresh);
-        mTvUserCode = (TextView) findViewById(R.id.tv_user_code);
-        mEtUserCode = (EditText) findViewById(R.id.et_user_code);
-        mImgCode = (ImageView) findViewById(R.id.img_code);
         mLlUserSms = (ConstraintLayout) findViewById(R.id.ll_user_sms);
         mTvUserSms = (TextView) findViewById(R.id.tv_user_sms);
         mEtUserSms = (EditText) findViewById(R.id.et_user_sms);
@@ -107,15 +100,12 @@ public class UpDataPasswordActivity extends BaseInitActivity implements View.OnC
         mTvUserPasswordConfirm = (TextView) findViewById(R.id.tv_user_password_confirm);
         mEtUserPasswordConfirm = (EditText) findViewById(R.id.et_user_password_confirm);
         mBtnSubmit = (Button) findViewById(R.id.btn_submit);
-
-
     }
 
     @Override
     protected void initData() {
         super.initData();
         countDown();
-        flushTy();
     }
 
     @Override
@@ -127,13 +117,11 @@ public class UpDataPasswordActivity extends BaseInitActivity implements View.OnC
     protected void initListener() {
         super.initListener();
 
-        tv_refresh.setOnClickListener(this);
         mTvSmsSend.setOnClickListener(this);
         mBtnSubmit.setOnClickListener(this);
 
 
         mEtPhone.addTextChangedListener(this);
-        mEtUserCode.addTextChangedListener(this);
         mEtUserSms.addTextChangedListener(this);
         mEtUserPassword.addTextChangedListener(this);
         mEtUserPasswordConfirm.addTextChangedListener(this);
@@ -143,19 +131,6 @@ public class UpDataPasswordActivity extends BaseInitActivity implements View.OnC
         });
 
     }
-
-    /**
-     * 刷新图形验证码
-     */
-    private void flushTy() {
-        flag = new Random().nextInt(99999);
-        if (flag < 10000) {
-            flag += 10000;
-        }
-        GlideUtils.loadImageViewLoding(AppConfig.tuxingCode + "?random=" + flag, mImgCode);
-    }
-
-
 
     private void countDown() {
         timer = new CountDownTimer(60 * 1000, 1000) {
@@ -233,16 +208,15 @@ public class UpDataPasswordActivity extends BaseInitActivity implements View.OnC
             ToastUtil.toast("手机号不能为空");
             mEtPhone.requestFocus();
             return;
-        } else if (StringUtil.isEmpty(mEtUserCode)) {
+        } else if (StringUtil.isEmpty(mImgCode)) {
             ToastUtil.toast("图形验证码不能为空");
-            mEtUserCode.requestFocus();
             return;
         }
         Map<String, Object> map = new HashMap<>();
         map.put("phone", phone);
         map.put("type", "updatePwd");
         map.put("random", flag + "");
-        map.put("imgCode", mEtUserCode.getText().toString());
+        map.put("imgCode", mImgCode);
 
         ApiClient.requestNetHandle(this, AppConfig.getForgetPhoneCodeUrl, "获取验证码...", map, new ResultListener() {
             @Override
@@ -269,15 +243,13 @@ public class UpDataPasswordActivity extends BaseInitActivity implements View.OnC
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.tv_refresh:
-                if (!XClickUtil.isFastDoubleClick(view, 1500)) {
-                    flushTy();
-                } else {
-                    ToastUtils.showToast("请勿连续点击");
-                }
-                break;
             case R.id.tv_sms_send:
-                getSms();
+                new GraphicVerificationDialog(mContext).setPositiveButton(dialog -> {
+                    mImgCode = dialog.getCode();
+                    flag = dialog.getFlag();
+                    getSms();
+                }).setNegativeButton(dialog -> {
+                }).show();
                 break;
             case R.id.btn_submit:
                 register();
@@ -300,7 +272,7 @@ public class UpDataPasswordActivity extends BaseInitActivity implements View.OnC
 
     @Override
     public void afterTextChanged(Editable editable) {
-        mBtnSubmit.setEnabled(!StringUtil.isEmpty(mEtPhone) && !StringUtil.isEmpty(mEtUserCode)
+        mBtnSubmit.setEnabled(!StringUtil.isEmpty(mEtPhone)
                 && !StringUtil.isEmpty(mEtUserSms) && !StringUtil.isEmpty(mEtUserPassword)
                 && !StringUtil.isEmpty(mEtUserPasswordConfirm));
     }
