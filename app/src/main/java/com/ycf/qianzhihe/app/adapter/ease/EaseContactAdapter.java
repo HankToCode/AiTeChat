@@ -73,7 +73,7 @@ public class EaseContactAdapter extends ArrayAdapter<EaseUser> implements Sectio
             holder.nameView = (TextView) convertView.findViewById(R.id.name);
             holder.tv_sign = (TextView) convertView.findViewById(R.id.tv_sign);
             holder.headerView = (TextView) convertView.findViewById(R.id.header);
-            holder.onlineStatus=(ImageView) convertView.findViewById(R.id.iv_online_status);
+            holder.onlineStatus = (ImageView) convertView.findViewById(R.id.iv_online_status);
             convertView.setTag(holder);
         } else {
             holder = (ViewHolder) convertView.getTag();
@@ -85,9 +85,11 @@ public class EaseContactAdapter extends ArrayAdapter<EaseUser> implements Sectio
         }
         String username = user.getUsername();
         String header = user.getInitialLetter();
+        String isOnlineStr = "离线";
         //是否在线
         if (!TextUtils.isEmpty(user.getLine())) {
             if (user.getLine().equals("online")) {
+                isOnlineStr = "在线";
                 holder.onlineStatus.setBackgroundResource(R.drawable.dot_green);
             } else {
                 holder.onlineStatus.setBackgroundResource(R.drawable.dot_gray);
@@ -109,9 +111,9 @@ public class EaseContactAdapter extends ArrayAdapter<EaseUser> implements Sectio
 
         holder.nameView.setText(UserOperateManager.getInstance().getUserName(username));
         if (!TextUtils.isEmpty(user.getUserSign())) {
-            holder.tv_sign.setText(user.getUserSign());
+            holder.tv_sign.setText("[" + isOnlineStr + "] " + user.getUserSign());
         } else {
-            holder.tv_sign.setText("这家伙很懒,什么都没有留下,心里却有一个你");
+            holder.tv_sign.setText("[" + isOnlineStr + "] " + "这家伙很懒,什么都没有留下,心里却有一个你");
         }
         //是否为会员vipLevel
         if (!TextUtils.isEmpty(user.getVipLevel())) {

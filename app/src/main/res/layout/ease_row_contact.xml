@@ -30,8 +30,8 @@
 
         <com.hyphenate.easeui.widget.EaseImageView
             android:id="@+id/avatar"
-            android:layout_width="@dimen/dp_38"
-            android:layout_height="@dimen/dp_38"
+            android:layout_width="46dp"
+            android:layout_height="41dp"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/dp_20"
             android:src="@mipmap/ic_ng_avatar" />
@@ -93,6 +93,7 @@
             android:layout_height="@dimen/dp_8"
             android:layout_alignLeft="@id/avatar"
             android:layout_alignBottom="@+id/avatar"
+            android:visibility="gone"
             android:layout_marginStart="38dp"
             android:background="@drawable/dot_green" />
 
