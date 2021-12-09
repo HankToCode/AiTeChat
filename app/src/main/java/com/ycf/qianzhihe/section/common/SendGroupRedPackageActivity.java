@@ -81,12 +81,17 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
     @BindView(R.id.tv_send_red)
     TextView mTvSendRed;
 
-    @BindView(R.id.tv_select)
-    TextView tvSelect;
     @BindView(R.id.root)
     LinearLayout root;
     @BindView(R.id.tv_member)
     TextView tv_member;
+
+    @BindView(R.id.tv_psq)
+    TextView tvPSQ;
+    @BindView(R.id.tv_pt)
+    TextView tvPT;
+    @BindView(R.id.tv_zs)
+    TextView tvZS;
 
     private int isSelectBalance = 0;
     private TextView tv_bank_name;
@@ -98,8 +103,6 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
     //结果返回最多重新查询次数
     private int maxCount = 5;
     private Handler handler = new Handler();
-
-    private List<String> list = new ArrayList<>();
 
 
     @Override
@@ -124,11 +127,14 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
             ContactActivity.actionStart(mContext, "4", "", groupId);
         });
 
-        list.add("拼手气红包");
-        list.add("专属红包");
-        list.add("普通红包");
-        tvSelect.setOnClickListener(view -> {
-            toSelectItem();//更换样式
+        tvPSQ.setOnClickListener(view -> {
+            switchMethod(0);
+        });
+        tvPT.setOnClickListener(view -> {
+            switchMethod(1);
+        });
+        tvZS.setOnClickListener(view -> {
+            switchMethod(2);
         });
 
 
@@ -140,33 +146,6 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
         switchMethod(currentRedPackageMethod);
         tv_member.setOnClickListener(view -> ToastUtil.toast("即将推出，敬请期待"));
 
-    }
-
-    private void toSelectItem() {
-        final CommonDialog.Builder builder = new CommonDialog.Builder(this).fullWidth().fromBottom().setView(R.layout.dialog_redpackage_select);
-        builder.setOnClickListener(R.id.tv_psj, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                builder.dismiss();
-                switchMethod(0);
-            }
-        });
-        builder.setOnClickListener(R.id.tv_zs, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                builder.dismiss();
-                switchMethod(1);
-            }
-        });
-        builder.setOnClickListener(R.id.tv_pt, new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                builder.dismiss();
-                switchMethod(2);
-            }
-        });
-        builder.setOnClickListener(R.id.tv_cell, view -> builder.dismiss());
-        builder.create().show();
     }
 
     private ContactListInfo.DataBean dataBean;
@@ -271,23 +250,30 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
 
     private void switchMethod(int redPackageMethod) {
         currentRedPackageMethod = redPackageMethod;
-        tvSelect.setText(list.get(redPackageMethod));
+
         llNum.setVisibility(View.GONE);
         llTotalAmount.setVisibility(View.GONE);
         llSendTo.setVisibility(View.GONE);
         llRemark.setVisibility(View.GONE);
 
+        tvPSQ.setSelected(false);
+        tvPT.setSelected(false);
+        tvZS.setSelected(false);
+
         if (redPackageMethod == 0) {
+            tvPSQ.setSelected(true);
             llNum.setVisibility(View.VISIBLE);
             llTotalAmount.setVisibility(View.VISIBLE);
             tvTotalTitle.setText("总金额");
             llRemark.setVisibility(View.VISIBLE);
         } else if (redPackageMethod == 1) {
+            tvPT.setSelected(true);
             llSendTo.setVisibility(View.VISIBLE);
             llTotalAmount.setVisibility(View.VISIBLE);
             tvTotalTitle.setText("单个金额");
             llRemark.setVisibility(View.VISIBLE);
         } else if (redPackageMethod == 2) {
+            tvZS.setSelected(true);
             llNum.setVisibility(View.VISIBLE);
             llTotalAmount.setVisibility(View.VISIBLE);
             tvTotalTitle.setText("单个金额");
@@ -558,7 +544,7 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
             return;
         }
         final CommonDialog.Builder builder = new CommonDialog.Builder(this).fullWidth().fromBottom()
-                        .setView(R.layout.dialog_customer_keyboard);
+                .setView(R.layout.dialog_customer_keyboard);
         builder.setOnClickListener(R.id.delete_dialog,
                 new View.OnClickListener() {
                     @Override
