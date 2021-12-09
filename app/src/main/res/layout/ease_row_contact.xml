@@ -10,10 +10,10 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_22"
-        android:background="#FBFBFB"
+        android:background="@color/white"
         android:gravity="center_vertical"
         android:paddingLeft="@dimen/dp_20"
-        android:textColor="#666666"
+        android:textColor="@color/color_666666"
         android:textSize="@dimen/sp_12"
         android:visibility="gone" />
 
@@ -60,6 +60,7 @@
                     android:textColor="#000000"
                     android:textSize="@dimen/sp_16"
                     tools:text="test" />
+
                 <TextView
                     android:id="@+id/tv_sign"
                     android:layout_width="wrap_content"
