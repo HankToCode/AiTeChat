@@ -162,7 +162,7 @@ public class BitmapUtil {
 
     public static void saveBitmapInFile(Context context, final Bitmap bitmap) {
         try {
-            String storePath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "千纸鹤";
+            String storePath = Environment.getExternalStorageDirectory().getAbsolutePath() + File.separator + "南国";
             File appDir = new File(storePath);
             if (!appDir.exists()) {
                 appDir.mkdir();

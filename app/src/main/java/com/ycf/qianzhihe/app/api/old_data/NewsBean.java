@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 /**
  * @author lhb
- * 好千纸鹤息
+ * 好南国息
  */
 public class NewsBean implements Serializable {
     private long createTime;//null,

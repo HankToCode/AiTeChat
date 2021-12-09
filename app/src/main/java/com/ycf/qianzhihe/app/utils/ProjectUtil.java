@@ -26,7 +26,7 @@ public class ProjectUtil {
             case Constant.ADD_USER_ORIGIN_TYPE_QRCODE:
                 return "通过扫一扫";
             case Constant. ADD_USER_ORIGIN_TYPE_SEARCH:
-                return "通过手机号/千纸鹤号搜索";
+                return "通过手机号/南国号搜索";
             case Constant.ADD_USER_ORIGIN_TYPE_GROUPCHAT:
                 if (TextUtils.isEmpty(name))
                     return "";

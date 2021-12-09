@@ -126,7 +126,7 @@ public class ConversationListFragment extends BaseConversationListFragment imple
                         String msgType = FastJsonUtil.getString(json, "msgType");
 
                         if ("systematic".equals(msgType)) {
-                            intent.putExtra(Constant.NICKNAME, "千纸鹤小助手");//千纸鹤官方
+                            intent.putExtra(Constant.NICKNAME, "南国小助手");//南国官方
                             isSystem = true;
                         } else if ("walletMsg".equals(msgType)) {
                             intent.putExtra(Constant.NICKNAME, "钱包助手");

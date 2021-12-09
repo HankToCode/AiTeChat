@@ -44,7 +44,7 @@ public class LogoffDialog extends BaseDialog {
         tv_cancel.setOnClickListener(this);
         tv_confirm.setOnClickListener(this);
 
-        RichTextUtils.getBuilder("千纸鹤平台将会")
+        RichTextUtils.getBuilder("南国平台将会")
                 .append("永久清空")
                 .setForegroundColor(Color.parseColor("#EE4444"))
                 .append("您的账号信息， 包括但不限于 个人资料、聊天信息、消费信息")

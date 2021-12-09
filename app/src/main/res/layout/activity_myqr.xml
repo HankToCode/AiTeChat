@@ -81,7 +81,7 @@
             android:textColor="#999999"
             android:textSize="@dimen/sp_11"
             android:textStyle="bold"
-            android:text="千纸鹤号:" />
+            android:text="南国号:" />
 
 
         <TextView
@@ -91,7 +91,7 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="20dp"
-            android:text="扫一扫上面的二维码，加我千纸鹤好友"
+            android:text="扫一扫上面的二维码，加我南国好友"
             android:textColor="#ff666666"
             android:textSize="12sp" />
 

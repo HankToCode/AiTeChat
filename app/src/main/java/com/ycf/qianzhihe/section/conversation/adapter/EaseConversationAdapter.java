@@ -224,9 +224,9 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
 //            holder.ImgMsgFree.setVisibility(View.GONE);
             if (username.equals(Constant.ADMIN)) {//778899445566112233-qianzhihe
                 holder.swipeRevealLayout.setLockDrag(true);
-                holder.name.setText("千纸鹤小助手");//千纸鹤官方
+                holder.name.setText("南国小助手");//南国官方
                 holder.iv_aite_guanfang.setVisibility(View.VISIBLE);
-                /*RichTextUtils.getBuilder("千纸鹤")
+                /*RichTextUtils.getBuilder("南国")
                         .append("官方")
                         .setForegroundColor(Color.parseColor("#762BFF"))
                         .setProportion(0.8f)
@@ -259,7 +259,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                 }
 
                 if (contactId.contains("d816636e130411ecab930c42a1a8807a")) {//fbce17090a6611ecab930c42a1a8807a
-                    holder.name.setText("千纸鹤客服");
+                    holder.name.setText("南国客服");
                 } else if (contactId.contains("0d777a9c8f9311eb844f00163e0654c2")) {
                     holder.name.setText("异常处理客服");
                 } else {

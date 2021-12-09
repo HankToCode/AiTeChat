@@ -32,13 +32,13 @@ public class UserProtocolDialog extends BaseDialog {
     private OnAgreeClickListener mOnAgreeClickListener;
     private OnNotAgreeClickListener mOnNotAgreeClickListener;
 
-    private String mContent = "亲，感谢您对千纸鹤一直以来的信任！\n\n" +
+    private String mContent = "亲，感谢您对南国一直以来的信任！\n\n" +
             "我们深知个人信息对用户的重要性，将按照法律法规要求，采取相应的保护措施，尽力保障您的个人信息安全。\n\n" +
             "鉴此，我们特向您说明如下：\n\n" +
-            "① 您在使用千纸鹤各项产品或服务时，将会提供与具体功能相关的个人信息（可能涉及账号、位置、交易等信息）。\n\n" +
+            "① 您在使用南国各项产品或服务时，将会提供与具体功能相关的个人信息（可能涉及账号、位置、交易等信息）。\n\n" +
             "② 未经您的再次同意，我们不会将上述信息用于您未授权的其他用途或目的。\n\n" +
             "③ 您可以随时查询、更正您的个人信息。\n\n" +
-            "点击同意即表示您已阅读《千纸鹤平台服务协议》和《千纸鹤隐私政策》并接受全部条款。";
+            "点击同意即表示您已阅读《南国平台服务协议》和《南国隐私政策》并接受全部条款。";
 
 
     public UserProtocolDialog(Activity activity) {
@@ -64,8 +64,8 @@ public class UserProtocolDialog extends BaseDialog {
         tv_agree.setOnClickListener(this);
 
         final String[] clickKeywords = new String[3];
-        clickKeywords[0] = "《千纸鹤平台服务协议》";
-        clickKeywords[1] = "《千纸鹤隐私政策》";
+        clickKeywords[0] = "《南国平台服务协议》";
+        clickKeywords[1] = "《南国隐私政策》";
         clickKeywords[2] = "鉴此，我们特向您说明如下：";
         TextAreaClickUtils.initText(tv_content, mContent,
                 new String[]{clickKeywords[0], clickKeywords[1],clickKeywords[2]}, Color.parseColor("#000000"),

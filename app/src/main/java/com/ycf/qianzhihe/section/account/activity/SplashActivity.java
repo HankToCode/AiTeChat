@@ -294,7 +294,7 @@ public class SplashActivity extends BaseInitActivity {
         mCommonConfirmDialog.setCancelable(false);
         mCommonConfirmDialog.setCanceledOnTouchOutside(false);
 
-        mCommonConfirmDialog.setTitle("您需要同意本隐私协议才能继续使用千纸鹤");
+        mCommonConfirmDialog.setTitle("您需要同意本隐私协议才能继续使用南国");
         mCommonConfirmDialog.setContent("若您不同意本隐私协议，很遗憾我们将无法为您提供服务");
         mCommonConfirmDialog.setButtonText("仍不同意", "查看协议");
     }

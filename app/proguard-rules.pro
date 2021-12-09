@@ -239,7 +239,7 @@
 -keep class com.detect.live.** { *; }
 -keep class com.detect.facedetect.** { *; }
 
-#千纸鹤源码混淆问题
+#南国源码混淆问题
 -keep class com.ycf.qianzhihe.common.fcm.EMFCMTokenRefreshService {*;}
 -keep class com.google.firebase.iid.** {*;}
 

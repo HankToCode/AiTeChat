@@ -54,7 +54,7 @@
         android:layout_marginLeft="@dimen/dp_15"
         android:layout_marginTop="@dimen/dp_5"
         android:layout_marginRight="@dimen/dp_38"
-        android:text="其他用户可在没有您的手机号码的情况下，通过千纸鹤号找 到您。仅可使用数字，字母和下划线。"
+        android:text="其他用户可在没有您的手机号码的情况下，通过南国号找 到您。仅可使用数字，字母和下划线。"
         android:textColor="#8E8E8E"
         android:visibility="gone"
         android:textSize="@dimen/sp_12" />

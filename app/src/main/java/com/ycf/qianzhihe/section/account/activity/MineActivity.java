@@ -260,7 +260,7 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
                 BuyMemberActivity.actionStart(this);
                 break;
             case R.id.tv_mall://商城
-//                startActivity(new Intent(mContext, WebViewActivity.class).putExtra("title","千纸鹤商城").putExtra("url",AppConfig.shopUrl));
+//                startActivity(new Intent(mContext, WebViewActivity.class).putExtra("title","南国商城").putExtra("url",AppConfig.shopUrl));
                 WebViewActivity.actionStart(mContext,AppConfig.shopUrl,true);
                 break;
             case R.id.tv_collection:

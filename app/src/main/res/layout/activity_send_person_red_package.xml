@@ -47,7 +47,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:titleBarDisplayHomeAsUpEnabled="true"
             app:titleBarLeftImage="@mipmap/icon_back_white"
-            app:titleBarTitle="千纸鹤红包"
+            app:titleBarTitle="南国红包"
             app:titleBarTitleTextColor="@color/white" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
