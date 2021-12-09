@@ -13,6 +13,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
+import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.hyphenate.chat.EMClient;
@@ -25,6 +26,7 @@ import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.base.BaseActivity;
 import com.ycf.qianzhihe.app.domain.EaseUser;
+import com.ycf.qianzhihe.app.weight.ConversationItemView;
 import com.ycf.qianzhihe.common.constant.DemoConstant;
 import com.ycf.qianzhihe.section.MainViewModel;
 import com.ycf.qianzhihe.section.chat.activity.ChatActivity;
@@ -46,6 +48,8 @@ public class ContactListFragment extends EaseContactListFragment {
 
     private static final String TAG = ContactListFragment.class.getSimpleName();
     private View loadingView;
+
+    private ConversationItemView mFriendNotice;
 
     @Override
     protected void initView(Bundle savedInstanceState) {
@@ -71,15 +75,22 @@ public class ContactListFragment extends EaseContactListFragment {
                 }
             }
         });
-        mFriendNotice.setVisibility(View.VISIBLE);
 
-        mFriendNotice.setOnClickListener(v ->{
+        mFriendNotice = new ConversationItemView(requireContext());
+        mFriendNotice.setUnreadCount(0);
+        mFriendNotice.setName("新朋友");
+        mFriendNotice.setAvatar(ContextCompat.getDrawable(requireContext(), R.mipmap.ic_new_friends));
+        mFriendNotice.setVisibility(View.VISIBLE);
+        contactListLayout.getListView().addHeaderView(mFriendNotice);
+
+        mFriendNotice.setOnClickListener(v -> {
             mFriendNotice.setUnreadCount(0);
             AuditMsgActivity.actionStart(requireContext());
         });
     }
 
     private MainViewModel viewModel;
+
     @Override
     protected void initViewModel() {
         super.initViewModel();

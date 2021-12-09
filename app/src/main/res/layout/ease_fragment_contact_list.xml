@@ -7,7 +7,7 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <com.ycf.qianzhihe.app.weight.ConversationItemView
+    <!--<com.ycf.qianzhihe.app.weight.ConversationItemView
         android:id="@+id/friend_notice"
         android:layout_width="match_parent"
         android:layout_height="@dimen/main_message_item_height"
@@ -21,7 +21,7 @@
         android:layout_height="@dimen/main_message_item_height"
         android:visibility="gone"
         app:conversationItemImage="@drawable/ic_group_notice"
-        app:conversationItemName="@string/groups_notice" />
+        app:conversationItemName="@string/groups_notice" />-->
 
     <FrameLayout
         android:id="@+id/content_container"

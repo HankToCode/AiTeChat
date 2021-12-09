@@ -20,6 +20,8 @@ public class ConversationItemView extends LinearLayout {
 
     private TextView msgDateView;
     private TextView unreadMsgView;
+    private ImageView avatar;
+    private TextView nameView;
 
     public ConversationItemView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -38,10 +40,10 @@ public class ConversationItemView extends LinearLayout {
         ta.recycle();
 
         LayoutInflater.from(context).inflate(R.layout.em_widget_conversation_item, this);
-        ImageView avatar = (ImageView) findViewById(R.id.avatar);
+        avatar = (ImageView) findViewById(R.id.avatar);
         msgDateView = (TextView) findViewById(R.id.msg_date);
         unreadMsgView = (TextView) findViewById(R.id.unread_msg_number);
-        TextView nameView = (TextView) findViewById(R.id.name);
+        nameView = (TextView) findViewById(R.id.name);
         if (image != null) {
             avatar.setImageDrawable(image);
         }
@@ -49,6 +51,14 @@ public class ConversationItemView extends LinearLayout {
 
         msgDateView.setText(DateUtils.getTimestampString(new Date(System.currentTimeMillis())));
         msgDateView.setVisibility(GONE);
+    }
+
+    public void setName(String name) {
+        nameView.setText(name);
+    }
+
+    public void setAvatar(Drawable image) {
+        avatar.setImageDrawable(image);
     }
 
     public void setUnreadCount(int unreadCount) {

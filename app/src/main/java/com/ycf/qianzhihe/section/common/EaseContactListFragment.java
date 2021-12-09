@@ -62,8 +62,6 @@ public class EaseContactListFragment extends BaseInitFragment {
     protected FrameLayout contentContainer;
     List<ContactListInfo.DataBean> mContactList;
     protected TextView tv_number;
-    protected ConversationItemView mFriendNotice;
-    protected ConversationItemView mGroupNotice;
     protected FrameLayout mContentContainer;
     protected TextView mTvNumber;
 
@@ -113,9 +111,6 @@ public class EaseContactListFragment extends BaseInitFragment {
             });
         }
 
-
-        mFriendNotice = (ConversationItemView) findViewById(R.id.friend_notice);
-        mGroupNotice = (ConversationItemView) findViewById(R.id.group_notice);
         mContentContainer = (FrameLayout) findViewById(R.id.content_container);
         mTvNumber = (TextView) findViewById(R.id.tv_number);
     }
