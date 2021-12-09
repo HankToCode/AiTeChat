@@ -23,25 +23,15 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <ImageView
-            android:id="@+id/iv_back"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:layout_margin="12dp"
-            android:src="@drawable/em_mm_title_back"
-            android:visibility="gone"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
         <com.hyphenate.easeui.widget.EaseTitleBar
             android:id="@+id/title_bar"
             android:layout_width="match_parent"
             android:layout_height="@dimen/em_common_title_bar_height"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:titleBarDisplayHomeAsUpEnabled="true"
-            app:titleBarLeftImage="@mipmap/icon_back_white"
-            app:titleBarTitle="南国红包"
+            app:titleBarLeftImage="@mipmap/ic_back"
+            app:titleBarTitle="群红包"
+            app:titleBarTitlePosition="left"
             app:titleBarTitleTextColor="@color/white" />
 
         <LinearLayout
@@ -117,7 +107,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="发给谁"
-                        android:textColor="@color/black"
+                        android:textColor="@color/color_333333"
                         android:textSize="@dimen/sp_16" />
 
                     <TextView
@@ -129,7 +119,7 @@
                         android:drawableRight="@drawable/ic_point_to"
                         android:drawablePadding="10dp"
                         android:gravity="end|center_vertical"
-                        android:textColor="@color/black"
+                        android:textColor="@color/color_333333"
                         android:textSize="@dimen/sp_16" />
                 </LinearLayout>
 
@@ -150,7 +140,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="红包个数"
-                        android:textColor="@color/black"
+                        android:textColor="@color/color_333333"
                         android:textSize="@dimen/sp_16" />
 
                     <EditText
@@ -165,7 +155,7 @@
                         android:hint="0.00"
                         android:inputType="numberDecimal|number"
                         android:maxLength="11"
-                        android:textColor="@color/black_text"
+                        android:textColor="@color/color_333333"
                         android:textColorHint="@color/grey_2"
                         android:textSize="@dimen/sp_16" />
 
@@ -174,7 +164,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="个"
-                        android:textColor="@color/black"
+                        android:textColor="@color/color_333333"
                         android:textSize="@dimen/sp_16" />
                 </LinearLayout>
 
@@ -196,7 +186,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="总金额"
-                        android:textColor="@color/black"
+                        android:textColor="@color/color_333333"
                         android:textSize="@dimen/sp_16" />
 
                     <EditText
@@ -211,7 +201,7 @@
                         android:hint="0.00"
                         android:inputType="numberDecimal|number"
                         android:maxLength="11"
-                        android:textColor="@color/black_text"
+                        android:textColor="@color/color_333333"
                         android:textColorHint="@color/grey_2"
                         android:textSize="@dimen/sp_16" />
 
@@ -220,7 +210,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="元"
-                        android:textColor="@color/black"
+                        android:textColor="@color/color_333333"
                         android:textSize="@dimen/sp_16" />
                 </LinearLayout>
 
@@ -241,7 +231,7 @@
                         android:layout_height="match_parent"
                         android:gravity="center_vertical"
                         android:text="留言"
-                        android:textColor="@color/black"
+                        android:textColor="@color/color_333333"
                         android:textSize="@dimen/sp_16" />
 
                     <EditText
@@ -255,7 +245,7 @@
                         android:gravity="end|center_vertical"
                         android:hint="恭喜发财，大吉大利！"
                         android:lines="1"
-                        android:textColor="@color/black_text"
+                        android:textColor="@color/color_333333"
                         android:textColorHint="@color/grey_2"
                         android:textSize="@dimen/sp_16" />
 
@@ -277,7 +267,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:text="封皮"
-                        android:textColor="@color/black"
+                        android:textColor="@color/color_333333"
                         android:textSize="@dimen/sp_16" />
 
                     <TextView
@@ -289,7 +279,7 @@
                         android:drawablePadding="10dp"
                         android:gravity="end|center_vertical"
                         android:text="会员专属"
-                        android:textColor="@color/black"
+                        android:textColor="@color/color_333333"
                         android:textSize="@dimen/sp_16" />
 
                     <ImageView
@@ -308,7 +298,7 @@
                         android:layout_marginStart="@dimen/dp_22"
                         android:gravity="center_vertical"
                         android:text="默认"
-                        android:textColor="@color/black"
+                        android:textColor="@color/color_333333"
                         android:textSize="@dimen/sp_10" />
                 </RelativeLayout>
 
@@ -319,7 +309,7 @@
                     android:layout_marginTop="30dp"
                     android:gravity="center"
                     android:text="￥0.00"
-                    android:textColor="@color/black_text"
+                    android:textColor="@color/color_999999"
                     android:textSize="@dimen/sp_28"
                     android:textStyle="bold" />
 

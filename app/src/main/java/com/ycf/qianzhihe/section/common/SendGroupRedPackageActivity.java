@@ -114,7 +114,7 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         initImmersionBar(false);
-        title_bar.setTitle("南国红包");
+        title_bar.setTitle("群红包");
         title_bar.setOnBackPressListener(view -> finish());
 
         mTvSendRed.setOnClickListener(view -> {

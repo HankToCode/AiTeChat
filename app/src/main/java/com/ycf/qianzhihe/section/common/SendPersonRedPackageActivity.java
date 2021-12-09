@@ -80,7 +80,7 @@ public class SendPersonRedPackageActivity extends BaseInitActivity {
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         initImmersionBar(false);
-        title_bar.setTitle("南国红包");
+        title_bar.setTitle("发红包");
         title_bar.setOnBackPressListener(view -> finish());
         mEtRedAmount.setInputType(InputType.TYPE_NUMBER_FLAG_DECIMAL | InputType.TYPE_CLASS_NUMBER);
         mEtRedAmount.setFilters(new InputFilter[]{
