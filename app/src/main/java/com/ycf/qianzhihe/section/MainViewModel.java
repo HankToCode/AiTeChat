@@ -23,16 +23,22 @@ import com.ycf.qianzhihe.common.utils.PreferenceManager;
 public class MainViewModel extends AndroidViewModel {
     private InviteMessageDao inviteMessageDao;
     private MutableLiveData<String> homeUnReadObservable;
+    private MutableLiveData<String> homeUnReadContactObservable;
 
     public MainViewModel(@NonNull Application application) {
         super(application);
         inviteMessageDao = DemoDbHelper.getInstance(application).getInviteMessageDao();
         homeUnReadObservable = new MutableLiveData<>();
+        homeUnReadContactObservable = new MutableLiveData<>();
     }
 
 
     public LiveData<String> homeUnReadObservable() {
         return homeUnReadObservable;
+    }
+
+    public LiveData<String> homeUnReadContactObservable() {
+        return homeUnReadContactObservable;
     }
 
     public LiveDataBus messageChangeObservable() {
@@ -43,7 +49,7 @@ public class MainViewModel extends AndroidViewModel {
 
         EMConversation conversation = EMClient.getInstance().chatManager().getConversation(Constant.ADMIN);
         UnReadMsgCount.getUnreadMessageCount().as(activity.autoDispose()).subscribe(unreadMessageCount1 -> {
-            int unreadCount = 0;
+            /*int unreadCount = 0;
             if (inviteMessageDao != null) {
                 unreadCount = inviteMessageDao.queryUnreadCount();
             }
@@ -52,10 +58,14 @@ public class MainViewModel extends AndroidViewModel {
             int applyJoinGroupcount = (int) PreferenceManager.getInstance().getParam(SP.APPLY_JOIN_GROUP_NUM, 0);
             int addUserCount = (int) PreferenceManager.getInstance().getParam(SP.APPLY_ADD_USER_NUM, 0);
 
-            String count = getUnreadCount(applyJoinGroupcount + addUserCount + unreadCount + unreadMessageCount);
-            homeUnReadObservable.postValue(count);
+            String count = getUnreadCount(applyJoinGroupcount + addUserCount + unreadCount + unreadMessageCount);*/
+            String count = getUnreadCount(unreadMessageCount1 - ((conversation != null && conversation.getUnreadMsgCount() > 0) ? conversation.getUnreadMsgCount() : 0));
+            homeUnReadObservable.postValue("" + count);
         });
 
+        int addUserCount = (int) PreferenceManager.getInstance().getParam(SP.APPLY_ADD_USER_NUM, 0);
+
+        homeUnReadContactObservable.postValue(getUnreadCount(addUserCount));
 
     }
 

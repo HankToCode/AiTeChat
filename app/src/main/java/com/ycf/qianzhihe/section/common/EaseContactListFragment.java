@@ -24,25 +24,22 @@ import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;
 import com.ycf.qianzhihe.R;
-import com.ycf.qianzhihe.app.api.Constant;
-import com.ycf.qianzhihe.app.base.BaseInitFragment;
-import com.ycf.qianzhihe.app.domain.EaseUser;
-import com.ycf.qianzhihe.app.operate.UserOperateManager;
-import com.ycf.qianzhihe.common.model.DemoModel;
-import com.zds.base.Toast.ToastUtil;
-import com.zds.base.json.FastJsonUtil;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.old_data.ContactListInfo;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
 import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
-import com.ycf.qianzhihe.app.weight.ease.EaseCommonUtils;
+import com.ycf.qianzhihe.app.base.BaseInitFragment;
+import com.ycf.qianzhihe.app.domain.EaseUser;
+import com.ycf.qianzhihe.app.operate.UserOperateManager;
+import com.ycf.qianzhihe.app.weight.ConversationItemView;
 import com.ycf.qianzhihe.app.weight.ease.EaseContactList;
+import com.zds.base.Toast.ToastUtil;
+import com.zds.base.json.FastJsonUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,6 +62,10 @@ public class EaseContactListFragment extends BaseInitFragment {
     protected FrameLayout contentContainer;
     List<ContactListInfo.DataBean> mContactList;
     protected TextView tv_number;
+    protected ConversationItemView mFriendNotice;
+    protected ConversationItemView mGroupNotice;
+    protected FrameLayout mContentContainer;
+    protected TextView mTvNumber;
 
     @Override
     protected int getLayoutId() {
@@ -100,7 +101,7 @@ public class EaseContactListFragment extends BaseInitFragment {
 
         contactList = new ArrayList<EaseUser>();
         checkSeviceContactData();
-        contactListLayout.setShowSiderBar(false);
+        contactListLayout.setShowSiderBar(true);
         //init list
         contactListLayout.init(contactList);
 
@@ -113,6 +114,10 @@ public class EaseContactListFragment extends BaseInitFragment {
         }
 
 
+        mFriendNotice = (ConversationItemView) findViewById(R.id.friend_notice);
+        mGroupNotice = (ConversationItemView) findViewById(R.id.group_notice);
+        mContentContainer = (FrameLayout) findViewById(R.id.content_container);
+        mTvNumber = (TextView) findViewById(R.id.tv_number);
     }
 
     /**

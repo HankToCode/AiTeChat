@@ -740,7 +740,9 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
                                                 pagesize - msgCount);
                                         Log.d("interval", "onNext====================================2");
                                     }
-                                    mMessageList.refreshSelectLast();
+                                    if (mMessageList != null) {
+                                        mMessageList.refreshSelectLast();
+                                    }
                                     Log.d("interval", "onNext====================================3");
                                 } catch (HyphenateException e) {
                                     e.printStackTrace();

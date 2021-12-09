@@ -2,8 +2,6 @@ package com.ycf.qianzhihe;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 
-import static com.darsh.multipleimageselect.helpers.Constants.REQUEST_CODE;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +12,6 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -26,7 +23,6 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.gyf.immersionbar.ImmersionBar;
 import com.hyphenate.easecallkit.base.EaseCallType;
 import com.hyphenate.easecallkit.ui.EaseMultipleVideoActivity;
 import com.hyphenate.easecallkit.ui.EaseVideoCallActivity;
@@ -36,16 +32,11 @@ import com.ycf.qianzhihe.app.api.old_http.ApiClient;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.operate.GroupOperateManager;
 import com.ycf.qianzhihe.common.utils.ToastUtils;
-import com.ycf.qianzhihe.section.contact.activity.AddUserActivity;
 import com.ycf.qianzhihe.section.discover.NewsFragment;
 import com.ycf.qianzhihe.section.me.MineFragment;
 import com.zds.base.ImageLoad.GlideUtils;
 import com.zds.base.Toast.ToastUtil;
-import com.zds.base.code.activity.CaptureActivity;
 import com.zds.base.json.FastJsonUtil;
-import com.zds.base.util.DensityUtils;
-import com.ycf.qianzhihe.app.api.Constant;
-import com.ycf.qianzhihe.app.api.Global;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
@@ -53,7 +44,6 @@ import com.ycf.qianzhihe.app.api.old_data.LoginInfo;
 import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.ycf.qianzhihe.app.base.ActivityStackManager;
 import com.ycf.qianzhihe.app.operate.UserOperateManager;
-import com.ycf.qianzhihe.app.weight.PopWinShare;
 import com.ycf.qianzhihe.common.constant.DemoConstant;
 import com.ycf.qianzhihe.common.permission.PermissionsManager;
 import com.ycf.qianzhihe.common.permission.PermissionsResultAction;
@@ -61,10 +51,7 @@ import com.ycf.qianzhihe.common.utils.PushUtils;
 import com.ycf.qianzhihe.section.MainViewModel;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
 import com.ycf.qianzhihe.section.account.activity.LoginActivity;
-import com.ycf.qianzhihe.section.account.activity.UserInfoDetailActivity;
 import com.ycf.qianzhihe.section.chat.ChatPresenter;
-import com.ycf.qianzhihe.section.common.ContactActivity;
-import com.ycf.qianzhihe.section.common.MyQrActivity;
 import com.ycf.qianzhihe.section.contact.fragment.ContactHomeFragment;
 import com.ycf.qianzhihe.section.contact.viewmodels.ContactsViewModel;
 import com.ycf.qianzhihe.section.conversation.ConversationListFragment;
@@ -90,9 +77,9 @@ import io.reactivex.schedulers.Schedulers;
 public class MainActivity extends BaseInitActivity implements BottomNavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
     private View container;
     private BottomNavigationView navView;
-    private EaseBaseFragment mContactsFragment, mMessageFragment, mDiscoverFragment, mFindFragment, mNewsFragment, mMineFragment;
+    private EaseBaseFragment mMessageFragment, mContactsFragment, mDiscoverFragment, mMineFragment, mFindFragment, mNewsFragment;
     private EaseBaseFragment mCurrentFragment;
-    private TextView mTvMainContactsMsg, mTvMainMessageMsg, mTvMainDiscoverMsg, mTvMainFindMsg;
+    private TextView mTvMainMessageMsg, mTvMainContactsMsg, mTvMainDiscoverMsg, mTvMainMineMsg;
     private int[] badgeIds = {R.layout.demo_badge_home, R.layout.demo_badge_about_me, R.layout.demo_badge_friends, R.layout.demo_badge_discover};
     private int[] msgIds = {R.id.tv_main_home_msg, R.id.tv_main_about_me_msg, R.id.tv_main_friends_msg, R.id.tv_main_discover_msg};
     private MainViewModel viewModel;
@@ -139,7 +126,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
         super.initView(savedInstanceState);
         initImmersionBar(false);
 
-        container =  findViewById(R.id.container);
+        container = findViewById(R.id.container);
         navView = findViewById(R.id.nav_view);
         navView.setItemIconTintList(null);
         switchToMessage();
@@ -234,6 +221,15 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
             }
         });
 
+        viewModel.homeUnReadContactObservable().observe(this, readCount -> {
+            if (!TextUtils.isEmpty(readCount)) {
+                mTvMainContactsMsg.setVisibility(View.VISIBLE);
+                mTvMainContactsMsg.setText(readCount);
+            } else {
+                mTvMainContactsMsg.setVisibility(View.GONE);
+            }
+        });
+
         //加载联系人
         ContactsViewModel contactsViewModel = new ViewModelProvider(mContext).get(ContactsViewModel.class);
         contactsViewModel.loadContactList();
@@ -272,14 +268,13 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
                     mTvMainMessageMsg = badge.findViewById(msgIds[0]);
                     break;
                 case 1:
-                    mTvMainFindMsg = badge.findViewById(msgIds[1]);
+                    mTvMainContactsMsg = badge.findViewById(msgIds[1]);
                     break;
-
                 case 2:
-                    mTvMainContactsMsg = badge.findViewById(msgIds[2]);
+                    mTvMainDiscoverMsg = badge.findViewById(msgIds[2]);
                     break;
                 case 3:
-                    mTvMainDiscoverMsg = badge.findViewById(msgIds[3]);
+                    mTvMainMineMsg = badge.findViewById(msgIds[3]);
                     break;
             }
             itemTab.addView(badge);

@@ -4,6 +4,7 @@
 package com.ycf.qianzhihe.section.contact.fragment;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.LayoutInflater;
@@ -12,20 +13,28 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
+import androidx.lifecycle.ViewModelProvider;
+
 import com.hyphenate.chat.EMClient;
+import com.hyphenate.easeui.model.EaseEvent;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
 import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
+import com.ycf.qianzhihe.app.base.BaseActivity;
 import com.ycf.qianzhihe.app.domain.EaseUser;
+import com.ycf.qianzhihe.common.constant.DemoConstant;
+import com.ycf.qianzhihe.section.MainViewModel;
 import com.ycf.qianzhihe.section.chat.activity.ChatActivity;
 import com.ycf.qianzhihe.section.common.EaseContactListFragment;
+import com.ycf.qianzhihe.section.conversation.AuditMsgActivity;
 import com.zds.base.Toast.ToastUtil;
 
 import com.hyphenate.easeui.constants.EaseConstant;
 import com.hyphenate.exceptions.HyphenateException;
+import com.zds.base.util.NumberUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -62,6 +71,42 @@ public class ContactListFragment extends EaseContactListFragment {
                 }
             }
         });
+        mFriendNotice.setVisibility(View.VISIBLE);
+
+        mFriendNotice.setOnClickListener(v ->{
+            mFriendNotice.setUnreadCount(0);
+            AuditMsgActivity.actionStart(requireContext());
+        });
+    }
+
+    private MainViewModel viewModel;
+    @Override
+    protected void initViewModel() {
+        super.initViewModel();
+        viewModel = new ViewModelProvider(mContext).get(MainViewModel.class);
+
+        viewModel.homeUnReadContactObservable().observe(this, readCount -> {
+            if (!TextUtils.isEmpty(readCount)) {
+                mFriendNotice.setUnreadCount(NumberUtils.parseInt(readCount));
+            } else {
+                mFriendNotice.setUnreadCount(0);
+            }
+        });
+
+        viewModel.messageChangeObservable().with(DemoConstant.GROUP_CHANGE, EaseEvent.class).observe(this, this::checkUnReadMsg);
+        viewModel.messageChangeObservable().with(DemoConstant.NOTIFY_CHANGE, EaseEvent.class).observe(this, this::checkUnReadMsg);
+        viewModel.messageChangeObservable().with(DemoConstant.MESSAGE_CHANGE_CHANGE, EaseEvent.class).observe(this, this::checkUnReadMsg);
+
+        viewModel.messageChangeObservable().with(DemoConstant.CONVERSATION_DELETE, EaseEvent.class).observe(this, this::checkUnReadMsg);
+        viewModel.messageChangeObservable().with(DemoConstant.CONTACT_CHANGE, EaseEvent.class).observe(this, this::checkUnReadMsg);
+        viewModel.messageChangeObservable().with(DemoConstant.CONVERSATION_READ, EaseEvent.class).observe(this, this::checkUnReadMsg);
+    }
+
+    private void checkUnReadMsg(EaseEvent event) {
+        if (event == null) {
+            return;
+        }
+        viewModel.checkUnreadMsg((BaseActivity) requireActivity());
     }
 
     @Override

@@ -48,6 +48,7 @@ public class ConversationItemView extends LinearLayout {
         nameView.setText(name);
 
         msgDateView.setText(DateUtils.getTimestampString(new Date(System.currentTimeMillis())));
+        msgDateView.setVisibility(GONE);
     }
 
     public void setUnreadCount(int unreadCount) {
