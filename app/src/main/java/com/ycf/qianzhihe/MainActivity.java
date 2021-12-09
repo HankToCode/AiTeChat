@@ -331,35 +331,36 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
     }
 
     private void switchToMine() {
-        container.setBackgroundResource(R.mipmap.bg_main_mine);
         if (mMineFragment == null) {
             mMineFragment = new MineFragment();
         }
         replace(mMineFragment, "mine");
+        container.setBackgroundResource(R.mipmap.bg_main_mine);
+
     }
 
     private void switchToHome() {
-        container.setBackgroundResource(R.mipmap.bg_main_message);
         if (mContactsFragment == null) {
             mContactsFragment = new ContactHomeFragment();
         }
         replace(mContactsFragment, "contacts");
+        container.setBackgroundResource(R.mipmap.bg_main_message);
     }
 
     private void switchToMessage() {
-        container.setBackgroundResource(R.mipmap.bg_main_message);
         if (mMessageFragment == null) {
             mMessageFragment = new ConversationListFragment();
         }
         replace(mMessageFragment, "message");
+        container.setBackgroundResource(R.mipmap.bg_main_message);
     }
 
     private void switchToDiscover() {
-        container.setBackgroundResource(R.mipmap.bg_main_discover);
         if (mDiscoverFragment == null) {
             mDiscoverFragment = new DiscoverFragment();
         }
         replace(mDiscoverFragment, "discover");
+        container.setBackgroundResource(R.mipmap.bg_main_discover);
     }
 
     private void switchToAboutMe() {
