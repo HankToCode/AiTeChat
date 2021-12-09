@@ -88,6 +88,7 @@ import io.reactivex.schedulers.Schedulers;
 
 
 public class MainActivity extends BaseInitActivity implements BottomNavigationView.OnNavigationItemSelectedListener, View.OnClickListener {
+    private View container;
     private BottomNavigationView navView;
     private EaseBaseFragment mContactsFragment, mMessageFragment, mDiscoverFragment, mFindFragment, mNewsFragment, mMineFragment;
     private EaseBaseFragment mCurrentFragment;
@@ -136,20 +137,10 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-//        initImmersionBar(true);
-        navView = findViewById(R.id.nav_view);
-        /*mTitleBar.setRightLayoutClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (mTitleBar.getTitle().getText().equals("联系人")) {
-//                    AddContactActivity.actionStart(mContext, SearchType.CHAT);//搜索>添加好友
-                    AddUserActivity.actionStart(mContext);
-                } else if (mTitleBar.getTitle().getText().equals("消息")) {
-                    showPopWinShare(mTitleBar.getRightImage());
-                }
+        initImmersionBar(false);
 
-            }
-        });*/
+        container =  findViewById(R.id.container);
+        navView = findViewById(R.id.nav_view);
         navView.setItemIconTintList(null);
         switchToMessage();
         checkIfShowSavedFragment(savedInstanceState);
@@ -340,6 +331,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
     }
 
     private void switchToMine() {
+        container.setBackgroundResource(R.mipmap.bg_main_mine);
         if (mMineFragment == null) {
             mMineFragment = new MineFragment();
         }
@@ -347,6 +339,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
     }
 
     private void switchToHome() {
+        container.setBackgroundResource(R.mipmap.bg_main_message);
         if (mContactsFragment == null) {
             mContactsFragment = new ContactHomeFragment();
         }
@@ -354,6 +347,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
     }
 
     private void switchToMessage() {
+        container.setBackgroundResource(R.mipmap.bg_main_message);
         if (mMessageFragment == null) {
             mMessageFragment = new ConversationListFragment();
         }
@@ -361,6 +355,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
     }
 
     private void switchToDiscover() {
+        container.setBackgroundResource(R.mipmap.bg_main_discover);
         if (mDiscoverFragment == null) {
             mDiscoverFragment = new DiscoverFragment();
         }
