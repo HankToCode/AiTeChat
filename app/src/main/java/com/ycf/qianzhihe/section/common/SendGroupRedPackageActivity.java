@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.InputFilter;
+import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.EditText;
@@ -31,6 +32,7 @@ import com.ycf.qianzhihe.app.weight.CommonDialog;
 import com.ycf.qianzhihe.app.weight.PasswordEditText;
 import com.ycf.qianzhihe.app.weight.passwoed_keyboard.OnNumberKeyboardListener;
 import com.ycf.qianzhihe.app.weight.passwoed_keyboard.XNumberKeyboardView;
+import com.ycf.qianzhihe.common.utils.SpannableStringUtil;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.json.FastJsonUtil;
 import com.zds.base.upDated.utils.NetWorkUtils;
@@ -222,10 +224,14 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
 
         if (NumberUtils.parseDouble(money) > 0) {
             tvRedAmount.setText("￥" + money);
-            mTvSendRed.setEnabled(true);
+
+            SpannableStringBuilder ssp = SpannableStringUtil.getBuilder("发红包 ").append(money).setTextSize(70).append("元").create();
+            mTvSendRed.setText(ssp);
+            mTvSendRed.setBackgroundResource(R.drawable.bor_red_package);
         } else {
             tvRedAmount.setText("￥0.00");
-            mTvSendRed.setEnabled(false);
+            mTvSendRed.setText("发红包");
+            mTvSendRed.setBackgroundResource(R.drawable.bor_red_package_normal);
         }
 
     }

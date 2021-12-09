@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.SpannableStringBuilder;
 import android.text.Spanned;
 import android.text.TextWatcher;
 import android.view.View;
@@ -30,6 +31,7 @@ import com.ycf.qianzhihe.app.weight.CommonDialog;
 import com.ycf.qianzhihe.app.weight.PasswordEditText;
 import com.ycf.qianzhihe.app.weight.passwoed_keyboard.OnNumberKeyboardListener;
 import com.ycf.qianzhihe.app.weight.passwoed_keyboard.XNumberKeyboardView;
+import com.ycf.qianzhihe.common.utils.SpannableStringUtil;
 import com.ycf.qianzhihe.common.utils.ToastUtils;
 import com.zds.base.json.FastJsonUtil;
 import com.zds.base.upDated.utils.NetWorkUtils;
@@ -42,6 +44,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import butterknife.BindView;
+
 import com.zds.base.Toast.ToastUtil;
 
 /**
@@ -123,10 +126,14 @@ public class SendPersonRedPackageActivity extends BaseInitActivity {
             public void afterTextChanged(Editable s) {
                 if (s.length() > 0) {
                     mTvRedAmount.setText("￥" + mEtRedAmount.getText().toString().trim());
-                    mTvSendRed.setBackgroundResource(R.drawable.bor_login_sel);
+
+                    SpannableStringBuilder ssp = SpannableStringUtil.getBuilder("发红包 ").append(mEtRedAmount.getText().toString().trim()).setTextSize(70).append("元").create();
+                    mTvSendRed.setText(ssp);
+                    mTvSendRed.setBackgroundResource(R.drawable.bor_red_package);
                 } else {
                     mTvRedAmount.setText("￥0.00");
-                    mTvSendRed.setBackgroundResource(R.drawable.bor_login);
+                    mTvSendRed.setText("发红包");
+                    mTvSendRed.setBackgroundResource(R.drawable.bor_red_package_normal);
                 }
             }
         });
@@ -173,26 +180,26 @@ public class SendPersonRedPackageActivity extends BaseInitActivity {
                         "恭喜发财，大吉大利！" : mEtRemark.getText().toString().trim();
         map.put("remark", remark);
 
-        ApiClient.requestNetHandle(this, AppConfig.CREATE_PERSON_RED_PACKE, "发送中..." , map, new ResultListener() {
-                    @Override
-                    public void onSuccess(String json, String msg) {
-                        Intent intent = new Intent();
-                        intent.putExtra("money",
-                                mEtRedAmount.getText().toString().trim());
-                        intent.putExtra("remark",
-                                remark);
-                        intent.putExtra("redId", json);
-                        setResult(Activity.RESULT_OK, intent);
+        ApiClient.requestNetHandle(this, AppConfig.CREATE_PERSON_RED_PACKE, "发送中...", map, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                Intent intent = new Intent();
+                intent.putExtra("money",
+                        mEtRedAmount.getText().toString().trim());
+                intent.putExtra("remark",
+                        remark);
+                intent.putExtra("redId", json);
+                setResult(Activity.RESULT_OK, intent);
 //                        ToastUtil.toast(msg);
-                        finish();
-                    }
+                finish();
+            }
 
-                    @Override
-                    public void onFailure(String msg) {
-                        ToastUtil.toast(msg);
-                        mLastClickTime = 0;
-                    }
-                });
+            @Override
+            public void onFailure(String msg) {
+                ToastUtil.toast(msg);
+                mLastClickTime = 0;
+            }
+        });
     }
 
     private void doSendRedPackageClick() {

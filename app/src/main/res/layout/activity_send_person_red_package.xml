@@ -189,7 +189,8 @@
                 android:text="￥0.00"
                 android:textColor="@color/black_text"
                 android:textSize="@dimen/sp_28"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:visibility="gone" />
 
         </LinearLayout>
 
@@ -201,7 +202,7 @@
             android:layout_marginTop="200dp"
             android:layout_marginRight="@dimen/dp_10"
             android:layout_marginBottom="22dp"
-            android:background="@drawable/bor_red_package"
+            android:background="@drawable/bor_red_package_normal"
             android:gravity="center"
             android:paddingTop="@dimen/dp_11"
             android:paddingBottom="@dimen/dp_11"
