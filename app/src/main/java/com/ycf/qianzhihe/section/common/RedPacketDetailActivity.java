@@ -91,7 +91,7 @@ public class RedPacketDetailActivity extends BaseInitActivity {
         title_bar = headView.findViewById(R.id.title_bar);
         tv_money = headView.findViewById(R.id.tv_money);
         ll_user_money = headView.findViewById(R.id.ll_user_money);
-        ll_user_money.setVisibility(View.GONE);
+        ll_user_money.setVisibility(View.INVISIBLE);
         tv_name = headView.findViewById(R.id.tv_name);
         tv_intro = headView.findViewById(R.id.tv_intro);
         img_head = headView.findViewById(R.id.img_head);

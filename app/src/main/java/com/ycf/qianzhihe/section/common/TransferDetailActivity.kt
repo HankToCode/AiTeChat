@@ -3,15 +3,18 @@ package com.ycf.qianzhihe.section.common
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
+import com.hyphenate.easeui.widget.EaseTitleBar.OnBackPressListener
 import com.ycf.qianzhihe.R
+import com.ycf.qianzhihe.app.api.global.UserComm
 import com.ycf.qianzhihe.app.api.old_data.EventCenter
 import com.ycf.qianzhihe.app.api.old_http.ApiClient
 import com.ycf.qianzhihe.app.api.old_http.AppConfig
 import com.ycf.qianzhihe.app.api.old_http.ResultListener
 import com.ycf.qianzhihe.app.base.BaseInitActivity
+import com.ycf.qianzhihe.common.utils.SpannableStringUtil
 import com.zds.base.Toast.ToastUtil.toast
+import com.zds.base.util.StringUtil
 import kotlinx.android.synthetic.main.activity_transfer_detail.*
-import kotlinx.android.synthetic.main.toolbar_layout.*
 import java.util.*
 
 /**
@@ -47,9 +50,14 @@ class TransferDetailActivity : BaseInitActivity() {
 
     override fun initView(savedInstanceState: Bundle?) {
         super.initView(savedInstanceState)
-        toolbar_title.text = "转账"
-        ll_back.setOnClickListener { view: View? -> finish() }
-        tv_money.text = if (money.isNullOrEmpty()) "￥ 0.00" else "￥ $money"
+
+        title_bar.setOnBackPressListener { finish() }
+
+
+        val moneyStr = StringUtil.getFormatValue2(if (money.isNullOrEmpty()) "0.00" else "$money")
+
+        tv_money.text =
+            SpannableStringUtil.getBuilder(moneyStr).setTextSize(80).append("  元").create()
         viewUI()
         tv_collection.setOnClickListener {
             checkTransfer()
@@ -61,22 +69,37 @@ class TransferDetailActivity : BaseInitActivity() {
         when (status) {
             "0" -> {
                 tv_status.text = "待确认收款"
+                tv_collection.visibility = View.VISIBLE
                 tv_collection.setBackgroundResource(if (isSelf == false) R.drawable.shap_blue else R.drawable.group_search_gray)
                 tv_collection.isEnabled = isSelf == false
                 img_status.setImageResource(R.mipmap.daiqueren)
             }
             "1" -> {
                 tv_status.text = "已确认收款"
+                tv_collection.visibility = View.INVISIBLE
                 tv_collection.setBackgroundResource(R.drawable.group_search_gray)
                 tv_collection.isEnabled = isSelf == false
-//                img_status.setImageResource(R.drawable.yx)
-                img_status.setImageResource(R.mipmap.daiqueren)
+                img_status.setImageResource(R.mipmap.yx)
+                tv_tips.visibility = View.VISIBLE
+
+                tv_wallet.visibility = View.VISIBLE
+                tv_wallet.setOnClickListener {
+                    //判断如果未实名，提示进行实名认证
+                    //判断如果未实名，提示进行实名认证
+                    if (UserComm.getUserInfo().openAccountFlag == 0) {
+                        RealAuthActivity.actionStart(mContext)
+                    } else {
+                        //我的钱包支付
+                        //我的钱包支付
+                        WalletActivity.actionStart(mContext)
+                    }
+                }
             }
             "2" -> {
                 tv_status.text = "已退回"
+                tv_collection.visibility = View.INVISIBLE
                 tv_collection.setBackgroundResource(R.drawable.group_search_gray)
                 tv_collection.isEnabled = isSelf == false
-//                img_status.setImageResource(R.drawable.yx)
                 img_status.setImageResource(R.mipmap.daiqueren)
             }
         }
