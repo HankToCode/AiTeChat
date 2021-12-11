@@ -204,5 +204,9 @@
     <color name="color_666666">#666666</color>
     <color name="color_AAAAAA">#AAAAAA</color>
     <color name="color_FFDBAC">#FFDBAC</color>
+    <color name="color_EA6864">#EA6864</color>
+    <color name="color_287FFA">#287FFA</color>
+    <color name="color_22_white">#22ffffff</color>
+    <color name="color_66_white">#66ffffff</color>
 
 </resources>
