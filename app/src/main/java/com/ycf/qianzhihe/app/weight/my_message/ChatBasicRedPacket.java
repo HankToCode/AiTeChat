@@ -23,7 +23,7 @@ import com.ycf.qianzhihe.app.weight.ease.chatrow.EaseChatRow;
  */
 public class ChatBasicRedPacket extends EaseChatRow {
     private TextView tv_message, tv_time_message, tv_hongbao, tv_time, toNickName;
-    private RelativeLayout bubble;
+    private RelativeLayout bubble,bubble_mask;
 
     public ChatBasicRedPacket(Context context, EMMessage message,
                               int position, BaseAdapter adapter) {
@@ -49,6 +49,7 @@ public class ChatBasicRedPacket extends EaseChatRow {
         tv_hongbao = findViewById(R.id.tv_hongbao);
         tv_time = findViewById(R.id.tv_time);
         bubble = findViewById(R.id.bubble);
+        bubble_mask = findViewById(R.id.bubble_mask);
         toNickName = findViewById(R.id.toNickName);
     }
 
@@ -77,19 +78,9 @@ public class ChatBasicRedPacket extends EaseChatRow {
         }
 
         if (isClick) {
-            if (message.direct() == EMMessage.Direct.RECEIVE) {
-                bubble.setBackgroundResource(R.mipmap.hb1);
-            } else {
-                bubble.setBackgroundResource(R.mipmap.hb4);
-            }
-
+            bubble_mask.setVisibility(VISIBLE);
         } else {
-            if (message.direct() == EMMessage.Direct.RECEIVE) {
-                bubble.setBackgroundResource(R.mipmap.hb2);
-            } else {
-                bubble.setBackgroundResource(R.mipmap.hb3);
-            }
-
+            bubble_mask.setVisibility(GONE);
         }
         if (Constant.TURN.equals(message.getStringAttribute(Constant.MSGTYPE, ""))
                 || Constant.SURE_TURN.equals(message.getStringAttribute(Constant.MSGTYPE, ""))) {

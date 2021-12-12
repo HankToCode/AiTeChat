@@ -3,6 +3,7 @@ package com.ycf.qianzhihe.app.weight.my_message;
 import android.content.Context;
 import android.text.TextUtils;
 import android.widget.BaseAdapter;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hyphenate.chat.EMMessage;
@@ -19,7 +20,8 @@ import com.zds.base.util.StringUtil;
  * 更新日期: 2017/11/27
  */
 public class ChatRedturnPacket extends EaseChatRow {
-    private TextView tv_message,tv_messageRemark, tv_time;
+    private TextView tv_message, tv_messageRemark, tv_time;
+    private RelativeLayout bubble_mask;
 
     public ChatRedturnPacket(Context context, EMMessage message, int position, BaseAdapter adapter) {
         super(context, message, position, adapter);
@@ -38,6 +40,7 @@ public class ChatRedturnPacket extends EaseChatRow {
         tv_message = findViewById(R.id.tv_transfer_received);
         tv_messageRemark = findViewById(R.id.tv_money_greeting);
         tv_time = findViewById(R.id.tv_time);
+        bubble_mask = findViewById(R.id.bubble_mask);
 
     }
 
@@ -74,9 +77,11 @@ public class ChatRedturnPacket extends EaseChatRow {
         tv_time.setText(StringUtil.formatDateMinute(message.getMsgTime()));
         if (message.direct() == EMMessage.Direct.RECEIVE) {
             tv_messageRemark.setText("收到转账");
+            bubble_mask.setVisibility(VISIBLE);
         } else {
-            String  localRobNikeName = UserOperateManager.getInstance().getUserName(message.getTo());
+            String localRobNikeName = UserOperateManager.getInstance().getUserName(message.getTo());
             tv_messageRemark.setText("转账给" + localRobNikeName);
+            bubble_mask.setVisibility(GONE);
         }
         tv_message.setText(message.getStringAttribute("money", "") + getResources().getString(R.string.glod));
     }

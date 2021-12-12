@@ -15,7 +15,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:titleBarDisplayHomeAsUpEnabled="true"
         app:titleBarLeftImage="@mipmap/icon_back_white"
-        app:titleBarRightImage="@mipmap/ic_main_message_add"
+        app:titleBarRightImage="@mipmap/ic_user_info_more"
         app:titleBarRightVisible="true"
         app:titleBarTitleTextColor="@color/white" />
 
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
-        android:drawableEnd="@mipmap/ic_main_message_add"
+        android:drawableEnd="@mipmap/ic_user_info_remark"
         android:drawablePadding="10dp"
         android:gravity="center"
         android:textColor="@color/white"
@@ -208,32 +208,32 @@
 
         </LinearLayout>
 
-         <com.coorchice.library.SuperTextView
-             android:id="@+id/tv_kick_out"
-             android:layout_width="match_parent"
-             android:layout_height="@dimen/dp_45"
-             android:layout_marginBottom="150dp"
-             android:gravity="center"
-             android:orientation="horizontal"
-             android:text="移出本群"
-             android:textColor="@color/color_EA6864"
-             android:visibility="visible"
-             app:layout_constraintBottom_toBottomOf="parent"
-             app:stv_corner="24dp"
-             app:stv_solid="@color/white" />
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/tv_kick_out"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:layout_marginBottom="150dp"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:text="移出本群"
+            android:textColor="@color/color_EA6864"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:stv_corner="24dp"
+            app:stv_solid="@color/white" />
 
-         <com.coorchice.library.SuperTextView
-             android:id="@+id/tv_add_friend"
-             android:layout_width="match_parent"
-             android:layout_height="@dimen/dp_45"
-             android:layout_marginBottom="90dp"
-             android:gravity="center"
-             android:text="添加好友"
-             android:textColor="@color/white"
-             android:visibility="visible"
-             app:layout_constraintBottom_toBottomOf="parent"
-             app:stv_corner="24dp"
-             app:stv_solid="@color/color_287FFA" />
+        <com.coorchice.library.SuperTextView
+            android:id="@+id/tv_add_friend"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_45"
+            android:layout_marginBottom="90dp"
+            android:gravity="center"
+            android:text="添加好友"
+            android:textColor="@color/white"
+            android:visibility="visible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:stv_corner="24dp"
+            app:stv_solid="@color/color_287FFA" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -28,32 +28,26 @@
             android:scaleType="centerCrop"
             android:src="@mipmap/ic_ng_avatar" />
 
+
         <RelativeLayout
             android:id="@+id/bubble"
             android:layout_width="@dimen/dp_240"
             android:layout_height="@dimen/dp_87"
             android:layout_marginLeft="@dimen/dp_5"
             android:layout_toRightOf="@id/iv_userhead"
-            android:background="@mipmap/hb2">
-
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="20dp"
-                android:src="@mipmap/ic_turn_icon" />
+            android:background="@mipmap/bg_bubble_transfer_received">
 
             <TextView
                 android:id="@+id/tv_transfer_received"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_65"
+                android:layout_marginLeft="@dimen/dp_20"
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="@dimen/dp_5"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="1"
-                android:textColor="#FFE8D6"
+                android:textColor="@color/white"
                 android:textSize="18dp"
                 tools:text="转账金额" />
 
@@ -62,28 +56,16 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_transfer_received"
-                android:layout_marginLeft="@dimen/dp_65"
+                android:layout_marginLeft="@dimen/dp_20"
                 android:layout_marginTop="8dp"
                 android:layout_marginRight="@dimen/dp_5"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="1"
-                android:textColor="#FFE8D6"
+                android:textColor="@color/white"
                 android:textSize="12dp"
                 tools:text="转账给离夏惜柚" />
 
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="16dp"
-                android:layout_marginRight="@dimen/dp_7"
-                android:layout_marginBottom="@dimen/hb_margin_bottom"
-                android:text="零钱转账"
-                android:textColor="#FFE8D6"
-                android:textSize="10dp" />
 
             <TextView
                 android:id="@+id/tv_time"
@@ -96,9 +78,19 @@
                 android:gravity="center"
                 android:paddingTop="3dp"
                 android:text="12:12:12"
-                android:textColor="#FFE5C7"
+                android:textColor="@color/color_999999"
                 android:textSize="10dp" />
         </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/bubble_mask"
+            android:layout_width="@dimen/dp_240"
+            android:layout_height="@dimen/dp_87"
+            android:layout_marginLeft="@dimen/dp_5"
+            android:visibility="gone"
+            android:layout_toRightOf="@id/iv_userhead"
+            android:background="@color/color_44_white" />
+
     </RelativeLayout>
 
 </LinearLayout>

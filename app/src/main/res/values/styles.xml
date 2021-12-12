@@ -236,26 +236,26 @@
 
 
     <style name="chat_content_received_style">
-        <item name="android:background">@drawable/bg_row_bubble_left</item>
-        <item name="android:paddingStart">10dp</item>
-        <item name="android:paddingTop">8dp</item>
-        <item name="android:paddingEnd">8dp</item>
-        <item name="android:paddingBottom">8dp</item>
-        <item name="android:layout_marginStart">5dp</item>
-        <item name="android:layout_marginEnd">5dp</item>
+        <item name="android:background">@mipmap/bg_row_bubble_left</item>
+        <item name="android:paddingStart">18dp</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingEnd">18dp</item>
+        <item name="android:paddingBottom">15dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:layout_marginStart">8dp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:minHeight">30dp</item>
     </style>
 
     <style name="chat_content_sent_style">
-        <item name="android:background">@drawable/bg_row_bubble_right</item>
-        <item name="android:paddingStart">8dp</item>
-        <item name="android:paddingTop">8dp</item>
-        <item name="android:paddingEnd">10dp</item>
-        <item name="android:paddingBottom">8dp</item>
-        <item name="android:layout_marginEnd">5dp</item>
-        <item name="android:layout_marginStart">5dp</item>
+        <item name="android:background">@mipmap/bg_row_bubble_right</item>
+        <item name="android:paddingStart">18dp</item>
+        <item name="android:paddingTop">15dp</item>
+        <item name="android:paddingEnd">18dp</item>
+        <item name="android:paddingBottom">15dp</item>
+        <item name="android:layout_marginEnd">8dp</item>
+        <item name="android:layout_marginStart">8dp</item>
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:minHeight">30dp</item>

@@ -49,6 +49,7 @@ public class ChatActivity extends BaseInitActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
+        initImmersionBar(true);
         getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         activityInstance = this;
         //use EaseChatFratFragment
@@ -85,7 +86,7 @@ public class ChatActivity extends BaseInitActivity {
                     chatFragment.sendMessage(message1);
                 }
                 break;
-            case EventUtil.OPERATE_BLACK :
+            case EventUtil.OPERATE_BLACK:
             case EventUtil.DELETE_CONTACT:
                 finish();
                 break;

@@ -29,6 +29,7 @@
 
         <RelativeLayout
             android:id="@+id/bubble"
+            style="@style/chat_content_sent_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginRight="@dimen/dp_5"

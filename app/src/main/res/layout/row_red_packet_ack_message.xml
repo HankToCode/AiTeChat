@@ -26,7 +26,6 @@
         android:layout_marginLeft="@dimen/dp_20"
         android:layout_marginTop="@dimen/dp_5"
         android:layout_marginRight="@dimen/dp_20"
-        android:background="@drawable/btn_cancel_bj"
         android:gravity="center"
         android:orientation="horizontal"
         android:paddingTop="5dp"
@@ -53,7 +52,7 @@
             android:maxLength="70"
             android:maxLines="3"
             android:text=""
-            android:textColor="#ffffff"
+            android:textColor="@color/color_999999"
             android:textSize="@dimen/sp_12" />
     </LinearLayout>
 

@@ -31,20 +31,19 @@
         <RelativeLayout
             android:id="@+id/bubble"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
-            android:layout_toRightOf="@id/iv_userhead"
-            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/tv_userid"
-            android:background="@drawable/bqp"
-            >
+            android:layout_marginLeft="@dimen/dp_5"
+            android:layout_toRightOf="@id/iv_userhead"
+            android:background="@drawable/bqp">
 
             <ImageView
                 android:id="@+id/iv_voice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:paddingLeft="@dimen/dp_10"
-	            android:paddingRight="@dimen/dp_12"
-	            android:layout_centerInParent="true"
+                android:paddingRight="@dimen/dp_12"
                 android:src="@drawable/ease_chatfrom_voice_playing" />
         </RelativeLayout>
 
