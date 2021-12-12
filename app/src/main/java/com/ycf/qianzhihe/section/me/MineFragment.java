@@ -190,10 +190,12 @@ public class MineFragment extends BaseInitFragment implements View.OnClickListen
 //            mTvUserLevel.setText("lv " + loginInfo.getUserLevel());
             //是否是会员 vipid
             if (!TextUtils.isEmpty(loginInfo.getVipLevel())) {
+                mIvVipIcon.setSelected(true);
                 mIvVipLevel.setVisibility(View.VISIBLE);
                 mStReNew.setText("立即续费");
                 mTvVipIcon.setText("已开通会员");
             } else {
+                mIvVipIcon.setSelected(false);
                 mIvVipLevel.setVisibility(View.GONE);
                 mTvVipIcon.setText("未开通会员");
                 mStReNew.setText("立即开通");

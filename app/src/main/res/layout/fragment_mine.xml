@@ -121,7 +121,7 @@
                         android:id="@+id/ivVipIcon"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_main_mine_vip_icon"
+                        android:src="@drawable/selector_main_mine_vip_icon"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
@@ -144,6 +144,8 @@
                         android:text="还有287天到期"
                         android:textColor="@color/color_AAABAF"
                         android:textSize="11dp"
+                        android:visibility="gone"
+                        tools:visibility="visible"
                         app:layout_constraintStart_toStartOf="@id/tvVipIcon"
                         app:layout_constraintTop_toBottomOf="@id/tvVipIcon" />
 
