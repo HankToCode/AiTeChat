@@ -42,6 +42,7 @@ import com.ycf.qianzhihe.app.utils.hxSetMessageFree.EaseSharedUtils;
 import com.ycf.qianzhihe.app.utils.my.MyHelper;
 import com.ycf.qianzhihe.app.weight.MyDialog;
 import com.ycf.qianzhihe.section.chat.activity.ChatActivity;
+import com.ycf.qianzhihe.section.common.MyQrActivity;
 import com.ycf.qianzhihe.section.conversation.ChatBgActivity;
 import com.ycf.qianzhihe.section.conversation.ChatRecordActivity;
 import com.ycf.qianzhihe.section.conversation.ModifyFriendRemarkActivity;
@@ -511,9 +512,12 @@ public class UserInfoDetailActivity extends BaseInitActivity {
     }
 
 
-    @OnClick({R.id.tv_send_msg, R.id.tv_add_friend, R.id.tv_kick_out, R.id.tv_remark, R.id.tv_del_friend})
+    @OnClick({R.id.tv_send_msg, R.id.tv_add_friend, R.id.tv_kick_out, R.id.tv_remark, R.id.tv_del_friend, R.id.iv_qr})
     public void onViewClicked(View view) {
         switch (view.getId()) {
+            case R.id.iv_qr:
+                MyQrActivity.actionStart(mContext, "1");
+                break;
             /*case R.id.ll_grouping:
                 Intent intent1 = new Intent(mContext, FriendGroupingActvity.class);
                 intent1.putExtra("friendUserId", userId);

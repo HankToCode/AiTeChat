@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@color/bg_color_my_gold"
+    android:background="@mipmap/bg_qr_bg"
+
     android:orientation="vertical">
 
     <com.hyphenate.easeui.widget.EaseTitleBar
@@ -11,30 +12,60 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/em_common_title_bar_height"
         app:titleBarDisplayHomeAsUpEnabled="true"
-        app:titleBarLeftImage="@drawable/ic_back"
-        app:titleBarTitle="我的二维码"/>
-    <RelativeLayout
-        android:id="@+id/rl_qrcode_view"
+        app:titleBarLeftImage="@mipmap/ic_back"
+        app:titleBarTitle="好友二维码"
+        app:titleBarTitlePosition="left"
+        app:titleBarTitleTextColor="@color/white" />
+
+
+    <LinearLayout
+        android:id="@+id/ll_qrcode_view"
         android:layout_width="315dp"
-        android:layout_height="410dp"
-        android:layout_centerInParent="true"
+        android:layout_height="wrap_content"
+        android:paddingBottom="30dp"
+        android:layout_alignTop="@id/img_head"
+        android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dp_30"
-        android:background="@drawable/shap_white"
+        android:background="@drawable/shape_gray"
         android:orientation="vertical">
 
+        <TextView
+            android:id="@+id/tv_qr_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dp_45"
+            android:textColor="@color/color_333333"
+            android:textSize="@dimen/sp_15"
+            android:layout_gravity="center_horizontal"
+            android:textStyle="bold"
+            android:text="我的朋友胡适之" />
+
+        <TextView
+            android:id="@+id/tv_chat_number"
+            android:layout_marginTop="10dp"
+            android:layout_below="@+id/tv_qr_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:textColor="#999999"
+            android:textSize="@dimen/sp_11"
+            android:textStyle="bold"
+            android:text="南国号:" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
             android:layout_below="@+id/img_head"
             >
+
             <ImageView
                 android:id="@+id/iv_qr_code"
                 android:layout_width="250dp"
                 android:layout_height="250dp"
                 android:layout_centerHorizontal="true"
-                android:scaleType="fitXY"
-                android:background="@color/white" />
+                android:background="@color/white"
+                android:scaleType="fitXY" />
 
             <com.hyphenate.easeui.widget.EaseImageView
                 android:layout_centerInParent="true"
@@ -48,75 +79,27 @@
 
         </RelativeLayout>
 
+    </LinearLayout>
 
-
-        <ImageView
-            android:id="@+id/img_head"
-            android:layout_width="@dimen/dp_50"
-            android:layout_height="@dimen/dp_50"
-            android:layout_margin="20dp"
-            android:layout_marginTop="@dimen/dp_19"
-            android:scaleType="centerCrop"
-            android:src="@mipmap/ic_ng_avatar" />
-
-        <TextView
-            android:id="@+id/tv_qr_name"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/dp_24"
-            android:layout_toRightOf="@+id/img_head"
-            android:textColor="#333333"
-            android:textSize="@dimen/sp_15"
-            android:textStyle="bold"
-            android:text="我的朋友胡适之" />
-
-        <TextView
-            android:visibility="gone"
-            android:id="@+id/tv_chat_number"
-            android:layout_marginTop="5dp"
-            android:layout_below="@+id/tv_qr_name"
-            android:layout_toRightOf="@+id/img_head"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="#999999"
-            android:textSize="@dimen/sp_11"
-            android:textStyle="bold"
-            android:text="南国号:" />
-
-
-        <TextView
-            android:id="@+id/tv_card_tips"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginBottom="20dp"
-            android:text="扫一扫上面的二维码，加我南国好友"
-            android:textColor="#ff666666"
-            android:textSize="12sp" />
-
-
-
-    </RelativeLayout>
-
-    <FrameLayout
-        android:layout_width="315dp"
-        android:layout_height="46dp"
-        android:layout_below="@+id/rl_qrcode_view"
+    <ImageView
+        android:id="@+id/iv_save_qr"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/ll_qrcode_view"
+        android:layout_marginTop="33dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="30dp"
-        android:background="@drawable/comm_affirm_btn">
+        android:src="@mipmap/ic_save_qr"/>
 
-        <TextView
-            android:id="@+id/tv_save_qr"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="?attr/selectableItemBackground"
-            android:gravity="center"
-            android:text="保存二维码"
-            android:textColor="@color/white"
-            android:textSize="@dimen/sp_16" />
-    </FrameLayout>
-
+    <ImageView
+        android:id="@+id/img_head"
+        android:layout_width="@dimen/dp_60"
+        android:layout_height="@dimen/dp_60"
+        android:layout_centerHorizontal="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="140dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="20dp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/ic_ng_avatar" />
 
 </RelativeLayout>

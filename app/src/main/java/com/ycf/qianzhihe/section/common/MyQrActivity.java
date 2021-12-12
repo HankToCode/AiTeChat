@@ -11,11 +11,10 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.github.dfqin.grantor.PermissionListener;
@@ -24,6 +23,7 @@ import com.google.zxing.WriterException;
 import com.hyphenate.easeui.widget.EaseImageView;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.app.api.old_http.AppConfig;
@@ -32,15 +32,11 @@ import com.ycf.qianzhihe.app.help.QRHelper;
 import com.ycf.qianzhihe.app.utils.BitmapUtil;
 import com.ycf.qianzhihe.app.utils.ImageUtil;
 import com.ycf.qianzhihe.app.utils.XClickUtil;
-import com.ycf.qianzhihe.app.api.Constant;
-import com.ycf.qianzhihe.common.enums.SearchType;
-import com.ycf.qianzhihe.section.contact.activity.AddContactActivity;
 import com.zds.base.ImageLoad.GlideUtils;
 import com.zds.base.Toast.ToastUtil;
 import com.zxy.tiny.Tiny;
 import com.zxy.tiny.callback.BitmapCallback;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -52,23 +48,7 @@ import butterknife.OnClick;
 
 public class MyQrActivity extends BaseInitActivity {
 
-    @BindView(R.id.tv_qr_name)
-    TextView mTvQrName;
-    @BindView(R.id.iv_qr_code)
-    ImageView mIvQrCode;
-    @BindView(R.id.img_head)
-    ImageView mImgHead;
-    @BindView(R.id.img_qr_head)
-    EaseImageView mImgQRHead;
-    @BindView(R.id.title_bar)
-    EaseTitleBar title_bar;
 
-    @BindView(R.id.rl_qrcode_view)
-    RelativeLayout rlQrCodeView;
-    @BindView(R.id.tv_card_tips)
-    TextView tvCardTips;
-    @BindView(R.id.tv_chat_number)
-    TextView tvChatNumber;
     private Bitmap qrCodeBitmap;
 
 
@@ -78,6 +58,14 @@ public class MyQrActivity extends BaseInitActivity {
      */
     private String id;
     private String from = "1";
+    private EaseTitleBar mTitleBar;
+    private LinearLayout mLlQrcodeView;
+    private TextView mTvQrName;
+    private TextView mTvChatNumber;
+    private ImageView mIvQrCode;
+    private EaseImageView mImgQrHead;
+    private ImageView mIvSaveQr;
+    private ImageView mImgHead;
 
 
     public static void actionStart(Context context, String from) {
@@ -95,11 +83,53 @@ public class MyQrActivity extends BaseInitActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-//        isTransparency(true);
-        title_bar.setOnBackPressListener(view -> finish());
-//        mLlayoutTitle1.setBackgroundColor(ContextCompat.getColor(this, R.color.bg_color_my_gold));
+        initImmersionBar(false);
+        mTitleBar = (EaseTitleBar) findViewById(R.id.title_bar);
+        mLlQrcodeView = (LinearLayout) findViewById(R.id.ll_qrcode_view);
+        mTvQrName = (TextView) findViewById(R.id.tv_qr_name);
+        mTvChatNumber = (TextView) findViewById(R.id.tv_chat_number);
+        mIvQrCode = (ImageView) findViewById(R.id.iv_qr_code);
+        mImgQrHead = (EaseImageView) findViewById(R.id.img_qr_head);
+        mIvSaveQr = (ImageView) findViewById(R.id.iv_save_qr);
+        mImgHead = (ImageView) findViewById(R.id.img_head);
+
+        mTitleBar.setOnBackPressListener(view -> finish());
+
+        if ("2".equals(from)) {
+            //群分享二维码 数据排序 服务器群id - 标志符 - 邀请人id
+            mTitleBar.setTitle("群二维码");
+            mTvQrName.setText(name);
+            if (!TextUtils.isEmpty(head)) {
+                GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(head), mImgHead, R.mipmap.ic_ng_avatar);
+                GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(head), mImgQrHead, R.mipmap.ic_ng_avatar);
+            }
+            createImgQr(AppConfig.checkimg(head));
+        } else {
+            id = UserComm.getUserInfo().getUserId() + Constant.SEPARATOR_UNDERLINE + Constant.PREFIX_QR_USER;
+            mTitleBar.setTitle("我的二维码");
+            if (!TextUtils.isEmpty(UserComm.getUserInfo().getUserCode())) {
+                mTvChatNumber.setVisibility(View.VISIBLE);
+                mTvChatNumber.setText(getString(R.string.str_chat_account, UserComm.getUserInfo().getUserCode()));
+            }
+            mTvQrName.setText(UserComm.getUserInfo().getNickName());
+            GlideUtils.GlideLoadCircleErrorImageUtils(this, UserComm.getUserInfo().getUserHead(), mImgHead, R.mipmap.ic_ng_avatar);
+            GlideUtils.GlideLoadCircleErrorImageUtils(this, UserComm.getUserInfo().getUserHead(), mImgQrHead, R.mipmap.ic_ng_avatar);
+            createImgQr(UserComm.getUserInfo().getUserHead());
+        }
+
+        ImageUtil.setAvatar(mImgQrHead);
+
+
     }
 
+    @Override
+    protected void initListener() {
+        super.initListener();
+        mIvSaveQr.setOnClickListener(view -> {
+            if (!XClickUtil.isFastDoubleClick(view, 2000))
+                save();
+        });
+    }
 
     private void createImgQr(String imgUrl) {
 
@@ -124,50 +154,23 @@ public class MyQrActivity extends BaseInitActivity {
         mIvQrCode.setImageBitmap(qrCodeBitmap);
     }
 
-    @Override
-    protected void onEventComing(EventCenter center) {
-
-    }
+    private String name = "";
+    private String head = "";
 
     @Override
     protected void initIntent(Intent intent) {
         super.initIntent(intent);
-        if ("2".equals(intent.getStringExtra("from"))) {
+        from = intent.getStringExtra("from");
+        name = intent.getStringExtra("name");
+        head = intent.getStringExtra("head");
+        if ("2".equals(from)) {
             //群分享二维码 数据排序 服务器群id - 标志符 - 邀请人id
-
             id = intent.getStringExtra("id") + Constant.SEPARATOR_UNDERLINE
                     + Constant.FLAG_QR_GROUP + Constant.SEPARATOR_UNDERLINE
                     + UserComm.getUserInfo().getUserId();
-            title_bar.setTitle("群二维码");
-            mTvQrName.setText(intent.getStringExtra("name"));
-            if (!TextUtils.isEmpty(intent.getStringExtra("head"))) {
-                GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(intent.getStringExtra("head")), mImgHead, R.mipmap.ic_ng_avatar);
-                GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(intent.getStringExtra("head")), mImgQRHead, R.mipmap.ic_ng_avatar);
-            }
-            tvCardTips.setText("扫一扫上面的二维码，加入群聊");
-            createImgQr(AppConfig.checkimg(intent.getStringExtra("head")));
         } else {
             id = UserComm.getUserInfo().getUserId() + Constant.SEPARATOR_UNDERLINE + Constant.PREFIX_QR_USER;
-            title_bar.setTitle("我的二维码");
-            if (!TextUtils.isEmpty(UserComm.getUserInfo().getUserCode())) {
-                tvChatNumber.setVisibility(View.VISIBLE);
-                tvChatNumber.setText(getString(R.string.str_chat_account, UserComm.getUserInfo().getUserCode()));
-            }
-            mTvQrName.setText(UserComm.getUserInfo().getNickName());
-            GlideUtils.GlideLoadCircleErrorImageUtils(this, UserComm.getUserInfo().getUserHead(), mImgHead, R.mipmap.ic_ng_avatar);
-            GlideUtils.GlideLoadCircleErrorImageUtils(this, UserComm.getUserInfo().getUserHead(), mImgQRHead, R.mipmap.ic_ng_avatar);
-            tvCardTips.setText("扫一扫上面的二维码，加我南国好友");
-            createImgQr(UserComm.getUserInfo().getUserHead());
         }
-
-        ImageUtil.setAvatar(mImgQRHead);
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.bind(this);
     }
 
     private void save() {
@@ -194,7 +197,7 @@ public class MyQrActivity extends BaseInitActivity {
     private void saveFile() {
         showLoading("正在保存");
 //        Bitmap QeBitmap = EncodingHandler.createQRCode(yuming + AppConfig.QR + MyApplication.getInstance().getUserInfo().getInviteCode(), 800, 800, BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher));
-        Tiny.getInstance().source(createViewBitmap(rlQrCodeView)).asBitmap().compress(new BitmapCallback() {
+        Tiny.getInstance().source(createViewBitmap(mLlQrcodeView)).asBitmap().compress(new BitmapCallback() {
             @Override
             public void callback(boolean isSuccess, Bitmap bitmap, Throwable t) {
                 if (isSuccess) {
@@ -214,18 +217,6 @@ public class MyQrActivity extends BaseInitActivity {
         Canvas canvas = new Canvas(bitmap);
         v.draw(canvas);
         return bitmap;
-    }
-
-    @OnClick({R.id.tv_save_qr})
-    public void onViewClicked(View view) {
-        switch (view.getId()) {
-            case R.id.tv_save_qr:
-                if (!XClickUtil.isFastDoubleClick(view, 2000))
-                    save();
-                break;
-            default:
-                break;
-        }
     }
 
 }
