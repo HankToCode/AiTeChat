@@ -12,9 +12,11 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 
 import com.bumptech.glide.Glide;
 import com.github.dfqin.grantor.PermissionListener;
@@ -66,11 +68,23 @@ public class MyQrActivity extends BaseInitActivity {
     private EaseImageView mImgQrHead;
     private ImageView mIvSaveQr;
     private ImageView mImgHead;
+    private RelativeLayout rlParent;
 
 
-    public static void actionStart(Context context, String from) {
+    public static void actionStart(Context context) {
         Intent intent = new Intent(context, MyQrActivity.class);
-        intent.putExtra("from", from);
+        intent.putExtra("from", "1");
+        context.startActivity(intent);
+    }
+
+    public static void actionStart(Context context, String groupId, String head, String name) {
+        Intent intent = new Intent(context, MyQrActivity.class);
+        Bundle bundle2 = new Bundle();
+        bundle2.putString("from", "2");
+        bundle2.putString("id", groupId);
+        bundle2.putString("head", head);
+        bundle2.putString("name", name);
+        intent.putExtras(bundle2);
         context.startActivity(intent);
     }
 
@@ -84,6 +98,7 @@ public class MyQrActivity extends BaseInitActivity {
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         initImmersionBar(false);
+        rlParent = (RelativeLayout) findViewById(R.id.rl_parent);
         mTitleBar = (EaseTitleBar) findViewById(R.id.title_bar);
         mLlQrcodeView = (LinearLayout) findViewById(R.id.ll_qrcode_view);
         mTvQrName = (TextView) findViewById(R.id.tv_qr_name);
@@ -98,6 +113,7 @@ public class MyQrActivity extends BaseInitActivity {
         if ("2".equals(from)) {
             //群分享二维码 数据排序 服务器群id - 标志符 - 邀请人id
             mTitleBar.setTitle("群二维码");
+            rlParent.setBackground(ContextCompat.getDrawable(this,R.mipmap.bg_qr_bg_group));
             mTvQrName.setText(name);
             if (!TextUtils.isEmpty(head)) {
                 GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(head), mImgHead, R.mipmap.ic_ng_avatar);
@@ -106,7 +122,8 @@ public class MyQrActivity extends BaseInitActivity {
             createImgQr(AppConfig.checkimg(head));
         } else {
             id = UserComm.getUserInfo().getUserId() + Constant.SEPARATOR_UNDERLINE + Constant.PREFIX_QR_USER;
-            mTitleBar.setTitle("我的二维码");
+            mTitleBar.setTitle("好友二维码");
+            rlParent.setBackground(ContextCompat.getDrawable(this,R.mipmap.bg_qr_bg));
             if (!TextUtils.isEmpty(UserComm.getUserInfo().getUserCode())) {
                 mTvChatNumber.setVisibility(View.VISIBLE);
                 mTvChatNumber.setText(getString(R.string.str_chat_account, UserComm.getUserInfo().getUserCode()));

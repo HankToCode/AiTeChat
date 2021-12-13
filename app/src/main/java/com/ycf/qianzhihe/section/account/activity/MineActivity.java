@@ -240,7 +240,7 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
             case R.id.iv_qr:
                 //分享
 //                ShareQrActivity.actionStart(this);
-                MyQrActivity.actionStart(mContext, "1");
+                MyQrActivity.actionStart(mContext);
                 break;
             case R.id.tv_package:
                 //判断如果未实名，提示进行实名认证

@@ -283,7 +283,7 @@ public class MyInfoActivity extends BaseInitActivity {
                 toSelectPic();
                 break;
             case R.id.rl_my_qr:
-                MyQrActivity.actionStart(mContext, "1");
+                MyQrActivity.actionStart(mContext);
                 break;
             case R.id.tv_name://修改昵称
                 startActivity(new Intent(this, EditInfoActivity.class).putExtra("from", "1"));

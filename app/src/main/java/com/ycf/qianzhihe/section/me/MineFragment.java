@@ -132,7 +132,7 @@ public class MineFragment extends BaseInitFragment implements View.OnClickListen
                 break;
             case R.id.ivQR:
                 //二维码
-                MyQrActivity.actionStart(mContext, "1");
+                MyQrActivity.actionStart(mContext);
                 break;
             case R.id.tvPay:
                 //判断如果未实名，提示进行实名认证

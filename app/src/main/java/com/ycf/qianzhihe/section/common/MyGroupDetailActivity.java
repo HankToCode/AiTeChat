@@ -780,14 +780,7 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
 
                 break;
             case R.id.tv_group_zx:
-                Intent intent = new Intent(this, MyQrActivity.class);
-                Bundle bundle2 = new Bundle();
-                bundle2.putString("from", "2");
-                bundle2.putString("id", groupId);
-                bundle2.putString("head", info.getGroupHead());
-                bundle2.putString("name", info.getGroupName());
-                intent.putExtras(bundle2);
-                startActivity(intent);
+                MyQrActivity.actionStart(this, groupId, info.getGroupHead(), info.getGroupName());
                 break;
             case R.id.fl_group_member:
                 Global.addUserOriginType = Constant.ADD_USER_ORIGIN_TYPE_GROUPCHAT;

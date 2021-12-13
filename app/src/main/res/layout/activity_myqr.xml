@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_parent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@mipmap/bg_qr_bg"
-
     android:orientation="vertical">
 
     <com.hyphenate.easeui.widget.EaseTitleBar
@@ -22,42 +22,41 @@
         android:id="@+id/ll_qrcode_view"
         android:layout_width="315dp"
         android:layout_height="wrap_content"
-        android:paddingBottom="30dp"
         android:layout_alignTop="@id/img_head"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="@dimen/dp_30"
         android:background="@drawable/shape_gray"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="30dp">
 
         <TextView
             android:id="@+id/tv_qr_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/dp_45"
+            android:text="我的朋友胡适之"
             android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_15"
-            android:layout_gravity="center_horizontal"
-            android:textStyle="bold"
-            android:text="我的朋友胡适之" />
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tv_chat_number"
-            android:layout_marginTop="10dp"
-            android:layout_below="@+id/tv_qr_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_qr_name"
             android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="南国号:"
             android:textColor="#999999"
             android:textSize="@dimen/sp_11"
-            android:textStyle="bold"
-            android:text="南国号:" />
+            android:textStyle="bold" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="32dp"
             android:layout_below="@+id/img_head"
-            >
+            android:layout_marginTop="32dp">
 
             <ImageView
                 android:id="@+id/iv_qr_code"
@@ -68,10 +67,10 @@
                 android:scaleType="fitXY" />
 
             <com.hyphenate.easeui.widget.EaseImageView
-                android:layout_centerInParent="true"
                 android:id="@+id/img_qr_head"
                 android:layout_width="@dimen/dp_50"
                 android:layout_height="@dimen/dp_50"
+                android:layout_centerInParent="true"
                 android:layout_margin="20dp"
                 android:layout_marginTop="@dimen/dp_19"
                 android:scaleType="fitXY"
@@ -86,9 +85,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/ll_qrcode_view"
-        android:layout_marginTop="33dp"
         android:layout_centerHorizontal="true"
-        android:src="@mipmap/ic_save_qr"/>
+        android:layout_marginTop="33dp"
+        android:src="@mipmap/ic_save_qr" />
 
     <ImageView
         android:id="@+id/img_head"

@@ -516,7 +516,7 @@ public class UserInfoDetailActivity extends BaseInitActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.iv_qr:
-                MyQrActivity.actionStart(mContext, "1");
+                MyQrActivity.actionStart(mContext);
                 break;
             /*case R.id.ll_grouping:
                 Intent intent1 = new Intent(mContext, FriendGroupingActvity.class);
