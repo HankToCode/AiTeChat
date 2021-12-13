@@ -305,4 +305,9 @@
         <item name="android:foreground">?attr/selectableItemBackground</item>
     </style>
 
+    <style name="AnimationPopupwindow">
+        <item name="android:windowEnterAnimation">@anim/popupwindow_open</item>
+        <item name="android:windowExitAnimation">@anim/popupwindow_close</item>
+    </style>
+
 </resources>
