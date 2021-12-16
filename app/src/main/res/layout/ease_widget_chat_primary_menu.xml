@@ -10,13 +10,13 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_0_5"
-        android:background="#ffeff2fc" />
+        android:background="@color/color_F7F7F7" />
 
     <LinearLayout
         android:id="@+id/rl_bottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#EFF2FC"
+        android:background="@color/color_F7F7F7"
         android:gravity="bottom"
         android:orientation="horizontal"
         android:paddingTop="@dimen/dp_10"
@@ -79,15 +79,17 @@
                 android:id="@+id/et_sendmessage"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
                 android:background="@drawable/shap_input_bg"
                 android:imeOptions="actionSend"
                 android:maxLines="4"
                 android:minHeight="@dimen/dp_24"
-                android:padding="@dimen/dp_8"
+                android:paddingStart="@dimen/dp_8"
+                android:paddingTop="@dimen/dp_8"
+                android:paddingEnd="38dp"
+                android:paddingBottom="@dimen/dp_8"
                 android:textSize="@dimen/sp_18"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/rl_face"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 tools:text="测试测试" />
 
@@ -96,6 +98,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
+                android:layout_marginEnd="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent">
 

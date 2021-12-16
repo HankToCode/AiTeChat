@@ -11,15 +11,7 @@
     <!--android:id="@+id/primary_menu"-->
     <!--android:layout_width="match_parent"-->
     <!--android:layout_height="wrap_content"/>-->
-    <com.ycf.qianzhihe.app.weight.ease.EaseChatExtendSmallMenu
-        android:id="@+id/extend_menu_small"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#EFF2FC"
-        android:paddingTop="@dimen/dp_9"
-        android:paddingBottom="@dimen/dp_7"
-        android:visibility="gone"
-        hyphenate:numColumns="5" />
+
 
     <FrameLayout
         android:id="@+id/primary_menu_container"
@@ -29,11 +21,21 @@
 
     </FrameLayout>
 
+    <com.ycf.qianzhihe.app.weight.ease.EaseChatExtendSmallMenu
+        android:id="@+id/extend_menu_small"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_F7F7F7"
+        android:paddingTop="@dimen/dp_9"
+        android:paddingBottom="@dimen/dp_7"
+        android:visibility="gone"
+        hyphenate:numColumns="5" />
+
     <FrameLayout
         android:id="@+id/extend_menu_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#EFF2FC"
+        android:background="@color/color_F7F7F7"
         android:visibility="gone">
 
         <com.ycf.qianzhihe.app.weight.ease.EaseChatExtendMenu
@@ -48,6 +50,10 @@
             android:id="@+id/emojicon_menu_container"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
     </FrameLayout>
+
+
+
 
 </LinearLayout>
