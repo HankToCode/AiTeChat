@@ -77,7 +77,7 @@ public class ResetPayPwdActivity extends BaseInitActivity {
 
     @Override
     protected int getLayoutId() {
-        return R.layout.activity_reset_pay_pwd;
+        return R.layout.activity_reset_paypwd;
     }
 
     @Override
@@ -87,8 +87,8 @@ public class ResetPayPwdActivity extends BaseInitActivity {
         mTitleBar.setOnBackPressListener(view -> finish());
 
         et_code.addTextChangedListener(watcher);
-        countDown();
-        flushTy();
+        countDown();//初始化倒计时
+        flushTy();//刷新图形验证码
 
         mPwdView.setOnFinishInput(new OnPasswordInputFinish() {
             @Override

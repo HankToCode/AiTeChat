@@ -33,7 +33,7 @@ public class TransferAdapter extends BaseQuickAdapter<TransferRecordInfo, BaseVi
     protected void convert(BaseViewHolder helper, TransferRecordInfo dataBean) {
         //transferType 1:转出， 2：收入tv_tag
         if (dataBean.getTransferType().equals("1")) {
-            helper.setText(R.id.tv_name, "转账给" + dataBean.getNickName());
+            helper.setText(R.id.tv_name, "向" + dataBean.getNickName()+"转账");
             helper.setText(R.id.tv_money, "" + StringUtil.getFormatValue2(dataBean.getMoney()));
         } else {
             helper.setText(R.id.tv_name, "收入来自" + dataBean.getNickName());

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@mipmap/bg_red_package_give"
+    android:orientation="vertical">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/csTopBg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/color_F7F7F7">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scaleType="fitXY"
+            android:src="@mipmap/icon_bg_bankd"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <com.hyphenate.easeui.widget.EaseTitleBar
+            android:id="@+id/title_bar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/em_common_title_bar_height"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:titleBarLeftImage="@mipmap/ic_back"
+            app:titleBarTitle="钱包"
+            app:titleBarRightTitle="交易记录"
+            app:titleBarRightVisible="true"
+            app:titleBarTitlePosition="left"
+            app:titleBarTitleTextColor="@color/white" />
+
+
+        <TextView
+            android:id="@+id/tv_bank_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="建设银行"
+            android:textColor="#ffffffff"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:drawableLeft="@mipmap/icon_bank"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:drawablePadding="@dimen/dp_6"
+            android:layout_marginTop="@dimen/dp_30"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/title_bar"/>
+        <TextView
+            android:id="@+id/tv_bank_card"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tv_bank_name"
+            android:layout_marginTop="@dimen/dp_20"
+            android:text="**** **** **** 6170"
+            android:textColor="#ffffffff"
+            android:textSize="23sp"
+            />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="储蓄卡"
+            android:textColor="#ffffffff"
+            android:textSize="13sp"
+            android:background="@drawable/bg_bank_detail_tv"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="@dimen/dp_10"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:padding="@dimen/dp_6"
+            app:layout_constraintTop_toBottomOf="@+id/tv_bank_card"
+            />
+        <LinearLayout
+            android:id="@+id/ll_del"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginBottom="50dp"
+            android:layout_marginLeft="@dimen/dp_16"
+            android:layout_marginRight="@dimen/dp_16"
+            android:background="@drawable/bg_bank_del"
+            app:layout_constraintBottom_toBottomOf="parent">
+            <TextView
+                android:id="@+id/tv_add_bank_card"
+                android:layout_width="wrap_content"
+                android:layout_height="51dp"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
+                android:gravity="center"
+                android:drawableLeft="@mipmap/icon_bank_del"
+                android:text="解除绑定"
+                android:drawablePadding="@dimen/dp_6"
+                android:textColor="@color/red"
+                android:textSize="@dimen/sp_14"
+               />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>
