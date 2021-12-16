@@ -81,9 +81,13 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
     RecyclerView mRecycleView;
     @BindView(R.id.iv_group_head)
     EaseImageView iv_group_head;
+    @BindView(R.id.iv_group_head1)
+    EaseImageView iv_group_head1;
 
     @BindView(R.id.tv_group_name)
     TextView tv_group_name;
+    @BindView(R.id.tv_group_name1)
+    TextView tv_group_name1;
 
     @BindView(R.id.tv_group_zx)
     TextView mTvGroupZx;
@@ -125,6 +129,8 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
 
     @BindView(R.id.tv_group_remark)
     TextView tv_group_remark;
+    @BindView(R.id.tv_group_notice)
+    TextView tv_group_notice;
 
     @BindView(R.id.rl_container_group_single_member_jinyan)
     TextView rl_container_group_single_member_jinyan;
@@ -295,6 +301,7 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
         /*GlideUtils.GlideLoadCircleErrorImageUtils(MyGroupDetailActivity.this, AppConfig.checkimg(info.getGroupHead())
                 , iv_group_head, R.mipmap.ic_ng_avatar);*/
         GlideUtils.loadImageViewLoding(MyGroupDetailActivity.this, AppConfig.checkimg(info.getGroupHead()), iv_group_head, R.mipmap.ic_ng_avatar, R.mipmap.ic_ng_avatar);
+        GlideUtils.loadImageViewLoding(MyGroupDetailActivity.this, AppConfig.checkimg(info.getGroupHead()), iv_group_head1, R.mipmap.ic_ng_avatar, R.mipmap.ic_ng_avatar);
 
         if (info.getGroupUserRank() != 0) {
             tv_group_name.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.mipmap.icon_motify_group_name), null);
@@ -303,6 +310,7 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
         }
         tv_group_name.setCompoundDrawablePadding(3);
         tv_group_name.setText(info.getGroupName());
+        tv_group_name1.setText(info.getGroupName());
         tv_group_remark.setText(info.groupNickName);
 
         //用户的群等级 0-普通用户 1-管理员 2-群主
@@ -361,8 +369,7 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
                 mDetailVoListBeanList.add(delBean);
             }
 
-//            mTvGroupAnnouncement.setText(StringUtil.isEmpty(info.getGroupNotice()) ? "暂无群公告" : info.getGroupNotice());
-//            mTvGroupAnnouncement.setVisibility(View.VISIBLE);
+            tv_group_notice.setText(StringUtil.isEmpty(info.getGroupNotice()) ? "暂无群公告" : info.getGroupNotice());
             mRoomDeatilAdapter.notifyDataSetChanged();
         }
         setSWitchReadPermission();
@@ -671,9 +678,9 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
 
     @OnClick({R.id.fl_group_member, R.id.tv_my_group_nick_name_s,
             R.id.tv_group_zx, R.id.tv_group_name, R.id.rl_container_group_remark,
-            R.id.tv_group_notice, R.id.tv_msg_record,
+            R.id.fl_group_notice, R.id.tv_msg_record,
             R.id.tv_group_manager, R.id.rl_container_group_single_member_jinyan,
-            R.id.tv_clear_msg, R.id.tv_exit, R.id.tv_transfer_group, R.id.iv_group_head, R.id.tv_chat_bg})
+            R.id.tv_clear_msg, R.id.tv_exit, R.id.tv_transfer_group, R.id.iv_group_head,R.id.fl_group_head1, R.id.tv_chat_bg})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_chat_bg:
@@ -707,13 +714,14 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
                         .putExtra("groupId", groupId));
                 break;
             case R.id.iv_group_head:
+            case R.id.fl_group_head1:
                 //群头像
                 if (info.getGroupUserRank() == 2) {
                     toSelectPic();
                 }
                 break;
 
-            case R.id.tv_group_notice:
+            case R.id.fl_group_notice:
                 //群公告
                 startActivity(new Intent(this, NoticeActivity.class)
                         .putExtra("time", info.getUpdateGroupNoticeTime())
