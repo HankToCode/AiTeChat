@@ -75,7 +75,7 @@ public class RechargeActivity extends BaseInitActivity {
 
 
     public static void actionStart(Context context) {
-        Intent intent = new Intent(context, RechargeActivity.class);
+        Intent intent = new Intent(context, RechargeActivity.class) ;
         context.startActivity(intent);
     }
 
@@ -144,7 +144,6 @@ public class RechargeActivity extends BaseInitActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_recharge:
-
                 if (!XClickUtil.isFastDoubleClick(view, 1000)) {
                     if (!TextUtils.isEmpty(et_amount.getText().toString().trim())) {
                         rechargeMoney = Integer.parseInt(et_amount.getText().toString().trim());

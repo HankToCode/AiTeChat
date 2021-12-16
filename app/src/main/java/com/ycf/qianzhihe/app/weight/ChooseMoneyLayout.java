@@ -78,7 +78,9 @@ public class ChooseMoneyLayout extends GridView {
                 public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                     if (isChecked) {
                         //设置选中文字颜色
-                        buttonView.setBackgroundResource(R.drawable.icon_rechar_bg);
+//                        buttonView.setBackgroundResource(R.drawable.icon_rechar_bg);
+                        buttonView.setBackgroundResource(R.drawable.item_money_chose);
+                        holder.cb_money.setTextColor(getResources().getColor(R.color.blue2));
                         //取消上一个选择
                         if (checkBox != null) {
                             checkBox.setChecked(false);
@@ -87,7 +89,8 @@ public class ChooseMoneyLayout extends GridView {
                     } else {
                         checkBox = null;
                         //设置不选中文字颜色
-                        buttonView.setBackgroundResource(R.drawable.shap_gray_bg);
+                        buttonView.setBackgroundResource(R.drawable.item_money_bg);
+                        holder.cb_money.setTextColor(getResources().getColor(R.color.black));
                     }
                     //回调
                     listener.chooseMoney(position, isChecked, (Integer) getItem(position));

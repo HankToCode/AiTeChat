@@ -11,6 +11,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -64,6 +65,10 @@ public class RealAuthActivity extends BaseInitActivity {
     EditText et_phone;
     @BindView(R.id.tv_submit)
     TextView tv_submit;
+    @BindView(R.id.ll_real_name)
+    LinearLayout ll_real_name;
+    @BindView(R.id.tv_status)
+    TextView tv_status;
 
 
     public static void actionStart(Context context) {
@@ -79,7 +84,7 @@ public class RealAuthActivity extends BaseInitActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        mTitleBar.setTitle("实名认证");
+        mTitleBar.setTitle("填写身份信息");
         mTitleBar.setOnBackPressListener(view -> finish());
 
     }
@@ -89,18 +94,23 @@ public class RealAuthActivity extends BaseInitActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_submit:
-                if (TextUtils.isEmpty(et_name.getText().toString().trim())) {
-                    ToastUtils.showToast("请输入真实姓名");
-                    return;
+                if (tv_submit.getText().toString().equals("确定开通")) {
+                    if (TextUtils.isEmpty(et_name.getText().toString().trim())) {
+                        ToastUtils.showToast("请输入真实姓名");
+                        return;
+                    }
+                    if (TextUtils.isEmpty(et_idcard.getText().toString().trim())) {
+                        ToastUtils.showToast("请输入身份证号码");
+                        return;
+                    }
+                    if (!XClickUtil.isFastDoubleClick(view, 1000)) {
+                        //获取人脸认证流水号
+                        getCertifyId();
+                    }
+                } else if (tv_submit.getText().toString().trim().equals("返回钱包")) {
+                    finish();
                 }
-                if (TextUtils.isEmpty(et_idcard.getText().toString().trim())) {
-                    ToastUtils.showToast("请输入身份证号码");
-                    return;
-                }
-                if (!XClickUtil.isFastDoubleClick(view, 1000)) {
-                    //获取人脸认证流水号
-                    getCertifyId();
-                }
+
                 break;
         }
     }
@@ -150,7 +160,7 @@ public class RealAuthActivity extends BaseInitActivity {
         obj.put("realname", et_name.getText().toString().trim()); // 姓名
         obj.put("certifyid", certifyId); // 认证流水号
         bundle.putString("bizData", obj.toJSONString());
-        bundle.putString("actions", "1279");  // 动作组合 1 摇头 2点头 7张嘴 9眨眼
+        bundle.putString("actions", "279");  // 动作组合 1 摇头 2点头 7张嘴 9眨眼
         bundle.putString("actionsNum", "3"); // 动作数量
         intent.putExtra("liveness", bundle);
         startActivityForResult(intent, 103);
@@ -231,7 +241,10 @@ public class RealAuthActivity extends BaseInitActivity {
                 loginInfo.setOpenAccountFlag(1);
                 UserComm.saveUsersInfo(loginInfo);
                 ToastUtil.toast("认证成功");
-                finish();
+                ll_real_name.setVisibility(View.GONE);
+                tv_status.setVisibility(View.VISIBLE);
+                tv_submit.setText("返回钱包");
+//                finish();
             }
 
             @Override

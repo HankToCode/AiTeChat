@@ -37,6 +37,8 @@ import com.ycf.qianzhihe.section.chat.activity.CustomListActivity;
 import com.ycf.qianzhihe.section.common.MultiAccountActivity;
 import com.ycf.qianzhihe.section.common.MyCollectActivity;
 import com.ycf.qianzhihe.section.common.MyQrActivity;
+import com.ycf.qianzhihe.section.common.NanGuoSetActivity;
+import com.ycf.qianzhihe.section.common.NanguoWalletActivity;
 import com.ycf.qianzhihe.section.common.RealAuthActivity;
 import com.ycf.qianzhihe.section.common.SetActivity;
 import com.ycf.qianzhihe.section.common.WalletActivity;
@@ -141,7 +143,7 @@ public class MineFragment extends BaseInitFragment implements View.OnClickListen
                     return;
                 }
                 //我的钱包支付
-                WalletActivity.actionStart(mContext);
+                NanguoWalletActivity.actionStart(mContext);
                 break;
             case R.id.tvKF:
                 //客服
@@ -156,7 +158,8 @@ public class MineFragment extends BaseInitFragment implements View.OnClickListen
                 break;
             case R.id.tvSettings:
                 //设置
-                SetActivity.actionStart(requireContext());
+//                SetActivity.actionStart(requireContext());
+                NanGuoSetActivity.actionStart(mContext);
                 break;
             case R.id.tvAboutMe://APP 官网
                 WebViewActivity.actionStart(requireContext(), AppConfig.appurl, true);

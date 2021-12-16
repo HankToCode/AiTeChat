@@ -9,7 +9,7 @@
         android:layout_height="@dimen/dp_64"
         android:layout_gravity="center"
         android:layout_weight="1"
-        android:background="@drawable/shap_gray_bg"
+        android:background="@drawable/item_money_bg"
         android:button="@null"
         android:gravity="center"
         android:paddingLeft="15dp"

@@ -80,11 +80,10 @@ public class BankActivity extends BaseInitActivity {
     }
 
     @Override
-    protected void onStart() {
-        super.onStart();
+    protected void onResume() {
+        super.onResume();
         initUserInfo();
     }
-
 
     /**
      * 初始化
@@ -130,15 +129,16 @@ public class BankActivity extends BaseInitActivity {
         mBankCardAdapter.setOnItemClickListener(new BankCardAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                if (view.getId() == R.id.iv_delete) {
+                BankDetailActivity.actionStart(mContext,dataBean.get(position));
+                /*if (view.getId() == R.id.iv_delete) {
                     initUserInfo();
-                } else {
+                } else {//选择银行卡返回
                     setResult(1111, new Intent()
                             .putExtra("id", dataBean.get(position).getCardId())
                             .putExtra("bankName", dataBean.get(position).getBankName())
                             .putExtra("bankCard", dataBean.get(position).getBankCard()));
                     finish();
-                }
+                }*/
             }
 
             @Override

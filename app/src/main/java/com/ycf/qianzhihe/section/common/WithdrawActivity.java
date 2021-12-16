@@ -25,7 +25,6 @@ import com.ycf.qianzhihe.app.api.old_http.CommonApi;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
 import com.ycf.qianzhihe.app.weight.CommonDialog;
-import com.ycf.qianzhihe.app.weight.CustomerKeyboard;
 import com.ycf.qianzhihe.app.weight.PasswordEditText;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.app.weight.passwoed_keyboard.OnNumberKeyboardListener;
@@ -64,12 +63,9 @@ public class WithdrawActivity extends BaseInitActivity {
     @BindView(R.id.tv_tixian)
     TextView tv_tixian;
 
-    @BindView(R.id.rl_black)
-    RelativeLayout rl_black;
     @BindView(R.id.tv_bank)
     TextView tv_bank;
-    @BindView(R.id.tv_bank_card)
-    TextView tv_bank_card;
+
 
     private boolean isSelectBalance = false;
 
@@ -123,16 +119,17 @@ public class WithdrawActivity extends BaseInitActivity {
 
 
 
+    private LoginInfo loginInfo;
     private void initUI() {
         Map<String, Object> map = new HashMap<>();
         ApiClient.requestNetHandle(this, AppConfig.USER_INFO, "", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 if (json != null) {
-                    LoginInfo loginInfo = JSON.parseObject(json, LoginInfo.class);
+                     loginInfo = JSON.parseObject(json, LoginInfo.class);
 //                    mTvHand_rate.setText("提现金额（当前手续费率为" + loginInfo.getHandRate() + ")");
                     mTvHand_rate.setText("提现金额");
-                    mTvMoneyHint.setText("我的余额：" + loginInfo.getMoney() + "元");
+                    mTvMoneyHint.setText("可用余额：" + loginInfo.getMoney() + "元");
                 }
             }
 
@@ -148,7 +145,7 @@ public class WithdrawActivity extends BaseInitActivity {
                 if (json != null) {
                     //{"withdrawExplain":"银行卡\r\n费率:0.6%+1元/笔银行付款费\r\n单日最多提现3次单笔最高10000元,单日最高30000元。每个账户只能同时进行一笔提现\r\n个别订单有可能被银行风控系统拦截,会延迟到账,我们会与相关机构沟通,在1-2个工作日内处理\r\n如您使用的银行卡多次出现打款失败,通常为卡片兼容问题,请更换银行卡后再试。\r\n注意:部分银行小额打款时不会发送短信通知,到账情况请以银行流水为准。"}
                     tv_tixian.setText(FastJsonUtil.getString(json, "withdrawExplain"));
-                    mTvMoneyHintMin.setText("，最低" + FastJsonUtil.getString(json, "minWithdrawAmount") + "元起提");
+//                    mTvMoneyHintMin.setText("，最低" + FastJsonUtil.getString(json, "minWithdrawAmount") + "元起提");
                 }
             }
 
@@ -162,10 +159,13 @@ public class WithdrawActivity extends BaseInitActivity {
 
     private String bankId = "";
 
-    @OnClick({R.id.tv_new_bank_card_submit, R.id.rl_black})
+    @OnClick({R.id.tv_new_bank_card_submit, R.id.ll_select_bank, R.id.tv_my_money_hint_min})
     public void onViewClicked(View view) {
         switch (view.getId()) {
-            case R.id.rl_black://选择提现银行卡
+            case R.id.tv_my_money_hint_min:
+                mWithdrawMoney.setText(loginInfo.getMoney() + "");
+                break;
+            case R.id.ll_select_bank://选择提现银行卡
                 startActivityForResult(new Intent(this, BankActivity.class), 66);
                 break;
             case R.id.tv_new_bank_card_submit://提现
@@ -224,8 +224,9 @@ public class WithdrawActivity extends BaseInitActivity {
         ApiClient.requestNetHandle(this, AppConfig.withdrawUrl, "正在提现...", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
-                ToastUtil.toast("已提交审核");
+//                ToastUtil.toast("已提交审核");
 //                startActivity(new Intent(WithdrawActivity.this,WebViewActivity.class).putExtra("url",json).putExtra("title","提现"));
+                WithdrawResultActivity.actionStart(mContext);
                 finish();
             }
 
@@ -254,7 +255,7 @@ public class WithdrawActivity extends BaseInitActivity {
         if (requestCode == 66 && resultCode == 1111) {
              bankId = data.getStringExtra("id");
             tv_bank.setText(data.getStringExtra("bankName"));
-            tv_bank_card.setText(data.getStringExtra("bankCard"));
+//            tv_bank.setText(data.getStringExtra("bankCard"));
         }
     }
 

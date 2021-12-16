@@ -12,74 +12,40 @@
         android:layout_height="@dimen/em_common_title_bar_height"
         android:background="@color/white"
         app:titleBarDisplayHomeAsUpEnabled="true"
+        app:titleBarTitle="添加银行卡"
+        app:titleBarTitlePosition="left"
         app:titleBarLeftImage="@drawable/ic_back"/>
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/dp_10"
-        android:layout_marginTop="@dimen/dp_12"
-        android:layout_marginRight="@dimen/dp_10"
-        android:background="@drawable/shap_white"
-        android:orientation="vertical">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_57">
+            android:layout_height="match_parent"
+            android:padding="@dimen/dp_30"
+            android:background="@drawable/shap_white"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tv_bank_card_title"
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_15"
-                android:text="银行卡信息"
-                android:textColor="#333333"
-                android:textSize="@dimen/dp_16"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+                android:src="@mipmap/icon_add_bank"
+                android:layout_gravity="center_horizontal"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_13"
-                android:text="(只能添加实名认证者名下卡片)"
-                android:textColor="@color/bl54"
-                android:textSize="@dimen/sp_12"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toRightOf="@id/tv_bank_card_title"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_0_1"
-            android:layout_marginLeft="@dimen/dp_15"
-            android:layout_marginRight="@dimen/dp_15"
-            android:background="#EBEBEB" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_50">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_15"
-                android:text="卡号"
-                android:textColor="#333333"
-                android:textSize="@dimen/dp_16"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+                android:text="银行卡号"
+                android:textColor="#ff333333"
+                android:textSize="12sp"
+                android:drawablePadding="@dimen/dp_6"
+                android:drawableLeft="@mipmap/icon_add_card"/>
             <EditText
                 android:id="@+id/et_bank_card_number"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_143"
+                android:layout_height="@dimen/dp_45"
                 android:background="@null"
-                android:hint="请输入银行卡卡号"
+                android:hint="请输入本人实名银行卡号"
                 android:inputType="number"
                 android:lines="1"
                 android:textColor="#B8B8B8"
@@ -88,35 +54,25 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_0_1"
-            android:layout_marginLeft="@dimen/dp_15"
-            android:layout_marginRight="@dimen/dp_15"
-            android:background="#EBEBEB" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_50">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_0_1"
+                android:layout_marginRight="@dimen/dp_15"
+                android:background="#EBEBEB" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_15"
                 android:text="开户行"
-                android:textColor="#333333"
-                android:textSize="@dimen/dp_16"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+                android:textColor="#ff333333"
+                android:layout_marginTop="@dimen/dp_10"
+                android:textSize="12sp"
+                android:drawablePadding="@dimen/dp_6"
+                android:drawableLeft="@mipmap/icon_add_khh"/>
             <EditText
                 android:id="@+id/et_bank_location"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_143"
+                android:layout_height="@dimen/dp_45"
                 android:background="@null"
                 android:hint="请输入开户行"
                 android:lines="1"
@@ -126,35 +82,25 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_0_1"
-            android:layout_marginLeft="@dimen/dp_15"
-            android:layout_marginRight="@dimen/dp_15"
-            android:background="#EBEBEB" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_50">
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_0_1"
+                android:layout_marginRight="@dimen/dp_15"
+                android:background="#EBEBEB" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_15"
-                android:text="银行预留电话"
-                android:textColor="#333333"
-                android:textSize="@dimen/dp_16"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+                android:text="银行预留号码"
+                android:textColor="#ff333333"
+                android:layout_marginTop="@dimen/dp_10"
+                android:textSize="12sp"
+                android:drawablePadding="@dimen/dp_6"
+                android:drawableLeft="@mipmap/icon_add_phone"/>
             <EditText
                 android:id="@+id/et_bank_phone"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_143"
+                android:layout_height="@dimen/dp_45"
                 android:background="@null"
                 android:hint="请输入银行预留电话"
                 android:inputType="phone"
@@ -165,35 +111,24 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_0_1"
-            android:layout_marginLeft="@dimen/dp_15"
-            android:layout_marginRight="@dimen/dp_15"
-            android:background="#EBEBEB" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_50">
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_0_1"
+                android:layout_marginRight="@dimen/dp_15"
+                android:background="#EBEBEB" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_15"
                 android:text="证件号"
-                android:textColor="#333333"
-                android:textSize="@dimen/dp_16"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+                android:textColor="#ff333333"
+                android:layout_marginTop="@dimen/dp_10"
+                android:textSize="12sp"
+                android:drawablePadding="@dimen/dp_6"
+                android:drawableLeft="@mipmap/icon_add_phone"/>
             <EditText
                 android:id="@+id/et_identity_card_number"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_143"
+                android:layout_height="@dimen/dp_45"
                 android:background="@null"
                 android:hint="输入您的身份证号"
                 android:lines="1"
@@ -204,35 +139,24 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_0_1"
-            android:layout_marginLeft="@dimen/dp_15"
-            android:layout_marginRight="@dimen/dp_15"
-            android:background="#EBEBEB" />
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_50">
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_0_1"
+                android:layout_marginRight="@dimen/dp_15"
+                android:background="#EBEBEB" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_15"
                 android:text="持卡人"
-                android:textColor="#333333"
-                android:textSize="@dimen/dp_16"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
+                android:textColor="#ff333333"
+                android:layout_marginTop="@dimen/dp_10"
+                android:textSize="12sp"
+                android:drawablePadding="@dimen/dp_6"
+                android:drawableLeft="@mipmap/icon_add_phone"/>
             <EditText
                 android:id="@+id/et_bank_card_name"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_143"
+                android:layout_height="@dimen/dp_45"
                 android:background="@null"
                 android:hint="请输入您的姓名"
                 android:lines="1"
@@ -243,25 +167,25 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_1"
+                android:layout_marginRight="@dimen/dp_15"
+                android:background="#EBEBEB" />
+            <TextView
+                android:id="@+id/tv_new_bank_card_submit"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/dp_36"
+                android:layout_marginLeft="@dimen/dp_10"
+                android:layout_marginRight="@dimen/dp_10"
+                android:background="@drawable/shap_blue"
+                android:gravity="center"
+                android:layout_marginTop="@dimen/dp_40"
+                android:text="确定添加"
+                android:textColor="#FFFEFE"
+                android:textSize="@dimen/sp_14" />
+        </LinearLayout>
+    </ScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="@dimen/dp_15"
-        android:gravity="bottom">
 
-        <TextView
-            android:id="@+id/tv_new_bank_card_submit"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/dp_36"
-            android:layout_marginLeft="@dimen/dp_10"
-            android:layout_marginRight="@dimen/dp_10"
-            android:background="@drawable/shap_blue"
-            android:gravity="center"
-            android:text="确定添加"
-            android:textColor="#FFFEFE"
-            android:textSize="@dimen/sp_14" />
-    </LinearLayout>
 </LinearLayout>
