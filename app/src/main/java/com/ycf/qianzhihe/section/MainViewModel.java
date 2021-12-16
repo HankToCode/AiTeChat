@@ -60,7 +60,7 @@ public class MainViewModel extends AndroidViewModel {
 
             String count = getUnreadCount(applyJoinGroupcount + addUserCount + unreadCount + unreadMessageCount);*/
             String count = getUnreadCount(unreadMessageCount1 - ((conversation != null && conversation.getUnreadMsgCount() > 0) ? conversation.getUnreadMsgCount() : 0));
-            homeUnReadObservable.postValue("" + count);
+            homeUnReadObservable.postValue(count);
         });
 
         int addUserCount = (int) PreferenceManager.getInstance().getParam(SP.APPLY_ADD_USER_NUM, 0);
