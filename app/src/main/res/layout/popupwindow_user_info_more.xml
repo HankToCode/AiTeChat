@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
-        android:background="#D8DADC"
+        android:background="@mipmap/bg_user_info_more"
         android:paddingStart="60dp"
         android:paddingTop="26dp"
         android:paddingEnd="60dp"

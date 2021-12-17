@@ -32,6 +32,7 @@ import com.ycf.qianzhihe.app.api.global.UserComm;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
 import com.ycf.qianzhihe.app.api.old_data.FriendInfo;
 import com.ycf.qianzhihe.app.api.old_data.LoginInfo;
+import com.ycf.qianzhihe.app.api.old_data.ToTopMap;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
 import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
@@ -274,12 +275,15 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                         userId, false);
                 MyHelper.getInstance().getModel().saveChatBg(userId,
                         null, "false", null);
+                mTvFree.setSolid(ContextCompat.getColor(this,R.color.color_66_white));
             } else {
                 EaseSharedUtils.setEnableMsgRing(Utils.getContext(),
                         UserComm.getUserId() + Constant.ID_REDPROJECT,
                         userId, true);
                 MyHelper.getInstance().getModel().saveChatBg(userId,
                         null, "true", null);
+                mTvFree.setSolid(ContextCompat.getColor(this,R.color.color_22_white));
+
             }
         });
 
@@ -294,6 +298,24 @@ public class UserInfoDetailActivity extends BaseInitActivity {
             }
         }
 
+        mTvToTop.setOnClickListener(v -> {
+            if (emConversation != null && !emConversation.conversationId().equals(Constant.ADMIN)) {
+                if (emConversation.conversationId().contains(userId)) {
+                    mTvToTop.setSelected(!mTvToTop.isSelected());
+                    boolean isSelect = mTvToTop.isSelected();
+                    if (isSelect) {
+                        emConversation.setExtField("toTop");
+                        ToTopMap.save(UserInfoDetailActivity.this, emConversation.conversationId());
+                        mTvToTop.setSolid(ContextCompat.getColor(this,R.color.color_66_white));
+
+                    } else {
+                        emConversation.setExtField("false");
+                        ToTopMap.delete(UserInfoDetailActivity.this, emConversation.conversationId());
+                        mTvToTop.setSolid(ContextCompat.getColor(this,R.color.color_22_white));
+                    }
+                }
+            }
+        });
 
         //会话置顶
        /* mSwitchTopConversation.setOnCheckedChangeListener((buttonView,

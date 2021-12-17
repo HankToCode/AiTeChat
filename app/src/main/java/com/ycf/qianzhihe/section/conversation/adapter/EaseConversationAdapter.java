@@ -1,6 +1,7 @@
 package com.ycf.qianzhihe.section.conversation.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -157,8 +158,10 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
 
         if (conversation.getExtField().equals("toTop")) {
             holder.iv_to_top.setVisibility(View.VISIBLE);
+            holder.bg_view.setBackgroundColor(Color.parseColor("#F4F9FC"));
         } else {
             holder.iv_to_top.setVisibility(View.GONE);
+            holder.bg_view.setBackgroundColor(Color.WHITE);
         }
 
         String username = "";
