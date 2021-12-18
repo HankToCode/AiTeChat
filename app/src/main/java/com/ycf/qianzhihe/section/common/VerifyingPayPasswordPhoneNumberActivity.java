@@ -144,7 +144,7 @@ public class VerifyingPayPasswordPhoneNumberActivity extends BaseInitActivity {
             @Override
             public void onFinish() {
                 mTvCode.setText("获取验证码");
-                mTvCode.setBackgroundResource(R.drawable.shap_red_5);
+                mTvCode.setBackgroundResource(R.drawable.shap_blue_btnbg);
                 mTvCode.setEnabled(true);
             }
         };

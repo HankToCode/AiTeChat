@@ -122,7 +122,9 @@ public class MineFragment extends BaseInitFragment implements View.OnClickListen
 
         switch (view.getId()) {
             case R.id.ivAvatar:
-                MineActivity.actionStart(mContext);
+            case R.id.tvNickName:
+                //个人信息
+                MyInfoActivity.actionStart(requireContext());
                 break;
             case R.id.ivVipLevel://等级
                 AccountInfoActivity.actionStart(mContext);//账号等级权益
@@ -149,10 +151,7 @@ public class MineFragment extends BaseInitFragment implements View.OnClickListen
                 //客服
                 CustomListActivity.actionStart(requireContext());
                 break;
-            case R.id.tvNickName:
-                //个人信息
-                MyInfoActivity.actionStart(requireContext());
-                break;
+
             case R.id.stReNew://开通会员
                 BuyMemberActivity.actionStart(requireContext());
                 break;

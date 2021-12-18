@@ -133,10 +133,10 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
             switchMethod(0);
         });
         tvPT.setOnClickListener(view -> {
-            switchMethod(1);
+            switchMethod(2);
         });
         tvZS.setOnClickListener(view -> {
-            switchMethod(2);
+            switchMethod(1);
         });
 
 
@@ -272,18 +272,20 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
             llTotalAmount.setVisibility(View.VISIBLE);
             tvTotalTitle.setText("总金额");
             llRemark.setVisibility(View.VISIBLE);
-        } else if (redPackageMethod == 1) {
-            tvPT.setSelected(true);
-            llSendTo.setVisibility(View.VISIBLE);
-            llTotalAmount.setVisibility(View.VISIBLE);
-            tvTotalTitle.setText("单个金额");
-            llRemark.setVisibility(View.VISIBLE);
         } else if (redPackageMethod == 2) {
-            tvZS.setSelected(true);
+            tvPT.setSelected(true);
+
             llNum.setVisibility(View.VISIBLE);
             llTotalAmount.setVisibility(View.VISIBLE);
             tvTotalTitle.setText("单个金额");
             llRemark.setVisibility(View.VISIBLE);
+        } else if (redPackageMethod == 1) {
+            tvZS.setSelected(true);
+            llSendTo.setVisibility(View.VISIBLE);
+            llTotalAmount.setVisibility(View.VISIBLE);
+            tvTotalTitle.setText("单个金额");
+            llRemark.setVisibility(View.VISIBLE);
+
         }
 
         changeAmountSet();

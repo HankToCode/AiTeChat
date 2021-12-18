@@ -1135,6 +1135,8 @@ public class AppConfig {
     public static String modifyFriendStarTarget = mainUrl + "app_user_friend/modifyFriendStarTarget";
     //同步成长值
     public static String saveUserGrowthValue = mainUrl + "app_user/saveUserGrowthValue";
+    //获取邀请码及邀请数据
+    public static String getInviteInfo = mainUrl + "app_user/getInviteInfo";
 
 
 

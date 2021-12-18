@@ -273,10 +273,12 @@ public class UserInfoDetailActivity extends BaseInitActivity {
             //设置消息免打扰
             mTvFree.setSelected(true);
             mTvFree.setSolid(ContextCompat.getColor(this, R.color.color_66_white));
+            mTvFree.setText("已开启免打扰");
         } else {
             //取消消息免打扰
             mTvFree.setSelected(false);
             mTvFree.setSolid(ContextCompat.getColor(this, R.color.color_22_white));
+            mTvFree.setText("消息免打扰");
         }
         //消息免打扰
         mTvFree.setOnClickListener(view -> {
@@ -290,15 +292,16 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                         userId, false);
                 MyHelper.getInstance().getModel().saveChatBg(userId,
                         null, "false", null);
-                mTvFree.setSolid(ContextCompat.getColor(this, R.color.color_66_white));
+                mTvFree.setSolid(ContextCompat.getColor(this,R.color.color_66_white));
+                mTvFree.setText("已开启免打扰");
             } else {
                 EaseSharedUtils.setEnableMsgRing(Utils.getContext(),
                         UserComm.getUserId() + Constant.ID_REDPROJECT,
                         userId, true);
                 MyHelper.getInstance().getModel().saveChatBg(userId,
                         null, "true", null);
-                mTvFree.setSolid(ContextCompat.getColor(this, R.color.color_22_white));
-
+                mTvFree.setSolid(ContextCompat.getColor(this,R.color.color_22_white));
+                mTvFree.setText("消息免打扰");
             }
         });
 
@@ -307,9 +310,11 @@ public class UserInfoDetailActivity extends BaseInitActivity {
             if (emConversation.getExtField().equals("toTop")) {
                 mTvToTop.setSelected(true);
                 mTvToTop.setSolid(ContextCompat.getColor(this, R.color.color_66_white));
+                mTvToTop.setText("聊天已置顶");
             } else {
                 mTvToTop.setSelected(false);
                 mTvToTop.setSolid(ContextCompat.getColor(this, R.color.color_22_white));
+                mTvToTop.setText("聊天置顶");
             }
         }
 
@@ -321,12 +326,13 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                     if (isSelect) {
                         emConversation.setExtField("toTop");
                         ToTopMap.save(UserInfoDetailActivity.this, emConversation.conversationId());
-                        mTvToTop.setSolid(ContextCompat.getColor(this, R.color.color_66_white));
-
+                        mTvToTop.setSolid(ContextCompat.getColor(this,R.color.color_66_white));
+                        mTvToTop.setText("聊天已置顶");
                     } else {
                         emConversation.setExtField("false");
                         ToTopMap.delete(UserInfoDetailActivity.this, emConversation.conversationId());
-                        mTvToTop.setSolid(ContextCompat.getColor(this, R.color.color_22_white));
+                        mTvToTop.setSolid(ContextCompat.getColor(this,R.color.color_22_white));
+                        mTvToTop.setText("聊天置顶");
                     }
                 }
             }

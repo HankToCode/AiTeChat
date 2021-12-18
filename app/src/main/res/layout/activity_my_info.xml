@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@mipmap/icon_top_bg"
+    android:background="@mipmap/bg_splash_action"
     android:orientation="vertical">
 
     <LinearLayout
@@ -20,12 +20,12 @@
             app:titleBarDisplayHomeAsUpEnabled="true"
             app:titleBarLeftImage="@mipmap/icon_back_white"
             app:titleBarTitle="设置"
+            app:titleBarTitlePosition="left"
             app:titleBarTitleTextColor="@color/white"/>
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_white_top"
             android:paddingLeft="@dimen/dp_14"
             android:paddingTop="@dimen/dp_14"
             android:layout_marginTop="@dimen/dp_30"
@@ -65,7 +65,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/windows_bg"
         android:orientation="vertical"
         android:showDividers="middle"
         android:visibility="visible">
