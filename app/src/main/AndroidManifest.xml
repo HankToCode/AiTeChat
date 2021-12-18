@@ -404,6 +404,11 @@
         <activity
             android:name="com.ycf.qianzhihe.section.group.activity.GroupMemberTypeActivity"
             android:screenOrientation="portrait" />
+
+        <!--群成员列表-->
+        <activity
+            android:name="com.ycf.qianzhihe.section.common.GroupMemberTotalActivity"
+            android:screenOrientation="portrait" />
         <!--群成员权限管理-->
         <activity
             android:name="com.ycf.qianzhihe.section.group.activity.GroupMemberAuthorityActivity"

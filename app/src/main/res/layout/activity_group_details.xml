@@ -114,8 +114,43 @@
                 android:visibility="visible">
 
                 <FrameLayout
+                    android:id="@+id/fl_user_total"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:background="@drawable/selector_comm_btn"
+                    android:visibility="gone"
+                    android:padding="18dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:background="@color/white"
+                        android:gravity="center_vertical"
+                        android:text="群聊成员"
+                        android:textColor="@color/color_333333" />
+
+                    <TextView
+                        android:id="@+id/tv_user_total"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="right"
+                        android:drawableRight="@mipmap/ic_item_more"
+                        android:drawablePadding="@dimen/dp_5"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:maxLength="8"
+                        android:maxLines="1"
+                        android:textColor="#888E9C"
+                        android:textSize="@dimen/sp_14"
+                        tools:text="查看6名群成员" />
+                </FrameLayout>
+
+                <FrameLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:foreground="?attr/selectableItemBackground"
                     android:background="@drawable/selector_comm_btn"
                     android:padding="18dp">
 
@@ -124,7 +159,6 @@
                         android:layout_height="match_parent"
                         android:layout_centerVertical="true"
                         android:background="@color/white"
-                        android:foreground="?attr/selectableItemBackground"
                         android:gravity="center_vertical"
                         android:text="群聊名称"
                         android:textColor="@color/color_333333" />
@@ -226,10 +260,9 @@
                         android:layout_height="match_parent"
                         android:layout_centerVertical="true"
                         android:background="@color/white"
-                        android:foreground="?attr/selectableItemBackground"
                         android:gravity="center_vertical"
                         android:text="我在本群的昵称"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/color_333333" />
 
                     <TextView
                         android:id="@+id/tv_my_group_nick_name"
@@ -261,15 +294,51 @@
                 android:visibility="visible">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="18dp"
-                    android:layout_marginTop="19dp"
+                    android:paddingStart="18dp"
+                    android:background="@color/windows_bg"
+                    android:paddingTop="19dp"
+                    android:paddingBottom="10dp"
                     android:text="群聊管理"
                     android:textColor="#888E9C"
                     android:textSize="12dp" />
 
-                <LinearLayout
+                <FrameLayout
+                    android:id="@+id/fl_user_total1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:foreground="?attr/selectableItemBackground"
+                    android:background="@drawable/selector_comm_btn"
+                    android:visibility="gone"
+                    android:padding="18dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerVertical="true"
+                        android:background="@color/white"
+                        android:gravity="center_vertical"
+                        android:text="群聊成员"
+                        android:textColor="@color/color_333333" />
+
+                    <TextView
+                        android:id="@+id/tv_user_total1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="right"
+                        android:drawableRight="@mipmap/ic_item_more"
+                        android:drawablePadding="@dimen/dp_5"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical"
+                        android:maxLength="8"
+                        android:maxLines="1"
+                        android:textColor="#888E9C"
+                        android:textSize="@dimen/sp_14"
+                        tools:text="查看6名群成员" />
+                </FrameLayout>
+
+               <!-- <LinearLayout
                     android:id="@+id/fl_group_member"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -308,7 +377,7 @@
                     android:layout_height="wrap_content"
                     android:paddingLeft="@dimen/dp_10"
                     android:paddingBottom="10dp"
-                    android:paddingRight="@dimen/dp_10" />
+                    android:paddingRight="@dimen/dp_10" />-->
 
                 <TextView
                     android:id="@+id/tv_group_manager"
@@ -332,7 +401,6 @@
                         android:layout_centerVertical="true"
                         android:background="@color/white"
                         android:drawableRight="@mipmap/ic_item_more"
-                        android:foreground="?attr/selectableItemBackground"
                         android:gravity="center_vertical"
                         android:text="全员禁言"
                         android:textColor="@color/color_333333" />

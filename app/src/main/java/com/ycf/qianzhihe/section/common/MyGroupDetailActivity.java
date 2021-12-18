@@ -79,8 +79,6 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
     @BindView(R.id.title_bar)
     EaseTitleBar title_bar;
 
-    @BindView(R.id.recycle_view)
-    RecyclerView mRecycleView;
     @BindView(R.id.iv_group_head)
     EaseImageView iv_group_head;
     @BindView(R.id.iv_group_head1)
@@ -143,6 +141,14 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
     FrameLayout fl_group_head1;
     @BindView(R.id.ll_group_manager)
     LinearLayout ll_group_manager;
+    @BindView(R.id.fl_user_total)
+    FrameLayout fl_user_total;
+    @BindView(R.id.fl_user_total1)
+    FrameLayout fl_user_total1;
+    @BindView(R.id.tv_user_total)
+    TextView tv_user_total;
+    @BindView(R.id.tv_user_total1)
+    TextView tv_user_total1;
 
 
     /**
@@ -152,7 +158,7 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
     private String groupId;
     private String emChatId;
     private List<GroupDetailInfo.GroupUserDetailVoListBean> mDetailVoListBeanList = new ArrayList<>();
-    private MyRoomDeatilAdapter mRoomDeatilAdapter;
+//    private MyRoomDeatilAdapter mRoomDeatilAdapter;
     private GroupDetailInfo info;
 
 
@@ -190,13 +196,12 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
         });
 
 
-        mRoomDeatilAdapter = new MyRoomDeatilAdapter(mDetailVoListBeanList);
-        mRoomDeatilAdapter.setOnDelClickListener(this);
-        mRecycleView.setHasFixedSize(true);
-        mRecycleView.setNestedScrollingEnabled(false);
-        mRecycleView.setLayoutManager(new GridLayoutManager(this, 5));
-        mRecycleView.setAdapter(mRoomDeatilAdapter);
-//        info = GroupOperateManager.getInstance().getGroupData(emChatId);
+//        mRoomDeatilAdapter = new MyRoomDeatilAdapter(mDetailVoListBeanList);
+//        mRoomDeatilAdapter.setOnDelClickListener(this);
+//        mRecycleView.setHasFixedSize(true);
+//        mRecycleView.setNestedScrollingEnabled(false);
+//        mRecycleView.setLayoutManager(new GridLayoutManager(this, 5));
+//        mRecycleView.setAdapter(mRoomDeatilAdapter);
 
 
         EMConversation emConversation = EMClient.getInstance().chatManager().getConversation(emChatId);
@@ -295,11 +300,11 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
      */
     public void setGroupDetail() {
 
-        mRoomDeatilAdapter.setGroupName(info.getGroupName());
-        mRoomDeatilAdapter.setEmGroupId(emChatId);
-        mRoomDeatilAdapter.setCurrentUserRank(info.getGroupUserRank());
-        mRoomDeatilAdapter.setUserReadDetail(info.getSeeFriendFlag() == 1 || info.getGroupUserRank() != 0);
-        mRoomDeatilAdapter.setCurrentUserRank(info.getGroupUserRank());
+//        mRoomDeatilAdapter.setGroupName(info.getGroupName());
+//        mRoomDeatilAdapter.setEmGroupId(emChatId);
+//        mRoomDeatilAdapter.setCurrentUserRank(info.getGroupUserRank());
+//        mRoomDeatilAdapter.setUserReadDetail(info.getSeeFriendFlag() == 1 || info.getGroupUserRank() != 0);
+//        mRoomDeatilAdapter.setCurrentUserRank(info.getGroupUserRank());
         mTvGroupId.setText(StringUtil.isEmpty(info.getHuanxinGroupId()) ? "" : info.getHuanxinGroupId());
         mTvMyGroupNickName.setText(info.getGroupUserNickName());
 
@@ -332,6 +337,10 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
             title_bar.setOnRightClickListener(view -> {
                 ContactGroupingActivity.actionStart(mContext, "2", info.getGroupName(), info.getGroupId());
             });
+
+            fl_user_total.setVisibility(View.GONE);
+            fl_user_total1.setVisibility(View.VISIBLE);
+
         } else if (info.getGroupUserRank() == 1) {
             mTvExit.setText("退出群聊");
             mFlGroupJinyan.setVisibility(View.VISIBLE);
@@ -343,6 +352,9 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
                 ContactGroupingActivity.actionStart(mContext, "2", info.getGroupName(), info.getGroupId());
             });
 
+            fl_user_total.setVisibility(View.GONE);
+            fl_user_total1.setVisibility(View.VISIBLE);
+
         } else if (info.getGroupUserRank() == 0) {
             mTvExit.setText("退出群聊");
             mFlGroupJinyan.setVisibility(View.GONE);
@@ -350,6 +362,9 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
             fl_group_head1.setVisibility(View.GONE);
             ll_group_manager.setVisibility(View.GONE);
             title_bar.setRightLayoutVisibility(View.GONE);
+
+            fl_user_total.setVisibility(View.VISIBLE);
+            fl_user_total1.setVisibility(View.GONE);
 
         }
 //        flUserReadDetail.setVisibility(0 == info.getGroupUserRank() ? View.GONE : View.VISIBLE);
@@ -369,6 +384,9 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
                     mDetailVoListBeanList.add(info.getGroupUserDetailVoList().get(i));
                 }
             }
+
+            tv_user_total.setText("查看" + info.getGroupUsers() + "名群成员");
+            tv_user_total1.setText("查看" + info.getGroupUsers() + "名群成员");
 
 
             GroupDetailInfo.GroupUserDetailVoListBean bean =
@@ -395,7 +413,7 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
             }
 
             tv_group_notice.setText(StringUtil.isEmpty(info.getGroupNotice()) ? "暂无群公告" : info.getGroupNotice());
-            mRoomDeatilAdapter.notifyDataSetChanged();
+//            mRoomDeatilAdapter.notifyDataSetChanged();
         }
         setSWitchReadPermission();
         setMuteSwitch();
@@ -436,7 +454,7 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
             int count = info.getGroupUsers() - mIdList.size();
             info.setGroupUsers(count);
 //            mTvTotal.setText("共" + count + "人");
-            mRoomDeatilAdapter.notifyDataSetChanged();
+//            mRoomDeatilAdapter.notifyDataSetChanged();
         } else if (center.getEventCode() == 404) {
             //刷新群公告
             if (!TextUtils.isEmpty(center.getData().toString())) {
@@ -685,9 +703,9 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
             @Override
             public void onSuccess(String json, String msg) {
                 ToastUtil.toast(msg);
-                mRoomDeatilAdapter.setMode(0);
+//                mRoomDeatilAdapter.setMode(0);
                 mDetailVoListBeanList.remove(pos);
-                mRoomDeatilAdapter.notifyDataSetChanged();
+//                mRoomDeatilAdapter.notifyDataSetChanged();
             }
 
             @Override
@@ -701,7 +719,7 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
 
     private String headUrl = "";
 
-    @OnClick({R.id.fl_group_member, R.id.tv_my_group_nick_name_s,
+    @OnClick({R.id.fl_user_total, R.id.fl_user_total1, R.id.tv_my_group_nick_name_s,
             R.id.tv_group_zx, R.id.tv_group_name, R.id.rl_container_group_remark,
             R.id.fl_group_notice, R.id.tv_msg_record,
             R.id.tv_group_manager, R.id.rl_container_group_single_member_jinyan,
@@ -815,7 +833,8 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
             case R.id.tv_group_zx:
                 MyQrActivity.actionStart(this, groupId, info.getGroupHead(), info.getGroupName());
                 break;
-            case R.id.fl_group_member:
+            case R.id.fl_user_total:
+            case R.id.fl_user_total1:
                 Global.addUserOriginType = Constant.ADD_USER_ORIGIN_TYPE_GROUPCHAT;
                 Global.addUserOriginName = info.getGroupName();
                 Intent memberIntent = new Intent(this, GroupMemberActivity.class);
