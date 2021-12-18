@@ -13,11 +13,13 @@ import com.ycf.qianzhihe.MainActivity;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.Global;
+import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.ycf.qianzhihe.app.base.BaseInitFragment;
 import com.ycf.qianzhihe.app.base.WebViewActivity;
 import com.ycf.qianzhihe.app.operate.UserOperateManager;
 import com.ycf.qianzhihe.common.widget.BannerImageLoader;
 import com.ycf.qianzhihe.section.account.activity.UserInfoDetailActivity;
+import com.ycf.qianzhihe.section.common.InviteActivity;
 import com.ycf.qianzhihe.section.contact.activity.AddUserActivity;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
@@ -80,9 +82,10 @@ public class DiscoverFragment extends BaseInitFragment implements View.OnClickLi
                 AddUserActivity.actionStart(requireContext());
                 break;
             case R.id.clKYK:
+                WebViewActivity.actionStart(mContext, "http://dsp009.wojiazhe.com/", true);
                 break;
             case R.id.clYQ:
-
+                InviteActivity.actionStart(mContext);
                 break;
             case R.id.clQRC:
                 Global.addUserOriginType = Constant.ADD_USER_ORIGIN_TYPE_QRCODE;
@@ -91,7 +94,7 @@ public class DiscoverFragment extends BaseInitFragment implements View.OnClickLi
                 startActivityForResult(intent, REQUEST_CODE);
                 break;
             case R.id.clWYW:
-
+            WebViewActivity.actionStart(mContext, "http://www.itmind.net/tetris/", true);
                 break;
         }
     }

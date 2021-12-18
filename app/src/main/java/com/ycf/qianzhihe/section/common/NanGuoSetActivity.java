@@ -13,6 +13,7 @@ import androidx.annotation.NonNull;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
+import com.hyphenate.easeui.widget.EaseAlertDialog;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
@@ -24,7 +25,9 @@ import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.base.BaseInitActivity;
 import com.ycf.qianzhihe.app.base.WebViewActivity;
 import com.ycf.qianzhihe.app.utils.my.MyHelper;
+import com.ycf.qianzhihe.common.utils.DeviceIdUtil;
 import com.ycf.qianzhihe.common.widget.LogoffDialog;
+import com.ycf.qianzhihe.section.account.activity.MineActivity;
 import com.ycf.qianzhihe.section.account.activity.UpDataPasswordActivity;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.util.DataCleanManager;
@@ -61,6 +64,8 @@ public class NanGuoSetActivity extends BaseInitActivity {
     TextView tv_user_agreement;
     @BindView(R.id.tv_register_agreement)
     TextView tv_register_agreement;
+    @BindView(R.id.tv_logout)
+    TextView tv_logout;
 
 
 
@@ -80,7 +85,7 @@ public class NanGuoSetActivity extends BaseInitActivity {
         mTitleBar.setTitle("设置");
         mTitleBar.setOnBackPressListener(view -> finish());
 
-        tv_version.setText("当前版本：v" + SystemUtil.getAppVersionName());
+        tv_version.setText("版本：v" + SystemUtil.getAppVersionName());
 
         try {
 //            tv_m.setText(StringUtil.isEmpty(DataCleanManager.getTotalCacheSize(this)) ? "" : DataCleanManager.getTotalCacheSize(this));
@@ -89,7 +94,7 @@ public class NanGuoSetActivity extends BaseInitActivity {
         }
     }
 
-    @OnClick({R.id.tv_reset_login, R.id.tv_reset_pay,R.id.tv_reset_black,R.id.tv_clear})
+    @OnClick({R.id.tv_reset_login, R.id.tv_reset_pay,R.id.tv_reset_black,R.id.tv_clear,R.id.tv_logout})
     public void click(View v) {
         switch (v.getId()) {
             case R.id.tv_reset_login://重置登录密码
@@ -168,6 +173,16 @@ public class NanGuoSetActivity extends BaseInitActivity {
                 }).show();*/
                 showLogoffDialog();
                 break;
+            case R.id.tv_logout:
+                new EaseAlertDialog(this, "确定退出帐号？", null, null, new EaseAlertDialog.AlertDialogUser() {
+                    @Override
+                    public void onResult(boolean confirmed, Bundle bundle) {
+                        if (confirmed) {
+                            logout();
+                        }
+                    }
+                }, true).show();
+                break;
         }
     }
 
@@ -210,9 +225,7 @@ public class NanGuoSetActivity extends BaseInitActivity {
 
                     @Override
                     public void onProgress(int progress, String status) {
-
                     }
-
                     @Override
                     public void onError(int code, String message) {
                         runOnUiThread(new Runnable() {
@@ -236,5 +249,60 @@ public class NanGuoSetActivity extends BaseInitActivity {
             }
         });
     }
+
+    private void logout() {
+        String st = getResources().getString(R.string.Are_logged_out);
+        showLoading(st);
+
+        Map<String, Object> map = new HashMap<>();
+        map.put("deviceId", DeviceIdUtil.getDeviceId(this));
+        ApiClient.requestNetHandle(this, AppConfig.multiDeviceLogout, "请稍候...", map, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                ToastUtil.toast(json);
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                ToastUtil.toast(msg);
+
+            }
+        });
+
+        MyHelper.getInstance().logout(false, new EMCallBack() {
+
+            @Override
+            public void onSuccess() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        dismissLoading();
+                        UserComm.clearUserInfo();
+                        finish();
+                        EventBus.getDefault().post(new EventCenter(EventUtil.LOSETOKEN, "关闭"));
+                    }
+                });
+            }
+
+            @Override
+            public void onProgress(int progress, String status) {
+
+            }
+
+            @Override
+            public void onError(int code, String message) {
+                runOnUiThread(new Runnable() {
+
+                    @Override
+                    public void run() {
+                        // TODO Auto-generated method stub
+                        dismissLoading();
+                        Toast.makeText(mContext, "退出失败", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            }
+        });
+    }
+
 
 }

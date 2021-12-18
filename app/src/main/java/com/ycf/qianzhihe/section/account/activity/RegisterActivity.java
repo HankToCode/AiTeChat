@@ -210,7 +210,9 @@ public class RegisterActivity extends BaseInitActivity implements View.OnClickLi
         map.put("phone", phone);
         map.put("authCode", sms);
         map.put("nickName", mEtUserName.getText().toString().trim());
-
+        if (!TextUtils.isEmpty(mEtInvitation.getText().toString().trim())) {
+            map.put("inviteCode", mEtInvitation.getText().toString().trim());
+        }
         ApiClient.requestNetHandle(this, AppConfig.toRegister, "正在注册...", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
