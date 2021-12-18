@@ -9,31 +9,77 @@
         android:id="@+id/iv_splash"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
         android:scaleType="centerCrop"
-        android:src="@drawable/em_splash_bg" />
+        android:src="@mipmap/bg_splash_action"
+        android:visibility="visible" />
 
-    <TextView
-        android:id="@+id/tv_product"
+    <ImageView
+        android:id="@+id/ivLogo"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="82dp"
+        android:src="@mipmap/ic_logo"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:layout_marginTop="@dimen/dp_365"
+        android:src="@mipmap/icon_login_tip" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|center"
         android:layout_marginBottom="80dp"
+        android:gravity="center_vertical"
         android:letterSpacing="0.2"
-        android:visibility="gone"
-        android:text="@string/demo_app_product_name"
-        android:textColor="@color/white"
-        android:textSize="@dimen/em_size_big" />
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tv_product"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_43"
+            android:layout_gravity="bottom|center"
+            android:layout_marginLeft="@dimen/dp_42"
+            android:layout_marginRight="@dimen/dp_42"
+            android:background="@drawable/shap_blue_btnbg"
+            android:gravity="center"
+            android:letterSpacing="0.2"
+            android:text="注册"
+            android:textColor="@color/white"
+            android:textSize="@dimen/em_size_big"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tv_login"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_43"
+            android:layout_gravity="bottom|center"
+            android:layout_marginLeft="@dimen/dp_42"
+            android:layout_marginTop="@dimen/dp_15"
+            android:layout_marginRight="@dimen/dp_42"
+            android:background="@drawable/shap_white"
+            android:gravity="center"
+            android:letterSpacing="0.2"
+            android:text="登录"
+            android:textColor="@color/black"
+            android:textSize="@dimen/em_size_big"
+            android:visibility="gone" />
+    </LinearLayout>
 
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/anim"
-        tools:visibility="gone"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
         app:lottie_autoPlay="false"
         app:lottie_loop="false"
-        app:lottie_rawRes="@raw/data" />
+        app:lottie_rawRes="@raw/data"
+        tools:visibility="gone" />
 
 </FrameLayout>

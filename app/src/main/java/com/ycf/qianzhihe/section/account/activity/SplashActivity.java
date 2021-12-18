@@ -83,8 +83,7 @@ public class SplashActivity extends BaseInitActivity {
     protected void initData() {
         super.initData();
         model = new ViewModelProvider(this).get(SplashViewModel.class);
-//        checkNesStatus();
-        mAnim.setVisibility(View.VISIBLE);
+       /* mAnim.setVisibility(View.VISIBLE);
         mAnim.setImageAssetsFolder("/lp/");
         mAnim.setAnimation("logo.json");
         mAnim.addAnimatorListener(new AnimatorListenerAdapter() {
@@ -92,15 +91,13 @@ public class SplashActivity extends BaseInitActivity {
             public void onAnimationEnd(Animator animation) {
                 mAnim.removeAnimatorListener(this);
                 mAnim.setVisibility(View.GONE);
-                alphaSplash();
+//                alphaSplash();
 
             }
         });
-        mAnim.playAnimation();
-
-        initMedia();
-
-
+        mAnim.playAnimation();*/
+        alphaSplash();
+//        initMedia();
     }
 
     private void initMedia() {
@@ -116,7 +113,7 @@ public class SplashActivity extends BaseInitActivity {
             @Override
             public void onAnimationStart(Animation animation) {
                 ivSplash.setVisibility(View.VISIBLE);
-                tvProduct.setVisibility(View.VISIBLE);
+//                tvProduct.setVisibility(View.VISIBLE);
             }
 
             @Override
