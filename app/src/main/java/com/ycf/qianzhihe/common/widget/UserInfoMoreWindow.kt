@@ -1,13 +1,18 @@
 package com.ycf.qianzhihe.common.widget
 
 import android.app.Activity
+import android.graphics.Color
 import android.graphics.drawable.BitmapDrawable
 import android.view.*
+import android.view.View.GONE
 import android.widget.*
+import androidx.core.content.ContextCompat
 import com.blankj.utilcode.util.ToastUtils
 import com.coorchice.library.SuperTextView
 import com.ycf.qianzhihe.R
+import com.ycf.qianzhihe.app.api.Constant
 import com.ycf.qianzhihe.section.account.activity.UserInfoDetailActivity
+import kotlin.coroutines.coroutineContext
 
 /**
  * author:       Shenme
@@ -23,6 +28,7 @@ class UserInfoMoreWindow : PopupWindow, View.OnClickListener {
     private var llOption1: LinearLayout
     private var llOption2: LinearLayout
     private var llOption3: LinearLayout
+    private var llOption4: LinearLayout
     private var tvOptions1: TextView
     private var tvOptions2: TextView
     private var tvOptions3: TextView
@@ -32,6 +38,10 @@ class UserInfoMoreWindow : PopupWindow, View.OnClickListener {
     private var tvOptions7: TextView
     private var tvOptions8: TextView
     private var tvOptions9: TextView
+    private var tvOptions10: TextView
+    private var tvOptions11: TextView
+    private var tvOptions12: TextView
+    private var tvOptions13: TextView
 
     private var calback: (target: Int) -> Unit = {}
 
@@ -39,6 +49,7 @@ class UserInfoMoreWindow : PopupWindow, View.OnClickListener {
 
     constructor(
         activity: Activity,
+        chatType: Int,
         calback: (target: Int) -> Unit,
         userInterface: UserInfoDetailActivity.UserInfoDetailInfoInterface
     ) {
@@ -71,6 +82,7 @@ class UserInfoMoreWindow : PopupWindow, View.OnClickListener {
             val paramsa = activity.window.attributes
             paramsa.alpha = 1f
             activity.window.attributes = paramsa
+            userInterface.initBottomVis()
         }
 
 
@@ -78,6 +90,7 @@ class UserInfoMoreWindow : PopupWindow, View.OnClickListener {
         llOption1 = view.findViewById(R.id.llOption1)
         llOption2 = view.findViewById(R.id.llOption2)
         llOption3 = view.findViewById(R.id.llOption3)
+        llOption4 = view.findViewById(R.id.llOption4)
 
 
         tvOptions1 = view.findViewById(R.id.tvOptions1)
@@ -90,6 +103,11 @@ class UserInfoMoreWindow : PopupWindow, View.OnClickListener {
         tvOptions8 = view.findViewById(R.id.tvOptions8)
         tvOptions9 = view.findViewById(R.id.tvOptions9)
 
+        tvOptions10 = view.findViewById(R.id.tvOptions10)
+        tvOptions11 = view.findViewById(R.id.tvOptions11)
+        tvOptions12 = view.findViewById(R.id.tvOptions12)
+        tvOptions13 = view.findViewById(R.id.tvOptions13)
+
         ivBack.setOnClickListener(this)
         tvOptions1.setOnClickListener(this)
         tvOptions2.setOnClickListener(this)
@@ -100,19 +118,37 @@ class UserInfoMoreWindow : PopupWindow, View.OnClickListener {
         tvOptions7.setOnClickListener(this)
         tvOptions8.setOnClickListener(this)
         tvOptions9.setOnClickListener(this)
+        tvOptions10.setOnClickListener(this)
+        tvOptions11.setOnClickListener(this)
+        tvOptions12.setOnClickListener(this)
+        tvOptions13.setOnClickListener(this)
 
         tvOptions1.isSelected = userInterface.isMute
         tvOptions7.isSelected = userInterface.isMute
         tvOptions5.isSelected = userInterface.isBlack
+        tvOptions11.isSelected = userInterface.isBlack
 
-        if (userInterface.isFriend || userInterface.isUserRank) {
-            llOption1.visibility = View.VISIBLE
-            llOption2.visibility = View.VISIBLE
-            llOption3.visibility = View.GONE
+        tvOptions5.text = if (userInterface.isBlack) "已拉黑" else "拉黑"
+        tvOptions11.text = if (userInterface.isBlack) "已拉黑" else "拉黑"
+
+
+        if (chatType == Constant.CHATTYPE_GROUP) {
+            if (userInterface.isUserRank) {
+                llOption1.visibility = View.VISIBLE
+                llOption2.visibility = View.VISIBLE
+                llOption3.visibility = View.GONE
+                llOption4.visibility = View.GONE
+            } else {
+                llOption1.visibility = View.GONE
+                llOption2.visibility = View.GONE
+                llOption3.visibility = View.VISIBLE
+                llOption4.visibility = View.GONE
+            }
         } else {
             llOption1.visibility = View.GONE
             llOption2.visibility = View.GONE
-            llOption3.visibility = View.VISIBLE
+            llOption3.visibility = View.GONE
+            llOption4.visibility = View.VISIBLE
         }
 
 
@@ -174,8 +210,22 @@ class UserInfoMoreWindow : PopupWindow, View.OnClickListener {
             R.id.tvOptions9 -> {
                 calback.invoke(9)
             }
+            R.id.tvOptions10 -> {
+                calback.invoke(10)
+            }
+            R.id.tvOptions11 -> {
+                if (!userInterface.isFriend) {
+                    ToastUtils.showLong("您并非他好友")
+                    return
+                }
+                calback.invoke(11)
+            }
+            R.id.tvOptions12 -> {
+                calback.invoke(12)
+            }
+            R.id.tvOptions13 -> {
+                calback.invoke(13)
+            }
         }
     }
-
-
 }

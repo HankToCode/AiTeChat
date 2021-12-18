@@ -155,7 +155,7 @@ public class GroupUserApplyAdapter extends RecyclerView.Adapter<GroupUserApplyAd
                         UserInfoDetailActivity.class)
                         .putExtra("friendUserId", info.getUserId())
                         .putExtra(Constant.PARAM_GROUP_ID, info.getGroupId())
-                        .putExtra("from", "1"));
+                        .putExtra("from", "2"));
             }
         });
 

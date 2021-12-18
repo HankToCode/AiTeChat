@@ -23,6 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:layout_constraintStart_toStartOf="parent"
+            tools:visibility="gone"
             android:layout_marginBottom="170dp"
             app:layout_constraintBottom_toBottomOf="parent">
 
@@ -74,6 +75,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
+            tools:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginBottom="70dp"
             app:layout_constraintBottom_toBottomOf="parent">
@@ -127,6 +129,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"
             android:visibility="gone"
+            tools:visibility="gone"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginBottom="70dp"
             app:layout_constraintBottom_toBottomOf="parent">
@@ -164,6 +167,74 @@
 
             <TextView
                 android:id="@+id/tvOptions9"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@mipmap/ic_window_icon6"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:text="举报"
+                android:textColor="@color/color_49525A" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llOption4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="25dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginBottom="70dp"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/tvOptions10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@mipmap/ic_window_icon4"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:text="分组"
+                android:textColor="@color/color_49525A" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tvOptions11"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/selector_ic_window_icon5"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:text="拉黑"
+                android:textColor="@color/color_49525A" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tvOptions12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@mipmap/ic_window_icon3"
+                android:drawablePadding="10dp"
+                android:gravity="center"
+                android:text="聊天记录"
+                android:textColor="@color/color_49525A" />
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="1dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/tvOptions13"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:drawableTop="@mipmap/ic_window_icon6"

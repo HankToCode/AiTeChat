@@ -431,7 +431,8 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
                 String result = bundle.getString(CaptureActivity.INTENT_EXTRA_KEY_QR_SCAN);
                 if (result.contains("person") || result.contains("group")) {
                     if ("person".equals(result.split("_")[1])) {
-                        startActivity(new Intent(this, UserInfoDetailActivity.class).putExtra("friendUserId", result.split("_")[0]));
+                        startActivity(new Intent(this, UserInfoDetailActivity.class).putExtra(
+                                "from", "1").putExtra("friendUserId", result.split("_")[0]));
                     } else {
                         UserOperateManager.getInstance().scanInviteContact(this, result);
 

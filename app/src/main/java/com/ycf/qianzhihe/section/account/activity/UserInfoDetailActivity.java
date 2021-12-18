@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.core.content.ContextCompat;
 
+import com.blankj.utilcode.util.ToastUtils;
 import com.coorchice.library.SuperTextView;
 import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMClient;
@@ -75,9 +76,9 @@ public class UserInfoDetailActivity extends BaseInitActivity {
     private int chatType;
     private String emGroupId;
     private String groupId;
-    private String from = "";
     private FriendInfo info;
     private int currentUserRank;
+    private String isFromBlack = "";
 
 
     private EaseTitleBar mTitleBar;
@@ -138,6 +139,8 @@ public class UserInfoDetailActivity extends BaseInitActivity {
         boolean isFriend();
 
         boolean isUserRank();
+
+        void initBottomVis();
     }
 
     protected void initLogic() {
@@ -146,7 +149,7 @@ public class UserInfoDetailActivity extends BaseInitActivity {
         mTitleBar.setOnBackPressListener(view -> finish());
         mTitleBar.setRightLayoutClickListener(view -> {
             //弹出
-            UserInfoMoreWindow userInfoMoreWindow = new UserInfoMoreWindow(this, integer -> {
+            UserInfoMoreWindow userInfoMoreWindow = new UserInfoMoreWindow(this, chatType, integer -> {
                 switch (integer) {
                     case 1:
                     case 7:
@@ -159,14 +162,18 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                         delGroupUser();
                         break;
                     case 3:
+                    case 12:
                         //查找聊天记录
                         startActivity(new Intent(UserInfoDetailActivity.this, ChatRecordActivity.class).putExtra("chatId", userId + Constant.ID_REDPROJECT));
                         break;
                     case 4:
+                    case 10:
                         //分组
                         FriendGroupingActvity.actionStart(mContext, userId, info.getCategoryId(), info.getCategoryName());
                         break;
                     case 5:
+                    case 11:
+                        //拉黑
                         if (info.getFriendFlag().equals("1")) {
                             if (info.getBlackStatus() != null && info.getBlackStatus().equals("1")) {
                                 isBlack = false;
@@ -181,10 +188,11 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                         break;
                     case 6:
                     case 9:
-                        if (from.equals("1")) {
-                            startActivity(new Intent(this, ReportActivity.class).putExtra("from", from).putExtra("userGroupId", userId));
-                        } else if (from.equals("2")) {
-                            startActivity(new Intent(this, ReportActivity.class).putExtra("from", from).putExtra("userGroupId", groupId));
+                    case 13:
+                        if (chatType == Constant.CHATTYPE_GROUP) {
+                            startActivity(new Intent(this, ReportActivity.class).putExtra("from", "2").putExtra("userGroupId", groupId));
+                        } else {
+                            startActivity(new Intent(this, ReportActivity.class).putExtra("from", "1").putExtra("userGroupId", userId));
                         }
                         break;
                 }
@@ -211,7 +219,14 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                 public boolean isUserRank() {
                     return isUserRank;
                 }
+
+                @Override
+                public void initBottomVis() {
+                    UserInfoDetailActivity.this.initBottomVis();
+                }
             });
+            mLlBottomFriend.setVisibility(View.GONE);
+            mTvAddFriend.setVisibility(View.GONE);
             userInfoMoreWindow.showAtLocation(view, Gravity.BOTTOM, 0, 0);
         });
         /*mImgRight.setOnClickListener(v ->
@@ -275,14 +290,14 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                         userId, false);
                 MyHelper.getInstance().getModel().saveChatBg(userId,
                         null, "false", null);
-                mTvFree.setSolid(ContextCompat.getColor(this,R.color.color_66_white));
+                mTvFree.setSolid(ContextCompat.getColor(this, R.color.color_66_white));
             } else {
                 EaseSharedUtils.setEnableMsgRing(Utils.getContext(),
                         UserComm.getUserId() + Constant.ID_REDPROJECT,
                         userId, true);
                 MyHelper.getInstance().getModel().saveChatBg(userId,
                         null, "true", null);
-                mTvFree.setSolid(ContextCompat.getColor(this,R.color.color_22_white));
+                mTvFree.setSolid(ContextCompat.getColor(this, R.color.color_22_white));
 
             }
         });
@@ -306,33 +321,16 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                     if (isSelect) {
                         emConversation.setExtField("toTop");
                         ToTopMap.save(UserInfoDetailActivity.this, emConversation.conversationId());
-                        mTvToTop.setSolid(ContextCompat.getColor(this,R.color.color_66_white));
+                        mTvToTop.setSolid(ContextCompat.getColor(this, R.color.color_66_white));
 
                     } else {
                         emConversation.setExtField("false");
                         ToTopMap.delete(UserInfoDetailActivity.this, emConversation.conversationId());
-                        mTvToTop.setSolid(ContextCompat.getColor(this,R.color.color_22_white));
+                        mTvToTop.setSolid(ContextCompat.getColor(this, R.color.color_22_white));
                     }
                 }
             }
         });
-
-        //会话置顶
-       /* mSwitchTopConversation.setOnCheckedChangeListener((buttonView,
-                                                           isChecked) -> {
-
-            if (emConversation != null && !emConversation.conversationId().equals(Constant.ADMIN)) {
-                if (emConversation.conversationId().contains(userId)) {
-                    if (isChecked) {
-                        emConversation.setExtField("toTop");
-                        ToTopMap.save(UserInfoDetailActivity.this, emConversation.conversationId());
-                    } else {
-                        emConversation.setExtField("false");
-                        ToTopMap.delete(UserInfoDetailActivity.this, emConversation.conversationId());
-                    }
-                }
-            }
-        });*/
 
         //switch_start  0:未加星标，1：星标
         /*switch_start.setOnCheckedChangeListener((buttonView, isChecked) -> {
@@ -387,9 +385,9 @@ public class UserInfoDetailActivity extends BaseInitActivity {
         userId = intent.getStringExtra("friendUserId");
         userName = intent.getStringExtra("userName");
         chatType = intent.getIntExtra("chatType", 0);
-        from = intent.getStringExtra("from");
         inviterUserId = intent.getStringExtra("entryUserId");
         currentUserRank = intent.getIntExtra("currentUserRank", 0);
+        isFromBlack = intent.getStringExtra("from");
     }
 
     private void getGroupMuteList() {
@@ -477,45 +475,9 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                             }*/
 
                             mTvNickName.setText(info.getNickName());
-                            //好友标识 0 不是好友 1 是好友
-                            if (info.getFriendFlag().equals("1")) {
-                                /*//是不是星标 starTarget	0:未加星标，1：星标
-                                if (!TextUtils.isEmpty(info.getStarTarget())) {
-                                    if (Double.parseDouble(info.getStarTarget()) == 1) {
-                                        iv_start.setVisibility(View.VISIBLE);
-                                        switch_start.setChecked(true);
-                                    } else {
-                                        iv_start.setVisibility(View.GONE);
-                                        switch_start.setChecked(false);
-                                    }
-                                } else {
-                                    iv_start.setVisibility(View.GONE);
-                                    switch_start.setChecked(false);
-                                }*/
-                                isFriend = true;
-                                if (info.getBlackStatus().equals("1")) {
-                                    isBlack = true;
-                                    //黑名单中
-                                    mLlBottomFriend.setVisibility(View.GONE);
-                                } else {
-                                    isBlack = false;
-                                    mLlBottomFriend.setVisibility(View.VISIBLE);
-                                }
-                                try {
-                                    mTvRemark.setText(info.getFriendNickName());
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            } else {
-                                isFriend = false;
-                                if (userId.contains(UserComm.getUserId())) {//自己
-                                    mLlBottomFriend.setVisibility(View.GONE);
-                                    mTvAddFriend.setVisibility(View.GONE);
-                                } else {
-                                    mLlBottomFriend.setVisibility(View.GONE);
-                                    mTvAddFriend.setVisibility(View.VISIBLE);
-                                }
-                            }
+
+                            initBottomVis();
+
                             /*if (!TextUtils.isEmpty(inviterUserId)) {
                                 queryInviter();
                             }*/
@@ -531,6 +493,49 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                         finish();
                     }
                 });
+    }
+
+    private void initBottomVis() {
+        if (info == null) return;
+        //好友标识 0 不是好友 1 是好友
+        if (info.getFriendFlag().equals("1")) {
+                                /*//是不是星标 starTarget	0:未加星标，1：星标
+                                if (!TextUtils.isEmpty(info.getStarTarget())) {
+                                    if (Double.parseDouble(info.getStarTarget()) == 1) {
+                                        iv_start.setVisibility(View.VISIBLE);
+                                        switch_start.setChecked(true);
+                                    } else {
+                                        iv_start.setVisibility(View.GONE);
+                                        switch_start.setChecked(false);
+                                    }
+                                } else {
+                                    iv_start.setVisibility(View.GONE);
+                                    switch_start.setChecked(false);
+                                }*/
+            isFriend = true;
+            if (info.getBlackStatus().equals("1")) {
+                isBlack = true;
+                //黑名单中
+                mLlBottomFriend.setVisibility(View.GONE);
+            } else {
+                isBlack = false;
+                mLlBottomFriend.setVisibility(View.VISIBLE);
+            }
+            try {
+                mTvRemark.setText(info.getFriendNickName());
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else {
+            isFriend = false;
+            if (userId.contains(UserComm.getUserId())) {//自己
+                mLlBottomFriend.setVisibility(View.GONE);
+                mTvAddFriend.setVisibility(View.GONE);
+            } else {
+                mLlBottomFriend.setVisibility(View.GONE);
+                mTvAddFriend.setVisibility(View.VISIBLE);
+            }
+        }
     }
 
     /*private void queryInviter() {
@@ -749,7 +754,7 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                             ToastUtil.toast("移除成功");
                             finish();
                         }
-                        if (from.equals("3")) {
+                        if (isFromBlack.equals("3")) {
                             EventBus.getDefault().post(new EventCenter<>(EventUtil.REFRESH_BLACK));
                             ToastUtil.toast(" 移除成功");
                             finish();
