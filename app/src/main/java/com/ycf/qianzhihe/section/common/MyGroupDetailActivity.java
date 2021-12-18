@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -140,6 +141,8 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
     TextView rl_container_group_single_member_jinyan;
     @BindView(R.id.fl_group_head1)
     FrameLayout fl_group_head1;
+    @BindView(R.id.ll_group_manager)
+    LinearLayout ll_group_manager;
 
 
     /**
@@ -324,16 +327,29 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
             mTvExit.setText("解散群聊");
             tvGroupManager.setVisibility(View.VISIBLE);
             mFlGroupJinyan.setVisibility(View.VISIBLE);
+            ll_group_manager.setVisibility(View.VISIBLE);
+            title_bar.setRightLayoutVisibility(View.VISIBLE);
+            title_bar.setOnRightClickListener(view -> {
+                ContactGroupingActivity.actionStart(mContext, "2", info.getGroupName(), info.getGroupId());
+            });
         } else if (info.getGroupUserRank() == 1) {
             mTvExit.setText("退出群聊");
             mFlGroupJinyan.setVisibility(View.VISIBLE);
             tvGroupManager.setVisibility(View.GONE);
             fl_group_head1.setVisibility(View.GONE);
+            ll_group_manager.setVisibility(View.VISIBLE);
+            title_bar.setRightLayoutVisibility(View.VISIBLE);
+            title_bar.setOnRightClickListener(view -> {
+                ContactGroupingActivity.actionStart(mContext, "2", info.getGroupName(), info.getGroupId());
+            });
+
         } else if (info.getGroupUserRank() == 0) {
             mTvExit.setText("退出群聊");
             mFlGroupJinyan.setVisibility(View.GONE);
             tvGroupManager.setVisibility(View.GONE);
             fl_group_head1.setVisibility(View.GONE);
+            ll_group_manager.setVisibility(View.GONE);
+            title_bar.setRightLayoutVisibility(View.GONE);
 
         }
 //        flUserReadDetail.setVisibility(0 == info.getGroupUserRank() ? View.GONE : View.VISIBLE);

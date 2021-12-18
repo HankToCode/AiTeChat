@@ -14,6 +14,8 @@
         app:titleBarDisplayHomeAsUpEnabled="true"
         app:titleBarLeftImage="@drawable/ic_back"
         app:titleBarTitle="群聊详情"
+        app:titleBarRightTitle="邀请"
+        app:titleBarRightVisible="true"
         app:titleBarTitlePosition="left" />
 
     <androidx.core.widget.NestedScrollView
@@ -247,29 +249,32 @@
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="18dp"
-                android:layout_marginTop="19dp"
-                android:text="群聊管理"
-                android:textColor="#888E9C"
-                android:textSize="12dp" />
+
 
             <LinearLayout
+                android:id="@+id/ll_group_manager"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
                 android:background="@drawable/selector_comm_btn"
                 android:gravity="center_vertical"
                 android:orientation="vertical"
                 android:visibility="visible">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="18dp"
+                    android:layout_marginTop="19dp"
+                    android:text="群聊管理"
+                    android:textColor="#888E9C"
+                    android:textSize="12dp" />
 
                 <LinearLayout
                     android:id="@+id/fl_group_member"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
+                    android:layout_marginTop="10dp"
                     android:orientation="horizontal">
 
                     <TextView
