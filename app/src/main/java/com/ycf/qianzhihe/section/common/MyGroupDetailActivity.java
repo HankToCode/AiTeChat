@@ -42,6 +42,7 @@ import com.ycf.qianzhihe.section.account.activity.SplashActivity;
 import com.ycf.qianzhihe.section.account.activity.UserInfoDetailActivity;
 import com.ycf.qianzhihe.section.conversation.ChatBgActivity;
 import com.ycf.qianzhihe.section.conversation.ChatRecordActivity;
+import com.ycf.qianzhihe.section.conversation.ReportActivity;
 import com.ycf.qianzhihe.section.conversation.SetGroupManageActivity;
 import com.hyphenate.exceptions.HyphenateException;
 import com.luck.picture.lib.PictureSelector;
@@ -132,8 +133,13 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
     @BindView(R.id.tv_group_notice)
     TextView tv_group_notice;
 
+    @BindView(R.id.tv_report)
+    TextView tv_report;
+
     @BindView(R.id.rl_container_group_single_member_jinyan)
     TextView rl_container_group_single_member_jinyan;
+    @BindView(R.id.fl_group_head1)
+    FrameLayout fl_group_head1;
 
 
     /**
@@ -322,14 +328,17 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
             mTvExit.setText("退出群聊");
             mFlGroupJinyan.setVisibility(View.VISIBLE);
             tvGroupManager.setVisibility(View.GONE);
+            fl_group_head1.setVisibility(View.GONE);
         } else if (info.getGroupUserRank() == 0) {
             mTvExit.setText("退出群聊");
             mFlGroupJinyan.setVisibility(View.GONE);
             tvGroupManager.setVisibility(View.GONE);
+            fl_group_head1.setVisibility(View.GONE);
+
         }
-        flUserReadDetail.setVisibility(0 == info.getGroupUserRank() ? View.GONE : View.VISIBLE);
+//        flUserReadDetail.setVisibility(0 == info.getGroupUserRank() ? View.GONE : View.VISIBLE);
         tv_transfer_group.setVisibility(2 == info.getGroupUserRank() ? View.VISIBLE : View.GONE);
-        rl_container_group_single_member_jinyan.setVisibility(0 == info.getGroupUserRank() ? View.GONE : View.VISIBLE);
+//        rl_container_group_single_member_jinyan.setVisibility(0 == info.getGroupUserRank() ? View.GONE : View.VISIBLE);
 
         int showSize = 19;
         if (info.getGroupUserDetailVoList().size() > 0) {
@@ -374,6 +383,7 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
         }
         setSWitchReadPermission();
         setMuteSwitch();
+
     }
 
     @Override
@@ -433,7 +443,6 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
         super.onStart();
 //        queryGroupDetail();
     }
-
 
     /**
      * 选择图片上传
@@ -680,7 +689,7 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
             R.id.tv_group_zx, R.id.tv_group_name, R.id.rl_container_group_remark,
             R.id.fl_group_notice, R.id.tv_msg_record,
             R.id.tv_group_manager, R.id.rl_container_group_single_member_jinyan,
-            R.id.tv_clear_msg, R.id.tv_exit, R.id.tv_transfer_group, R.id.iv_group_head,R.id.fl_group_head1, R.id.tv_chat_bg})
+            R.id.tv_clear_msg, R.id.tv_exit, R.id.tv_transfer_group, R.id.iv_group_head, R.id.fl_group_head1, R.id.tv_chat_bg, R.id.tv_report})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_chat_bg:
@@ -805,6 +814,9 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
                 break;
             case R.id.rl_container_group_single_member_jinyan:
                 GroupSingleMemberMuteActivity.start(this, emChatId, groupId);
+                break;
+            case R.id.tv_report:
+                startActivity(new Intent(this, ReportActivity.class).putExtra("from", "2").putExtra("userGroupId", groupId));
                 break;
             default:
                 break;

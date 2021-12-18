@@ -82,7 +82,7 @@
                     android:id="@+id/tv_group_zx"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:drawableTop="@mipmap/ic_qr_icon"
+                    android:drawableTop="@mipmap/ic_group_qr_img"
                     android:drawablePadding="10dp"
                     android:text="群二维码"
                     android:textColor="#888E9C"
@@ -446,6 +446,20 @@
                     android:button="@drawable/selector_checkbox"
                     android:checked="false" />
             </FrameLayout>
+
+            <TextView
+                android:id="@+id/tv_report"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="@color/white"
+                android:drawableRight="@mipmap/ic_item_more"
+                android:foreground="?attr/selectableItemBackground"
+                android:layout_marginTop="10dp"
+                android:gravity="center_vertical"
+                android:padding="18dp"
+                android:text="举报"
+                android:textColor="@color/color_333333" />
 
 
             <FrameLayout
