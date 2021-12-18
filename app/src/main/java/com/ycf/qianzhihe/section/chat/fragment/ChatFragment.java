@@ -195,6 +195,10 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
     private static final int ITEM_INVITE_GROUP_CAMERA = 56;
     private static final int ITEM_MY_COLLECT = 52;
 
+    static final int ITEM_YUY = 112;
+    public static final int ITEM_ZHANGKAI = 113;
+
+
 
     private static final int MESSAGE_APPLY_FRIEND_SEND = 45;
     private static final int MESSAGE_APPLY_FRIEND_SRECV = 46;
@@ -269,27 +273,48 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
 
         //use the menu in base class
         if (chatType == Constant.CHATTYPE_SINGLE) {
+
+            //语音
+            mInputMenu.registerExtendSmallMenuItem(R.mipmap.yuy,
+                    ITEM_YUY, extendMenuItemClickListener);
             //图片
+            mInputMenu.registerExtendSmallMenuItem(R.mipmap.icon_zp,
+                    ITEM_PICTURE, extendMenuItemClickListener);
+            //相机
+            mInputMenu.registerExtendSmallMenuItem(R.mipmap.icon_xj,
+                    ITEM_INVITE_GROUP_CAMERA, extendMenuItemClickListener);
+            //红包
+            mInputMenu.registerExtendSmallMenuItem(R.mipmap.icon_hb,
+                    ITEM_MY_RED_PACKET, extendMenuItemClickListener);
+            //位置
+            mInputMenu.registerExtendSmallMenuItem(R.mipmap.icon_wz,
+                    ITEM_LOCATION, extendMenuItemClickListener);
+            //展开
+            mInputMenu.registerExtendSmallMenuItem(R.mipmap.zhankai,
+                    ITEM_ZHANGKAI, extendMenuItemClickListener);
+
+
+            /*//图片
             mInputMenu.registerExtendMenuItem("图片", R.mipmap.zhaop,
                     ITEM_PICTURE, extendMenuItemClickListener);
             //相机
             mInputMenu.registerExtendMenuItem("相机", R.mipmap.xj_11,
-                    ITEM_INVITE_GROUP_CAMERA, extendMenuItemClickListener);
+                    ITEM_INVITE_GROUP_CAMERA, extendMenuItemClickListener);*/
             //语音电话
             mInputMenu.registerExtendMenuItem("语音电话", R.mipmap.yuyt,
                     ITEM_VOICE_CALL, extendMenuItemClickListener);
             //视频通话
             mInputMenu.registerExtendMenuItem("视频通话", R.mipmap.ship,
                     ITEM_VIDEO_CALL, extendMenuItemClickListener);
-            //位置
+            /*//位置
             mInputMenu.registerExtendMenuItem("位置", R.mipmap.dinwei,
-                    ITEM_LOCATION, extendMenuItemClickListener);
+                    ITEM_LOCATION, extendMenuItemClickListener);*/
             //名片
             mInputMenu.registerExtendMenuItem("名片", R.mipmap.minp,
                     ITEM_SEND_CARD, extendMenuItemClickListener);
-            //红包
+            /*//红包
             mInputMenu.registerExtendMenuItem("红包", R.mipmap.hongbao,
-                    ITEM_MY_RED_PACKET, extendMenuItemClickListener);
+                    ITEM_MY_RED_PACKET, extendMenuItemClickListener);*/
             //转账
             mInputMenu.registerExtendMenuItem("转账", R.mipmap.zhuanz,
                     ITEM_TRANSFER, extendMenuItemClickListener);
@@ -297,15 +322,15 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
 //                    ITEM_MY_COLLECT, extendMenuItemClickListener);
 
         } else if (chatType == Constant.CHATTYPE_GROUP) {
+            //语音
+            mInputMenu.registerExtendSmallMenuItem(R.mipmap.yuy,
+                    ITEM_YUY, extendMenuItemClickListener);
             //图片
             mInputMenu.registerExtendSmallMenuItem(R.mipmap.icon_zp,
                     ITEM_PICTURE, extendMenuItemClickListener);
             //相机
             mInputMenu.registerExtendSmallMenuItem(R.mipmap.icon_xj,
                     ITEM_INVITE_GROUP_CAMERA, extendMenuItemClickListener);
-            //位置
-            mInputMenu.registerExtendSmallMenuItem(R.mipmap.icon_wz,
-                    ITEM_LOCATION, extendMenuItemClickListener);
             //语音电话
           /*  mInputMenu.registerExtendSmallMenuItem(R.mipmap.yuyt_small,
                     ITEM_VOICE_CALL, extendMenuItemClickListener);*/
@@ -318,9 +343,16 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
             //红包
             mInputMenu.registerExtendSmallMenuItem(R.mipmap.icon_hb,
                     ITEM_MY_RED_PACKET, extendMenuItemClickListener);
+            //位置
+            mInputMenu.registerExtendSmallMenuItem(R.mipmap.icon_wz,
+                    ITEM_LOCATION, extendMenuItemClickListener);
             //转账
             /*mInputMenu.registerExtendSmallMenuItem(R.mipmap.zhuanz_small,
                     ITEM_TRANSFER, extendMenuItemClickListener);*/
+            //展开
+           /* mInputMenu.registerExtendSmallMenuItem(R.mipmap.zhankai,
+                    ITEM_ZHANGKAI, extendMenuItemClickListener);*/
+
             //名片
             mInputMenu.registerExtendSmallMenuItem(R.mipmap.icon_mp,
                     ITEM_SEND_CARD, extendMenuItemClickListener);
@@ -806,6 +838,12 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
     @Override
     public boolean onExtendMenuItemClick(int itemId, View view) {
         switch (itemId) {
+            case ITEM_YUY:
+                mInputMenu.chatPrimaryMenu.switchModeKeyboardOrVoice();
+                break;
+            case ITEM_ZHANGKAI:
+                mInputMenu.chatPrimaryMenu.onToggleExtendClicked();
+                break;
             case ITEM_MY_COLLECT:
                 startActivityForResult(new Intent(requireContext(), MyCollectActivity.class), 1023);
                 break;

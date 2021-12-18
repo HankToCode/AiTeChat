@@ -1,5 +1,7 @@
 package com.ycf.qianzhihe.app.weight.ease;
 
+import static com.ycf.qianzhihe.section.chat.fragment.ChatFragment.ITEM_ZHANGKAI;
+
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.util.AttributeSet;
@@ -108,6 +110,16 @@ public class EaseChatExtendSmallMenu extends GridView {
                     ToastUtil.toast("已禁言");
                     return;
                 }
+
+                if (getItem(position).id == ITEM_ZHANGKAI) {
+                    if (getItem(position).image == R.mipmap.zhankai) {
+                        getItem(position).image = R.mipmap.zhankai_select;
+                    } else {
+                        getItem(position).image = R.mipmap.zhankai;
+                    }
+                    menuItem.setImage(getItem(position).image);
+                }
+
                 if (getItem(position).clickListener != null) {
                     getItem(position).clickListener.onClick(getItem(position).id, v);
                 }

@@ -138,4 +138,18 @@ public abstract class EaseChatPrimaryMenuBase extends RelativeLayout {
 
     }
 
+    /**
+     * 切换键盘
+     */
+    public void switchModeKeyboardOrVoice() {
+
+    }
+
+    /**
+     * 扩展点击
+     */
+    public void onToggleExtendClicked() {
+
+    }
+
 }

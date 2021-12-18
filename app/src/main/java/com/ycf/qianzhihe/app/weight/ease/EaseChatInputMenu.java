@@ -33,12 +33,12 @@ import java.util.List;
  */
 public class EaseChatInputMenu extends LinearLayout {
     FrameLayout primaryMenuContainer, emojiconMenuContainer;
-    protected EaseChatPrimaryMenuBase chatPrimaryMenu;
-    protected EaseEmojiconMenuBase emojiconMenu;
-    protected EaseChatExtendMenu chatExtendMenu;
-    protected EaseChatExtendSmallMenu chatExtendSmallMenu;
-    protected FrameLayout chatExtendMenuContainer;
-    protected LayoutInflater layoutInflater;
+    public EaseChatPrimaryMenuBase chatPrimaryMenu;
+    public EaseEmojiconMenuBase emojiconMenu;
+    public EaseChatExtendMenu chatExtendMenu;
+    public EaseChatExtendSmallMenu chatExtendSmallMenu;
+    public FrameLayout chatExtendMenuContainer;
+    public LayoutInflater layoutInflater;
 
     private Handler handler = new Handler();
     private ChatInputMenuListener listener;
@@ -379,10 +379,10 @@ public class EaseChatInputMenu extends LinearLayout {
     public void setChatType(int chatType) {
         this.chatType = chatType;
 
+        chatExtendSmallMenu.setVisibility(View.VISIBLE);
         if (chatType != Constant.CHATTYPE_SINGLE) {
-            chatExtendSmallMenu.setVisibility(View.VISIBLE);
             chatExtendMenu.setVisibility(GONE);
-        } 
+        }
     }
 
     public interface ChatInputMenuListener {
