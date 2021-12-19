@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.TextUtils;
+import android.util.Log;
 import android.util.Pair;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -24,12 +25,14 @@ import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.global.EventUtil;
 import com.ycf.qianzhihe.app.api.old_data.ContactListInfo;
 import com.ycf.qianzhihe.app.api.old_data.EventCenter;
+import com.ycf.qianzhihe.app.api.old_data.MyGroupInfoList;
 import com.ycf.qianzhihe.app.api.old_data.ToTopMap;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
 import com.ycf.qianzhihe.app.api.old_http.AppConfig;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.base.BaseInitFragment;
 import com.ycf.qianzhihe.app.domain.EaseUser;
+import com.ycf.qianzhihe.app.operate.GroupOperateManager;
 import com.ycf.qianzhihe.app.operate.UserOperateManager;
 import com.ycf.qianzhihe.common.db.DemoDbHelper;
 import com.zds.base.Toast.ToastUtil;
@@ -188,7 +191,9 @@ public class BaseConversationListFragment extends BaseInitFragment {
     }
 
     public void refreshApplyLayout() {
-
+        //刷新本地群组和好友信息
+        groupList();
+        getContactList();
     }
 
     /**
@@ -418,6 +423,34 @@ public class BaseConversationListFragment extends BaseInitFragment {
      */
     public void setConversationListItemClickListener(EaseConversationListItemClickListener listItemClickListener) {
         this.listItemClickListener = listItemClickListener;
+    }
+
+    /**
+     * 我的群组列表
+     *
+     * @param
+     */
+    private void groupList() {
+        Map<String, Object> map = new HashMap<>(2);
+        map.put("pageSize", 1500);
+        map.put("pageNum", 1);
+        Log.d("群组刷新", "群组刷新");
+        ApiClient.requestNetHandle(requireContext(), AppConfig.MY_GROUP_LIST, "", map,
+                new ResultListener() {
+                    @Override
+                    public void onSuccess(String json, String msg) {
+                        MyGroupInfoList myGroupInfo = FastJsonUtil.getObject(json,
+                                MyGroupInfoList.class);
+                        if (myGroupInfo.getData() != null && myGroupInfo.getData().size() > 0) {
+                            GroupOperateManager.getInstance().saveGroupsInfo(myGroupInfo, json);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+
+                    }
+                });
     }
 
 }

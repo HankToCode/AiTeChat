@@ -204,10 +204,12 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
             PushUtils.isRtcCall = false;
         }
 
+        //刷新本地群组和好友信息
         groupList();
         getContactList();
 
     }
+
 
     private void initViewModel() {
         viewModel = new ViewModelProvider(mContext).get(MainViewModel.class);
