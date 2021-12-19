@@ -100,7 +100,7 @@ public class HomeAdapter extends EaseBaseRecyclerViewAdapter<Object> {
                         String nickName = UserOperateManager.getInstance().getUserName(username);
                         String avatarUrl = UserOperateManager.getInstance().getUserAvatar(username);
 
-                        GlideUtils.loadImageViewLoding(avatarUrl, avatar, R.drawable.ic_conversation_app);
+                        GlideUtils.loadImageViewLoding(avatarUrl, avatar, R.mipmap.ic_ng_avatar);
                         name.setText(nickName);
                     }else{
                         avatar.setImageResource(R.drawable.ease_default_avatar);
