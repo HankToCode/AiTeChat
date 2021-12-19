@@ -1242,7 +1242,11 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                     }
                 });
         CommonDialog commonDialog = builder.create();
-        builder.getView(R.id.tv_red_detail).setVisibility(View.VISIBLE);
+        if (chatType == Constant.CHATTYPE_SINGLE) {
+            builder.getView(R.id.tv_red_detail).setVisibility(View.INVISIBLE);
+        } else {
+            builder.getView(R.id.tv_red_detail).setVisibility(View.VISIBLE);
+        }
         if (state == 11) {
             //红包未抢完 未过期 未参与
             builder.setText(R.id.tv_message,

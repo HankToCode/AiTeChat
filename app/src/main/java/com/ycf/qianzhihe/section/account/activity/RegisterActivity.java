@@ -217,6 +217,7 @@ public class RegisterActivity extends BaseInitActivity implements View.OnClickLi
             @Override
             public void onSuccess(String json, String msg) {
                 ToastUtil.toast("注册成功");
+                LoginActivity.actionStart(mContext);
                 finish();
             }
 
