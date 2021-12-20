@@ -9,6 +9,7 @@ import com.android.nanguo.R;
 import com.android.nanguo.app.api.global.EventUtil;
 import com.android.nanguo.app.api.old_data.EventCenter;
 import com.android.nanguo.app.api.old_data.GroupInfo;
+import com.android.nanguo.app.api.old_data.GroupSuperInfo;
 import com.android.nanguo.app.api.old_data.MyGroupInfoList;
 import com.android.nanguo.app.api.old_http.ApiClient;
 import com.android.nanguo.app.api.old_http.AppConfig;
@@ -28,10 +29,11 @@ import java.util.Map;
 public class GroupContactManageFragment extends BaseInitFragment {
     public RecyclerView rvList;
     public MyGroupAdapter mAdapter;
-    private int pageSize = 100;
+    private int pageSize = 1000;
 
     private int page = 1;
     private boolean isFirstStart = true;
+    private List<GroupSuperInfo> mList;
     private List<GroupInfo> mGroupInfoList;
 
 
@@ -57,13 +59,13 @@ public class GroupContactManageFragment extends BaseInitFragment {
         super.initData();
         rvList.setLayoutManager(new LinearLayoutManager(mContext));
 
-        mGroupInfoList = new ArrayList<>();
-        mAdapter = new MyGroupAdapter(mGroupInfoList);
+        mList = new ArrayList<>();
+        mAdapter = new MyGroupAdapter(requireContext(), mList);
         rvList.setAdapter(mAdapter);
-        mAdapter.setOnLoadMoreListener(() -> {
+        /*mAdapter.setOnLoadMoreListener(() -> {
             page++;
             groupList();
-        }, rvList);
+        }, rvList);*/
         RclViewHelp.initRcLmVertical(requireContext(), rvList, mAdapter);
 
         groupList();
@@ -113,16 +115,12 @@ public class GroupContactManageFragment extends BaseInitFragment {
                     }
                     mGroupInfoList.addAll(myGroupInfo.getData());
                     mAdapter.notifyDataSetChanged();
-                    mAdapter.loadMoreComplete();
-                } else {
-                    mAdapter.loadMoreEnd(true);
                 }
             }
 
             @Override
             public void onFailure(String msg) {
                 ToastUtil.toast(msg);
-                mAdapter.loadMoreFail();
             }
         });
     }

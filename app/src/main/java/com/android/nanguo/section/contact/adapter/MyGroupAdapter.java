@@ -1,22 +1,21 @@
 package com.android.nanguo.section.contact.adapter;
 
+import android.content.Context;
 import android.content.Intent;
-import android.text.TextUtils;
-import android.widget.Filter;
-import android.widget.Filterable;
+import android.widget.ImageView;
 
-import com.chad.library.adapter.base.BaseQuickAdapter;
-import com.chad.library.adapter.base.BaseViewHolder;
-import com.hyphenate.easeui.widget.EaseImageView;
 import com.android.nanguo.R;
 import com.android.nanguo.app.api.Constant;
 import com.android.nanguo.app.api.EaseConstant;
 import com.android.nanguo.app.api.old_data.GroupInfo;
+import com.android.nanguo.app.api.old_data.GroupSuperInfo;
 import com.android.nanguo.app.api.old_http.AppConfig;
 import com.android.nanguo.section.chat.activity.ChatActivity;
+import com.donkingliang.groupedadapter.adapter.GroupedRecyclerViewAdapter;
+import com.donkingliang.groupedadapter.holder.BaseViewHolder;
+import com.hyphenate.easeui.widget.EaseImageView;
 import com.zds.base.ImageLoad.GlideUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,16 +23,90 @@ import java.util.List;
  *
  * @author lhb
  */
-public class MyGroupAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHolder> implements Filterable {
+public class MyGroupAdapter extends GroupedRecyclerViewAdapter {
 
-    private List<GroupInfo> copyGroupList;
-    private MyFilter myFilter;
+    private List<GroupSuperInfo> copyGroupList;
+//    private MyFilter myFilter;
 
-    public MyGroupAdapter(List<GroupInfo> list) {
-        super(R.layout.adapter_my_group, list);
+    public MyGroupAdapter(Context context, List<GroupSuperInfo> list) {
+        super(context);
         copyGroupList = list;
     }
 
+
+    @Override
+    public int getGroupCount() {
+        return 0;
+    }
+
+    @Override
+    public int getChildrenCount(int groupPosition) {
+        return 0;
+    }
+
+    @Override
+    public boolean hasHeader(int groupPosition) {
+        return true;
+    }
+
+    @Override
+    public boolean hasFooter(int groupPosition) {
+        return false;
+    }
+
+    //返回头部的布局id。(如果hasHeader返回false，这个方法不会执行)
+    @Override
+    public int getHeaderLayout(int viewType) {
+        return R.layout.adapter_my_group_header;
+    }
+
+    //返回尾部的布局id。(如果hasFooter返回false，这个方法不会执行)
+    @Override
+    public int getFooterLayout(int viewType) {
+        return 0;
+    }
+
+    //返回子项的布局id。
+    @Override
+    public int getChildLayout(int viewType) {
+        return R.layout.adapter_my_group;
+    }
+
+    @Override
+    public void onBindHeaderViewHolder(BaseViewHolder holder, int groupPosition) {
+        GroupSuperInfo item = copyGroupList.get(groupPosition);
+        holder.setText(R.id.tv_title, item.getTitle());
+        ImageView imageView = (ImageView) holder.get(R.id.tv_img);
+
+        holder.get(R.id.ll_item).setOnClickListener(v -> {
+            imageView.setSelected(!imageView.isSelected());
+            if (imageView.isSelected()) {
+                GlideUtils.loadRoundCircleImage(AppConfig.checkimg(item.getTitle()), (ImageView) holder.get(R.id.tv_img), R.mipmap.ic_group_select, 30);
+            } else {
+                GlideUtils.loadRoundCircleImage(AppConfig.checkimg(item.getTitle()), (ImageView) holder.get(R.id.tv_img), R.mipmap.ic_group_normal, 30);
+            }
+        });
+    }
+
+    @Override
+    public void onBindFooterViewHolder(BaseViewHolder holder, int groupPosition) {
+
+    }
+
+    @Override
+    public void onBindChildViewHolder(BaseViewHolder holder, int groupPosition, int childPosition) {
+
+        GroupInfo item = copyGroupList.get(groupPosition).getGroupInfos().get(childPosition);
+        holder.setText(R.id.tv_group_name, item.getGroupName());
+        GlideUtils.loadRoundCircleImage(AppConfig.checkimg(item.getGroupHead()), (EaseImageView) holder.get(R.id.img_group), R.mipmap.ic_group_default, 30);
+
+        holder.get(R.id.ll_item).setOnClickListener(v -> mContext.startActivity(new Intent(mContext, ChatActivity.class).putExtra(EaseConstant.EXTRA_CHAT_TYPE, EaseConstant.CHATTYPE_GROUP)
+                .putExtra(EaseConstant.EXTRA_USER_ID, item.getHuanxinGroupId())
+                .putExtra(Constant.ROOMTYPE, 0)));
+
+    }
+
+/*
     @Override
     protected void convert(BaseViewHolder helper, GroupInfo item) {
         helper.setText(R.id.tv_group_name, item.getGroupName());
@@ -54,7 +127,7 @@ public class MyGroupAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHolder> 
         return myFilter;
     }
 
-    protected class MyFilter extends Filter {
+   protected class MyFilter extends Filter {
         List<GroupInfo> mOriginalList = null;
 
         public MyFilter(List<GroupInfo> myList) {
@@ -114,5 +187,6 @@ public class MyGroupAdapter extends BaseQuickAdapter<GroupInfo, BaseViewHolder> 
             mData = ((List<GroupInfo>) results.values);
             notifyDataSetChanged();
         }
-    }
+    }*/
+
 }

@@ -10,20 +10,19 @@
         android:id="@+id/ll_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="12dp"
         android:background="?attr/selectableItemBackground"
         android:paddingLeft="@dimen/dp_20"
         android:paddingRight="@dimen/dp_20">
 
-        <com.hyphenate.easeui.widget.EaseImageView
-            android:id="@+id/img_group"
-            android:layout_width="@dimen/dp_36"
-            android:layout_height="@dimen/dp_36"
+        <ImageView
+            android:id="@+id/tv_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            tools:src="@mipmap/ic_ng_avatar" />
+            android:src="@mipmap/ic_group_select" />
 
         <TextView
-            android:id="@+id/tv_group_name"
+            android:id="@+id/tv_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -31,7 +30,8 @@
             android:ellipsize="end"
             android:gravity="center_vertical"
             android:singleLine="true"
-            android:textColor="#000000"
+            android:text="我加入的群"
+            android:textColor="@color/color_333333"
             android:textSize="@dimen/sp_15" />
     </LinearLayout>
 
