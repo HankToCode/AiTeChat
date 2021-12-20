@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <com.ycf.qianzhihe.app.weight.ease.photoview.EasePhotoView
+    <com.android.nanguo.app.weight.ease.photoview.EasePhotoView
         android:id="@+id/image"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

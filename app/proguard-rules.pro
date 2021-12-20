@@ -118,8 +118,8 @@
 #easeui
 -keep class com.hyphenate.easeui.model.** { *; }
 #app
--keep class com.ycf.qianzhihe.common.model.** { *; }
--keep class com.ycf.qianzhihe.common.db.entity.** { *; }
+-keep class com.android.nanguo.common.model.** { *; }
+-keep class com.android.nanguo.common.db.entity.** { *; }
 
 #jar包
 -libraryjars libs/mi_push_v3.6.12.jar
@@ -180,7 +180,7 @@
     -keep class com.huawei.android.** { *; }
     #另外，demo中发送表情的时候使用到反射，需要keep SmileUtils,注意前面的包名，
     #不要SmileUtils复制到自己的项目下keep的时候还是写的demo里的包名
-    -keep class com.ycf.qianzhihe.app.utils.ease.EaseSmileUtils {*;}
+    -keep class com.android.nanguo.app.utils.ease.EaseSmileUtils {*;}
 
     #2.0.9后加入语音通话功能，如需使用此功能的api，加入以下keep
     -keep class net.java.sip.** {*;}
@@ -240,7 +240,7 @@
 -keep class com.detect.facedetect.** { *; }
 
 #南国源码混淆问题
--keep class com.ycf.qianzhihe.common.fcm.EMFCMTokenRefreshService {*;}
+-keep class com.android.nanguo.common.fcm.EMFCMTokenRefreshService {*;}
 -keep class com.google.firebase.iid.** {*;}
 
 #event bus混淆问题

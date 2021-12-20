@@ -139,7 +139,7 @@
                 android:textColor="@color/black_text"
                 android:textSize="16sp" />
 
-            <com.ycf.qianzhihe.app.weight.ChooseMoneyLayout
+            <com.android.nanguo.app.weight.ChooseMoneyLayout
                 android:id="@+id/cml_money"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

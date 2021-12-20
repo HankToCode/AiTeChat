@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <com.ycf.qianzhihe.app.weight.ease.EaseConversationList
+    <com.android.nanguo.app.weight.ease.EaseConversationList
         android:id="@+id/list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

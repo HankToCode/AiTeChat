@@ -17,7 +17,7 @@
         app:titleBarDisplayHomeAsUpEnabled="true"/>
 
 
-    <com.ycf.qianzhihe.common.widget.ArrowItemView
+    <com.android.nanguo.common.widget.ArrowItemView
         android:id="@+id/item_equipments"
         android:layout_width="0dp"
         android:layout_height="@dimen/em_common_item_height"

@@ -363,7 +363,7 @@
                     android:layout_height="match_parent"
                     android:padding="@dimen/dp_10">
 
-                    <com.ycf.qianzhihe.app.weight.ChooseMemberLayout
+                    <com.android.nanguo.app.weight.ChooseMemberLayout
                         android:id="@+id/cml_member"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

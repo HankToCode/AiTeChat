@@ -162,7 +162,7 @@
     </LinearLayout>
 
 
-    <com.ycf.qianzhihe.app.weight.PasswordEditText
+    <com.android.nanguo.app.weight.PasswordEditText
         android:id="@+id/password_edit_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -194,7 +194,7 @@
         android:layout_marginTop="@dimen/dp_10"
         android:background="#d1d2d6" />
 
-    <com.ycf.qianzhihe.app.weight.passwoed_keyboard.XNumberKeyboardView
+    <com.android.nanguo.app.weight.passwoed_keyboard.XNumberKeyboardView
         android:id="@+id/kb_board"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -214,7 +214,7 @@
         app:xnkv_brKeyDrawableWidth="24dp"
         app:xnkv_type="number" />
 
-    <com.ycf.qianzhihe.app.weight.CustomerKeyboard
+    <com.android.nanguo.app.weight.CustomerKeyboard
         android:id="@+id/custom_key_board"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

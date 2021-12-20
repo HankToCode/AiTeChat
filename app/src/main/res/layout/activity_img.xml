@@ -6,7 +6,7 @@
     android:background="@android:color/black"
     android:orientation="vertical">
 
-    <com.ycf.qianzhihe.app.weight.HackyViewPager
+    <com.android.nanguo.app.weight.HackyViewPager
         android:id="@+id/viewPager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

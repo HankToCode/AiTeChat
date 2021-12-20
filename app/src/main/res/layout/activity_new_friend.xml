@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
 
-    <com.ycf.qianzhihe.app.weight.SearchBar
+    <com.android.nanguo.app.weight.SearchBar
         android:id="@+id/search_bar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
@@ -16,7 +16,7 @@
         android:layout_height="match_parent"
         android:layout_marginTop="10dp">
 
-        <com.ycf.qianzhihe.app.weight.SlideRecyclerView
+        <com.android.nanguo.app.weight.SlideRecyclerView
             android:id="@+id/rv_new_friend"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />

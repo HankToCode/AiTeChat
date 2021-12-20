@@ -179,7 +179,7 @@
                     android:layout_height="match_parent"
                     android:padding="@dimen/dp_10">
 
-                    <com.ycf.qianzhihe.app.weight.ShowMemberContentLayout
+                    <com.android.nanguo.app.weight.ShowMemberContentLayout
                         android:id="@+id/cml_member"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -224,7 +224,7 @@
                     android:layout_height="match_parent"
                     android:padding="@dimen/dp_10">
 
-                    <com.ycf.qianzhihe.app.weight.ShowMemberContentLayout
+                    <com.android.nanguo.app.weight.ShowMemberContentLayout
                         android:id="@+id/cml_member2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -269,7 +269,7 @@
                     android:layout_height="match_parent"
                     android:padding="@dimen/dp_10">
 
-                    <com.ycf.qianzhihe.app.weight.ShowMemberContentLayout
+                    <com.android.nanguo.app.weight.ShowMemberContentLayout
                         android:id="@+id/cml_member3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -313,7 +313,7 @@
                     android:layout_height="match_parent"
                     android:padding="@dimen/dp_10">
 
-                    <com.ycf.qianzhihe.app.weight.ShowMemberContentLayout
+                    <com.android.nanguo.app.weight.ShowMemberContentLayout
                         android:id="@+id/cml_member4"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

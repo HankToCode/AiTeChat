@@ -219,13 +219,13 @@
 
 
 
-    <com.ycf.qianzhihe.app.weight.PasswordView
+    <com.android.nanguo.app.weight.PasswordView
         android:id="@+id/pwd_view"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50"
         android:layout_margin="@dimen/dp_20"
         android:visibility="visible"/>
-    <com.ycf.qianzhihe.app.weight.PasswordView
+    <com.android.nanguo.app.weight.PasswordView
         android:id="@+id/pwd_true"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_50"

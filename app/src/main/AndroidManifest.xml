@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    package="com.ycf.qianzhihe">
+    package="com.android.nanguo">
 
     <!-- 允许程序改变网络连接状态 -->
     <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE" />
@@ -95,7 +95,7 @@
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
 
     <application
-        android:name="com.ycf.qianzhihe.DemoApplication"
+        android:name="com.android.nanguo.DemoApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_logo"
         android:label="@string/app_name"
@@ -150,7 +150,7 @@
 
         <!--华为 HMS Config-->
         <service
-            android:name="com.ycf.qianzhihe.common.service.HMSPushService"
+            android:name="com.android.nanguo.common.service.HMSPushService"
             android:exported="false">
             <intent-filter>
                 <action android:name="com.huawei.push.action.MESSAGING_EVENT" />
@@ -262,7 +262,7 @@
 
         </receiver>
 
-        <receiver android:name="com.ycf.qianzhihe.common.receiver.MiMsgReceiver">
+        <receiver android:name="com.android.nanguo.common.receiver.MiMsgReceiver">
             <intent-filter>
                 <action android:name="com.xiaomi.mipush.RECEIVE_MESSAGE" />
             </intent-filter>
@@ -285,7 +285,7 @@
             android:value="${BAIDU_LOCATION_APPKEY}" />
         <!--主页-->
         <activity
-            android:name="com.ycf.qianzhihe.MainActivity"
+            android:name="com.android.nanguo.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
@@ -295,7 +295,7 @@
         </activity>
         <!--启动页-->
         <activity
-            android:name="com.ycf.qianzhihe.section.account.activity.SplashActivity"
+            android:name="com.android.nanguo.section.account.activity.SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@style/NoActionBar.SplashTheme">
             <intent-filter>
@@ -305,37 +305,37 @@
         </activity>
         <!--启动页选择页面-->
         <activity
-            android:name="com.ycf.qianzhihe.section.account.activity.SplashActionActivity"
+            android:name="com.android.nanguo.section.account.activity.SplashActionActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
         <!--登录-->
         <activity
-            android:name="com.ycf.qianzhihe.section.account.activity.LoginActivity"
+            android:name="com.android.nanguo.section.account.activity.LoginActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan|stateHidden" />
-        <activity android:name="com.ycf.qianzhihe.section.account.activity.TestActivity" />
+        <activity android:name="com.android.nanguo.section.account.activity.TestActivity" />
         <!--添加好友-->
         <activity
-            android:name="com.ycf.qianzhihe.section.contact.activity.AddContactActivity"
+            android:name="com.android.nanguo.section.contact.activity.AddContactActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.AddContactTheme" />
         <!--好友资料-->
         <activity
-            android:name="com.ycf.qianzhihe.section.contact.activity.ContactDetailActivity"
+            android:name="com.android.nanguo.section.contact.activity.ContactDetailActivity"
             android:screenOrientation="portrait" />
         <!--聊天页面-->
         <activity
-            android:name="com.ycf.qianzhihe.section.chat.activity.ChatActivity"
+            android:name="com.android.nanguo.section.chat.activity.ChatActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <!--群组列表-->
         <activity
-            android:name="com.ycf.qianzhihe.section.contact.activity.GroupContactManageActivity"
+            android:name="com.android.nanguo.section.contact.activity.GroupContactManageActivity"
             android:screenOrientation="portrait" />
         <!--聊天室列表-->
         <activity
-            android:name="com.ycf.qianzhihe.section.contact.activity.ChatRoomContactManageActivity"
+            android:name="com.android.nanguo.section.contact.activity.ChatRoomContactManageActivity"
             android:screenOrientation="portrait" />
         <!--展示大图-->
         <activity
@@ -347,11 +347,11 @@
             android:screenOrientation="portrait" />
         <!--视频列表-->
         <activity
-            android:name="com.ycf.qianzhihe.section.chat.activity.ImageGridActivity"
+            android:name="com.android.nanguo.section.chat.activity.ImageGridActivity"
             android:screenOrientation="portrait" />
         <!--录制视频-->
         <activity
-            android:name="com.ycf.qianzhihe.section.chat.activity.RecorderVideoActivity"
+            android:name="com.android.nanguo.section.chat.activity.RecorderVideoActivity"
             android:screenOrientation="portrait" />
         <!--播放视频-->
         <activity
@@ -372,78 +372,78 @@
             android:screenOrientation="portrait" />
         <!--会议成员邀请-->
         <activity
-            android:name="com.ycf.qianzhihe.section.conference.ConferenceInviteActivity"
+            android:name="com.android.nanguo.section.conference.ConferenceInviteActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <!--添加现有好友-->
         <activity
-            android:name="com.ycf.qianzhihe.section.chat.activity.PickAtUserActivity"
+            android:name="com.android.nanguo.section.chat.activity.PickAtUserActivity"
             android:screenOrientation="portrait" />
         <!--转发好友列表-->
         <activity
-            android:name="com.ycf.qianzhihe.section.chat.activity.ForwardMessageActivity"
+            android:name="com.android.nanguo.section.chat.activity.ForwardMessageActivity"
             android:screenOrientation="portrait" />
         <!--群组详情-->
         <activity
-            android:name="com.ycf.qianzhihe.section.group.activity.GroupDetailActivity"
+            android:name="com.android.nanguo.section.group.activity.GroupDetailActivity"
             android:screenOrientation="portrait" />
         <!--聊天室详情-->
         <activity
-            android:name="com.ycf.qianzhihe.section.group.activity.ChatRoomDetailActivity"
+            android:name="com.android.nanguo.section.group.activity.ChatRoomDetailActivity"
             android:screenOrientation="portrait" />
         <!--群分享文件-->
         <activity
-            android:name="com.ycf.qianzhihe.section.group.activity.GroupSharedFilesActivity"
+            android:name="com.android.nanguo.section.group.activity.GroupSharedFilesActivity"
             android:screenOrientation="portrait" />
         <!--邀请群成员-->
         <activity
-            android:name="com.ycf.qianzhihe.section.group.activity.GroupPickContactsActivity"
+            android:name="com.android.nanguo.section.group.activity.GroupPickContactsActivity"
             android:screenOrientation="portrait" />
         <!--群成员身份统计-->
         <activity
-            android:name="com.ycf.qianzhihe.section.group.activity.GroupMemberTypeActivity"
+            android:name="com.android.nanguo.section.group.activity.GroupMemberTypeActivity"
             android:screenOrientation="portrait" />
 
         <!--群成员列表-->
         <activity
-            android:name="com.ycf.qianzhihe.section.common.GroupMemberTotalActivity"
+            android:name="com.android.nanguo.section.common.GroupMemberTotalActivity"
             android:screenOrientation="portrait" />
         <!--群成员权限管理-->
         <activity
-            android:name="com.ycf.qianzhihe.section.group.activity.GroupMemberAuthorityActivity"
+            android:name="com.android.nanguo.section.group.activity.GroupMemberAuthorityActivity"
             android:screenOrientation="portrait" />
         <!--群管理员管理-->
         <activity
-            android:name="com.ycf.qianzhihe.section.group.activity.GroupAdminAuthorityActivity"
+            android:name="com.android.nanguo.section.group.activity.GroupAdminAuthorityActivity"
             android:screenOrientation="portrait" />
         <!--聊天室成员权限管理-->
         <activity
-            android:name="com.ycf.qianzhihe.section.group.activity.ChatRoomMemberAuthorityActivity"
+            android:name="com.android.nanguo.section.group.activity.ChatRoomMemberAuthorityActivity"
             android:screenOrientation="portrait" />
         <!--聊天室管理员管理-->
         <activity
-            android:name="com.ycf.qianzhihe.section.group.activity.ChatRoomAdminAuthorityActivity"
+            android:name="com.android.nanguo.section.group.activity.ChatRoomAdminAuthorityActivity"
             android:screenOrientation="portrait" />
         <!--新建群组-->
         <activity
-            android:name="com.ycf.qianzhihe.section.group.activity.NewGroupActivity"
+            android:name="com.android.nanguo.section.group.activity.NewGroupActivity"
             android:screenOrientation="portrait" />
         <!--新建聊天室-->
         <activity
-            android:name="com.ycf.qianzhihe.section.group.activity.NewChatRoomActivity"
+            android:name="com.android.nanguo.section.group.activity.NewChatRoomActivity"
             android:screenOrientation="portrait" />
         <!--系统通知-->
         <activity
-            android:name="com.ycf.qianzhihe.section.message.SystemMsgsActivity"
+            android:name="com.android.nanguo.section.message.SystemMsgsActivity"
             android:screenOrientation="portrait" />
         <!--安全与隐私首页-->
         <activity
-            android:name="com.ycf.qianzhihe.section.me.activity.PrivacyIndexActivity"
+            android:name="com.android.nanguo.section.me.activity.PrivacyIndexActivity"
             android:screenOrientation="portrait" />
         <!--联系人黑名单-->
         <activity
-            android:name="com.ycf.qianzhihe.section.contact.activity.ContactBlackListActivity"
+            android:name="com.android.nanguo.section.contact.activity.ContactBlackListActivity"
             android:screenOrientation="portrait" />
         <!--下载并展示文件-->
         <activity
@@ -451,108 +451,108 @@
             android:screenOrientation="portrait" />
         <!--设置-->
         <activity
-            android:name="com.ycf.qianzhihe.section.me.activity.SetIndexActivity"
+            android:name="com.android.nanguo.section.me.activity.SetIndexActivity"
             android:screenOrientation="portrait" />
         <!--账号与安全-->
         <activity
-            android:name="com.ycf.qianzhihe.section.me.activity.AccountSecurityActivity"
+            android:name="com.android.nanguo.section.me.activity.AccountSecurityActivity"
             android:screenOrientation="portrait" />
         <!--输入用户名密码-->
         <activity
-            android:name="com.ycf.qianzhihe.section.me.activity.NamePasswordActivity"
+            android:name="com.android.nanguo.section.me.activity.NamePasswordActivity"
             android:screenOrientation="portrait" />
         <!--多端多设备管理-->
         <activity
-            android:name="com.ycf.qianzhihe.section.me.activity.MultiDeviceActivity"
+            android:name="com.android.nanguo.section.me.activity.MultiDeviceActivity"
             android:screenOrientation="portrait" />
         <!--新消息提醒-->
         <activity
-            android:name="com.ycf.qianzhihe.section.me.activity.MessageReceiveSetActivity"
+            android:name="com.android.nanguo.section.me.activity.MessageReceiveSetActivity"
             android:screenOrientation="portrait" />
         <!--通用设置-->
         <activity
-            android:name="com.ycf.qianzhihe.section.me.activity.CommonSettingsActivity"
+            android:name="com.android.nanguo.section.me.activity.CommonSettingsActivity"
             android:screenOrientation="portrait" />
         <!--消息推送设置-->
         <activity
-            android:name="com.ycf.qianzhihe.section.me.activity.OfflinePushSettingsActivity"
+            android:name="com.android.nanguo.section.me.activity.OfflinePushSettingsActivity"
             android:screenOrientation="portrait" />
         <!--关于环信IM-->
         <activity
-            android:name="com.ycf.qianzhihe.section.me.activity.AboutHxActivity"
+            android:name="com.android.nanguo.section.me.activity.AboutHxActivity"
             android:screenOrientation="portrait" />
         <!--开发者服务-->
         <activity
-            android:name="com.ycf.qianzhihe.section.me.activity.DeveloperSetActivity"
+            android:name="com.android.nanguo.section.me.activity.DeveloperSetActivity"
             android:screenOrientation="portrait" />
         <!--自定义AppKey-->
         <activity
-            android:name="com.ycf.qianzhihe.section.me.activity.AppKeyManageActivity"
+            android:name="com.android.nanguo.section.me.activity.AppKeyManageActivity"
             android:screenOrientation="portrait" />
         <!--添加自定义AppKey-->
         <activity
-            android:name="com.ycf.qianzhihe.section.me.activity.AppKeyAddActivity"
+            android:name="com.android.nanguo.section.me.activity.AppKeyAddActivity"
             android:screenOrientation="portrait" />
         <!--诊断-->
         <activity
-            android:name="com.ycf.qianzhihe.section.me.activity.DiagnoseActivity"
+            android:name="com.android.nanguo.section.me.activity.DiagnoseActivity"
             android:screenOrientation="portrait" />
         <!--iOS离线推送昵称-->
         <activity
-            android:name="com.ycf.qianzhihe.section.me.activity.OfflinePushNickActivity"
+            android:name="com.android.nanguo.section.me.activity.OfflinePushNickActivity"
             android:screenOrientation="portrait" />
         <!--通话设置-->
         <activity
-            android:name="com.ycf.qianzhihe.section.me.activity.CallOptionActivity"
+            android:name="com.android.nanguo.section.me.activity.CallOptionActivity"
             android:screenOrientation="portrait" />
         <!--聊天信息-->
         <activity
-            android:name="com.ycf.qianzhihe.section.chat.activity.SingleChatSetActivity"
+            android:name="com.android.nanguo.section.chat.activity.SingleChatSetActivity"
             android:screenOrientation="portrait" />
         <!--搜索聊天室-->
         <activity
-            android:name="com.ycf.qianzhihe.section.search.SearchChatRoomActivity"
+            android:name="com.android.nanguo.section.search.SearchChatRoomActivity"
             android:screenOrientation="portrait" />
         <!--搜索群组-->
         <activity
-            android:name="com.ycf.qianzhihe.section.search.SearchGroupActivity"
+            android:name="com.android.nanguo.section.search.SearchGroupActivity"
             android:screenOrientation="portrait" />
         <!--搜索会话-->
         <activity
-            android:name="com.ycf.qianzhihe.section.search.SearchConversationActivity"
+            android:name="com.android.nanguo.section.search.SearchConversationActivity"
             android:screenOrientation="portrait" />
         <!--搜索联系人-->
         <activity
-            android:name="com.ycf.qianzhihe.section.search.SearchFriendsActivity"
+            android:name="com.android.nanguo.section.search.SearchFriendsActivity"
             android:screenOrientation="portrait" />
         <!--搜索群聊会话-->
         <activity
-            android:name="com.ycf.qianzhihe.section.search.SearchGroupChatActivity"
+            android:name="com.android.nanguo.section.search.SearchGroupChatActivity"
             android:screenOrientation="portrait" />
         <!--搜索单人会话-->
         <activity
-            android:name="com.ycf.qianzhihe.section.search.SearchSingleChatActivity"
+            android:name="com.android.nanguo.section.search.SearchSingleChatActivity"
             android:screenOrientation="portrait" />
         <!--搜索黑名单用户-->
         <activity
-            android:name="com.ycf.qianzhihe.section.search.SearchBlackActivity"
+            android:name="com.android.nanguo.section.search.SearchBlackActivity"
             android:screenOrientation="portrait" />
         <!--搜索公开群-->
         <activity
-            android:name="com.ycf.qianzhihe.section.search.SearchPublicGroupActivity"
+            android:name="com.android.nanguo.section.search.SearchPublicGroupActivity"
             android:screenOrientation="portrait" />
         <!--聊天历史-->
         <activity
-            android:name="com.ycf.qianzhihe.section.chat.activity.ChatHistoryActivity"
+            android:name="com.android.nanguo.section.chat.activity.ChatHistoryActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <!--个人资料-->
         <activity
-            android:name="com.ycf.qianzhihe.section.me.activity.UserDetailActivity"
+            android:name="com.android.nanguo.section.me.activity.UserDetailActivity"
             android:screenOrientation="portrait" />
         <!--意见反馈-->
         <activity
-            android:name="com.ycf.qianzhihe.section.me.activity.FeedbackActivity"
+            android:name="com.android.nanguo.section.me.activity.FeedbackActivity"
             android:screenOrientation="portrait" />
         <!--已读回执列表-->
         <activity
@@ -560,15 +560,15 @@
             android:screenOrientation="portrait" />
         <!--公开群详情页-->
         <activity
-            android:name="com.ycf.qianzhihe.section.group.activity.GroupSimpleDetailActivity"
+            android:name="com.android.nanguo.section.group.activity.GroupSimpleDetailActivity"
             android:screenOrientation="portrait" />
         <!--群组管理-->
         <activity
-            android:name="com.ycf.qianzhihe.section.group.activity.GroupManageIndexActivity"
+            android:name="com.android.nanguo.section.group.activity.GroupManageIndexActivity"
             android:screenOrientation="portrait" />
         <!--移交权限-->
         <activity
-            android:name="com.ycf.qianzhihe.section.group.activity.GroupTransferActivity"
+            android:name="com.android.nanguo.section.group.activity.GroupTransferActivity"
             android:screenOrientation="portrait" />
         <!--播放视频-->
         <activity
@@ -577,12 +577,12 @@
             android:screenOrientation="portrait" />
         <!--创群预选成员-->
         <activity
-            android:name="com.ycf.qianzhihe.section.group.activity.GroupPrePickActivity"
+            android:name="com.android.nanguo.section.group.activity.GroupPrePickActivity"
             android:screenOrientation="portrait" />
         <!--推送消息显示样式-->
-        <activity android:name="com.ycf.qianzhihe.section.me.activity.MessagePushStyleActivity" />
+        <activity android:name="com.android.nanguo.section.me.activity.MessagePushStyleActivity" />
         <!--WebView加载网页-->
-        <activity android:name="com.ycf.qianzhihe.app.base.WebViewActivity" />
+        <activity android:name="com.android.nanguo.app.base.WebViewActivity" />
         <!--捕获屏幕service-->
 
         <!-- <provider
@@ -600,35 +600,35 @@
 
 
         <activity
-            android:name="com.ycf.qianzhihe.section.account.activity.RegisterActivity"
+            android:name="com.android.nanguo.section.account.activity.RegisterActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" /> <!-- 注册 -->
 
         <activity
-            android:name="com.ycf.qianzhihe.section.account.activity.UpDataPasswordActivity"
+            android:name="com.android.nanguo.section.account.activity.UpDataPasswordActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" /> <!-- 修改密码 -->
 
         <activity
-            android:name="com.ycf.qianzhihe.section.account.activity.AccountManagerActivity"
+            android:name="com.android.nanguo.section.account.activity.AccountManagerActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" /> <!-- 冻结账号 -->
 
         <activity
-            android:name="com.ycf.qianzhihe.section.account.activity.MineActivity"
+            android:name="com.android.nanguo.section.account.activity.MineActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" /> <!-- 我的 -->
 
         <activity
-            android:name="com.ycf.qianzhihe.section.account.activity.BuyMemberActivity"
+            android:name="com.android.nanguo.section.account.activity.BuyMemberActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
@@ -640,183 +640,67 @@
             android:theme="@style/ZxTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.ycf.qianzhihe.section.account.activity.ShareQrActivity"
+            android:name="com.android.nanguo.section.account.activity.ShareQrActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.ycf.qianzhihe.section.conversation.AuditMsgActivity"
+            android:name="com.android.nanguo.section.conversation.AuditMsgActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.ycf.qianzhihe.section.conversation.ApplyJoinGroupActivity"
+            android:name="com.android.nanguo.section.conversation.ApplyJoinGroupActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.ycf.qianzhihe.section.account.activity.UserInfoDetailActivity"
+            android:name="com.android.nanguo.section.account.activity.UserInfoDetailActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.ycf.qianzhihe.section.conversation.AuditUserActivity"
+            android:name="com.android.nanguo.section.conversation.AuditUserActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.ycf.qianzhihe.section.conversation.ReportActivity"
+            android:name="com.android.nanguo.section.conversation.ReportActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.ycf.qianzhihe.section.conversation.ChatBgActivity"
+            android:name="com.android.nanguo.section.conversation.ChatBgActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.ycf.qianzhihe.section.conversation.SetGroupManageActivity"
+            android:name="com.android.nanguo.section.conversation.SetGroupManageActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.ycf.qianzhihe.section.conversation.GroupUserListActivity"
+            android:name="com.android.nanguo.section.conversation.GroupUserListActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.ycf.qianzhihe.section.conversation.ChatRecordActivity"
+            android:name="com.android.nanguo.section.conversation.ChatRecordActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.ycf.qianzhihe.section.conversation.ModifyFriendRemarkActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-
-
-        <activity
-            android:name="com.ycf.qianzhihe.section.common.AppPayPassActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name="com.ycf.qianzhihe.section.common.BankActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name="com.ycf.qianzhihe.section.common.BankDetailActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-
-        <activity
-            android:name="com.ycf.qianzhihe.section.common.TransferRecordActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name="com.ycf.qianzhihe.section.common.BankNewActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name="com.ycf.qianzhihe.section.common.ChatCollectActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-
-        <activity
-            android:name="com.ycf.qianzhihe.section.common.ChatRedRecordActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-
-        <activity
-            android:name="com.ycf.qianzhihe.section.common.ContactActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name="com.ycf.qianzhihe.section.common.ContactGroupingActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name="com.ycf.qianzhihe.section.common.EaseShowBigImageNewActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name="com.ycf.qianzhihe.section.common.EditInfoActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name="com.ycf.qianzhihe.section.common.GroupMemberActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-
-        <activity
-            android:name="com.ycf.qianzhihe.section.common.GroupSingleMemberMuteActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-
-        <activity
-            android:name="com.ycf.qianzhihe.section.common.GroupUserDelActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name="com.ycf.qianzhihe.section.common.HxMapActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-
-        <activity
-            android:name="com.ycf.qianzhihe.section.common.InputPasswordActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name="com.ycf.qianzhihe.section.common.MyCollectActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-        <activity
-            android:name="com.ycf.qianzhihe.section.common.MyGroupDetailActivity"
+            android:name="com.android.nanguo.section.conversation.ModifyFriendRemarkActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
@@ -824,14 +708,115 @@
 
 
         <activity
-            android:name="com.ycf.qianzhihe.section.common.MyQrActivity"
+            android:name="com.android.nanguo.section.common.AppPayPassActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="com.android.nanguo.section.common.BankActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="com.android.nanguo.section.common.BankDetailActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
-            android:name="com.ycf.qianzhihe.section.common.NoticeActivity"
+            android:name="com.android.nanguo.section.common.TransferRecordActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="com.android.nanguo.section.common.BankNewActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="com.android.nanguo.section.common.ChatCollectActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <activity
+            android:name="com.android.nanguo.section.common.ChatRedRecordActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <activity
+            android:name="com.android.nanguo.section.common.ContactActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="com.android.nanguo.section.common.ContactGroupingActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="com.android.nanguo.section.common.EaseShowBigImageNewActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="com.android.nanguo.section.common.EditInfoActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="com.android.nanguo.section.common.GroupMemberActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <activity
+            android:name="com.android.nanguo.section.common.GroupSingleMemberMuteActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <activity
+            android:name="com.android.nanguo.section.common.GroupUserDelActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="com.android.nanguo.section.common.HxMapActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <activity
+            android:name="com.android.nanguo.section.common.InputPasswordActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="com.android.nanguo.section.common.MyCollectActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+            android:name="com.android.nanguo.section.common.MyGroupDetailActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
@@ -839,178 +824,193 @@
 
 
         <activity
-            android:name="com.ycf.qianzhihe.section.common.PayPassSureActivity"
+            android:name="com.android.nanguo.section.common.MyQrActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
-            android:name="com.ycf.qianzhihe.section.common.RedPacketDetailActivity"
+            android:name="com.android.nanguo.section.common.NoticeActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+
+        <activity
+            android:name="com.android.nanguo.section.common.PayPassSureActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
-            android:name="com.ycf.qianzhihe.section.common.SelAddrMapActivity"
+            android:name="com.android.nanguo.section.common.RedPacketDetailActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
-            android:name="com.ycf.qianzhihe.section.common.SendGroupRedPackageActivity"
+            android:name="com.android.nanguo.section.common.SelAddrMapActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
-            android:name="com.ycf.qianzhihe.section.common.SendPersonRedPackageActivity"
+            android:name="com.android.nanguo.section.common.SendGroupRedPackageActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
-            android:name="com.ycf.qianzhihe.section.common.TransferActivity"
+            android:name="com.android.nanguo.section.common.SendPersonRedPackageActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
-            android:name="com.ycf.qianzhihe.section.common.TransferDetailActivity"
+            android:name="com.android.nanguo.section.common.TransferActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
-            android:name="com.ycf.qianzhihe.section.common.TransferGroupActivity"
+            android:name="com.android.nanguo.section.common.TransferDetailActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <activity
+            android:name="com.android.nanguo.section.common.TransferGroupActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.ycf.qianzhihe.section.common.VerifyingPayPasswordPhoneNumberActivity"
+            android:name="com.android.nanguo.section.common.VerifyingPayPasswordPhoneNumberActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.ycf.qianzhihe.section.common.WalletActivity"
+            android:name="com.android.nanguo.section.common.WalletActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.ycf.qianzhihe.section.common.WithdrawActivity"
+            android:name="com.android.nanguo.section.common.WithdrawActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.ycf.qianzhihe.section.common.TxRecordActivity"
+            android:name="com.android.nanguo.section.common.TxRecordActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.ycf.qianzhihe.section.common.RechargeActivity"
+            android:name="com.android.nanguo.section.common.RechargeActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.ycf.qianzhihe.section.common.RechargeRecordActivity"
+            android:name="com.android.nanguo.section.common.RechargeRecordActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.ycf.qianzhihe.section.common.WalletLockActivity"
+            android:name="com.android.nanguo.section.common.WalletLockActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.ycf.qianzhihe.section.common.SetActivity"
+            android:name="com.android.nanguo.section.common.SetActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.ycf.qianzhihe.section.common.AccountSafeActivity"
+            android:name="com.android.nanguo.section.common.AccountSafeActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.ycf.qianzhihe.section.common.ResetPayPwdActivity"
+            android:name="com.android.nanguo.section.common.ResetPayPwdActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.ycf.qianzhihe.section.common.PrivacyActivity"
+            android:name="com.android.nanguo.section.common.PrivacyActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.ycf.qianzhihe.section.common.MultiAccountActivity"
+            android:name="com.android.nanguo.section.common.MultiAccountActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.ycf.qianzhihe.section.common.NewGroupActivity"
+            android:name="com.android.nanguo.section.common.NewGroupActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.ycf.qianzhihe.section.account.activity.MyInfoActivity"
+            android:name="com.android.nanguo.section.account.activity.MyInfoActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" /> <!-- 个人资料 -->
 
         <activity
-            android:name="com.ycf.qianzhihe.section.account.activity.AccountInfoActivity"
+            android:name="com.android.nanguo.section.account.activity.AccountInfoActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="adjustPan" /> <!-- 账号信息 -->
         <activity
-            android:name="com.ycf.qianzhihe.section.common.BlackListActivity"
+            android:name="com.android.nanguo.section.common.BlackListActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".section.chat.activity.CustomListActivity"
+            android:name="com.android.nanguo.section.chat.activity.CustomListActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".section.chat.activity.Custom1Activity"
+            android:name="com.android.nanguo.section.chat.activity.Custom1Activity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
-            android:name=".section.discover.NewsDetailActivity"
+            android:name="com.android.nanguo.section.discover.NewsDetailActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".section.account.activity.FriendGroupingActvity"
+            android:name="com.android.nanguo.section.account.activity.FriendGroupingActvity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
@@ -1018,88 +1018,88 @@
 
         <!--        名片-->
         <activity
-            android:name=".section.chat.activity.SelContactActivity"
+            android:name="com.android.nanguo.section.chat.activity.SelContactActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".section.account.activity.UserCodeActivity"
+            android:name="com.android.nanguo.section.account.activity.UserCodeActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".section.common.UserCodeMoreActivity"
+            android:name="com.android.nanguo.section.common.UserCodeMoreActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".section.account.activity.BeautifulMallDetailActivity"
+            android:name="com.android.nanguo.section.account.activity.BeautifulMallDetailActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".section.contact.activity.AddUserActivity"
+            android:name="com.android.nanguo.section.contact.activity.AddUserActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name=".section.account.activity.AddUserDetailActivity"
-            android:launchMode="singleTop"
-            android:screenOrientation="portrait"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateAlwaysHidden" />
-
-        <activity
-            android:name=".common.image.ImageActivity"
+            android:name="com.android.nanguo.section.account.activity.AddUserDetailActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
-            android:name="com.ycf.qianzhihe.section.common.RealAuthActivity"
+            android:name="com.android.nanguo.common.image.ImageActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
 
         <activity
-            android:name="com.ycf.qianzhihe.section.common.ContactSearchActivity"
+            android:name="com.android.nanguo.section.common.RealAuthActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+
+        <activity
+            android:name="com.android.nanguo.section.common.ContactSearchActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.ycf.qianzhihe.section.common.NanguoWalletActivity"
+            android:name="com.android.nanguo.section.common.NanguoWalletActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.ycf.qianzhihe.section.common.JYRecordActivity"
+            android:name="com.android.nanguo.section.common.JYRecordActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.ycf.qianzhihe.section.common.NanGuoSetActivity"
+            android:name="com.android.nanguo.section.common.NanGuoSetActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.ycf.qianzhihe.section.common.WithdrawResultActivity"
+            android:name="com.android.nanguo.section.common.WithdrawResultActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
-            android:name="com.ycf.qianzhihe.section.common.InviteActivity"
+            android:name="com.android.nanguo.section.common.InviteActivity"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme"

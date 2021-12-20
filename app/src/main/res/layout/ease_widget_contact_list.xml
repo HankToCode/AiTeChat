@@ -15,7 +15,7 @@
         android:dividerHeight="0px"
         android:fastScrollEnabled="false" />
 
-    <com.ycf.qianzhihe.app.weight.ease.EaseSidebar
+    <com.android.nanguo.app.weight.ease.EaseSidebar
         android:id="@+id/sidebar"
         android:layout_width="@dimen/dp_15"
         android:layout_height="match_parent"
