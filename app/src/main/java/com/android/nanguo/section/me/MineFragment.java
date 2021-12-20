@@ -11,6 +11,8 @@ import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.android.nanguo.app.api.global.EventUtil;
+import com.android.nanguo.app.api.old_data.EventCenter;
 import com.coorchice.library.SuperTextView;
 import com.hyphenate.easeui.widget.EaseImageView;
 import com.android.nanguo.R;
@@ -154,6 +156,15 @@ public class MineFragment extends BaseInitFragment implements View.OnClickListen
             default:
                 break;
 
+        }
+    }
+
+    @Override
+    protected void onEventComing(EventCenter center) {
+        super.onEventComing(center);
+
+        if (center.getEventCode() == EventUtil.FLUSHUSERINFO) {
+            initUserInfo();
         }
     }
 
