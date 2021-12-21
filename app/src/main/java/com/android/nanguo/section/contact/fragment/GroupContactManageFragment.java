@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.android.nanguo.R;
 import com.android.nanguo.app.api.global.EventUtil;
 import com.android.nanguo.app.api.old_data.EventCenter;
+import com.android.nanguo.app.api.old_data.GroupDetailInfo;
 import com.android.nanguo.app.api.old_data.GroupInfo;
 import com.android.nanguo.app.api.old_data.GroupSuperInfo;
 import com.android.nanguo.app.api.old_data.MyGroupInfoList;
@@ -33,8 +34,15 @@ public class GroupContactManageFragment extends BaseInitFragment {
 
     private int page = 1;
     private boolean isFirstStart = true;
-    private List<GroupSuperInfo> mList;
-    private List<GroupInfo> mGroupInfoList;
+    private ArrayList<GroupSuperInfo> mList = new ArrayList<>();
+    private ArrayList<GroupInfo> mAllGroupInfoList = new ArrayList<>();
+
+    //我创建的
+    private ArrayList<GroupInfo> mMyGroupInfoList = new ArrayList<>();
+    //我管理的
+    private ArrayList<GroupInfo> mMaGroupInfoList = new ArrayList<>();
+    //我加入的
+    private ArrayList<GroupInfo> mInGroupInfoList = new ArrayList<>();
 
 
     @Override
@@ -92,7 +100,7 @@ public class GroupContactManageFragment extends BaseInitFragment {
 
     public void refresh() {
         page = 0;
-        groupList();
+//        groupList();
     }
 
     /**
@@ -110,11 +118,17 @@ public class GroupContactManageFragment extends BaseInitFragment {
             public void onSuccess(String json, String msg) {
                 MyGroupInfoList myGroupInfo = FastJsonUtil.getObject(json, MyGroupInfoList.class);
                 if (myGroupInfo.getData() != null && myGroupInfo.getData().size() > 0) {
-                    if (page == 0 && mGroupInfoList.size() > 0) {
-                        mGroupInfoList.clear();
+                    if (page == 0 && mAllGroupInfoList.size() > 0) {
+                        mAllGroupInfoList.clear();
                     }
-                    mGroupInfoList.addAll(myGroupInfo.getData());
-                    mAdapter.notifyDataSetChanged();
+                    mAllGroupInfoList.addAll(myGroupInfo.getData());
+
+                    mMyGroupInfoList.clear();
+                    mMaGroupInfoList.clear();
+                    mInGroupInfoList.clear();
+                    for (GroupInfo groupInfo : mAllGroupInfoList) {
+                        queryGroupDetail(groupInfo.getGroupId());
+                    }
                 }
             }
 
@@ -123,6 +137,64 @@ public class GroupContactManageFragment extends BaseInitFragment {
                 ToastUtil.toast(msg);
             }
         });
+    }
+
+    public void queryGroupDetail(String groupId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("groupId", groupId);
+        ApiClient.requestNetHandle(requireContext(), AppConfig.GET_GROUP_DETAIL, "请稍等...",
+                map, new ResultListener() {
+                    @Override
+                    public void onSuccess(String json, String msg) {
+                        if (json != null && json.length() > 0) {
+                            GroupDetailInfo groupDetailInfo = FastJsonUtil.getObject(json,
+                                    GroupDetailInfo.class);
+
+
+                            for (GroupInfo groupInfo : mAllGroupInfoList) {
+                                if (groupInfo.getGroupId().equals(groupId)) {
+                                    if (groupDetailInfo.getGroupUserRank() == 0) {
+                                        mInGroupInfoList.add(groupInfo);
+                                    } else if (groupDetailInfo.getGroupUserRank() == 1) {
+                                        mMaGroupInfoList.add(groupInfo);
+                                    } else if (groupDetailInfo.getGroupUserRank() == 2) {
+                                        mMyGroupInfoList.add(groupInfo);
+                                    }
+                                    refreshGroup();
+                                    return;
+                                }
+                            }
+
+
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+                    }
+                });
+    }
+
+    private void refreshGroup() {
+
+        mList.clear();
+
+        GroupSuperInfo groupSuperInfo = new GroupSuperInfo();
+        groupSuperInfo.setTitle("我创建的群(" + mMyGroupInfoList.size() + ")");
+        groupSuperInfo.setGroupInfos(mMyGroupInfoList);
+        mList.add(groupSuperInfo);
+
+        GroupSuperInfo groupSuperInfo1 = new GroupSuperInfo();
+        groupSuperInfo1.setTitle("我管理的群(" + mMaGroupInfoList.size() + ")");
+        groupSuperInfo1.setGroupInfos(mMaGroupInfoList);
+        mList.add(groupSuperInfo1);
+
+        GroupSuperInfo groupSuperInfo2 = new GroupSuperInfo();
+        groupSuperInfo2.setTitle("我加入的群(" + mInGroupInfoList.size() + ")");
+        groupSuperInfo2.setGroupInfos(mInGroupInfoList);
+        mList.add(groupSuperInfo2);
+
+        mAdapter.notifyDataChanged();
     }
 
 }
