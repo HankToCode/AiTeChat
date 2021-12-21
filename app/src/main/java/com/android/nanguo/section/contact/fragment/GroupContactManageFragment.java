@@ -1,6 +1,9 @@
 package com.android.nanguo.section.contact.fragment;
 
+import static android.widget.ExpandableListView.*;
+
 import android.os.Bundle;
+import android.widget.ExpandableListView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -28,7 +31,7 @@ import java.util.Map;
 
 
 public class GroupContactManageFragment extends BaseInitFragment {
-    public RecyclerView rvList;
+    public ExpandableListView rvList;
     public MyGroupAdapter mAdapter;
     private int pageSize = 1000;
 
@@ -65,16 +68,24 @@ public class GroupContactManageFragment extends BaseInitFragment {
     @Override
     protected void initData() {
         super.initData();
-        rvList.setLayoutManager(new LinearLayoutManager(mContext));
 
         mList = new ArrayList<>();
-        mAdapter = new MyGroupAdapter(requireContext(), mList);
+        mAdapter = new MyGroupAdapter(requireContext(), mList, rvList);
         rvList.setAdapter(mAdapter);
+        /*for (int i = 0; i < gropBeanLists.size(); i++) {
+            eplShopCart.expandGroup(i);
+        }
+        rvList.setOnGroupExpandListener(groupPosition -> {
+            if(rvList.isGroupExpanded(groupPosition)){
+                rvList.collapseGroup(groupPosition);
+            }else{
+                rvList.expandGroup(groupPosition);
+            }
+        });*/
         /*mAdapter.setOnLoadMoreListener(() -> {
             page++;
             groupList();
         }, rvList);*/
-        RclViewHelp.initRcLmVertical(requireContext(), rvList, mAdapter);
 
         groupList();
     }
@@ -194,7 +205,7 @@ public class GroupContactManageFragment extends BaseInitFragment {
         groupSuperInfo2.setGroupInfos(mInGroupInfoList);
         mList.add(groupSuperInfo2);
 
-        mAdapter.notifyDataChanged();
+        mAdapter.notifyDataSetChanged();
     }
 
 }

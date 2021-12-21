@@ -12,14 +12,16 @@
         android:layout_height="match_parent"
         android:layout_marginTop="12dp"
         android:background="?attr/selectableItemBackground"
+        android:focusable="false"
         android:paddingLeft="@dimen/dp_20"
         android:paddingRight="@dimen/dp_20">
 
-        <com.hyphenate.easeui.widget.EaseImageView
+        <ImageView
             android:id="@+id/img_group"
             android:layout_width="@dimen/dp_36"
             android:layout_height="@dimen/dp_36"
             android:layout_gravity="center_vertical"
+            android:focusable="false"
             tools:src="@mipmap/ic_ng_avatar" />
 
         <TextView
