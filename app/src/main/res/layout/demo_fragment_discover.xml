@@ -7,18 +7,212 @@
     android:paddingLeft="@dimen/dp_20"
     android:paddingRight="@dimen/dp_20">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_160"
+        android:background="@drawable/shap_white">
 
+        <LinearLayout
+            android:id="@+id/ll_top"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_30"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginRight="@dimen/dp_15"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="特价靓号"
+                android:textColor="#ffacacbc"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_more"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/jingru"
+                android:drawablePadding="@dimen/dp_10"
+                android:gravity="center_vertical"
+                android:text="更多"
+                android:textColor="#ffacacbc"
+                android:textSize="13sp"
+                android:visibility="visible" />
+        </LinearLayout>
+
+        <GridView
+            android:id="@+id/gv_gridview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll_top"
+            android:numColumns="3"
+            android:scrollbars="none"
+            android:verticalSpacing="@dimen/dp_10" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_160"
+        android:background="@drawable/shap_white">
+
+        <LinearLayout
+            android:id="@+id/ll_jx"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_30"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginRight="@dimen/dp_15"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="精选靓号"
+                android:textColor="#ffacacbc"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_more2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/jingru"
+                android:drawablePadding="@dimen/dp_10"
+                android:gravity="center_vertical"
+                android:text="更多"
+                android:textColor="#ffacacbc"
+                android:textSize="13sp"
+                android:visibility="visible" />
+        </LinearLayout>
+
+        <GridView
+            android:id="@+id/gv_gridview2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:paddingLeft="@dimen/dp_10"
+            android:numColumns="3"
+            android:verticalSpacing="@dimen/dp_10"
+            android:layout_below="@id/ll_jx" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/dp_160"
+        android:background="@drawable/shap_white">
+
+        <LinearLayout
+            android:id="@+id/ll_dh"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_30"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:layout_marginRight="@dimen/dp_15"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="精选连号"
+                android:textColor="#ffacacbc"
+                android:textSize="13sp" />
+
+            <TextView
+                android:id="@+id/tv_more3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableRight="@drawable/jingru"
+                android:drawablePadding="@dimen/dp_10"
+                android:gravity="center_vertical"
+                android:text="更多"
+                android:textColor="#ffacacbc"
+                android:textSize="13sp"
+                android:visibility="visible" />
+        </LinearLayout>
+
+        <GridView
+            android:id="@+id/gv_gridview3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:paddingLeft="@dimen/dp_10"
+            android:numColumns="3"
+            android:verticalSpacing="@dimen/dp_10"
+            android:layout_below="@id/ll_dh" />
+    </RelativeLayout>
     <com.youth.banner.Banner
         android:id="@+id/banner"
         android:layout_width="match_parent"
         android:layout_height="@dimen/dp_110"
-        android:layout_marginTop="@dimen/dp_8" />
+        android:layout_marginTop="@dimen/dp_8"
+        android:visibility="gone"/>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="@dimen/dp_15"
+        android:visibility="gone">
+        <TextView
+            android:id="@+id/tv_1"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="SF思否"
+            android:gravity="center"
+            android:padding="@dimen/dp_10"
+            android:background="@drawable/bg_border_tkl"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tv_2"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="今日热榜"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:padding="@dimen/dp_10"
+            android:background="@drawable/bg_border_tkl"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_margin="@dimen/dp_15"
+        android:visibility="gone">
+        <TextView
+            android:id="@+id/tv_3"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="摸鱼派"
+            android:gravity="center"
+            android:padding="@dimen/dp_10"
+            android:background="@drawable/bg_border_tkl"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/tv_4"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:text="糗事百科"
+            android:gravity="center"
+            android:layout_marginLeft="@dimen/dp_15"
+            android:padding="@dimen/dp_10"
+            android:background="@drawable/bg_border_tkl"
+            android:textColor="@color/white"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_10"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/ll_dc1"
@@ -103,7 +297,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_10"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/ll_dc3"
@@ -187,7 +382,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/dp_10"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <LinearLayout
             android:id="@+id/ll_dc5"

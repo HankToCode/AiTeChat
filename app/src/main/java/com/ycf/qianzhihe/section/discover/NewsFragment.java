@@ -55,6 +55,8 @@ public class NewsFragment extends BaseInitFragment implements OnBannerListener {
     //    private int page = 1;
     private List<NewsBean> dataBean = new ArrayList<>();
     private NewsAdapter mNewsAdapter;
+
+
     @Override
     protected int getLayoutId() {
         return R.layout.fragment_news;

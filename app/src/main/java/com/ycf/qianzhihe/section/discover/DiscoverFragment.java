@@ -9,6 +9,8 @@ import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,18 +18,30 @@ import android.widget.TextView;
 import com.baidu.mapapi.common.SysOSUtil;
 import com.bumptech.glide.Glide;
 import com.ycf.qianzhihe.R;
+import com.ycf.qianzhihe.app.adapter.SpecialOfferAdapter;
 import com.ycf.qianzhihe.app.api.new_data.ImageListBean;
+import com.ycf.qianzhihe.app.api.new_data.UserCodeMallListBean;
+import com.ycf.qianzhihe.app.api.old_http.ApiClient;
+import com.ycf.qianzhihe.app.api.old_http.AppConfig;
+import com.ycf.qianzhihe.app.api.old_http.ResultListener;
 import com.ycf.qianzhihe.app.base.BaseInitFragment;
 import com.ycf.qianzhihe.app.base.WebViewActivity;
+import com.ycf.qianzhihe.common.utils.ToastUtils;
 import com.ycf.qianzhihe.common.widget.BannerImageLoader;
+import com.ycf.qianzhihe.section.account.activity.BeautifulMallDetailActivity;
+import com.ycf.qianzhihe.section.common.UserCodeMoreActivity;
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
 import com.youth.banner.Transformer;
 import com.youth.banner.listener.OnBannerListener;
 import com.youth.banner.loader.ImageLoader;
 import com.youth.banner.loader.ImageLoaderInterface;
+import com.zds.base.json.FastJsonUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -48,8 +62,35 @@ public class DiscoverFragment extends BaseInitFragment implements OnBannerListen
     LinearLayout iv_dc6;
     @BindView(R.id.banner)
     Banner banner;
+    @BindView(R.id.tv_1)
+    TextView tv_1;
+    @BindView(R.id.tv_2)
+    TextView tv_2;
+    @BindView(R.id.tv_3)
+    TextView tv_3;
+    @BindView(R.id.tv_4)
+    TextView tv_4;
     private ArrayList<Integer> list_path;
     private ArrayList<String> list_title;
+
+    @BindView(R.id.gv_gridview)
+    GridView gv_gridview;
+    @BindView(R.id.gv_gridview2)
+    GridView gv_gridview2;
+    @BindView(R.id.gv_gridview3)
+    GridView gv_gridview3;
+    @BindView(R.id.tv_more)
+    TextView tv_more;
+    @BindView(R.id.tv_more3)
+    TextView tv_more3;
+    @BindView(R.id.tv_more2)
+    TextView tv_more2;
+    private List<UserCodeMallListBean.SpecialOffer> tjDatas = new ArrayList<>();
+    private List<UserCodeMallListBean.SpecialOffer> jxDatas = new ArrayList<>();
+    private List<UserCodeMallListBean.SpecialOffer> dhDatas = new ArrayList<>();
+    private SpecialOfferAdapter tjAdapter;
+    private SpecialOfferAdapter jxAdapter;
+    private SpecialOfferAdapter dhAdapter;
 
     @Override
     protected int getLayoutId() {
@@ -76,17 +117,104 @@ public class DiscoverFragment extends BaseInitFragment implements OnBannerListen
         banner.setDelayTime(3000);
         banner.isAutoPlay(true);
         banner.setIndicatorGravity(BannerConfig.CENTER).setOnBannerListener(this).start();
+
+        /////////////////////////
+        tjAdapter = new SpecialOfferAdapter();
+        gv_gridview.setAdapter(tjAdapter);
+        jxAdapter = new SpecialOfferAdapter();
+        gv_gridview2.setAdapter(jxAdapter);
+
+        dhAdapter = new SpecialOfferAdapter();
+        gv_gridview3.setAdapter(dhAdapter);
+
+        gv_gridview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                BeautifulMallDetailActivity.actionStart(mContext, tjDatas.get(i).getMoney(), tjDatas.get(i).getUserCode(), tjDatas.get(i).getCodeId());
+            }
+        });
+        gv_gridview2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                BeautifulMallDetailActivity.actionStart(mContext, jxDatas.get(i).getMoney(), jxDatas.get(i).getUserCode(), jxDatas.get(i).getCodeId());
+            }
+        });
+        gv_gridview3.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                BeautifulMallDetailActivity.actionStart(mContext, dhDatas.get(i).getMoney(), dhDatas.get(i).getUserCode(), dhDatas.get(i).getCodeId());
+            }
+        });
     }
 
+    @Override
+    protected void initData() {
+        super.initData();
+        getUserCodeMallList();
+    }
+
+    private void getUserCodeMallList() {
+        Map<String, Object> map = new HashMap<>();
+        ApiClient.requestNetHandle(mContext, AppConfig.getUserCodeMallList, "", map, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                if (json != null) {
+                    UserCodeMallListBean info = FastJsonUtil.getObject(json, UserCodeMallListBean.class);
+                    if (info.getSpecialOffer() != null && info.getSpecialOffer().size() > 0) {
+                        tjDatas.addAll(info.getSpecialOffer());
+                        tjAdapter.setData(tjDatas, mContext);
+                        tjAdapter.notifyDataSetChanged();
+                    }
+                    if (info.getChoiceness() != null && info.getChoiceness().size() > 0) {
+                        jxDatas.addAll(info.getChoiceness());
+                        jxAdapter.setData(jxDatas, mContext);
+                        jxAdapter.notifyDataSetChanged();
+                    }
+                    if (info.getDoublingNo() != null && info.getDoublingNo().size() > 0) {
+                        dhDatas.addAll(info.getDoublingNo());
+                        dhAdapter.setData(dhDatas, mContext);
+                        dhAdapter.notifyDataSetChanged();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                ToastUtils.showToast(msg);
+            }
+        });
+    }
     @Override
     public void OnBannerClick(int position) {
 
     }
 
-    @OnClick({R.id.ll_dc1, R.id.ll_dc2, R.id.ll_dc3, R.id.ll_dc4, R.id.ll_dc5, R.id.ll_dc6})
+    @OnClick({R.id.ll_dc1, R.id.ll_dc2, R.id.ll_dc3, R.id.ll_dc4, R.id.ll_dc5, R.id.ll_dc6, R.id.tv_1, R.id.tv_2, R.id.tv_3, R.id.tv_4,R.id.tv_more, R.id.tv_more2, R.id.tv_more3})
     public void click(View v) {
         String url = "";
         switch (v.getId()) {
+            case R.id.tv_more:
+                //category":0//0：特价靓号，1：精选靓号，2：精选叠号 (必传）
+                UserCodeMoreActivity.actionStart(mContext,"0");
+                break;
+            case R.id.tv_more2:
+                UserCodeMoreActivity.actionStart(mContext,"1");
+                break;
+            case R.id.tv_more3:
+                UserCodeMoreActivity.actionStart(mContext,"2");
+                break;
+            case R.id.tv_1:
+                url = "https://segmentfault.com/";
+                break;
+            case R.id.tv_2:
+                url = "https://tophub.today/";
+                break;
+            case R.id.tv_3:
+                url = "https://pwl.icu/";
+                break;
+            case R.id.tv_4:
+                url = "https://www.qiushibaike.com/";
+                break;
             case R.id.ll_dc1:
 //                url = "http://meishi.meituan.com/i/?ci=268&stid_b=1&cevent=imt%2Fhomepage%2Fcategory1%2F1";
                 url = "https://www.meituan.com/";
@@ -109,7 +237,6 @@ public class DiscoverFragment extends BaseInitFragment implements OnBannerListen
         }
         startActivity(new Intent(mContext, WebViewActivity.class).putExtra("title", "lan").putExtra("url", url));
     }
-
 
 
 }
