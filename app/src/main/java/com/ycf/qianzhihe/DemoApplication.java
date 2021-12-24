@@ -41,6 +41,7 @@ public class DemoApplication extends SelfAppContext implements Thread.UncaughtEx
     private static DemoApplication instance;
     private UserActivityLifecycleCallbacks mLifecycleCallbacks = new UserActivityLifecycleCallbacks();
     public String aesStatus = "";
+    public int openTransaction = 1;//是否开启交易0-关闭，1-开启
     @Override
     public void onCreate() {
         super.onCreate();

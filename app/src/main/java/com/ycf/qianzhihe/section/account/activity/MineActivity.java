@@ -15,6 +15,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.coorchice.library.SuperTextView;
 import com.hyphenate.EMCallBack;
+import com.ycf.qianzhihe.DemoApplication;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.Constant;
 import com.ycf.qianzhihe.app.api.Global;
@@ -120,6 +121,13 @@ public class MineActivity extends BaseInitActivity implements View.OnClickListen
         mTvHelpline = (TextView) findViewById(R.id.tv_helpline);
         mTvGroups = (TextView) findViewById(R.id.tv_groups);
         tv_appweb = (TextView) findViewById(R.id.tv_appweb);
+
+        //是否开启交易0-关闭，1-开启
+        if (DemoApplication.getInstance().openTransaction == 1) {
+            mTvPackage.setVisibility(View.VISIBLE);
+        } else {
+            mTvPackage.setVisibility(View.GONE);
+        }
     }
 
     @Override

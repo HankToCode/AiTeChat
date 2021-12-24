@@ -26,6 +26,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ycf.qianzhihe.DemoApplication;
 import com.ycf.qianzhihe.R;
 import com.ycf.qianzhihe.app.api.old_http.ApiClient;
 import com.ycf.qianzhihe.app.api.old_http.ResultListener;
@@ -214,6 +215,7 @@ public class CretinAutoUpdateUtils {
                     }
                 }*/
                 UpdateEntity updateEntity =FastJsonUtil.getObject(json, UpdateEntity.class);
+                DemoApplication.getInstance().openTransaction = updateEntity.getOpenTransaction();//是否开启交易0-关闭，1-开启
                 up(updateEntity);
             }
 

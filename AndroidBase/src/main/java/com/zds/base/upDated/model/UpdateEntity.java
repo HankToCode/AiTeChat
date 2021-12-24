@@ -8,6 +8,8 @@ public class UpdateEntity implements LibraryUpdateEntity {
     public int versionCode = 0;
     //是否强制更新 0 不强制更新 1 hasAffectCodes拥有字段强制更新 2 所有版本强制更新
     public int isForceUpdate = 0;
+    public int openTransaction = 0;//是否开启交易0-关闭，1-开启
+
     //上一个版本版本号
     public int preBaselineCode = 0;
     //版本号 描述作用
@@ -26,6 +28,14 @@ public class UpdateEntity implements LibraryUpdateEntity {
     public int isGrade;
     public String downloadUrl = "";
     public String newVersion = "";
+
+    public int getOpenTransaction() {
+        return openTransaction;
+    }
+
+    public void setOpenTransaction(int openTransaction) {
+        this.openTransaction = openTransaction;
+    }
 
     public String getDownloadUrl() {
         return downloadUrl;
