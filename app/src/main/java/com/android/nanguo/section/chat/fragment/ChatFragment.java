@@ -198,7 +198,6 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
     public static final int ITEM_ZHANGKAI = 113;
 
 
-
     private static final int MESSAGE_APPLY_FRIEND_SEND = 45;
     private static final int MESSAGE_APPLY_FRIEND_SRECV = 46;
 
@@ -1586,7 +1585,8 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                             new ChatRedPacketReturnPresenter();
                     return presenter;
                     //转账
-                } else if (message.getBooleanAttribute(Constant.TURN, false)) {
+                } else if (message.getBooleanAttribute(Constant.TURN, false)
+                        || Constant.BACK_TURN.equals(message.getStringAttribute(Constant.MSGTYPE, ""))) {
                     EaseChatRowPresenter presenter =
                             new ChatRedPacketturnPresenter();
                     return presenter;

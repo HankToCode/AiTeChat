@@ -22,7 +22,7 @@ import com.android.nanguo.app.weight.ease.chatrow.EaseChatRow;
  */
 public class ChatBasicRedPacket extends EaseChatRow {
     private TextView tv_message, tv_time_message, tv_hongbao, tv_time, toNickName;
-    private RelativeLayout bubble,bubble_mask;
+    private RelativeLayout bubble, bubble_mask;
 
     public ChatBasicRedPacket(Context context, EMMessage message,
                               int position, BaseAdapter adapter) {
@@ -34,7 +34,8 @@ public class ChatBasicRedPacket extends EaseChatRow {
         if (message.getStringAttribute(Constant.MSGTYPE, "").equals(Constant.REDPACKET)
                 || message.getStringAttribute(Constant.MSGTYPE, "").equals(Constant.PERSON_RED_BAG)
                 || Constant.TURN.equals(message.getStringAttribute(Constant.MSGTYPE, ""))
-                || Constant.SURE_TURN.equals(message.getStringAttribute(Constant.MSGTYPE, ""))) {
+                || Constant.SURE_TURN.equals(message.getStringAttribute(Constant.MSGTYPE, ""))
+                || Constant.BACK_TURN.equals(message.getStringAttribute(Constant.MSGTYPE, ""))) {
             inflater.inflate(message.direct() == EMMessage.Direct.RECEIVE ?
                     R.layout.row_received_red_packet :
                     R.layout.row_send_red_packet, this);

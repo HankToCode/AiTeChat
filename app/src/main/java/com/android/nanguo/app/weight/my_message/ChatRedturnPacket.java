@@ -28,7 +28,8 @@ public class ChatRedturnPacket extends EaseChatRow {
 
     @Override
     protected void onInflateView() {
-        if (message.getBooleanAttribute(Constant.TURN, false)) {
+        if (message.getBooleanAttribute(Constant.TURN, false)
+                || Constant.BACK_TURN.equals(message.getStringAttribute(Constant.MSGTYPE, ""))) {
             inflater.inflate(message.direct() == EMMessage.Direct.RECEIVE ?
                     R.layout.received_transfer : R.layout.sent_transfer, this);
         }
@@ -74,15 +75,28 @@ public class ChatRedturnPacket extends EaseChatRow {
         }*/
 
         tv_time.setText(StringUtil.formatDateMinute(message.getMsgTime()));
-        if (message.direct() == EMMessage.Direct.RECEIVE) {
-            tv_messageRemark.setText("收到转账");
-            bubble_mask.setVisibility(VISIBLE);
-        } else {
-            String localRobNikeName = UserOperateManager.getInstance().getUserName(message.getTo());
-            tv_messageRemark.setText("转账给" + localRobNikeName);
-            bubble_mask.setVisibility(GONE);
-        }
         tv_message.setText(message.getStringAttribute("money", "") + getResources().getString(R.string.glod));
+
+        if (message.getBooleanAttribute(Constant.TURN, false)) {
+            if (message.direct() == EMMessage.Direct.RECEIVE) {
+                tv_messageRemark.setText("收到转账");
+                bubble_mask.setVisibility(VISIBLE);
+            } else {
+                String localRobNikeName = UserOperateManager.getInstance().getUserName(message.getTo());
+                tv_messageRemark.setText("转账给" + localRobNikeName);
+                bubble_mask.setVisibility(GONE);
+            }
+        } else if (Constant.BACK_TURN.equals(message.getStringAttribute(Constant.MSGTYPE, ""))) {
+            if (message.direct() == EMMessage.Direct.RECEIVE) {
+                tv_messageRemark.setText("已退还");
+                bubble_mask.setVisibility(VISIBLE);
+            } else {
+                String localRobNikeName = UserOperateManager.getInstance().getUserName(message.getTo());
+                tv_messageRemark.setText("转账给" + localRobNikeName);
+                bubble_mask.setVisibility(GONE);
+            }
+        }
+
     }
 
 

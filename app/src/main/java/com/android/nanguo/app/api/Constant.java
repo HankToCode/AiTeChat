@@ -387,6 +387,11 @@ public class Constant extends EaseConstant {
      */
     public static final String PERSON_RED_BAG = "perredbag";
 
+    /**
+     * 转账退回
+     */
+    public static final String BACK_TURN = "backTurn";
+
 
     /**
      * 名片
