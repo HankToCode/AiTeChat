@@ -14,7 +14,9 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.animation.AccelerateDecelerateInterpolator;
 
+import com.android.nanguo.DemoApplication;
 import com.android.nanguo.R;
+import com.android.nanguo.app.utils.VibratorPlayer;
 
 import java.lang.reflect.Field;
 import java.util.Arrays;
@@ -402,6 +404,8 @@ public class XNumberKeyboardView extends KeyboardView implements KeyboardView.On
         }
     }
 
+    private VibratorPlayer vib = new VibratorPlayer(DemoApplication.getInstance());
+
     @Override
     public void onKey(int primaryCode, int[] keyCodes) {
         if (mOnKeyboardActionListener != null) {
@@ -417,6 +421,8 @@ public class XNumberKeyboardView extends KeyboardView implements KeyboardView.On
         } else if (primaryCode != KEYCODE_BOTTOM_RIGHT) {
             insertText = Character.toString((char) primaryCode);
         }
+
+        vib.play(1, 1, false);
         mOnKeyboardListener.onNumberKey(primaryCode, insertText);
     }
 
