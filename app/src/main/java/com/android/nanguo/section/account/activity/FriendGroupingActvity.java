@@ -74,7 +74,7 @@ public class FriendGroupingActvity extends BaseInitActivity {
     @Override
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
-        title_bar.setTitle("移动分组");
+        title_bar.setTitle("分组管理");
         title_bar.setOnBackPressListener(view -> finish());
 
         groupingAdapter = new FriendGroupingAdapter(groupingDatas);

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/ll_item"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:id="@+id/ll_item"
     android:gravity="center_vertical"
     android:orientation="horizontal">
 
@@ -10,13 +10,13 @@
     <TextView
         android:id="@+id/tv_name"
         android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="@dimen/dp_45"
-        android:layout_marginTop="@dimen/dp_5"
         android:layout_marginBottom="1dp"
+        android:layout_weight="1"
         android:background="@drawable/selector_comm_btn"
+        android:drawableLeft="@mipmap/icon_friend_group_delete"
+        android:drawablePadding="6dp"
         android:gravity="center_vertical"
-        android:layout_marginLeft="@dimen/dp_15"
         android:paddingLeft="@dimen/dp_15"
         android:text="分组"
         android:textColor="#333333"
@@ -26,7 +26,14 @@
         android:id="@+id/iv_check"
         android:layout_width="@dimen/dp_10"
         android:layout_height="@dimen/dp_10"
-        android:layout_marginRight="@dimen/dp_20"
+        android:layout_marginRight="@dimen/dp_10"
         android:src="@mipmap/xuanz_green"
-        android:visibility="gone"/>
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/iv_end"
+        android:layout_width="@dimen/dp_10"
+        android:layout_height="@dimen/dp_10"
+        android:src="@mipmap/icon_friend_group_end"
+        android:layout_marginEnd="20dp"/>
 </LinearLayout>
