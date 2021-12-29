@@ -75,9 +75,9 @@ public class GroupingAdapter extends BaseExpandableListAdapter {
         ImageView iv_group_arr = (ImageView) convertView.findViewById(R.id.iv_group_arr);
         tv_group_name.setText(group);
         if (isExpanded) {
-            iv_group_arr.setImageResource(R.mipmap.icon_grouping_open);
+            iv_group_arr.setImageResource(R.mipmap.ic_group_normal);
         } else {
-            iv_group_arr.setImageResource(R.mipmap.icon_grouping);
+            iv_group_arr.setImageResource(R.mipmap.ic_group_select);
 
         }
         return convertView;

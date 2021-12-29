@@ -2,13 +2,17 @@ package com.android.nanguo.section.contact.fragment;
 
 import static android.widget.ExpandableListView.*;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ExpandableListView;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.nanguo.R;
+import com.android.nanguo.app.api.Constant;
+import com.android.nanguo.app.api.EaseConstant;
 import com.android.nanguo.app.api.global.EventUtil;
 import com.android.nanguo.app.api.old_data.EventCenter;
 import com.android.nanguo.app.api.old_data.GroupDetailInfo;
@@ -20,6 +24,7 @@ import com.android.nanguo.app.api.old_http.AppConfig;
 import com.android.nanguo.app.api.old_http.ResultListener;
 import com.android.nanguo.app.base.BaseInitFragment;
 import com.android.nanguo.app.help.RclViewHelp;
+import com.android.nanguo.section.chat.activity.ChatActivity;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.json.FastJsonUtil;
 import com.android.nanguo.section.contact.adapter.MyGroupAdapter;
@@ -63,6 +68,21 @@ public class GroupContactManageFragment extends BaseInitFragment {
     @Override
     protected void initListener() {
         super.initListener();
+
+        rvList.setOnChildClickListener((expandableListView, view, groupPosition, childPosition, id) -> {
+            GroupInfo item = mList.get(groupPosition).getGroupInfos().get(childPosition);
+            mContext.startActivity(new Intent(mContext, ChatActivity.class).putExtra(EaseConstant.EXTRA_CHAT_TYPE, EaseConstant.CHATTYPE_GROUP)
+                    .putExtra(EaseConstant.EXTRA_USER_ID, item.getHuanxinGroupId())
+                    .putExtra(Constant.ROOMTYPE, 0));
+            return true;
+        });
+        rvList.setOnGroupExpandListener(position -> {
+            for (int i = 0; i < mList.size(); i++) {
+                if (position != i) {
+                    rvList.collapseGroup(i);
+                }
+            }
+        });
     }
 
     @Override
@@ -89,6 +109,7 @@ public class GroupContactManageFragment extends BaseInitFragment {
 
         groupList();
     }
+
 
     @Override
     public void onResume() {

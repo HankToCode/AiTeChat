@@ -50,7 +50,6 @@ public class MyGroupAdapter extends BaseExpandableListAdapter {
     }
 
 
-
     @Override
     public int getGroupCount() {
         return copyGroupList == null ? 0 : copyGroupList.size();
@@ -78,12 +77,12 @@ public class MyGroupAdapter extends BaseExpandableListAdapter {
 
     @Override
     public long getGroupId(int groupPosition) {
-        return 0;
+        return groupPosition;
     }
 
     @Override
     public long getChildId(int groupPosition, int childPosition) {
-        return 0;
+        return childPosition;
     }
 
     @Override
@@ -100,24 +99,22 @@ public class MyGroupAdapter extends BaseExpandableListAdapter {
 
 
         mViewHolder.setText(convertView, R.id.tv_title, item.getTitle());
-        ImageView imageView = (ImageView) mViewHolder.get(convertView, R.id.tv_img);
-        imageView.setSelected(item.isExpend());
-        if (imageView.isSelected()) {
-            GlideUtils.loadRoundCircleImage(AppConfig.checkimg(item.getTitle()), (ImageView) mViewHolder.get(convertView, R.id.tv_img), R.mipmap.ic_group_select, 30);
-        } else {
+        if (isExpanded) {
             GlideUtils.loadRoundCircleImage(AppConfig.checkimg(item.getTitle()), (ImageView) mViewHolder.get(convertView, R.id.tv_img), R.mipmap.ic_group_normal, 30);
+        } else {
+            GlideUtils.loadRoundCircleImage(AppConfig.checkimg(item.getTitle()), (ImageView) mViewHolder.get(convertView, R.id.tv_img), R.mipmap.ic_group_select, 30);
         }
 
-        mViewHolder.get(convertView, R.id.ll_item).setOnClickListener(v -> {
-            imageView.setSelected(!imageView.isSelected());
-            item.setExpend(imageView.isSelected());
-
-            if(mRvList.isGroupExpanded(groupPosition)){
-                mRvList.collapseGroup(groupPosition);
-            }else{
-                mRvList.expandGroup(groupPosition);
-            }
-        });
+//        mViewHolder.get(convertView, R.id.ll_item).setOnClickListener(v -> {
+//            imageView.setSelected(!imageView.isSelected());
+//            item.setExpend(imageView.isSelected());
+//
+//            if(mRvList.isGroupExpanded(groupPosition)){
+//                mRvList.collapseGroup(groupPosition);
+//            }else{
+//                mRvList.expandGroup(groupPosition);
+//            }
+//        });
 
 
         return convertView;
@@ -135,9 +132,6 @@ public class MyGroupAdapter extends BaseExpandableListAdapter {
         mViewHolder.setText(convertView, R.id.tv_group_name, item.getGroupName());
         GlideUtils.loadRoundCircleImage(AppConfig.checkimg(item.getGroupHead()), (ImageView) mViewHolder.get(convertView, R.id.img_group), R.mipmap.ic_group_default, 30);
 
-        mViewHolder.get(convertView, R.id.ll_item).setOnClickListener(v -> mContext.startActivity(new Intent(mContext, ChatActivity.class).putExtra(EaseConstant.EXTRA_CHAT_TYPE, EaseConstant.CHATTYPE_GROUP)
-                .putExtra(EaseConstant.EXTRA_USER_ID, item.getHuanxinGroupId())
-                .putExtra(Constant.ROOMTYPE, 0)));
         return convertView;
     }
 

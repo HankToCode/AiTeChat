@@ -3,15 +3,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="@dimen/main_message_item_height"
-    android:background="@color/white"
+    android:background="?attr/selectableItemBackground"
     android:orientation="horizontal">
 
     <LinearLayout
         android:id="@+id/ll_item"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="?attr/selectableItemBackground"
-        android:focusable="false"
         android:paddingLeft="@dimen/dp_20"
         android:paddingRight="@dimen/dp_20">
 

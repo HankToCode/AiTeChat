@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="50dp"
+    android:layout_height="@dimen/main_message_item_height"
+    android:paddingLeft="@dimen/dp_20"
+    android:paddingRight="@dimen/dp_20"
     android:gravity="center_vertical">
 
     <ImageView
@@ -11,17 +13,17 @@
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/dp_10"
         android:layout_marginTop="@dimen/dp_1"
-        android:src="@mipmap/icon_grouping"/>
+        android:src="@mipmap/ic_group_select"/>
     <TextView
         android:id="@+id/tv_group_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="@dimen/dp_3"
+        android:layout_marginLeft="@dimen/dp_16"
         android:layout_toRightOf="@id/iv_group_arr"
         android:text="name"
         android:textColor="@color/black"
-        android:textSize="14sp" />
+        android:textSize="@dimen/sp_15" />
 
     <TextView
         android:id="@+id/tv_number"
