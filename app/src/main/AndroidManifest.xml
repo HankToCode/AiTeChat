@@ -98,10 +98,11 @@
         android:name="com.ycf.qianzhihe.DemoApplication"
         android:allowBackup="true"
         android:icon="@mipmap/em_logo_uidemo"
-        android:label="@string/app_name"
+        android:label="@string/app_names"
         android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/em_logo_uidemo"
         android:supportsRtl="true"
+        tools:replace="android:label"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         android:usesNonSdkApi="true">
@@ -286,7 +287,7 @@
         <!--主页-->
         <activity
             android:name="com.ycf.qianzhihe.MainActivity"
-            android:label="@string/app_name"
+            android:label="@string/app_names"
             android:launchMode="singleTask"
             android:screenOrientation="portrait">
             <intent-filter>
