@@ -228,7 +228,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
 
 
     protected boolean isRoaming() {
-        return true/*MyHelper.getInstance().getModel().isMsgRoaming() && (chatType != EaseConstant.CHATTYPE_CHATROOM)*/;
+        return MyHelper.getInstance().getModel().isMsgRoaming() && (chatType != EaseConstant.CHATTYPE_CHATROOM);
     }
 
     @Override
