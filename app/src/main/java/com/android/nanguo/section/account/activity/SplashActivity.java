@@ -158,7 +158,9 @@ public class SplashActivity extends BaseInitActivity {
     private void userProtocolDialog() {
         //1.用户协议弹窗
         if (Preference.getBoolPreferences(SplashActivity.this, BaseConstant.SP.KEY_IS_AGREE_USER_PROTOCOL, false)) {
-            long asLoginTime = Preference.getLongPreferences(SplashActivity.this, BaseConstant.SP.KEY_IS_AS_LOGIN_TIME, 0);
+            loginSDK();
+
+            /*long asLoginTime = Preference.getLongPreferences(SplashActivity.this, BaseConstant.SP.KEY_IS_AS_LOGIN_TIME, 0);
             if (!DateUtils.isToday(new Date(asLoginTime)) || asLoginTime == 0L) {
                 Preference.saveLongPreferences(SplashActivity.this, BaseConstant.SP.KEY_IS_AS_LOGIN_TIME, System.currentTimeMillis());
                 final AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -168,7 +170,7 @@ public class SplashActivity extends BaseInitActivity {
                     showLoading("清理超过三天的数据中，请稍后~");
                     Observable.just("")
                             .map(str -> {
-                                /*long dayOut3Time = System.currentTimeMillis() - 86400000L;
+                                *//*long dayOut3Time = System.currentTimeMillis() - 86400000L;
 
                                 Collection<EMConversation> o = EMClient.getInstance().chatManager().getAllConversations().values();
                                 for (EMConversation emConversation : o) {
@@ -178,7 +180,7 @@ public class SplashActivity extends BaseInitActivity {
                                             emConversation.removeMessage(message.getMsgId());
                                         }
                                     }
-                                }*/
+                                }*//*
 
                                 File filePath = new File("/data/data/com.android.nanguo/files/easemobDB");
                                 if (filePath.exists() && filePath.isDirectory()) {
@@ -235,7 +237,7 @@ public class SplashActivity extends BaseInitActivity {
 
             } else {
                 loginSDK();
-            }
+            }*/
         } else {
             //未同意
             showUserProtocolDialog();
