@@ -79,6 +79,8 @@ public class MyInfoActivity extends BaseInitActivity {
     RadioButton rb_female;
     @BindView(R.id.ll_sign)
     LinearLayout ll_sign;
+    @BindView(R.id.ll_mall)
+    LinearLayout ll_mall;
 
     @Override
     protected int getLayoutId() {
@@ -275,7 +277,7 @@ public class MyInfoActivity extends BaseInitActivity {
     }
 
 
-    @OnClick({R.id.rl_my_share, R.id.img_head, R.id.tv_name, R.id.ll_sign, R.id.tv_account,
+    @OnClick({R.id.rl_my_share, R.id.img_head, R.id.tv_name, R.id.ll_sign,R.id.ll_mall, R.id.tv_account,
             R.id.rl_my_qr,R.id.tv_logoff})
     public void onViewClicked(View view) {
         switch (view.getId()) {
@@ -290,6 +292,10 @@ public class MyInfoActivity extends BaseInitActivity {
                 break;
             case R.id.ll_sign://修改个性签名
                 startActivity(new Intent(this, EditInfoActivity.class).putExtra("from", "3"));
+                break;
+            case R.id.ll_mall:
+                //靓号商城
+                UserCodeActivity.actionStart(this);
                 break;
             /*case R.id.tv_account:
                 Bundle bundle3 = new Bundle();
