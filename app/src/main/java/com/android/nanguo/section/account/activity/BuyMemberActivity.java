@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.android.nanguo.app.base.WebViewActivity;
+import com.android.nanguo.section.common.SendGroupRedPackageActivity;
 import com.coorchice.library.SuperTextView;
 import com.android.nanguo.R;
 import com.android.nanguo.app.api.global.UserComm;
@@ -205,13 +207,14 @@ public class BuyMemberActivity extends BaseInitActivity implements View.OnClickL
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.tv_pay:
-                if (!TextUtils.isEmpty(UserComm.getUserInfo().getVipLevel())) {
+                BuyPayActivity.actionStart(BuyMemberActivity.this);
+                /*if (!TextUtils.isEmpty(UserComm.getUserInfo().getVipLevel())) {
                     if (vipLevel <= NumberUtils.parseDouble(UserComm.getUserInfo().getVipLevel())) {
                         ToastUtil.toast("请选择更高会员等级");
                         return;
                     }
                 }
-                payPassword();
+                payPassword();*/
                 break;
             default:
                 break;
