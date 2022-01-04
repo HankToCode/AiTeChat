@@ -13,6 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.android.nanguo.app.api.global.EventUtil;
 import com.android.nanguo.app.api.old_data.EventCenter;
+import com.android.nanguo.app.base.WebViewActivity;
 import com.coorchice.library.SuperTextView;
 import com.hyphenate.easeui.widget.EaseImageView;
 import com.android.nanguo.R;
@@ -54,6 +55,7 @@ public class MineFragment extends BaseInitFragment implements View.OnClickListen
     private TextView mTvKF;
     private TextView mTvSettings;
     private TextView mTvAboutMe;
+    private TextView mTvMall;
     private ImageView mIvVipLevel;
 
     @Override
@@ -79,6 +81,7 @@ public class MineFragment extends BaseInitFragment implements View.OnClickListen
         mTvKF = (TextView) findViewById(R.id.tvKF);
         mTvSettings = (TextView) findViewById(R.id.tvSettings);
         mTvAboutMe = (TextView) findViewById(R.id.tvAboutMe);
+        mTvMall = (TextView) findViewById(R.id.tvMall);
 
 
         mIvVipLevel = (ImageView) findViewById(R.id.ivVipLevel);
@@ -104,6 +107,7 @@ public class MineFragment extends BaseInitFragment implements View.OnClickListen
         mTvSettings.setOnClickListener(this);
         mTvAboutMe.setOnClickListener(this);
         mIvVipLevel.setOnClickListener(this);
+        mTvMall.setOnClickListener(this);
     }
 
     @Override
@@ -152,6 +156,10 @@ public class MineFragment extends BaseInitFragment implements View.OnClickListen
             case R.id.tvAboutMe://APP 官网
 //                WebViewActivity.actionStart(requireContext(), AppConfig.appurl, true);
                 AboutHxActivity.actionStart(mContext);
+                break;
+            case R.id.tvMall://mall
+//                WebViewActivity.actionStart(requireContext(), AppConfig.appurl, true);
+                WebViewActivity.actionStart(mContext, "http://120.79.221.59:82/shop#/index");
                 break;
             default:
                 break;

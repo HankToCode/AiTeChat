@@ -79,8 +79,6 @@ public class MyInfoActivity extends BaseInitActivity {
     RadioButton rb_female;
     @BindView(R.id.ll_sign)
     LinearLayout ll_sign;
-    @BindView(R.id.ll_mall)
-    LinearLayout ll_mall;
 
     @Override
     protected int getLayoutId() {
@@ -127,8 +125,8 @@ public class MyInfoActivity extends BaseInitActivity {
             @Override
             public void onCheckedChanged(SwitchButton view, boolean isChecked) {
 
-                Map<String,Object> map =new HashMap<>();
-                map.put("addWay",isChecked ? 0 : 1);
+                Map<String, Object> map = new HashMap<>();
+                map.put("addWay", isChecked ? 0 : 1);
                 ApiClient.requestNetHandle(MyInfoActivity.this, AppConfig.MODIFY_FRIEND_CONSENT + "/" + (isChecked ? 0 : 1), "请稍候...", map, new ResultListener() {
                     @Override
                     public void onSuccess(String json, String msg) {
@@ -137,6 +135,7 @@ public class MyInfoActivity extends BaseInitActivity {
                         UserComm.saveUsersInfo(loginInfo);
                         toast("修改成功");
                     }
+
                     @Override
                     public void onFailure(String msg) {
                         toast(msg);
@@ -149,8 +148,8 @@ public class MyInfoActivity extends BaseInitActivity {
         rg_sex.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup radioGroup, int id) {
-                Map<String,Object> map =new HashMap<>();
-                map.put("sex",id == R.id.rb_male ? 0 : 1);
+                Map<String, Object> map = new HashMap<>();
+                map.put("sex", id == R.id.rb_male ? 0 : 1);
                 ApiClient.requestNetHandle(MyInfoActivity.this, AppConfig.MODIFY_SEX + "/" + (id == R.id.rb_male ? 0 : 1), "请稍候...", map, new ResultListener() {
                     @Override
                     public void onSuccess(String json, String msg) {
@@ -159,6 +158,7 @@ public class MyInfoActivity extends BaseInitActivity {
                         UserComm.saveUsersInfo(loginInfo);
                         toast("修改成功");
                     }
+
                     @Override
                     public void onFailure(String msg) {
                         toast(msg);
@@ -167,8 +167,6 @@ public class MyInfoActivity extends BaseInitActivity {
             }
         });
     }
-
-
 
 
     @Override
@@ -181,10 +179,8 @@ public class MyInfoActivity extends BaseInitActivity {
     }
 
 
-
     /**
      * 上传头像地址到服务器
-     *
      */
     private void saveHead(File file) {
         ApiClient.requestNetHandleFile(MyInfoActivity.this, AppConfig.uploadImg, "正在上传...", file, new ResultListener() {
@@ -277,8 +273,8 @@ public class MyInfoActivity extends BaseInitActivity {
     }
 
 
-    @OnClick({R.id.rl_my_share, R.id.img_head, R.id.tv_name, R.id.ll_sign,R.id.ll_mall, R.id.tv_account,
-            R.id.rl_my_qr,R.id.tv_logoff})
+    @OnClick({R.id.rl_my_share, R.id.img_head, R.id.tv_name, R.id.ll_sign, R.id.tv_account,
+            R.id.rl_my_qr, R.id.tv_logoff})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.img_head:
@@ -292,10 +288,6 @@ public class MyInfoActivity extends BaseInitActivity {
                 break;
             case R.id.ll_sign://修改个性签名
                 startActivity(new Intent(this, EditInfoActivity.class).putExtra("from", "3"));
-                break;
-            case R.id.ll_mall:
-                //靓号商城
-                UserCodeActivity.actionStart(this);
                 break;
             /*case R.id.tv_account:
                 Bundle bundle3 = new Bundle();
@@ -337,7 +329,6 @@ public class MyInfoActivity extends BaseInitActivity {
                 break;
         }
     }
-
 
 
     @Override
@@ -387,13 +378,14 @@ public class MyInfoActivity extends BaseInitActivity {
         String st = getResources().getString(R.string.Are_logged_out);
         showLoading(st);
 
-        Map<String,Object> map =new HashMap<>();
+        Map<String, Object> map = new HashMap<>();
         map.put("deviceId", DeviceIdUtil.getDeviceId(this));
         ApiClient.requestNetHandle(this, AppConfig.multiDeviceLogout, "请稍候...", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 toast(json);
             }
+
             @Override
             public void onFailure(String msg) {
                 toast(msg);

@@ -243,6 +243,22 @@
                         android:textColor="@color/color_333333" />
 
                     <TextView
+                        android:id="@+id/tvMall"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/selectableItemBackground"
+                        android:drawableLeft="@mipmap/ic_main_mine_about_me"
+                        android:drawableRight="@drawable/ic_point_to"
+                        android:drawablePadding="14dp"
+                        android:gravity="center_vertical"
+                        android:paddingStart="15dp"
+                        android:paddingTop="18dp"
+                        android:paddingEnd="15dp"
+                        android:paddingBottom="18dp"
+                        android:text="商城"
+                        android:textColor="@color/color_333333" />
+
+                    <TextView
                         android:id="@+id/tvAboutMe"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
