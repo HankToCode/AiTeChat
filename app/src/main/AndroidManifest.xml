@@ -584,6 +584,7 @@
         <activity android:name="com.android.nanguo.section.me.activity.MessagePushStyleActivity" />
         <!--WebView加载网页-->
         <activity android:name="com.android.nanguo.app.base.WebViewActivity" />
+        <activity android:name="com.android.nanguo.app.base.RechargeWebViewActivity" />
         <!--捕获屏幕service-->
 
         <!-- <provider

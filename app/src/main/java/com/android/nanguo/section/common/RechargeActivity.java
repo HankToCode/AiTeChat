@@ -22,6 +22,8 @@ import com.android.nanguo.app.api.old_http.AppConfig;
 import com.android.nanguo.app.api.old_http.CommonApi;
 import com.android.nanguo.app.api.old_http.ResultListener;
 import com.android.nanguo.app.base.BaseInitActivity;
+import com.android.nanguo.app.base.RechargeWebViewActivity;
+import com.android.nanguo.app.base.WebViewActivity;
 import com.android.nanguo.app.utils.XClickUtil;
 import com.android.nanguo.app.weight.ChooseMoneyLayout;
 import com.hyphenate.easeui.widget.EaseTitleBar;
@@ -139,7 +141,7 @@ public class RechargeActivity extends BaseInitActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.tv_recharge:
-                if (!XClickUtil.isFastDoubleClick(view, 1000)) {
+                if (!XClickUtil.isFastDoubleClick(view, 2000)) {
                     if (!TextUtils.isEmpty(et_amount.getText().toString().trim())) {
                         rechargeMoney = Integer.parseInt(et_amount.getText().toString().trim());
                     }
@@ -151,27 +153,30 @@ public class RechargeActivity extends BaseInitActivity {
                         ToastUtils.showToast("请选择银行卡");
                         return;
                     }
-                    payPassword();
+                    payPassword();//支付密码
 
                 } else {
                     ToastUtils.showToast("请勿连续提交");
                 }
                 break;
             case R.id.ll_select_bank:
-                startActivityForResult(new Intent(this, BankActivity.class), 66);
+//                BankActivity.actionStart(this,"2");
+                Intent intent = new Intent(this,BankActivity.class);
+                intent.putExtra("fromType", "2");
+                startActivityForResult(intent, 66);
                 break;
 
         }
     }
 
-    private String bankId = "";
 
+    private String bankId = "";
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 66 && resultCode == 1111) {
             bankId = data.getStringExtra("id");
-            tv_bank.setText(data.getStringExtra("bankName"));
+            tv_bank.setText(data.getStringExtra("id"));
 //            tv_bank_card.setText(data.getStringExtra("bankCard"));
         }
     }
@@ -233,26 +238,33 @@ public class RechargeActivity extends BaseInitActivity {
         map.put("rechargeMoney", Double.parseDouble(String.valueOf(rechargeMoney)));
         map.put("cardId", bankId);
         map.put("payPassword", password);
-        map.put("payType", 1);
+        map.put("payType", 1);//支付方式 0 余额支付 1-银行卡支付 2-支付宝支付", 目前只支持银行卡支付类型
         ApiClient.requestNetHandle(this, AppConfig.rechargeUrl, "充值中...", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
-//                startActivity(new Intent(RechargeActivity.this, WebViewActivity.class).putExtra("url", json).putExtra("title", "充值"));
+
                 if (json != null && json.length() > 0) {
                     WalletRechargeBean walletRechargeBean = FastJsonUtil.getObject(json, WalletRechargeBean.class);
-
-                    ConfirmInputDialog dialog = new ConfirmInputDialog(mContext);
-                    dialog.setOnConfirmClickListener(new ConfirmInputDialog.OnConfirmClickListener() {
-                        @Override
-                        public void onConfirmClick(String content) {
-                            doNewRechargeClick(walletRechargeBean.getOrderId(), content);
-                        }
-                    });
-                    dialog.show();
-                    dialog.setCancelable(false);
-                    dialog.setCanceledOnTouchOutside(false);
-                    dialog.setTitle("输入验证码");
-                    dialog.setContentHint("输入验证码");
+                    System.out.println("###未签约="+walletRechargeBean.getSignStatus());
+                    System.out.println("###未签约html="+walletRechargeBean.getHtml());
+                    //"signStatus":"签约状态：0-未签约，1-已签约(int整型)"
+                    if (walletRechargeBean.getSignStatus() == 0) {
+//                        startActivity(new Intent(RechargeActivity.this, WebViewActivity.class).putExtra("url", walletRechargeBean.getHtml()).putExtra("showTitle", "充值"));
+                        RechargeWebViewActivity.actionStart(mContext,walletRechargeBean.getHtml(),true);
+                    } else {
+                        ConfirmInputDialog dialog = new ConfirmInputDialog(mContext);
+                        dialog.setOnConfirmClickListener(new ConfirmInputDialog.OnConfirmClickListener() {
+                            @Override
+                            public void onConfirmClick(String content) {
+                                doNewRechargeClick(walletRechargeBean.getOrderId(), content);
+                            }
+                        });
+                        dialog.show();
+                        dialog.setCancelable(false);
+                        dialog.setCanceledOnTouchOutside(false);
+                        dialog.setTitle("输入验证码");
+                        dialog.setContentHint("输入验证码");
+                    }
                 } else {
                     ToastUtils.showToast("服务器开小差，请稍后重试");
                 }

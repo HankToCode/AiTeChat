@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.android.nanguo.R;
 import com.android.nanguo.app.adapter.BankCardAdapter;
+import com.android.nanguo.app.api.Constant;
 import com.android.nanguo.app.api.global.EventUtil;
 import com.android.nanguo.app.api.old_data.EventCenter;
 import com.android.nanguo.app.api.old_data.JsonBankCardList;
@@ -46,13 +47,24 @@ public class BankActivity extends BaseInitActivity {
     TextView tv_no_data;
     private boolean isedit = false;
     private BankCardAdapter mBankCardAdapter;
+    private String fromType = "1";
 
 
     public static void actionStart(Context context) {
         Intent intent = new Intent(context, BankActivity.class);
         context.startActivity(intent);
     }
+    public static void actionStart(Context context,String fromType) {
+        Intent intent = new Intent(context, BankActivity.class);
+        intent.putExtra("fromType", fromType);
+        context.startActivity(intent);
+    }
+    @Override
+    protected void initIntent(Intent intent) {
+        super.initIntent(intent);
+        fromType = intent.getExtras().getString("fromType");
 
+    }
     @Override
     protected int getLayoutId() {
         return R.layout.activity_bank;
@@ -128,7 +140,16 @@ public class BankActivity extends BaseInitActivity {
         mBankCardAdapter.setOnItemClickListener(new BankCardAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-                BankDetailActivity.actionStart(mContext,dataBean.get(position));
+
+                if (fromType.equals("1")) {
+                    BankDetailActivity.actionStart(mContext,dataBean.get(position));
+                } else {//选择银行卡返回
+                    setResult(1111, new Intent()
+                            .putExtra("id", dataBean.get(position).getCardId())
+                            .putExtra("bankName", dataBean.get(position).getBankName())
+                            .putExtra("bankCard", dataBean.get(position).getBankCard()));
+                    finish();
+                }
                 /*if (view.getId() == R.id.iv_delete) {
                     initUserInfo();
                 } else {//选择银行卡返回

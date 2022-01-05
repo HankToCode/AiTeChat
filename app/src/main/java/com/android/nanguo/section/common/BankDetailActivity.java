@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hyphenate.easeui.widget.EaseTitleBar;
@@ -36,7 +37,7 @@ public class BankDetailActivity extends BaseInitActivity {
     @BindView(R.id.tv_bank_card)
     TextView tv_bank_card;
     @BindView(R.id.ll_del)
-    TextView ll_del;
+    LinearLayout ll_del;
     private JsonBankCardList.DataBean dataBean;
 
     public static void actionStart(Context context, JsonBankCardList.DataBean dataBean) {

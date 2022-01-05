@@ -102,7 +102,7 @@ public class NanguoWalletActivity extends BaseInitActivity {
                     RealAuthActivity.actionStart(mContext);
                     return;
                 }
-                BankActivity.actionStart(this);
+                BankActivity.actionStart(this,"1");
                 break;
            /* case R.id.tv_my_redpack_record:
                 //我的红包记录

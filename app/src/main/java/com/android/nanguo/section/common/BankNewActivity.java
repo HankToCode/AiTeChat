@@ -85,6 +85,8 @@ public class BankNewActivity extends BaseInitActivity {
         ApiClient.requestNetHandle(this, AppConfig.addBankCardList, "正在提交...", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
+
+                /*新绑卡接口不需要二次确认，摩宝调用成功后，直接保存入库  所以此段注释
                 BankDto dto = new BankDto();
                 dto.setBankCard(map.get("bankCard").toString());
                 dto.setBankName(map.get("bankName").toString());
@@ -108,7 +110,9 @@ public class BankNewActivity extends BaseInitActivity {
                 dialog.setCancelable(false);
                 dialog.setCanceledOnTouchOutside(false);
                 dialog.setTitle("输入验证码");
-                dialog.setContentHint("输入验证码");
+                dialog.setContentHint("输入验证码");*/
+                ToastUtils.showToast("绑定成功");
+                finish();
             }
 
             @Override
