@@ -5,6 +5,8 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.android.nanguo.R;
 import com.android.nanguo.app.api.Constant;
 import com.android.nanguo.app.operate.UserOperateManager;
@@ -15,7 +17,8 @@ import com.hyphenate.chat.EMMessage;
 
 public class SystemNoticePacket extends EaseChatRow {
     private TextView tv_message, tv_message_new;
-    private LinearLayout ll_container, llay_msg;
+    private LinearLayout ll_container;
+    private ConstraintLayout llay_msg;
 
     public SystemNoticePacket(Context context, EMMessage message,
                               int position, BaseAdapter adapter) {
