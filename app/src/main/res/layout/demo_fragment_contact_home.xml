@@ -15,7 +15,7 @@
         android:id="@+id/indicator"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="170dp"
+        android:layout_marginTop="126dp"
         android:background="@drawable/bg_main_contact_border"
         app:layout_constraintTop_toTopOf="parent" />
 
