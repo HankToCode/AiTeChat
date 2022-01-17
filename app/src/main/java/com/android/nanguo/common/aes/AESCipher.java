@@ -13,6 +13,17 @@ import javax.crypto.spec.SecretKeySpec;
  */
 
 public class AESCipher {
+
+    static {
+        System.loadLibrary("enc");
+    }
+
+
+    public static native String Enc(byte[] str, int len);
+
+    public static native String Dec(byte[] str, int len);
+
+
     /**
      * 算法/模式/填充
      **/
@@ -70,7 +81,7 @@ public class AESCipher {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        data = encrypt(data, DDPASSWORD);
+//        data = encrypt(data, DDPASSWORD);
         /*if (!TextUtils.isEmpty(DemoApplication.getInstance().aesStatus)) {
             if (DemoApplication.getInstance().aesStatus.equals("old")) {
                 data = encrypt(data, PASSWORD);
@@ -81,7 +92,9 @@ public class AESCipher {
         } else {
             data = encrypt(data, PASSWORD);
         }*/
-        String result = HexUtil.byte2Base64StringFun(data);
+
+        if (data == null) return "";
+        String result = AESCipher.Enc(data, data.length);
         return result;
     }
 
@@ -100,7 +113,14 @@ public class AESCipher {
             result = decrypt(content, PASSWORD, IV);
         }*/
 
-        return decrypt(content, DDPASSWORD, IV);
+        byte[] data = null;
+        try {
+            data = content.getBytes("UTF-8");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        if (data == null) return "";
+        return AESCipher.Dec(data, data.length);
     }
 
     /**
