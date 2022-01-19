@@ -4,3 +4,4 @@ AndroidBase/build/
 app/build/
 /build/
 local.properties
+app/proguardMapping.txt

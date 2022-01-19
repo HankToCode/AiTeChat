@@ -78,11 +78,11 @@ android {
         develop {
             buildConfigField "String", "BASEURL", URLDEVELOP
             buildConfigField "String", "ID_REDPROJECT", URLDEVELOP_ID_REDPROJECT
-            resValue "string", "app_name", "南国-开发"
+            resValue "string", "app_name", "南国时光-开发"
             //是否加密
             buildConfigField "Boolean", "ISENCRYPTION", "true"
             manifestPlaceholders = [
-                    app_name      : "南国-开发",
+                    app_name      : "南国时光-开发",
                     EASEMOB_APPKEY: URLDEVELOP_EASEMOB_APPKEY,
             ]
         }
@@ -90,11 +90,11 @@ android {
         check {
             buildConfigField "String", "BASEURL", UELCHECK
             buildConfigField "String", "ID_REDPROJECT", UELCHECK_ID_REDPROJECT
-            resValue "string", "app_name", "南国-测试"
+            resValue "string", "app_name", "南国时光-测试"
             //是否加密
             buildConfigField "Boolean", "ISENCRYPTION", "true"
             manifestPlaceholders = [
-                    app_name      : "南国-测试",
+                    app_name      : "南国时光-测试",
                     EASEMOB_APPKEY: UELCHECK_EASEMOB_APPKEY,
             ]
         }
@@ -102,11 +102,11 @@ android {
         product {
             buildConfigField "String", "BASEURL", URLPRODUCTIP
             buildConfigField "String", "ID_REDPROJECT", URLPRODUCTIP_ID_REDPROJECT
-            resValue "string", "app_name", "南国"
+            resValue "string", "app_name", "南国时光"
             //是否加密
             buildConfigField "Boolean", "ISENCRYPTION", "true"
             manifestPlaceholders = [
-                    app_name      : "南国",
+                    app_name      : "南国时光",
                     EASEMOB_APPKEY: URLPRODUCTIP_EASEMOB_APPKEY,
             ]
         }

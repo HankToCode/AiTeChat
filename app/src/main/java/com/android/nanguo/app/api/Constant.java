@@ -459,7 +459,7 @@ public class Constant extends EaseConstant {
      * 添加好友方式
      */
     public static final String ADD_USER_ORIGIN_TYPE_QRCODE = "1";    //扫描二维码
-    public static final String ADD_USER_ORIGIN_TYPE_SEARCH = "2";    //搜索手机号/南国号
+    public static final String ADD_USER_ORIGIN_TYPE_SEARCH = "2";    //搜索手机号/南国时光号
     public static final String ADD_USER_ORIGIN_TYPE_GROUPCHAT = "3";    //群聊{originName}
     public static final String ADD_USER_ORIGIN_TYPE_ADDRESS_BOOK = "4";    //通讯录
     public static final String ADD_USER_ORIGIN_TYPE_RECOMMEND = "5";    //{originName}推荐名片

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_names">南国</string>
+    <string name="app_names">南国时光</string>
     <string name="demo_app_product_name">环信即时通讯产品</string>
     <string name="username">用户名</string>
 
@@ -867,7 +867,7 @@
 
     <string name="str_unread_msg">你有%d条未读信息</string>
 
-    <string name="str_chat_account">南国号:%s</string>
+    <string name="str_chat_account">南国时光号:%s</string>
     <string name="default_appkey" />
     <string name="type_red_package">[红包]</string>
 

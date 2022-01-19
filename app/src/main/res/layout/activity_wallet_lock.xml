@@ -39,7 +39,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="开启后将无法发送南国红包及转账"
+            android:text="开启后将无法发送南国时光红包及转账"
             android:textColor="#ff999999"
             android:textSize="12sp"
             android:layout_alignParentBottom="true"

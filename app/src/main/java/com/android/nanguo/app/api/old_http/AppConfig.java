@@ -70,7 +70,7 @@ public class AppConfig {
     public static String GET_SYS_CONFIG = mainUrl + "common/getSysConfig";
 
     /**
-     * 修改南国号
+     * 修改南国时光号
      */
     public static String MODIFY_USER_CODE = mainUrl + "app_user/modifyUserCode";
 

@@ -239,7 +239,7 @@
 -keep class com.detect.live.** { *; }
 -keep class com.detect.facedetect.** { *; }
 
-#南国源码混淆问题
+#南国时光源码混淆问题
 -keep class com.android.nanguo.common.fcm.EMFCMTokenRefreshService {*;}
 -keep class com.google.firebase.iid.** {*;}
 

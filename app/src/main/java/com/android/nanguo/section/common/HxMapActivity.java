@@ -21,7 +21,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 /**
- * 环南国天地图
+ * 环南国时光天地图
  *
  * @author lhb
  */

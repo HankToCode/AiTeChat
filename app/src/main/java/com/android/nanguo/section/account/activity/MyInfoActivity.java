@@ -107,7 +107,7 @@ public class MyInfoActivity extends BaseInitActivity {
         GlideUtils.GlideLoadCircleErrorImageUtils(this, AppConfig.checkimg(info.getUserHead()), mImgHead, R.mipmap.ic_ng_avatar);
 
         if (!TextUtils.isEmpty(info.getUserCode())) {
-            //南国号
+            //南国时光号
             mTvAccount.setText(info.getUserCode());
         }
 

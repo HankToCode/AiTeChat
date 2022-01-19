@@ -32,7 +32,7 @@ import java.util.List;
 import butterknife.BindView;
 
 /**
- * 南国交易记录页面（红包记录，转账记录）
+ * 南国时光交易记录页面（红包记录，转账记录）
  */
 public class JYRecordActivity extends BaseInitActivity {
     @BindView(R.id.title_bar)

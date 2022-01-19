@@ -188,7 +188,7 @@
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/dp_15"
                     android:lineSpacingExtra="@dimen/dp_2"
-                    android:text="认证说明：实名认证即开通南国支付账户，用户需提交真实有效的身份信息，采用云签人脸认证，公安库权威数据对比。"
+                    android:text="认证说明：实名认证即开通南国时光支付账户，用户需提交真实有效的身份信息，采用云签人脸认证，公安库权威数据对比。"
                     android:textColor="@color/black_text"
                     android:textSize="14sp" />
 

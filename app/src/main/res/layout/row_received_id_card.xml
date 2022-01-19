@@ -98,7 +98,7 @@
                 android:maxLines="1"
                 android:textColor="@color/color_999999"
                 android:textSize="@dimen/sp_10"
-                tools:text="南国号：3266636" />
+                tools:text="南国时光号：3266636" />
 
 
         </RelativeLayout>

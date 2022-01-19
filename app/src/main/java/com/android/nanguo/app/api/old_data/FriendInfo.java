@@ -2,7 +2,7 @@ package com.android.nanguo.app.api.old_data;
 
 /**
  * @author lhb
- * 好南国息
+ * 好南国时光息
  */
 public class FriendInfo {
     /**

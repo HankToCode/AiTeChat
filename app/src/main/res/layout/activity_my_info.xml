@@ -85,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:text="南国号"
+                android:text="南国时光号"
                 android:textColor="@color/black_text"
                 android:textSize="@dimen/sp_16" />
 
