@@ -17,10 +17,10 @@ public class AESCipher {
      * 算法/模式/填充
      **/
     private static final String CIPHERMODE = "AES/ECB/PKCS5Padding";
-    private static final String IV = "8ebf1bf4349212ba";
+    private static final String IV = "nwpehwepjwenbxxb";
     private static final String PASSWORD = "2226a23e1390894b5qwe";
     private static final String DDIV = "zcwtwdnzchqweabc";
-    private static final String DDPASSWORD = "qzhbzcwtlzddbzlwzxdn";
+    private static final String DDPASSWORD = "nanguobzcwtlcnga";
 
     private static SecretKeySpec createKey(String key) {
         byte[] data = null;
