@@ -166,7 +166,10 @@ public class WithdrawActivity extends BaseInitActivity {
                 mWithdrawMoney.setText(loginInfo.getMoney() + "");
                 break;
             case R.id.ll_select_bank://选择提现银行卡
-                startActivityForResult(new Intent(this, BankActivity.class), 66);
+//                startActivityForResult(new Intent(this, BankActivity.class), 66);
+                Intent intent = new Intent(this,BankActivity.class);
+                intent.putExtra("fromType", "2");
+                startActivityForResult(intent, 66);
                 break;
             case R.id.tv_new_bank_card_submit://提现
                 if (TextUtils.isEmpty(bankId)) {

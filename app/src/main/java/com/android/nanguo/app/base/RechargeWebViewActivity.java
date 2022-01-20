@@ -70,11 +70,12 @@ public class RechargeWebViewActivity extends BaseInitActivity {
             @Override
             public void onBackPress(View view) {
                 //判断网页是否可以后退
-                if(webview.canGoBack()) {
+                /*if(webview.canGoBack()) {
                     webview.goBack();
                 }else {
                     onBackPressed();
-                }
+                }*/
+                finish();
             }
         });
     }

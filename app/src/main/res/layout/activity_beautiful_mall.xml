@@ -55,11 +55,11 @@
             android:id="@+id/gv_gridview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:scrollbars="none"
-            android:paddingLeft="@dimen/dp_8"
+            android:layout_below="@id/ll_top"
             android:numColumns="3"
-            android:verticalSpacing="@dimen/dp_10"
-            android:layout_below="@id/ll_top" />
+            android:paddingLeft="@dimen/dp_8"
+            android:scrollbars="none"
+            android:verticalSpacing="@dimen/dp_10" />
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="match_parent"

@@ -26,6 +26,8 @@
         android:layout_marginTop="@dimen/dp_15"
         android:text="中国银行"
         android:layout_marginLeft="@dimen/dp_6"
+        android:ellipsize="end"
+        android:maxLines="1"
         android:textColor="@color/white"
         android:textSize="16sp"
         app:layout_constraintLeft_toRightOf="@+id/iv_bank_image_logo"
@@ -52,7 +54,6 @@
         app:layout_constraintTop_toBottomOf="@id/tv_bank_card_type"
         android:textSize="16sp"
         android:layout_marginBottom="@dimen/dp_20"
-        android:layout_marginTop="@dimen/dp_6"
         android:layout_marginLeft="@dimen/dp_22"
         app:layout_constraintLeft_toLeftOf="parent"
         />

@@ -141,7 +141,7 @@ public class BankActivity extends BaseInitActivity {
             @Override
             public void onItemClick(View view, int position) {
 
-                if (fromType.equals("1")) {
+                if (fromType.equals("1")) {//fromType=1 跳银行卡详情，2为选择返回数据
                     BankDetailActivity.actionStart(mContext,dataBean.get(position));
                 } else {//选择银行卡返回
                     setResult(1111, new Intent()

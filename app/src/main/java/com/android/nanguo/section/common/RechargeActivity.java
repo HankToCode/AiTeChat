@@ -176,8 +176,8 @@ public class RechargeActivity extends BaseInitActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 66 && resultCode == 1111) {
             bankId = data.getStringExtra("id");
-            tv_bank.setText(data.getStringExtra("id"));
-//            tv_bank_card.setText(data.getStringExtra("bankCard"));
+//            tv_bank.setText(data.getStringExtra("id"));
+            tv_bank.setText(data.getStringExtra("bankCard"));
         }
     }
 

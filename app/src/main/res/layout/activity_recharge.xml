@@ -72,6 +72,8 @@
                     android:drawableRight="@drawable/jingru"
                     android:gravity="center_vertical"
                     android:drawablePadding="@dimen/dp_6"
+                    android:ellipsize="end"
+                    android:maxLines="1"
                     android:lineSpacingExtra="@dimen/dp_2"
                     android:drawableLeft="@mipmap/icon_bank"
                     android:text="选择银行卡"
