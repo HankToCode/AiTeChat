@@ -90,7 +90,7 @@
                 android:background="@color/white"
                 android:orientation="vertical"
                 app:cardCornerRadius="4dp"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
