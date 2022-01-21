@@ -248,7 +248,7 @@ public class RechargeActivity extends BaseInitActivity {
                     System.out.println("###未签约="+walletRechargeBean.getSignStatus());
                     System.out.println("###未签约html="+walletRechargeBean.getHtml());
                     //"signStatus":"签约状态：0-未签约，1-已签约(int整型)"
-                    if (walletRechargeBean.getSignStatus() == 0) {
+                    if (walletRechargeBean.getSignStatus()==0) {
 //                        startActivity(new Intent(RechargeActivity.this, WebViewActivity.class).putExtra("url", walletRechargeBean.getHtml()).putExtra("showTitle", "充值"));
                         RechargeWebViewActivity.actionStart(mContext,walletRechargeBean.getHtml(),true);
                     } else {
@@ -329,7 +329,7 @@ public class RechargeActivity extends BaseInitActivity {
                 finish();
             }
 
-        }, 3000);//3秒后执行Runnable中的run方法
+        }, 3000);//3秒
     }
 
     private void queryResult(String requestId) {

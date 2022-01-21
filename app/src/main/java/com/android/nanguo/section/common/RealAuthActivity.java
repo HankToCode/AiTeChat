@@ -96,8 +96,8 @@ public class RealAuthActivity extends BaseInitActivity {
                     }
                     if (!XClickUtil.isFastDoubleClick(view, 1000)) {
                         //获取人脸认证流水号
-//                        getCertifyId();
-                        ToastUtils.showToast("等待接入");
+                        getCertifyId();
+//                        ToastUtils.showToast("等待接入");
                     }
                 } else if (tv_submit.getText().toString().trim().equals("返回钱包")) {
                     finish();
@@ -235,8 +235,8 @@ public class RealAuthActivity extends BaseInitActivity {
                 ToastUtil.toast("认证成功");
                 ll_real_name.setVisibility(View.GONE);
                 tv_status.setVisibility(View.VISIBLE);
-                tv_submit.setText("返回钱包");
-//                finish();
+//                tv_submit.setText("返回钱包");
+                finish();
             }
 
             @Override
