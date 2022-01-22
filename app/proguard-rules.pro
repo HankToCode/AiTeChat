@@ -242,6 +242,7 @@
 #南国时光源码混淆问题
 -keep class com.android.nanguo.common.fcm.EMFCMTokenRefreshService {*;}
 -keep class com.google.firebase.iid.** {*;}
+-keep class com.android.nanguo.common.**{*;}
 
 #event bus混淆问题
 -keepattributes *Annotation*
