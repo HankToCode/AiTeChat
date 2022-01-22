@@ -170,7 +170,6 @@ public class MineFragment extends BaseInitFragment implements View.OnClickListen
     @Override
     protected void onEventComing(EventCenter center) {
         super.onEventComing(center);
-
         if (center.getEventCode() == EventUtil.FLUSHUSERINFO) {
             initUserInfo();
         }
@@ -179,7 +178,12 @@ public class MineFragment extends BaseInitFragment implements View.OnClickListen
     @Override
     protected void initData() {
         super.initData();
+        initUserInfo();
+    }
 
+    @Override
+    public void onResume() {
+        super.onResume();
         initUserInfo();
     }
 
