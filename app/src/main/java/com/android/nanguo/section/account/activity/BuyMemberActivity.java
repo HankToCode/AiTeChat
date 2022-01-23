@@ -3,6 +3,7 @@ package com.android.nanguo.section.account.activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -14,7 +15,13 @@ import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.android.nanguo.DemoApplication;
+import com.android.nanguo.app.api.old_data.MemberBuyBean;
+import com.android.nanguo.app.api.old_data.WalletRechargeBean;
+import com.android.nanguo.app.base.RechargeWebViewActivity;
 import com.android.nanguo.app.base.WebViewActivity;
+import com.android.nanguo.app.weight.ConfirmInputDialog;
+import com.android.nanguo.section.common.BankActivity;
 import com.android.nanguo.section.common.SendGroupRedPackageActivity;
 import com.coorchice.library.SuperTextView;
 import com.android.nanguo.R;
@@ -47,9 +54,10 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 //会员信息
-public class BuyMemberActivity extends BaseInitActivity implements View.OnClickListener {
+public class BuyMemberActivity extends BaseInitActivity {
 
     @BindView(R.id.title_bar)
     EaseTitleBar mTitleBar;
@@ -72,6 +80,8 @@ public class BuyMemberActivity extends BaseInitActivity implements View.OnClickL
     private String vipId = "";
     private int vipLevel = 0;
     private String vipPrice = "";
+    @BindView(R.id.tv_bank)
+    TextView tv_bank;
 
 
     public static void actionStart(Context context) {
@@ -93,8 +103,8 @@ public class BuyMemberActivity extends BaseInitActivity implements View.OnClickL
     @Override
     protected void initListener() {
         super.initListener();
-        mIvAvatar.setOnClickListener(this);
-        tv_pay.setOnClickListener(this);
+//        mIvAvatar.setOnClickListener(this);
+//        tv_pay.setOnClickListener(this);
         mTitleBar.setOnBackPressListener(view -> finish());
         mTitleBar.setLeftImageResource(R.mipmap.icon_back_white);
     }
@@ -203,21 +213,44 @@ public class BuyMemberActivity extends BaseInitActivity implements View.OnClickL
     }
 
 
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
+    @OnClick({R.id.tv_pay, R.id.ll_select_bank})
+    public void click(View v) {
+        switch (v.getId()) {
             case R.id.tv_pay:
-                BuyPayActivity.actionStart(BuyMemberActivity.this);
+                if (TextUtils.isEmpty(bankId)) {
+                    ToastUtils.showToast("请选择银行卡");
+                    return;
+                }
+
+//                BuyPayActivity.actionStart(BuyMemberActivity.this);
                 /*if (!TextUtils.isEmpty(UserComm.getUserInfo().getVipLevel())) {
                     if (vipLevel <= NumberUtils.parseDouble(UserComm.getUserInfo().getVipLevel())) {
                         ToastUtil.toast("请选择更高会员等级");
                         return;
                     }
                 }
-                payPassword();*/
+                */
+                payPassword();
                 break;
-            default:
+            case R.id.ll_select_bank:
+                //BankActivity.actionStart(this,"2");
+                Intent intent = new Intent(this, BankActivity.class);
+                intent.putExtra("fromType", "2");
+                startActivityForResult(intent, 66);
                 break;
+        }
+    }
+
+
+    private String bankId = "";
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 66 && resultCode == 1111) {
+            bankId = data.getStringExtra("id");
+//            tv_bank.setText(data.getStringExtra("id"));
+            tv_bank.setText(data.getStringExtra("bankCard"));
         }
     }
 
@@ -276,16 +309,36 @@ public class BuyMemberActivity extends BaseInitActivity implements View.OnClickL
 
     private void bugVip(String password) {
         Map<String, Object> map = new HashMap<>();
+        map.put("cardId", bankId);
         map.put("vipId", vipId);
         map.put("payPassword", password);
         ApiClient.requestNetHandle(mContext, AppConfig.saveUserVip, "", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
-                if (json != null) {
-//                    payDialog.setSucc();
-                    ToastUtils.showToast("购买成功");
-                    CommonApi.upUserInfo(mContext);//刷新用户数据
-                    finish();
+                if (json != null && json.length() > 0) {
+                    MemberBuyBean memberBuyBean = FastJsonUtil.getObject(json, MemberBuyBean.class);
+                    System.out.println("###未签约="+memberBuyBean.getSignStatus());
+                    System.out.println("###未签约html="+memberBuyBean.getHtml());
+                    //"signStatus":"签约状态：0-未签约，1-已签约(int整型)"
+                    if (memberBuyBean.getSignStatus()==0) {
+//                        startActivity(new Intent(RechargeActivity.this, WebViewActivity.class).putExtra("url", walletRechargeBean.getHtml()).putExtra("showTitle", "充值"));
+                        RechargeWebViewActivity.actionStart(mContext,memberBuyBean.getHtml(),true);
+                    } else {
+                        ConfirmInputDialog dialog = new ConfirmInputDialog(mContext);
+                        dialog.setOnConfirmClickListener(new ConfirmInputDialog.OnConfirmClickListener() {
+                            @Override
+                            public void onConfirmClick(String content) {
+                                doNewRechargeClick(memberBuyBean, content);
+                            }
+                        });
+                        dialog.show();
+                        dialog.setCancelable(false);
+                        dialog.setCanceledOnTouchOutside(false);
+                        dialog.setTitle("输入验证码");
+                        dialog.setContentHint("输入验证码");
+                    }
+                } else {
+                    ToastUtils.showToast("服务器开小差，请稍后重试");
                 }
             }
 
@@ -294,6 +347,46 @@ public class BuyMemberActivity extends BaseInitActivity implements View.OnClickL
                 ToastUtils.showToast(msg);
             }
         });
+    }
+
+
+    private void doNewRechargeClick(MemberBuyBean memberBuyBean, String verifyCode) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("payToken", memberBuyBean.getPayToken());
+        map.put("orderNo", memberBuyBean.getOrderNo());
+        map.put("payOrderNo", memberBuyBean.getPayOrderNo());
+        map.put("vipId", vipId);
+        map.put("verifyCode", verifyCode);
+        ApiClient.requestNetHandle(this, AppConfig.sureUserVip, "确认中...",
+                map, new ResultListener() {
+                    @Override
+                    public void onSuccess(String json, String msg) {
+                        if (json != null && json.length() > 0) {
+                            waiting();
+                        } else {
+                            ToastUtil.toast("服务器开小差，请稍后重试");
+                        }
+                    }
+                    @Override
+                    public void onFailure(String msg) {
+                        ToastUtil.toast(msg);
+                    }
+                });
+    }
+    Handler waitHandler = new Handler();
+    private void waiting() {
+        showLoading("购买确认中");
+        waitHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                //要执行的操作
+                ToastUtils.showToast("购买成功");
+                CommonApi.upUserInfo(DemoApplication.getInstance().getApplicationContext());
+                dismissLoading();
+                finish();
+            }
+
+        }, 3000);//3秒
     }
 
 }
