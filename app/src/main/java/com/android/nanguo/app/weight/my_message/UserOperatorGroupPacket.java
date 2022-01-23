@@ -6,6 +6,8 @@ import android.widget.BaseAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
+
 import com.hyphenate.easeui.widget.EaseImageView;
 import com.android.nanguo.R;
 import com.android.nanguo.app.api.Constant;
@@ -20,9 +22,10 @@ import com.hyphenate.chat.EMMessage;
  * 名片
  */
 public class UserOperatorGroupPacket extends EaseChatRow {
-    private TextView tv_message,tv_message_new;
+    private TextView tv_message, tv_message_new;
     private EaseImageView img_card_head;
-    private LinearLayout ll_container,llay_msg;
+    private LinearLayout ll_container;
+    private ConstraintLayout llay_msg;
 
     public UserOperatorGroupPacket(Context context, EMMessage message, int position, BaseAdapter adapter) {
         super(context, message, position, adapter);
@@ -64,24 +67,24 @@ public class UserOperatorGroupPacket extends EaseChatRow {
             String delUserId = message.getStringAttribute(Constant.DEL_USER_ID, "");
             String nickName = message.getStringAttribute(Constant.USER_ADDNIKE, "");
             String operaterNickName = message.getStringAttribute(Constant.NICKNAME, "");
-            if ("addgroupuser".equals(msgType) ) {
-                nickName = TextUtils.isEmpty(UserOperateManager.getInstance().getUserName(inviterId))?nickName:UserOperateManager.getInstance().getUserName(inviterId);
-                operaterNickName = UserOperateManager.getInstance().hasUserName(userId)?UserOperateManager.getInstance().getUserName(userId):operaterNickName;
-                if (!TextUtils.isEmpty(nickName) && !TextUtils.isEmpty(operaterNickName)){
+            if ("addgroupuser".equals(msgType)) {
+                nickName = TextUtils.isEmpty(UserOperateManager.getInstance().getUserName(inviterId)) ? nickName : UserOperateManager.getInstance().getUserName(inviterId);
+                operaterNickName = UserOperateManager.getInstance().hasUserName(userId) ? UserOperateManager.getInstance().getUserName(userId) : operaterNickName;
+                if (!TextUtils.isEmpty(nickName) && !TextUtils.isEmpty(operaterNickName)) {
                     systemNotice = getContext().getString(R.string.msg_group_invite_user,
                             operaterNickName,
                             nickName
                     );
                 }
-            }else if ("delgroupuser".equals(msgType) ){
-                if (UserOperateManager.getInstance().hasUserName(delUserId)){
+            } else if ("delgroupuser".equals(msgType)) {
+                if (UserOperateManager.getInstance().hasUserName(delUserId)) {
                     nickName = UserOperateManager.getInstance().getUserName(delUserId);
                 }
-                if (UserOperateManager.getInstance().hasUserName(userId)){
+                if (UserOperateManager.getInstance().hasUserName(userId)) {
                     operaterNickName = UserOperateManager.getInstance().getUserName(userId);
                 }
 
-                if (!TextUtils.isEmpty(nickName) && !TextUtils.isEmpty(operaterNickName)){
+                if (!TextUtils.isEmpty(nickName) && !TextUtils.isEmpty(operaterNickName)) {
                     systemNotice = getContext().getString(R.string.msg_group_remove_user,
                             operaterNickName,
                             nickName
