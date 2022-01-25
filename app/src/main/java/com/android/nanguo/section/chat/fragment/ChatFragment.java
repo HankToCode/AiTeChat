@@ -1253,21 +1253,29 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                             "恭喜发财，大吉大利！" : remark);
             builder.getView(R.id.rel_open).setVisibility(View.VISIBLE);
             if (emMessage.getFrom().equals(String.valueOf(UserComm.getUserInfo().getUserId()))) {
+                builder.getView(R.id.img_open).setClickable(false);
+                builder.getView(R.id.ivBg).setBackgroundResource(R.mipmap.hbbg1);
                 builder.getView(R.id.tv_red_detail).setVisibility(View.VISIBLE);
             }
         } else if (state == 10) {
             //红包未抢完 未过期 已参与
             builder.setText(R.id.tv_message, "您已抢过红包！不能重复参与");
             builder.getView(R.id.rel_open).setVisibility(View.GONE);
+            builder.getView(R.id.img_open).setClickable(false);
+            builder.getView(R.id.ivBg).setBackgroundResource(R.mipmap.hbbg1);
             builder.getView(R.id.tv_red_detail).setVisibility(View.VISIBLE);
         } else if (state == 21) {
             //红包未过期 已抢完 未参与
             builder.setText(R.id.tv_message, "手慢了，红包派完了");
             builder.getView(R.id.rel_open).setVisibility(View.INVISIBLE);
+            builder.getView(R.id.img_open).setClickable(false);
+            builder.getView(R.id.ivBg).setBackgroundResource(R.mipmap.hbbg1);
             builder.getView(R.id.tv_red_detail).setVisibility(View.VISIBLE);
         } else if (state == -1) {
             //红包已过期
             builder.setText(R.id.tv_message, "红包过期");
+            builder.getView(R.id.img_open).setClickable(false);
+            builder.getView(R.id.ivBg).setBackgroundResource(R.mipmap.hbbg1);
             builder.getView(R.id.rel_open).setVisibility(View.INVISIBLE);
         }
         EaseImageView imageView =
