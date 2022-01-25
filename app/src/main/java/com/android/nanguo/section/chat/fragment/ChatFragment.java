@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.BaseAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.android.nanguo.app.utils.my.MyHelper;
@@ -1254,7 +1255,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
             builder.getView(R.id.rel_open).setVisibility(View.VISIBLE);
             if (emMessage.getFrom().equals(String.valueOf(UserComm.getUserInfo().getUserId()))) {
                 builder.getView(R.id.img_open).setClickable(false);
-                builder.getView(R.id.ivBg).setBackgroundResource(R.mipmap.hbbg1);
+                ((ImageView)builder.getView(R.id.ivBg)).setImageResource(R.mipmap.hbbg1);
                 builder.getView(R.id.tv_red_detail).setVisibility(View.VISIBLE);
             }
         } else if (state == 10) {
@@ -1262,20 +1263,20 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
             builder.setText(R.id.tv_message, "您已抢过红包！不能重复参与");
             builder.getView(R.id.rel_open).setVisibility(View.GONE);
             builder.getView(R.id.img_open).setClickable(false);
-            builder.getView(R.id.ivBg).setBackgroundResource(R.mipmap.hbbg1);
+            ((ImageView)builder.getView(R.id.ivBg)).setImageResource(R.mipmap.hbbg1);
             builder.getView(R.id.tv_red_detail).setVisibility(View.VISIBLE);
         } else if (state == 21) {
             //红包未过期 已抢完 未参与
             builder.setText(R.id.tv_message, "手慢了，红包派完了");
             builder.getView(R.id.rel_open).setVisibility(View.INVISIBLE);
             builder.getView(R.id.img_open).setClickable(false);
-            builder.getView(R.id.ivBg).setBackgroundResource(R.mipmap.hbbg1);
+            ((ImageView)builder.getView(R.id.ivBg)).setImageResource(R.mipmap.hbbg1);
             builder.getView(R.id.tv_red_detail).setVisibility(View.VISIBLE);
         } else if (state == -1) {
             //红包已过期
             builder.setText(R.id.tv_message, "红包过期");
             builder.getView(R.id.img_open).setClickable(false);
-            builder.getView(R.id.ivBg).setBackgroundResource(R.mipmap.hbbg1);
+            ((ImageView)builder.getView(R.id.ivBg)).setImageResource(R.mipmap.hbbg1);
             builder.getView(R.id.rel_open).setVisibility(View.INVISIBLE);
         }
         EaseImageView imageView =
