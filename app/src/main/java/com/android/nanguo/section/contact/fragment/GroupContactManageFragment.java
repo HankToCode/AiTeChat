@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ExpandableListView;
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,7 +25,10 @@ import com.android.nanguo.app.api.old_http.AppConfig;
 import com.android.nanguo.app.api.old_http.ResultListener;
 import com.android.nanguo.app.base.BaseInitFragment;
 import com.android.nanguo.app.help.RclViewHelp;
+import com.android.nanguo.app.weight.ConversationItemView;
 import com.android.nanguo.section.chat.activity.ChatActivity;
+import com.android.nanguo.section.conversation.ApplyJoinGroupActivity;
+import com.android.nanguo.section.conversation.AuditMsgActivity;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.json.FastJsonUtil;
 import com.android.nanguo.section.contact.adapter.MyGroupAdapter;
@@ -51,7 +55,7 @@ public class GroupContactManageFragment extends BaseInitFragment {
     private ArrayList<GroupInfo> mMaGroupInfoList = new ArrayList<>();
     //我加入的
     private ArrayList<GroupInfo> mInGroupInfoList = new ArrayList<>();
-
+    private ConversationItemView mFriendNotice;
 
     @Override
     protected int getLayoutId() {
@@ -62,6 +66,17 @@ public class GroupContactManageFragment extends BaseInitFragment {
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         rvList = findViewById(R.id.rv_list);
+        mFriendNotice = new ConversationItemView(requireContext());
+        mFriendNotice.setUnreadCount(0);
+        mFriendNotice.setName("群通知");
+        mFriendNotice.setAvatar(ContextCompat.getDrawable(requireContext(), R.mipmap.ic_new_friends));
+        mFriendNotice.setVisibility(View.VISIBLE);
+        rvList.addHeaderView(mFriendNotice);
+
+        mFriendNotice.setOnClickListener(v -> {
+            mFriendNotice.setUnreadCount(0);
+            ApplyJoinGroupActivity.actionStart(mContext);//群通知
+        });
     }
 
 

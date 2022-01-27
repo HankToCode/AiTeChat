@@ -352,13 +352,15 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
             tvGroupManager.setVisibility(View.GONE);
             fl_group_head1.setVisibility(View.GONE);
             ll_group_manager.setVisibility(View.GONE);
-            title_bar.setRightLayoutVisibility(View.GONE);
-
+            title_bar.setRightLayoutVisibility(View.VISIBLE);
+            title_bar.setOnRightClickListener(view -> {
+                ContactGroupingActivity.actionStart(mContext, "2", info.getGroupName(), info.getGroupId());
+            });
             fl_user_total.setVisibility(View.VISIBLE);
             fl_user_total1.setVisibility(View.GONE);
 
         }
-//        flUserReadDetail.setVisibility(0 == info.getGroupUserRank() ? View.GONE : View.VISIBLE);
+        flUserReadDetail.setVisibility(0 == info.getGroupUserRank() ? View.GONE : View.VISIBLE);
         tv_transfer_group.setVisibility(2 == info.getGroupUserRank() ? View.VISIBLE : View.GONE);
 //        rl_container_group_single_member_jinyan.setVisibility(0 == info.getGroupUserRank() ? View.GONE : View.VISIBLE);
 
