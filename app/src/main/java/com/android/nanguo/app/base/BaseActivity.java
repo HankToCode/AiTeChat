@@ -484,7 +484,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void dismissLoading() {
-        if (dialog != null && dialog.isShowing()) {
+        if (!mContext.isFinishing() && dialog != null && dialog.isShowing()) {
             //如果dialog的展示时间过短，则延迟1s再消失
             if (System.currentTimeMillis() - dialogCreateTime < 500 && !isFinishing()) {
                 handler.postDelayed(new Runnable() {
