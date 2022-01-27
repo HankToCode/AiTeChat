@@ -148,6 +148,9 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void showExceptionDialog(String accountEvent) {
+        if (mContext.isFinishing()) {
+            return;
+        }
         if (logoutDialog != null && logoutDialog.isShowing() && !mContext.isFinishing()) {
             logoutDialog.dismiss();
         }
@@ -469,11 +472,11 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public void showLoading(String message) {
-        if (dialog != null && dialog.isShowing()) {
-            dialog.dismiss();
-        }
         if (mContext.isFinishing()) {
             return;
+        }
+        if (dialog != null && dialog.isShowing()) {
+            dialog.dismiss();
         }
         dialogCreateTime = System.currentTimeMillis();
         dialog = new EaseProgressDialog.Builder(mContext)
