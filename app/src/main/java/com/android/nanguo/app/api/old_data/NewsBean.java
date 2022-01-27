@@ -19,6 +19,44 @@ public class NewsBean implements Serializable {
     private String content;//null,
     private String type;//0
 
+    //发现页地址
+    private String id;//":"2",
+    private String name;//":"玩一玩",
+    private String picUrl;//":null,
+    private String redirectUrl;//":"http://www.itmind.net/tetris/",
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPicUrl() {
+        return picUrl;
+    }
+
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
+    }
+
+    public String getRedirectUrl() {
+        return redirectUrl;
+    }
+
+    public void setRedirectUrl(String redirectUrl) {
+        this.redirectUrl = redirectUrl;
+    }
+
     public long getCreateTime() {
         return createTime;
     }
