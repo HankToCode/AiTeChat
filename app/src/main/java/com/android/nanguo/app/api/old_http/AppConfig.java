@@ -1136,6 +1136,8 @@ public class AppConfig {
     public static String saveUserGrowthValue = mainUrl + "app_user/saveUserGrowthValue";
     //获取邀请码及邀请数据
     public static String getInviteInfo = mainUrl + "app_user/getInviteInfo";
+    //单独关闭钱包功能
+    public static String walletCloseStatus = mainUrl + "common/config/wallet/close";
 
 
 

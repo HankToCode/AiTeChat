@@ -5,15 +5,21 @@ import static com.darsh.multipleimageselect.helpers.Constants.REQUEST_CODE;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.alibaba.fastjson.JSON;
 import com.android.nanguo.app.api.global.EventUtil;
+import com.android.nanguo.app.api.new_data.VipBean;
 import com.android.nanguo.app.api.old_data.EventCenter;
+import com.android.nanguo.app.api.old_http.ApiClient;
+import com.android.nanguo.app.api.old_http.ResultListener;
 import com.android.nanguo.app.base.WebViewActivity;
+import com.android.nanguo.common.utils.ToastUtils;
 import com.coorchice.library.SuperTextView;
 import com.hyphenate.easeui.widget.EaseImageView;
 import com.android.nanguo.R;
@@ -36,6 +42,12 @@ import com.android.nanguo.section.common.RealAuthActivity;
 import com.android.nanguo.section.me.activity.AboutHxActivity;
 import com.zds.base.ImageLoad.GlideUtils;
 import com.zds.base.code.activity.CaptureActivity;
+import com.zds.base.json.FastJsonUtil;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class MineFragment extends BaseInitFragment implements View.OnClickListener {
 
@@ -185,7 +197,33 @@ public class MineFragment extends BaseInitFragment implements View.OnClickListen
     public void onResume() {
         super.onResume();
         initUserInfo();
+        walletCloseStatus();
     }
+
+    private void walletCloseStatus() {
+        Map<String, Object> map = new HashMap<>();
+        ApiClient.requestNetHandle(mContext, AppConfig.walletCloseStatus, "", map, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                if (json != null) {
+                    LoginInfo loginInfo = JSON.parseObject(json, LoginInfo.class);
+                    Log.d("TAG", "钱包控制状态=" + loginInfo.getWalletCloseStatus());
+                    if (loginInfo.getWalletCloseStatus().equals("close")) {
+                        mTvPay.setVisibility(View.GONE);
+                    } else {
+                        mTvPay.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                ToastUtils.showToast(msg);
+            }
+        });
+    }
+
+
 
     /**
      * 初始化用户信息
@@ -199,6 +237,11 @@ public class MineFragment extends BaseInitFragment implements View.OnClickListen
                 mTvID.setText("ID： 无");
             } else {
                 mTvID.setText("ID： " + loginInfo.getUserCode());
+            }
+            if (!TextUtils.isEmpty(loginInfo.getSign())) {
+                mTvDesc.setText(loginInfo.getSign());
+            } else {
+                mTvDesc.setText("这家伙很懒，啥都没写");
             }
 //            mTvUserLevel.setText("lv " + loginInfo.getUserLevel());
             //是否是会员 vipid

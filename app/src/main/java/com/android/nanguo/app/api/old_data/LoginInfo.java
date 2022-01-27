@@ -61,6 +61,15 @@ public class LoginInfo implements Serializable {
     private String openid;
     private String userLevel;
     private String line;
+    private String walletCloseStatus;//":"close" 单独增加钱包控制状态
+
+    public String getWalletCloseStatus() {
+        return walletCloseStatus;
+    }
+
+    public void setWalletCloseStatus(String walletCloseStatus) {
+        this.walletCloseStatus = walletCloseStatus;
+    }
 
     public String getLine() {
         return line;
