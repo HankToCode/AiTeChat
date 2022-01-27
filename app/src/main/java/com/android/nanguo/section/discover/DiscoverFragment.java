@@ -4,21 +4,35 @@ import static com.darsh.multipleimageselect.helpers.Constants.REQUEST_CODE;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import com.alibaba.fastjson.JSON;
 import com.android.nanguo.R;
 import com.android.nanguo.app.api.Constant;
 import com.android.nanguo.app.api.Global;
+import com.android.nanguo.app.api.old_data.LoginInfo;
+import com.android.nanguo.app.api.old_data.NewsBean;
+import com.android.nanguo.app.api.old_http.ApiClient;
+import com.android.nanguo.app.api.old_http.AppConfig;
+import com.android.nanguo.app.api.old_http.ResultListener;
 import com.android.nanguo.app.base.BaseInitFragment;
 import com.android.nanguo.app.base.WebViewActivity;
 import com.android.nanguo.app.operate.UserOperateManager;
+import com.android.nanguo.common.utils.ToastUtils;
 import com.android.nanguo.section.account.activity.UserInfoDetailActivity;
 import com.android.nanguo.section.common.InviteActivity;
 import com.android.nanguo.section.contact.activity.AddUserActivity;
 import com.zds.base.code.activity.CaptureActivity;
+import com.zds.base.json.FastJsonUtil;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class DiscoverFragment extends BaseInitFragment implements View.OnClickListener {
 
@@ -33,6 +47,7 @@ public class DiscoverFragment extends BaseInitFragment implements View.OnClickLi
     private ImageView mIvQRC;
     private ConstraintLayout mClWYW;
     private ImageView mIvWYW;
+    private List<NewsBean> datas = new ArrayList<>();
 
     @Override
     protected int getLayoutId() {
@@ -55,6 +70,31 @@ public class DiscoverFragment extends BaseInitFragment implements View.OnClickLi
     }
 
     @Override
+    protected void initData() {
+        super.initData();
+        getFindAll();
+    }
+
+    private void getFindAll() {
+        Map<String, Object> map = new HashMap<>();
+        ApiClient.requestNetHandle(mContext, AppConfig.GET_FIND_LIST_NEW, "", map, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
+                if (json != null) {
+                    datas.addAll(FastJsonUtil.getList(json, NewsBean.class));
+                    Log.d("TAG", "发现地址=" + datas.size());
+
+                }
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                ToastUtils.showToast(msg);
+            }
+        });
+    }
+
+    @Override
     protected void initListener() {
         super.initListener();
         mClSYS.setOnClickListener(this);
@@ -72,7 +112,11 @@ public class DiscoverFragment extends BaseInitFragment implements View.OnClickLi
                 AddUserActivity.actionStart(requireContext());
                 break;
             case R.id.clKYK:
-                WebViewActivity.actionStart(mContext, "http://dsp009.wojiazhe.com/", true);
+                if (datas != null && datas.size() > 0) {
+                    WebViewActivity.actionStart(mContext, datas.get(0).getRedirectUrl(), true);
+                } else {
+                    WebViewActivity.actionStart(mContext, "https://neave.tv/", true);
+                }
                 break;
             case R.id.clYQ:
                 InviteActivity.actionStart(mContext);
@@ -84,7 +128,12 @@ public class DiscoverFragment extends BaseInitFragment implements View.OnClickLi
                 startActivityForResult(intent, REQUEST_CODE);
                 break;
             case R.id.clWYW:
-            WebViewActivity.actionStart(mContext, "http://www.itmind.net/tetris/", true);
+                if (datas != null && datas.size() > 0) {
+                    WebViewActivity.actionStart(mContext, datas.get(1).getRedirectUrl(), true);
+                } else {
+                    WebViewActivity.actionStart(mContext, "http://www.itmind.net/tetris/", true);
+                }
+
                 break;
         }
     }
