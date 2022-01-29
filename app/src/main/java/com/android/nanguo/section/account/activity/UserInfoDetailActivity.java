@@ -556,7 +556,7 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                         Log.d("####查询邀请者", inviterInfo.getNickName());
                         if (!StringUtil.isEmpty(inviterInfo.getNickName())) {
                             mTvInviter.setVisibility(View.VISIBLE);
-                            mTvInviter.setText(inviterInfo.getNickName());
+                            mTvInviter.setText("邀请者:" + inviterInfo.getNickName());
                         } else {
                             mTvInviter.setVisibility(View.GONE);
                         }
