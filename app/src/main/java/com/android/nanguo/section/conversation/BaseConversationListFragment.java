@@ -143,7 +143,7 @@ public class BaseConversationListFragment extends BaseInitFragment {
                         public void run() {
                             conversationList.clear();
                             conversationList.addAll(loadConversationList());
-                            conversationListView.refresh();
+                            conversationListView.init(conversationList);
                             EventBus.getDefault().post(new EventCenter<>(EventUtil.UNREADCOUNT));
                         }
                     }, 1000);
