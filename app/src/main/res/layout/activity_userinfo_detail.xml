@@ -101,14 +101,27 @@
             tools:text="@string/str_chat_account" />
 
         <TextView
+            android:id="@+id/tv_inviter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_nick_name"
+            android:layout_marginTop="12dp"
+            android:textColor="@color/white"
+            android:textSize="@dimen/sp_15"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/tv_account"
+            app:layout_constraintTop_toBottomOf="@id/tv_account"
+            tools:text="@string/str_chat_account" />
+
+        <TextView
             android:id="@+id/tv_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_nick_name"
             android:layout_marginTop="12dp"
             android:textColor="@color/white"
-            app:layout_constraintStart_toStartOf="@id/tv_account"
-            app:layout_constraintTop_toBottomOf="@id/tv_account"
+            app:layout_constraintStart_toStartOf="@id/tv_inviter"
+            app:layout_constraintTop_toBottomOf="@id/tv_inviter"
             tools:text="你好呀~我的名字叫叶良辰，很高兴认识大家~" />
 
 

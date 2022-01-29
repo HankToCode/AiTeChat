@@ -3,6 +3,7 @@ package com.android.nanguo.section.account.activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageView;
@@ -52,6 +53,7 @@ import com.zds.base.ImageLoad.GlideUtils;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.json.FastJsonUtil;
 import com.zds.base.log.XLog;
+import com.zds.base.util.StringUtil;
 import com.zds.base.util.Utils;
 
 import org.greenrobot.eventbus.EventBus;
@@ -89,6 +91,7 @@ public class UserInfoDetailActivity extends BaseInitActivity {
     private SuperTextView mTvSendMsg;
     private SuperTextView mTvAddFriend;
     private SuperTextView mTvFree;
+    private TextView mTvInviter;
 
 
     @Override
@@ -112,6 +115,7 @@ public class UserInfoDetailActivity extends BaseInitActivity {
         mTvSendMsg = (SuperTextView) findViewById(R.id.tv_send_msg);
         mTvAddFriend = (SuperTextView) findViewById(R.id.tv_add_friend);
         mTvFree = (SuperTextView) findViewById(R.id.tv_free);
+        mTvInviter = (TextView) findViewById(R.id.tv_inviter);
 
         initLogic();
 
@@ -287,7 +291,7 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                         userId, false);
                 MyHelper.getInstance().getModel().saveChatBg(userId,
                         null, "false", null);
-                mTvFree.setSolid(ContextCompat.getColor(this,R.color.color_66_white));
+                mTvFree.setSolid(ContextCompat.getColor(this, R.color.color_66_white));
                 mTvFree.setText("已开启免打扰");
             } else {
                 EaseSharedUtils.setEnableMsgRing(Utils.getContext(),
@@ -295,7 +299,7 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                         userId, true);
                 MyHelper.getInstance().getModel().saveChatBg(userId,
                         null, "true", null);
-                mTvFree.setSolid(ContextCompat.getColor(this,R.color.color_22_white));
+                mTvFree.setSolid(ContextCompat.getColor(this, R.color.color_22_white));
                 mTvFree.setText("消息免打扰");
             }
         });
@@ -321,12 +325,12 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                     if (isSelect) {
                         emConversation.setExtField("toTop");
                         ToTopMap.save(UserInfoDetailActivity.this, emConversation.conversationId());
-                        mTvToTop.setSolid(ContextCompat.getColor(this,R.color.color_66_white));
+                        mTvToTop.setSolid(ContextCompat.getColor(this, R.color.color_66_white));
                         mTvToTop.setText("聊天已置顶");
                     } else {
                         emConversation.setExtField("false");
                         ToTopMap.delete(UserInfoDetailActivity.this, emConversation.conversationId());
-                        mTvToTop.setSolid(ContextCompat.getColor(this,R.color.color_22_white));
+                        mTvToTop.setSolid(ContextCompat.getColor(this, R.color.color_22_white));
                         mTvToTop.setText("聊天置顶");
                     }
                 }
@@ -479,9 +483,9 @@ public class UserInfoDetailActivity extends BaseInitActivity {
 
                             initBottomVis();
 
-                            /*if (!TextUtils.isEmpty(inviterUserId)) {
+                            if (!TextUtils.isEmpty(inviterUserId)) {
                                 queryInviter();
-                            }*/
+                            }
                         } else {
                             ToastUtil.toast("数据异常");
                             finish();
@@ -539,7 +543,7 @@ public class UserInfoDetailActivity extends BaseInitActivity {
         }
     }
 
-    /*private void queryInviter() {
+    private void queryInviter() {
         Map<String, Object> map = new HashMap<>(1);
         Log.d("####查询邀请者=", inviterUserId);
         map.put("friendUserId", inviterUserId);
@@ -550,8 +554,13 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                         FriendInfo inviterInfo = FastJsonUtil.getObject(json,
                                 FriendInfo.class);
                         Log.d("####查询邀请者", inviterInfo.getNickName());
-                        layoutInviter.setVisibility(View.VISIBLE);
-                        tvInviter.setText(inviterInfo.getNickName());
+                        if (!StringUtil.isEmpty(inviterInfo.getNickName())) {
+                            mTvInviter.setVisibility(View.VISIBLE);
+                            mTvInviter.setText(inviterInfo.getNickName());
+                        } else {
+                            mTvInviter.setVisibility(View.GONE);
+                        }
+
                     }
 
                     @Override
@@ -559,7 +568,7 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                         ToastUtil.toast(msg);
                     }
                 });
-    }*/
+    }
 
     /**
      * 移出群员
