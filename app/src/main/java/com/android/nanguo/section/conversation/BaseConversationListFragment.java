@@ -143,7 +143,8 @@ public class BaseConversationListFragment extends BaseInitFragment {
                         public void run() {
                             conversationList.clear();
                             conversationList.addAll(loadConversationList());
-                            conversationListView.init(conversationList);
+//                            conversationListView.init(conversationList);
+                            conversationListView.refresh();
                             EventBus.getDefault().post(new EventCenter<>(EventUtil.UNREADCOUNT));
                         }
                     }, 1000);
@@ -328,7 +329,7 @@ public class BaseConversationListFragment extends BaseInitFragment {
 
                             conversationList.clear();
                             conversationList.addAll(loadConversationList());
-                            conversationListView.init(conversationList);
+//                            conversationListView.init(conversationList);
                             conversationListView.refresh();
                         }
                     }

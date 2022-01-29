@@ -169,7 +169,7 @@ public class ChatPresenter extends EaseChatPresenter {
             //notify new message
             getNotifier().vibrateAndPlayTone(message);
 
-//            MessageTipsPlayer.getInstance(appContext).start();
+            MessageTipsPlayer.getInstance(appContext).start();
         }
     }
 

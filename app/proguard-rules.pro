@@ -365,3 +365,7 @@
 -keep class org.slf4j.** {*;}
 -keep class ch.imvs.** {*;}
 -keep class com.superrtc.** { *; }
+
+-keep class com.hyphenate.easeui.utils.** {*;}
+-keep class net.sourceforge.pinyin4j.** {*;}
+
