@@ -89,7 +89,7 @@ final class UPCEANExtension2Support {
       throw NotFoundException.getNotFoundInstance();
     }
 
-    if (Integer.parseInt(resultString.toString()) % 4 != checkParity) {
+    if (NumberUtils.parseInt(resultString.toString()) % 4 != checkParity) {
       throw NotFoundException.getNotFoundInstance();
     }
 

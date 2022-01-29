@@ -49,7 +49,7 @@ public class EaseUserUtils {
             String json = FastJsonUtil.toJSONString(message.ext());
             String h = FastJsonUtil.getString(json, "headImg");
             try {
-//                int avatarResId = Integer.parseInt(user.getAvatar());
+//                int avatarResId = NumberUtils.parseInt(user.getAvatar());
 //                GlideUtils.loadImageView(avatarResId, imageView);
                 GlideUtils.loadImageViewLoding(AppConfig.checkimg(h), imageView, R.mipmap.ic_ng_avatar);
             } catch (Exception e) {
@@ -60,7 +60,7 @@ public class EaseUserUtils {
         }
         if (user != null && user.getAvatar() != null) {
             try {
-//                int avatarResId = Integer.parseInt(user.getAvatar());
+//                int avatarResId = NumberUtils.parseInt(user.getAvatar());
 //                GlideUtils.loadImageView(avatarResId, imageView);
                 GlideUtils.loadImageViewLoding(AppConfig.checkimg(user.getAvatar()), imageView, R.mipmap.ic_ng_avatar);
             } catch (Exception e) {

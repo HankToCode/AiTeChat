@@ -22,6 +22,7 @@ import com.zds.base.code.Writer;
 import com.zds.base.code.aztec.encoder.AztecCode;
 import com.zds.base.code.aztec.encoder.Encoder;
 import com.zds.base.code.common.BitMatrix;
+import com.zds.base.util.NumberUtils;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -47,10 +48,10 @@ public final class AztecWriter implements Writer {
         charset = Charset.forName(hints.get(EncodeHintType.CHARACTER_SET).toString());
       }
       if (hints.containsKey(EncodeHintType.ERROR_CORRECTION)) {
-        eccPercent = Integer.parseInt(hints.get(EncodeHintType.ERROR_CORRECTION).toString());
+        eccPercent = NumberUtils.parseInt(hints.get(EncodeHintType.ERROR_CORRECTION).toString());
       }
       if (hints.containsKey(EncodeHintType.AZTEC_LAYERS)) {
-        layers = Integer.parseInt(hints.get(EncodeHintType.AZTEC_LAYERS).toString());
+        layers = NumberUtils.parseInt(hints.get(EncodeHintType.AZTEC_LAYERS).toString());
       }
     }
     return encode(contents, format, width, height, charset, eccPercent, layers);

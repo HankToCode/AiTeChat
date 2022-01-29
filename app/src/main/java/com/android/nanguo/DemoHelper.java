@@ -879,8 +879,8 @@ public class DemoHelper {
                             if (responseInfo != null && responseInfo.length() > 0) {
                                 try {
                                     JSONObject object = new JSONObject(responseInfo);
-                                    String token = object.getString("accessToken");
-                                    int uId = object.getInt("agoraUserId");
+                                    String token = object.optString("accessToken");
+                                    int uId = object.optInt("agoraUserId");
 
                                     //设置自己头像昵称
                                     setEaseCallKitUserInfo(EMClient.getInstance().getCurrentUser());

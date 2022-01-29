@@ -20,6 +20,7 @@ import com.zds.base.code.BarcodeFormat;
 import com.zds.base.code.EncodeHintType;
 import com.zds.base.code.WriterException;
 import com.zds.base.code.common.BitMatrix;
+import com.zds.base.util.NumberUtils;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -144,7 +145,7 @@ public final class Code128Writer extends OneDimensionalCodeWriter {
                 break;
               default:
                 // CODE_CODE_C
-                patternIndex = Integer.parseInt(contents.substring(position, position + 2));
+                patternIndex = NumberUtils.parseInt(contents.substring(position, position + 2));
                 position++; // Also incremented below
                 break;
             }

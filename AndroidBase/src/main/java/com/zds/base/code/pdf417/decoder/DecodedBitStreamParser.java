@@ -20,6 +20,7 @@ import com.zds.base.code.FormatException;
 import com.zds.base.code.common.CharacterSetECI;
 import com.zds.base.code.common.DecoderResult;
 import com.zds.base.code.pdf417.PDF417ResultMetadata;
+import com.zds.base.util.NumberUtils;
 
 import java.io.ByteArrayOutputStream;
 import java.math.BigInteger;
@@ -165,7 +166,7 @@ final class DecodedBitStreamParser {
     for (int i = 0; i < NUMBER_OF_SEQUENCE_CODEWORDS; i++, codeIndex++) {
       segmentIndexArray[i] = codewords[codeIndex];
     }
-    resultMetadata.setSegmentIndex(Integer.parseInt(decodeBase900toBase10(segmentIndexArray,
+    resultMetadata.setSegmentIndex(NumberUtils.parseInt(decodeBase900toBase10(segmentIndexArray,
         NUMBER_OF_SEQUENCE_CODEWORDS)));
 
     StringBuilder fileId = new StringBuilder();

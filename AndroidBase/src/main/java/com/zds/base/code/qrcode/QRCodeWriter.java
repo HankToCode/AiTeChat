@@ -25,6 +25,7 @@ import com.zds.base.code.qrcode.decoder.ErrorCorrectionLevel;
 import com.zds.base.code.qrcode.encoder.ByteMatrix;
 import com.zds.base.code.qrcode.encoder.Encoder;
 import com.zds.base.code.qrcode.encoder.QRCode;
+import com.zds.base.util.NumberUtils;
 
 import java.util.Map;
 
@@ -71,7 +72,7 @@ public final class QRCodeWriter implements Writer {
         errorCorrectionLevel = ErrorCorrectionLevel.valueOf(hints.get(EncodeHintType.ERROR_CORRECTION).toString());
       }
       if (hints.containsKey(EncodeHintType.MARGIN)) {
-        quietZone = Integer.parseInt(hints.get(EncodeHintType.MARGIN).toString());
+        quietZone = NumberUtils.parseInt(hints.get(EncodeHintType.MARGIN).toString());
       }
     }
 

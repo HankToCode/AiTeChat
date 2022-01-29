@@ -16,6 +16,8 @@
 
 package com.zds.base.code.client.result;
 
+import com.zds.base.util.NumberUtils;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -245,7 +247,7 @@ public final class CalendarParsedResult extends ParsedResult {
     for (int i = 0; i < RFC2445_DURATION_FIELD_UNITS.length; i++) {
       String fieldValue = m.group(i + 1);
       if (fieldValue != null) {
-        durationMS += RFC2445_DURATION_FIELD_UNITS[i] * Integer.parseInt(fieldValue);
+        durationMS += RFC2445_DURATION_FIELD_UNITS[i] * NumberUtils.parseInt(fieldValue);
       }
     }
     return durationMS;

@@ -21,6 +21,7 @@ import com.zds.base.code.EncodeHintType;
 import com.zds.base.code.Writer;
 import com.zds.base.code.WriterException;
 import com.zds.base.code.common.BitMatrix;
+import com.zds.base.util.NumberUtils;
 
 import java.util.Map;
 
@@ -61,7 +62,7 @@ public abstract class OneDimensionalCodeWriter implements Writer {
 
     int sidesMargin = getDefaultMargin();
     if (hints != null && hints.containsKey(EncodeHintType.MARGIN)) {
-      sidesMargin = Integer.parseInt(hints.get(EncodeHintType.MARGIN).toString());
+      sidesMargin = NumberUtils.parseInt(hints.get(EncodeHintType.MARGIN).toString());
     }
 
     boolean[] code = encode(contents);

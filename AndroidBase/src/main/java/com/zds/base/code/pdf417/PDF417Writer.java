@@ -24,6 +24,7 @@ import com.zds.base.code.common.BitMatrix;
 import com.zds.base.code.pdf417.encoder.Compaction;
 import com.zds.base.code.pdf417.encoder.Dimensions;
 import com.zds.base.code.pdf417.encoder.PDF417;
+import com.zds.base.util.NumberUtils;
 
 import java.nio.charset.Charset;
 import java.util.Map;
@@ -73,10 +74,10 @@ public final class PDF417Writer implements Writer {
                               dimensions.getMinRows());
       }
       if (hints.containsKey(EncodeHintType.MARGIN)) {
-        margin = Integer.parseInt(hints.get(EncodeHintType.MARGIN).toString());
+        margin = NumberUtils.parseInt(hints.get(EncodeHintType.MARGIN).toString());
       }
       if (hints.containsKey(EncodeHintType.ERROR_CORRECTION)) {
-        errorCorrectionLevel = Integer.parseInt(hints.get(EncodeHintType.ERROR_CORRECTION).toString());
+        errorCorrectionLevel = NumberUtils.parseInt(hints.get(EncodeHintType.ERROR_CORRECTION).toString());
       }
       if (hints.containsKey(EncodeHintType.CHARACTER_SET)) {
         Charset encoding = Charset.forName(hints.get(EncodeHintType.CHARACTER_SET).toString());

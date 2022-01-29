@@ -115,7 +115,7 @@ public class IDCardValidateUtils {
         int sum = 0;
         for (int i = 0; i < NEW_CARD_NUMBER_LENGTH - 1; i++) {
             char ch = cardNumber.charAt(i);
-            sum += ((int) (ch - '0')) * Integer.parseInt(Wi[i]);
+            sum += ((int) (ch - '0')) * NumberUtils.parseInt(Wi[i]);
         }
         return ValCodeArr[sum % 11];
     }

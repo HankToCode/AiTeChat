@@ -20,6 +20,7 @@ import com.android.nanguo.section.dialog.TimePickerDialogFragment;
 import com.android.nanguo.section.me.viewmodels.OfflinePushSetViewModel;
 
 import com.hyphenate.easeui.widget.EaseTitleBar;
+import com.zds.base.util.NumberUtils;
 
 /**
  * Created by wei on 2016/12/6.
@@ -199,8 +200,8 @@ public class OfflinePushSettingsActivity extends BaseInitActivity implements Eas
                         @Override
                         public void onClickSubmit(View view, String start, String end) {
                             try {
-                                int startHour = Integer.parseInt(getHour(start));
-                                int endHour = Integer.parseInt(getHour(end));
+                                int startHour = NumberUtils.parseInt(getHour(start));
+                                int endHour = NumberUtils.parseInt(getHour(end));
                                 if(startHour != endHour) {
                                     startTime = startHour;
                                     endTime = endHour;

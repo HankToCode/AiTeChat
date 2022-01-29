@@ -25,6 +25,7 @@ import com.zds.base.code.common.reedsolomon.ReedSolomonEncoder;
 import com.zds.base.code.qrcode.decoder.ErrorCorrectionLevel;
 import com.zds.base.code.qrcode.decoder.Mode;
 import com.zds.base.code.qrcode.decoder.Version;
+import com.zds.base.util.NumberUtils;
 
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
@@ -109,7 +110,7 @@ public final class Encoder {
 
     Version version;
     if (hints != null && hints.containsKey(EncodeHintType.QR_VERSION)) {
-      int versionNumber = Integer.parseInt(hints.get(EncodeHintType.QR_VERSION).toString());
+      int versionNumber = NumberUtils.parseInt(hints.get(EncodeHintType.QR_VERSION).toString());
       version = Version.getVersionForNumber(versionNumber);
       int bitsNeeded = calculateBitsNeeded(mode, headerBits, dataBits, version);
       if (!willFit(bitsNeeded, version, ecLevel)) {

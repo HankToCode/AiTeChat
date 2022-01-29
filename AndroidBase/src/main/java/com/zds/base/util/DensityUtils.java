@@ -143,7 +143,7 @@ public class DensityUtils {
 
             field = c.getField("status_bar_height");
 
-            x = Integer.parseInt(field.get(obj).toString());
+            x = NumberUtils.parseInt(field.get(obj).toString());
 
             sbar = context.getResources().getDimensionPixelSize(x);
 

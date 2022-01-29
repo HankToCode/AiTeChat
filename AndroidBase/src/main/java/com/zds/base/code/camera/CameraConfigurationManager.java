@@ -24,6 +24,8 @@ import android.util.Log;
 import android.view.Display;
 import android.view.WindowManager;
 
+import com.zds.base.util.NumberUtils;
+
 import java.util.regex.Pattern;
 
 final class CameraConfigurationManager {
@@ -148,8 +150,8 @@ final class CameraConfigurationManager {
       int newX;
       int newY;
       try {
-        newX = Integer.parseInt(previewSize.substring(0, dimPosition));
-        newY = Integer.parseInt(previewSize.substring(dimPosition + 1));
+        newX = NumberUtils.parseInt(previewSize.substring(0, dimPosition));
+        newY = NumberUtils.parseInt(previewSize.substring(dimPosition + 1));
       } catch (NumberFormatException nfe) {
         Log.w(TAG, "Bad preview-size: " + previewSize);
         continue;
@@ -231,7 +233,7 @@ final class CameraConfigurationManager {
     String takingPictureZoomMaxString = parameters.get("taking-picture-zoom-max");
     if (takingPictureZoomMaxString != null) {
       try {
-        int tenMaxZoom = Integer.parseInt(takingPictureZoomMaxString);
+        int tenMaxZoom = NumberUtils.parseInt(takingPictureZoomMaxString);
         if (tenDesiredZoom > tenMaxZoom) {
           tenDesiredZoom = tenMaxZoom;
         }

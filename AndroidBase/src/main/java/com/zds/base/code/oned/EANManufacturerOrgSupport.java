@@ -16,6 +16,8 @@
 
 package com.zds.base.code.oned;
 
+import com.zds.base.util.NumberUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,7 +37,7 @@ final class EANManufacturerOrgSupport {
 
   String lookupCountryIdentifier(String productCode) {
     initIfNeeded();
-    int prefix = Integer.parseInt(productCode.substring(0, 3));
+    int prefix = NumberUtils.parseInt(productCode.substring(0, 3));
     int max = ranges.size();
     for (int i = 0; i < max; i++) {
       int[] range = ranges.get(i);

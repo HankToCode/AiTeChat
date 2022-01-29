@@ -2,6 +2,8 @@ package com.zds.base.upDated.utils;
 
 import android.util.Log;
 
+import com.zds.base.util.NumberUtils;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -211,7 +213,7 @@ public class JSONHelper {
                         fieldMethod.invoke(obj, temp);     
                     } else if ("Integer".equals(fieldType)     
                             || "int".equals(fieldType)) {     
-                        Integer intval = Integer.parseInt(value);     
+                        Integer intval = NumberUtils.parseInt(value);
                         fieldMethod.invoke(obj, intval);     
                     } else if ("Long".equalsIgnoreCase(fieldType)) {     
                         Long temp = Long.parseLong(value);     
@@ -291,7 +293,7 @@ public class JSONHelper {
                     fieldSetMethod.invoke(obj, temp);     
                 } else if ("Integer".equals(fieldType)     
                         || "int".equals(fieldType)) {     
-                    Integer intval = Integer.parseInt(value.toString());     
+                    Integer intval = NumberUtils.parseInt(value.toString());
                     fieldSetMethod.invoke(obj, intval);     
                 } else if ("Long".equalsIgnoreCase(fieldType)) {     
                     Long temp = Long.parseLong(value.toString());     

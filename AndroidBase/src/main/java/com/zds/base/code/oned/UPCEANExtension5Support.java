@@ -22,6 +22,7 @@ import com.zds.base.code.Result;
 import com.zds.base.code.ResultMetadataType;
 import com.zds.base.code.ResultPoint;
 import com.zds.base.code.common.BitArray;
+import com.zds.base.util.NumberUtils;
 
 import java.util.EnumMap;
 import java.util.Map;
@@ -170,7 +171,7 @@ final class UPCEANExtension5Support {
         currency = "";
         break;
     }
-    int rawAmount = Integer.parseInt(raw.substring(1));
+    int rawAmount = NumberUtils.parseInt(raw.substring(1));
     String unitsString = String.valueOf(rawAmount / 100);
     int hundredths = rawAmount % 100;
     String hundredthsString = hundredths < 10 ? "0" + hundredths : String.valueOf(hundredths);

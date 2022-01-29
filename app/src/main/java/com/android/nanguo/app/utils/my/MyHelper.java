@@ -1133,7 +1133,7 @@ public class MyHelper {
 
                     if (action.equals(Constant.ACTION_APPLY_JOIN_GROUP)) {
                         Map hashMap = message.ext();
-                        int applyNums = Integer.parseInt((String) hashMap.get("applyNums"));
+                        int applyNums = NumberUtils.parseInt((String) hashMap.get("applyNums"));
                         int localNum = (int) PreferenceManager.getInstance().getParam(SP.APPLY_JOIN_GROUP_NUM, 0);
                         localNum += applyNums;
                         PreferenceManager.getInstance().setParam(SP.APPLY_JOIN_GROUP_NUM, localNum);

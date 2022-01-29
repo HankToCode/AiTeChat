@@ -28,6 +28,7 @@ import com.android.nanguo.app.base.BaseDialogFragment;
 
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.util.DensityUtil;
+import com.zds.base.util.NumberUtils;
 
 import java.lang.reflect.Field;
 import java.util.Calendar;
@@ -190,17 +191,17 @@ public class TimePickerDialogFragment extends BaseDialogFragment {
 
         if(!TextUtils.isEmpty(preStartTime) && !TextUtils.isEmpty(preEndTime)) {
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                pickerStart.setHour(Integer.parseInt(preStartTime.substring(0, preStartTime.indexOf(":"))));
-                pickerStart.setMinute(Integer.parseInt(preStartTime.substring(preStartTime.indexOf(":") + 1)));
+                pickerStart.setHour(NumberUtils.parseInt(preStartTime.substring(0, preStartTime.indexOf(":"))));
+                pickerStart.setMinute(NumberUtils.parseInt(preStartTime.substring(preStartTime.indexOf(":") + 1)));
 
-                pickerEnd.setHour(Integer.parseInt(preEndTime.substring(0, preEndTime.indexOf(":"))));
-                pickerEnd.setMinute(Integer.parseInt(preEndTime.substring(preEndTime.indexOf(":") + 1)));
+                pickerEnd.setHour(NumberUtils.parseInt(preEndTime.substring(0, preEndTime.indexOf(":"))));
+                pickerEnd.setMinute(NumberUtils.parseInt(preEndTime.substring(preEndTime.indexOf(":") + 1)));
             } else {
-                pickerStart.setCurrentHour(Integer.parseInt(preStartTime.substring(0, preStartTime.indexOf(":"))));
-                pickerStart.setCurrentMinute(Integer.parseInt(preStartTime.substring(preStartTime.indexOf(":") + 1)));
+                pickerStart.setCurrentHour(NumberUtils.parseInt(preStartTime.substring(0, preStartTime.indexOf(":"))));
+                pickerStart.setCurrentMinute(NumberUtils.parseInt(preStartTime.substring(preStartTime.indexOf(":") + 1)));
 
-                pickerEnd.setCurrentHour(Integer.parseInt(preEndTime.substring(0, preEndTime.indexOf(":"))));
-                pickerEnd.setCurrentMinute(Integer.parseInt(preEndTime.substring(preEndTime.indexOf(":") + 1)));
+                pickerEnd.setCurrentHour(NumberUtils.parseInt(preEndTime.substring(0, preEndTime.indexOf(":"))));
+                pickerEnd.setCurrentMinute(NumberUtils.parseInt(preEndTime.substring(preEndTime.indexOf(":") + 1)));
             }
         }
 

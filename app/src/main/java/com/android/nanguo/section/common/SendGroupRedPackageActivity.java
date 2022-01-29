@@ -377,7 +377,7 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
         }
 
         //1.总金额是200乘以个数 单个平均最高是200 2.红包个数最多是100个，同时还要小于群人数；
-        int redCount = currentRedPackageMethod == 1 ? 1 : Integer.parseInt(etRedNum.getText().toString().trim());
+        int redCount = currentRedPackageMethod == 1 ? 1 : NumberUtils.parseInt(etRedNum.getText().toString().trim());
         //校验总金额
         double redAmount = Double.parseDouble(etRedAmount.getText().toString().trim());
         if (redAmount > 200 * redCount) {
@@ -525,7 +525,7 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
         }
 
         //1.总金额是200乘以个数 单个平均最高是200 2.红包个数最多是100个，同时还要小于群人数；
-        int redCount = currentRedPackageMethod == 1 ? 1 : Integer.parseInt(etRedNum.getText().toString().trim());
+        int redCount = currentRedPackageMethod == 1 ? 1 : NumberUtils.parseInt(etRedNum.getText().toString().trim());
         //校验总金额
         double redAmount = NumberUtils.parseDouble(etRedAmount.getText().toString().trim());
         if (redAmount > 200 * redCount) {

@@ -34,6 +34,7 @@ import com.android.nanguo.app.weight.passwoed_keyboard.OnNumberKeyboardListener;
 import com.android.nanguo.app.weight.passwoed_keyboard.XNumberKeyboardView;
 import com.android.nanguo.common.utils.ToastUtils;
 import com.zds.base.json.FastJsonUtil;
+import com.zds.base.util.NumberUtils;
 import com.zds.base.util.StringUtil;
 
 import java.util.HashMap;
@@ -143,7 +144,7 @@ public class RechargeActivity extends BaseInitActivity {
             case R.id.tv_recharge:
                 if (!XClickUtil.isFastDoubleClick(view, 2000)) {
                     if (!TextUtils.isEmpty(et_amount.getText().toString().trim())) {
-                        rechargeMoney = Integer.parseInt(et_amount.getText().toString().trim());
+                        rechargeMoney = NumberUtils.parseInt(et_amount.getText().toString().trim());
                     }
                     if (rechargeMoney <= 0) {
                         ToastUtils.showToast("请选择充值金额");
