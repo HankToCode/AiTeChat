@@ -350,3 +350,6 @@
 }
 
 ##---------------End: proguard configuration for Gson  ----------
+
+#拼音
+-keep public class  net.sourceforge.pinyin4j.**{*;}
