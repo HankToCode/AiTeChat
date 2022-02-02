@@ -71,8 +71,7 @@ public class QRCodeParseUtils {
             source = new RGBLuminanceSource(width, height, pixels);
             result = new MultiFormatReader().decode(new BinaryBitmap(new HybridBinarizer(source)), HINTS);
             return result.getText();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Exception e) { e.printStackTrace();
             if (source != null) {
                 try {
                     result = new MultiFormatReader().decode(new BinaryBitmap(new GlobalHistogramBinarizer(source)), HINTS);
