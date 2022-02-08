@@ -136,7 +136,11 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
         container = findViewById(R.id.container);
         navView = findViewById(R.id.nav_view);
         navView.setItemIconTintList(null);
+
+        showLoading();
         switchToMessage();
+        dismissLoading();
+
         checkIfShowSavedFragment(savedInstanceState);
         addTabBadge();
     }
