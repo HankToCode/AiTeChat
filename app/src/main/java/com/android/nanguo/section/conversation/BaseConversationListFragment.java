@@ -188,12 +188,15 @@ public class BaseConversationListFragment extends BaseInitFragment {
         getContactList();
     }
 
+    private long stt = 0L;
+
     /**
      * load conversation list
      *
      * @return +
      */
     protected List<EMConversation> loadConversationList() {
+        stt = System.currentTimeMillis();
         // get all conversations
         Map<String, EMConversation> conversations = EMClient.getInstance().chatManager().getAllConversations();
 
@@ -233,7 +236,7 @@ public class BaseConversationListFragment extends BaseInitFragment {
          */
         synchronized (conversations) {
 
-            List<String> localUsers = getLocalUsers();
+//            List<String> localUsers = getLocalUsers();
             for (EMConversation conversation : conversations.values()) {
                 if (conversation.getAllMessages().size() != 0 && !conversation.conversationId().equals(Constant.ADMIN) && !conversation.getExtField().equals("toTop")) {
                     if (!"系统管理员".equals(conversation.getLastMessage().getFrom()) && !"em_system".equals(conversation.getLastMessage().getFrom())) {
@@ -249,7 +252,7 @@ public class BaseConversationListFragment extends BaseInitFragment {
                                 || !TextUtils.isEmpty(msgType) && "systematic".equals(msgType)
                                 || !TextUtils.isEmpty(msgType) && "walletMsg".equals(msgType)
                         ) {*/
-                            sortList.add(new Pair<Long, EMConversation>(conversation.getLastMessage().getMsgTime(), conversation));
+                        sortList.add(new Pair<Long, EMConversation>(conversation.getLastMessage().getMsgTime(), conversation));
                         /*}*/
                     }
                 }
@@ -286,6 +289,8 @@ public class BaseConversationListFragment extends BaseInitFragment {
                 it.remove();
             }
         }
+
+        Log.d("aaaaaaaaaaaaaaaaaaaaa", "时间差：" + (System.currentTimeMillis() - stt));
         return list;
     }
 
