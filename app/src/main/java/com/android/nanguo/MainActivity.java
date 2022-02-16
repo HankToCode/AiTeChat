@@ -29,6 +29,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.google.android.material.bottomnavigation.BottomNavigationItemView;
 import com.google.android.material.bottomnavigation.BottomNavigationMenuView;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.hyphenate.EMCallBack;
 import com.hyphenate.easecallkit.base.EaseCallType;
 import com.hyphenate.easecallkit.ui.EaseMultipleVideoActivity;
 import com.hyphenate.easecallkit.ui.EaseVideoCallActivity;
@@ -143,6 +144,25 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
 
         checkIfShowSavedFragment(savedInstanceState);
         addTabBadge();
+
+        //2天前时间戳
+        long day2 = System.currentTimeMillis() - 86400000 * 2;
+        //删除2天前信息
+        DemoHelper.getInstance().getEMClient().chatManager().deleteMessagesBeforeTimestamp(day2, new EMCallBack() {
+            @Override
+            public void onSuccess() {
+            }
+
+            @Override
+            public void onError(int code, String error) {
+
+            }
+
+            @Override
+            public void onProgress(int progress, String status) {
+
+            }
+        });
     }
 
     @Override
