@@ -17,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.blankj.utilcode.util.ScreenUtils;
+import com.blankj.utilcode.util.ToastUtils;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.android.nanguo.R;
@@ -87,7 +88,7 @@ public class ConversationListFragment extends BaseConversationListFragment imple
         ivOptions.setOnClickListener(this);
         tvSearch.setOnClickListener(this);
 
-        conversationListView.setOnItemClickListener((parent, view, position, id) -> {
+        conversationListView.setOnItemClickListenerCopy((parent, view, position, id) -> {
             EMConversation conversation =
                     conversationListView.getItem(position);
             String emUserId = conversation.conversationId();

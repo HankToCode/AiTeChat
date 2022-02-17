@@ -7,6 +7,7 @@ import android.os.Message;
 import android.util.AttributeSet;
 import android.widget.ListView;
 
+import com.android.nanguo.app.adapter.AddressAdapter;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
 import com.android.nanguo.R;
@@ -15,32 +16,32 @@ import com.android.nanguo.section.conversation.adapter.EaseConversationAdapter;
 import java.util.ArrayList;
 import java.util.List;
 
-public class EaseConversationList extends ListView{
-    
+public class EaseConversationList extends ListView {
+
     protected int primaryColor;
     protected int secondaryColor;
     protected int timeColor;
     protected int secondarySize;
     protected float timeSize;
     protected final int MSG_REFRESH_ADAPTER_DATA = 0;
-    
+
     protected Context context;
     protected EaseConversationAdapter adapter;
     protected List<EMConversation> conversations = new ArrayList<EMConversation>();
     protected List<EMConversation> passedListRef = null;
     protected boolean isDrag = false;
-    
+
     public EaseConversationList(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(context, attrs);
     }
-    
+
     public EaseConversationList(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
         init(context, attrs);
     }
 
-    
+
     private void init(Context context, AttributeSet attrs) {
         this.context = context;
         TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.EaseConversationList);
@@ -50,16 +51,16 @@ public class EaseConversationList extends ListView{
         secondarySize = ta.getDimensionPixelSize(R.styleable.EaseConversationList_cvsListSecondaryTextSize, 0);
         timeSize = ta.getDimension(R.styleable.EaseConversationList_cvsListTimeTextSize, 0);
         ta.recycle();
-        
+
     }
 
-    public void init(List<EMConversation> conversationList){
+    public void init(List<EMConversation> conversationList) {
         this.init(conversationList, null);
     }
 
-    public void init(List<EMConversation> conversationList, EaseConversationListHelper helper){
+    public void init(List<EMConversation> conversationList, EaseConversationListHelper helper) {
         conversations = conversationList;
-        if(helper != null){
+        if (helper != null) {
             this.conversationListHelper = helper;
         }
         adapter = new EaseConversationAdapter(context, 0, conversationList);
@@ -70,6 +71,7 @@ public class EaseConversationList extends ListView{
         adapter.setTimeColor(timeColor);
         adapter.setTimeSize(timeSize);
         adapter.setDrag(isDrag);
+        adapter.setOnItemClickListenerCopy(onItemClickListenerCopy);
         setAdapter(adapter);
     }
 
@@ -77,35 +79,35 @@ public class EaseConversationList extends ListView{
         @Override
         public void handleMessage(Message message) {
             switch (message.what) {
-            case MSG_REFRESH_ADAPTER_DATA:
-                if (adapter != null) {
-                    adapter.notifyDataSetChanged();
-                }
-                break;
-            default:
-                break;
+                case MSG_REFRESH_ADAPTER_DATA:
+                    if (adapter != null) {
+                        adapter.notifyDataSetChanged();
+                    }
+                    break;
+                default:
+                    break;
             }
         }
     };
 
     public EMConversation getItem(int position) {
-        return (EMConversation)adapter.getItem(position);
+        return (EMConversation) adapter.getItem(position);
     }
-    
+
     public void refresh() {
-    	if(!handler.hasMessages(MSG_REFRESH_ADAPTER_DATA)){
-    		handler.sendEmptyMessage(MSG_REFRESH_ADAPTER_DATA);
-    	}
+        if (!handler.hasMessages(MSG_REFRESH_ADAPTER_DATA)) {
+            handler.sendEmptyMessage(MSG_REFRESH_ADAPTER_DATA);
+        }
     }
 
     public void setDrag(boolean isDrag) {
         this.isDrag = isDrag;
-        if(adapter != null)
+        if (adapter != null)
             adapter.setDrag(isDrag);
     }
 
     public void filter(CharSequence str) {
-        if(adapter != null)
+        if (adapter != null)
             adapter.getFilter().filter(str);
     }
 
@@ -113,15 +115,26 @@ public class EaseConversationList extends ListView{
     private EaseConversationListHelper conversationListHelper;
 
 
-    public interface EaseConversationListHelper{
+    private OnItemClickListener onItemClickListenerCopy;
+
+    public void setOnItemClickListenerCopy(OnItemClickListener onItemClickListenerCopy) {
+        this.onItemClickListenerCopy = onItemClickListenerCopy;
+        if (adapter != null) {
+            adapter.setOnItemClickListenerCopy(onItemClickListenerCopy);
+        }
+    }
+
+    public interface EaseConversationListHelper {
         /**
          * set content of second line
+         *
          * @param lastMessage
          * @return
          */
         String onSetItemSecondaryText(EMMessage lastMessage);
     }
-    public void setConversationListHelper(EaseConversationListHelper helper){
+
+    public void setConversationListHelper(EaseConversationListHelper helper) {
         conversationListHelper = helper;
     }
 }

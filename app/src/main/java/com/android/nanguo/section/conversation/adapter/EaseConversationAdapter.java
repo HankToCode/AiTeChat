@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -122,8 +123,8 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
 
         holder.list_itease_layout.setOnClickListener(v -> {
             ListView listView = (ListView) parent;
-            if (listView.getOnItemClickListener() != null) {
-                listView.getOnItemClickListener().onItemClick(listView, finalConvertView, position, position);
+            if(onItemClickListenerCopy != null){
+                onItemClickListenerCopy.onItemClick(listView, finalConvertView, position, position);
             }
         });
 
@@ -448,6 +449,13 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
 
         SuperTextView iv_aite_guanfang;
         SuperTextView iv_to_top;
+    }
+
+
+    private AdapterView.OnItemClickListener onItemClickListenerCopy;
+
+    public void setOnItemClickListenerCopy(AdapterView.OnItemClickListener onItemClickListenerCopy) {
+        this.onItemClickListenerCopy = onItemClickListenerCopy;
     }
 }
 
