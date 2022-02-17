@@ -17,6 +17,9 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.android.nanguo.DemoHelper;
+import com.blankj.utilcode.util.ToastUtils;
+import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.util.EMLog;
 import com.android.nanguo.DemoApplication;
@@ -96,6 +99,25 @@ public class SplashActivity extends BaseInitActivity {
         mAnim.playAnimation();*/
         alphaSplash();
 //        initMedia();
+
+        //三天前时间戳
+        long day3 = System.currentTimeMillis() - 86400000 * 3;
+        //删除三天前信息
+        DemoHelper.getInstance().getEMClient().chatManager().deleteMessagesBeforeTimestamp(day3, new EMCallBack() {
+            @Override
+            public void onSuccess() {
+            }
+
+            @Override
+            public void onError(int code, String error) {
+
+            }
+
+            @Override
+            public void onProgress(int progress, String status) {
+
+            }
+        });
     }
 
     private void initMedia() {
