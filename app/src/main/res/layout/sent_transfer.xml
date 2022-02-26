@@ -30,8 +30,8 @@
 
         <RelativeLayout
             android:id="@+id/bubble"
-            android:layout_width="@dimen/dp_240"
-            android:layout_height="@dimen/dp_87"
+            android:layout_width="@dimen/dp_165"
+            android:layout_height="@dimen/dp_60"
             android:layout_marginRight="@dimen/dp_5"
             android:layout_toLeftOf="@id/iv_userhead"
             android:background="@mipmap/bg_bubble_transfer_sent">
@@ -41,13 +41,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_20"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="@dimen/dp_5"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:textColor="@color/white"
-                android:textSize="18dp"
+                android:textSize="13dp"
                 tools:text="转账金额" />
 
             <TextView
@@ -56,13 +56,13 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_transfer_received"
                 android:layout_marginLeft="@dimen/dp_20"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="4dp"
                 android:layout_marginRight="@dimen/dp_5"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:textColor="@color/white"
-                android:textSize="12dp"
+                android:textSize="10dp"
                 tools:text="转账给离夏惜柚" />
 
             <TextView
@@ -71,7 +71,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginRight="18dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginBottom="@dimen/hb_margin_bottom"
                 android:gravity="center"
                 android:paddingTop="3dp"

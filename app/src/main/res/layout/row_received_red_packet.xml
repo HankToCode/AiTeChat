@@ -30,8 +30,8 @@
 
         <RelativeLayout
             android:id="@+id/bubble"
-            android:layout_width="@dimen/dp_240"
-            android:layout_height="@dimen/dp_87"
+            android:layout_width="@dimen/dp_165"
+            android:layout_height="@dimen/dp_60"
             android:layout_below="@+id/tv_userid"
             android:layout_marginLeft="@dimen/dp_5"
             android:layout_toRightOf="@id/iv_userhead"
@@ -42,14 +42,14 @@
                 android:id="@+id/message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/dp_65"
-                android:layout_marginTop="20dp"
+                android:layout_marginLeft="@dimen/dp_45"
+                android:layout_marginTop="14dp"
                 android:layout_marginRight="@dimen/dp_5"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
                 android:maxLines="1"
                 android:textColor="@color/white"
-                android:textSize="18dp"
+                android:textSize="13dp"
                 tools:text="恭喜发财，大吉大利！" />
 
             <TextView
@@ -61,7 +61,7 @@
                 android:layout_marginTop="3dp"
                 android:text="给昵称的专属红包"
                 android:textColor="@color/white"
-                android:textSize="11dp" />
+                android:textSize="10dp" />
 
             <TextView
                 android:id="@+id/tv_hongbao"
@@ -95,7 +95,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
-                android:layout_marginRight="18dp"
+                android:layout_marginRight="10dp"
                 android:layout_marginBottom="@dimen/hb_margin_bottom"
                 android:gravity="center"
                 android:paddingTop="3dp"
