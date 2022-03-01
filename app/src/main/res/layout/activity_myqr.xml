@@ -71,8 +71,10 @@
                 android:layout_width="@dimen/dp_50"
                 android:layout_height="@dimen/dp_50"
                 android:layout_centerInParent="true"
-                android:layout_margin="20dp"
-                android:layout_marginTop="@dimen/dp_19"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
                 android:scaleType="fitXY"
                 android:src="@mipmap/ic_ng_avatar" />
 
