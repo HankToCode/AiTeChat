@@ -31,8 +31,8 @@
 
         <RelativeLayout
             android:id="@+id/bubble"
-            android:layout_width="@dimen/dp_165"
-            android:layout_height="@dimen/dp_60"
+            android:layout_width="@dimen/dp_190"
+            android:layout_height="@dimen/dp_72"
             android:layout_marginRight="@dimen/dp_5"
             android:layout_toLeftOf="@id/iv_userhead"
             android:background="@mipmap/bg_bubble_transfer_sent">

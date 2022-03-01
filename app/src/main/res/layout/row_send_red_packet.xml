@@ -32,7 +32,7 @@
         <RelativeLayout
             android:id="@+id/bubble"
             android:layout_width="@dimen/dp_190"
-            android:layout_height="@dimen/dp_60"
+            android:layout_height="@dimen/dp_72"
             android:layout_marginRight="@dimen/dp_5"
             android:layout_toLeftOf="@id/iv_userhead"
             android:background="@mipmap/bg_bubble_red_package_sent">
@@ -43,7 +43,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_marginStart="14dp"
                 android:textColor="@color/white"
-                android:layout_marginBottom="2dp"
+                android:layout_marginBottom="4dp"
                 android:textSize="10dp"
                 android:text="红包" />
 
