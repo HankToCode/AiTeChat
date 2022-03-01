@@ -85,8 +85,8 @@
 
         <RelativeLayout
             android:id="@+id/bubble_mask"
-            android:layout_width="@dimen/dp_240"
-            android:layout_height="@dimen/dp_87"
+            android:layout_width="@dimen/red_package_width"
+            android:layout_height="@dimen/red_package_height"
             android:layout_marginLeft="@dimen/dp_5"
             android:visibility="gone"
             android:layout_toRightOf="@id/iv_userhead"
