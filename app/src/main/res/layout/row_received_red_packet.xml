@@ -31,8 +31,8 @@
 
         <RelativeLayout
             android:id="@+id/bubble"
-            android:layout_width="@dimen/dp_190"
-            android:layout_height="@dimen/dp_72"
+            android:layout_width="@dimen/red_package_width"
+            android:layout_height="@dimen/red_package_height"
             android:layout_below="@+id/tv_userid"
             android:layout_marginLeft="@dimen/dp_5"
             android:layout_toRightOf="@id/iv_userhead"
@@ -54,7 +54,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_15"
-                android:layout_marginTop="14dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginRight="@dimen/dp_45"
                 android:ellipsize="end"
                 android:gravity="center_vertical"
