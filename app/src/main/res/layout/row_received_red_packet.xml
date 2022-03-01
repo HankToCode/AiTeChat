@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:gravity="center_horizontal"
     android:orientation="vertical"
-    android:paddingTop="@dimen/dp_4">
+    android:paddingTop="@dimen/dp_2">
 
     <TextView
         android:id="@+id/timestamp"
@@ -122,7 +122,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/dp_17"
             android:layout_toRightOf="@id/iv_userhead"
-            android:textSize="@dimen/sp_13"
+            android:textSize="@dimen/sp_10"
             android:visibility="gone"
             tools:text="婉婉" />
     </RelativeLayout>
