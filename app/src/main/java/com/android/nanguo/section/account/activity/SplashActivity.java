@@ -100,10 +100,10 @@ public class SplashActivity extends BaseInitActivity {
         alphaSplash();
 //        initMedia();
 
-        //三天前时间戳
-        long day3 = System.currentTimeMillis() - 86400000 * 3;
-        //删除三天前信息
-        DemoHelper.getInstance().getEMClient().chatManager().deleteMessagesBeforeTimestamp(day3, new EMCallBack() {
+        //两天前时间戳
+        long day2 = System.currentTimeMillis() - 86400000 * 2;
+        //删除两天前时间戳
+        DemoHelper.getInstance().getEMClient().chatManager().deleteMessagesBeforeTimestamp(day2, new EMCallBack() {
             @Override
             public void onSuccess() {
             }
