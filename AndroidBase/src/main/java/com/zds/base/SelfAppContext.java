@@ -56,10 +56,12 @@ public class SelfAppContext extends Application {
 
         OkHttpClient.Builder builder = new OkHttpClient.Builder();
         //log相关
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor("http");
-        loggingInterceptor.setPrintLevel(HttpLoggingInterceptor.Level.BODY);        //log打印级别，决定了log显示的详细程度
-        loggingInterceptor.setColorLevel(Level.INFO);                               //log颜色级别，决定了log在控制台显示的颜色
-         builder.addInterceptor(loggingInterceptor);
+        if (BuildConfig.DEBUG) {
+            HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor("http");
+            loggingInterceptor.setPrintLevel(HttpLoggingInterceptor.Level.BODY);        //log打印级别，决定了log显示的详细程度
+            loggingInterceptor.setColorLevel(Level.INFO);                               //log颜色级别，决定了log在控制台显示的颜色
+            builder.addInterceptor(loggingInterceptor);
+        }
         //builder.addInterceptor(new ChuckInterceptor(this));                       //第三方的开源库，使用通知显示当前请求的log
 
         //超时时间设置，默认60秒
