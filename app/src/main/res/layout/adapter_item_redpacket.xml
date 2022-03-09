@@ -75,12 +75,12 @@
 
             <TextView
                 android:id="@+id/tv_money"
-                android:layout_width="@dimen/dp_80"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"
-                android:ellipsize="end"
                 android:gravity="right"
                 android:maxLines="1"
+                android:minWidth="@dimen/dp_80"
                 android:text="0.00元"
                 android:textColor="@color/black_deep"
                 android:textSize="@dimen/sp_16" />
