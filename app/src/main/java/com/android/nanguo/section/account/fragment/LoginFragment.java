@@ -152,10 +152,10 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
         EaseEditTextUtils.clearEditTextListener(mEtLoginPwd);
         EaseEditTextUtils.clearEditTextListener(mEtLoginSms);
         //加载已登录数据
-        localFriendList = UserOperateManager.getInstance().getAccountList();
+//        localFriendList = UserOperateManager.getInstance().getAccountList();
     }
 
-    private List<EaseUser> localFriendList;
+//    private List<EaseUser> localFriendList;
 
     @Override
     protected void initViewModel() {
@@ -168,8 +168,8 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
                 public void onSuccess(EaseUser data) {
                     dismissLoading();
                     try {
-                        DemoHelper.getInstance().setAutoLogin(true);
-                        LoginInfo currentUser = UserComm.getUserInfo();
+                        DemoHelper.getInstance().setAutoLogin(true);//环信自动登录标志
+                        /*LoginInfo currentUser = UserComm.getUserInfo();
                         EaseUser user = new EaseUser();
                         user.setNickname(currentUser.getNickName());
                         user.setAvatar(currentUser.getUserHead());
@@ -187,8 +187,7 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
                             }
                         }
                         localFriendList.add(user);
-
-                        UserOperateManager.getInstance().saveLoginAccountToLocal(FastJsonUtil.toJSONString(localFriendList));
+                        UserOperateManager.getInstance().saveLoginAccountToLocal(FastJsonUtil.toJSONString(localFriendList));*/
                     } catch (Exception ignored) {
 
                     }
@@ -372,7 +371,7 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
                         PreferenceManager.getInstance().setParam(SP.SP_LANDED_ON_LOGIN, mUserName);
                         UserComm.saveUsersInfo(loginInfo);
                         DemoDbHelper.getInstance(mContext).initDb(mUserName);
-                        CommonApi.upUserInfo(mContext);
+//                        CommonApi.upUserInfo(mContext);//更新用户信息
                     }
                 }
             }
