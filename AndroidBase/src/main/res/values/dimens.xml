@@ -24,7 +24,7 @@
     <dimen name="cal_date_width">45dp</dimen>
     <dimen name="cal_date_height">45dp</dimen>
 
-    <dimen name="red_package_width">265dp</dimen>
+    <dimen name="red_package_width">245dp</dimen>
     <dimen name="red_package_height">90dp</dimen>
 
 
