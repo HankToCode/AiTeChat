@@ -38,16 +38,6 @@
             android:background="@mipmap/bg_bubble_red_package_sent">
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginStart="14dp"
-                android:layout_marginBottom="4dp"
-                android:text="红包"
-                android:textColor="@color/white"
-                android:textSize="12dp" />
-
-            <TextView
                 android:id="@+id/message"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -112,19 +102,36 @@
                 android:src="@drawable/ease_msg_state_failed_resend"
                 android:visibility="gone" />
 
-            <TextView
-                android:id="@+id/tv_time"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
                 android:layout_alignParentBottom="true"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="@dimen/hb_margin_bottom"
-                android:gravity="center"
-                android:paddingTop="3dp"
-                android:text="12:12:12"
-                android:textColor="@color/white"
-                android:textSize="10sp" />
+                android:layout_marginEnd="4.7dp"
+                android:background="@drawable/bg_red_package_bottom_bg">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="@dimen/dp_10"
+                    android:text="红包"
+                    android:textColor="@color/color_666666"
+                    android:textSize="10dp" />
+
+                <TextView
+                    android:id="@+id/tv_time"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginBottom="@dimen/hb_margin_bottom"
+                    android:gravity="center"
+                    android:text="12:12:12"
+                    android:textColor="@color/color_666666"
+                    android:textSize="10sp" />
+            </RelativeLayout>
 
         </RelativeLayout>
 
