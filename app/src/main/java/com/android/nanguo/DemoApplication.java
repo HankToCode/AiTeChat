@@ -8,9 +8,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatDelegate;
 import androidx.multidex.MultiDex;
 
+import com.android.nanguo.app.base.AppBlockCanaryContext;
 import com.baidu.mapapi.cloud.VersionInfo;
 import com.android.nanguo.R;
 import com.android.nanguo.common.utils.CretinAutoUpdateUtils;
+import com.github.moduth.blockcanary.BlockCanary;
+import com.squareup.leakcanary.LeakCanary;
 import com.zds.base.SelfAppContext;
 import com.android.nanguo.app.api.Constant;
 import com.android.nanguo.app.api.global.UserComm;
@@ -44,6 +47,10 @@ public class DemoApplication extends SelfAppContext implements Thread.UncaughtEx
     @Override
     public void onCreate() {
         super.onCreate();
+
+//        LeakCanary.install(this);
+//        BlockCanary.install(this, new AppBlockCanaryContext()).start();
+
         instance = this;
         initThrowableHandler();
 

@@ -59,8 +59,6 @@ public class SplashActivity extends BaseInitActivity {
     private UserProtocolDialog mUserProtocolDialog;
     private CommonConfirmDialog mCommonConfirmDialog;
 
-    private LottieAnimationView mAnim;
-
     @Override
     protected int getLayoutId() {
         return R.layout.activity_splash;
@@ -77,7 +75,6 @@ public class SplashActivity extends BaseInitActivity {
         super.initView(savedInstanceState);
         ivSplash = findViewById(R.id.iv_splash);
         tvProduct = findViewById(R.id.tv_product);
-        mAnim = findViewById(R.id.anim);
     }
 
     @Override
@@ -100,7 +97,7 @@ public class SplashActivity extends BaseInitActivity {
         alphaSplash();
 //        initMedia();
 
-        //一天前时间戳
+        /*//一天前时间戳
         long day1 = System.currentTimeMillis() - 86400000 * 1;
         //删除一天前时间戳
         DemoHelper.getInstance().getEMClient().chatManager().deleteMessagesBeforeTimestamp(day1, new EMCallBack() {
@@ -117,15 +114,17 @@ public class SplashActivity extends BaseInitActivity {
             public void onProgress(int progress, String status) {
 
             }
-        });
+        });*/
     }
 
     private void initMedia() {
         SoundMediaPlayer.getInstance().loadPlaySoundEffects(R.raw.qzh);
     }
 
+    private Animation alphaAnimation;
+
     private void alphaSplash() {
-        Animation alphaAnimation = AnimationUtils.loadAnimation(this,
+        alphaAnimation = AnimationUtils.loadAnimation(this,
                 R.anim.splash_alpha_in);
         alphaAnimation.setFillEnabled(true);//启动Fill保持
         alphaAnimation.setFillAfter(true);//设置动画的最后一帧是保留在view上的
@@ -337,5 +336,14 @@ public class SplashActivity extends BaseInitActivity {
             });
 
         });
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (alphaAnimation != null) {
+            alphaAnimation.cancel();
+            alphaAnimation = null;
+        }
+        super.onDestroy();
     }
 }

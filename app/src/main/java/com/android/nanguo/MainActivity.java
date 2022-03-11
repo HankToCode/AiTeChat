@@ -145,7 +145,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
         checkIfShowSavedFragment(savedInstanceState);
         addTabBadge();
 
-        //一天前时间戳
+        /*//一天前时间戳
         long day1 = System.currentTimeMillis() - 86400000 * 1;
         //删除一天前时间戳
         DemoHelper.getInstance().getEMClient().chatManager().deleteMessagesBeforeTimestamp(day1, new EMCallBack() {
@@ -162,7 +162,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
             public void onProgress(int progress, String status) {
 
             }
-        });
+        });*/
     }
 
     @Override

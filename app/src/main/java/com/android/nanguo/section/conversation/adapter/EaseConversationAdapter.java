@@ -94,11 +94,9 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+        ViewHolder holder;
         if (convertView == null) {
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.ease_row_chat_history, parent, false);
-        }
-        ViewHolder holder = (ViewHolder) convertView.getTag();
-        if (holder == null) {
             holder = new ViewHolder();
             holder.name = (TextView) convertView.findViewById(R.id.name);
             holder.iv_aite_guanfang = (SuperTextView) convertView.findViewById(R.id.iv_aite_guanfang);
@@ -116,14 +114,17 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             holder.deleteLayout = convertView.findViewById(R.id.delete_layout);
             holder.swipeRevealLayout = convertView.findViewById(R.id.swipe_layout);
             convertView.setTag(holder);
+        } else {
+            holder = (ViewHolder) convertView.getTag();
         }
+
         holder.swipeRevealLayout.setLockDrag(!isDrag);
 
         View finalConvertView = convertView;
 
         holder.list_itease_layout.setOnClickListener(v -> {
             ListView listView = (ListView) parent;
-            if(onItemClickListenerCopy != null){
+            if (onItemClickListenerCopy != null) {
                 onItemClickListenerCopy.onItemClick(listView, finalConvertView, position, position);
             }
         });
@@ -169,15 +170,14 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
         holder.iv_aite_guanfang.setVisibility(View.GONE);
 
         if (conversation.getType() == EMConversationType.GroupChat) {
-            String groupId = conversationId;
             if (EaseAtMessageHelper.get().hasAtMeMsg(conversationId)) {
                 holder.motioned.setVisibility(View.VISIBLE);
             } else {
                 holder.motioned.setVisibility(View.GONE);
             }
             // group message, show group avatar
-            EMGroup group1 = EMClient.getInstance().groupManager().getGroup(groupId);
-            GroupInfo group = GroupOperateManager.getInstance().getGroupInfo(groupId);
+//            EMGroup group1 = EMClient.getInstance().groupManager().getGroup(conversationId);
+            GroupInfo group = GroupOperateManager.getInstance().getGroupInfo(conversationId);
             String groupHead = "";
             /*if (conversation.getLastMessage() != null) {
                 EMMessage emMessage = conversation.getLastMessage();
@@ -188,17 +188,17 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                 }
             }*/
             if (TextUtils.isEmpty(groupHead)) {
-                groupHead = GroupOperateManager.getInstance().getGroupAvatar(groupId);
+                groupHead = GroupOperateManager.getInstance().getGroupAvatar(conversationId);
             }
 
             String imgUrl = ImageUtil.checkimg(groupHead);
 //            Log.e("LEOLEO", "头像地址："+imgUrl);
             GlideUtils.loadImageViewLoding(imgUrl, holder.avatar, R.mipmap.ic_ng_avatar);
-            holder.name.setText(group != null ? group.getGroupName() : (group1 != null ? group1.getGroupName() : "异常昵称"));
+            holder.name.setText(group != null ? group.getGroupName() : "异常昵称");
 
         } else {
 
-            if (conversation != null && conversation.getLastMessage() != null && conversation.getLastMessage().ext() != null) {
+            if (conversation.getLastMessage() != null && conversation.getLastMessage().ext() != null) {
                 String json = FastJsonUtil.toJSONString(conversation.getLastMessage().ext());
 
                 String msgType = FastJsonUtil.getString(json, "msgType");
@@ -338,7 +338,7 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
                 }
             }
 
-            if (username.equals(Constant.WALLET)) {
+            if (username != null && username.equals(Constant.WALLET)) {
                 holder.message.setText(ProjectUtil.getWalletMessageTips(type, status));
             }
 
