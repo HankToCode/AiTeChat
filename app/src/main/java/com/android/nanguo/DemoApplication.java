@@ -14,6 +14,7 @@ import com.android.nanguo.R;
 import com.android.nanguo.common.utils.CretinAutoUpdateUtils;
 import com.github.moduth.blockcanary.BlockCanary;
 import com.squareup.leakcanary.LeakCanary;
+import com.squareup.leakcanary.RefWatcher;
 import com.zds.base.SelfAppContext;
 import com.android.nanguo.app.api.Constant;
 import com.android.nanguo.app.api.global.UserComm;
@@ -44,12 +45,15 @@ public class DemoApplication extends SelfAppContext implements Thread.UncaughtEx
     private static DemoApplication instance;
     private UserActivityLifecycleCallbacks mLifecycleCallbacks = new UserActivityLifecycleCallbacks();
     public String aesStatus = "";
+
+    private RefWatcher refWatcher;
+
     @Override
     public void onCreate() {
         super.onCreate();
 
-//        LeakCanary.install(this);
-//        BlockCanary.install(this, new AppBlockCanaryContext()).start();
+        refWatcher = LeakCanary.install(this);
+        BlockCanary.install(this, new AppBlockCanaryContext()).start();
 
         instance = this;
         initThrowableHandler();
@@ -61,6 +65,11 @@ public class DemoApplication extends SelfAppContext implements Thread.UncaughtEx
         closeAndroidPDialog();
 
         HttpUtils.handleSSLHandshake();
+    }
+
+    public static RefWatcher getRefWatcher(Context context) {
+        DemoApplication application = (DemoApplication) context.getApplicationContext();
+        return application.refWatcher;
     }
 
     private void initApp() {
@@ -105,6 +114,7 @@ public class DemoApplication extends SelfAppContext implements Thread.UncaughtEx
         DemoHelper.getInstance().init(this);
 
     }
+
     private IWXAPI mIWXAPI;
 
     public IWXAPI registerWx() {
@@ -153,7 +163,7 @@ public class DemoApplication extends SelfAppContext implements Thread.UncaughtEx
      * 为了兼容5.0以下使用vector图标
      */
     static {
-        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
             AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         }
     }
@@ -168,8 +178,8 @@ public class DemoApplication extends SelfAppContext implements Thread.UncaughtEx
      * 解决androidP 第一次打开程序出现莫名弹窗
      * 弹窗内容“detected problems with api ”
      */
-    private void closeAndroidPDialog(){
-        if(Build.VERSION.SDK_INT == Build.VERSION_CODES.P) {
+    private void closeAndroidPDialog() {
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.P) {
             try {
                 Class aClass = Class.forName("android.content.pm.PackageParser$Package");
                 Constructor declaredConstructor = aClass.getDeclaredConstructor(String.class);

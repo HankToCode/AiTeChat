@@ -178,8 +178,6 @@ public class BaseConversationListFragment extends BaseInitFragment {
         if (!handler.hasMessages(MSG_REFRESH)) {
             handler.sendEmptyMessage(MSG_REFRESH);
         }
-
-        refreshApplyLayout();
     }
 
     public void refreshApplyLayout() {
@@ -387,6 +385,7 @@ public class BaseConversationListFragment extends BaseInitFragment {
         if (!hidden) {
             refresh();
         }
+        refreshApplyLayout();
     }
 
     @Override
