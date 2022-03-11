@@ -20,6 +20,7 @@ import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.android.nanguo.section.conversation.BaseConversationListFragment;
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;
@@ -37,6 +38,7 @@ import com.android.nanguo.app.weight.ease.EaseContactList;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.json.FastJsonUtil;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -209,8 +211,7 @@ public class EaseContactListFragment extends BaseInitFragment {
                     public void onSuccess(String json, String msg) {
                         ContactListInfo info = FastJsonUtil.getObject(json,
                                 ContactListInfo.class);
-                        List<ContactListInfo.DataBean> mContactList = new ArrayList<>();
-                        mContactList.addAll(info.getData());
+                        List<ContactListInfo.DataBean> mContactList = new ArrayList<>(info.getData());
                         tv_number.setText(mContactList.size() + "个朋友及联系人");
                         if (mContactList.size() > 0) {
                             UserOperateManager.getInstance().saveContactListToLocal(info, json);
@@ -280,35 +281,36 @@ public class EaseContactListFragment extends BaseInitFragment {
         contactListLayout.refresh();
     }
 
+    private static class EaseContactListListener implements EMConnectionListener {
+
+        private final WeakReference<EaseContactListFragment> weakReference;
+
+        public EaseContactListListener(EaseContactListFragment fragment) {
+            weakReference = new WeakReference<>(fragment);
+        }
+
+        @Override
+        public void onDisconnected(int error) {
+            if (weakReference.get() == null) return;
+            EaseContactListFragment fragment = weakReference.get();
+            if (error == EMError.USER_REMOVED || error == EMError.USER_LOGIN_ANOTHER_DEVICE || error == EMError.SERVER_SERVICE_RESTRICTED) {
+                fragment.isConflict = true;
+            } else {
+                fragment.requireActivity().runOnUiThread(() -> fragment.onConnectionDisconnected());
+            }
+        }
+
+        @Override
+        public void onConnected() {
+            if (weakReference.get() == null) return;
+            EaseContactListFragment fragment = weakReference.get();
+            fragment.requireActivity().runOnUiThread(fragment::onConnectionConnected);
+        }
+    }
+
     protected EMConnectionListener connectionListener =
-            new EMConnectionListener() {
+            new EaseContactListListener(this);
 
-                @Override
-                public void onDisconnected(int error) {
-                    if (error == EMError.USER_REMOVED || error == EMError.USER_LOGIN_ANOTHER_DEVICE || error == EMError.SERVER_SERVICE_RESTRICTED) {
-                        isConflict = true;
-                    } else {
-                        getActivity().runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                onConnectionDisconnected();
-                            }
-
-                        });
-                    }
-                }
-
-                @Override
-                public void onConnected() {
-                    getActivity().runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            onConnectionConnected();
-                        }
-
-                    });
-                }
-            };
     private EaseContactListItemClickListener listItemClickListener;
 
 
