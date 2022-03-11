@@ -77,9 +77,6 @@ public class BaseActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         mContext = this;
 
-        RefWatcher refWatcher = DemoApplication.getRefWatcher(this);
-        refWatcher.watch(this);
-
         clearFragmentsBeforeCreate();
         registerAccountObservable();
 

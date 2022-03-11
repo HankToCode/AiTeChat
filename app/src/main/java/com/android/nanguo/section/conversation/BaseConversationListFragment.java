@@ -12,7 +12,9 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
+import com.android.nanguo.DemoApplication;
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;
@@ -31,6 +33,7 @@ import com.android.nanguo.app.base.BaseInitFragment;
 import com.android.nanguo.app.operate.GroupOperateManager;
 import com.android.nanguo.app.operate.UserOperateManager;
 import com.android.nanguo.common.db.DemoDbHelper;
+import com.squareup.leakcanary.RefWatcher;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.json.FastJsonUtil;
 import com.android.nanguo.app.weight.ease.EaseConversationList;

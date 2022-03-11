@@ -97,7 +97,7 @@ public class SplashActivity extends BaseInitActivity {
         alphaSplash();
 //        initMedia();
 
-        /*//一天前时间戳
+        //一天前时间戳
         long day1 = System.currentTimeMillis() - 86400000 * 1;
         //删除一天前时间戳
         DemoHelper.getInstance().getEMClient().chatManager().deleteMessagesBeforeTimestamp(day1, new EMCallBack() {
@@ -114,7 +114,7 @@ public class SplashActivity extends BaseInitActivity {
             public void onProgress(int progress, String status) {
 
             }
-        });*/
+        });
     }
 
     private void initMedia() {
