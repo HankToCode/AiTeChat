@@ -11,6 +11,10 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.android.nanguo.DemoApplication;
 import com.hyphenate.EMConnectionListener;
 import com.hyphenate.EMError;
 import com.hyphenate.chat.EMClient;
@@ -29,12 +33,14 @@ import com.android.nanguo.app.base.BaseInitFragment;
 import com.android.nanguo.app.operate.GroupOperateManager;
 import com.android.nanguo.app.operate.UserOperateManager;
 import com.android.nanguo.common.db.DemoDbHelper;
+import com.squareup.leakcanary.RefWatcher;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.json.FastJsonUtil;
 import com.android.nanguo.app.weight.ease.EaseConversationList;
 
 import org.greenrobot.eventbus.EventBus;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
@@ -51,7 +57,7 @@ import java.util.Map;
 public class BaseConversationListFragment extends BaseInitFragment {
     private final static int MSG_REFRESH = 2;
     protected boolean hidden;
-    protected List<EMConversation> conversationList = new ArrayList<EMConversation>();
+    protected List<EMConversation> conversationList = new ArrayList<>();
     protected EaseConversationList conversationListView;
 
     protected boolean isConflict;
@@ -75,8 +81,8 @@ public class BaseConversationListFragment extends BaseInitFragment {
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
 
-        inputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        conversationListView = (EaseConversationList) getView().findViewById(R.id.list);
+        inputMethodManager = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        conversationListView = requireView().findViewById(R.id.list);
 
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -88,13 +94,9 @@ public class BaseConversationListFragment extends BaseInitFragment {
         }, 1000);
 
         if (listItemClickListener != null) {
-            conversationListView.setOnItemClickListener(new OnItemClickListener() {
-
-                @Override
-                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    EMConversation conversation = conversationListView.getItem(position);
-                    listItemClickListener.onListItemClicked(conversation);
-                }
+            conversationListView.setOnItemClickListener((parent, view, position, id) -> {
+                EMConversation conversation = conversationListView.getItem(position);
+                listItemClickListener.onListItemClicked(conversation);
             });
         }
 
@@ -107,44 +109,66 @@ public class BaseConversationListFragment extends BaseInitFragment {
         super.initListener();
     }
 
-    protected EMConnectionListener connectionListener = new EMConnectionListener() {
+    private static class BaseConversationEMConnectionListener implements EMConnectionListener {
+
+        private final WeakReference<BaseConversationListFragment> weakReference;
+
+        public BaseConversationEMConnectionListener(BaseConversationListFragment fragment) {
+            weakReference = new WeakReference<>(fragment);
+        }
 
         @Override
         public void onDisconnected(int error) {
+            if (weakReference.get() == null) return;
+            BaseConversationListFragment fragment = weakReference.get();
             if (error == EMError.USER_REMOVED || error == EMError.USER_LOGIN_ANOTHER_DEVICE || error == EMError.SERVER_SERVICE_RESTRICTED
                     || error == EMError.USER_KICKED_BY_CHANGE_PASSWORD || error == EMError.USER_KICKED_BY_OTHER_DEVICE) {
-                isConflict = true;
+                fragment.isConflict = true;
             } else {
-                handler.sendEmptyMessage(0);
+                fragment.handler.sendEmptyMessage(0);
             }
         }
 
         @Override
         public void onConnected() {
-            handler.sendEmptyMessage(1);
+            if (weakReference.get() == null) return;
+            BaseConversationListFragment fragment = weakReference.get();
+            fragment.handler.sendEmptyMessage(1);
         }
-    };
+    }
+
+    protected EMConnectionListener connectionListener = new BaseConversationEMConnectionListener(this);
     private EaseConversationListItemClickListener listItemClickListener;
 
-    protected Handler handler = new Handler() {
+    private static class BaseConversationHandler extends Handler {
+
+        private final WeakReference<BaseConversationListFragment> weakReference;
+
+        public BaseConversationHandler(BaseConversationListFragment fragment) {
+            weakReference = new WeakReference<>(fragment);
+        }
+
         @Override
-        public void handleMessage(Message msg) {
+        public void handleMessage(@NonNull Message msg) {
+            super.handleMessage(msg);
+            if (weakReference.get() == null) return;
+            BaseConversationListFragment fragment = weakReference.get();
             switch (msg.what) {
                 case 0:
-                    onConnectionDisconnected();
+                    fragment.onConnectionDisconnected();
                     break;
                 case 1:
-                    onConnectionConnected();
+                    fragment.onConnectionConnected();
                     break;
 
                 case MSG_REFRESH: {
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-                            conversationList.clear();
-                            conversationList.addAll(loadConversationList());
+                            fragment.conversationList.clear();
+                            fragment.conversationList.addAll(fragment.loadConversationList());
 //                            conversationListView.init(conversationList);
-                            conversationListView.refresh();
+                            fragment.conversationListView.refresh();
                             EventBus.getDefault().post(new EventCenter<>(EventUtil.UNREADCOUNT));
                         }
                     }, 1000);
@@ -155,7 +179,9 @@ public class BaseConversationListFragment extends BaseInitFragment {
                     break;
             }
         }
-    };
+    }
+
+    protected Handler handler = new BaseConversationHandler(this);
 
     /**
      * connected to server
@@ -178,8 +204,6 @@ public class BaseConversationListFragment extends BaseInitFragment {
         if (!handler.hasMessages(MSG_REFRESH)) {
             handler.sendEmptyMessage(MSG_REFRESH);
         }
-
-        refreshApplyLayout();
     }
 
     public void refreshApplyLayout() {
@@ -202,7 +226,7 @@ public class BaseConversationListFragment extends BaseInitFragment {
 
         //添加置顶消息
         List<Pair<Long, EMConversation>> topList = new ArrayList<Pair<Long, EMConversation>>();
-        synchronized (conversations) {
+        synchronized (Collections.unmodifiableMap(conversations)) {
             List<Pair<Long, EMConversation>> duTopList = new ArrayList<Pair<Long, EMConversation>>();
 
             for (EMConversation conversation : conversations.values()) {
@@ -234,7 +258,7 @@ public class BaseConversationListFragment extends BaseInitFragment {
          * lastMsgTime will change if there is new message during sorting
          * so use synchronized to make sure timestamp of last message won't change.
          */
-        synchronized (conversations) {
+        synchronized (Collections.unmodifiableMap(conversations)) {
 
 //            List<String> localUsers = getLocalUsers();
             for (EMConversation conversation : conversations.values()) {
@@ -280,9 +304,9 @@ public class BaseConversationListFragment extends BaseInitFragment {
             list.add(sortItem.second);
         }
 
-        Iterator it = list.iterator();
+        Iterator<EMConversation> it = list.iterator();
         while (it.hasNext()) {
-            EMConversation c = (EMConversation) it.next();
+            EMConversation c = it.next();
             String json = FastJsonUtil.toJSONString(c.getLastMessage().ext());
 
             if (json.contains("msgType") && "deleteuser".equals(FastJsonUtil.getString(json, "msgType"))) {
@@ -387,6 +411,7 @@ public class BaseConversationListFragment extends BaseInitFragment {
         if (!hidden) {
             refresh();
         }
+        refreshApplyLayout();
     }
 
     @Override
@@ -396,7 +421,7 @@ public class BaseConversationListFragment extends BaseInitFragment {
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         if (isConflict) {
             outState.putBoolean("isConflict", true);

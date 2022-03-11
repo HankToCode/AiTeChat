@@ -178,10 +178,15 @@ public class CretinAutoUpdateUtils {
      */
     public void destroy() {
         //不要忘了这一步
-        if (mContext != null && intent != null)
-            mContext.stopService(intent);
-        if (mContext != null && receiver != null)
-            mContext.unregisterReceiver(receiver);
+        try {
+            if (mContext != null && intent != null)
+                mContext.stopService(intent);
+            if (mContext != null && receiver != null)
+                mContext.unregisterReceiver(receiver);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void initUp() {
@@ -210,7 +215,7 @@ public class CretinAutoUpdateUtils {
                         up(updateEntity);
                     }
                 }*/
-                UpdateEntity updateEntity =FastJsonUtil.getObject(json, UpdateEntity.class);
+                UpdateEntity updateEntity = FastJsonUtil.getObject(json, UpdateEntity.class);
                 up(updateEntity);
             }
 

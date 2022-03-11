@@ -36,7 +36,6 @@
         android:layout_gravity="bottom|center"
         android:layout_marginBottom="80dp"
         android:gravity="center_vertical"
-        android:letterSpacing="0.2"
         android:orientation="vertical">
 
         <TextView
@@ -48,7 +47,6 @@
             android:layout_marginRight="@dimen/dp_42"
             android:background="@drawable/shap_blue_btnbg"
             android:gravity="center"
-            android:letterSpacing="0.2"
             android:text="注册"
             android:textColor="@color/white"
             android:textSize="@dimen/em_size_big"
@@ -64,22 +62,10 @@
             android:layout_marginRight="@dimen/dp_42"
             android:background="@drawable/shap_white"
             android:gravity="center"
-            android:letterSpacing="0.2"
             android:text="登录"
             android:textColor="@color/black"
             android:textSize="@dimen/em_size_big"
             android:visibility="gone" />
     </LinearLayout>
-
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:id="@+id/anim"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        app:lottie_autoPlay="false"
-        app:lottie_loop="false"
-        app:lottie_rawRes="@raw/data"
-        tools:visibility="gone" />
 
 </FrameLayout>
