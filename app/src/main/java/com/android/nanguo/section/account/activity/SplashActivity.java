@@ -322,6 +322,7 @@ public class SplashActivity extends BaseInitActivity {
             parseResource(response, new OnResourceParseCallback<Boolean>(true) {
                 @Override
                 public void onSuccess(Boolean data) {
+                    EMClient.getInstance().chatManager().getAllConversations();
                     MainActivity.actionStart(mContext);
                     finish();
                 }
