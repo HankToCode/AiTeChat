@@ -46,14 +46,14 @@ public class DemoApplication extends SelfAppContext implements Thread.UncaughtEx
     private UserActivityLifecycleCallbacks mLifecycleCallbacks = new UserActivityLifecycleCallbacks();
     public String aesStatus = "";
 
-    private RefWatcher refWatcher;
+//    private RefWatcher refWatcher;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        refWatcher = LeakCanary.install(this);
-        BlockCanary.install(this, new AppBlockCanaryContext()).start();
+//        refWatcher = LeakCanary.install(this);
+//        BlockCanary.install(this, new AppBlockCanaryContext()).start();
 
         instance = this;
         initThrowableHandler();
@@ -67,10 +67,10 @@ public class DemoApplication extends SelfAppContext implements Thread.UncaughtEx
         HttpUtils.handleSSLHandshake();
     }
 
-    public static RefWatcher getRefWatcher(Context context) {
-        DemoApplication application = (DemoApplication) context.getApplicationContext();
-        return application.refWatcher;
-    }
+//    public static RefWatcher getRefWatcher(Context context) {
+//        DemoApplication application = (DemoApplication) context.getApplicationContext();
+//        return application.refWatcher;
+//    }
 
     private void initApp() {
         MyHelper.getInstance().init(getApplicationContext());

@@ -265,13 +265,11 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
         Map<String, Object> map = new HashMap<>();
         map.put("groupId", groupId);
         ApiClient.requestNetHandle(MyGroupDetailActivity.this,
-                AppConfig.GET_GROUP_INFO, "", map, new ResultListener() {
+                AppConfig.GET_GROUP_INFO, "加载中...", map, new ResultListener() {
                     @Override
                     public void onSuccess(String json, String msg) {
                         if (json != null && json.length() > 0) {
-                            info = FastJsonUtil.getObject(json,
-                                    GroupDetailInfo.class);
-
+                            info = FastJsonUtil.getObject(json, GroupDetailInfo.class);
                             GroupOperateManager.getInstance().saveGroupDetailToLocal(emChatId, info, json);
                             setGroupDetail();
                         }
@@ -364,7 +362,10 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
         tv_transfer_group.setVisibility(2 == info.getGroupUserRank() ? View.VISIBLE : View.GONE);
 //        rl_container_group_single_member_jinyan.setVisibility(0 == info.getGroupUserRank() ? View.GONE : View.VISIBLE);
 
-        int showSize = 19;
+        tv_user_total.setText("查看" + info.getGroupUsers() + "名群成员");
+        tv_user_total1.setText("查看" + info.getGroupUsers() + "名群成员");
+        tv_group_notice.setText(StringUtil.isEmpty(info.getGroupNotice()) ? "暂无群公告" : info.getGroupNotice());
+        /*int showSize = 19;
         if (info.getGroupUserDetailVoList().size() > 0) {
 //            mTvTotal.setText("共" + info.getGroupUsers() + "人");
             mDetailVoListBeanList.clear();
@@ -377,10 +378,6 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
                     mDetailVoListBeanList.add(info.getGroupUserDetailVoList().get(i));
                 }
             }
-
-            tv_user_total.setText("查看" + info.getGroupUsers() + "名群成员");
-            tv_user_total1.setText("查看" + info.getGroupUsers() + "名群成员");
-
 
             GroupDetailInfo.GroupUserDetailVoListBean bean =
                     new GroupDetailInfo.GroupUserDetailVoListBean();
@@ -404,10 +401,8 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
                 delBean.setUserNickName(info.getGroupUserNickName());
                 mDetailVoListBeanList.add(delBean);
             }
-
-            tv_group_notice.setText(StringUtil.isEmpty(info.getGroupNotice()) ? "暂无群公告" : info.getGroupNotice());
 //            mRoomDeatilAdapter.notifyDataSetChanged();
-        }
+        }*/
         setSWitchReadPermission();
         setMuteSwitch();
 
