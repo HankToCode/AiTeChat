@@ -22,6 +22,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
+import com.android.nanguo.section.chat.fragment.BaseChatFragment;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
@@ -47,6 +48,7 @@ import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.android.nanguo.common.manager.OptionsHelper;
 import com.zds.base.util.NumberUtils;
 
+import java.lang.ref.WeakReference;
 import java.util.List;
 
 /**
@@ -129,17 +131,27 @@ public class EaseMessageAdapter extends BaseAdapter {
         return messages;
     }
 
-    Handler handler = new Handler() {
+    private static class MyHandler extends Handler {
+        private final WeakReference<EaseMessageAdapter> weakReference;
+
+        public MyHandler(EaseMessageAdapter adapter) {
+            weakReference = new WeakReference<>(adapter);
+        }
+
         private void refreshList(int position) {
             // you should not call getAllMessages() in UI thread
             // otherwise there is problem when refreshing UI and there is new message arrive
-            List<EMMessage> var = conversation.getAllMessages();
-            conversation.markAllMessagesAsRead();
-            messages = var.toArray(new EMMessage[var.size()]);
 
-            notifyDataSetChanged();
+            if (weakReference.get() == null) return;
+            EaseMessageAdapter easeMessageAdapter = weakReference.get();
+
+            List<EMMessage> var = easeMessageAdapter.conversation.getAllMessages();
+            easeMessageAdapter.conversation.markAllMessagesAsRead();
+            easeMessageAdapter.messages = var.toArray(new EMMessage[var.size()]);
+
+            easeMessageAdapter.notifyDataSetChanged();
             if (position >= 0) {
-                listView.setSelection(position);
+                easeMessageAdapter.listView.setSelection(position);
             }
 
             /*Observable.just(messages).map(new Function<EMMessage[], EMMessage[]>() {
@@ -160,6 +172,9 @@ public class EaseMessageAdapter extends BaseAdapter {
 
         @Override
         public void handleMessage(android.os.Message message) {
+            if (weakReference.get() == null) return;
+            EaseMessageAdapter easeMessageAdapter = weakReference.get();
+
             switch (message.what) {
                 case HANDLER_MESSAGE_REFRESH_LIST:
                     if (message.obj != null && NumberUtils.parseInt(message.obj.toString()) > 0) {
@@ -170,22 +185,25 @@ public class EaseMessageAdapter extends BaseAdapter {
 
                     break;
                 case HANDLER_MESSAGE_SELECT_LAST:
-                    if (messages != null && messages.length > 0) {
-                        if (isCanShowLast) {
-                            listView.setSelection(messages.length - 1);
+                    if (easeMessageAdapter.messages != null && easeMessageAdapter.messages.length > 0) {
+                        if (easeMessageAdapter.isCanShowLast) {
+                            easeMessageAdapter.listView.setSelection(easeMessageAdapter.messages.length - 1);
                         }
 
                     }
                     break;
                 case HANDLER_MESSAGE_SEEK_TO:
                     int position = message.arg1;
-                    listView.setSelection(position);
+                    easeMessageAdapter.listView.setSelection(position);
                     break;
                 default:
                     break;
             }
         }
-    };
+
+    }
+
+    Handler handler = new MyHandler(this);
 
     public void setCanShowLast(boolean canShowLast) {
         isCanShowLast = canShowLast;

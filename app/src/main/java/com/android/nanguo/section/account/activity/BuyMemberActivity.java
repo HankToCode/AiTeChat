@@ -373,19 +373,14 @@ public class BuyMemberActivity extends BaseInitActivity {
                     }
                 });
     }
-    Handler waitHandler = new Handler();
     private void waiting() {
         showLoading("购买确认中");
-        waitHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //要执行的操作
-                ToastUtils.showToast("购买成功");
-                CommonApi.upUserInfo(DemoApplication.getInstance().getApplicationContext());
-                dismissLoading();
-                finish();
-            }
-
+        new Handler().postDelayed(() -> {
+            //要执行的操作
+            ToastUtils.showToast("购买成功");
+            CommonApi.upUserInfo(DemoApplication.getInstance().getApplicationContext());
+            dismissLoading();
+            finish();
         }, 3000);//3秒
     }
 

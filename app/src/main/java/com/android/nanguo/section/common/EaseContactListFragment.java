@@ -14,16 +14,11 @@
 package com.android.nanguo.section.common;
 
 import android.os.Bundle;
-import android.os.Handler;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.android.nanguo.section.conversation.BaseConversationListFragment;
-import com.hyphenate.EMConnectionListener;
-import com.hyphenate.EMError;
-import com.hyphenate.chat.EMClient;
 import com.android.nanguo.R;
 import com.android.nanguo.app.api.global.EventUtil;
 import com.android.nanguo.app.api.old_data.ContactListInfo;
@@ -35,6 +30,9 @@ import com.android.nanguo.app.base.BaseInitFragment;
 import com.android.nanguo.app.domain.EaseUser;
 import com.android.nanguo.app.operate.UserOperateManager;
 import com.android.nanguo.app.weight.ease.EaseContactList;
+import com.hyphenate.EMConnectionListener;
+import com.hyphenate.EMError;
+import com.hyphenate.chat.EMClient;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.json.FastJsonUtil;
 
@@ -55,7 +53,6 @@ public class EaseContactListFragment extends BaseInitFragment {
     protected ListView listView;
     protected boolean hidden;
     protected EditText query;
-    protected Handler handler = new Handler();
     protected EaseUser toBeProcessUser;
     protected String toBeProcessUsername;
     protected EaseContactList contactListLayout;

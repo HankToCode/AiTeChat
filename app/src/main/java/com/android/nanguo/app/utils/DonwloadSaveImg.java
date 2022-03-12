@@ -13,11 +13,16 @@ import android.text.TextUtils;
 import android.util.Log;
 
 
+import androidx.annotation.NonNull;
+
+import com.android.nanguo.app.alipay.MyALipayUtils;
+
 import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.ref.WeakReference;
 import java.net.URL;
 import java.util.UUID;
 
@@ -58,7 +63,7 @@ public class DonwloadSaveImg {
                     mBitmap = BitmapFactory.decodeStream(inputStream);
                     inputStream.close();
                 }
-                newImagePath = saveFile(mBitmap,context);
+                newImagePath = saveFile(mBitmap, context);
                 mSaveMessage = "图片保存成功！";
             } catch (IOException e) {
                 mSaveMessage = "图片保存失败！";
@@ -70,9 +75,11 @@ public class DonwloadSaveImg {
         }
     };
 
-    private static Handler messageHandler = new Handler() {
+
+    private static class MyHandler extends Handler {
+
         @Override
-        public void handleMessage(Message msg) {
+        public void handleMessage(@NonNull Message msg) {
             mSaveDialog.dismiss();
             Log.d(TAG, mSaveMessage);
 //            Toast.makeText(context, mSaveMessage, Toast.LENGTH_SHORT).show();
@@ -80,7 +87,10 @@ public class DonwloadSaveImg {
                 clickSuccessResult.sunccess(newImagePath);
             }
         }
-    };
+
+    }
+
+    private final static Handler messageHandler = new MyHandler();
 
     /**
      * 保存图片
@@ -88,7 +98,7 @@ public class DonwloadSaveImg {
      * @param bm
      * @throws IOException
      */
-    public static String saveFile(Bitmap bm,Context c ) throws IOException {
+    public static String saveFile(Bitmap bm, Context c) throws IOException {
         File dirFile = new File(Environment.getExternalStorageDirectory().getPath());
         if (!dirFile.exists()) {
             dirFile.mkdir();

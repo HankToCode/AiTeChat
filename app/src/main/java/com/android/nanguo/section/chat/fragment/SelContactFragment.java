@@ -13,10 +13,11 @@
  */
 package com.android.nanguo.section.chat.fragment;
 
+import static com.zds.base.Toast.ToastUtil.toast;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.MotionEvent;
@@ -56,8 +57,6 @@ import java.util.Map;
 import butterknife.BindView;
 import butterknife.Unbinder;
 
-import static com.zds.base.Toast.ToastUtil.toast;
-
 /**
  * contact list
  * @author lhb
@@ -69,7 +68,6 @@ public class SelContactFragment extends BaseInitFragment {
     protected boolean hidden;
     protected ImageButton clearSearch;
     protected EditText query;
-    protected Handler handler = new Handler();
     protected EaseUser toBeProcessUser;
     protected String toBeProcessUsername;
     protected EaseContactList contactListLayout;

@@ -40,7 +40,6 @@ public class EaseChatInputMenu extends LinearLayout {
     public FrameLayout chatExtendMenuContainer;
     public LayoutInflater layoutInflater;
 
-    private Handler handler = new Handler();
     private ChatInputMenuListener listener;
     private Context context;
     private boolean inited;
@@ -292,13 +291,10 @@ public class EaseChatInputMenu extends LinearLayout {
     protected void toggleMore() {
         if (chatExtendMenuContainer.getVisibility() == View.GONE) {
             hideKeyboard();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    chatExtendMenuContainer.setVisibility(View.VISIBLE);
-                    chatExtendMenu.setVisibility(View.VISIBLE);
-                    emojiconMenu.setVisibility(View.GONE);
-                }
+            new Handler().postDelayed(() -> {
+                chatExtendMenuContainer.setVisibility(View.VISIBLE);
+                chatExtendMenu.setVisibility(View.VISIBLE);
+                emojiconMenu.setVisibility(View.GONE);
             }, 50);
         } else {
             if (emojiconMenu.getVisibility() == View.VISIBLE) {
@@ -316,13 +312,10 @@ public class EaseChatInputMenu extends LinearLayout {
     protected void toggleEmojicon() {
         if (chatExtendMenuContainer.getVisibility() == View.GONE) {
             hideKeyboard();
-            handler.postDelayed(new Runnable() {
-                @Override
-                public void run() {
-                    chatExtendMenuContainer.setVisibility(View.VISIBLE);
-                    chatExtendMenu.setVisibility(View.GONE);
-                    emojiconMenu.setVisibility(View.VISIBLE);
-                }
+            new Handler().postDelayed(() -> {
+                chatExtendMenuContainer.setVisibility(View.VISIBLE);
+                chatExtendMenu.setVisibility(View.GONE);
+                emojiconMenu.setVisibility(View.VISIBLE);
             }, 50);
         } else {
             if (emojiconMenu.getVisibility() == View.VISIBLE) {

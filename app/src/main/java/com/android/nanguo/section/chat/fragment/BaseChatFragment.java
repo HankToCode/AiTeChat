@@ -37,6 +37,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.android.nanguo.section.conversation.BaseConversationListFragment;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMConversation;
@@ -97,6 +98,7 @@ import org.json.JSONArray;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -135,7 +137,6 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
     protected InputMethodManager inputManager;
     protected ClipboardManager clipboard;
 
-    protected Handler handler = new Handler();
     protected File cameraFile;
     protected SwipeRefreshLayout swipeRefreshLayout;
     protected ListView listView;
@@ -1860,18 +1861,29 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
         }
     }
 
-    Handler mHandler = new Handler() {
+    private static class MyHandler extends Handler {
+        private final WeakReference<BaseChatFragment> weakReference;
+
+        public MyHandler(BaseChatFragment fragment) {
+            weakReference = new WeakReference<>(fragment);
+        }
+
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
+
+            if (weakReference.get() == null) return;
+            BaseChatFragment fragment = weakReference.get();
             EMGroup group =
-                    EMClient.getInstance().groupManager().getGroup(emChatId);
+                    EMClient.getInstance().groupManager().getGroup(fragment.emChatId);
             if (group != null) {
-                onConversationInit();
-                onMessageListInit();
+                fragment.onConversationInit();
+                fragment.onMessageListInit();
             }
         }
-    };
+    }
+
+    Handler mHandler = new MyHandler(this);
 
 
     protected EaseChatFragmentHelper chatFragmentHelper;

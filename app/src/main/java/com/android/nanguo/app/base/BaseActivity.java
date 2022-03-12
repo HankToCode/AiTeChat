@@ -70,7 +70,6 @@ public class BaseActivity extends AppCompatActivity {
     private EaseProgressDialog dialog;
     private AlertDialog logoutDialog;
     private long dialogCreateTime;//dialog生成事件，用以判断dialog的展示时间
-    private Handler handler = new Handler();//用于dialog延迟消失
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -492,13 +491,10 @@ public class BaseActivity extends AppCompatActivity {
         if (dialog != null && dialog.isShowing()) {
             //如果dialog的展示时间过短，则延迟1s再消失
             if (System.currentTimeMillis() - dialogCreateTime < 500 && !isFinishing()) {
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (dialog != null && dialog.isShowing()) {
-                            dialog.dismiss();
-                            dialog = null;
-                        }
+                new Handler().postDelayed(() -> {
+                    if (dialog != null && dialog.isShowing()) {
+                        dialog.dismiss();
+                        dialog = null;
                     }
                 }, 1000);
             } else {

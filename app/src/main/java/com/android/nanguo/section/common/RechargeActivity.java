@@ -69,8 +69,6 @@ public class RechargeActivity extends BaseInitActivity {
 
     //结果返回最多重新查询次数
     private int maxCount = 5;
-    private Handler handler = new Handler();
-
 
     public static void actionStart(Context context) {
         Intent intent = new Intent(context, RechargeActivity.class) ;
@@ -317,19 +315,14 @@ public class RechargeActivity extends BaseInitActivity {
                     }
                 });
     }
-    Handler waitHandler = new Handler();
     private void waiting() {
         showLoading("充值确认中");
-        waitHandler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //要执行的操作
-                ToastUtils.showToast("充值成功");
-                CommonApi.upUserInfo(DemoApplication.getInstance().getApplicationContext());
-                dismissLoading();
-                finish();
-            }
-
+        new Handler().postDelayed(() -> {
+            //要执行的操作
+            ToastUtils.showToast("充值成功");
+            CommonApi.upUserInfo(DemoApplication.getInstance().getApplicationContext());
+            dismissLoading();
+            finish();
         }, 3000);//3秒
     }
 
@@ -350,16 +343,13 @@ public class RechargeActivity extends BaseInitActivity {
                                     finish();
                                     break;
                                 case "PROCESS":
-                                    handler.postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            maxCount--;
-                                            if (maxCount <= 0) {
-                                                ToastUtil.toast("充值处理中");
-                                                return;
-                                            }
-                                            queryResult(requestId);
+                                    new Handler().postDelayed(() -> {
+                                        maxCount--;
+                                        if (maxCount <= 0) {
+                                            ToastUtil.toast("充值处理中");
+                                            return;
                                         }
+                                        queryResult(requestId);
                                     }, 2000);
                                     break;
                                 default:

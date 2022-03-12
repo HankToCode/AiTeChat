@@ -84,13 +84,10 @@ public class BaseConversationListFragment extends BaseInitFragment {
         inputMethodManager = (InputMethodManager) requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         conversationListView = requireView().findViewById(R.id.list);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                conversationList.clear();
-                conversationList.addAll(loadConversationList());
-                conversationListView.init(conversationList);
-            }
+        new Handler().postDelayed(() -> {
+            conversationList.clear();
+            conversationList.addAll(loadConversationList());
+            conversationListView.init(conversationList);
         }, 1000);
 
         if (listItemClickListener != null) {
@@ -162,15 +159,12 @@ public class BaseConversationListFragment extends BaseInitFragment {
                     break;
 
                 case MSG_REFRESH: {
-                    new Handler().postDelayed(new Runnable() {
-                        @Override
-                        public void run() {
-                            fragment.conversationList.clear();
-                            fragment.conversationList.addAll(fragment.loadConversationList());
+                    new Handler().postDelayed(() -> {
+                        fragment.conversationList.clear();
+                        fragment.conversationList.addAll(fragment.loadConversationList());
 //                            conversationListView.init(conversationList);
-                            fragment.conversationListView.refresh();
-                            EventBus.getDefault().post(new EventCenter<>(EventUtil.UNREADCOUNT));
-                        }
+                        fragment.conversationListView.refresh();
+                        EventBus.getDefault().post(new EventCenter<>(EventUtil.UNREADCOUNT));
                     }, 1000);
 
                     break;

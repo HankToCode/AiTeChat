@@ -1,18 +1,23 @@
 package com.android.nanguo.app.alipay;
 
 import android.app.Activity;
+import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+
 import com.alipay.sdk.app.PayTask;
 import com.android.nanguo.app.api.global.EventUtil;
 import com.android.nanguo.app.api.old_data.EventCenter;
+import com.android.nanguo.section.conversation.BaseConversationListFragment;
 
 import org.greenrobot.eventbus.EventBus;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.ref.WeakReference;
 import java.net.URLEncoder;
 import java.security.KeyFactory;
 import java.security.PrivateKey;
@@ -39,9 +44,21 @@ public class MyALipayUtils {
         this.builder = builder;
     }
 
-    private Handler mHandler = new Handler() {
+
+    private static class MyHandler extends Handler {
+
+        private final WeakReference<MyALipayUtils> weakReference;
+
+        public MyHandler(MyALipayUtils myALipayUtils) {
+            weakReference = new WeakReference<>(myALipayUtils);
+        }
+
         @Override
-        public void handleMessage(Message msg) {
+        public void handleMessage(@NonNull Message msg) {
+
+            if (weakReference.get() == null) return;
+
+            Context context = weakReference.get().context;
 //            返回码	含义
 //            9000	订单支付成功
 //            8000	正在处理中，支付结果未知（有可能已经支付成功），请查询商户订单列表中订单的支付状态
@@ -58,6 +75,7 @@ public class MyALipayUtils {
                     Toast.makeText(context, "支付成功", Toast.LENGTH_SHORT).show();
                     break;
                 case "8000":
+                case "6004":
                     Toast.makeText(context, "正在处理中", Toast.LENGTH_SHORT).show();
                     break;
                 case "4000":
@@ -72,15 +90,14 @@ public class MyALipayUtils {
                 case "6002":
                     Toast.makeText(context, "网络连接出错", Toast.LENGTH_SHORT).show();
                     break;
-                case "6004":
-                    Toast.makeText(context, "正在处理中", Toast.LENGTH_SHORT).show();
-                    break;
                 default:
                     Toast.makeText(context, "支付失败", Toast.LENGTH_SHORT).show();
                     break;
             }
         }
-    };
+    }
+
+    private final Handler mHandler = new MyHandler(this);
 
     /**
      * 签名发在客户端来做。

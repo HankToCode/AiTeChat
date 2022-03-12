@@ -25,6 +25,8 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
+import androidx.annotation.NonNull;
+
 import com.zds.base.R;
 import com.zds.base.code.BarcodeFormat;
 import com.zds.base.code.Result;
@@ -32,6 +34,7 @@ import com.zds.base.code.activity.CaptureActivity;
 import com.zds.base.code.camera.CameraManager;
 import com.zds.base.code.view.ViewfinderResultPointCallback;
 
+import java.lang.ref.WeakReference;
 import java.util.Vector;
 
 
@@ -42,7 +45,7 @@ public final class CaptureActivityHandler extends Handler {
 
     private static final String TAG = CaptureActivityHandler.class.getSimpleName();
 
-    private final CaptureActivity activity;
+    private final WeakReference<CaptureActivity> activity;
     private final DecodeThread decodeThread;
     private State state;
 
@@ -54,7 +57,7 @@ public final class CaptureActivityHandler extends Handler {
 
     public CaptureActivityHandler(CaptureActivity activity, Vector<BarcodeFormat> decodeFormats,
                                   String characterSet) {
-        this.activity = activity;
+        this.activity = new WeakReference<>(activity);
         decodeThread = new DecodeThread(activity, decodeFormats, characterSet,
                 new ViewfinderResultPointCallback(activity.getViewfinderView()));
         decodeThread.start();
@@ -65,7 +68,8 @@ public final class CaptureActivityHandler extends Handler {
     }
 
     @Override
-    public void handleMessage(Message message) {
+    public void handleMessage(@NonNull Message message) {
+        if(activity.get() == null) return;
         if (message.what == R.id.auto_focus) {//Log.d(TAG, "Got auto-focus message");
             // When one auto focus pass finishes, start another. This is the closest thing to
             // continuous AF. It does seem to hunt a bit, but I'm not sure what else to do.
@@ -86,7 +90,7 @@ public final class CaptureActivityHandler extends Handler {
             Bitmap barcode = bundle == null ? null :
                     (Bitmap) bundle.getParcelable(DecodeThread.BARCODE_BITMAP);//���ñ����߳�
 
-            activity.handleDecode((Result) message.obj, barcode);//���ؽ��
+            activity.get().handleDecode((Result) message.obj, barcode);//���ؽ��
             /***********************************************************************/
 
         } else if (message.what == R.id.decode_failed) {// We're decoding as fast as possible, so when one decode fails, start another.
@@ -95,15 +99,15 @@ public final class CaptureActivityHandler extends Handler {
 
         } else if (message.what == R.id.return_scan_result) {
             Log.d(TAG, "Got return scan result message");
-            activity.setResult(Activity.RESULT_OK, (Intent) message.obj);
-            activity.finish();
+            activity.get().setResult(Activity.RESULT_OK, (Intent) message.obj);
+            activity.get().finish();
 
         } else if (message.what == R.id.launch_product_query) {
             Log.d(TAG, "Got product query message");
             String url = (String) message.obj;
             Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_WHEN_TASK_RESET);
-            activity.startActivity(intent);
+            activity.get().startActivity(intent);
 
         }
     }
@@ -125,11 +129,12 @@ public final class CaptureActivityHandler extends Handler {
     }
 
     private void restartPreviewAndDecode() {
+        if(activity.get() == null) return;
         if (state == State.SUCCESS) {
             state = State.PREVIEW;
             CameraManager.get().requestPreviewFrame(decodeThread.getHandler(), R.id.decode);
             CameraManager.get().requestAutoFocus(this, R.id.auto_focus);
-            activity.drawViewfinder();
+            activity.get().drawViewfinder();
         }
     }
 

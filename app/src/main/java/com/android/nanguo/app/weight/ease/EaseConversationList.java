@@ -8,11 +8,13 @@ import android.util.AttributeSet;
 import android.widget.ListView;
 
 import com.android.nanguo.app.adapter.AddressAdapter;
+import com.android.nanguo.app.alipay.MyALipayUtils;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMMessage;
 import com.android.nanguo.R;
 import com.android.nanguo.section.conversation.adapter.EaseConversationAdapter;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -75,20 +77,27 @@ public class EaseConversationList extends ListView {
         setAdapter(adapter);
     }
 
-    Handler handler = new Handler() {
+    private static class MyHandler extends Handler {
+
+        private final WeakReference<EaseConversationList> weakReference;
+
+        public MyHandler(EaseConversationList easeConversationList) {
+            weakReference = new WeakReference<>(easeConversationList);
+        }
+
         @Override
         public void handleMessage(Message message) {
-            switch (message.what) {
-                case MSG_REFRESH_ADAPTER_DATA:
-                    if (adapter != null) {
-                        adapter.notifyDataSetChanged();
-                    }
-                    break;
-                default:
-                    break;
+            if(weakReference.get() == null) return;
+            EaseConversationList easeConversationList = weakReference.get();
+            if (message.what == easeConversationList.MSG_REFRESH_ADAPTER_DATA) {
+                if (easeConversationList.adapter != null) {
+                    easeConversationList.adapter.notifyDataSetChanged();
+                }
             }
         }
-    };
+    }
+
+    Handler handler = new MyHandler(this);
 
     public EMConversation getItem(int position) {
         return (EMConversation) adapter.getItem(position);

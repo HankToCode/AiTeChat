@@ -100,7 +100,6 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
 
     //结果返回最多重新查询次数
     private int maxCount = 5;
-    private Handler handler = new Handler();
 
 
     @Override
@@ -475,18 +474,15 @@ public class SendGroupRedPackageActivity extends BaseInitActivity {
                                     bankId = "";
                                     break;
                                 case "PROCESS":
-                                    handler.postDelayed(new Runnable() {
-                                        @Override
-                                        public void run() {
-                                            maxCount--;
-                                            if (maxCount <= 0) {
-                                                ToastUtil.toast("发送红包处理中");
-                                                finish();
-                                                bankId = "";
-                                                return;
-                                            }
-                                            queryResult(requestId);
+                                    new Handler().postDelayed(() -> {
+                                        maxCount--;
+                                        if (maxCount <= 0) {
+                                            ToastUtil.toast("发送红包处理中");
+                                            finish();
+                                            bankId = "";
+                                            return;
                                         }
+                                        queryResult(requestId);
                                     }, 2000);
                                     break;
                                 default:
