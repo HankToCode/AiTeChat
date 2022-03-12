@@ -12,10 +12,14 @@ import android.widget.ListView;
 import android.widget.RelativeLayout;
 
 
+import androidx.annotation.NonNull;
+
 import com.android.nanguo.R;
 import com.android.nanguo.app.domain.EaseUser;
 import com.android.nanguo.app.adapter.ease.EaseContactAdapter;
+import com.android.nanguo.section.conversation.BaseConversationListFragment;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -34,25 +38,34 @@ public class EaseContactList extends RelativeLayout {
     protected Drawable initialLetterBg;
 
     static final int MSG_UPDATE_LIST = 0;
-    
-    Handler handler = new Handler() {
+
+    private static class MyHandler extends Handler {
+
+        private final WeakReference<EaseContactList> weakReference;
+
+        public MyHandler(EaseContactList easeContactList) {
+            weakReference = new WeakReference<>(easeContactList);
+        }
 
         @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case MSG_UPDATE_LIST:
-                    if (adapter != null) {
-                        adapter.clear();
-                        adapter.addAll(new ArrayList<EaseUser>(contactList));
-                        adapter.notifyDataSetChanged();
-                    }
-                    break;
-                default:
-                    break;
+        public void handleMessage(@NonNull Message msg) {
+            if (weakReference.get() == null) return;
+
+            EaseContactList easeContactList = weakReference.get();
+
+            if (msg.what == MSG_UPDATE_LIST) {
+                if (easeContactList.adapter != null) {
+                    easeContactList.adapter.clear();
+                    easeContactList.adapter.addAll(new ArrayList<>(easeContactList.contactList));
+                    easeContactList.adapter.notifyDataSetChanged();
+                }
             }
             super.handleMessage(msg);
         }
-    };
+
+    }
+
+    Handler handler = new MyHandler(this);
 
     protected int initialLetterColor;
 
