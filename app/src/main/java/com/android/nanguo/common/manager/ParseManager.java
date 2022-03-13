@@ -37,7 +37,7 @@ public class ParseManager {
 	
 	private static final String parseServer = "http://parse.easemob.com/parse/";
 
-	private static ParseManager instance = new ParseManager();
+	private static final ParseManager instance = new ParseManager();
 	
 
 	private ParseManager() {

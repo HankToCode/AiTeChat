@@ -19,11 +19,11 @@ public class GroupOperateManager {
     //类初始化时，不初始化这个对象(延时加载，真正用的时候再创建)
     private static GroupOperateManager instance;
 
-    private HashMap<String, String> groupIdHashMap;
+    private final HashMap<String, String> groupIdHashMap;
 
-    private HashMap<String, GroupInfo> groupsHashMap;
+    private final HashMap<String, GroupInfo> groupsHashMap;
 
-    private WeakHashMap<String, GroupDetailInfo> groupDetailWeakHashMap;
+    private final WeakHashMap<String, GroupDetailInfo> groupDetailWeakHashMap;
 
     //构造器私有化
     private GroupOperateManager() {

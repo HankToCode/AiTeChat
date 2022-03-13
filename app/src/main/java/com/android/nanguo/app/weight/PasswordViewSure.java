@@ -21,17 +21,18 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PasswordViewSure extends RelativeLayout {
-    private Drawable drawable;
+    private final Drawable drawable;
     private Drawable drawablenor;
     Context context;
     private String strPassword; // 输入的密码
-    private TextView[] tvList; // 就6个输入框不会变了，用数组内存申请固定空间，比List省空间
-    private GridView gridView; // 用GrideView布局键盘，其实并不是真正的键盘，只是模拟键盘的功能
-    private ArrayList<Map<String, String>> valueList; // 要用Adapter中适配，用数组不能往adapter中填充
-    private TextView tvForget,tvSetTitle;//忘记密码按钮
+    private final TextView[] tvList; // 就6个输入框不会变了，用数组内存申请固定空间，比List省空间
+    private final GridView gridView; // 用GrideView布局键盘，其实并不是真正的键盘，只是模拟键盘的功能
+    private final ArrayList<Map<String, String>> valueList; // 要用Adapter中适配，用数组不能往adapter中填充
+    private final TextView tvForget;
+    private TextView tvSetTitle;//忘记密码按钮
     private int currentIndex = -1; // 用于记录当前输入密码格位置
 
-    private TextView mTvSure;//忘记密码按钮
+    private final TextView mTvSure;//忘记密码按钮
 
     public TextView getTvSetTitle() {
         return tvSetTitle;

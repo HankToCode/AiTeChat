@@ -28,15 +28,15 @@ import java.util.Map;
 public class ContactAdapter extends BaseQuickAdapter<ContactListInfo.DataBean, BaseViewHolder> implements Filterable {
     private String from = "1";
     private MyFilter myFilter;
-    private List<ContactListInfo.DataBean> copyUserList;
+    private final List<ContactListInfo.DataBean> copyUserList;
 
     public void setFrom(String from) {
         this.from = from;
     }
 
-    private List<ContactListInfo.DataBean> mIdList = new ArrayList<>();
+    private final List<ContactListInfo.DataBean> mIdList = new ArrayList<>();
 
-    private Map<Integer, Boolean> map = new HashMap<>();// 存放已被选中的CheckBox
+    private final Map<Integer, Boolean> map = new HashMap<>();// 存放已被选中的CheckBox
 
     public List<ContactListInfo.DataBean> getIdList() {
         return mIdList;

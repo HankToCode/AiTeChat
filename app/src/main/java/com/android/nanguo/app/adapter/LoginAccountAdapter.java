@@ -50,7 +50,7 @@ public class LoginAccountAdapter extends RecyclerView.Adapter<LoginAccountAdapte
     }
 
     private List<EaseUser> dataBean;
-    private Context mContext;
+    private final Context mContext;
 
     public void setData(List<EaseUser> dataBean) {
         this.dataBean = dataBean;

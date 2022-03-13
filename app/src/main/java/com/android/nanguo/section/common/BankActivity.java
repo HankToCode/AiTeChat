@@ -45,7 +45,6 @@ public class BankActivity extends BaseInitActivity {
     EaseTitleBar mTitleBar;
     @BindView(R.id.tv_no_data)
     TextView tv_no_data;
-    private boolean isedit = false;
     private BankCardAdapter mBankCardAdapter;
     private String fromType = "1";
 

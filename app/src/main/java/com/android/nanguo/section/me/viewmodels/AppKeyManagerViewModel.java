@@ -11,8 +11,8 @@ import com.android.nanguo.common.net.Resource;
 import com.android.nanguo.common.repositories.EMClientRepository;
 
 public class AppKeyManagerViewModel extends AndroidViewModel {
-    private EMClientRepository repository;
-    private SingleSourceLiveData<Resource<Boolean>> logoutObservable;
+    private final EMClientRepository repository;
+    private final SingleSourceLiveData<Resource<Boolean>> logoutObservable;
 
     public AppKeyManagerViewModel(@NonNull Application application) {
         super(application);

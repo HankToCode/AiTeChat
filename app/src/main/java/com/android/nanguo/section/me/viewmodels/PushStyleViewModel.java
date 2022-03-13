@@ -12,8 +12,8 @@ import com.android.nanguo.common.net.Resource;
 import com.android.nanguo.common.repositories.EMPushManagerRepository;
 
 public class PushStyleViewModel extends AndroidViewModel {
-    private EMPushManagerRepository repository;
-    private SingleSourceLiveData<Resource<Boolean>> pushStyleObservable;
+    private final EMPushManagerRepository repository;
+    private final SingleSourceLiveData<Resource<Boolean>> pushStyleObservable;
 
     public PushStyleViewModel(@NonNull Application application) {
         super(application);

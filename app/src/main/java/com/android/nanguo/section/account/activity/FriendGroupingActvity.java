@@ -44,7 +44,7 @@ public class FriendGroupingActvity extends BaseInitActivity {
     @BindView(R.id.tv_chat_record)
     TextView tv_chat_record;
 
-    private List<FriendGroupingBean> groupingDatas = new ArrayList<>();
+    private final List<FriendGroupingBean> groupingDatas = new ArrayList<>();
     private String friendUserId;
     private String categoryId;
     private String categoryName;

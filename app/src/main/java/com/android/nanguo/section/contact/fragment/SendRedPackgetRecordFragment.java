@@ -34,7 +34,7 @@ public class SendRedPackgetRecordFragment extends BaseInitFragment {
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
     private ChatRedRecordAdapter mRedRecordAdapter;
-    private List<MyRedInfo.DataBean> mPacketInfoList = new ArrayList<>();
+    private final List<MyRedInfo.DataBean> mPacketInfoList = new ArrayList<>();
     private int page = 1;
 
 

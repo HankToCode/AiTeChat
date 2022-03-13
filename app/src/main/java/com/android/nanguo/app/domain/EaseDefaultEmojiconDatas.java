@@ -5,7 +5,7 @@ import com.android.nanguo.R;
 import com.android.nanguo.app.utils.ease.EaseSmileUtils;
 
 public class EaseDefaultEmojiconDatas {
-    private static String[] emojis = new String[]{
+    private static final String[] emojis = new String[]{
             EaseSmileUtils.ee_1,
             EaseSmileUtils.ee_2,
             EaseSmileUtils.ee_3,
@@ -149,7 +149,7 @@ public class EaseDefaultEmojiconDatas {
             EaseSmileUtils.ee_141,
     };
 
-    private static String [] stringIcons=new String[]{
+    private static final String [] stringIcons=new String[]{
             "[呲牙]",
             "[调皮]",
             "[流汗]",
@@ -292,7 +292,7 @@ public class EaseDefaultEmojiconDatas {
             "[手枪]",
             "[青蛙]"
     };
-    private static int[] icons = new int[]{
+    private static final int[] icons = new int[]{
             R.mipmap.f001,
             R.mipmap.f002,
             R.mipmap.f003,

@@ -33,7 +33,7 @@ public class NewFriendAdapter extends RecyclerView.Adapter<NewFriendAdapter.View
     private List<ApplyFriendData> mInfoList = new ArrayList<>();
     private List<ApplyFriendData> copyUserList;
 
-    private Context mContext;
+    private final Context mContext;
     private HashMap<String, Integer> lettes = new HashMap<>();
     private MyFilter myFilter;
 
@@ -254,12 +254,12 @@ public class NewFriendAdapter extends RecyclerView.Adapter<NewFriendAdapter.View
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView mTvName;
-        private TextView mTvDescription;
-        private TextView mTvTop;
-        private EaseImageView imgHead;
-        private TextView mTvAgree;
-        private TextView mTvDel;
+        private final TextView mTvName;
+        private final TextView mTvDescription;
+        private final TextView mTvTop;
+        private final EaseImageView imgHead;
+        private final TextView mTvAgree;
+        private final TextView mTvDel;
 //        private TextView mTvRefuse;
 //        private TextView tvOrigin;
 

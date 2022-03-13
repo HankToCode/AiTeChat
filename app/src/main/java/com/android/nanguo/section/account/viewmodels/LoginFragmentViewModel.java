@@ -13,10 +13,10 @@ import com.android.nanguo.common.net.Resource;
 import com.android.nanguo.common.repositories.EMClientRepository;
 
 public class LoginFragmentViewModel extends AndroidViewModel {
-    private EMClientRepository mRepository;
-    private MediatorLiveData<Resource<EaseUser>> loginObservable;
+    private final EMClientRepository mRepository;
+    private final MediatorLiveData<Resource<EaseUser>> loginObservable;
 
-    private MyModel myModel;
+    private final MyModel myModel;
 
     public LoginFragmentViewModel(@NonNull Application application) {
         super(application);

@@ -153,7 +153,7 @@ public class BuyMemberActivity extends BaseInitActivity {
         int itemWidth = (int) (length * density);
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                gridviewWidth, LinearLayout.LayoutParams.FILL_PARENT);
+                gridviewWidth, LinearLayout.LayoutParams.MATCH_PARENT);
         cml_member.setLayoutParams(params); // 设置GirdView布局参数,横向布局的关键
         cml_member.setColumnWidth(itemWidth); // 设置列表项宽
         cml_member.setHorizontalSpacing(2); // 设置列表项水平间距

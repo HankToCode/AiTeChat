@@ -59,7 +59,7 @@ public class GroupUserListActivity extends BaseInitActivity {
     EditText mQuery;
     @BindView(R.id.search_clear)
     ImageButton mSearchClear;
-    private List<GroupDetailInfo.GroupUserDetailVoListBean> mGroupUserList = new ArrayList<>();
+    private final List<GroupDetailInfo.GroupUserDetailVoListBean> mGroupUserList = new ArrayList<>();
     private GroupUserListAdapter mGroupUserListAdapter;
     private GroupDetailInfo groupDetailInfo;
 

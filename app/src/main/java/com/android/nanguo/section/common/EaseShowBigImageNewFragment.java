@@ -49,7 +49,7 @@ public class EaseShowBigImageNewFragment extends EaseBaseFragment {
     Unbinder unbinder;
     private EasePhotoView image;
     private ProgressBar pb_load_local;
-    private int default_res = R.drawable.ease_default_image;
+    private final int default_res = R.drawable.ease_default_image;
     private Bitmap bitmap;
     private ProgressDialog pd;
     private String localFilePath;

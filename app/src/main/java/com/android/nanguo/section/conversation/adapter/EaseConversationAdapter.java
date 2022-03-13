@@ -50,7 +50,7 @@ import java.util.List;
  */
 public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
     private static final String TAG = "ChatAllHistoryAdapter";
-    private List<EMConversation> conversationList;
+    private final List<EMConversation> conversationList;
     private boolean notiyfyByFilter;
 
     protected int primaryColor;

@@ -58,7 +58,7 @@ public final class EaseUI {
     /**
      * save foreground Activity which registered eventlistener
      */
-    private List<Activity> activityList = new ArrayList<Activity>();
+    private final List<Activity> activityList = new ArrayList<Activity>();
 
     public void pushActivity(Activity activity) {
         if (!activityList.contains(activity)) {

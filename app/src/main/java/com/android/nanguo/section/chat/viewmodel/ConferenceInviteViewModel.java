@@ -15,7 +15,7 @@ import java.util.List;
 
 public class ConferenceInviteViewModel extends AndroidViewModel {
     EMConferenceManagerRepository repository;
-    private SingleSourceLiveData<Resource<List<KV<String, Integer>>>> conferenceInviteObservable;
+    private final SingleSourceLiveData<Resource<List<KV<String, Integer>>>> conferenceInviteObservable;
 
     public ConferenceInviteViewModel(@NonNull Application application) {
         super(application);

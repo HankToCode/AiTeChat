@@ -137,7 +137,7 @@ public class FullEditDialogFragment extends BaseDialogFragment implements EaseTi
     }
 
     public static class Builder {
-        private BaseActivity context;
+        private final BaseActivity context;
         private String title;
         private String hint;
         private String content;

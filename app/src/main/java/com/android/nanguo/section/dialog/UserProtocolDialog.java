@@ -32,7 +32,7 @@ public class UserProtocolDialog extends BaseDialog {
     private OnAgreeClickListener mOnAgreeClickListener;
     private OnNotAgreeClickListener mOnNotAgreeClickListener;
 
-    private String mContent = "亲，感谢您对南国时光一直以来的信任！\n\n" +
+    private final String mContent = "亲，感谢您对南国时光一直以来的信任！\n\n" +
             "我们深知个人信息对用户的重要性，将按照法律法规要求，采取相应的保护措施，尽力保障您的个人信息安全。\n\n" +
             "鉴此，我们特向您说明如下：\n\n" +
             "① 您在使用南国时光各项产品或服务时，将会提供与具体功能相关的个人信息（可能涉及账号、位置、交易等信息）。\n\n" +

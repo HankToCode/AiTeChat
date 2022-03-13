@@ -50,8 +50,8 @@ public class TransferGroupActivity extends BaseInitActivity {
     private TransferGroupAdapter mAdapter;
 
     private GroupDetailInfo groupDetailInfo;
-    private List<GroupDetailInfo.GroupUserDetailVoListBean> mGroupMemberBeans = new ArrayList<>();
-    private List<GroupDetailInfo.GroupUserDetailVoListBean> mGroupUserDetailVoListBeans = new ArrayList<>();
+    private final List<GroupDetailInfo.GroupUserDetailVoListBean> mGroupMemberBeans = new ArrayList<>();
+    private final List<GroupDetailInfo.GroupUserDetailVoListBean> mGroupUserDetailVoListBeans = new ArrayList<>();
 
     public static void start(Context context, String emChatId, String groupId) {
         Intent intent = new Intent(context, TransferGroupActivity.class);

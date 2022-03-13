@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class GroupUserMultiSelectListAdapter extends BaseQuickAdapter<GroupDetailInfo.GroupUserDetailVoListBean, BaseViewHolder> implements Filterable {
 
-    private List<GroupDetailInfo.GroupUserDetailVoListBean> copyGroupList;
+    private final List<GroupDetailInfo.GroupUserDetailVoListBean> copyGroupList;
     private MyFilter myFilter;
 
     private List<GroupDetailInfo.GroupUserDetailVoListBean> mIdList = new ArrayList<>();

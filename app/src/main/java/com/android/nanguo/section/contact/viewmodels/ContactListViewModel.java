@@ -14,8 +14,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 public class ContactListViewModel extends AndroidViewModel {
-    private EMContactManagerRepository mRepository;
-    private SingleSourceLiveData<Resource<List<EaseUser>>> contactListObservable;
+    private final EMContactManagerRepository mRepository;
+    private final SingleSourceLiveData<Resource<List<EaseUser>>> contactListObservable;
 
     public ContactListViewModel(@NonNull Application application) {
         super(application);

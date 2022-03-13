@@ -965,7 +965,7 @@ public class SwitchButton extends View implements Checkable {
     private ViewState beforeState;
     private ViewState afterState;
 
-    private RectF rect = new RectF();
+    private final RectF rect = new RectF();
     /**
      * 动画状态
      */
@@ -1015,7 +1015,7 @@ public class SwitchButton extends View implements Checkable {
      */
     private long touchDownTime;
 
-    private Runnable postPendingDrag = new Runnable() {
+    private final Runnable postPendingDrag = new Runnable() {
         @Override
         public void run() {
             if (!isInAnimating()) {
@@ -1024,7 +1024,7 @@ public class SwitchButton extends View implements Checkable {
         }
     };
 
-    private ValueAnimator.AnimatorUpdateListener animatorUpdateListener
+    private final ValueAnimator.AnimatorUpdateListener animatorUpdateListener
             = new ValueAnimator.AnimatorUpdateListener() {
         @Override
         public void onAnimationUpdate(ValueAnimator animation) {
@@ -1088,7 +1088,7 @@ public class SwitchButton extends View implements Checkable {
         }
     };
 
-    private Animator.AnimatorListener animatorListener
+    private final Animator.AnimatorListener animatorListener
             = new Animator.AnimatorListener() {
         @Override
         public void onAnimationStart(Animator animation) {

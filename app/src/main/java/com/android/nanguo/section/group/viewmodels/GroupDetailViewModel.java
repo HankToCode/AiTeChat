@@ -21,16 +21,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GroupDetailViewModel extends AndroidViewModel {
-    private EMGroupManagerRepository repository;
-    private EMChatManagerRepository chatRepository;
-    private SingleSourceLiveData<Resource<EMGroup>> groupObservable;
-    private SingleSourceLiveData<Resource<String>> announcementObservable;
-    private SingleSourceLiveData<Resource<String>> refreshObservable;
-    private SingleSourceLiveData<Resource<Boolean>> leaveGroupObservable;
-    private SingleSourceLiveData<Resource<Boolean>> blockGroupMessageObservable;
-    private SingleSourceLiveData<Resource<Boolean>> unblockGroupMessage;
-    private SingleSourceLiveData<Resource<Boolean>> clearHistoryObservable;
-    private SingleSourceLiveData<Boolean> offPushObservable;
+    private final EMGroupManagerRepository repository;
+    private final EMChatManagerRepository chatRepository;
+    private final SingleSourceLiveData<Resource<EMGroup>> groupObservable;
+    private final SingleSourceLiveData<Resource<String>> announcementObservable;
+    private final SingleSourceLiveData<Resource<String>> refreshObservable;
+    private final SingleSourceLiveData<Resource<Boolean>> leaveGroupObservable;
+    private final SingleSourceLiveData<Resource<Boolean>> blockGroupMessageObservable;
+    private final SingleSourceLiveData<Resource<Boolean>> unblockGroupMessage;
+    private final SingleSourceLiveData<Resource<Boolean>> clearHistoryObservable;
+    private final SingleSourceLiveData<Boolean> offPushObservable;
 
 
     public GroupDetailViewModel(@NonNull Application application) {

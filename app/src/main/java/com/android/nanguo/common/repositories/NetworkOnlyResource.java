@@ -19,7 +19,7 @@ import com.android.nanguo.common.utils.DemoLog;
  */
 public abstract class NetworkOnlyResource<ResultType> {
     private static final String TAG = "NetworkBoundResource";
-    private EaseThreadManager mThreadManager;
+    private final EaseThreadManager mThreadManager;
     private final MediatorLiveData<Resource<ResultType>> result = new MediatorLiveData<>();
 
     public NetworkOnlyResource() {

@@ -19,9 +19,9 @@ import com.zds.base.ImageLoad.GlideUtils;
 import java.util.ArrayList;
 
 public class GroupingAdapter extends BaseExpandableListAdapter {
-    private Context mContext;
-    private ArrayList<String> mGroup;
-    private ArrayList<ArrayList<ContactListInfo.DataBean>> mItemList;
+    private final Context mContext;
+    private final ArrayList<String> mGroup;
+    private final ArrayList<ArrayList<ContactListInfo.DataBean>> mItemList;
     private final LayoutInflater mInflater;
     public GroupingAdapter(Context context, ArrayList<String> group, ArrayList<ArrayList<ContactListInfo.DataBean>> itemList){
         this.mContext = context;

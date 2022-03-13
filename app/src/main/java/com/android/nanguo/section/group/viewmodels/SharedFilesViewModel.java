@@ -19,11 +19,11 @@ import java.io.File;
 import java.util.List;
 
 public class SharedFilesViewModel extends AndroidViewModel {
-    private Application application;
-    private EMGroupManagerRepository repository;
-    private SingleSourceLiveData<Resource<List<EMMucSharedFile>>> filesObservable;
-    private SingleSourceLiveData<Resource<File>> showFileObservable;
-    private SingleSourceLiveData<Resource<Boolean>> refreshFiles;
+    private final Application application;
+    private final EMGroupManagerRepository repository;
+    private final SingleSourceLiveData<Resource<List<EMMucSharedFile>>> filesObservable;
+    private final SingleSourceLiveData<Resource<File>> showFileObservable;
+    private final SingleSourceLiveData<Resource<Boolean>> refreshFiles;
 
     public SharedFilesViewModel(@NonNull Application application) {
         super(application);

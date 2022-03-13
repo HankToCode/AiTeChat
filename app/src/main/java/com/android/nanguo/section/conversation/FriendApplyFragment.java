@@ -27,7 +27,7 @@ import java.util.Map;
 public class FriendApplyFragment extends BaseInitFragment implements NewFriendAdapter.OnAgreeListener {
     SlideRecyclerView mRvNewFriend;
     SearchBar searchBar;
-    private List<ApplyFriendData> mStringList = new ArrayList<>();
+    private final List<ApplyFriendData> mStringList = new ArrayList<>();
     private NewFriendAdapter mNewFriendAdapter;
     private HashMap<String, Integer> lettes;
 

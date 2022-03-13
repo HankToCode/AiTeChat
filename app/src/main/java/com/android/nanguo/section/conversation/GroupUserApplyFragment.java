@@ -32,7 +32,7 @@ import java.util.Map;
 public class GroupUserApplyFragment extends BaseInitFragment implements GroupUserApplyAdapter.OnAgreeListener {
     SlideRecyclerView mRvNewFriend;
     SearchBar searchBar;
-    private List<GroupUserAuditInfo.DataBean> mStringList = new ArrayList<>();
+    private final List<GroupUserAuditInfo.DataBean> mStringList = new ArrayList<>();
     private GroupUserApplyAdapter mNewFriendAdapter;
     private HashMap<String, Integer> lettes;
 

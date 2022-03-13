@@ -3,6 +3,7 @@ package com.android.nanguo.common.utils;
 import android.text.TextUtils;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
@@ -18,7 +19,7 @@ public class MD5 {
         }
         String hexStr = "";
         try {
-            byte[] hash = MessageDigest.getInstance("MD5").digest(str.getBytes("utf-8"));
+            byte[] hash = MessageDigest.getInstance("MD5").digest(str.getBytes(StandardCharsets.UTF_8));
             //对生成的16字节数组进行补零操作
             StringBuilder hex = new StringBuilder(hash.length * 2);
             for (byte b : hash) {
@@ -29,8 +30,6 @@ public class MD5 {
             }
             hexStr = hex.toString();
         } catch (NoSuchAlgorithmException e) {
-            e.printStackTrace();
-        } catch (UnsupportedEncodingException e) {
             e.printStackTrace();
         }
 

@@ -44,9 +44,9 @@ public class UserCodeActivity extends BaseInitActivity {
     TextView tv_more3;
     @BindView(R.id.tv_more2)
     TextView tv_more2;
-    private List<UserCodeMallListBean.SpecialOffer> tjDatas = new ArrayList<>();
-    private List<UserCodeMallListBean.SpecialOffer> jxDatas = new ArrayList<>();
-    private List<UserCodeMallListBean.SpecialOffer> dhDatas = new ArrayList<>();
+    private final List<UserCodeMallListBean.SpecialOffer> tjDatas = new ArrayList<>();
+    private final List<UserCodeMallListBean.SpecialOffer> jxDatas = new ArrayList<>();
+    private final List<UserCodeMallListBean.SpecialOffer> dhDatas = new ArrayList<>();
     private SpecialOfferAdapter tjAdapter;
     private SpecialOfferAdapter jxAdapter;
     private SpecialOfferAdapter dhAdapter;

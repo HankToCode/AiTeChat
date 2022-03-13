@@ -17,7 +17,7 @@ import com.hyphenate.util.EMLog;
 public class DemoDbHelper {
     private static final String TAG = "DemoDbHelper";
     private static DemoDbHelper instance;
-    private Context mContext;
+    private final Context mContext;
     private String currentUser;
     private AppDatabase mDatabase;
     private final MutableLiveData<Boolean> mIsDatabaseCreated = new MutableLiveData<>();

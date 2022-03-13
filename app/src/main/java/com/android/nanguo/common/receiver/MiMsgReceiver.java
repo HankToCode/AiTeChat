@@ -15,7 +15,7 @@ import org.json.JSONObject;
  */
 public class MiMsgReceiver extends EMMiMsgReceiver {
 
-    static private String TAG = "MiMsgReceiver";
+    static private final String TAG = "MiMsgReceiver";
     public void onNotificationMessageClicked(Context context, MiPushMessage message) {
         EMLog.i(TAG, "onNotificationMessageClicked is called. " + message.toString());
         String extStr = message.getContent();

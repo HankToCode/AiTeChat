@@ -72,7 +72,7 @@ public class ContactGroupingActivity extends BaseInitActivity {
     private String inGroupFriendUserId;
     private List<ContactListInfo.DataBean> mContactList;
     private ContactAdapter mContactAdapter;
-    private List<ContactListInfo.DataBean> selectItem = new ArrayList<>();//
+    private final List<ContactListInfo.DataBean> selectItem = new ArrayList<>();//
     @BindView(R.id.elv_expand)
     ExpandableListView elv_expand;
     private ArrayList<String> mGroupingNameList;//分组数据

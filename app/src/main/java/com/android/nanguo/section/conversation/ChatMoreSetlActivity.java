@@ -72,7 +72,7 @@ public class ChatMoreSetlActivity extends BaseInitActivity {
     private String nickName;
     private boolean isFriend;
 
-    private List<GroupDetailInfo.GroupUserDetailVoListBean> mUserList =
+    private final List<GroupDetailInfo.GroupUserDetailVoListBean> mUserList =
             new ArrayList<>();
 
     @Override

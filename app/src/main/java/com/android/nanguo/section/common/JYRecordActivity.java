@@ -41,7 +41,7 @@ public class JYRecordActivity extends BaseInitActivity {
     MagicIndicator indicator;
     @BindView(R.id.view_pager)
     ViewPager view_pager;
-    private List<EaseBaseFragment> fragments = Arrays.asList(new InputRedPackgetRecordFragment(), new SendRedPackgetRecordFragment(), new TransferRecordFragment());
+    private final List<EaseBaseFragment> fragments = Arrays.asList(new InputRedPackgetRecordFragment(), new SendRedPackgetRecordFragment(), new TransferRecordFragment());
     public static void actionStart(Context context) {
         Intent intent = new Intent(context, JYRecordActivity.class);
         context.startActivity(intent);

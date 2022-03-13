@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
 import com.android.nanguo.DemoApplication;
@@ -343,14 +344,14 @@ public class ToastUtils {
 
     private static class HandlerProxy extends Handler {
 
-        private Handler mHandler;
+        private final Handler mHandler;
 
         public HandlerProxy(Handler handler) {
             this.mHandler = handler;
         }
 
         @Override
-        public void handleMessage(Message msg) {
+        public void handleMessage(@NonNull Message msg) {
             try {
                 mHandler.handleMessage(msg);
             } catch (WindowManager.BadTokenException e) {

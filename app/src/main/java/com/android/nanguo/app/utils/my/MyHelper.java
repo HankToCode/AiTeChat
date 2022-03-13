@@ -103,7 +103,7 @@ public class MyHelper {
 
     private boolean isGroupAndContactListenerRegisted;
 
-    private ExecutorService executor;
+    private final ExecutorService executor;
 
     protected android.os.Handler handler;
 

@@ -25,7 +25,7 @@ import java.util.List;
 public class EaseChatExtendMenu extends GridView {
 
     protected Context context;
-    private List<ChatMenuItemModel> itemModels = new ArrayList<ChatMenuItemModel>();
+    private final List<ChatMenuItemModel> itemModels = new ArrayList<ChatMenuItemModel>();
 
     public EaseChatExtendMenu(Context context, AttributeSet attrs, int defStyle) {
         this(context, attrs);

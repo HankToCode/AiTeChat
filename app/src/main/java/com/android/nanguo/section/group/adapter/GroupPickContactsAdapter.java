@@ -21,8 +21,8 @@ import androidx.annotation.NonNull;
 
 public class GroupPickContactsAdapter extends EaseBaseRecyclerViewAdapter<EaseUser> {
     private List<String> existMembers;
-    private List<String> selectedMembers;
-    private boolean isCreateGroup;
+    private final List<String> selectedMembers;
+    private final boolean isCreateGroup;
     private OnSelectListener listener;
 
     public GroupPickContactsAdapter() {

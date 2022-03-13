@@ -69,7 +69,7 @@ public final class ViewfinderView extends View {
     private final int cornerColor;
     //扫描点的颜色
     private final int resultPointColor;
-    private int scannerAlpha;
+    private final int scannerAlpha;
     //扫描区域提示文本
     private final String labelText;
     //扫描区域提示文本颜色

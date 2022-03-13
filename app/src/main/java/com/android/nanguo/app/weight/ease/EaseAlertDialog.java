@@ -30,7 +30,7 @@ public class EaseAlertDialog extends Dialog {
     }
 
     private String title;
-    private String msg;
+    private final String msg;
     private String btn_cancel;
     private String btn_ok;
 

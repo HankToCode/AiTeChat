@@ -11,8 +11,8 @@ import com.android.nanguo.common.net.Resource;
 import com.android.nanguo.common.repositories.EMContactManagerRepository;
 
 public class AddContactViewModel extends AndroidViewModel {
-    private EMContactManagerRepository mRepository;
-    private SingleSourceLiveData<Resource<Boolean>> addContactObservable;
+    private final EMContactManagerRepository mRepository;
+    private final SingleSourceLiveData<Resource<Boolean>> addContactObservable;
 
     public AddContactViewModel(@NonNull Application application) {
         super(application);

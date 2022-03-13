@@ -12,11 +12,11 @@ import com.android.nanguo.common.net.Resource;
 import com.android.nanguo.common.repositories.EMPushManagerRepository;
 
 public class OfflinePushSetViewModel extends AndroidViewModel {
-    private EMPushManagerRepository repository;
-    private SingleSourceLiveData<Resource<EMPushConfigs>> configsObservable;
-    private SingleSourceLiveData<Resource<Boolean>> disableObservable;
-    private SingleSourceLiveData<Resource<Boolean>> enableObservable;
-    private SingleSourceLiveData<Resource<Boolean>> updatePushNicknameObservable;
+    private final EMPushManagerRepository repository;
+    private final SingleSourceLiveData<Resource<EMPushConfigs>> configsObservable;
+    private final SingleSourceLiveData<Resource<Boolean>> disableObservable;
+    private final SingleSourceLiveData<Resource<Boolean>> enableObservable;
+    private final SingleSourceLiveData<Resource<Boolean>> updatePushNicknameObservable;
 
     public OfflinePushSetViewModel(@NonNull Application application) {
         super(application);

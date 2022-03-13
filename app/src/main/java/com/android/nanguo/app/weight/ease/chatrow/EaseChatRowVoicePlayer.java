@@ -19,8 +19,8 @@ public class EaseChatRowVoicePlayer {
 
     private static EaseChatRowVoicePlayer instance = null;
 
-    private AudioManager audioManager;
-    private MediaPlayer mediaPlayer;
+    private final AudioManager audioManager;
+    private final MediaPlayer mediaPlayer;
     private String playingId;
 
     private MediaPlayer.OnCompletionListener onCompletionListener;

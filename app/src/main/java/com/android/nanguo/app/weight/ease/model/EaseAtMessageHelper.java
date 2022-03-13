@@ -20,7 +20,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EaseAtMessageHelper {
-    private List<String> toAtUserList = new ArrayList<String>();
+    private final List<String> toAtUserList = new ArrayList<String>();
     private List<String> atMeGroupList = null;
     private static EaseAtMessageHelper instance = null;
     public synchronized static EaseAtMessageHelper get(){

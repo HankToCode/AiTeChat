@@ -15,12 +15,12 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 public class ChatRoomDetailViewModel extends AndroidViewModel {
-    private EMChatRoomManagerRepository repository;
-    private SingleSourceLiveData<Resource<EMChatRoom>> chatRoomObservable = new SingleSourceLiveData<>();
-    private SingleSourceLiveData<Resource<List<String>>> membersObservable;
-    private SingleSourceLiveData<Resource<String>> announcementObservable = new SingleSourceLiveData<>();
-    private LiveDataBus messageChangeObservable = LiveDataBus.get();
-    private SingleSourceLiveData<Resource<Boolean>> destroyGroupObservable = new SingleSourceLiveData<>();
+    private final EMChatRoomManagerRepository repository;
+    private final SingleSourceLiveData<Resource<EMChatRoom>> chatRoomObservable = new SingleSourceLiveData<>();
+    private final SingleSourceLiveData<Resource<List<String>>> membersObservable;
+    private final SingleSourceLiveData<Resource<String>> announcementObservable = new SingleSourceLiveData<>();
+    private final LiveDataBus messageChangeObservable = LiveDataBus.get();
+    private final SingleSourceLiveData<Resource<Boolean>> destroyGroupObservable = new SingleSourceLiveData<>();
 
     public ChatRoomDetailViewModel(@NonNull Application application) {
         super(application);

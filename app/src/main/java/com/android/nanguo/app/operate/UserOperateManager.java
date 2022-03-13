@@ -38,11 +38,11 @@ public class UserOperateManager {
 
     //会把联系人接口 和 群详情接口拿到的用户数据存一份在hash里
     //存储方式为 id跟要展示的名称
-    private HashMap<String, String> userKVHash;
+    private final HashMap<String, String> userKVHash;
 
     //会把联系人接口 和 群详情接口拿到的用户数据存一份在hash里
     //存储方式为 id跟要展示的名称
-    private HashMap<String, String> userAvatarKVHash;
+    private final HashMap<String, String> userAvatarKVHash;
 
     private int contactVersion = -1;
 

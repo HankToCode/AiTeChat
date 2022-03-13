@@ -31,7 +31,7 @@ import java.net.URL;
 public class DownloadService extends Service {
     private static final int NOTIFY_ID = 0;
 
-    private Context mContext = this;
+    private final Context mContext = this;
     private NotificationManager mNotificationManager;
     private Notification mNotification;
     private Notification.Builder builder;

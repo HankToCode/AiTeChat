@@ -481,7 +481,7 @@ public class CretinAutoUpdateUtils {
         }
     }
 
-    private static int PERMISSON_REQUEST_CODE = 2;
+    private static final int PERMISSON_REQUEST_CODE = 2;
 
     @TargetApi(M)
     private static void requestPermission(final UpdateEntity data) {

@@ -36,7 +36,7 @@ public class ProgressView extends View {
     //进度条背景资源图
     private Bitmap mProgressTipsBitmap;
     //画笔
-    private Paint mPaint = new Paint();
+    private final Paint mPaint = new Paint();
     //计算每一步的步距
     private float mStepLength;
     //当前进度

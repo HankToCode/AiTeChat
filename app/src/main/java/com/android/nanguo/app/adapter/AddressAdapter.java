@@ -45,9 +45,9 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.MyViewHo
         this.mOnItemClickListener = mOnItemClickListener;
     }
 
-    private ArrayList<String> address;
-    private ArrayList<String> AddDetail;
-    private Context mContext;
+    private final ArrayList<String> address;
+    private final ArrayList<String> AddDetail;
+    private final Context mContext;
     private int mSelectIndex = 0;
 
     public AddressAdapter(Context mContext, ArrayList<String> address, ArrayList<String> AddDetail, int mSelectIndex) {

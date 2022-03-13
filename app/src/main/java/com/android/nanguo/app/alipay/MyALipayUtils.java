@@ -38,7 +38,7 @@ public class MyALipayUtils {
 
     private static final int SDK_PAY_FLAG = 1;
     private Activity context;
-    private ALiPayBuilder builder;
+    private final ALiPayBuilder builder;
 
     private MyALipayUtils(ALiPayBuilder builder) {
         this.builder = builder;

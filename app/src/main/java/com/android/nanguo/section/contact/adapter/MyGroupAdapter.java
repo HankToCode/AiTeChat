@@ -32,10 +32,9 @@ import java.util.List;
  */
 public class MyGroupAdapter extends BaseExpandableListAdapter {
 
-    private List<GroupSuperInfo> copyGroupList;
+    private final List<GroupSuperInfo> copyGroupList;
     //    private MyFilter myFilter;
-    private Context mContext;
-    private ExpandableListView mRvList;
+    private final Context mContext;
 
     /**
      * ViewHolder
@@ -45,7 +44,6 @@ public class MyGroupAdapter extends BaseExpandableListAdapter {
     public MyGroupAdapter(Context context, List<GroupSuperInfo> list, ExpandableListView rvList) {
         mContext = context;
         copyGroupList = list;
-        mRvList = rvList;
         mViewHolder = ViewHolder.getInstance();
     }
 

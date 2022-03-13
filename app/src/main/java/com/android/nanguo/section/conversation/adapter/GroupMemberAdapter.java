@@ -37,7 +37,7 @@ public class GroupMemberAdapter extends RecyclerView.Adapter<GroupMemberAdapter.
     private List<GroupDetailInfo.GroupUserDetailVoListBean> mInfoList;
     private List<GroupDetailInfo.GroupUserDetailVoListBean> copyUserList;
 
-    private Context mContext;
+    private final Context mContext;
     private HashMap<String, Integer> lettes = new HashMap<>();
     private MyFilter myFilter;
     private boolean isSeeUserDetail = false;//是否能查看群成员详情
@@ -54,7 +54,7 @@ public class GroupMemberAdapter extends RecyclerView.Adapter<GroupMemberAdapter.
 
     private OnDelClickListener mOnDelClickListener;
     private OnClickAtUserListener onClickAtUserListener;
-    private String emGroupId;
+    private final String emGroupId;
 
     public GroupMemberAdapter(List<GroupDetailInfo.GroupUserDetailVoListBean> infoList, Context context, HashMap<String, Integer> lettes, String emGroupId) {
         this.mInfoList = infoList;
@@ -84,7 +84,7 @@ public class GroupMemberAdapter extends RecyclerView.Adapter<GroupMemberAdapter.
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         final GroupDetailInfo.GroupUserDetailVoListBean info =
                 mInfoList.get(position);
@@ -270,12 +270,12 @@ public class GroupMemberAdapter extends RecyclerView.Adapter<GroupMemberAdapter.
     }
 
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView mTvName;
-        private ImageView imgHead;
-        private TextView mTvMange;
-        private TextView mTvDel;
+        private final TextView mTvName;
+        private final ImageView imgHead;
+        private final TextView mTvMange;
+        private final TextView mTvDel;
 
 
         public ViewHolder(View itemView, boolean show) {

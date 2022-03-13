@@ -27,7 +27,7 @@ import java.util.Map;
 
 public class DemoDBManager {
     static private DemoDBManager dbMgr = new DemoDBManager();
-    private DbOpenHelper dbHelper;
+    private final DbOpenHelper dbHelper;
 
     private DemoDBManager() {
         dbHelper = DbOpenHelper.getInstance(DemoApplication.getInstance().getApplicationContext());

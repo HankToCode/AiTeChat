@@ -20,7 +20,7 @@ import com.android.nanguo.common.utils.DemoLog;
  */
 public abstract class NetworkBoundResource<ResultType, RequestType> {
     private static final String TAG = "NetworkBoundResource";
-    private EaseThreadManager mThreadManager;
+    private final EaseThreadManager mThreadManager;
     private final MediatorLiveData<Resource<ResultType>> result = new MediatorLiveData<>();
     private LiveData<ResultType> lastFailSource;
 

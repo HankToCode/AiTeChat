@@ -113,7 +113,7 @@ public class SearchBar extends RelativeLayout {
 
     public interface OnSearchBarListener {
 
-        public void onTextChanged(CharSequence s, int start, int before, int count);
+        void onTextChanged(CharSequence s, int start, int before, int count);
 
     }
 

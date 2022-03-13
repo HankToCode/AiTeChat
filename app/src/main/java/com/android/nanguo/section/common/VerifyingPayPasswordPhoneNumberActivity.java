@@ -113,7 +113,7 @@ public class VerifyingPayPasswordPhoneNumberActivity extends BaseInitActivity {
 
     }
 
-    private TextWatcher watcher = new TextWatcher() {
+    private final TextWatcher watcher = new TextWatcher() {
 
         @Override
         public void onTextChanged(CharSequence s, int start, int before, int count) {

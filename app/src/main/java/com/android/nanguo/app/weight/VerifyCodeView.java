@@ -14,11 +14,11 @@ import com.android.nanguo.R;
 
 
 public class VerifyCodeView extends RelativeLayout {
-    private EditText editText;
-    private TextView[] textViews;
-    private TextView tvGetCode;
-    private TextView tvPhone;
-    private static int MAX = 6;
+    private final EditText editText;
+    private final TextView[] textViews;
+    private final TextView tvGetCode;
+    private final TextView tvPhone;
+    private static final int MAX = 6;
     private String inputContent;
     private CountDownTimer getCodeTimer;
     private OnVerifyCodeListener verifyCodeListener;

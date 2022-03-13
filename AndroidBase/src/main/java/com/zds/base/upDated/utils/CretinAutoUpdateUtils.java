@@ -40,6 +40,7 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -213,12 +214,12 @@ public class CretinAutoUpdateUtils {
                 }
                 httpURLConnection.connect();
                 //if连接请求码成功
-                if (httpURLConnection.getResponseCode() == httpURLConnection.HTTP_OK) {
+                if (httpURLConnection.getResponseCode() == HttpURLConnection.HTTP_OK) {
                     is = httpURLConnection.getInputStream();
                     byte[] bytes = new byte[1024];
                     int i = 0;
                     while ((i = is.read(bytes)) != -1) {
-                        sb.append(new String(bytes, 0, i, "utf-8"));
+                        sb.append(new String(bytes, 0, i, StandardCharsets.UTF_8));
                     }
                     is.close();
                 }
@@ -534,7 +535,7 @@ public class CretinAutoUpdateUtils {
         }
     }
 
-    private static int PERMISSON_REQUEST_CODE = 2;
+    private static final int PERMISSON_REQUEST_CODE = 2;
 
     @TargetApi(M)
     private static void requestPermission(final UpdateEntity data) {

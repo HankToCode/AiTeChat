@@ -23,7 +23,7 @@ public class EaseEmojiconScrollTabBar extends RelativeLayout{
     private HorizontalScrollView scrollView;
     private LinearLayout tabContainer;
     
-    private List<ImageView> tabList = new ArrayList<ImageView>();
+    private final List<ImageView> tabList = new ArrayList<ImageView>();
     private EaseScrollTabBarItemClickListener itemClickListener;
 
     public EaseEmojiconScrollTabBar(Context context) {

@@ -54,7 +54,7 @@ public class BankCardAdapter extends RecyclerView.Adapter<BankCardAdapter.MyView
     }
 
     private List<JsonBankCardList.DataBean> dataBean;
-    private Context mContext;
+    private final Context mContext;
 
     public void setData(List<JsonBankCardList.DataBean> dataBean) {
         this.dataBean = dataBean;

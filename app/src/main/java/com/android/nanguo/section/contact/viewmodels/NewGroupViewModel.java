@@ -13,8 +13,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 public class NewGroupViewModel extends AndroidViewModel {
-    private EMGroupManagerRepository repository;
-    private SingleSourceLiveData<Resource<EMGroup>> groupObservable;
+    private final EMGroupManagerRepository repository;
+    private final SingleSourceLiveData<Resource<EMGroup>> groupObservable;
 
     public NewGroupViewModel(@NonNull Application application) {
         super(application);

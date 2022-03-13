@@ -404,7 +404,7 @@ public class XNumberKeyboardView extends KeyboardView implements KeyboardView.On
         }
     }
 
-    private VibratorPlayer vib = new VibratorPlayer(DemoApplication.getInstance());
+    private final VibratorPlayer vib = new VibratorPlayer(DemoApplication.getInstance());
 
     @Override
     public void onKey(int primaryCode, int[] keyCodes) {

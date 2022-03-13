@@ -15,10 +15,10 @@ import com.android.nanguo.common.repositories.EMChatRoomManagerRepository;
 import com.android.nanguo.section.conversation.viewmodel.ConversationListViewModel;
 
 public class ChatViewModel extends ConversationListViewModel {
-    private EMChatRoomManagerRepository chatRoomManagerRepository;
-    private EMChatManagerRepository chatManagerRepository;
-    private SingleSourceLiveData<Resource<EMChatRoom>> chatRoomObservable;
-    private SingleSourceLiveData<Resource<Boolean>> makeConversationReadObservable;
+    private final EMChatRoomManagerRepository chatRoomManagerRepository;
+    private final EMChatManagerRepository chatManagerRepository;
+    private final SingleSourceLiveData<Resource<EMChatRoom>> chatRoomObservable;
+    private final SingleSourceLiveData<Resource<Boolean>> makeConversationReadObservable;
 
     public ChatViewModel(@NonNull Application application) {
         super(application);

@@ -43,7 +43,7 @@ import java.lang.reflect.Method;
 
 public class DemoApplication extends SelfAppContext implements Thread.UncaughtExceptionHandler {
     private static DemoApplication instance;
-    private UserActivityLifecycleCallbacks mLifecycleCallbacks = new UserActivityLifecycleCallbacks();
+    private final UserActivityLifecycleCallbacks mLifecycleCallbacks = new UserActivityLifecycleCallbacks();
     public String aesStatus = "";
 
 //    private RefWatcher refWatcher;

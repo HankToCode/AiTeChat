@@ -48,8 +48,8 @@ public class ContactHomeFragment extends BaseInitFragment implements View.OnClic
     private TextView tvSearch;
     private ImageView ivOptions;
 
-    private List<String> titles = Arrays.asList("我的好友", "我的群组", "好友分组");
-    private List<EaseBaseFragment> fragments = Arrays.asList(new ContactListFragment(), new GroupContactManageFragment(), new GroupingListFragment());
+    private final List<String> titles = Arrays.asList("我的好友", "我的群组", "好友分组");
+    private final List<EaseBaseFragment> fragments = Arrays.asList(new ContactListFragment(), new GroupContactManageFragment(), new GroupingListFragment());
 
     @Override
     protected int getLayoutId() {

@@ -83,9 +83,9 @@ public enum InviteMessageStatus {
         /**current user unmute some one in group in other device*/
         MULTI_DEVICE_GROUP_REMOVE_MUTE(R.string.multi_device_group_remove_mute);
 
-        private int msgContent;
+        private final int msgContent;
 
-        private InviteMessageStatus(@StringRes int msgContent) {
+        InviteMessageStatus(@StringRes int msgContent) {
             this.msgContent = msgContent;
         }
 

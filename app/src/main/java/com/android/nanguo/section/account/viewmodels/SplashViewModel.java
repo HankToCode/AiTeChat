@@ -10,7 +10,7 @@ import com.android.nanguo.common.net.Resource;
 import com.android.nanguo.common.repositories.EMClientRepository;
 
 public class SplashViewModel extends AndroidViewModel {
-    private EMClientRepository mRepository;
+    private final EMClientRepository mRepository;
 
     public SplashViewModel(@NonNull Application application) {
         super(application);

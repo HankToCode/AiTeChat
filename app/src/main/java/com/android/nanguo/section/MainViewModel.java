@@ -19,9 +19,9 @@ import com.android.nanguo.common.livedatas.LiveDataBus;
 import com.android.nanguo.common.utils.PreferenceManager;
 
 public class MainViewModel extends AndroidViewModel {
-    private InviteMessageDao inviteMessageDao;
-    private MutableLiveData<String> homeUnReadObservable;
-    private MutableLiveData<String> homeUnReadContactObservable;
+    private final InviteMessageDao inviteMessageDao;
+    private final MutableLiveData<String> homeUnReadObservable;
+    private final MutableLiveData<String> homeUnReadContactObservable;
 
     public MainViewModel(@NonNull Application application) {
         super(application);

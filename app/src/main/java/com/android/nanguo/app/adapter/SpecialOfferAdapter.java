@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SpecialOfferAdapter extends BaseAdapter {
-    private List<UserCodeMallListBean.SpecialOffer> datas = new ArrayList<>();
+    private final List<UserCodeMallListBean.SpecialOffer> datas = new ArrayList<>();
 
     private Context context;
 

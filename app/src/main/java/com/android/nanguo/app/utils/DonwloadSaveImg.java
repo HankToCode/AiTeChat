@@ -50,7 +50,7 @@ public class DonwloadSaveImg {
         new Thread(saveFileRunnable).start();
     }
 
-    private static Runnable saveFileRunnable = new Runnable() {
+    private static final Runnable saveFileRunnable = new Runnable() {
         @Override
         public void run() {
             try {

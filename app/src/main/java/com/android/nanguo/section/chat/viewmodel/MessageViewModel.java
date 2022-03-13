@@ -9,7 +9,7 @@ import com.android.nanguo.common.livedatas.LiveDataBus;
 import com.hyphenate.easeui.model.EaseEvent;
 
 public class MessageViewModel extends AndroidViewModel {
-    private LiveDataBus messageObservable;
+    private final LiveDataBus messageObservable;
 
     public MessageViewModel(@NonNull Application application) {
         super(application);

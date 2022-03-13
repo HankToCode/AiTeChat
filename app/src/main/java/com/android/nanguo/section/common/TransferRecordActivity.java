@@ -43,7 +43,7 @@ public class TransferRecordActivity extends BaseInitActivity {
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
     private TransferAdapter mTransferAdapter;
-    private List<TransferRecordInfo> mRecordInfoList = new ArrayList<>();
+    private final List<TransferRecordInfo> mRecordInfoList = new ArrayList<>();
     private int page = 1;
 
     public static void actionStart(Context context) {

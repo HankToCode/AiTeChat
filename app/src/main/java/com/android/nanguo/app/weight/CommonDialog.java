@@ -12,7 +12,7 @@ import com.android.nanguo.R;
 
 
 public class CommonDialog extends Dialog {
-    private AlertController mAlert;
+    private final AlertController mAlert;
 
     public CommonDialog(Context context, int theme) {
         super(context, theme);
@@ -68,7 +68,7 @@ public class CommonDialog extends Dialog {
 
 
     public static class Builder {
-        private int mTheme;
+        private final int mTheme;
         private final AlertController.AlertParams P;
 
         public Builder(Context context, int theme) {

@@ -181,7 +181,7 @@ public class AccountInfoActivity extends BaseInitActivity {
         int gridviewWidth = (int) (size * (length + 4) * density);
         int itemWidth = (int) (length * density);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
-                gridviewWidth, LinearLayout.LayoutParams.FILL_PARENT);
+                gridviewWidth, LinearLayout.LayoutParams.MATCH_PARENT);
         cml_member.setLayoutParams(params); // 设置GirdView布局参数,横向布局的关键
         cml_member.setColumnWidth(itemWidth); // 设置列表项宽
         cml_member.setHorizontalSpacing(5); // 设置列表项水平间距
@@ -200,7 +200,7 @@ public class AccountInfoActivity extends BaseInitActivity {
         int size2 = data2.size();
         int gridviewWidth2 = (int) (size2 * (length + 4) * density);
         LinearLayout.LayoutParams params2 = new LinearLayout.LayoutParams(
-                gridviewWidth2, LinearLayout.LayoutParams.FILL_PARENT);
+                gridviewWidth2, LinearLayout.LayoutParams.MATCH_PARENT);
         cml_member2.setLayoutParams(params2); // 设置GirdView布局参数,横向布局的关键
         cml_member2.setColumnWidth(itemWidth); // 设置列表项宽
         cml_member2.setHorizontalSpacing(5); // 设置列表项水平间距
@@ -220,7 +220,7 @@ public class AccountInfoActivity extends BaseInitActivity {
         int size3 = data3.size();
         int gridviewWidth3 = (int) (size3 * (length + 4) * density);
         LinearLayout.LayoutParams params3 = new LinearLayout.LayoutParams(
-                gridviewWidth3, LinearLayout.LayoutParams.FILL_PARENT);
+                gridviewWidth3, LinearLayout.LayoutParams.MATCH_PARENT);
         cml_member3.setLayoutParams(params3); // 设置GirdView布局参数,横向布局的关键
         cml_member3.setColumnWidth(itemWidth); // 设置列表项宽
         cml_member3.setHorizontalSpacing(5); // 设置列表项水平间距
@@ -242,7 +242,7 @@ public class AccountInfoActivity extends BaseInitActivity {
         int size4 = data4.size();
         int gridviewWidth4 = (int) (size4 * (length + 4) * density);
         LinearLayout.LayoutParams params4 = new LinearLayout.LayoutParams(
-                gridviewWidth4, LinearLayout.LayoutParams.FILL_PARENT);
+                gridviewWidth4, LinearLayout.LayoutParams.MATCH_PARENT);
         cml_member4.setLayoutParams(params4); // 设置GirdView布局参数,横向布局的关键
         cml_member4.setColumnWidth(itemWidth); // 设置列表项宽
         cml_member4.setHorizontalSpacing(5); // 设置列表项水平间距

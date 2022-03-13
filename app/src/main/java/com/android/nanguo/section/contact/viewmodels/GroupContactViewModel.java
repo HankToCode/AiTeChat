@@ -19,14 +19,14 @@ import com.android.nanguo.app.domain.EaseUser;
 import java.util.List;
 
 public class GroupContactViewModel extends AndroidViewModel {
-    private String currentUser;
-    private EMGroupManagerRepository mRepository;
-    private SingleSourceLiveData<Resource<List<EMGroup>>> allGroupObservable;
-    private SingleSourceLiveData<Resource<List<EaseUser>>> groupMemberObservable;
-    private SingleSourceLiveData<Resource<EMCursorResult<EMGroupInfo>>> publicGroupObservable;
-    private SingleSourceLiveData<Resource<EMCursorResult<EMGroupInfo>>> morePublicGroupObservable;
-    private SingleSourceLiveData<Resource<List<EMGroup>>> groupObservable;
-    private SingleSourceLiveData<Resource<List<EMGroup>>> moreGroupObservable;
+    private final String currentUser;
+    private final EMGroupManagerRepository mRepository;
+    private final SingleSourceLiveData<Resource<List<EMGroup>>> allGroupObservable;
+    private final SingleSourceLiveData<Resource<List<EaseUser>>> groupMemberObservable;
+    private final SingleSourceLiveData<Resource<EMCursorResult<EMGroupInfo>>> publicGroupObservable;
+    private final SingleSourceLiveData<Resource<EMCursorResult<EMGroupInfo>>> morePublicGroupObservable;
+    private final SingleSourceLiveData<Resource<List<EMGroup>>> groupObservable;
+    private final SingleSourceLiveData<Resource<List<EMGroup>>> moreGroupObservable;
 
     public GroupContactViewModel(@NonNull Application application) {
         super(application);

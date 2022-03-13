@@ -29,12 +29,12 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 public class NewFriendsViewModel extends AndroidViewModel {
-    private SingleSourceLiveData<List<EMMessage>> inviteMsgObservable;
-    private SingleSourceLiveData<List<EMMessage>> moreInviteMsgObservable;
-    private MutableLiveData<Resource<Boolean>> resultObservable;
-    private MutableLiveData<Resource<String>> agreeObservable;
-    private MutableLiveData<Resource<String>> refuseObservable;
-    private LiveDataBus messageChangeObservable = LiveDataBus.get();
+    private final SingleSourceLiveData<List<EMMessage>> inviteMsgObservable;
+    private final SingleSourceLiveData<List<EMMessage>> moreInviteMsgObservable;
+    private final MutableLiveData<Resource<Boolean>> resultObservable;
+    private final MutableLiveData<Resource<String>> agreeObservable;
+    private final MutableLiveData<Resource<String>> refuseObservable;
+    private final LiveDataBus messageChangeObservable = LiveDataBus.get();
 
     public NewFriendsViewModel(@NonNull Application application) {
         super(application);

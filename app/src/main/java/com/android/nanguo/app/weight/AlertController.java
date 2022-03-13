@@ -44,8 +44,8 @@ import java.util.Iterator;
  */
 public class AlertController {
 
-    private Window mWindow;
-    private CommonDialog mDialog;
+    private final Window mWindow;
+    private final CommonDialog mDialog;
     private DialogViewHolder mDialogVH;
 
     public AlertController(Window window, CommonDialog dialog) {
@@ -132,7 +132,7 @@ public class AlertController {
         // 宽度
         private int mWidth = LayoutParams.WRAP_CONTENT;
         // 高度
-        private int mHeight = LayoutParams.WRAP_CONTENT;
+        private final int mHeight = LayoutParams.WRAP_CONTENT;
         private int mWindowFlags;
         private int mWindowGravity;
 

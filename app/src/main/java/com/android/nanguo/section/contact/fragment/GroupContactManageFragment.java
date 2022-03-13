@@ -42,19 +42,19 @@ import java.util.Map;
 public class GroupContactManageFragment extends BaseInitFragment {
     public ExpandableListView rvList;
     public MyGroupAdapter mAdapter;
-    private int pageSize = 1000;
+    private final int pageSize = 1000;
 
     private int page = 1;
     private boolean isFirstStart = true;
     private ArrayList<GroupSuperInfo> mList = new ArrayList<>();
-    private ArrayList<GroupInfo> mAllGroupInfoList = new ArrayList<>();
+    private final ArrayList<GroupInfo> mAllGroupInfoList = new ArrayList<>();
 
     //我创建的
-    private ArrayList<GroupInfo> mMyGroupInfoList = new ArrayList<>();
+    private final ArrayList<GroupInfo> mMyGroupInfoList = new ArrayList<>();
     //我管理的
-    private ArrayList<GroupInfo> mMaGroupInfoList = new ArrayList<>();
+    private final ArrayList<GroupInfo> mMaGroupInfoList = new ArrayList<>();
     //我加入的
-    private ArrayList<GroupInfo> mInGroupInfoList = new ArrayList<>();
+    private final ArrayList<GroupInfo> mInGroupInfoList = new ArrayList<>();
     private ConversationItemView mFriendNotice;
 
     @Override

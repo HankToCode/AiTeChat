@@ -23,11 +23,11 @@ public class SortUtil {
         return instance;
     }
 
-    public List groupUserAlphabetical(List<GroupDetailInfo.GroupUserDetailVoListBean> list) {
-        List operatorList = new ArrayList();
-        List letterList = new ArrayList();
-        List specialList = new ArrayList();
-        List combinationList = new ArrayList();
+    public List<GroupDetailInfo.GroupUserDetailVoListBean> groupUserAlphabetical(List<GroupDetailInfo.GroupUserDetailVoListBean> list) {
+        List<GroupDetailInfo.GroupUserDetailVoListBean> operatorList = new ArrayList<>();
+        List<GroupDetailInfo.GroupUserDetailVoListBean> letterList = new ArrayList<>();
+        List<GroupDetailInfo.GroupUserDetailVoListBean> specialList = new ArrayList<>();
+        List<GroupDetailInfo.GroupUserDetailVoListBean> combinationList = new ArrayList<>();
         for (GroupDetailInfo.GroupUserDetailVoListBean bean : list) {
 
             if (UserOperateManager.getInstance().hasUserName(bean.getUserId())) {
@@ -57,7 +57,7 @@ public class SortUtil {
             }
         }
         Collections.sort(letterList, new Comparator<GroupDetailInfo.GroupUserDetailVoListBean>() {
-            Collator collator = Collator.getInstance(Locale.CHINA);
+            final Collator collator = Collator.getInstance(Locale.CHINA);
 
             @Override
             public int compare(GroupDetailInfo.GroupUserDetailVoListBean o1, GroupDetailInfo.GroupUserDetailVoListBean o2) {

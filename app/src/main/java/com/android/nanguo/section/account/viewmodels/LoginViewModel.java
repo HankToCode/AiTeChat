@@ -11,9 +11,9 @@ import com.android.nanguo.common.repositories.EMClientRepository;
 
 
 public class LoginViewModel extends AndroidViewModel {
-    private EMClientRepository mRepository;
-    private SingleSourceLiveData<Resource<String>> registerObservable;
-    private SingleSourceLiveData<Integer> pageObservable;
+    private final EMClientRepository mRepository;
+    private final SingleSourceLiveData<Resource<String>> registerObservable;
+    private final SingleSourceLiveData<Integer> pageObservable;
 
     public LoginViewModel(@NonNull Application application) {
         super(application);

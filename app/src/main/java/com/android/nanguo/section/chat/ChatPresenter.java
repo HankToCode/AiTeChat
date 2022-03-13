@@ -64,7 +64,7 @@ public class ChatPresenter extends EaseChatPresenter {
     private static final String TAG = ChatPresenter.class.getSimpleName();
     private static final int HANDLER_SHOW_TOAST = 0;
     private static ChatPresenter instance;
-    private LiveDataBus messageChangeLiveData;
+    private final LiveDataBus messageChangeLiveData;
     private boolean isGroupsSyncedWithServer = false;
     private boolean isContactsSyncedWithServer = false;
     private boolean isBlackListSyncedWithServer = false;

@@ -59,8 +59,7 @@ public class MultiAccountActivity extends BaseInitActivity implements LoginAccou
     @BindView(R.id.ll_add)
     LinearLayout ll_add;
 
-    private List<EaseUser> loginInfos = new ArrayList<>();
-    private LoginAccountAdapter adapter;
+    private final List<EaseUser> loginInfos = new ArrayList<>();
     private int position;
     private MyModel myModel;
 
@@ -80,7 +79,7 @@ public class MultiAccountActivity extends BaseInitActivity implements LoginAccou
         super.initView(savedInstanceState);
         mTitleBar.setTitle("切换账号");
         mTitleBar.setOnBackPressListener(view -> finish());
-        adapter = new LoginAccountAdapter(mContext, loginInfos);
+        LoginAccountAdapter adapter = new LoginAccountAdapter(mContext, loginInfos);
         RclViewHelp.initRcLmVertical(this, recyclerView, adapter);
 
         myModel = MyHelper.getInstance().getModel();

@@ -45,7 +45,7 @@ public class ChatRedRecordActivity extends BaseInitActivity {
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
     private ChatRedRecordAdapter mRedRecordAdapter;
-    private List<MyRedInfo.DataBean> mPacketInfoList = new ArrayList<>();
+    private final List<MyRedInfo.DataBean> mPacketInfoList = new ArrayList<>();
     private int page = 1;
 
     public static void actionStart(Context context) {

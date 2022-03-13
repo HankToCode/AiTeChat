@@ -16,11 +16,11 @@ import com.android.nanguo.app.domain.EaseUser;
 import java.util.List;
 
 public class ContactsViewModel extends AndroidViewModel {
-    private EMContactManagerRepository mRepository;
-    private SingleSourceLiveData<Resource<List<EaseUser>>> contactObservable;
-    private MediatorLiveData<Resource<List<EaseUser>>> blackObservable;
-    private SingleSourceLiveData<Resource<Boolean>> blackResultObservable;
-    private SingleSourceLiveData<Resource<Boolean>> deleteObservable;
+    private final EMContactManagerRepository mRepository;
+    private final SingleSourceLiveData<Resource<List<EaseUser>>> contactObservable;
+    private final MediatorLiveData<Resource<List<EaseUser>>> blackObservable;
+    private final SingleSourceLiveData<Resource<Boolean>> blackResultObservable;
+    private final SingleSourceLiveData<Resource<Boolean>> deleteObservable;
 
     public ContactsViewModel(@NonNull Application application) {
         super(application);

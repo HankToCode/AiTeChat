@@ -55,7 +55,7 @@ public class MyCollectActivity extends BaseInitActivity {
 
     private MyCollectAdapter mCollectAdapter;
     private CollectInfo collectInfo;
-    private List<CollectInfo.DataBean> dataBean = new ArrayList<>();
+    private final List<CollectInfo.DataBean> dataBean = new ArrayList<>();
     private int page = 1;
 
     @Override

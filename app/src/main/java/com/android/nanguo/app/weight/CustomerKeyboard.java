@@ -83,8 +83,8 @@ public class CustomerKeyboard extends LinearLayout implements View.OnClickListen
      * 点击键盘的回调监听
      */
     public interface CustomerKeyboardClickListener {
-        public void click(String number);
+        void click(String number);
 
-        public void delete();
+        void delete();
     }
 }

@@ -23,7 +23,7 @@ import java.util.List;
  */
 public class ContactSearchAdapter extends BaseQuickAdapter<ContactListInfo.DataBean, BaseViewHolder> implements Filterable {
     private MyFilter myFilter;
-    private List<ContactListInfo.DataBean> copyUserList;
+    private final List<ContactListInfo.DataBean> copyUserList;
 
 
     public ContactSearchAdapter(List<ContactListInfo.DataBean> list) {

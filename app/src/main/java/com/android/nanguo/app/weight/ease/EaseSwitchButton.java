@@ -14,8 +14,8 @@ import com.android.nanguo.R;
 
 public class EaseSwitchButton extends FrameLayout{
 
-    private ImageView openImage;
-    private ImageView closeImage;
+    private final ImageView openImage;
+    private final ImageView closeImage;
 
     public EaseSwitchButton(Context context, AttributeSet attrs, int defStyle) {
         this(context, attrs);

@@ -14,8 +14,8 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 public class NewChatRoomViewModel extends AndroidViewModel {
-    private EMChatRoomManagerRepository repository;
-    private SingleSourceLiveData<Resource<EMChatRoom>> chatRoomObservable;
+    private final EMChatRoomManagerRepository repository;
+    private final SingleSourceLiveData<Resource<EMChatRoom>> chatRoomObservable;
     public NewChatRoomViewModel(@NonNull Application application) {
         super(application);
         repository = new EMChatRoomManagerRepository();

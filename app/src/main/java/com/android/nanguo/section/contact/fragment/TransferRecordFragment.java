@@ -35,7 +35,7 @@ public class TransferRecordFragment extends BaseInitFragment {
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
     private TransferAdapter mTransferAdapter;
-    private List<TransferRecordInfo> mRecordInfoList = new ArrayList<>();
+    private final List<TransferRecordInfo> mRecordInfoList = new ArrayList<>();
     private int page = 1;
 
 

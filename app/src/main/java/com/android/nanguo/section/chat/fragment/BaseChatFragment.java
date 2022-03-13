@@ -202,8 +202,6 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
 
     protected String nickName;
 
-    private boolean mIsOpenLoop = true;
-
     protected boolean isRoaming() {
         return false;
     }
@@ -1045,7 +1043,6 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
             final View bottomChildView = listView.getChildAt(listView.getLastVisiblePosition() - listView.getFirstVisiblePosition());
             result = (listView.getHeight() >= bottomChildView.getBottom());
         }
-        ;
         return result;
     }
 
@@ -1329,7 +1326,6 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
      *
      * @param content
      */
-    @SuppressWarnings("ConstantConditions")
     private void sendAtMessage(String content) {
         if (chatType != EaseConstant.CHATTYPE_GROUP) {
             return;

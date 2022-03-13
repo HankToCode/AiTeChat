@@ -19,8 +19,8 @@ import java.util.List;
  */
 
 public class UserActivityLifecycleCallbacks implements Application.ActivityLifecycleCallbacks, ActivityState {
-    private List<Activity> activityList=new ArrayList<>();
-    private List<Activity> resumeActivity=new ArrayList<>();
+    private final List<Activity> activityList=new ArrayList<>();
+    private final List<Activity> resumeActivity=new ArrayList<>();
 
     @Override
     public void onActivityCreated(Activity activity, Bundle bundle) {

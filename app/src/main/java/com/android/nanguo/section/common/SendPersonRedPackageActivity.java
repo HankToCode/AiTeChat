@@ -62,8 +62,6 @@ public class SendPersonRedPackageActivity extends BaseInitActivity {
     TextView tv_member;
 
     private String toChatUsername;
-    private boolean isSelectBalance = true;
-
     //结果返回最多重新查询次数
     private int maxCount = 5;
 

@@ -18,7 +18,7 @@ import java.util.List;
 
 public class EmojiconGridAdapter extends ArrayAdapter<EaseEmojicon> {
 
-    private EaseEmojicon.Type emojiconType;
+    private final EaseEmojicon.Type emojiconType;
 
 
     public EmojiconGridAdapter(Context context, int textViewResourceId, List<EaseEmojicon> objects, EaseEmojicon.Type emojiconType) {

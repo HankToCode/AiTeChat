@@ -64,8 +64,7 @@ public class NewGroupActivity extends BaseInitActivity {
     EditText mEtGroup;
     @BindView(R.id.tv_group_hint)
     TextView mTvGroupHint;
-    private List<ContactListInfo.DataBean> mContactList = new ArrayList<>();
-    private ContactAdapter mContactAdapter;
+    private final List<ContactListInfo.DataBean> mContactList = new ArrayList<>();
 
 
     /**
@@ -117,7 +116,7 @@ public class NewGroupActivity extends BaseInitActivity {
         });
 
 
-        mContactAdapter = new ContactAdapter(mContactList);
+        ContactAdapter mContactAdapter = new ContactAdapter(mContactList);
         mContactAdapter.setFrom("2");
         RclViewHelp.initRcLmVertical(this, mRvContact, mContactAdapter);
     }

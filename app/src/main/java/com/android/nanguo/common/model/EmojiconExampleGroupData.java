@@ -10,7 +10,7 @@ import java.util.Arrays;
 
 public class EmojiconExampleGroupData {
     
-    private static int[] icons = new int[]{
+    private static final int[] icons = new int[]{
         R.drawable.icon_002_cover,
         R.drawable.icon_007_cover,
         R.drawable.icon_010_cover,
@@ -29,7 +29,7 @@ public class EmojiconExampleGroupData {
         R.drawable.icon_040_cover,
     };
     
-    private static int[] bigIcons = new int[]{
+    private static final int[] bigIcons = new int[]{
         R.drawable.icon_002,
         R.drawable.icon_007,
         R.drawable.icon_010,

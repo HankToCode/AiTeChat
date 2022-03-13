@@ -45,7 +45,7 @@ public class GroupMemberActivity extends BaseInitActivity implements GroupMember
     @BindView(R.id.title_bar)
     EaseTitleBar title_bar;
 
-    private ArrayList<GroupDetailInfo.GroupUserDetailVoListBean> mStringList = new ArrayList<>();
+    private final ArrayList<GroupDetailInfo.GroupUserDetailVoListBean> mStringList = new ArrayList<>();
     private GroupMemberAdapter mGroupMemberAdapter;
     private HashMap<String, Integer> lettes;
     private boolean isForAtMerber;

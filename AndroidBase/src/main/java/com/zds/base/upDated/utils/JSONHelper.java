@@ -28,7 +28,7 @@ import java.util.Set;
 
 public class JSONHelper {
   
-    private static String TAG = "JSONHelper";  
+    private static final String TAG = "JSONHelper";
   
     /** 
      * 将对象转换成Json字符串 
@@ -527,7 +527,6 @@ public class JSONHelper {
      */  
     private static void setField(Object obj, JSONObject jo) {  
         try {  
-            @SuppressWarnings("unchecked")
             Iterator<String> keyIter = jo.keys();
             String key;  
             Object value;  

@@ -28,66 +28,66 @@ public class PreferenceManager {
     private static PreferenceManager mPreferencemManager;
     private static SharedPreferences.Editor editor;
 
-    private String SHARED_KEY_SETTING_NOTIFICATION =
+    private final String SHARED_KEY_SETTING_NOTIFICATION =
             "shared_key_setting_notification";
-    private String SHARED_KEY_SETTING_SOUND = "shared_key_setting_sound";
-    private String SHARED_KEY_SETTING_VIBRATE = "shared_key_setting_vibrate";
-    private String SHARED_KEY_SETTING_SPEAKER = "shared_key_setting_speaker";
+    private final String SHARED_KEY_SETTING_SOUND = "shared_key_setting_sound";
+    private final String SHARED_KEY_SETTING_VIBRATE = "shared_key_setting_vibrate";
+    private final String SHARED_KEY_SETTING_SPEAKER = "shared_key_setting_speaker";
 
-    private static String SHARED_KEY_SETTING_CHATROOM_OWNER_LEAVE =
+    private static final String SHARED_KEY_SETTING_CHATROOM_OWNER_LEAVE =
             "shared_key_setting_chatroom_owner_leave";
-    private static String SHARED_KEY_SETTING_DELETE_MESSAGES_WHEN_EXIT_GROUP
+    private static final String SHARED_KEY_SETTING_DELETE_MESSAGES_WHEN_EXIT_GROUP
             = "shared_key_setting_delete_messages_when_exit_group";
-    private static String SHARED_KEY_SETTING_TRANSFER_FILE_BY_USER =
+    private static final String SHARED_KEY_SETTING_TRANSFER_FILE_BY_USER =
             "shared_key_setting_transfer_file_by_user";
-    private static String SHARED_KEY_SETTING_AUTODOWNLOAD_THUMBNAIL =
+    private static final String SHARED_KEY_SETTING_AUTODOWNLOAD_THUMBNAIL =
             "shared_key_setting_autodownload_thumbnail";
-    private static String SHARED_KEY_SETTING_AUTO_ACCEPT_GROUP_INVITATION =
+    private static final String SHARED_KEY_SETTING_AUTO_ACCEPT_GROUP_INVITATION =
             "shared_key_setting_auto_accept_group_invitation";
-    private static String SHARED_KEY_SETTING_ADAPTIVE_VIDEO_ENCODE =
+    private static final String SHARED_KEY_SETTING_ADAPTIVE_VIDEO_ENCODE =
             "shared_key_setting_adaptive_video_encode";
-    private static String SHARED_KEY_SETTING_OFFLINE_PUSH_CALL =
+    private static final String SHARED_KEY_SETTING_OFFLINE_PUSH_CALL =
             "shared_key_setting_offline_push_call";
 
-    private static String SHARED_KEY_SETTING_GROUPS_SYNCED =
+    private static final String SHARED_KEY_SETTING_GROUPS_SYNCED =
             "SHARED_KEY_SETTING_GROUPS_SYNCED";
-    private static String SHARED_KEY_SETTING_CONTACT_SYNCED =
+    private static final String SHARED_KEY_SETTING_CONTACT_SYNCED =
             "SHARED_KEY_SETTING_CONTACT_SYNCED";
-    private static String SHARED_KEY_SETTING_BALCKLIST_SYNCED =
+    private static final String SHARED_KEY_SETTING_BALCKLIST_SYNCED =
             "SHARED_KEY_SETTING_BALCKLIST_SYNCED";
 
-    private static String SHARED_KEY_CURRENTUSER_USERNAME =
+    private static final String SHARED_KEY_CURRENTUSER_USERNAME =
             "SHARED_KEY_CURRENTUSER_USERNAME";
-    private static String SHARED_KEY_CURRENTUSER_NICK =
+    private static final String SHARED_KEY_CURRENTUSER_NICK =
             "SHARED_KEY_CURRENTUSER_NICK";
-    private static String SHARED_KEY_CURRENTUSER_AVATAR =
+    private static final String SHARED_KEY_CURRENTUSER_AVATAR =
             "SHARED_KEY_CURRENTUSER_AVATAR";
 
-    private static String SHARED_KEY_REST_SERVER = "SHARED_KEY_REST_SERVER";
-    private static String SHARED_KEY_IM_SERVER = "SHARED_KEY_IM_SERVER";
-    private static String SHARED_KEY_ENABLE_CUSTOM_SERVER =
+    private static final String SHARED_KEY_REST_SERVER = "SHARED_KEY_REST_SERVER";
+    private static final String SHARED_KEY_IM_SERVER = "SHARED_KEY_IM_SERVER";
+    private static final String SHARED_KEY_ENABLE_CUSTOM_SERVER =
             "SHARED_KEY_ENABLE_CUSTOM_SERVER";
-    private static String SHARED_KEY_ENABLE_CUSTOM_APPKEY =
+    private static final String SHARED_KEY_ENABLE_CUSTOM_APPKEY =
             "SHARED_KEY_ENABLE_CUSTOM_APPKEY";
-    private static String SHARED_KEY_CUSTOM_APPKEY = "SHARED_KEY_CUSTOM_APPKEY";
-    private static String SHARED_KEY_MSG_ROAMING = "SHARED_KEY_MSG_ROAMING";
-    private static String SHARED_KEY_AT_GROUPS = "SHARED_KEY_AT_GROUPS1";
+    private static final String SHARED_KEY_CUSTOM_APPKEY = "SHARED_KEY_CUSTOM_APPKEY";
+    private static final String SHARED_KEY_MSG_ROAMING = "SHARED_KEY_MSG_ROAMING";
+    private static final String SHARED_KEY_AT_GROUPS = "SHARED_KEY_AT_GROUPS1";
 
-    private static String SHARED_KEY_CALL_MIN_VIDEO_KBPS =
+    private static final String SHARED_KEY_CALL_MIN_VIDEO_KBPS =
             "SHARED_KEY_CALL_MIN_VIDEO_KBPS";
-    private static String SHARED_KEY_CALL_MAX_VIDEO_KBPS =
+    private static final String SHARED_KEY_CALL_MAX_VIDEO_KBPS =
             "SHARED_KEY_CALL_Max_VIDEO_KBPS";
-    private static String SHARED_KEY_CALL_MAX_FRAME_RATE =
+    private static final String SHARED_KEY_CALL_MAX_FRAME_RATE =
             "SHARED_KEY_CALL_MAX_FRAME_RATE";
-    private static String SHARED_KEY_CALL_AUDIO_SAMPLE_RATE =
+    private static final String SHARED_KEY_CALL_AUDIO_SAMPLE_RATE =
             "SHARED_KEY_CALL_AUDIO_SAMPLE_RATE";
-    private static String SHARED_KEY_CALL_BACK_CAMERA_RESOLUTION =
+    private static final String SHARED_KEY_CALL_BACK_CAMERA_RESOLUTION =
             "SHARED_KEY_CALL_BACK_CAMERA_RESOLUTION";
-    private static String SHARED_KEY_CALL_FRONT_CAMERA_RESOLUTION =
+    private static final String SHARED_KEY_CALL_FRONT_CAMERA_RESOLUTION =
             "SHARED_KEY_FRONT_CAMERA_RESOLUTIOIN";
-    private static String SHARED_KEY_CALL_FIX_SAMPLE_RATE =
+    private static final String SHARED_KEY_CALL_FIX_SAMPLE_RATE =
             "SHARED_KEY_CALL_FIX_SAMPLE_RATE";
-    private static String FIRST_OPEN_APP = "FIRST_OPEN_APP";
+    private static final String FIRST_OPEN_APP = "FIRST_OPEN_APP";
 
 
 
@@ -539,25 +539,25 @@ public class PreferenceManager {
     /**
      * name of preference
      */
-    private static String SHARED_KEY_SETTING_DELETE_MESSAGES_WHEN_EXIT_CHAT_ROOM = "shared_key_setting_delete_messages_when_exit_chat_room";
-    private static String SHARED_KEY_SETTING_RECORD_ON_SERVER = "shared_key_setting_record_on_server";
-    private static String SHARED_KEY_SETTING_MERGE_STREAM = "shared_key_setting_merge_stream";
-    private static String SHARED_KEY_SETTING_OFFLINE_LARGE_CONFERENCE_MODE = "shared_key_setting_offline_large_conference_mode";
+    private static final String SHARED_KEY_SETTING_DELETE_MESSAGES_WHEN_EXIT_CHAT_ROOM = "shared_key_setting_delete_messages_when_exit_chat_room";
+    private static final String SHARED_KEY_SETTING_RECORD_ON_SERVER = "shared_key_setting_record_on_server";
+    private static final String SHARED_KEY_SETTING_MERGE_STREAM = "shared_key_setting_merge_stream";
+    private static final String SHARED_KEY_SETTING_OFFLINE_LARGE_CONFERENCE_MODE = "shared_key_setting_offline_large_conference_mode";
 
-    private static String SHARED_KEY_CURRENTUSER_USER_PASSWORD = "SHARED_KEY_CURRENTUSER_USER_PASSWORD";
-    private static String SHARED_KEY_IM_SERVER_PORT = "SHARED_KEY_IM_SERVER_PORT";
-    private static String SHARED_KEY_ENABLE_CUSTOM_SET = "SHARED_KEY_ENABLE_CUSTOM_SET";
-    private static String SHARED_KEY_SHOW_MSG_TYPING = "SHARED_KEY_SHOW_MSG_TYPING";
+    private static final String SHARED_KEY_CURRENTUSER_USER_PASSWORD = "SHARED_KEY_CURRENTUSER_USER_PASSWORD";
+    private static final String SHARED_KEY_IM_SERVER_PORT = "SHARED_KEY_IM_SERVER_PORT";
+    private static final String SHARED_KEY_ENABLE_CUSTOM_SET = "SHARED_KEY_ENABLE_CUSTOM_SET";
+    private static final String SHARED_KEY_SHOW_MSG_TYPING = "SHARED_KEY_SHOW_MSG_TYPING";
 
-    private static String SHARED_KEY_EXTERNAL_INPUT_AUDIO_RESOLUTION = "SHARED_KEY_EXTERNAL_INPUT_AUDIO_RESOLUTION";
-    private static String SHARED_KEY_WATER_MARK_RESOLUTION = "SHARED_KEY_WATER_MARK_RESOLUTION";
+    private static final String SHARED_KEY_EXTERNAL_INPUT_AUDIO_RESOLUTION = "SHARED_KEY_EXTERNAL_INPUT_AUDIO_RESOLUTION";
+    private static final String SHARED_KEY_WATER_MARK_RESOLUTION = "SHARED_KEY_WATER_MARK_RESOLUTION";
 
-    private static String SHARED_KEY_PUSH_USE_FCM = "shared_key_push_use_fcm";
-    private static String SHARED_KEY_AUTO_LOGIN = "shared_key_auto_login";
-    private static String SHARED_KEY_HTTPS_ONLY = "shared_key_https_only";
-    private static String SHARED_KEY_SORT_MESSAGE_BY_SERVER_TIME = "sort_message_by_server_time";
+    private static final String SHARED_KEY_PUSH_USE_FCM = "shared_key_push_use_fcm";
+    private static final String SHARED_KEY_AUTO_LOGIN = "shared_key_auto_login";
+    private static final String SHARED_KEY_HTTPS_ONLY = "shared_key_https_only";
+    private static final String SHARED_KEY_SORT_MESSAGE_BY_SERVER_TIME = "sort_message_by_server_time";
 
-    private static String SHARED_KEY_ENABLE_TOKEN_LOGIN = "enable_token_login";
+    private static final String SHARED_KEY_ENABLE_TOKEN_LOGIN = "enable_token_login";
 
 
 

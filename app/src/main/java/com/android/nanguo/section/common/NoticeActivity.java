@@ -57,10 +57,8 @@ public class NoticeActivity extends BaseInitActivity {
     private String toChatUsername;
     private String noticeString;
     private long time;
-    private Boolean isMyroom = false;
     private String img_head, tv_head;
     private int user_rank;
-    private List<GroupDetailInfo.GroupUserDetailVoListBean> mDetailVoListBeanList = new ArrayList<>();
 
     @Override
     protected int getLayoutId() {

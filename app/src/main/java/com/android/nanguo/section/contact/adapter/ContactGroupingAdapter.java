@@ -23,8 +23,8 @@ import java.util.List;
 
 public class ContactGroupingAdapter extends BaseExpandableListAdapter {
     private Context mContext;
-    private ArrayList<String> mGroup;
-    private ArrayList<ArrayList<ContactListInfo.DataBean>> mItemList;
+    private final ArrayList<String> mGroup;
+    private final ArrayList<ArrayList<ContactListInfo.DataBean>> mItemList;
     private final LayoutInflater mInflater;
 
     public ContactGroupingAdapter(Context context, ArrayList<String> group, ArrayList<ArrayList<ContactListInfo.DataBean>> itemList) {

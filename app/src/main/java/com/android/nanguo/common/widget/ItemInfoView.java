@@ -24,9 +24,6 @@ public class ItemInfoView extends LinearLayout {
     private TextView tvLeft, tvRight, tvLeftLayer;
     private ImageView ivRight, ivLeft;
 
-    private boolean isCheck = false;
-
-
     public ItemInfoView(Context context) {
         this(context, null);
     }

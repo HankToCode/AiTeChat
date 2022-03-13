@@ -47,7 +47,7 @@ public class DiscoverFragment extends BaseInitFragment implements View.OnClickLi
     private ImageView mIvQRC;
     private ConstraintLayout mClWYW;
     private ImageView mIvWYW;
-    private List<NewsBean> datas = new ArrayList<>();
+    private final List<NewsBean> datas = new ArrayList<>();
 
     @Override
     protected int getLayoutId() {

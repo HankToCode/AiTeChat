@@ -18,12 +18,12 @@ import com.hyphenate.easeui.modules.conversation.model.EaseConversationInfo;
 import java.util.List;
 
 public class ConversationListViewModel extends AndroidViewModel {
-    private EMChatManagerRepository mRepository;
+    private final EMChatManagerRepository mRepository;
 
-    private SingleSourceLiveData<Resource<List<Object>>> conversationObservable;
-    private SingleSourceLiveData<Resource<List<EaseConversationInfo>>> conversationInfoObservable;
-    private SingleSourceLiveData<Resource<Boolean>> deleteConversationObservable;
-    private SingleSourceLiveData<Resource<Boolean>> readConversationObservable;
+    private final SingleSourceLiveData<Resource<List<Object>>> conversationObservable;
+    private final SingleSourceLiveData<Resource<List<EaseConversationInfo>>> conversationInfoObservable;
+    private final SingleSourceLiveData<Resource<Boolean>> deleteConversationObservable;
+    private final SingleSourceLiveData<Resource<Boolean>> readConversationObservable;
 
     public ConversationListViewModel(@NonNull Application application) {
         super(application);

@@ -24,15 +24,15 @@ import java.util.List;
 
 public class EaseEmojiconPagerView extends ViewPager {
 
-    private Context context;
+    private final Context context;
     private List<EaseEmojiconGroupEntity> groupEntities;
 
     private PagerAdapter pagerAdapter;
     
-    private int emojiconRows = 3;
+    private final int emojiconRows = 3;
     private int emojiconColumns = 7;
     
-    private int bigEmojiconRows = 2;
+    private final int bigEmojiconRows = 2;
     private int bigEmojiconColumns = 4;
     
     private int firstGroupPageSize;

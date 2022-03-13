@@ -56,7 +56,7 @@ public class ChatBgActivity extends BaseInitActivity implements ChatBgAdapter.Se
     private List<ChatBgInfo> mInfoList = new ArrayList<>();
     private ChatBgAdapter mChatBgAdapter;
 
-    private int mBitmap[] = {R.mipmap.bg_2, R.mipmap.bg_1, R.mipmap.bg_3, R.mipmap.bg_4, R.mipmap.bg_5, R.mipmap.bg_6};
+    private final int[] mBitmap = {R.mipmap.bg_2, R.mipmap.bg_1, R.mipmap.bg_3, R.mipmap.bg_4, R.mipmap.bg_5, R.mipmap.bg_6};
 
     @Override
     protected void initData() {

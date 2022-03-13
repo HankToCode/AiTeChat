@@ -59,7 +59,7 @@ public class EaseMessageAdapter extends BaseAdapter {
 
     private final static String TAG = "msg";
 
-    private Context context;
+    private final Context context;
 
     private static final int HANDLER_MESSAGE_REFRESH_LIST = 0;
     private static final int HANDLER_MESSAGE_SELECT_LAST = 1;
@@ -85,7 +85,7 @@ public class EaseMessageAdapter extends BaseAdapter {
     public int itemTypeCount;
 
     // reference to conversation object in chatsdk
-    private EMConversation conversation;
+    private final EMConversation conversation;
     EMMessage[] messages = null;
 
     private String toChatUsername;
@@ -98,7 +98,7 @@ public class EaseMessageAdapter extends BaseAdapter {
     private Drawable myBubbleBg;
     private Drawable otherBuddleBg;
 
-    private ListView listView;
+    private final ListView listView;
     private EaseMessageListItemStyle itemStyle;
     private boolean isCanShowLast = true;
     private List<GroupDetailInfo.GroupUserDetailVoListBean> groupUserList;

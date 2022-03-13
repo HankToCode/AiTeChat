@@ -11,9 +11,9 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 public class ContactDetailViewModel extends AndroidViewModel {
-    private EMContactManagerRepository repository;
-    private SingleSourceLiveData<Resource<Boolean>> deleteObservable;
-    private SingleSourceLiveData<Resource<Boolean>> blackObservable;
+    private final EMContactManagerRepository repository;
+    private final SingleSourceLiveData<Resource<Boolean>> deleteObservable;
+    private final SingleSourceLiveData<Resource<Boolean>> blackObservable;
 
     public ContactDetailViewModel(@NonNull Application application) {
         super(application);

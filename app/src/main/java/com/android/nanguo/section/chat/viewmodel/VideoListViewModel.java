@@ -15,8 +15,8 @@ import com.hyphenate.easeui.model.VideoEntity;
 import java.util.List;
 
 public class VideoListViewModel extends AndroidViewModel {
-    private SingleSourceLiveData<Resource<List<VideoEntity>>> videoListObservable;
-    private DemoMediaManagerRepository repository;
+    private final SingleSourceLiveData<Resource<List<VideoEntity>>> videoListObservable;
+    private final DemoMediaManagerRepository repository;
 
     public VideoListViewModel(@NonNull Application application) {
         super(application);

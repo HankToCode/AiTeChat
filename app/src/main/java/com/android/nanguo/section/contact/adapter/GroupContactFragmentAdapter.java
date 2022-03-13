@@ -12,7 +12,7 @@ import com.android.nanguo.R;
 import com.android.nanguo.section.contact.fragment.GroupContactManageFragment;
 
 public class GroupContactFragmentAdapter extends FragmentPagerAdapter {
-    private Context mContext;
+    private final Context mContext;
 
     public GroupContactFragmentAdapter(Context context, @NonNull FragmentManager fm, int behavior) {
         super(fm, behavior);

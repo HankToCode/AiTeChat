@@ -59,7 +59,7 @@ public class SpannableStringUtil {
 
     public static class Builder {
 
-        private int defaultValue = 0x12000000;
+        private final int defaultValue = 0x12000000;
         private CharSequence text;
 
         private int flag;
@@ -108,7 +108,7 @@ public class SpannableStringUtil {
         private float radius;
         private Blur style;
 
-        private SpannableStringBuilder mBuilder;
+        private final SpannableStringBuilder mBuilder;
 
 
         private Builder(@NonNull CharSequence text) {

@@ -38,8 +38,8 @@ public class GroupUserApplyAdapter extends RecyclerView.Adapter<GroupUserApplyAd
     private List<GroupUserAuditInfo.DataBean> mInfoList = new ArrayList<>();
     private List<GroupUserAuditInfo.DataBean> copyUserList;
 
-    private Context mContext;
-    private HashMap<String, Integer> lettes = new HashMap<>();
+    private final Context mContext;
+    private HashMap<String, Integer> lettes;
     private MyFilter myFilter;
 
     private OnAgreeListener mOnAgreeListener;
@@ -258,16 +258,16 @@ public class GroupUserApplyAdapter extends RecyclerView.Adapter<GroupUserApplyAd
     }
 
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+    static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private TextView mTvName;
-        private TextView mTvTop;
-        private TextView mTvGroupName;
-        private ImageView imgHead;
-        private TextView mTvAgree;
-        private TextView mTvRefuse;
-        private TextView mTvDel;
-        private TextView tvInviter;
+        private final TextView mTvName;
+        private final TextView mTvTop;
+        private final TextView mTvGroupName;
+        private final ImageView imgHead;
+        private final TextView mTvAgree;
+        private final TextView mTvRefuse;
+        private final TextView mTvDel;
+        private final TextView tvInviter;
         public ViewHolder(View itemView, boolean show) {
             super(itemView);
             mTvName = (TextView) itemView.findViewById(R.id.tv_name);

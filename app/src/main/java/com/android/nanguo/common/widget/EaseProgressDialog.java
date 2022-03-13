@@ -19,7 +19,7 @@ public class EaseProgressDialog extends ProgressDialog {
     }
 
     public static class Builder {
-        private Context mContext;
+        private final Context mContext;
         private String message;
         private boolean cancelable;
         private boolean canceledOnTouchOutside;

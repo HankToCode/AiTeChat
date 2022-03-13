@@ -33,18 +33,18 @@ public class ThreadPoolManager {
     /**
      * 核心线程池数量，同时能够执行的线程数量
      */
-    private int corePoolSize;
+    private final int corePoolSize;
 
     /**
      * 最大线程池数量，表示当缓冲队列满的时候能够容纳的等待任务的数量
      */
-    private int maximumPoolSize;
+    private final int maximumPoolSize;
 
     /**
      * 存活时间
      */
-    private long keepAliveTime = 1;
-    private TimeUnit unit = TimeUnit.HOURS;
+    private final long keepAliveTime = 1;
+    private final TimeUnit unit = TimeUnit.HOURS;
     private ThreadPoolExecutor executor;
 
     private ThreadPoolManager() {

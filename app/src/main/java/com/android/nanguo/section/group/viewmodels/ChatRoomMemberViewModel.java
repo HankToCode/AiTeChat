@@ -17,13 +17,13 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Transformations;
 
 public class ChatRoomMemberViewModel extends AndroidViewModel {
-    private EMChatRoomManagerRepository repository;
-    private SingleSourceLiveData<Resource<EMChatRoom>> chatRoomObservable;
-    private SingleSourceLiveData<Resource<Boolean>> destroyGroupObservable;
-    private SingleSourceLiveData<Resource<List<String>>> blackObservable;
-    private SingleSourceLiveData<Resource<Map<String, Long>>> muteMapObservable;
-    private SingleSourceLiveData<Resource<List<String>>> membersObservable;
-    private LiveDataBus messageChangeObservable;
+    private final EMChatRoomManagerRepository repository;
+    private final SingleSourceLiveData<Resource<EMChatRoom>> chatRoomObservable;
+    private final SingleSourceLiveData<Resource<Boolean>> destroyGroupObservable;
+    private final SingleSourceLiveData<Resource<List<String>>> blackObservable;
+    private final SingleSourceLiveData<Resource<Map<String, Long>>> muteMapObservable;
+    private final SingleSourceLiveData<Resource<List<String>>> membersObservable;
+    private final LiveDataBus messageChangeObservable;
 
     public ChatRoomMemberViewModel(@NonNull Application application) {
         super(application);

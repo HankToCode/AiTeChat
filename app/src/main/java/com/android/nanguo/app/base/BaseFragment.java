@@ -47,8 +47,6 @@ public class BaseFragment extends EaseBaseFragment {
 
     }
 
-    ;
-
     /**
      * EventBus接收消息
      *

@@ -20,7 +20,7 @@ public class MyDialog extends Dialog {
     @BindView(R.id.tv_title)
     TextView mTvTitle;
 
-    private Context mContext;
+    private final Context mContext;
 
     //在构造方法里预加载我们的样式，这样就不用每次创建都指定样式了
     public MyDialog(Context context) {

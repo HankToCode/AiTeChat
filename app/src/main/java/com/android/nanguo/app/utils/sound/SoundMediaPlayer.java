@@ -36,7 +36,7 @@ public class SoundMediaPlayer {
     /**
      * 音乐 降低至音量系数
      */
-    private float isDownRatio = 0.2f;
+    private final float isDownRatio = 0.2f;
 
     /**
      * 当前设置音乐音量
@@ -106,7 +106,7 @@ public class SoundMediaPlayer {
     /**
      * 音频焦点监听
      */
-    private AudioManager.OnAudioFocusChangeListener mAudioFocusChangeListener = focusChange -> {
+    private final AudioManager.OnAudioFocusChangeListener mAudioFocusChangeListener = focusChange -> {
         switch (focusChange) {
             case AudioManager.AUDIOFOCUS_GAIN:
                 break;

@@ -132,7 +132,7 @@ public class DemoListDialogFragment extends BaseDialogFragment {
 
 
     public static class Builder {
-        private BaseActivity context;
+        private final BaseActivity context;
         private String title;
         private EaseBaseRecyclerViewAdapter adapter;
         private List<String> data;

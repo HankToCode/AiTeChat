@@ -2,6 +2,7 @@ package com.zds.base.aes;
 
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 
 import javax.crypto.Cipher;
 import javax.crypto.spec.SecretKeySpec;
@@ -34,11 +35,7 @@ public class AESCipher {
             sb.setLength(16);
         }
 
-        try {
-            data = sb.toString().getBytes("UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        data = sb.toString().getBytes(StandardCharsets.UTF_8);
         return new SecretKeySpec(data, "AES");
     }
 
@@ -64,7 +61,7 @@ public class AESCipher {
     public static String encrypt(String content) {
         byte[] data = null;
         try {
-            data = content.getBytes("UTF-8");
+            data = content.getBytes(StandardCharsets.UTF_8);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -115,11 +112,7 @@ public class AESCipher {
         if (data == null)
             return null;
         String result = null;
-        try {
-            result = new String(data, "UTF-8");
-        } catch (UnsupportedEncodingException e) {
-            e.printStackTrace();
-        }
+        result = new String(data, StandardCharsets.UTF_8);
         return result;
     }
 

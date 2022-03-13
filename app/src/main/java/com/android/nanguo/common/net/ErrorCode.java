@@ -82,10 +82,10 @@ public class ErrorCode extends EMError {
         UNKNOWN_ERROR(-9999, 0);
 
 
-        private int code;
-        private int messageId;
+        private final int code;
+        private final int messageId;
 
-        private Error(int code, int messageId) {
+        Error(int code, int messageId) {
             this.code = code;
             this.messageId = messageId;
         }

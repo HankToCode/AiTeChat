@@ -11,7 +11,7 @@ import android.os.Vibrator;
  */
 public class VibratorPlayer {
  
-    private Vibrator vibrator;
+    private final Vibrator vibrator;
  
     public VibratorPlayer(Context context) {
         this.vibrator = (Vibrator) context.getSystemService(Context.VIBRATOR_SERVICE);

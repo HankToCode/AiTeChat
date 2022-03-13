@@ -27,7 +27,7 @@ import java.util.List;
 public class EaseChatExtendSmallMenu extends GridView {
 
     protected Context context;
-    private List<ChatMenuItemSmallModel> itemModels = new ArrayList<ChatMenuItemSmallModel>();
+    private final List<ChatMenuItemSmallModel> itemModels = new ArrayList<ChatMenuItemSmallModel>();
 
     public boolean iscansend = true;
 

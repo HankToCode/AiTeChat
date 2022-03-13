@@ -231,7 +231,7 @@ public class ConferenceInviteActivity extends BaseInitActivity implements View.O
 
     private class ContactsAdapter extends BaseAdapter {
         private Context context;
-        private List<KV<String, Integer>> filteredContacts = new ArrayList<>();
+        private final List<KV<String, Integer>> filteredContacts = new ArrayList<>();
         private List<KV<String, Integer>> contacts = new ArrayList<>();
         private ContactFilter mContactFilter;
         public ICheckItemChangeCallback checkItemChangeCallback;
@@ -365,7 +365,7 @@ public class ConferenceInviteActivity extends BaseInitActivity implements View.O
 
         private class ContactFilter extends Filter {
             private IFilterCallback mFilterCallback;
-            private List<KV<String, Integer>> contacts;
+            private final List<KV<String, Integer>> contacts;
 
             public ContactFilter(List<KV<String, Integer>> contacts) {
                 this.contacts = contacts;

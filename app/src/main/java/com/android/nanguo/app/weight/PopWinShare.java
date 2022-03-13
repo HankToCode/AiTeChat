@@ -14,8 +14,13 @@ import com.zds.base.util.Utils;
 
 
 public class PopWinShare extends PopupWindow {
-    private View mainView;
-    private LinearLayout layoutGroup, layoutAddFirend, layoutSaoyisao, llMyQr, llTop, llParent;
+    private final View mainView;
+    private final LinearLayout layoutGroup;
+    private final LinearLayout layoutAddFirend;
+    private final LinearLayout layoutSaoyisao;
+    private final LinearLayout llMyQr;
+    private final LinearLayout llTop;
+    private final LinearLayout llParent;
 
     public PopWinShare(Activity paramActivity, View.OnClickListener paramOnClickListener, int marginTop, int marginEnd) {
         super(paramActivity);

@@ -40,7 +40,7 @@ public class TxRecordActivity extends BaseInitActivity {
     RecyclerView mRvRedRecord;
     @BindView(R.id.tv_no_data)
     TextView tv_no_data;
-    private List<RechargeRecordInfo.DataBean> mRecordInfoList = new ArrayList<>();
+    private final List<RechargeRecordInfo.DataBean> mRecordInfoList = new ArrayList<>();
     private RechargeAdapter mRechargeAdapter;
     private int page = 1;
 

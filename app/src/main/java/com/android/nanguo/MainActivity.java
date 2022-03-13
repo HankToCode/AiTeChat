@@ -88,8 +88,8 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
     private EaseBaseFragment mMessageFragment, mContactsFragment, mDiscoverFragment, mMineFragment, mFindFragment, mNewsFragment;
     private EaseBaseFragment mCurrentFragment;
     private TextView mTvMainMessageMsg, mTvMainContactsMsg, mTvMainDiscoverMsg, mTvMainMineMsg;
-    private int[] badgeIds = {R.layout.demo_badge_home, R.layout.demo_badge_about_me, R.layout.demo_badge_friends, R.layout.demo_badge_discover};
-    private int[] msgIds = {R.id.tv_main_home_msg, R.id.tv_main_about_me_msg, R.id.tv_main_friends_msg, R.id.tv_main_discover_msg};
+    private final int[] badgeIds = {R.layout.demo_badge_home, R.layout.demo_badge_about_me, R.layout.demo_badge_friends, R.layout.demo_badge_discover};
+    private final int[] msgIds = {R.id.tv_main_home_msg, R.id.tv_main_about_me_msg, R.id.tv_main_friends_msg, R.id.tv_main_discover_msg};
     private MainViewModel viewModel;
     private boolean showMenu = true;//是否显示菜单项
     private long exitTime;

@@ -30,7 +30,7 @@ public class PasswordInputEdt extends AppCompatEditText {
     private Paint textPaint;
     private Rect textRect;
     private String text = "";
-    private List<Rect> list = new ArrayList<>();
+    private final List<Rect> list = new ArrayList<>();
     private boolean isFocus = false;
     /**
      * 是否密文显示

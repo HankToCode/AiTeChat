@@ -17,14 +17,14 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 public class GroupMemberAuthorityViewModel extends AndroidViewModel {
-    private EMGroupManagerRepository repository;
-    private SingleSourceLiveData<Resource<EMGroup>> adminObservable;
-    private SingleSourceLiveData<Resource<List<EaseUser>>> membersObservable;
-    private SingleSourceLiveData<Resource<Map<String, Long>>> muteMembersObservable;
-    private SingleSourceLiveData<Resource<List<String>>> blackMembersObservable;
-    private SingleSourceLiveData<Resource<String>> refreshObservable;
-    private SingleSourceLiveData<Resource<Boolean>> transferOwnerObservable;
-    private LiveDataBus messageChangeLiveData = LiveDataBus.get();
+    private final EMGroupManagerRepository repository;
+    private final SingleSourceLiveData<Resource<EMGroup>> adminObservable;
+    private final SingleSourceLiveData<Resource<List<EaseUser>>> membersObservable;
+    private final SingleSourceLiveData<Resource<Map<String, Long>>> muteMembersObservable;
+    private final SingleSourceLiveData<Resource<List<String>>> blackMembersObservable;
+    private final SingleSourceLiveData<Resource<String>> refreshObservable;
+    private final SingleSourceLiveData<Resource<Boolean>> transferOwnerObservable;
+    private final LiveDataBus messageChangeLiveData = LiveDataBus.get();
 
     public GroupMemberAuthorityViewModel(@NonNull Application application) {
         super(application);

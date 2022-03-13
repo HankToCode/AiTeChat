@@ -30,9 +30,8 @@ import static com.android.nanguo.app.api.old_http.AppConfig.CUSTOM_QUESTIONS;
 
 public class Custom1Activity extends BaseInitActivity {
 
-    private List<Custom1BaseInfo> mNewInfoList = new ArrayList<>();
+    private final List<Custom1BaseInfo> mNewInfoList = new ArrayList<>();
     private Custom1Adapter mAdapter;
-    private RecyclerView mCustoms;
 
     @BindView(R.id.title_bar)
     EaseTitleBar title_bar;
@@ -48,7 +47,7 @@ public class Custom1Activity extends BaseInitActivity {
         super.initView(savedInstanceState);
         title_bar.setTitle("帮助中心");
         title_bar.setOnBackPressListener(view -> finish());
-        mCustoms = findViewById(R.id.recycle_view);
+        RecyclerView mCustoms = findViewById(R.id.recycle_view);
         mCustoms.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new Custom1Adapter(mNewInfoList);
         mAdapter.setOnItemClickListener(new BaseQuickAdapter.OnItemClickListener() {

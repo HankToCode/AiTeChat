@@ -37,10 +37,8 @@ public class NewsFragment extends BaseInitFragment implements OnBannerListener {
     RecyclerView rv_recyclerview;
     @BindView(R.id.swipeRefreshLayout)
     SwipeRefreshLayout swipeRefreshLayout;
-    private ArrayList<Integer> list_path;
-    private ArrayList<String> list_title;
     //    private int page = 1;
-    private List<NewsBean> dataBean = new ArrayList<>();
+    private final List<NewsBean> dataBean = new ArrayList<>();
     private NewsAdapter mNewsAdapter;
     @Override
     protected int getLayoutId() {
@@ -51,8 +49,8 @@ public class NewsFragment extends BaseInitFragment implements OnBannerListener {
     protected void initView(Bundle savedInstanceState) {
         super.initView(savedInstanceState);
         //放图片地址的集合
-        list_path = new ArrayList<>();
-        list_title = new ArrayList<>();
+        ArrayList<Integer> list_path = new ArrayList<>();
+        ArrayList<String> list_title = new ArrayList<>();
         list_path.add(R.drawable.img_b1);
         list_path.add(R.drawable.img_b2);
         list_path.add(R.mipmap.icon_top_bg);

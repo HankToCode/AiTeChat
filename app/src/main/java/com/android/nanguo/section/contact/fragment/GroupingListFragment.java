@@ -29,10 +29,10 @@ import java.util.Map;
 //我的分组
 public class GroupingListFragment extends BaseInitFragment {
     //    private FriendGroupingAdapter groupingAdapter;
-    private int pageSize = 100;
+    private final int pageSize = 100;
 
-    private int page = 1;
-    private boolean isFirstStart = true;
+    private final int page = 1;
+    private final boolean isFirstStart = true;
     //    private List<FriendGroupingBean> mGroupInfoList;
     private ExpandableListView elv_expand;
     private ArrayList<String> mGroupingNameList;//分组数据

@@ -40,7 +40,7 @@ public class UserCodeMoreActivity extends BaseInitActivity {
     TextView mTvNoData;
     private String category;
     private UserCodeMoreAdapter moreAdapter;
-    private List<UserCodeMallBean.DataBean> mDatas = new ArrayList<>();
+    private final List<UserCodeMallBean.DataBean> mDatas = new ArrayList<>();
 
 
 

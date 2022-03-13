@@ -16,7 +16,7 @@ import java.util.List;
  
 
 public class UserCodeMoreAdapter extends BaseAdapter {
-    private List<UserCodeMallBean.DataBean> datas = new ArrayList<>();
+    private final List<UserCodeMallBean.DataBean> datas = new ArrayList<>();
 
     private Context context;
 

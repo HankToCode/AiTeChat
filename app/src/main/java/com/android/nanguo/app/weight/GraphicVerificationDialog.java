@@ -35,7 +35,7 @@ public class GraphicVerificationDialog extends Dialog implements View.OnClickLis
     @BindView(R.id.tv_refresh)
     TextView mTvRefresh;
 
-    private Context mContext;
+    private final Context mContext;
 
     //在构造方法里预加载我们的样式，这样就不用每次创建都指定样式了
     public GraphicVerificationDialog(Context context) {

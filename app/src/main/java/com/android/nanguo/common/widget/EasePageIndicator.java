@@ -16,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EasePageIndicator extends LinearLayout {
-    private List<View> indicators = new ArrayList<>();
+    private final List<View> indicators = new ArrayList<>();
     private int checkedPosition = 0;
     public EasePageIndicator(Context context) {
         super(context);

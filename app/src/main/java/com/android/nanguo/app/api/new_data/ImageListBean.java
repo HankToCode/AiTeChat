@@ -2,7 +2,7 @@ package com.android.nanguo.app.api.new_data;
 
 public class ImageListBean {
     private String name;
-    private int imageId;
+    private final int imageId;
     public ImageListBean(int imageId){
 //        this.name = name;
         this.imageId = imageId;

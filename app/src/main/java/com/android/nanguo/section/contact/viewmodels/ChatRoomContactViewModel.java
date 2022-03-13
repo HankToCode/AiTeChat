@@ -15,10 +15,10 @@ import com.android.nanguo.common.repositories.EMChatRoomManagerRepository;
 import java.util.List;
 
 public class ChatRoomContactViewModel extends AndroidViewModel {
-    private EMChatRoomManagerRepository mRepository;
-    private SingleSourceLiveData<Resource<List<EMChatRoom>>> loadObservable;
-    private SingleSourceLiveData<Resource<List<EMChatRoom>>> loadMoreObservable;
-    private LiveDataBus messageChangeObservable = LiveDataBus.get();
+    private final EMChatRoomManagerRepository mRepository;
+    private final SingleSourceLiveData<Resource<List<EMChatRoom>>> loadObservable;
+    private final SingleSourceLiveData<Resource<List<EMChatRoom>>> loadMoreObservable;
+    private final LiveDataBus messageChangeObservable = LiveDataBus.get();
 
     public ChatRoomContactViewModel(@NonNull Application application) {
         super(application);

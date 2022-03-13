@@ -143,15 +143,7 @@ public class Storage {
                     new BufferedInputStream(new FileInputStream(file)))
                     .readObject();
             return loginInfo;
-        } catch (OptionalDataException e) {
-            e.printStackTrace();
-        } catch (StreamCorruptedException e) {
-            e.printStackTrace();
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (ClassNotFoundException | IOException e) {
             e.printStackTrace();
         }
         return null;

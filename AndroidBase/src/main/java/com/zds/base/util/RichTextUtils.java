@@ -103,7 +103,7 @@ public class RichTextUtils {
         private float radius;
         private Blur style;
 
-        private SpannableStringBuilder mBuilder;
+        private final SpannableStringBuilder mBuilder;
 
 
         private Builder(@NonNull CharSequence text) {

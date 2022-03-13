@@ -6,6 +6,7 @@ import android.provider.Settings;
 
 import com.zds.base.util.SystemUtil;
 
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.Locale;
 import java.util.UUID;
@@ -132,7 +133,7 @@ public class DeviceIdUtil {
         try{
             MessageDigest messageDigest = MessageDigest.getInstance("SHA1");
             messageDigest.reset();
-            messageDigest.update(data.getBytes("UTF-8"));
+            messageDigest.update(data.getBytes(StandardCharsets.UTF_8));
             return messageDigest.digest();
         } catch (Exception e){
             return "".getBytes();

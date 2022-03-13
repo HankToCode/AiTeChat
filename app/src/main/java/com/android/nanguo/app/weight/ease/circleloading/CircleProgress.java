@@ -29,7 +29,7 @@ public class CircleProgress extends View {
     private long mStartTime;
     private long mPlayTime;
     private boolean mStartAnim = false;
-    private Point mCenter = new Point();
+    private final Point mCenter = new Point();
 
     private ArcPoint[] mArcPoint;
     private static final int POINT_NUM = 15;

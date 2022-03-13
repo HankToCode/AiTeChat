@@ -38,7 +38,7 @@ public class DeveloperSetActivity extends BaseInitActivity implements EaseTitleB
     private DemoModel settingsModel;
     private EMOptions options;
 
-    private String sortType[] = new String[]{"按接收顺序", "按服务器时间"};
+    private final String[] sortType = new String[]{"按接收顺序", "按服务器时间"};
 
     public static void actionStart(Context context) {
         Intent starter = new Intent(context, DeveloperSetActivity.class);

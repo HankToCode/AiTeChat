@@ -15,12 +15,12 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 public class GroupPickContactsViewModel extends AndroidViewModel {
-    private EMGroupManagerRepository repository;
-    private EMContactManagerRepository contactRepository;
-    private SingleSourceLiveData<Resource<List<String>>> groupMembers;
-    private SingleSourceLiveData<Resource<List<EaseUser>>> contacts;
-    private SingleSourceLiveData<Resource<Boolean>> addMembersObservable;
-    private SingleSourceLiveData<Resource<List<EaseUser>>> searchContactsObservable;
+    private final EMGroupManagerRepository repository;
+    private final EMContactManagerRepository contactRepository;
+    private final SingleSourceLiveData<Resource<List<String>>> groupMembers;
+    private final SingleSourceLiveData<Resource<List<EaseUser>>> contacts;
+    private final SingleSourceLiveData<Resource<Boolean>> addMembersObservable;
+    private final SingleSourceLiveData<Resource<List<EaseUser>>> searchContactsObservable;
 
     public GroupPickContactsViewModel(@NonNull Application application) {
         super(application);

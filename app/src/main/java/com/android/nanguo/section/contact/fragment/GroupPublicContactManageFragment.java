@@ -31,7 +31,7 @@ public class GroupPublicContactManageFragment extends BaseInitFragment implement
     public SmartRefreshLayout srlRefresh;
     public RecyclerView rvList;
     public PublicGroupContactAdapter mAdapter;
-    private int page_size = 20;
+    private final int page_size = 20;
     private String cursor;
     private GroupContactViewModel viewModel;
     private List<EMGroup> allJoinGroups;

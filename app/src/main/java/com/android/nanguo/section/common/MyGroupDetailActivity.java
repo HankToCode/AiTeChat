@@ -148,7 +148,7 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
      */
     private String groupId;
     private String emChatId;
-    private List<GroupDetailInfo.GroupUserDetailVoListBean> mDetailVoListBeanList = new ArrayList<>();
+    private final List<GroupDetailInfo.GroupUserDetailVoListBean> mDetailVoListBeanList = new ArrayList<>();
 //    private MyRoomDeatilAdapter mRoomDeatilAdapter;
     private GroupDetailInfo info;
 

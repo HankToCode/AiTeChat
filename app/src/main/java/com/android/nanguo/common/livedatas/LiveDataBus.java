@@ -57,7 +57,7 @@ public final class LiveDataBus {
 
     private static class ObserverWrapper<T> implements Observer<T> {
 
-        private Observer<T> observer;
+        private final Observer<T> observer;
 
         public ObserverWrapper(Observer<T> observer) {
             this.observer = observer;
@@ -89,7 +89,7 @@ public final class LiveDataBus {
 
     private static class BusMutableLiveData<T> extends MutableLiveData<T> {
 
-        private Map<Observer, Observer> observerMap = new HashMap<>();
+        private final Map<Observer, Observer> observerMap = new HashMap<>();
 
         @Override
         public void observe(@NonNull LifecycleOwner owner, @NonNull Observer<? super T> observer) {

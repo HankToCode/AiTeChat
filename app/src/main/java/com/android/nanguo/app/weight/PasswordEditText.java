@@ -29,7 +29,7 @@ public class PasswordEditText extends EditText {
     // 一个密码所占的宽度
     private int mPasswordItemWidth;
     // 密码的个数默认为6位数
-    private int mPasswordNumber = 6;
+    private final int mPasswordNumber = 6;
     // 背景边框颜色
     private int mBgColor = Color.parseColor("#d1d2d6");
     // 背景边框大小
@@ -191,6 +191,6 @@ public class PasswordEditText extends EditText {
      * 密码已经全部填满
      */
     public interface PasswordFullListener {
-        public void passwordFull(String password);
+        void passwordFull(String password);
     }
 }

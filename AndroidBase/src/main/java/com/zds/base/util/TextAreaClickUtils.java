@@ -54,8 +54,8 @@ public class TextAreaClickUtils {
 
     static class AreaClickableSpan extends ClickableSpan {
         private final View.OnClickListener mListener;
-        private String mClickKeyword;
-        private int mClickColor;
+        private final String mClickKeyword;
+        private final int mClickColor;
 
         public AreaClickableSpan(View.OnClickListener listener, String clickKeyword, @ColorInt int clickColor) {
             mListener = listener;

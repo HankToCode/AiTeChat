@@ -19,7 +19,7 @@ public class EaseChatRowText extends EaseChatRow {
 
     private TextView contentView;
     private LinearLayout ll_message;
-    private int[] vipTextColor = {R.color.black, R.color.user_type_1, R.color.user_type_2, R.color.user_type_3, R.color.user_type_4};
+    private final int[] vipTextColor = {R.color.black, R.color.user_type_1, R.color.user_type_2, R.color.user_type_3, R.color.user_type_4};
 
     public EaseChatRowText(Context context, EMMessage message, int position, BaseAdapter adapter) {
         super(context, message, position, adapter);

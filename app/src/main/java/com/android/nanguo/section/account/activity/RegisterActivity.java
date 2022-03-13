@@ -305,7 +305,7 @@ public class RegisterActivity extends BaseInitActivity implements View.OnClickLi
         }
     }
 
-    private TextWatcher nextWatcher = new TextWatcher() {
+    private final TextWatcher nextWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
@@ -324,7 +324,7 @@ public class RegisterActivity extends BaseInitActivity implements View.OnClickLi
         }
     };
 
-    private TextWatcher submitWatcher = new TextWatcher() {
+    private final TextWatcher submitWatcher = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
