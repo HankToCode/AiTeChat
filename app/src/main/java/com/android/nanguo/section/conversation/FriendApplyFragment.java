@@ -1,6 +1,8 @@
 package com.android.nanguo.section.conversation;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.Nullable;
 
@@ -10,6 +12,9 @@ import com.android.nanguo.app.base.BaseInitFragment;
 import com.android.nanguo.app.help.RclViewHelp;
 import com.android.nanguo.app.weight.SearchBar;
 import com.android.nanguo.app.weight.SlideRecyclerView;
+import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.zds.base.Toast.ToastUtil;
 import com.zds.base.json.FastJsonUtil;
 import com.android.nanguo.app.api.old_data.ApplyFriendData;
@@ -30,7 +35,8 @@ public class FriendApplyFragment extends BaseInitFragment implements NewFriendAd
     private final List<ApplyFriendData> mStringList = new ArrayList<>();
     private NewFriendAdapter mNewFriendAdapter;
     private HashMap<String, Integer> lettes;
-
+    SmartRefreshLayout mSmart;
+    TextView tv_no_content;
     private int page = 1;
 
     @Override
@@ -39,9 +45,21 @@ public class FriendApplyFragment extends BaseInitFragment implements NewFriendAd
         searchBar = findViewById(R.id.search_bar);
         mRvNewFriend = findViewById(R.id.rv_new_friend);
         searchBar.setOnSearchBarListener((s, start, before, count) -> mNewFriendAdapter.getFilter().filter(s));
-
+        mSmart = findViewById(R.id.smart);
+        tv_no_content = findViewById(R.id.tv_no_content);
         lettes = new HashMap<>();
+        mSmart.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+                page = 1;
+                queryUserStatus();
+            }
+        });
 
+        mSmart.setOnLoadMoreListener(refreshlayout0 -> {
+            page++;
+            queryUserStatus();
+        });
         mNewFriendAdapter = new NewFriendAdapter(mStringList, mContext, lettes);
         RclViewHelp.initRcLmVertical(mContext, mRvNewFriend, mNewFriendAdapter);
         mNewFriendAdapter.setOnAgreeListener(this);
@@ -52,6 +70,8 @@ public class FriendApplyFragment extends BaseInitFragment implements NewFriendAd
                 delApplyUserData(pos);
             }
         });
+//        mSmart.autoRefresh();
+        queryUserStatus();
     }
 
     @Override
@@ -83,24 +103,39 @@ public class FriendApplyFragment extends BaseInitFragment implements NewFriendAd
     private void queryUserStatus() {
         Map<String, Object> map = new HashMap<>();
         map.put("pageNum", page);
-        map.put("pageSize", 20);
+        map.put("pageSize", 15);
         ApiClient.requestNetHandle(mContext, AppConfig.APPLY_ADD_USER_LIST, "", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
                 if (null != json && json.length() > 0) {
-                    if (page == 1 && mStringList.size() > 0) {
+                    if (page == 1) {
                         mStringList.clear();
                     }
                     NewFriendInfo info = FastJsonUtil.getObject(json, NewFriendInfo.class);
-
-                    mStringList.addAll(info.getData());
+                    if (info != null && info.getData().size() > 0) {
+                        mStringList.addAll(info.getData());
+                        tv_no_content.setVisibility(View.GONE);
+                    } else {
+                        if (page == 1) {
+                            tv_no_content.setVisibility(View.VISIBLE);
+                        }
+                        mSmart.setEnableLoadMore(false);
+                        page = 1;
+                    }
+                    mSmart.finishLoadMore();
                     mNewFriendAdapter.notifyDataSetChanged();
+                    if (mSmart != null && mSmart.isRefreshing()) {
+                        mSmart.finishRefresh();
+                    }
                 }
             }
 
             @Override
             public void onFailure(String msg) {
-
+                ToastUtil.toast(msg);
+                if (mSmart != null && mSmart.isRefreshing()) {
+                    mSmart.finishRefresh();
+                }
             }
         });
 

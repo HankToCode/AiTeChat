@@ -10,15 +10,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <RelativeLayout
+    <com.scwang.smartrefresh.layout.SmartRefreshLayout
+        android:id="@+id/smart"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/title_bar">
 
-        <com.android.nanguo.app.weight.SlideRecyclerView
-            android:id="@+id/rv_new_friend"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
-    </RelativeLayout>
+            android:layout_height="match_parent">
 
+            <com.android.nanguo.app.weight.SlideRecyclerView
+                android:id="@+id/rv_new_friend"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </RelativeLayout>
+
+    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    <TextView
+        android:id="@+id/tv_no_content"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title_bar"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/dp_141"
+        android:drawableTop="@drawable/zanwusouc"
+        android:drawablePadding="@dimen/dp_21"
+        android:text="暂无收藏"
+        android:textColor="#9F9F9F"
+        android:textSize="@dimen/sp_12"
+        android:visibility="gone" />
 
 </LinearLayout>
