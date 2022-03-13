@@ -3,6 +3,7 @@ package com.android.nanguo.section.account.activity;
 import static com.android.nanguo.app.api.old_http.AppConfig.checkAes;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
@@ -322,9 +323,14 @@ public class SplashActivity extends BaseInitActivity {
             parseResource(response, new OnResourceParseCallback<Boolean>(true) {
                 @Override
                 public void onSuccess(Boolean data) {
-                    EMClient.getInstance().chatManager().getAllConversations();
-                    MainActivity.actionStart(mContext);
-                    finish();
+                    //TODO 暂时优化
+                    new Thread(() -> {
+                        EMClient.getInstance().chatManager().getAllConversations();
+                        tvProduct.post(() -> {
+                            MainActivity.actionStart(mContext);
+                            finish();
+                        });
+                    }).start();
                 }
 
                 @Override
