@@ -137,8 +137,8 @@ public class EaseConversationAdapter extends ArrayAdapter<EMConversation> {
             public void onClick(View view) {
                 finalHolder.swipeRevealLayout.close(true);
                 ListView listView = (ListView) parent;
-                if (listView.getOnItemClickListener() != null) {
-                    listView.getOnItemClickListener().onItemClick(listView, finalConvertView, position, Integer.MAX_VALUE);
+                if (onItemClickListenerCopy != null) {
+                    onItemClickListenerCopy.onItemClick(listView, finalConvertView, position, Integer.MAX_VALUE);
                 }
             }
         });
