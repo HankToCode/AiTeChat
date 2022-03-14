@@ -270,8 +270,8 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
                     public void onSuccess(String json, String msg) {
                         if (json != null && json.length() > 0) {
                             info = FastJsonUtil.getObject(json, GroupDetailInfo.class);
-                            GroupOperateManager.getInstance().saveGroupDetailToLocal(emChatId, info, json);
                             setGroupDetail();
+                            GroupOperateManager.getInstance().saveGroupDetailToLocal(emChatId, info, json);
                         }
 
                     }
