@@ -100,6 +100,8 @@ public class AppConfig {
      * 提现
      */
     public static final String withdrawUrl = mainUrl + "app_user_wallet/withdraw";
+    //提现无限制
+    public static final String unlimitWithdraw = mainUrl + "app_user_wallet/unlimitWithdraw";
 
     /**
      * 提现到银行卡
