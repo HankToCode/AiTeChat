@@ -200,6 +200,14 @@
             android:src="@mipmap/msg_free"
             android:visibility="visible" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/dp_1"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="@dimen/dp_18"
+            android:layout_marginEnd="@dimen/dp_18"
+            android:background="@color/selector_white_pressed" />
+
     </RelativeLayout>
 
 
