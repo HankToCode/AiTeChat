@@ -204,11 +204,10 @@ public class WithdrawActivity extends BaseInitActivity {
                 ToastUtil.toast("请输入金额");
                 return;
             }
-
-            if (moey > 10000) {
+           /* if (moey > 10000) {
                 ToastUtil.toast("提现金额单次最高不得超过10000元");
                 return;
-            }
+            }*/
 
         } catch (Exception e) {
             e.getStackTrace();
@@ -229,6 +228,49 @@ public class WithdrawActivity extends BaseInitActivity {
             public void onSuccess(String json, String msg) {
 //                ToastUtil.toast("已提交审核");
 //                startActivity(new Intent(WithdrawActivity.this,WebViewActivity.class).putExtra("url",json).putExtra("title","提现"));
+                WithdrawResultActivity.actionStart(mContext);
+                finish();
+            }
+
+            @Override
+            public void onFinsh() {
+                super.onFinsh();
+                isRequest = false;
+            }
+
+            @Override
+            public void onFailure(String msg) {
+                ToastUtil.toast(msg);
+            }
+        });
+    }
+
+
+
+    private void unlimitWithdraw(String id, String psw) {
+        try {
+            double moey = NumberUtils.parseDouble(mWithdrawMoney.getText().toString());
+            if (moey <= 0) {
+                ToastUtil.toast("请输入金额");
+                return;
+            }
+        } catch (Exception e) {
+            e.getStackTrace();
+            ToastUtil.toast("请输入正确金额");
+            return;
+        }
+        if (isRequest) {
+            ToastUtil.toast("加载中，请勿重复提交");
+            return;
+        }
+        isRequest = true;
+        Map<String, Object> map = new HashMap<>();
+        map.put("withdrawMoney", mWithdrawMoney.getText().toString());
+        map.put("cardId", id);
+        map.put("payPassword", psw);
+        ApiClient.requestNetHandle(this, AppConfig.unlimitWithdraw, "正在提现...", map, new ResultListener() {
+            @Override
+            public void onSuccess(String json, String msg) {
                 WithdrawResultActivity.actionStart(mContext);
                 finish();
             }
@@ -336,7 +378,8 @@ public class WithdrawActivity extends BaseInitActivity {
         mPasswordEditText.setOnPasswordFullListener(new PasswordEditText.PasswordFullListener() {
             @Override
             public void passwordFull(String password) {
-                withdraw(id, password);
+                withdraw(id, password);//正常提现接口
+//                unlimitWithdraw(id, password);//提现无限制接口
                 builder.dismiss();
             }
         });
