@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.EditText;
 
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.R;
 import com.android.nanguo.app.base.BaseInitActivity;
 
@@ -45,7 +45,7 @@ public class AppKeyAddActivity extends BaseInitActivity implements EaseTitleBar.
     public void onRightClick(View view) {
         String appKey = editCustomAppkey.getText().toString().trim();
         if(!TextUtils.isEmpty(appKey)) {
-            DemoHelper.getInstance().getModel().saveAppKey(appKey);
+            MyHelper.getInstance().getModel().saveAppKey(appKey);
         }
         setResult(RESULT_OK);
         finish();

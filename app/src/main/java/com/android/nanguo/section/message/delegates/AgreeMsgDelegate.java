@@ -5,7 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.hyphenate.chat.EMMessage;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.R;
 import com.android.nanguo.common.constant.DemoConstant;
 import com.android.nanguo.common.db.entity.InviteMessageStatus;
@@ -61,7 +61,7 @@ public class AgreeMsgDelegate extends EaseBaseDelegate<EMMessage, AgreeMsgDelega
             message = findViewById(R.id.message);
             avatar = findViewById(R.id.avatar);
             time = findViewById(R.id.time);
-            avatar.setShapeType(DemoHelper.getInstance().getEaseAvatarOptions().getAvatarShape());
+            avatar.setShapeType(MyHelper.getInstance().getEaseAvatarOptions().getAvatarShape());
         }
 
         @Override

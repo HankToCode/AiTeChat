@@ -9,7 +9,7 @@ import com.hyphenate.chat.EMCmdMessageBody;
 import com.hyphenate.chat.EMMessage;
 import com.android.nanguo.BuildConfig;
 import com.android.nanguo.DemoApplication;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.app.api.Constant;
 import com.android.nanguo.app.domain.EaseUser;
 import com.android.nanguo.app.utils.ImageUtil;
@@ -108,7 +108,7 @@ public class UserOperateManager {
             }
         }
 
-        DemoHelper.getInstance().saveContactList(easeContactList);
+        MyHelper.getInstance().saveContactList(easeContactList);
 
     }
 

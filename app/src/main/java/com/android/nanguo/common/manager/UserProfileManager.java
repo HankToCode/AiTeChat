@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMClient;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.common.utils.PreferenceManager;
 import com.android.nanguo.app.domain.EaseUser;
 
@@ -27,7 +27,7 @@ public class UserProfileManager {
 	/**
 	 * HuanXin sync contact nick and avatar listener
 	 */
-	private List<DemoHelper.DataSyncListener> syncContactInfosListeners;
+	private List<MyHelper.DataSyncListener> syncContactInfosListeners;
 
 	private boolean isSyncingContactInfosWithServer = false;
 
@@ -41,12 +41,12 @@ public class UserProfileManager {
 			return true;
 		}
 		ParseManager.getInstance().onInit(context);
-		syncContactInfosListeners = new ArrayList<DemoHelper.DataSyncListener>();
+		syncContactInfosListeners = new ArrayList<MyHelper.DataSyncListener>();
 		sdkInited = true;
 		return true;
 	}
 
-	public void addSyncContactInfoListener(DemoHelper.DataSyncListener listener) {
+	public void addSyncContactInfoListener(MyHelper.DataSyncListener listener) {
 		if (listener == null) {
 			return;
 		}
@@ -55,7 +55,7 @@ public class UserProfileManager {
 		}
 	}
 
-	public void removeSyncContactInfoListener(DemoHelper.DataSyncListener listener) {
+	public void removeSyncContactInfoListener(MyHelper.DataSyncListener listener) {
 		if (listener == null) {
 			return;
 		}
@@ -76,7 +76,7 @@ public class UserProfileManager {
 				isSyncingContactInfosWithServer = false;
 				// in case that logout already before server returns,we should
 				// return immediately
-				if (!DemoHelper.getInstance().isLoggedIn()) {
+				if (!MyHelper.getInstance().isLoggedIn()) {
 					return;
 				}
 				if (callback != null) {
@@ -97,7 +97,7 @@ public class UserProfileManager {
 	}
 
 	public void notifyContactInfosSyncListener(boolean success) {
-		for (DemoHelper.DataSyncListener listener : syncContactInfosListeners) {
+		for (MyHelper.DataSyncListener listener : syncContactInfosListeners) {
 			listener.onSyncComplete(success);
 		}
 	}

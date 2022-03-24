@@ -9,7 +9,7 @@ import androidx.lifecycle.LiveData;
 import com.hyphenate.chat.EMCursorResult;
 import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMGroupInfo;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.common.livedatas.LiveDataBus;
 import com.android.nanguo.common.livedatas.SingleSourceLiveData;
 import com.android.nanguo.common.net.Resource;
@@ -30,7 +30,7 @@ public class GroupContactViewModel extends AndroidViewModel {
 
     public GroupContactViewModel(@NonNull Application application) {
         super(application);
-        currentUser = DemoHelper.getInstance().getCurrentUser();
+        currentUser = MyHelper.getInstance().getCurrentUser();
         mRepository = new EMGroupManagerRepository();
         allGroupObservable = new SingleSourceLiveData<>();
         groupMemberObservable = new SingleSourceLiveData<>();

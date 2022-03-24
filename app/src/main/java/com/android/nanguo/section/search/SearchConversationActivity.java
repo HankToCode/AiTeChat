@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.hyphenate.chat.EMChatRoom;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMGroup;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.R;
 import com.android.nanguo.app.api.Constant;
 import com.android.nanguo.app.operate.UserOperateManager;
@@ -80,7 +80,7 @@ public class SearchConversationActivity extends SearchActivity {
                     EMConversation item = (EMConversation) obj;
                     String username = item.conversationId();
                     if (item.getType() == EMConversation.EMConversationType.GroupChat) {
-                        EMGroup group = DemoHelper.getInstance().getGroupManager().getGroup(username);
+                        EMGroup group = MyHelper.getInstance().getGroupManager().getGroup(username);
                         if (group != null) {
                             if (group.getGroupName() != null && group.getGroupName().contains(search)) {
                                 result.add(obj);
@@ -91,7 +91,7 @@ public class SearchConversationActivity extends SearchActivity {
                             }
                         }
                     } else if (item.getType() == EMConversation.EMConversationType.ChatRoom) {
-                        EMChatRoom chatRoom = DemoHelper.getInstance().getChatroomManager().getChatRoom(username);
+                        EMChatRoom chatRoom = MyHelper.getInstance().getChatroomManager().getChatRoom(username);
                         if (chatRoom != null) {
                             if (chatRoom.getName() != null && chatRoom.getName().contains(search)) {
                                 result.add(obj);

@@ -15,7 +15,7 @@ import com.hyphenate.chat.EMChatRoom;
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMMessage;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.R;
 import com.android.nanguo.app.api.Constant;
 import com.android.nanguo.app.operate.UserOperateManager;
@@ -70,7 +70,7 @@ public class HomeAdapter extends EaseBaseRecyclerViewAdapter<Object> {
             mMsgState = findViewById(R.id.msg_state);
             mentioned = findViewById(R.id.mentioned);
             message = findViewById(R.id.message);
-            avatar.setShapeType(DemoHelper.getInstance().getEaseAvatarOptions().getAvatarShape());
+            avatar.setShapeType(MyHelper.getInstance().getEaseAvatarOptions().getAvatarShape());
         }
 
         @Override
@@ -88,11 +88,11 @@ public class HomeAdapter extends EaseBaseRecyclerViewAdapter<Object> {
                         mentioned.setVisibility(View.VISIBLE);
                     }
                     avatar.setImageResource(R.drawable.ease_group_icon);
-                    EMGroup group = DemoHelper.getInstance().getGroupManager().getGroup(username);
+                    EMGroup group = MyHelper.getInstance().getGroupManager().getGroup(username);
                     name.setText(group != null ? group.getGroupName() : username);
                 }else if(item.getType() == EMConversation.EMConversationType.ChatRoom) {
                     avatar.setImageResource(R.drawable.ease_chat_room_icon);
-                    EMChatRoom chatRoom = DemoHelper.getInstance().getChatroomManager().getChatRoom(username);
+                    EMChatRoom chatRoom = MyHelper.getInstance().getChatroomManager().getChatRoom(username);
                     name.setText(chatRoom != null && !TextUtils.isEmpty(chatRoom.getName()) ? chatRoom.getName() : username);
                 }else {
 
@@ -127,7 +127,7 @@ public class HomeAdapter extends EaseBaseRecyclerViewAdapter<Object> {
                 }
 
                 if(mentioned.getVisibility() != View.VISIBLE) {
-                    String unSendMsg = DemoHelper.getInstance().getModel().getUnSendMsg(username);
+                    String unSendMsg = MyHelper.getInstance().getModel().getUnSendMsg(username);
                     if(!TextUtils.isEmpty(unSendMsg)) {
                         mentioned.setText(R.string.were_not_send_msg);
                         message.setText(unSendMsg);

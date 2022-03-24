@@ -60,7 +60,6 @@ public class DemoApplication extends SelfAppContext implements Thread.UncaughtEx
 
         initApp();
 
-        initHx();
         registerActivityLifecycleCallbacks();
         closeAndroidPDialog();
 
@@ -73,6 +72,8 @@ public class DemoApplication extends SelfAppContext implements Thread.UncaughtEx
 //    }
 
     private void initApp() {
+        // 初始化PreferenceManager
+        PreferenceManager.init(this);
         MyHelper.getInstance().init(getApplicationContext());
         registerWx();
         CretinAutoUpdateUtils.Builder builder = new CretinAutoUpdateUtils.Builder()
@@ -101,18 +102,6 @@ public class DemoApplication extends SelfAppContext implements Thread.UncaughtEx
 
     private void initThrowableHandler() {
         Thread.setDefaultUncaughtExceptionHandler(this);
-    }
-
-    private void initHx() {
-        // 初始化PreferenceManager
-        PreferenceManager.init(this);
-        // init hx sdk
-        /*if(DemoHelper.getInstance().getAutoLogin()) {
-            EMLog.i("DemoApplication", "application initHx");
-            DemoHelper.getInstance().init(this);
-        }*/
-        DemoHelper.getInstance().init(this);
-
     }
 
     private IWXAPI mIWXAPI;

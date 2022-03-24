@@ -54,7 +54,7 @@
 3、重要类介绍
 >ChatActivity: 会话页面，核心类，主要逻辑写在 ChatFragment 中。ChatFragment 继承自 EaseChatFragment，EaseChatFragment实现了聊天列表功能，包含了发送文字，表情，图片等功能；ChatFragment展示了对EaseChatFragment的功能扩展实践。</br>
 >DemoApplication：继承于系统的 Application 类，其 onCreate() 为整个程序的入口，相关的初始化操作都在这里面；</br>
->DemoHelper: Demo 全局帮助类，主要功能为初始化 EaseUI、环信 SDK 及 Demo 相关的实例，以及封装一些全局使用的方法；</br>
+>MyHelper: Demo 全局帮助类，主要功能为初始化 EaseUI、环信 SDK 及 Demo 相关的实例，以及封装一些全局使用的方法；</br>
 >MainActivity: 主页面，包含会话列表页面（ConversationListFragment）、联系人列表页（ContactListFragment）、设置页面（AboutMeFragment）；</br>
 >ConversationListFragment：会话列表类，继承自EaseConversationListFragment。ConversationListFragment展示了对EaseConversationListFragment类的扩展；</br>
 >ContactListFragment：联系人列表类，继承自EaseContactListFragment。ContactListFragment展示了对EaseContactListFragment类的扩展。</br>

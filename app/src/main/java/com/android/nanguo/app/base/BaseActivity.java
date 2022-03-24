@@ -28,10 +28,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Lifecycle;
 
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.gyf.immersionbar.ImmersionBar;
 import com.hyphenate.EMCallBack;
 import com.android.nanguo.DemoApplication;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.R;
 import com.android.nanguo.app.api.old_data.EventCenter;
 import com.android.nanguo.app.utils.sound.SoundMediaPlayer;
@@ -118,7 +119,7 @@ public class BaseActivity extends AppCompatActivity {
             if (TextUtils.equals(accountEvent, DemoConstant.ACCOUNT_REMOVED) ||
                     TextUtils.equals(accountEvent, DemoConstant.ACCOUNT_KICKED_BY_CHANGE_PASSWORD) ||
                     TextUtils.equals(accountEvent, DemoConstant.ACCOUNT_KICKED_BY_OTHER_DEVICE)) {
-                DemoHelper.getInstance().logout(false, new EMCallBack() {
+                MyHelper.getInstance().logout(false, new EMCallBack() {
                     @Override
                     public void onSuccess() {
                         finishOtherActivities();
@@ -141,7 +142,7 @@ public class BaseActivity extends AppCompatActivity {
             } else if (TextUtils.equals(accountEvent, DemoConstant.ACCOUNT_CONFLICT)
                     || TextUtils.equals(accountEvent, DemoConstant.ACCOUNT_REMOVED)
                     || TextUtils.equals(accountEvent, DemoConstant.ACCOUNT_FORBIDDEN)) {
-                DemoHelper.getInstance().logout(false, null);
+                MyHelper.getInstance().logout(false, null);
                 showExceptionDialog(accountEvent);
             }
         });

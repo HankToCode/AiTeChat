@@ -12,14 +12,15 @@ import android.view.ViewGroup;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
+import com.android.nanguo.app.utils.my.MyHelper;
+import com.android.nanguo.app.utils.my.MyModel;
 import com.hyphenate.chat.EMClient;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.R;
 import com.android.nanguo.app.base.BaseInitActivity;
 import com.android.nanguo.common.db.entity.AppKeyEntity;
 import com.android.nanguo.common.interfaceOrImplement.OnResourceParseCallback;
 import com.android.nanguo.common.manager.OptionsHelper;
-import com.android.nanguo.common.model.DemoModel;
 import com.android.nanguo.section.dialog.DemoDialogFragment;
 import com.android.nanguo.section.dialog.SimpleDialogFragment;
 import com.android.nanguo.section.me.viewmodels.AppKeyManagerViewModel;
@@ -46,7 +47,7 @@ public class AppKeyManageActivity extends BaseInitActivity implements EaseTitleB
     private RvAdapter adapter;
 
     private int selectedPosition;
-    private DemoModel settingsModel;
+    private MyModel settingsModel;
     private AppKeyManagerViewModel viewModel;
 
     public static void actionStartForResult(Activity activity, int requestCode) {
@@ -84,12 +85,12 @@ public class AppKeyManageActivity extends BaseInitActivity implements EaseTitleB
                 @Override
                 public void onSuccess(Boolean data) {
                     finish();
-                    DemoHelper.getInstance().killApp();
+                    MyHelper.getInstance().killApp();
                 }
             });
         });
 
-        settingsModel = DemoHelper.getInstance().getModel();
+        settingsModel = MyHelper.getInstance().getModel();
 
         rvList.setLayoutManager(new LinearLayoutManager(mContext));
         adapter = new RvAdapter();
@@ -141,7 +142,7 @@ public class AppKeyManageActivity extends BaseInitActivity implements EaseTitleB
                         selectedPosition = position;
                         adapter.notifyDataSetChanged();
                         String appKey = adapter.getItem(position).getAppKey();
-                        DemoHelper.getInstance().getModel().enableCustomAppkey(!TextUtils.isEmpty(appKey));
+                        MyHelper.getInstance().getModel().enableCustomAppkey(!TextUtils.isEmpty(appKey));
                         settingsModel.setCustomAppkey(appKey);
                         viewModel.logout(true);
                     }
@@ -165,7 +166,7 @@ public class AppKeyManageActivity extends BaseInitActivity implements EaseTitleB
                 .setOnConfirmClickListener(R.string.em_developer_appkey_confirm, new DemoDialogFragment.OnConfirmClickListener() {
                     @Override
                     public void onConfirmClick(View view) {
-                        DemoHelper.getInstance().getModel().enableCustomAppkey(false);
+                        MyHelper.getInstance().getModel().enableCustomAppkey(false);
                         viewModel.logout(true);
                     }
                 })
@@ -179,7 +180,7 @@ public class AppKeyManageActivity extends BaseInitActivity implements EaseTitleB
                     .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            DemoHelper.getInstance().getModel().deleteAppKey(adapter.mData.get(position).getAppKey());
+                            MyHelper.getInstance().getModel().deleteAppKey(adapter.mData.get(position).getAppKey());
                             getData();
                         }
                     })
@@ -188,7 +189,7 @@ public class AppKeyManageActivity extends BaseInitActivity implements EaseTitleB
     }
 
     private void getData() {
-        List<AppKeyEntity> appKeys = DemoHelper.getInstance().getModel().getAppKeys();
+        List<AppKeyEntity> appKeys = MyHelper.getInstance().getModel().getAppKeys();
         String appkey = "";
         selectedPosition = -1;
         if(settingsModel.isCustomAppkeyEnabled()) {

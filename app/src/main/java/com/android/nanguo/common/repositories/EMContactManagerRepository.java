@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.hyphenate.EMCallBack;
 import com.hyphenate.EMValueCallBack;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.app.domain.EaseUser;
 import com.android.nanguo.common.db.entity.EmUserEntity;
 import com.android.nanguo.common.interfaceOrImplement.ResultCallBack;
@@ -286,11 +286,11 @@ public class EMContactManagerRepository extends BaseEMRepository{
         return new NetworkOnlyResource<Boolean>() {
             @Override
             protected void createCall(@NonNull ResultCallBack<LiveData<Boolean>> callBack) {
-                DemoHelper.getInstance().getModel().deleteUsername(username, true);
+                MyHelper.getInstance().getModel().deleteUsername(username, true);
                 getContactManager().aysncDeleteContact(username, new EMCallBack() {
                     @Override
                     public void onSuccess() {
-                        DemoHelper.getInstance().deleteContact(username);
+                        MyHelper.getInstance().deleteContact(username);
                         callBack.onSuccess(createLiveData(true));
                     }
 

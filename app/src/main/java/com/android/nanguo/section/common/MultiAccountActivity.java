@@ -14,7 +14,7 @@ import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.exceptions.HyphenateException;
 import com.android.nanguo.DemoApplication;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.R;
 import com.android.nanguo.app.adapter.LoginAccountAdapter;
 import com.android.nanguo.app.api.Global;
@@ -206,9 +206,9 @@ public class MultiAccountActivity extends BaseInitActivity implements LoginAccou
 
     private void loginSDK() {
         final LoginInfo loginInfo = UserComm.getUserInfo();
-        DemoHelper.getInstance().init(DemoApplication.getInstance());
-        DemoHelper.getInstance().getModel().setCurrentUserName(loginInfo.getNickName());
-        DemoHelper.getInstance().getModel().setCurrentUserPwd(loginInfo.getPassword());
+        MyHelper.getInstance().init(DemoApplication.getInstance());
+        MyHelper.getInstance().getModel().setCurrentUserName(loginInfo.getNickName());
+        MyHelper.getInstance().getModel().setCurrentUserPwd(loginInfo.getPassword());
         EMClient.getInstance().login(loginInfo.getIdh(), "123456", new DemoEmCallBack() {
             @Override
             public void onSuccess() {

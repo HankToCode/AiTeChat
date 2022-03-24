@@ -8,8 +8,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.hyphenate.EMCallBack;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.R;
 import com.android.nanguo.app.base.BaseInitActivity;
 import com.android.nanguo.common.widget.ArrowItemView;
@@ -88,7 +89,7 @@ public class SetIndexActivity extends BaseInitActivity implements EaseTitleBar.O
         pd.setMessage(st);
         pd.setCanceledOnTouchOutside(false);
         pd.show();
-        DemoHelper.getInstance().logout(true,new EMCallBack() {
+        MyHelper.getInstance().logout(true,new EMCallBack() {
 
             @Override
             public void onSuccess() {

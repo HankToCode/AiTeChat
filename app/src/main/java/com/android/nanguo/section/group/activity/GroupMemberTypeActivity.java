@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import android.view.View;
 
 import com.hyphenate.chat.EMGroup;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.R;
 import com.android.nanguo.app.base.BaseInitActivity;
 import com.android.nanguo.common.constant.DemoConstant;
@@ -57,7 +57,7 @@ public class GroupMemberTypeActivity extends BaseInitActivity implements EaseTit
         itemAdmin = findViewById(R.id.item_admin);
         itemMember = findViewById(R.id.item_member);
 
-        group = DemoHelper.getInstance().getGroupManager().getGroup(groupId);
+        group = MyHelper.getInstance().getGroupManager().getGroup(groupId);
 
         initGroupData(group);
     }

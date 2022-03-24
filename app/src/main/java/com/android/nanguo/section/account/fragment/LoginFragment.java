@@ -24,7 +24,7 @@ import com.alibaba.fastjson.JSON;
 import com.coorchice.library.SuperTextView;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.easeui.utils.EaseEditTextUtils;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.MainActivity;
 import com.android.nanguo.R;
 import com.android.nanguo.app.api.Constant;
@@ -166,9 +166,8 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
             parseResource(response, new OnResourceParseCallback<EaseUser>(true) {
                 @Override
                 public void onSuccess(EaseUser data) {
-                    dismissLoading();
                     try {
-                        DemoHelper.getInstance().setAutoLogin(true);//环信自动登录标志
+                        MyHelper.getInstance().setAutoLogin(true);//环信自动登录标志
                         /*LoginInfo currentUser = UserComm.getUserInfo();
                         EaseUser user = new EaseUser();
                         user.setNickname(currentUser.getNickName());
@@ -193,6 +192,8 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
                     }
 
 //                    mFragmentViewModel.getMyModel().saveLoginAccount(user);
+//                    dismissLoading();
+
                     //跳转到主页
                     MainActivity.actionStart(mContext);
                     mContext.finish();
@@ -220,7 +221,6 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
                 @Override
                 public void onLoading(EaseUser data) {
                     super.onLoading(data);
-                    showLoading();
                 }
 
                 @Override
@@ -317,7 +317,7 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
     private void loginToServer() {
         if (!TextUtils.isEmpty(fromType)) {//处理账号切换
             //判断之前是否登录过账号
-            if (DemoHelper.getInstance().isLoggedIn()) {
+            if (MyHelper.getInstance().isLoggedIn()) {
                 logout();// 退出登录接口 退出环信
             } else {
                 if (loginMethod == 0) {
@@ -328,7 +328,7 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
             }
         } else {
             //处理多端登录异常
-            if (DemoHelper.getInstance().isLoggedIn()) {
+            if (MyHelper.getInstance().isLoggedIn()) {
                 logouHx();//当前设备已登录过，则退出环信SDK 再走登录
             } else {
                 if (loginMethod == 0) {

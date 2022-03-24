@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.hyphenate.easecallkit.EaseCallKit;
 import com.hyphenate.easecallkit.base.EaseCallType;
 
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.R;
 import com.android.nanguo.app.base.BaseInitActivity;
 import com.android.nanguo.common.constant.DemoConstant;
@@ -127,7 +127,7 @@ public class ContactDetailActivity extends BaseInitActivity implements EaseTitle
         if(mIsFriend) {
             mGroupFriend.setVisibility(View.VISIBLE);
             mBtnAddContact.setVisibility(View.GONE);
-            EaseUser user = DemoHelper.getInstance().getModel().getContactList().get(mUser.getUsername());
+            EaseUser user = MyHelper.getInstance().getModel().getContactList().get(mUser.getUsername());
             if(user != null && user.getContact() == 1) {
                 mIsBlack = true;
                 //如果在黑名单中

@@ -5,15 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
-import com.hyphenate.chat.EMClient;
-import com.hyphenate.chat.EMOptions;
-import com.android.nanguo.DemoHelper;
 import com.android.nanguo.R;
 import com.android.nanguo.app.base.BaseInitActivity;
-import com.android.nanguo.common.model.DemoModel;
+import com.android.nanguo.app.utils.my.MyHelper;
+import com.android.nanguo.app.utils.my.MyModel;
 import com.android.nanguo.common.widget.ArrowItemView;
 import com.android.nanguo.common.widget.SwitchItemView;
-
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMOptions;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 
 public class CommonSettingsActivity extends BaseInitActivity implements View.OnClickListener, SwitchItemView.OnCheckedChangeListener, EaseTitleBar.OnBackPressListener {
@@ -29,7 +28,7 @@ public class CommonSettingsActivity extends BaseInitActivity implements View.OnC
     private SwitchItemView itemAutoAcceptGroup;
     private SwitchItemView itemSwitchChatroomDeleteMsg;
 
-    private DemoModel settingsModel;
+    private MyModel settingsModel;
     private EMOptions chatOptions;
 
     public static void actionStart(Context context) {
@@ -77,7 +76,7 @@ public class CommonSettingsActivity extends BaseInitActivity implements View.OnC
     @Override
     protected void initData() {
         super.initData();
-        settingsModel = DemoHelper.getInstance().getModel();
+        settingsModel = MyHelper.getInstance().getModel();
         chatOptions = EMClient.getInstance().getOptions();
 
         itemTyping.getSwitch().setChecked(settingsModel.isShowMsgTyping());

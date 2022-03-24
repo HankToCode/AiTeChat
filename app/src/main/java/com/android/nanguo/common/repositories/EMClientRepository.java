@@ -4,11 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMGroup;
 import com.android.nanguo.DemoApplication;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.app.domain.EaseUser;
 import com.android.nanguo.common.constant.DemoConstant;
 import com.android.nanguo.common.db.DemoDbHelper;
@@ -106,9 +107,9 @@ public class EMClientRepository extends BaseEMRepository {
             @Override
             protected void createCall(@NonNull ResultCallBack<LiveData<String>> callBack) {
                 //注册之前先判断SDK是否已经初始化，如果没有先进行SDK的初始化
-                if (!DemoHelper.getInstance().isSDKInit) {
-                    DemoHelper.getInstance().init(DemoApplication.getInstance());
-                    DemoHelper.getInstance().getModel().setCurrentUserName(userName);
+                if (!MyHelper.getInstance().isSDKInit) {
+                    MyHelper.getInstance().init(DemoApplication.getInstance());
+                    MyHelper.getInstance().getModel().setCurrentUserName(userName);
                 }
                 runOnIOThread(() -> {
                     try {
@@ -136,9 +137,9 @@ public class EMClientRepository extends BaseEMRepository {
             protected void createCall(@NonNull ResultCallBack<LiveData<EaseUser>> callBack) {
                 final LoginInfo loginInfo = UserComm.getUserInfo();
 
-                DemoHelper.getInstance().init(DemoApplication.getInstance());
-                DemoHelper.getInstance().getModel().setCurrentUserName(loginInfo.getNickName());
-                DemoHelper.getInstance().getModel().setCurrentUserPwd(loginInfo.getPassword());
+                /*MyHelper.getInstance().init(DemoApplication.getInstance());
+                MyHelper.getInstance().getModel().setCurrentUserName(loginInfo.getNickName());
+                MyHelper.getInstance().getModel().setCurrentUserPwd(loginInfo.getPassword());*/
                 EMClient.getInstance().login(loginInfo.getIdh(), "123456", new DemoEmCallBack() {
                     @Override
                     public void onSuccess() {
@@ -170,7 +171,7 @@ public class EMClientRepository extends BaseEMRepository {
 
                     @Override
                     public void onSuccess() {
-                        DemoHelper.getInstance().logoutSuccess();
+                        MyHelper.getInstance().logoutSuccess();
                         //reset();
                         if (callBack != null) {
                             callBack.onSuccess(createLiveData(true));
@@ -199,6 +200,9 @@ public class EMClientRepository extends BaseEMRepository {
         // ** manually load all local groups and conversation
         loadAllConversationsAndGroups();
         // update current user's display name for APNs
+        MyHelper.getInstance().getModel().setCurrentUserName(loginInfo.getNickName());
+        MyHelper.getInstance().getModel().setCurrentUserPwd(loginInfo.getPassword());
+
         try {
             EMClient.getInstance().pushManager().updatePushNickname(loginInfo.getNickName());
         } catch (HyphenateException ignored) {

@@ -12,7 +12,7 @@ import com.hyphenate.chat.EMContactManager;
 import com.hyphenate.chat.EMGroupManager;
 import com.hyphenate.chat.EMPushManager;
 import com.android.nanguo.DemoApplication;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.common.db.DemoDbHelper;
 import com.android.nanguo.common.db.dao.EmUserDao;
 import com.android.nanguo.common.db.dao.InviteMessageDao;
@@ -44,7 +44,7 @@ public class BaseEMRepository {
      * @return
      */
     public boolean isAutoLogin() {
-        return DemoHelper.getInstance().getAutoLogin();
+        return MyHelper.getInstance().getAutoLogin();
     }
 
     /**
@@ -52,7 +52,7 @@ public class BaseEMRepository {
      * @return
      */
     public String getCurrentUser() {
-        return DemoHelper.getInstance().getCurrentUser();
+        return MyHelper.getInstance().getCurrentUser();
     }
 
     /**
@@ -60,7 +60,7 @@ public class BaseEMRepository {
      * @return
      */
     public EMChatManager getChatManager() {
-        return DemoHelper.getInstance().getEMClient().chatManager();
+        return MyHelper.getInstance().getEMClient().chatManager();
     }
 
     /**
@@ -68,7 +68,7 @@ public class BaseEMRepository {
      * @return
      */
     public EMContactManager getContactManager() {
-        return DemoHelper.getInstance().getContactManager();
+        return MyHelper.getInstance().getContactManager();
     }
 
     /**
@@ -76,7 +76,7 @@ public class BaseEMRepository {
      * @return
      */
     public EMGroupManager getGroupManager() {
-        return DemoHelper.getInstance().getEMClient().groupManager();
+        return MyHelper.getInstance().getEMClient().groupManager();
     }
 
     /**
@@ -84,7 +84,7 @@ public class BaseEMRepository {
      * @return
      */
     public EMChatRoomManager getChatRoomManager() {
-        return DemoHelper.getInstance().getChatroomManager();
+        return MyHelper.getInstance().getChatroomManager();
     }
 
 
@@ -93,7 +93,7 @@ public class BaseEMRepository {
      * @return
      */
     public EMPushManager getPushManager() {
-        return DemoHelper.getInstance().getPushManager();
+        return MyHelper.getInstance().getPushManager();
     }
 
     /**

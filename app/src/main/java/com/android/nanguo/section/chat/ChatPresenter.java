@@ -26,7 +26,7 @@ import com.hyphenate.chat.EMMucSharedFile;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.chat.adapter.EMAChatRoomManagerListener;
 import com.android.nanguo.DemoApplication;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.MainActivity;
 import com.android.nanguo.R;
 import com.android.nanguo.app.weight.ease.EaseCommonUtils;
@@ -79,17 +79,17 @@ public class ChatPresenter extends EaseChatPresenter {
         initHandler(appContext.getMainLooper());
         messageChangeLiveData = LiveDataBus.get();
         //添加网络连接状态监听
-        DemoHelper.getInstance().getEMClient().addConnectionListener(new ChatConnectionListener());
+        MyHelper.getInstance().getEMClient().addConnectionListener(new ChatConnectionListener());
         //添加多端登录监听
-        DemoHelper.getInstance().getEMClient().addMultiDeviceListener(new ChatMultiDeviceListener());
+        MyHelper.getInstance().getEMClient().addMultiDeviceListener(new ChatMultiDeviceListener());
         //添加群组监听
-        DemoHelper.getInstance().getGroupManager().addGroupChangeListener(new ChatGroupListener());
+        MyHelper.getInstance().getGroupManager().addGroupChangeListener(new ChatGroupListener());
         //添加联系人监听
-        DemoHelper.getInstance().getContactManager().setContactListener(new ChatContactListener());
+        MyHelper.getInstance().getContactManager().setContactListener(new ChatContactListener());
         //添加聊天室监听
-        DemoHelper.getInstance().getChatroomManager().addChatRoomChangeListener(new ChatRoomListener());
+        MyHelper.getInstance().getChatroomManager().addChatRoomChangeListener(new ChatRoomListener());
         //添加对会话的监听（监听已读回执）
-        DemoHelper.getInstance().getChatManager().addConversationListener(new ChatConversationListener());
+        MyHelper.getInstance().getChatManager().addConversationListener(new ChatConversationListener());
     }
 
     public static ChatPresenter getInstance() {
@@ -154,7 +154,7 @@ public class ChatPresenter extends EaseChatPresenter {
             EMLog.d(TAG, "onMessageReceived id : " + message.getMsgId());
             EMLog.d(TAG, "onMessageReceived: " + message.getType());
             // 如果设置群组离线消息免打扰，则不进行消息通知
-            List<String> disabledIds = DemoHelper.getInstance().getPushManager().getNoPushGroups();
+            List<String> disabledIds = MyHelper.getInstance().getPushManager().getNoPushGroups();
             if (disabledIds != null && disabledIds.contains(message.conversationId())) {
                 return;
             }
@@ -249,7 +249,7 @@ public class ChatPresenter extends EaseChatPresenter {
         @Override
         public void onConnected() {
             EMLog.i(TAG, "onConnected");
-            if (!DemoHelper.getInstance().isLoggedIn()) {
+            if (!MyHelper.getInstance().isLoggedIn()) {
                 return;
             }
             if (!isGroupsSyncedWithServer) {
@@ -615,8 +615,8 @@ public class ChatPresenter extends EaseChatPresenter {
             EMLog.i("ChatContactListener", "onContactAdded");
             EmUserEntity entity = new EmUserEntity();
             entity.setUsername(username);
-            DemoHelper.getInstance().getModel().insert(entity);
-            DemoHelper.getInstance().updateContactList();
+            MyHelper.getInstance().getModel().insert(entity);
+            MyHelper.getInstance().updateContactList();
             EaseEvent event = EaseEvent.create(DemoConstant.CONTACT_CHANGE, EaseEvent.TYPE.CONTACT);
             messageChangeLiveData.with(DemoConstant.CONTACT_CHANGE).postValue(event);
 
@@ -627,9 +627,9 @@ public class ChatPresenter extends EaseChatPresenter {
         @Override
         public void onContactDeleted(String username) {
             EMLog.i("ChatContactListener", "onContactDeleted");
-            boolean deleteUsername = DemoHelper.getInstance().getModel().isDeleteUsername(username);
-            int num = DemoHelper.getInstance().deleteContact(username);
-            DemoHelper.getInstance().updateContactList();
+            boolean deleteUsername = MyHelper.getInstance().getModel().isDeleteUsername(username);
+            int num = MyHelper.getInstance().deleteContact(username);
+            MyHelper.getInstance().updateContactList();
             EaseEvent event = EaseEvent.create(DemoConstant.CONTACT_CHANGE, EaseEvent.TYPE.CONTACT);
             messageChangeLiveData.with(DemoConstant.CONTACT_CHANGE).postValue(event);
 
@@ -738,7 +738,7 @@ public class ChatPresenter extends EaseChatPresenter {
                     }
                     removeTargetSystemMessage(target, DemoConstant.SYSTEM_MESSAGE_FROM);
                     // TODO: 2020/1/16 0016 确认此处逻辑，是否是删除当前的target
-                    DemoHelper.getInstance().getChatManager().deleteConversation(target, false);
+                    MyHelper.getInstance().getChatManager().deleteConversation(target, false);
 
                     showToast("CONTACT_REMOVE");
                     break;
@@ -768,7 +768,7 @@ public class ChatPresenter extends EaseChatPresenter {
                         dbHelper.getUserDao().deleteUser(target);
                     }
                     removeTargetSystemMessage(target, DemoConstant.SYSTEM_MESSAGE_FROM);
-                    DemoHelper.getInstance().getChatManager().deleteConversation(target, false);
+                    MyHelper.getInstance().getChatManager().deleteConversation(target, false);
                     updateContactNotificationStatus(target, "", InviteMessageStatus.MULTI_DEVICE_CONTACT_BAN);
 
                     showToast("CONTACT_BAN");
@@ -1063,7 +1063,7 @@ public class ChatPresenter extends EaseChatPresenter {
 
         @Override
         public void onRemovedFromChatRoom(int reason, String roomId, String roomName, String participant) {
-            if (TextUtils.equals(DemoHelper.getInstance().getCurrentUser(), participant)) {
+            if (TextUtils.equals(MyHelper.getInstance().getCurrentUser(), participant)) {
                 setChatRoomEvent(roomId, EaseEvent.TYPE.CHAT_ROOM);
                 if (reason == EMAChatRoomManagerListener.BE_KICKED) {
                     showToast(R.string.quiting_the_chat_room);

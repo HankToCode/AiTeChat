@@ -10,7 +10,7 @@ import com.hyphenate.chat.EMImageMessageBody;
 import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.android.nanguo.DemoApplication;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.R;
 import com.android.nanguo.common.constant.DemoConstant;
 import com.android.nanguo.common.livedatas.LiveDataBus;
@@ -42,7 +42,7 @@ public class PushAndMessageHelper {
         if(TextUtils.isEmpty(msgId)) {
             return;
         }
-        EMMessage message = DemoHelper.getInstance().getChatManager().getMessage(msgId);
+        EMMessage message = MyHelper.getInstance().getChatManager().getMessage(msgId);
         EMMessage.Type type = message.getType();
         switch (type) {
             case TXT:

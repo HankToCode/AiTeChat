@@ -12,7 +12,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.hyphenate.chat.EMConversation;
 import com.hyphenate.chat.EMGroup;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.R;
 import com.android.nanguo.app.base.BaseInitActivity;
 import com.android.nanguo.common.constant.DemoConstant;
@@ -99,7 +99,7 @@ public class GroupDetailActivity extends BaseInitActivity implements EaseTitleBa
         tvGroupRefund = findViewById(R.id.tv_group_refund);
         itemGroupMemberManage = findViewById(R.id.item_group_member_manage);
 
-        group = DemoHelper.getInstance().getGroupManager().getGroup(groupId);
+        group = MyHelper.getInstance().getGroupManager().getGroup(groupId);
         initGroupView();
     }
 
@@ -134,7 +134,7 @@ public class GroupDetailActivity extends BaseInitActivity implements EaseTitleBa
         tvGroupRefund.setText(getResources().getString(isOwner() ? R.string.em_chat_group_detail_dissolve : R.string.em_chat_group_detail_refund));
         tvGroupIntroduction.setText(group.getDescription());
         //itemGroupNotDisturb.getSwitch().setChecked(group.isMsgBlocked());
-        conversation = DemoHelper.getInstance().getConversation(groupId, EMConversation.EMConversationType.GroupChat, true);
+        conversation = MyHelper.getInstance().getConversation(groupId, EMConversation.EMConversationType.GroupChat, true);
         String extField = conversation.getExtField();
         itemGroupTop.getSwitch().setChecked(!TextUtils.isEmpty(extField) && EaseCommonUtils.isTimestamp(extField));
         tvGroupInvite.setVisibility(group.getMemberCount() <= 0 ? View.VISIBLE : View.GONE);
@@ -147,7 +147,7 @@ public class GroupDetailActivity extends BaseInitActivity implements EaseTitleBa
         makeTextSingleLine(itemGroupNotice.getTvContent());
         makeTextSingleLine(itemGroupIntroduction.getTvContent());
 
-        List<String> disabledIds = DemoHelper.getInstance().getPushManager().getNoPushGroups();
+        List<String> disabledIds = MyHelper.getInstance().getPushManager().getNoPushGroups();
         itemGroupNotDisturb.getSwitch().setChecked(disabledIds != null && disabledIds.contains(groupId));
     }
 

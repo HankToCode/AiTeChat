@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.hyphenate.chat.EMGroup;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.R;
 import com.android.nanguo.app.base.BaseInitActivity;
 import com.android.nanguo.common.interfaceOrImplement.OnResourceParseCallback;
@@ -124,17 +124,17 @@ public class PickAtUserActivity extends BaseInitActivity implements OnRefreshLis
         Iterator<EaseUser> iterator = data.iterator();
         while (iterator.hasNext()) {
             EaseUser user = iterator.next();
-            if(TextUtils.equals(user.getUsername(), DemoHelper.getInstance().getCurrentUser())) {
+            if(TextUtils.equals(user.getUsername(), MyHelper.getInstance().getCurrentUser())) {
                 iterator.remove();
             }
         }
     }
 
     private void checkIfAddHeader() {
-        EMGroup group = DemoHelper.getInstance().getGroupManager().getGroup(mGroupId);
+        EMGroup group = MyHelper.getInstance().getGroupManager().getGroup(mGroupId);
         if(group != null) {
             String owner = group.getOwner();
-            if(TextUtils.equals(owner, DemoHelper.getInstance().getCurrentUser())) {
+            if(TextUtils.equals(owner, MyHelper.getInstance().getCurrentUser())) {
                 AddHeader();
             }
         }
@@ -181,7 +181,7 @@ public class PickAtUserActivity extends BaseInitActivity implements OnRefreshLis
     @Override
     public void onItemClick(View view, int position) {
         EaseUser user = mAdapter.getData().get(position);
-        if(TextUtils.equals(user.getUsername(), DemoHelper.getInstance().getCurrentUser())) {
+        if(TextUtils.equals(user.getUsername(), MyHelper.getInstance().getCurrentUser())) {
             return;
         }
         Intent intent = getIntent();

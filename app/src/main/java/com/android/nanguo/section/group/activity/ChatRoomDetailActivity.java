@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.hyphenate.chat.EMChatRoom;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.R;
 import com.android.nanguo.app.base.BaseInitActivity;
 import com.android.nanguo.common.constant.DemoConstant;
@@ -70,7 +70,7 @@ public class ChatRoomDetailActivity extends BaseInitActivity implements EaseTitl
         itemChatRoomAdmins = findViewById(R.id.item_chat_room_admins);
         tvChatRoomRefund = findViewById(R.id.tv_chat_room_refund);
 
-        chatRoom = DemoHelper.getInstance().getChatroomManager().getChatRoom(roomId);
+        chatRoom = MyHelper.getInstance().getChatroomManager().getChatRoom(roomId);
 
         updateContent(chatRoom);
     }
@@ -237,6 +237,6 @@ public class ChatRoomDetailActivity extends BaseInitActivity implements EaseTitl
     }
 
     private boolean isOwner() {
-        return chatRoom != null && TextUtils.equals(DemoHelper.getInstance().getCurrentUser(), chatRoom.getOwner());
+        return chatRoom != null && TextUtils.equals(MyHelper.getInstance().getCurrentUser(), chatRoom.getOwner());
     }
 }

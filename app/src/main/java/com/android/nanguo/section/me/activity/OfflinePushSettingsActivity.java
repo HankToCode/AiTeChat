@@ -7,18 +7,17 @@ import android.view.View;
 
 import androidx.lifecycle.ViewModelProvider;
 
-import com.hyphenate.chat.EMClient;
-import com.hyphenate.chat.EMPushConfigs;
-import com.android.nanguo.DemoHelper;
 import com.android.nanguo.R;
 import com.android.nanguo.app.base.BaseInitActivity;
+import com.android.nanguo.app.utils.my.MyHelper;
+import com.android.nanguo.app.utils.my.MyModel;
 import com.android.nanguo.common.interfaceOrImplement.OnResourceParseCallback;
-import com.android.nanguo.common.model.DemoModel;
 import com.android.nanguo.common.widget.ArrowItemView;
 import com.android.nanguo.common.widget.SwitchItemView;
 import com.android.nanguo.section.dialog.TimePickerDialogFragment;
 import com.android.nanguo.section.me.viewmodels.OfflinePushSetViewModel;
-
+import com.hyphenate.chat.EMClient;
+import com.hyphenate.chat.EMPushConfigs;
 import com.hyphenate.easeui.widget.EaseTitleBar;
 import com.zds.base.util.NumberUtils;
 
@@ -28,7 +27,7 @@ import com.zds.base.util.NumberUtils;
 
 public class OfflinePushSettingsActivity extends BaseInitActivity implements EaseTitleBar.OnBackPressListener, SwitchItemView.OnCheckedChangeListener, View.OnClickListener {
     EMPushConfigs mPushConfigs;
-    DemoModel settingsModel;
+    MyModel settingsModel;
     private EaseTitleBar titleBar;
     private SwitchItemView rlCustomServer;
     private SwitchItemView switchPushNoDisturb;
@@ -70,7 +69,7 @@ public class OfflinePushSettingsActivity extends BaseInitActivity implements Eas
     @Override
     protected void initData() {
         super.initData();
-        settingsModel = DemoHelper.getInstance().getModel();
+        settingsModel = MyHelper.getInstance().getModel();
         rlCustomServer.getSwitch().setChecked(settingsModel.isUseFCM());
 
         viewModel = new ViewModelProvider(this).get(OfflinePushSetViewModel.class);

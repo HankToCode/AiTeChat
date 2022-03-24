@@ -14,7 +14,7 @@ import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMGroupInfo;
 import com.hyphenate.chat.EMGroupOptions;
 import com.hyphenate.chat.EMMucSharedFile;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.R;
 import com.android.nanguo.common.net.ErrorCode;
 import com.android.nanguo.common.net.Resource;
@@ -141,7 +141,7 @@ public class EMGroupManagerRepository extends BaseEMRepository{
         return new NetworkOnlyResource<EMCursorResult<EMGroupInfo>>() {
             @Override
             protected void createCall(@NonNull ResultCallBack<LiveData<EMCursorResult<EMGroupInfo>>> callBack) {
-                DemoHelper.getInstance().getGroupManager().asyncGetPublicGroupsFromServer(pageSize, cursor, new EMValueCallBack<EMCursorResult<EMGroupInfo>>() {
+                MyHelper.getInstance().getGroupManager().asyncGetPublicGroupsFromServer(pageSize, cursor, new EMValueCallBack<EMCursorResult<EMGroupInfo>>() {
                     @Override
                     public void onSuccess(EMCursorResult<EMGroupInfo> value) {
                         callBack.onSuccess(createLiveData(value));
@@ -170,7 +170,7 @@ public class EMGroupManagerRepository extends BaseEMRepository{
                     callBack.onError(ErrorCode.EM_NOT_LOGIN);
                     return;
                 }
-                DemoHelper.getInstance().getGroupManager().asyncGetGroupFromServer(groupId, new EMValueCallBack<EMGroup>() {
+                MyHelper.getInstance().getGroupManager().asyncGetGroupFromServer(groupId, new EMValueCallBack<EMGroup>() {
                     @Override
                     public void onSuccess(EMGroup value) {
                         callBack.onSuccess(createLiveData(value));
@@ -245,7 +245,7 @@ public class EMGroupManagerRepository extends BaseEMRepository{
                     callBack.onError(ErrorCode.EM_NOT_LOGIN);
                     return;
                 }
-                DemoHelper.getInstance().getGroupManager().asyncGetGroupFromServer(groupId, new EMValueCallBack<EMGroup>() {
+                MyHelper.getInstance().getGroupManager().asyncGetGroupFromServer(groupId, new EMValueCallBack<EMGroup>() {
                     @Override
                     public void onSuccess(EMGroup value) {
                         List<String> members = value.getMembers();
@@ -285,7 +285,7 @@ public class EMGroupManagerRepository extends BaseEMRepository{
                     callBack.onError(ErrorCode.EM_NOT_LOGIN);
                     return;
                 }
-                DemoHelper.getInstance().getGroupManager().asyncGetGroupFromServer(groupId, new EMValueCallBack<EMGroup>() {
+                MyHelper.getInstance().getGroupManager().asyncGetGroupFromServer(groupId, new EMValueCallBack<EMGroup>() {
                     @Override
                     public void onSuccess(EMGroup value) {
                         List<String> members = value.getMembers();
@@ -327,7 +327,7 @@ public class EMGroupManagerRepository extends BaseEMRepository{
                     callBack.onError(ErrorCode.EM_NOT_LOGIN);
                     return;
                 }
-                DemoHelper.getInstance().getGroupManager().asyncGetGroupFromServer(groupId, new EMValueCallBack<EMGroup>() {
+                MyHelper.getInstance().getGroupManager().asyncGetGroupFromServer(groupId, new EMValueCallBack<EMGroup>() {
                     @Override
                     public void onSuccess(EMGroup value) {
                         List<String> members = value.getMembers();
@@ -434,7 +434,7 @@ public class EMGroupManagerRepository extends BaseEMRepository{
 
             @Override
             protected LiveData<String> loadFromDb() {
-                String announcement = DemoHelper.getInstance().getGroupManager().getGroup(groupId).getAnnouncement();
+                String announcement = MyHelper.getInstance().getGroupManager().getGroup(groupId).getAnnouncement();
                 return createLiveData(announcement);
             }
 

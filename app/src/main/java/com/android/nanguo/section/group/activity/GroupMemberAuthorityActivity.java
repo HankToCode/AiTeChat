@@ -11,7 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.hyphenate.chat.EMGroup;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.R;
 import com.android.nanguo.app.base.BaseInitActivity;
 import com.android.nanguo.common.constant.DemoConstant;
@@ -136,7 +136,7 @@ public class GroupMemberAuthorityActivity extends BaseInitActivity implements Ea
 
     protected void onSubPrepareOptionsMenu(Menu menu) {
         //对角色进行判断
-        if(!isOwner() && !isInAdminList(DemoHelper.getInstance().getCurrentUser())) {
+        if(!isOwner() && !isInAdminList(MyHelper.getInstance().getCurrentUser())) {
             menu.findItem(R.id.action_group_black).setVisible(false);
             menu.findItem(R.id.action_group_mute).setVisible(false);
         }
@@ -199,14 +199,14 @@ public class GroupMemberAuthorityActivity extends BaseInitActivity implements Ea
     }
 
     private void getGroup() {
-        group = DemoHelper.getInstance().getGroupManager().getGroup(groupId);
+        group = MyHelper.getInstance().getGroupManager().getGroup(groupId);
     }
 
     protected void refreshData() {
         if(flag == TYPE_MEMBER) {
             viewModel.getMembers(groupId);
         }
-        if(isOwner() || isInAdminList(DemoHelper.getInstance().getCurrentUser())) {
+        if(isOwner() || isInAdminList(MyHelper.getInstance().getCurrentUser())) {
             viewModel.getBlackMembers(groupId);
             viewModel.getMuteMembers(groupId);
         }
@@ -325,7 +325,7 @@ public class GroupMemberAuthorityActivity extends BaseInitActivity implements Ea
     @Override
     public void onItemClick(View view, int position) {
         EaseUser user = adapter.getItem(position);
-        ContactDetailActivity.actionStart(mContext, user, DemoHelper.getInstance().getModel().isContact(user.getUsername()));
+        ContactDetailActivity.actionStart(mContext, user, MyHelper.getInstance().getModel().isContact(user.getUsername()));
     }
 
     @Override

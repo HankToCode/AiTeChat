@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.hyphenate.chat.EMGroup;
 import com.hyphenate.chat.EMGroupOptions;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.R;
 import com.android.nanguo.app.base.BaseInitActivity;
 import com.android.nanguo.common.constant.DemoConstant;
@@ -160,7 +160,7 @@ public class NewGroupActivity extends BaseInitActivity implements EaseTitleBar.O
         EMGroupOptions option = new EMGroupOptions();
         option.maxUsers = maxUsers;
         option.inviteNeedConfirm = true;
-        String reason = getString(R.string.em_group_new_invite_join_group, DemoHelper.getInstance().getCurrentUser(), groupName);
+        String reason = getString(R.string.em_group_new_invite_join_group, MyHelper.getInstance().getCurrentUser(), groupName);
         if(itemSwitchPublic.getSwitch().isChecked()){
             option.style = itemSwitchInvite.getSwitch().isChecked() ? EMGroupStyle.EMGroupStylePublicJoinNeedApproval : EMGroupStyle.EMGroupStylePublicOpenJoin;
         }else{

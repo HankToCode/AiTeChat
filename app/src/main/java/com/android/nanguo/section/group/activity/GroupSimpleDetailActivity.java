@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMGroup;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.R;
 import com.android.nanguo.app.base.BaseInitActivity;
 import com.android.nanguo.common.constant.DemoConstant;
@@ -100,7 +100,7 @@ public class GroupSimpleDetailActivity extends BaseInitActivity implements View.
         });
         viewModel.getGroup(groupId);
 
-        group = DemoHelper.getInstance().getGroupManager().getGroup(groupId);
+        group = MyHelper.getInstance().getGroupManager().getGroup(groupId);
         if(group != null) {
             setGroupInfo(group);
         }
@@ -128,7 +128,7 @@ public class GroupSimpleDetailActivity extends BaseInitActivity implements View.
     private void addToGroup() {
         String reason = etReason.getText().toString().trim();
         if(TextUtils.isEmpty(reason)) {
-            reason = getString(R.string.demo_group_listener_onRequestToJoinReceived, DemoHelper.getInstance().getCurrentUser(), group.getGroupName());
+            reason = getString(R.string.demo_group_listener_onRequestToJoinReceived, MyHelper.getInstance().getCurrentUser(), group.getGroupName());
         }
         viewModel.joinGroup(group, reason);
     }

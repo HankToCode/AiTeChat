@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.hyphenate.chat.EMChatRoom;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.R;
 import com.android.nanguo.common.constant.DemoConstant;
 
@@ -42,7 +42,7 @@ public class SearchChatRoomActivity extends SearchActivity {
     protected void initData() {
         super.initData();
         result = new ArrayList<>();
-        mData = DemoHelper.getInstance().getModel().chatRooms;
+        mData = MyHelper.getInstance().getModel().chatRooms;
     }
 
     @Override

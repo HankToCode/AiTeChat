@@ -4,7 +4,7 @@ import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 
 /**
  * Created by zhangsong on 17-9-15.
@@ -18,7 +18,7 @@ public class EMFCMMSGService extends FirebaseMessagingService {
         if (remoteMessage.getData().size() > 0) {
             String message = remoteMessage.getData().get("alert");
             Log.i(TAG, "onMessageReceived: " + message);
-            DemoHelper.getInstance().getNotifier().notify(message);
+            MyHelper.getInstance().getNotifier().notify(message);
         }
     }
 }

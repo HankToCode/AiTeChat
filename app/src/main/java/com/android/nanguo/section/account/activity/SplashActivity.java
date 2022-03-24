@@ -18,7 +18,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.airbnb.lottie.LottieAnimationView;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.blankj.utilcode.util.ToastUtils;
 import com.hyphenate.EMCallBack;
 import com.hyphenate.chat.EMClient;
@@ -101,7 +101,7 @@ public class SplashActivity extends BaseInitActivity {
         //一天前时间戳
         long day1 = System.currentTimeMillis() - 86400000 * 1;
         //删除一天前时间戳
-        DemoHelper.getInstance().getEMClient().chatManager().deleteMessagesBeforeTimestamp(day1, new EMCallBack() {
+        MyHelper.getInstance().getEMClient().chatManager().deleteMessagesBeforeTimestamp(day1, new EMCallBack() {
             @Override
             public void onSuccess() {
             }

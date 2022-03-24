@@ -10,7 +10,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.hyphenate.chat.EMChatRoom;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.R;
 import com.android.nanguo.app.base.BaseInitFragment;
 import com.android.nanguo.common.constant.DemoConstant;
@@ -64,7 +64,7 @@ public class ChatRoomContactManageFragment extends BaseInitFragment implements O
                 @Override
                 public void onSuccess(List<EMChatRoom> data) {
                     mAdapter.setData(data);
-                    DemoHelper.getInstance().getModel().chatRooms = mAdapter.getData();
+                    MyHelper.getInstance().getModel().chatRooms = mAdapter.getData();
                 }
 
                 @Override
@@ -79,7 +79,7 @@ public class ChatRoomContactManageFragment extends BaseInitFragment implements O
                 @Override
                 public void onSuccess(List<EMChatRoom> data) {
                     mAdapter.addData(data);
-                    DemoHelper.getInstance().getModel().chatRooms = mAdapter.getData();
+                    MyHelper.getInstance().getModel().chatRooms = mAdapter.getData();
                 }
 
                 @Override
@@ -123,7 +123,7 @@ public class ChatRoomContactManageFragment extends BaseInitFragment implements O
         super.initListener();
         mSrlCommonRefresh.setOnRefreshLoadMoreListener(this);
         mAdapter.setOnItemClickListener(this);
-        DemoHelper.getInstance().getChatroomManager().addChatRoomChangeListener(new ChatRoomChangeListener());
+        MyHelper.getInstance().getChatroomManager().addChatRoomChangeListener(new ChatRoomChangeListener());
     }
 
     @Override

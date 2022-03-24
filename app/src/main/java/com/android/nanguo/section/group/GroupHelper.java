@@ -5,7 +5,7 @@ import android.text.TextUtils;
 import com.hyphenate.chat.EMChatRoom;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMGroup;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 
 import java.util.List;
 
@@ -20,7 +20,7 @@ public class GroupHelper {
                 TextUtils.isEmpty(group.getOwner())) {
             return false;
         }
-        return TextUtils.equals(group.getOwner(), DemoHelper.getInstance().getCurrentUser());
+        return TextUtils.equals(group.getOwner(), MyHelper.getInstance().getCurrentUser());
     }
 
     /**
@@ -32,7 +32,7 @@ public class GroupHelper {
                 TextUtils.isEmpty(room.getOwner())) {
             return false;
         }
-        return TextUtils.equals(room.getOwner(), DemoHelper.getInstance().getCurrentUser());
+        return TextUtils.equals(room.getOwner(), MyHelper.getInstance().getCurrentUser());
     }
 
     /**
@@ -42,7 +42,7 @@ public class GroupHelper {
     public synchronized static boolean isAdmin(EMGroup group) {
         List<String> adminList = group.getAdminList();
         if(adminList != null && !adminList.isEmpty()) {
-            return adminList.contains(DemoHelper.getInstance().getCurrentUser());
+            return adminList.contains(MyHelper.getInstance().getCurrentUser());
         }
         return false;
     }
@@ -54,7 +54,7 @@ public class GroupHelper {
     public synchronized static boolean isAdmin(EMChatRoom group) {
         List<String> adminList = group.getAdminList();
         if(adminList != null && !adminList.isEmpty()) {
-            return adminList.contains(DemoHelper.getInstance().getCurrentUser());
+            return adminList.contains(MyHelper.getInstance().getCurrentUser());
         }
         return false;
     }

@@ -7,7 +7,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.hyphenate.chat.EMGroup;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.common.livedatas.LiveDataBus;
 import com.android.nanguo.common.livedatas.SingleSourceLiveData;
 import com.android.nanguo.common.net.Resource;
@@ -121,7 +121,7 @@ public class GroupDetailViewModel extends AndroidViewModel {
             List<String> onPushList = new ArrayList<>();
             onPushList.add(groupId);
             try {
-                DemoHelper.getInstance().getPushManager().updatePushServiceForGroup(onPushList, noPush);
+                MyHelper.getInstance().getPushManager().updatePushServiceForGroup(onPushList, noPush);
             } catch (HyphenateException e) {
                 e.printStackTrace();
                 offPushObservable.postValue(true);

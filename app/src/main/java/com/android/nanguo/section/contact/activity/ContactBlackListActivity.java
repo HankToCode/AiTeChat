@@ -7,7 +7,7 @@ import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.R;
 import com.android.nanguo.app.base.BaseInitActivity;
 import com.android.nanguo.common.constant.DemoConstant;
@@ -165,6 +165,6 @@ public class ContactBlackListActivity extends BaseInitActivity implements OnRefr
     @Override
     public void onItemClick(View view, int position) {
         EaseUser user = adapter.getItem(position);
-        ContactDetailActivity.actionStart(mContext, user, DemoHelper.getInstance().getModel().isContact(user.getUsername()));
+        ContactDetailActivity.actionStart(mContext, user, MyHelper.getInstance().getModel().isContact(user.getUsername()));
     }
 }

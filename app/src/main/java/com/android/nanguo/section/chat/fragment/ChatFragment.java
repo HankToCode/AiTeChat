@@ -31,7 +31,7 @@ import com.hyphenate.easeui.widget.EaseImageView;
 import com.hyphenate.exceptions.HyphenateException;
 import com.hyphenate.util.EasyUtils;
 import com.hyphenate.util.PathUtil;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.MainActivity;
 import com.android.nanguo.R;
 import com.android.nanguo.app.api.Constant;
@@ -848,12 +848,12 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                 startActivityForResult(new Intent(requireContext(), MyCollectActivity.class), 1023);
                 break;
             case ITEM_VOICE_CALL:
-                DemoHelper.getInstance().setEaseCallKitUserInfo(emChatId);
+                MyHelper.getInstance().setEaseCallKitUserInfo(emChatId);
                 startVoiceCall(emChatId, UserComm.getUserInfo().getUserHead());
 //                startVideoCall();
                 break;
             case ITEM_VIDEO_CALL:
-                DemoHelper.getInstance().setEaseCallKitUserInfo(emChatId);
+                MyHelper.getInstance().setEaseCallKitUserInfo(emChatId);
                 startVideoCall(emChatId, UserComm.getUserInfo().getUserHead());
                 break;
             case ITEM_CONTACT_GROUP_OWER:

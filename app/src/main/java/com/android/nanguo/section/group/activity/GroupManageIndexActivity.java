@@ -9,7 +9,7 @@ import android.widget.Button;
 
 import androidx.lifecycle.ViewModelProvider;
 
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.R;
 import com.android.nanguo.app.base.BaseInitActivity;
 import com.android.nanguo.common.constant.DemoConstant;
@@ -56,7 +56,7 @@ public class GroupManageIndexActivity extends BaseInitActivity implements View.O
         itemMuteManage = findViewById(R.id.item_mute_manage);
         btnTransfer = findViewById(R.id.btn_transfer);
 
-        btnTransfer.setVisibility(GroupHelper.isOwner(DemoHelper.getInstance().getGroupManager().getGroup(groupId)) ? View.VISIBLE : View.GONE);
+        btnTransfer.setVisibility(GroupHelper.isOwner(MyHelper.getInstance().getGroupManager().getGroup(groupId)) ? View.VISIBLE : View.GONE);
     }
 
     @Override

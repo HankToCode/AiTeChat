@@ -8,7 +8,7 @@ import android.view.View;
 
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMPushConfigs;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.R;
 import com.android.nanguo.app.base.BaseInitActivity;
 import com.android.nanguo.common.constant.DemoConstant;
@@ -61,7 +61,7 @@ public class UserDetailActivity extends BaseInitActivity {
     @Override
     protected void initData() {
         super.initData();
-        itemHxId.getTvContent().setText(DemoHelper.getInstance().getCurrentUser());
+        itemHxId.getTvContent().setText(MyHelper.getInstance().getCurrentUser());
         getNickname();
         LiveDataBus.get().with(DemoConstant.REFRESH_NICKNAME, Boolean.class).observe(this, event -> {
             if(event == null) {

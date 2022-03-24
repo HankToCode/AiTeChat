@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.hyphenate.EMValueCallBack;
 import com.hyphenate.chat.EMClient;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.app.domain.EaseUser;
 import com.hyphenate.easeui.utils.EaseCommonUtils;
 import com.hyphenate.util.EMLog;
@@ -162,7 +162,7 @@ public class ParseManager {
 					String nick = pUser.getString(CONFIG_NICK);
 					ParseFile pFile = pUser.getParseFile(CONFIG_AVATAR);
 					if(callback!=null){
-					    EaseUser user = DemoHelper.getInstance().getContactList().get(username);
+					    EaseUser user = MyHelper.getInstance().getContactList().get(username);
 						if(user!=null){
 							user.setNickname(nick);
 							if (pFile != null && pFile.getUrl() != null) {

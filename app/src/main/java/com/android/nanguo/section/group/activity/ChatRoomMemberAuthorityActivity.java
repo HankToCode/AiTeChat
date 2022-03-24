@@ -7,7 +7,7 @@ import android.text.TextUtils;
 import android.view.Menu;
 
 import com.hyphenate.chat.EMChatRoom;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.R;
 import com.android.nanguo.common.constant.DemoConstant;
 import com.android.nanguo.common.db.entity.EmUserEntity;
@@ -54,7 +54,7 @@ public class ChatRoomMemberAuthorityActivity extends GroupMemberAuthorityActivit
     protected void onSubPrepareOptionsMenu(Menu menu) {
         super.onSubPrepareOptionsMenu(menu);
         menu.findItem(R.id.action_group_add).setVisible(false);
-        if(!isOwner() && !isInAdminList(DemoHelper.getInstance().getCurrentUser())) {
+        if(!isOwner() && !isInAdminList(MyHelper.getInstance().getCurrentUser())) {
             menu.findItem(R.id.action_group_black).setVisible(false);
             menu.findItem(R.id.action_group_mute).setVisible(false);
         }
@@ -62,7 +62,7 @@ public class ChatRoomMemberAuthorityActivity extends GroupMemberAuthorityActivit
 
     @Override
     protected void initData() {
-        chatRoom = DemoHelper.getInstance().getChatroomManager().getChatRoom(roomId);
+        chatRoom = MyHelper.getInstance().getChatroomManager().getChatRoom(roomId);
         viewModel = new ViewModelProvider(this).get(ChatRoomMemberViewModel.class);
         getData();
     }
@@ -189,7 +189,7 @@ public class ChatRoomMemberAuthorityActivity extends GroupMemberAuthorityActivit
 
     @Override
     public boolean isMember() {
-        String currentUser = DemoHelper.getInstance().getCurrentUser();
+        String currentUser = MyHelper.getInstance().getCurrentUser();
         return !TextUtils.equals(currentUser, chatRoom.getOwner())
                 && !chatRoom.getAdminList().contains(currentUser);
     }

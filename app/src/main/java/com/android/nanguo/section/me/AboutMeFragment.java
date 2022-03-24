@@ -5,8 +5,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.hyphenate.EMCallBack;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.R;
 import com.android.nanguo.app.base.BaseInitFragment;
 import com.android.nanguo.common.widget.ArrowItemView;
@@ -48,7 +49,7 @@ public class AboutMeFragment extends BaseInitFragment implements View.OnClickLis
         itemDeveloperSet = findViewById(R.id.item_developer_set);
         mBtnLogout = findViewById(R.id.btn_logout);
 
-        name.setText(DemoHelper.getInstance().getCurrentUser());
+        name.setText(MyHelper.getInstance().getCurrentUser());
     }
 
     @Override
@@ -93,7 +94,7 @@ public class AboutMeFragment extends BaseInitFragment implements View.OnClickLis
                 .setOnConfirmClickListener(R.string.em_dialog_btn_confirm, new DemoDialogFragment.OnConfirmClickListener() {
                     @Override
                     public void onConfirmClick(View view) {
-                        DemoHelper.getInstance().logout(true, new EMCallBack() {
+                        MyHelper.getInstance().logout(true, new EMCallBack() {
                             @Override
                             public void onSuccess() {
                                 LoginActivity.actionStart(mContext);

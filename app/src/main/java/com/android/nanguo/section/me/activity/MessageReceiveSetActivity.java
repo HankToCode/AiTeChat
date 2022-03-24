@@ -8,13 +8,14 @@ import android.view.View;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.android.nanguo.app.utils.my.MyHelper;
+import com.android.nanguo.app.utils.my.MyModel;
 import com.hyphenate.chat.EMPushConfigs;
 import com.hyphenate.chat.EMPushManager;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.R;
 import com.android.nanguo.app.base.BaseInitActivity;
 import com.android.nanguo.common.interfaceOrImplement.OnResourceParseCallback;
-import com.android.nanguo.common.model.DemoModel;
 import com.android.nanguo.common.widget.ArrowItemView;
 import com.android.nanguo.common.widget.SwitchItemView;
 import com.android.nanguo.section.me.viewmodels.OfflinePushSetViewModel;
@@ -27,7 +28,7 @@ public class MessageReceiveSetActivity extends BaseInitActivity implements Switc
     private SwitchItemView rlSwitchSound;
     private SwitchItemView rlSwitchVibrate;
     private ArrowItemView itemPushMessageStyle;
-    private DemoModel model;
+    private MyModel model;
     private EMPushManager.DisplayStyle displayStyle;
     private OfflinePushSetViewModel viewModel;
 
@@ -64,7 +65,7 @@ public class MessageReceiveSetActivity extends BaseInitActivity implements Switc
     @Override
     protected void initData() {
         super.initData();
-        model = DemoHelper.getInstance().getModel();
+        model = MyHelper.getInstance().getModel();
         rlSwitchNotification.getSwitch().setChecked(model.getSettingMsgNotification());
         setSwitchVisible(rlSwitchNotification.getSwitch().isChecked());
 

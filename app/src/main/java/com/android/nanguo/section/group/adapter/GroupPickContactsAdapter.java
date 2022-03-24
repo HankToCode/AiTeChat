@@ -8,7 +8,7 @@ import android.widget.CheckBox;
 import android.widget.TextView;
 
 //import com.bumptech.glide.Glide;
-import com.android.nanguo.DemoHelper;
+import com.android.nanguo.app.utils.my.MyHelper;
 import com.android.nanguo.R;
 import com.hyphenate.easeui.adapter.EaseBaseRecyclerViewAdapter;
 import com.android.nanguo.app.domain.EaseUser;
@@ -78,7 +78,7 @@ public class GroupPickContactsAdapter extends EaseBaseRecyclerViewAdapter<EaseUs
             checkbox = findViewById(R.id.checkbox);
             avatar = findViewById(R.id.avatar);
             name = findViewById(R.id.name);
-            avatar.setShapeType(DemoHelper.getInstance().getEaseAvatarOptions().getAvatarShape());
+            avatar.setShapeType(MyHelper.getInstance().getEaseAvatarOptions().getAvatarShape());
         }
 
         @Override
