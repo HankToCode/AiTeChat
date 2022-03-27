@@ -18,6 +18,7 @@ import com.android.nanguo.common.db.dao.EmUserDao;
 import com.android.nanguo.common.db.dao.InviteMessageDao;
 import com.android.nanguo.common.db.dao.MsgTypeManageDao;
 import com.hyphenate.easeui.manager.EaseThreadManager;
+import com.zds.base.util.StringUtil;
 
 public class BaseEMRepository {
 
@@ -100,7 +101,9 @@ public class BaseEMRepository {
      * init room
      */
     public void initDb() {
-        DemoDbHelper.getInstance(DemoApplication.getInstance()).initDb(getCurrentUser());
+        if(!StringUtil.isEmpty(getCurrentUser())){
+            DemoDbHelper.getInstance(DemoApplication.getInstance()).initDb(getCurrentUser());
+        }
     }
 
     /**

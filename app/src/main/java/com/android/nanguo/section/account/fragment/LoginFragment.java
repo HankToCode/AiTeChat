@@ -192,7 +192,7 @@ public class LoginFragment extends BaseInitFragment implements View.OnClickListe
                     }
 
 //                    mFragmentViewModel.getMyModel().saveLoginAccount(user);
-//                    dismissLoading();
+                    dismissLoading();
 
                     //跳转到主页
                     MainActivity.actionStart(mContext);
