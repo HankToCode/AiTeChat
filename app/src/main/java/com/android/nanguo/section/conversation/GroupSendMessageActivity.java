@@ -67,7 +67,7 @@ public class GroupSendMessageActivity extends BaseInitActivity {
 
     protected void initLogic() {
 
-        mTitleBar.setTitle("群发消息");
+        mTitleBar.setTitle("一键转发");
         mTitleBar.setOnBackPressListener(view -> finish());
 
 
@@ -90,7 +90,7 @@ public class GroupSendMessageActivity extends BaseInitActivity {
 
                 String text = message.getText().toString().trim();
                 if (StringUtils.isEmpty(text)) {
-                    ToastUtils.showLong("请输入群发消息");
+                    ToastUtils.showLong("请输入群发好友消息");
                     return;
                 }
 

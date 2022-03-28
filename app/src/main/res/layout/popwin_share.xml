@@ -131,7 +131,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_7"
                 android:lines="1"
-                android:text="群发消息"
+                android:text="一键转发"
                 android:textColor="@color/text_color_qp_black"
                 android:textSize="@dimen/sp_15" />
         </LinearLayout>
