@@ -147,6 +147,11 @@ public class AppConfig {
      */
     public static String FIND_USER = mainUrl + "app_user_friend/findUserByPhoneAndUserCode";
 
+    /**
+     * 群发消息
+     */
+    public static String SEND_USER_TEXT_MESSAGE = mainUrl + "app_user_friend/sendUserTextMessage";
+
 
     /**
      * 获取好友详情

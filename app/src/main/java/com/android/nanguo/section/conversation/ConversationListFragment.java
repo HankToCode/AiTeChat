@@ -267,31 +267,28 @@ public class ConversationListFragment extends BaseConversationListFragment imple
     private void showPopWinShare(View view) {
         if (popWinShare == null) {
             View.OnClickListener paramOnClickListener =
-                    new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            //扫一扫
-                            if (v.getId() == R.id.layout_saoyisao) {
-                                Global.addUserOriginType = Constant.ADD_USER_ORIGIN_TYPE_QRCODE;
-                                Intent intent = new Intent(mContext,
-                                        CaptureActivity.class);
-                                startActivityForResult(intent, REQUEST_CODE);
-                            }//添加好友  //搜索添加好友
-                            else if (v.getId() == R.id.layout_add_firend) {
+                    v -> {
+                        //扫一扫
+                        if (v.getId() == R.id.layout_saoyisao) {
+                            Global.addUserOriginType = Constant.ADD_USER_ORIGIN_TYPE_QRCODE;
+                            Intent intent = new Intent(mContext,
+                                    CaptureActivity.class);
+                            startActivityForResult(intent, REQUEST_CODE);
+                        }//添加好友  //搜索添加好友
+                        else if (v.getId() == R.id.layout_add_firend) {
 //                                AddContactActivity.actionStart(mContext, SearchType.CHAT);
-                                AddUserActivity.actionStart(mContext);
-                            } else if (v.getId() == R.id.layout_group) {
-                                ContactActivity.actionStart(mContext, "1", null, null);
-                            } else if (v.getId() == R.id.layout_my_qr) {
-                                Intent intent = new Intent(mContext, MyQrActivity.class);
-                                intent.putExtra("from", "1");
-                                startActivity(intent);
-                            }
-
-                            popWinShare.dismiss();
+                            AddUserActivity.actionStart(mContext);
+                        } else if (v.getId() == R.id.layout_group) {
+                            ContactActivity.actionStart(mContext, "1", null, null);
+                        } else if (v.getId() == R.id.layout_my_qr) {
+                            Intent intent = new Intent(mContext, MyQrActivity.class);
+                            intent.putExtra("from", "1");
+                            startActivity(intent);
+                        } else if (v.getId() == R.id.layout_group_send_message) {
+                            GroupSendMessageActivity.actionStart(mContext);
                         }
 
-
+                        popWinShare.dismiss();
                     };
 
             popWinShare = new PopWinShare(mContext, paramOnClickListener

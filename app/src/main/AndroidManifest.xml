@@ -567,6 +567,10 @@
         <activity
             android:name="com.android.nanguo.section.group.activity.GroupManageIndexActivity"
             android:screenOrientation="portrait" />
+        <!--群发消息-->
+        <activity
+            android:name="com.android.nanguo.section.conversation.GroupSendMessageActivity"
+            android:screenOrientation="portrait" />
         <!--移交权限-->
         <activity
             android:name="com.android.nanguo.section.group.activity.GroupTransferActivity"

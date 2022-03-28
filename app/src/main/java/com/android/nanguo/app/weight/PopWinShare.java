@@ -18,6 +18,7 @@ public class PopWinShare extends PopupWindow {
     private final LinearLayout layoutGroup;
     private final LinearLayout layoutAddFirend;
     private final LinearLayout layoutSaoyisao;
+    private final LinearLayout layoutGroupSendMessage;
     private final LinearLayout llMyQr;
     private final LinearLayout llTop;
     private final LinearLayout llParent;
@@ -30,6 +31,7 @@ public class PopWinShare extends PopupWindow {
         llParent = ((LinearLayout) mainView.findViewById(R.id.llParent));
         layoutAddFirend = (LinearLayout) mainView.findViewById(R.id.layout_add_firend);
         layoutSaoyisao = (LinearLayout) mainView.findViewById(R.id.layout_saoyisao);
+        layoutGroupSendMessage = (LinearLayout) mainView.findViewById(R.id.layout_group_send_message);
         llMyQr = (LinearLayout) mainView.findViewById(R.id.layout_my_qr);
         llTop = (LinearLayout) mainView.findViewById(R.id.ll_top);
 
@@ -38,6 +40,7 @@ public class PopWinShare extends PopupWindow {
             layoutGroup.setOnClickListener(paramOnClickListener);
             layoutAddFirend.setOnClickListener(paramOnClickListener);
             layoutSaoyisao.setOnClickListener(paramOnClickListener);
+            layoutGroupSendMessage.setOnClickListener(paramOnClickListener);
             llMyQr.setOnClickListener(paramOnClickListener);
 
         }
