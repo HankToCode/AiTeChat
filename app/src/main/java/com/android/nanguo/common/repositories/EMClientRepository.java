@@ -197,7 +197,7 @@ public class EMClientRepository extends BaseEMRepository {
     private void successForCallBack(@NonNull ResultCallBack<LiveData<EaseUser>> callBack) {
         final LoginInfo loginInfo = UserComm.getUserInfo();
         // ** manually load all local groups and conversation
-        loadAllConversationsAndGroups();
+//        loadAllConversationsAndGroups();
         // update current user's display name for APNs
         try {
             EMClient.getInstance().pushManager().updatePushNickname(loginInfo.getNickName());
