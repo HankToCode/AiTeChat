@@ -905,53 +905,55 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
                             PictureSelector.obtainMultipleResult(data);
 
                     if (selectList != null && selectList.size() > 0) {
-                        LocalMedia localMedia = selectList.get(0);
-                        String path;
-                        if (localMedia.getCompressPath() != null) {
-                            path = localMedia.getCompressPath();
-                        } else {
-                            path = localMedia.getPath();
-                        }
+                        for (int i = 0; i < selectList.size(); i++) {
+                            LocalMedia localMedia = selectList.get(i);
+                            String path;
+                            if (localMedia.getCompressPath() != null) {
+                                path = localMedia.getCompressPath();
+                            } else {
+                                path = localMedia.getPath();
+                            }
 
-                        Uri selectedImage = Uri.fromFile(new File(path));
-                        Uri selectedImageCursor = getMediaUriFromPath(requireContext(), path);
-                        //第一步先判断是否需要发送视频
-                        if (selectedImageCursor != null) {
-                            String fileExtension = MimeTypeMap.getFileExtensionFromUrl(selectedImage.toString());
-                            String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExtension);
-                            if (mimeType != null && mimeType.contains("video")) {
-                                try {
-                                    String[] filePathColumn = {MediaStore.Video.Media.DATA, MediaStore.Video.Media.DURATION};
-                                    Cursor cursor = requireContext().getContentResolver().query(selectedImageCursor,
-                                            null, null, null, null);
-                                    if (null != cursor) {
-                                        cursor.moveToFirst();
-                                        int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-                                        int columnIndexDur = cursor.getColumnIndex(filePathColumn[1]);
-                                        String videoPath = cursor.getString(columnIndex);
-                                        int dur = cursor.getInt(columnIndexDur);
-                                        cursor.close();
-                                        File file =
-                                                new File(PathUtil.getInstance().getImagePath(), "thvideo" + System.currentTimeMillis());
+                            Uri selectedImage = Uri.fromFile(new File(path));
+                            Uri selectedImageCursor = getMediaUriFromPath(requireContext(), path);
+                            //第一步先判断是否需要发送视频
+                            if (selectedImageCursor != null) {
+                                String fileExtension = MimeTypeMap.getFileExtensionFromUrl(selectedImage.toString());
+                                String mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(fileExtension);
+                                if (mimeType != null && mimeType.contains("video")) {
+                                    try {
+                                        String[] filePathColumn = {MediaStore.Video.Media.DATA, MediaStore.Video.Media.DURATION};
+                                        Cursor cursor = requireContext().getContentResolver().query(selectedImageCursor,
+                                                null, null, null, null);
+                                        if (null != cursor) {
+                                            cursor.moveToFirst();
+                                            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
+                                            int columnIndexDur = cursor.getColumnIndex(filePathColumn[1]);
+                                            String videoPath = cursor.getString(columnIndex);
+                                            int dur = cursor.getInt(columnIndexDur);
+                                            cursor.close();
+                                            File file =
+                                                    new File(PathUtil.getInstance().getImagePath(), "thvideo" + System.currentTimeMillis());
 
-                                        FileOutputStream fos = new FileOutputStream(file);
-                                        Bitmap thumbBitmap =
-                                                ThumbnailUtils.createVideoThumbnail(videoPath, 3);
-                                        if (thumbBitmap != null) {
-                                            thumbBitmap.compress(Bitmap.CompressFormat.JPEG, 85, fos);
+                                            FileOutputStream fos = new FileOutputStream(file);
+                                            Bitmap thumbBitmap =
+                                                    ThumbnailUtils.createVideoThumbnail(videoPath, 3);
+                                            if (thumbBitmap != null) {
+                                                thumbBitmap.compress(Bitmap.CompressFormat.JPEG, 85, fos);
+                                            }
+                                            fos.close();
+                                            sendVideoMessage(videoPath,
+                                                    file.getAbsolutePath(), dur);
                                         }
-                                        fos.close();
-                                        sendVideoMessage(videoPath,
-                                                file.getAbsolutePath(), dur);
+                                        return;
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
                                     }
-                                    return;
-                                } catch (Exception e) {
-                                    e.printStackTrace();
                                 }
                             }
+                            //第二步再执行发送图片
+                            sendPicByUri(selectedImage);
                         }
-                        //第二步再执行发送图片
-                        sendPicByUri(selectedImage);
                     }
                 }
             } else if (requestCode == Constant.REQUEST_AT_MERBER_CODE) {
@@ -1648,7 +1650,8 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
 
         PictureSelector.create(getActivity())
                 .openGallery(PictureMimeType.ofAll())
-                .selectionMode(PictureConfig.SINGLE)
+                .selectionMode(PictureConfig.MULTIPLE)
+                .maxSelectNum(3)
                 .withAspectRatio(1, 1)
                 .enableCrop(false)
                 .showCropFrame(false)
