@@ -548,7 +548,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                         Bitmap bitmap = BitmapFactory.decodeStream(is);
                         //接下来就可以展示了（或者做上传处理）
                         String p = DonwloadSaveImg.saveFile(bitmap, requireContext());
-                        EMMessage m = EMMessage.createImageSendMessage(p, false
+                        EMMessage m = EMMessage.createImageSendMessage(p, true
                                 , emChatId);
                         m.setAttribute(Constant.AVATARURL,
                                 UserComm.getUserInfo().getUserHead());
@@ -595,7 +595,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                         DonwloadSaveImg.donwloadImg(requireContext(), AppConfig.checkimg(bean.getLinkContent()), new OnClickSuccessResult() {
                             @Override
                             public void sunccess(@NotNull String path) {
-                                EMMessage message = EMMessage.createImageSendMessage(path, false
+                                EMMessage message = EMMessage.createImageSendMessage(path, true
                                         , emChatId);
                                 message.setAttribute(Constant.AVATARURL,
                                         UserComm.getUserInfo().getUserHead());

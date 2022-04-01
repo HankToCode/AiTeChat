@@ -1359,7 +1359,7 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
     }
 
     protected void sendImageMessage(String imagePath) {
-        EMMessage message = EMMessage.createImageSendMessage(imagePath, false
+        EMMessage message = EMMessage.createImageSendMessage(imagePath, true
                 , emChatId);
         sendMessage(message);
     }
