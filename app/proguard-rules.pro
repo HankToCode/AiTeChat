@@ -369,3 +369,6 @@
 -keep class com.hyphenate.easeui.utils.** {*;}
 -keep class net.sourceforge.pinyin4j.** {*;}
 
+-keep class io.agora.**{*;}
+-keep class io.agora.rtc.internal.RtcChannelImpl{*;}
+
