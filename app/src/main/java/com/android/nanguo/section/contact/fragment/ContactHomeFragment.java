@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import androidx.viewpager.widget.ViewPager;
 
+import com.android.nanguo.section.conversation.GroupSendMessageActivity;
 import com.blankj.utilcode.util.ScreenUtils;
 import com.android.nanguo.R;
 import com.android.nanguo.app.api.Constant;
@@ -142,6 +143,8 @@ public class ContactHomeFragment extends BaseInitFragment implements View.OnClic
                                 Intent intent = new Intent(mContext, MyQrActivity.class);
                                 intent.putExtra("from", "1");
                                 startActivity(intent);
+                            } else if (v.getId() == R.id.layout_group_send_message) {
+                                GroupSendMessageActivity.actionStart(mContext);
                             }
 
                             popWinShare.dismiss();
