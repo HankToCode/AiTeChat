@@ -823,8 +823,14 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
                 break;
             case R.id.fl_user_total:
             case R.id.fl_user_total1:
+                // 0-普通用户 1-管理员 2-群主
+                if (info.getGroupUserRank() == 0) {
+                    ToastUtil.toast("暂未开启群成员查看功能");
+                    return;
+                }
                 Global.addUserOriginType = Constant.ADD_USER_ORIGIN_TYPE_GROUPCHAT;
                 Global.addUserOriginName = info.getGroupName();
+
                 Intent memberIntent = new Intent(this, GroupMemberActivity.class);
                 Bundle memberBundle = new Bundle();
                 memberBundle.putString(Constant.PARAM_GROUP_ID, groupId);
