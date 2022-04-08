@@ -69,7 +69,8 @@
             android:paddingRight="@dimen/dp_10"
             android:text="@string/button_add"
             android:textColor="@color/white"
-            android:textSize="@dimen/sp_14"/>
+            android:visibility="gone"
+            android:textSize="@dimen/sp_14" />
     </RelativeLayout>
 
 
