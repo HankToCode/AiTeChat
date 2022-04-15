@@ -30,6 +30,7 @@ import com.hyphenate.chat.EMMucSharedFile;
 import com.hyphenate.chat.EMOptions;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.easecallkit.ui.EaseVideoCallActivity;
+import com.hyphenate.easeui.manager.EaseThreadManager;
 import com.hyphenate.exceptions.HyphenateException;
 import com.hyphenate.util.EMLog;
 import com.android.nanguo.BuildConfig;
@@ -599,7 +600,7 @@ public class MyHelper {
             msg.addBody(new EMTextMessageBody(accepter + " " + st4));
             msg.setStatus(Status.SUCCESS);
             // save accept message
-            EMClient.getInstance().chatManager().saveMessage(msg);
+            EaseThreadManager.getInstance().runOnIOThread(() -> EMClient.getInstance().chatManager().saveMessage(msg));
             // notify the accept message
             getNotifier().vibrateAndPlayTone(msg);
 
@@ -628,7 +629,7 @@ public class MyHelper {
             msg.addBody(new EMTextMessageBody(inviter + " " + st3));
             msg.setStatus(EMMessage.Status.SUCCESS);
             // save invitation as messages
-            EMClient.getInstance().chatManager().saveMessage(msg);
+            EaseThreadManager.getInstance().runOnIOThread(() -> EMClient.getInstance().chatManager().saveMessage(msg));
             // notify invitation message
             getNotifier().vibrateAndPlayTone(msg);
 //            showToast("auto accept invitation from groupId:" + groupId);
@@ -910,7 +911,7 @@ public class MyHelper {
                                 msg.addBody(new EMTextMessageBody(msg.getFrom() + " " + st3));
                                 msg.setStatus(EMMessage.Status.SUCCESS);
                                 // save invitation as messages
-                                EMClient.getInstance().chatManager().saveMessage(msg);
+                                EaseThreadManager.getInstance().runOnIOThread(() -> EMClient.getInstance().chatManager().saveMessage(msg));
 
 
                                 // TODO: person, reason from ext
@@ -1208,7 +1209,7 @@ public class MyHelper {
                     msgNotification.setAttribute(Constant.MESSAGE_TYPE_RECALL, true);
                     msgNotification.setStatus(Status.SUCCESS);
                     msgNotification.setAttribute(Constant.NICKNAME, recallUserName);
-                    EMClient.getInstance().chatManager().saveMessage(msgNotification);
+                    EaseThreadManager.getInstance().runOnIOThread(() -> EMClient.getInstance().chatManager().saveMessage(msgNotification));
                 }
             }
 
@@ -1237,7 +1238,7 @@ public class MyHelper {
             emMessage.setAttribute(key, (String) map.get(key));
         }
 
-        EMClient.getInstance().chatManager().saveMessage(emMessage);
+        EaseThreadManager.getInstance().runOnIOThread(() -> EMClient.getInstance().chatManager().saveMessage(emMessage));
     }
 
     public void createAloneRedPackageMessage(EMMessage cmdMessage) {
@@ -1258,7 +1259,7 @@ public class MyHelper {
         EMConversation conversation = EMClient.getInstance().chatManager().getConversation((String)map.get("toUserId" ) + Constant.ID_REDPROJECT);
         conversation.insertMessage(emMessage);
 
-//        EMClient.getInstance().chatManager().saveMessage(emMessage);
+//        EaseThreadManager.getInstance().runOnIOThread(() -> EMClient.getInstance().chatManager().saveMessage(emMessage));
 
 
     }

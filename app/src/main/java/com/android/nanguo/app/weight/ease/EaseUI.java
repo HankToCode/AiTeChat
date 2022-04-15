@@ -17,6 +17,7 @@ import com.android.nanguo.app.domain.EaseAvatarOptions;
 import com.android.nanguo.app.domain.EaseEmojicon;
 import com.android.nanguo.app.domain.EaseUser;
 import com.android.nanguo.app.weight.ease.model.EaseAtMessageHelper;
+import com.hyphenate.easeui.manager.EaseThreadManager;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -256,7 +257,7 @@ public final class EaseUI {
                             }
                         }
                         //保存消息
-                        EMClient.getInstance().chatManager().saveMessage(msg);
+                        EaseThreadManager.getInstance().runOnIOThread(() -> EMClient.getInstance().chatManager().saveMessage(msg));
                     }
                 }
             }

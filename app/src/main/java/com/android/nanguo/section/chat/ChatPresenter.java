@@ -46,6 +46,7 @@ import com.hyphenate.easeui.interfaces.EaseGroupListener;
 import com.hyphenate.easeui.manager.EaseAtMessageHelper;
 import com.hyphenate.easeui.manager.EaseChatPresenter;
 import com.hyphenate.easeui.manager.EaseSystemMsgManager;
+import com.hyphenate.easeui.manager.EaseThreadManager;
 import com.hyphenate.easeui.model.EaseEvent;
 import com.hyphenate.exceptions.HyphenateException;
 import com.hyphenate.util.EMLog;
@@ -226,7 +227,7 @@ public class ChatPresenter extends EaseChatPresenter {
             msgNotification.setChatType(msg.getChatType());
             msgNotification.setAttribute(DemoConstant.MESSAGE_TYPE_RECALL, true);
             msgNotification.setStatus(EMMessage.Status.SUCCESS);
-            EMClient.getInstance().chatManager().saveMessage(msgNotification);
+            EaseThreadManager.getInstance().runOnIOThread(() -> EMClient.getInstance().chatManager().saveMessage(msgNotification));
         }
     }
 
@@ -459,7 +460,7 @@ public class ChatPresenter extends EaseChatPresenter {
             msg.addBody(new EMTextMessageBody(context.getString(R.string.demo_group_listener_onRequestToJoinAccepted, accepter, groupName)));
             msg.setStatus(EMMessage.Status.SUCCESS);
             // save accept message
-            EMClient.getInstance().chatManager().saveMessage(msg);
+            EaseThreadManager.getInstance().runOnIOThread(() -> EMClient.getInstance().chatManager().saveMessage(msg));
             // notify the accept message
             getNotifier().vibrateAndPlayTone(msg);
 
@@ -490,7 +491,7 @@ public class ChatPresenter extends EaseChatPresenter {
             msg.addBody(new EMTextMessageBody(context.getString(R.string.demo_group_listener_onAutoAcceptInvitationFromGroup, groupName)));
             msg.setStatus(EMMessage.Status.SUCCESS);
             // save invitation as messages
-            EMClient.getInstance().chatManager().saveMessage(msg);
+            EaseThreadManager.getInstance().runOnIOThread(() -> EMClient.getInstance().chatManager().saveMessage(msg));
             // notify invitation message
             getNotifier().vibrateAndPlayTone(msg);
             EaseEvent event = EaseEvent.create(DemoConstant.MESSAGE_GROUP_AUTO_ACCEPT, EaseEvent.TYPE.MESSAGE);
@@ -858,7 +859,7 @@ public class ChatPresenter extends EaseChatPresenter {
                     msg.addBody(new EMTextMessageBody(msg.getFrom() + " " + st3));
                     msg.setStatus(EMMessage.Status.SUCCESS);
                     // save invitation as messages
-                    EMClient.getInstance().chatManager().saveMessage(msg);
+                    EaseThreadManager.getInstance().runOnIOThread(() -> EMClient.getInstance().chatManager().saveMessage(msg));
 
                     removeTargetSystemMessage(groupId, DemoConstant.SYSTEM_MESSAGE_GROUP_ID);
                     // TODO: person, reason from ext

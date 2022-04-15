@@ -47,6 +47,7 @@ import com.hyphenate.chat.EMMessage;
 import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.easecallkit.EaseCallKit;
 import com.hyphenate.easecallkit.base.EaseCallType;
+import com.hyphenate.easeui.manager.EaseThreadManager;
 import com.luck.picture.lib.PictureSelector;
 import com.luck.picture.lib.config.PictureConfig;
 import com.luck.picture.lib.config.PictureMimeType;
@@ -1213,7 +1214,7 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
                 }
             }
             //保存消息
-            EMClient.getInstance().chatManager().saveMessage(msg);
+            EaseThreadManager.getInstance().runOnIOThread(() -> EMClient.getInstance().chatManager().saveMessage(msg));
             mMessageList.refreshSelectLast();
         }
     }
@@ -1432,7 +1433,7 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
 
         //Add to conversation
         EMClient.getInstance().chatManager().sendMessage(message);
-//        EMClient.getInstance().chatManager().saveMessage(message);
+//        EaseThreadManager.getInstance().runOnIOThread(() -> EMClient.getInstance().chatManager().saveMessage(message);
         //refresh ui
         if (isMessageListInited) {
             mMessageList.refreshSelectLast();

@@ -27,6 +27,7 @@ import com.hyphenate.chat.EMTextMessageBody;
 import com.hyphenate.easecallkit.EaseCallKit;
 import com.hyphenate.easecallkit.base.EaseCallType;
 import com.hyphenate.easeui.constants.EaseConstant;
+import com.hyphenate.easeui.manager.EaseThreadManager;
 import com.hyphenate.easeui.widget.EaseImageView;
 import com.hyphenate.exceptions.HyphenateException;
 import com.hyphenate.util.EasyUtils;
@@ -746,8 +747,10 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
                 || message.getStringAttribute(Constant.MSGTYPE, "").equals(Constant.PERSON_RED_BAG)) {
 
             message.setAttribute("isClick", true);
-            EMClient.getInstance().chatManager().saveMessage(message);
+
             checkRedPacket(message);
+
+            EaseThreadManager.getInstance().runOnIOThread(() -> EMClient.getInstance().chatManager().saveMessage(message));
             return true;
         }
         if (message.getBooleanAttribute(Constant.TURN, false)) {
@@ -804,7 +807,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
     public void onCmdMessageReceived(List<EMMessage> messages) {
         super.onCmdMessageReceived(messages);
 //        for (EMMessage emMessage:messages){
-//            EMClient.getInstance().chatManager().saveMessage(emMessage);
+//            EaseThreadManager.getInstance().runOnIOThread(() -> EMClient.getInstance().chatManager().saveMessage(emMessage);
 //        }
     }
 
