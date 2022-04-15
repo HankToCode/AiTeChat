@@ -22,7 +22,7 @@
         android:layout_marginLeft="@dimen/dp_20"
         android:layout_marginRight="@dimen/dp_20"
         android:background="@drawable/bg_edittext"
-        android:hint="输入好友手机号或南国时光号"
+        android:hint="输入好友南国时光号"
         android:paddingLeft="@dimen/dp_5"
         android:singleLine="true"
         android:textColorHint="#b3b3b3"
@@ -69,7 +69,8 @@
             android:paddingRight="@dimen/dp_10"
             android:text="@string/button_add"
             android:textColor="@color/white"
-            android:textSize="@dimen/sp_14"/>
+            android:visibility="gone"
+            android:textSize="@dimen/sp_14" />
     </RelativeLayout>
 
 

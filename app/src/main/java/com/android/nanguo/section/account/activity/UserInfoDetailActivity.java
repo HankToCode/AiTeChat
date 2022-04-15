@@ -447,7 +447,7 @@ public class UserInfoDetailActivity extends BaseInitActivity {
             userId = userId.split("-")[0];
         }
         map.put("friendUserId", userId);
-
+        map.put("flag", "cache");
         ApiClient.requestNetHandle(this, AppConfig.FRIEND_INFO, "加载中...", map,
                 new ResultListener() {
                     @Override

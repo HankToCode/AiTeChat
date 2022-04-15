@@ -13,6 +13,8 @@
  */
 package com.android.nanguo.section.contact.activity;
 
+import static com.android.nanguo.app.api.Constant.ADD_USER_ORIGIN_TYPE_SEARCH;
+
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +24,8 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.android.nanguo.app.api.EaseConstant;
+import com.android.nanguo.section.account.activity.UserInfoDetailActivity;
 import com.hyphenate.chat.EMClient;
 import com.hyphenate.chat.EMCmdMessageBody;
 import com.hyphenate.chat.EMMessage;
@@ -138,7 +142,7 @@ public class AddUserActivity extends BaseInitActivity {
         }
         Map<String, Object> map = new HashMap<>();
         map.put("toUserId", easeUserInfos.getUserId());
-        map.put("originType", Constant.ADD_USER_ORIGIN_TYPE_SEARCH);
+        map.put("originType", ADD_USER_ORIGIN_TYPE_SEARCH);
         ApiClient.requestNetHandle(this, AppConfig.APPLY_ADD_USER, "正在添加", map, new ResultListener() {
             @Override
             public void onSuccess(String json, String msg) {
@@ -258,7 +262,20 @@ public class AddUserActivity extends BaseInitActivity {
         hideSoftKeyboard();
         switch (view.getId()) {
             case R.id.ll_user:
-                AddUserDetailActivity.actionStart(mContext,easeUserInfos);
+//                AddUserDetailActivity.actionStart(mContext,easeUserInfos);
+                Intent intent = new Intent(mContext, UserInfoDetailActivity.class);
+                intent.putExtra("friendUserId", easeUserInfos.getUserId())
+                        .putExtra("from", "1")
+                        .putExtra("originType", ADD_USER_ORIGIN_TYPE_SEARCH)////搜索手机号/南国时光号
+                        .putExtra("chatType", EaseConstant.CHATTYPE_SINGLE);
+
+               /* Intent intent = new Intent(mContext, UserInfoDetailActivity.class)
+                        .putExtra("friendUserId", info.getUserId())
+                        .putExtra("entryUserId", info.getEntryUserId())
+                        .putExtra("chatType", EaseConstant.CHATTYPE_GROUP)
+                        .putExtra("from", "1")
+                        .putExtra("currentUserRank",groupUserRank);*/
+                mContext.startActivity(intent);
                 break;
             case R.id.btn_add:
                 addUser();
