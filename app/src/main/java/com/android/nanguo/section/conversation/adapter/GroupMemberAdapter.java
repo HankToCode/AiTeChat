@@ -142,7 +142,7 @@ public class GroupMemberAdapter extends RecyclerView.Adapter<GroupMemberAdapter.
             public void onClick(View v) {
 
                 if (onClickAtUserListener != null) {
-                    onClickAtUserListener.atUser(info.getUserNickName(), info.getUserId());
+                    onClickAtUserListener.atUser(info.getNickName(), info.getUserId());
                     return;
                 }
                 if (!isSeeUserDetail) {
