@@ -12,6 +12,7 @@ import com.android.nanguo.app.base.BaseInitFragment;
 import com.android.nanguo.app.help.RclViewHelp;
 import com.android.nanguo.app.weight.SearchBar;
 import com.android.nanguo.app.weight.SlideRecyclerView;
+import com.android.nanguo.common.utils.comlist.ListCacheUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -60,6 +61,7 @@ public class FriendApplyFragment extends BaseInitFragment implements NewFriendAd
             page++;
             queryUserStatus();
         });
+        mStringList.addAll(ListCacheUtil.applyFriendData);
         mNewFriendAdapter = new NewFriendAdapter(mStringList, mContext, lettes);
         RclViewHelp.initRcLmVertical(mContext, mRvNewFriend, mNewFriendAdapter);
         mNewFriendAdapter.setOnAgreeListener(this);
@@ -110,10 +112,12 @@ public class FriendApplyFragment extends BaseInitFragment implements NewFriendAd
                 if (null != json && json.length() > 0) {
                     if (page == 1) {
                         mStringList.clear();
+                        ListCacheUtil.applyFriendData.clear();
                     }
                     NewFriendInfo info = FastJsonUtil.getObject(json, NewFriendInfo.class);
                     if (info != null && info.getData().size() > 0) {
                         mStringList.addAll(info.getData());
+                        ListCacheUtil.applyFriendData.addAll(info.getData());
                         tv_no_content.setVisibility(View.GONE);
                     } else {
                         if (page == 1) {

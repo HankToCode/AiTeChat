@@ -13,6 +13,7 @@ import com.android.nanguo.app.base.BaseInitFragment;
 import com.android.nanguo.app.help.RclViewHelp;
 import com.android.nanguo.app.weight.SearchBar;
 import com.android.nanguo.app.weight.SlideRecyclerView;
+import com.android.nanguo.common.utils.comlist.ListCacheUtil;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
@@ -29,8 +30,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import butterknife.BindView;
 
 
 /**
@@ -77,7 +76,7 @@ public class GroupUserApplyFragment extends BaseInitFragment implements GroupUse
             page++;
             queryUserStatus();
         });
-
+        mStringList.addAll(ListCacheUtil.groupUserAuditInfoData);
         mNewFriendAdapter = new GroupUserApplyAdapter(mStringList, mContext, lettes);
         RclViewHelp.initRcLmVertical(mContext, rv_new_friend, mNewFriendAdapter);
         mNewFriendAdapter.setOnAgreeListener(this);
@@ -87,6 +86,7 @@ public class GroupUserApplyFragment extends BaseInitFragment implements GroupUse
                 delApplyUserData(pos);
             }
         });
+
 //        mSmart.autoRefresh();
         queryUserStatus();
     }
@@ -109,10 +109,12 @@ public class GroupUserApplyFragment extends BaseInitFragment implements GroupUse
             public void onSuccess(String json, String msg) {
                 if (page == 1) {
                     mStringList.clear();
+                    ListCacheUtil.groupUserAuditInfoData.clear();
                 }
                 GroupUserAuditInfo info = FastJsonUtil.getObject(json, GroupUserAuditInfo.class);
                 if (info != null && info.getData().size() > 0) {
                     mStringList.addAll(info.getData());
+                    ListCacheUtil.groupUserAuditInfoData.addAll(info.getData());
                     tv_no_content.setVisibility(View.GONE);
                 } else {
                     if (page == 1) {
