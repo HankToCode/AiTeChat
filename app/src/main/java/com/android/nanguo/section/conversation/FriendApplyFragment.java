@@ -61,7 +61,7 @@ public class FriendApplyFragment extends BaseInitFragment implements NewFriendAd
             page++;
             queryUserStatus();
         });
-        mStringList.addAll(ListCacheUtil.applyFriendData);
+        mStringList.addAll(ListCacheUtil.getInstance().applyFriendData);
         mNewFriendAdapter = new NewFriendAdapter(mStringList, mContext, lettes);
         RclViewHelp.initRcLmVertical(mContext, mRvNewFriend, mNewFriendAdapter);
         mNewFriendAdapter.setOnAgreeListener(this);
@@ -112,12 +112,12 @@ public class FriendApplyFragment extends BaseInitFragment implements NewFriendAd
                 if (null != json && json.length() > 0) {
                     if (page == 1) {
                         mStringList.clear();
-                        ListCacheUtil.applyFriendData.clear();
+                        ListCacheUtil.getInstance().applyFriendData.clear();
                     }
                     NewFriendInfo info = FastJsonUtil.getObject(json, NewFriendInfo.class);
                     if (info != null && info.getData().size() > 0) {
                         mStringList.addAll(info.getData());
-                        ListCacheUtil.applyFriendData.addAll(info.getData());
+                        ListCacheUtil.getInstance().applyFriendData.addAll(info.getData());
                         tv_no_content.setVisibility(View.GONE);
                     } else {
                         if (page == 1) {

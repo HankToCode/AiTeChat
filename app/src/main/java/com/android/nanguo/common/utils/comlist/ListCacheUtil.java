@@ -6,11 +6,25 @@ import com.android.nanguo.app.api.old_data.GroupUserAuditInfo;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListCacheUtil {
+public final class ListCacheUtil {
 
-    public final static List<ApplyFriendData> applyFriendData = new ArrayList<>();
+    private static ListCacheUtil cacheUtil;
 
-    public final static List<GroupUserAuditInfo.DataBean> groupUserAuditInfoData = new ArrayList<>();
+    private ListCacheUtil() {
+        applyFriendData = new ArrayList<>();
+        groupUserAuditInfoData = new ArrayList<>();
+    }
+
+    public static ListCacheUtil getInstance() {
+        if (cacheUtil == null) {
+            cacheUtil = new ListCacheUtil();
+        }
+        return cacheUtil;
+    }
+
+    public List<ApplyFriendData> applyFriendData;
+
+    public List<GroupUserAuditInfo.DataBean> groupUserAuditInfoData;
 
 
 }

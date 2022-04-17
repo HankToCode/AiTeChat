@@ -76,7 +76,7 @@ public class GroupUserApplyFragment extends BaseInitFragment implements GroupUse
             page++;
             queryUserStatus();
         });
-        mStringList.addAll(ListCacheUtil.groupUserAuditInfoData);
+        mStringList.addAll(ListCacheUtil.getInstance().groupUserAuditInfoData);
         mNewFriendAdapter = new GroupUserApplyAdapter(mStringList, mContext, lettes);
         RclViewHelp.initRcLmVertical(mContext, rv_new_friend, mNewFriendAdapter);
         mNewFriendAdapter.setOnAgreeListener(this);
@@ -109,12 +109,12 @@ public class GroupUserApplyFragment extends BaseInitFragment implements GroupUse
             public void onSuccess(String json, String msg) {
                 if (page == 1) {
                     mStringList.clear();
-                    ListCacheUtil.groupUserAuditInfoData.clear();
+                    ListCacheUtil.getInstance().groupUserAuditInfoData.clear();
                 }
                 GroupUserAuditInfo info = FastJsonUtil.getObject(json, GroupUserAuditInfo.class);
                 if (info != null && info.getData().size() > 0) {
                     mStringList.addAll(info.getData());
-                    ListCacheUtil.groupUserAuditInfoData.addAll(info.getData());
+                    ListCacheUtil.getInstance().groupUserAuditInfoData.addAll(info.getData());
                     tv_no_content.setVisibility(View.GONE);
                 } else {
                     if (page == 1) {
