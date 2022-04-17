@@ -75,6 +75,10 @@ public class NanguoWalletActivity extends BaseInitActivity {
 
     @OnClick({ R.id.ll_name, R.id.tv_recharge, R.id.tv_withdraw, R.id.ll_bank})
     public void onViewClicked(View view) {
+          if (UserComm.getUserInfo().getOpenAccountFlag() == 0) {
+                    RealAuthActivity.actionStart(mContext);
+                    return;
+                }
         switch (view.getId()) {
             case R.id.ll_name:
                 if (UserComm.getUserInfo().getOpenAccountFlag() == 0) {
@@ -83,25 +87,13 @@ public class NanguoWalletActivity extends BaseInitActivity {
                 }
                 break;
             case R.id.tv_recharge://充值
-                if (UserComm.getUserInfo().getOpenAccountFlag() == 0) {
-                    RealAuthActivity.actionStart(mContext);
-                    return;
-                }
                 RechargeActivity.actionStart(NanguoWalletActivity.this);//充值页面
                 break;
             case R.id.tv_withdraw://提现
-                if (UserComm.getUserInfo().getOpenAccountFlag() == 0) {
-                    RealAuthActivity.actionStart(mContext);
-                    return;
-                }
                 WithdrawActivity.actionStart(NanguoWalletActivity.this);
                 break;
             case R.id.ll_bank://银行卡
 //                startActivity(new Intent(WalletActivity.this,WebViewActivity.class).putExtra("url",url).putExtra("title","银行卡"));
-                if (UserComm.getUserInfo().getOpenAccountFlag() == 0) {
-                    RealAuthActivity.actionStart(mContext);
-                    return;
-                }
                 BankActivity.actionStart(this,"1");
                 break;
            /* case R.id.tv_my_redpack_record:

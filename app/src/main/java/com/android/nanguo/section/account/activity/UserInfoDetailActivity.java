@@ -448,6 +448,9 @@ public class UserInfoDetailActivity extends BaseInitActivity {
         }
         map.put("friendUserId", userId);
         map.put("flag", "cache");
+        if (!TextUtils.isEmpty(groupId)) {
+            map.put("groupId", groupId);
+        }
         ApiClient.requestNetHandle(this, AppConfig.FRIEND_INFO, "加载中...", map,
                 new ResultListener() {
                     @Override
@@ -482,9 +485,13 @@ public class UserInfoDetailActivity extends BaseInitActivity {
                             mTvNickName.setText(info.getNickName());
 
                             initBottomVis();
-
-                            if (!TextUtils.isEmpty(inviterUserId)) {
+                            //改动一下，不用inviterUserId查询邀请者了，查详情时如有传groupId则返回entryUserId 用来查邀请者
+                           /* if (!TextUtils.isEmpty(inviterUserId)) {
                                 queryInviter();
+                            }*/
+
+                            if (!TextUtils.isEmpty(info.getEntryUserId())) {
+                                queryInviter(info.getEntryUserId());
                             }
                         } else {
                             ToastUtil.toast("数据异常");
@@ -543,10 +550,13 @@ public class UserInfoDetailActivity extends BaseInitActivity {
         }
     }
 
-    private void queryInviter() {
+    private void queryInviter(String entryUserId) {
         Map<String, Object> map = new HashMap<>(1);
-        Log.d("####查询邀请者=", inviterUserId);
-        map.put("friendUserId", inviterUserId);
+       /*此处废处 inviterUserId
+       Log.d("####查询邀请者=", inviterUserId);
+        map.put("friendUserId", inviterUserId);*/
+        Log.d("####查询邀请者=", entryUserId);
+        map.put("friendUserId", entryUserId);
         ApiClient.requestNetHandle(this, AppConfig.FRIEND_INFO, "加载中", map,
                 new ResultListener() {
                     @Override

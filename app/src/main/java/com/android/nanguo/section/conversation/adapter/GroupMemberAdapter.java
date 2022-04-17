@@ -1,5 +1,6 @@
 package com.android.nanguo.section.conversation.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
@@ -84,7 +85,7 @@ public class GroupMemberAdapter extends RecyclerView.Adapter<GroupMemberAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         final GroupDetailInfo.GroupUserDetailVoListBean info =
                 mInfoList.get(position);
@@ -155,6 +156,7 @@ public class GroupMemberAdapter extends RecyclerView.Adapter<GroupMemberAdapter.
                         .putExtra("entryUserId", info.getEntryUserId())
                         .putExtra("chatType", EaseConstant.CHATTYPE_GROUP)
                         .putExtra("from", "1")
+                        .putExtra(Constant.PARAM_GROUP_ID, info.getGroupId())
                         .putExtra("currentUserRank",groupUserRank);
                 if (groupUserRank == 2 || (groupUserRank == 1 && info.getUserRank().equals("0"))) {
                     intent.putExtra(Constant.PARAM_GROUP_ID, info.getGroupId())
