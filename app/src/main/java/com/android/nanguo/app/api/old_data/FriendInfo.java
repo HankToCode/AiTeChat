@@ -25,6 +25,15 @@ public class FriendInfo {
     private String starTarget;//0:未加星标，1：星标
     private String categoryId;
     private String categoryName;
+    private String entryUserId;
+
+    public String getEntryUserId() {
+        return entryUserId;
+    }
+
+    public void setEntryUserId(String entryUserId) {
+        this.entryUserId = entryUserId;
+    }
 
     public String getCategoryId() {
         return categoryId;

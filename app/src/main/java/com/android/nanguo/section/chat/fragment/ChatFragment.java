@@ -714,7 +714,7 @@ public class ChatFragment extends BaseChatFragment implements BaseChatFragment.E
         intent.putExtra("friendUserId", userId)
                 .putExtra("from", "1")
                 .putExtra("chatType", chatType);
-
+        intent.putExtra(Constant.PARAM_GROUP_ID, groupId);
         if (chatType == EaseConstant.CHATTYPE_GROUP && groupDetailInfo.getGroupUserRank() == 0) {//2群主 1管理员 0普通用户不能查看 群成员详情
             intent.putExtra(Constant.PARAM_GROUP_ID, groupId);
             intent.putExtra(Constant.PARAM_EM_GROUP_ID, emChatId);

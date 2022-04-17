@@ -30,34 +30,35 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:titleBarLeftImage="@mipmap/ic_back"
-            app:titleBarTitle="钱包"
             app:titleBarRightTitle="交易记录"
             app:titleBarRightVisible="true"
+            app:titleBarTitle="钱包"
             app:titleBarTitlePosition="left"
             app:titleBarTitleTextColor="@color/white" />
+
         <TextView
             android:id="@+id/tv_psq"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="钱包余额(元)"
-            android:textSize="@dimen/sp_13"
             android:layout_marginLeft="@dimen/dp_18"
             android:layout_marginTop="@dimen/dp_18"
+            android:text="钱包余额(元)"
+            android:textColor="@color/selector_text_red_to_white"
+            android:textSize="@dimen/sp_13"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title_bar"
-            android:textColor="@color/selector_text_red_to_white" />
+            app:layout_constraintTop_toBottomOf="@id/title_bar" />
 
         <TextView
             android:id="@+id/tv_money"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/dp_18"
+            android:layout_marginTop="@dimen/dp_18"
             android:text="520.01"
             android:textColor="#ffffffff"
-            android:layout_marginTop="@dimen/dp_18"
             android:textSize="43sp"
-            android:layout_marginLeft="@dimen/dp_18"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/tv_psq"/>
+            app:layout_constraintTop_toBottomOf="@id/tv_psq" />
 
 
         <LinearLayout
@@ -67,11 +68,10 @@
             android:layout_marginStart="18dp"
             android:layout_marginTop="18dp"
             android:orientation="horizontal"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/title_bar"
-            android:visibility="gone">
-
+            app:layout_constraintTop_toBottomOf="@id/title_bar">
 
 
             <TextView
@@ -109,14 +109,16 @@
                 android:id="@+id/tv_recharge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@mipmap/icon_recharge"/>
+                android:src="@mipmap/icon_recharge" />
+
             <ImageView
                 android:id="@+id/tv_withdraw"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/dp_25"
-                android:src="@mipmap/icon_withdrawal"/>
+                android:src="@mipmap/icon_withdrawal" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/ll_name"
             android:layout_width="match_parent"
@@ -125,9 +127,9 @@
             android:layout_marginTop="@dimen/dp_14"
             android:layout_marginRight="@dimen/dp_16"
             android:background="@drawable/bg_send_group_red_package_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingLeft="@dimen/dp_26"
-            android:gravity="center_vertical"
             android:paddingRight="@dimen/dp_14"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ll_recharge">
@@ -136,13 +138,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/icon_real_name" />
+
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp_21"
+                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:text="实名认证"
-                android:layout_marginLeft="@dimen/dp_21"
                 android:textColor="@color/color_333333"
                 android:textSize="@dimen/sp_16" />
 
@@ -150,13 +153,13 @@
                 android:id="@+id/tv_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="待认证"
-                android:drawablePadding="@dimen/dp_6"
                 android:drawableRight="@drawable/em_ic_right_arrow"
+                android:drawablePadding="@dimen/dp_6"
+                android:text="待认证"
                 android:textColor="#ff888e9c"
-                android:textSize="15sp"
-                />
+                android:textSize="15sp" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/ll_bank"
             android:layout_width="match_parent"
@@ -165,10 +168,10 @@
             android:layout_marginTop="@dimen/dp_10"
             android:layout_marginRight="@dimen/dp_16"
             android:background="@drawable/bg_send_group_red_package_content"
+            android:gravity="center_vertical"
             android:orientation="horizontal"
             android:paddingLeft="@dimen/dp_26"
             android:paddingRight="@dimen/dp_14"
-            android:gravity="center_vertical"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/ll_name">
 
@@ -176,13 +179,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@mipmap/icon_bank" />
+
             <TextView
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/dp_21"
+                android:layout_weight="1"
                 android:gravity="center_vertical"
                 android:text="我的银行卡"
-                android:layout_marginLeft="@dimen/dp_21"
                 android:textColor="@color/color_333333"
                 android:textSize="@dimen/sp_16" />
 
@@ -190,12 +194,11 @@
                 android:id="@+id/tv_bank_status"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="暂未绑定"
-                android:drawablePadding="@dimen/dp_6"
                 android:drawableRight="@drawable/em_ic_right_arrow"
+                android:drawablePadding="@dimen/dp_6"
+                android:text="暂未绑定"
                 android:textColor="#ff888e9c"
-                android:textSize="15sp"
-                />
+                android:textSize="15sp" />
         </LinearLayout>
 
     </androidx.constraintlayout.widget.ConstraintLayout>
