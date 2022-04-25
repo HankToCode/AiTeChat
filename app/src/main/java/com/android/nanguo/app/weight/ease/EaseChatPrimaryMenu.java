@@ -267,10 +267,11 @@ public class EaseChatPrimaryMenu extends EaseChatPrimaryMenuBase implements OnCl
                     ToastUtil.toast("请输入内容");
                     return;
                 }
-                if (s.length() > 600 && !s.contains("水")) {
+                //去除字数限制
+                /*if (s.length() > 600 && !s.contains("水")) {
                     ToastUtil.toast("发送文本不能超出600个字符");
                     return;
-                }
+                }*/
                 editText.setText("");
                 listener.onSendBtnClicked(s);
             }
