@@ -73,7 +73,7 @@
                 android:layout_height="wrap_content"
                 android:maxLines="1"
                 android:singleLine="true"
-                android:textColor="@color/color_171C20"
+                android:textColor="@color/color_333333"
                 android:textSize="15dp"
                 tools:text="慕枫" />
 
@@ -90,10 +90,10 @@
                 android:text="官方"
                 android:textColor="@color/white"
                 android:textSize="8dp"
-                app:stv_corner="10dp"
+                app:stv_corner="4dp"
                 app:stv_shaderEnable="true"
-                app:stv_shaderEndColor="@color/color_55CFF7"
-                app:stv_shaderStartColor="@color/color_55CFF7" />
+                app:stv_shaderEndColor="@color/color_2D42D8"
+                app:stv_shaderStartColor="@color/color_2D42D8" />
 
             <com.coorchice.library.SuperTextView
                 android:id="@+id/iv_to_top"
@@ -126,7 +126,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginTop="4dp"
             android:layout_marginRight="@dimen/dp_20"
-            android:textColor="@color/color_747A86"
+            android:textColor="@color/color_999999"
             android:textSize="12dp"
             tools:text="上午  11:31" />
 
@@ -168,7 +168,7 @@
             android:paddingRight="@dimen/dp_16"
             android:singleLine="true"
             android:text="大家熬好"
-            android:textColor="@color/color_747A86"
+            android:textColor="@color/color_999999"
             android:textSize="@dimen/sp_12" />
 
         <TextView

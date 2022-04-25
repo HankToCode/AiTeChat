@@ -99,7 +99,7 @@ class TransferDetailActivity : BaseInitActivity() {
                 tv_collection.visibility = View.INVISIBLE
                 tv_collection.setBackgroundResource(R.drawable.group_search_gray)
                 tv_collection.isEnabled = isSelf == false
-                img_status.setImageResource(R.mipmap.daiqueren)
+                img_status.setImageResource(R.mipmap.yituihui)
             }
         }
     }
