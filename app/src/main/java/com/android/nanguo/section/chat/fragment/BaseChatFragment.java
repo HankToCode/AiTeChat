@@ -2,6 +2,7 @@ package com.android.nanguo.section.chat.fragment;
 
 import static android.view.View.VISIBLE;
 
+import static com.android.nanguo.app.api.Constant.ID_REDPROJECT;
 import static com.android.nanguo.section.conversation.ChatBgActivity.BG_NONE;
 
 import android.app.Activity;
@@ -37,6 +38,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.android.nanguo.app.api.old_data.ContactListInfo;
 import com.android.nanguo.section.conversation.BaseConversationListFragment;
 import com.hyphenate.EMMessageListener;
 import com.hyphenate.chat.EMClient;
@@ -1294,8 +1296,21 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
         }
         EaseAtMessageHelper.get().addAtUser(userId);
         String username = "";
-        if (UserOperateManager.getInstance().hasUserName(userId)) {
+        //旧的注释
+        /*if (UserOperateManager.getInstance().hasUserName(userId)) {
             username = UserOperateManager.getInstance().getUserName(userId);
+        }*/
+        //这里本地处理，显示好友的账号昵称，非备注名
+        List<ContactListInfo.DataBean> localFriendList = UserOperateManager.getInstance().getContactList();
+        for (int i = 0; i < localFriendList.size(); i++) {
+            if (userId.equals(localFriendList.get(i).getFriendUserId()+ID_REDPROJECT)) {
+                if (!TextUtils.isEmpty(localFriendList.get(i).getNickName())) {
+                    username = localFriendList.get(i).getNickName();
+                } else {
+                    username = localFriendList.get(i).getFriendNickName();
+                }
+                break;
+            }
         }
         if (autoAddAtSymbol) {
             mInputMenu.insertText("@" + username + " ");
@@ -1835,7 +1850,7 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
                                     long muteExpire) {
             super.onMuteListAdded(groupId, mutes, muteExpire);
             for (int i = 0; i < mutes.size(); i++) {
-                if (mutes.get(i).equals(UserComm.getUserInfo().getUserId() + Constant.ID_REDPROJECT)
+                if (mutes.get(i).equals(UserComm.getUserInfo().getUserId() + ID_REDPROJECT)
                         && groupId.equals(emChatId)) {
                     mInputMenu.getPrimaryMenu().executeMute();
                     mInputMenu.getChatExtendSmallMenu().setIscansend(false);
@@ -1846,7 +1861,7 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
         @Override
         public void onMuteListRemoved(String groupId, List<String> mutes) {
             for (int i = 0; i < mutes.size(); i++) {
-                if (mutes.get(i).equals(UserComm.getUserInfo().getUserId() + Constant.ID_REDPROJECT)
+                if (mutes.get(i).equals(UserComm.getUserInfo().getUserId() + ID_REDPROJECT)
                         && groupId.equals(emChatId)) {
                     runOnUiThread(new Runnable() {
                         @Override

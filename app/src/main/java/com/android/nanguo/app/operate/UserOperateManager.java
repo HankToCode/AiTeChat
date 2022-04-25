@@ -203,12 +203,13 @@ public class UserOperateManager {
 
         List<GroupDetailInfo.GroupUserDetailVoListBean> groupUserList = info.getGroupUserDetailVoList();
         for (GroupDetailInfo.GroupUserDetailVoListBean groupUserDetailVoListBean : groupUserList) {
-            if (!TextUtils.isEmpty(groupUserDetailVoListBean.getNickName())) {
-                userKVHash.put(groupUserDetailVoListBean.getUserId(), groupUserDetailVoListBean.getNickName());
-            } else if (!TextUtils.isEmpty(groupUserDetailVoListBean.getFriendNickName())) {
+           //恢复昵称显示
+            if (!TextUtils.isEmpty(groupUserDetailVoListBean.getFriendNickName())) {
                 userKVHash.put(groupUserDetailVoListBean.getUserId(), groupUserDetailVoListBean.getFriendNickName());
             } else if (!TextUtils.isEmpty(groupUserDetailVoListBean.getUserNickName())) {
                 userKVHash.put(groupUserDetailVoListBean.getUserId(), groupUserDetailVoListBean.getUserNickName());
+            } else {
+                userKVHash.put(groupUserDetailVoListBean.getUserId(), groupUserDetailVoListBean.getNickName());
             }
         }
 
