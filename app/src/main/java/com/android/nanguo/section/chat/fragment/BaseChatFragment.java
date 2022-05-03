@@ -95,6 +95,7 @@ import com.zds.base.json.FastJsonUtil;
 import com.zds.base.util.DensityUtils;
 import com.zds.base.util.NumberUtils;
 import com.zds.base.util.Preference;
+import com.zds.base.util.StringUtil;
 import com.zds.base.util.UriUtil;
 
 import org.json.JSONArray;
@@ -1303,7 +1304,7 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
         //这里本地处理，显示好友的账号昵称，非备注名
         List<ContactListInfo.DataBean> localFriendList = UserOperateManager.getInstance().getContactList();
         for (int i = 0; i < localFriendList.size(); i++) {
-            if (userId.equals(localFriendList.get(i).getFriendUserId()+ID_REDPROJECT)) {
+            if (userId.equals(localFriendList.get(i).getFriendUserId() + ID_REDPROJECT)) {
                 if (!TextUtils.isEmpty(localFriendList.get(i).getNickName())) {
                     username = localFriendList.get(i).getNickName();
                 } else {
@@ -1312,6 +1313,14 @@ public class BaseChatFragment extends BaseInitFragment implements EMMessageListe
                 break;
             }
         }
+
+        //新增非好友昵称显示
+        if (StringUtil.isEmpty(username)) {
+            if (UserOperateManager.getInstance().hasUserName(userId)) {
+                username = UserOperateManager.getInstance().getUserName(userId);
+            }
+        }
+
         if (autoAddAtSymbol) {
             mInputMenu.insertText("@" + username + " ");
         } else {

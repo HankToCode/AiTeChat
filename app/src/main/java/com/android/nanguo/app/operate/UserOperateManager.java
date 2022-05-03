@@ -203,7 +203,7 @@ public class UserOperateManager {
 
         List<GroupDetailInfo.GroupUserDetailVoListBean> groupUserList = info.getGroupUserDetailVoList();
         for (GroupDetailInfo.GroupUserDetailVoListBean groupUserDetailVoListBean : groupUserList) {
-           //恢复昵称显示
+            //恢复昵称显示
             if (!TextUtils.isEmpty(groupUserDetailVoListBean.getFriendNickName())) {
                 userKVHash.put(groupUserDetailVoListBean.getUserId(), groupUserDetailVoListBean.getFriendNickName());
             } else if (!TextUtils.isEmpty(groupUserDetailVoListBean.getUserNickName())) {
@@ -227,12 +227,12 @@ public class UserOperateManager {
                                     GroupDetailInfo.class);
 
                             for (GroupDetailInfo.GroupUserDetailVoListBean groupUserDetailVoListBean : groupDetailInfo.getGroupUserDetailVoList()) {
-                                if (!TextUtils.isEmpty(groupUserDetailVoListBean.getNickName())) {
-                                    userKVHash.put(groupUserDetailVoListBean.getUserId(), groupUserDetailVoListBean.getNickName());
-                                } else if (!TextUtils.isEmpty(groupUserDetailVoListBean.getFriendNickName())) {
+                                if (!TextUtils.isEmpty(groupUserDetailVoListBean.getFriendNickName())) {
                                     userKVHash.put(groupUserDetailVoListBean.getUserId(), groupUserDetailVoListBean.getFriendNickName());
                                 } else if (!TextUtils.isEmpty(groupUserDetailVoListBean.getUserNickName())) {
                                     userKVHash.put(groupUserDetailVoListBean.getUserId(), groupUserDetailVoListBean.getUserNickName());
+                                } else {
+                                    userKVHash.put(groupUserDetailVoListBean.getUserId(), groupUserDetailVoListBean.getNickName());
                                 }
                             }
 
