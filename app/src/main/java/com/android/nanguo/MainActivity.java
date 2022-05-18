@@ -170,6 +170,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
         super.initListener();
         navView.setOnNavigationItemSelectedListener(this);
 
+        /*南国未使用成长值，注释了
         int period = 5;
         Map<String, Object> map = new HashMap<>();
         map.put("growthValue", period);
@@ -207,7 +208,7 @@ public class MainActivity extends BaseInitActivity implements BottomNavigationVi
                     public void onComplete() {
 
                     }
-                });
+                });*/
         AppConfig.checkVersion(mContext, true);
     }
 
