@@ -414,6 +414,32 @@
                         android:button="@drawable/selector_checkbox"
                         android:checked="false" />
                 </FrameLayout>
+                <FrameLayout
+                    android:id="@+id/fl_packet"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/selector_comm_btn"
+                    android:padding="18dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:background="@color/white"
+                        android:drawableRight="@mipmap/ic_item_more"
+                        android:gravity="center_vertical"
+                        android:text="抢包限制(打开则只允许管理员抢包)"
+                        android:textColor="@color/color_333333" />
+
+                    <CheckBox
+                        android:id="@+id/switch_packet"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="right|center_vertical"
+                        android:background="@null"
+                        android:button="@drawable/selector_checkbox"
+                        android:checked="false" />
+                </FrameLayout>
 
                 <TextView
                     android:id="@+id/tv_transfer_group"

@@ -45,6 +45,7 @@ import com.luck.picture.lib.config.PictureMimeType;
 import com.luck.picture.lib.entity.LocalMedia;
 import com.zds.base.ImageLoad.GlideUtils;
 import com.zds.base.json.FastJsonUtil;
+import com.zds.base.util.NumberUtils;
 import com.zds.base.util.StringUtil;
 import com.zds.base.util.Utils;
 
@@ -109,8 +110,12 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
     TextView tvGroupManager;
     @BindView(R.id.fl_group_jinyan)
     FrameLayout mFlGroupJinyan;
+    @BindView(R.id.fl_packet)
+    FrameLayout fl_packet;
     @BindView(R.id.switch_shut_up)
     CheckBox mSwitchShutUp;
+    @BindView(R.id.switch_packet)
+    CheckBox switch_packet;
 
     @BindView(R.id.switch_top_conversation)
     CheckBox mSwitchTopConversation;
@@ -321,6 +326,7 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
             mTvExit.setText("解散群聊");
             tvGroupManager.setVisibility(View.VISIBLE);
             mFlGroupJinyan.setVisibility(View.VISIBLE);
+            fl_packet.setVisibility(View.VISIBLE);//红包开关 0 只允许管理员及群主抢包  1 群内所有成员均可抢包
             ll_group_manager.setVisibility(View.VISIBLE);
             title_bar.setRightLayoutVisibility(View.VISIBLE);
             title_bar.setOnRightClickListener(view -> {
@@ -333,6 +339,7 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
         } else if (info.getGroupUserRank() == 1) {
             mTvExit.setText("退出群聊");
             mFlGroupJinyan.setVisibility(View.VISIBLE);
+            fl_packet.setVisibility(View.GONE);
             tvGroupManager.setVisibility(View.GONE);
             fl_group_head1.setVisibility(View.GONE);
             ll_group_manager.setVisibility(View.VISIBLE);
@@ -347,6 +354,7 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
         } else if (info.getGroupUserRank() == 0) {
             mTvExit.setText("退出群聊");
             mFlGroupJinyan.setVisibility(View.GONE);
+            fl_packet.setVisibility(View.GONE);
             tvGroupManager.setVisibility(View.GONE);
             fl_group_head1.setVisibility(View.GONE);
             ll_group_manager.setVisibility(View.GONE);
@@ -406,6 +414,13 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
         setSWitchReadPermission();
         setMuteSwitch();
 
+        setPacketPermission();
+        switch_packet.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                uploadPacketStatus(isChecked);
+            }
+        });
     }
 
     @Override
@@ -673,7 +688,53 @@ public class MyGroupDetailActivity extends BaseInitActivity implements MyRoomDea
                 GroupOperateManager.getInstance().updateGroupData(emChatId, info);
             }
         });
+    }
 
+
+    public void setPacketPermission() {
+        //查询群成员抢包标识
+        Map<String, Object> map = new HashMap<>(1);
+        map.put("groupId", groupId);
+        ApiClient.requestNetHandle(MyGroupDetailActivity.this,
+                AppConfig.getRedPacketFlag, "", map, new ResultListener() {
+                    @Override
+                    public void onSuccess(String json, String msg) {
+                        int packet = (int) NumberUtils.parseDouble(json);
+                        //0 只允许管理员及群主抢包  1 群内所有成员均可抢包
+                        if (packet == 1) {
+                            switch_packet.setChecked(false);
+                        } else if (packet == 0) {
+                            switch_packet.setChecked(true);
+                        } else {
+                            switch_packet.setChecked(false);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+                        ToastUtil.toast(msg);
+                    }
+                });
+    }
+
+    //0 只允许管理员及群主抢包  1 群内所有成员均可抢包
+    private void uploadPacketStatus(boolean isChecked) {
+        Map<String, Object> map = new LinkedHashMap<>();
+        map.put("groupId", groupId);
+        map.put("robPacketFlag", isChecked ? 0 : 1);
+
+        ApiClient.requestNetHandle(this,
+                AppConfig.updateRedPacketFlag, "", map,
+                new ResultListener() {
+                    @Override
+                    public void onSuccess(String json, String msg) {
+                    }
+
+                    @Override
+                    public void onFailure(String msg) {
+                        ToastUtil.toast(msg);
+                    }
+                });
     }
 
     /**

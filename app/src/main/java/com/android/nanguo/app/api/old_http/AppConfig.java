@@ -731,6 +731,11 @@ public class AppConfig {
      */
     public static String exitGroup = mainUrl + "app_group/exitGroup";
 
+    //查询群成员抢包标识
+    public static String getRedPacketFlag = mainUrl + "app_group/getRedPacketFlag";
+    //更新群成员抢包标识
+    public static String updateRedPacketFlag = mainUrl + "app_group/updateRedPacketFlag";
+
 
     /**
      * 群管理员列表
